@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Ubuntu:wght@400;500&display=swap');
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {margin:0;padding:0;border:0;outline:0;vertical-align:baseline;background:transparent;}
+body {line-height:1;}
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {display:block;}
+nav ul {list-style:none;}
+blockquote, q {quotes:none;}
+blockquote:before, blockquote:after,q:before, q:after {content:'';content:none;}
+a {margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;}
+ins {background-color:#ff9;color:#000;text-decoration:none;}
+mark {background-color:#ff9;color:#000;font-style:italic;font-weight:bold;}
+del {text-decoration: line-through;}
+abbr[title], dfn[title] {border-bottom:1px dotted;cursor:help;}
+table {border-collapse:collapse;border-spacing:0;}
+hr {display:block;height:1px;border:0;border-top:1px solid #cccccc;margin:1em 0;padding:0;}
+input, select {vertical-align:middle;}
+a:hover, a:focus{ outline: none; text-decoration: none;}
+body{font-family: 'Ubuntu', sans-serif; overflow-x: hidden;}
+h1,h2,h3,h4,h5,h6{font-family: 'Poppins', sans-serif;}
+
+.home-section{position: relative; padding: 0;}
+.home-section:before{position: fixed; top: 0; bottom: 0; left: 0; content: ""; background: #660066; width: 50%;}
+.posrel{position: relative; height: 100vh;}
+.logo{position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%); z-index: 99;}
+.logo img{width: 200px; margin-bottom: 20px;}
+.logo h1{font-size: 30px; line-height: 50px; font-weight: 600; margin-bottom: 15px;}
+.logo h4{font-size: 24px; margin-bottom: 10px;}
+.logo h3{font-size: 22px; font-weight: 600; margin-top: 40px; margin-bottom: 20px; color: #660066;}
+.logo .btn{border-radius: 0; font-size: 18px; font-weight: 600;}
+.left-side{padding: 0 50px;}
+.screen{position: relative; z-index: 99; padding:25px 50px; transform: translate(-50%,-50%); left: 50%; top: 50%;}
+.btn-primary{background: #660066; border-color: #660066;}
+.btn-primary:hover, .btn-primary:focus{background: #7f177f; border-color: #7f177f;}
+
+/*Curtain Start*/
+.scrolldown .curtain-cover{display: none;}
+.curtain-cover img{
+  border: none;
+}
+  .leftcurtain{
+  width: 50%;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  z-index: 2;
+}
+ .rightcurtain{
+  width: 51%;
+  height: 100vh;
+  right: 0px;
+  top: 0px;
+  position: fixed;
+  z-index: 3;
+}
+.rightcurtain img, .leftcurtain img{
+  width: 100%;
+  height: 100%;
+}
+.curtain-cover .logo{
+  margin: 0px auto;
+  margin-top: 150px;
+}
+.rope{
+  position: fixed;
+  top: -40px;
+  left: 70%;
+  z-index: 4;
+}
+
+.curtain-cover{z-index: 999; position: relative;}
+
+/*Curtain End*/
