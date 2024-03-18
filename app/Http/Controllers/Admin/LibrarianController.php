@@ -291,4 +291,114 @@ $librarian->subject1=json_decode($librarian->subject);
    }
    
     }
+
+//     public function importFile(Request $request)
+// {
+//     try {    
+//         $admin = auth('admin')->user();
+//         if ($request->hasFile('file_library')) {
+//             $file = $request->file('file_library');
+//             $fileContents = file($file->getPathname());
+//             $librarianId = [];
+//             foreach ($fileContents as $line) {
+//                         $data = str_getcsv($line);
+               
+//                         // Check if the reviewer with the same email already exists
+//                         $librarian = Librarian::where('librarianId', $data[7])->exists();
+//                         if ($librarian) {
+//                             return redirect()->back()->with('error', $data[7] . " already exists");
+//                         }
+//                         // Check if the email is duplicated in the file
+//                         if (in_array($data[7], $librarianId)) {
+//                             return redirect()->back()->with('error', $data[7] . " Duplicate entry");
+//                         } else {
+//                             $librarianId[] = $data[7];
+//                         }
+//             }
+                
+            
+//             $librarian = [];
+//             foreach ($fileContents as $line) {
+//                 $data = str_getcsv($line);
+//                     $library = new Librarian();
+//                     $library->libraryType = $data[0];
+//                     $library->libraryName =$data[1];
+//                     $library->state = $data[2];
+//                     $library->district = $data[3];
+//                     $library->city = $data[4];
+//                     $library->Village = $data[5];
+//                     $library->password=Hash::make($data[6]);
+//                     $library->role = "librarian";
+//                     $library->creater = $admin->id; 
+//                     $library->librarianId= $data[7];
+                   
+//                     $library->save();
+                 
+//                 }
+       
+           
+//             return redirect()->back();
+//         } else {
+//             return redirect()->back();
+//         }
+//     } catch (Throwable $e) {
+//         // Handle the exception (e.g., log it)
+//         // return $e;
+//         return redirect()->back()->with('error', 'An error occurred while importing.');
+//     }
+// }
+
+public function importFile(Request $request)
+{
+    try {
+        $admin = auth('admin')->user();
+        
+        if ($request->hasFile('file_library')) {
+            $file = $request->file('file_library');
+            $fileContents = file($file->getPathname());
+            $librarianIds = [];
+            
+            foreach ($fileContents as $line) {
+                $data = str_getcsv($line);
+                
+                // Check if the librarian with the same ID already exists
+                if (Librarian::where('librarianId', $data[7])->exists()) {
+                    return redirect()->back()->with('error', $data[7] . " already exists");
+                }
+                
+                // Check if the ID is duplicated in the file
+                if (in_array($data[7], $librarianIds)) {
+                    return redirect()->back()->with('error', $data[7] . " Duplicate entry");
+                }
+                
+                $librarianIds[] = $data[7];
+            }
+            
+            foreach ($fileContents as $line) {
+                $data = str_getcsv($line);
+                
+                $library = new Librarian();
+                $library->libraryType = $data[0];
+                $library->libraryName = $data[1];
+                $library->state = $data[2];
+                $library->district = $data[3];
+                $library->city = $data[4];
+                $library->Village = $data[5];
+                $library->password = Hash::make($data[6]);
+                $library->role = "librarian";
+                $library->creater = $admin->id; 
+                $library->librarianId = $data[7];
+                   
+                $library->save();
+            }
+            
+            return redirect()->back()->with('success', 'Librarians imported successfully.');
+        } else {
+            return redirect()->back()->with('error', 'No file uploaded.');
+        }
+    } catch (Throwable $e) {
+        // Handle the exception (e.g., log it)
+        return redirect()->back()->with('error', 'An error occurred while importing.');
+    }
+}
 }
