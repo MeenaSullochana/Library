@@ -355,6 +355,7 @@ Route::post('/multiple-reviewerstatus',[ReviewerController::class,'multiple_revi
 Route::get('/multimember_create',function(){ return view('admin.multimember_create');});
 Route::post('/reviewer/import', [ReviewerController::class,'importFile']);
 Route::get('/mailverificationcontent',function(){ return view('admin.mailverificationcontent');});
+Route::post('/library_import', [LibrarianController::class,'importFile']);
 
 
  Route::post('/addreviewer',[ReviewerController::class,'createreviewer']);

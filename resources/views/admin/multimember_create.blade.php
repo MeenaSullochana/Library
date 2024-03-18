@@ -113,30 +113,27 @@
                                     </form>
                                 </div>
                                 <div class="library">
-                                    <form form class="profile-form" id="formId1">
+                                    <form form class="profile-form" id="formId1" action="/admin/library_import" method="POST" enctype="multipart/form-data">
                                          @csrf
                                         <div class="form-validation">
                                         <div class="row" >
-
-                            
-<h3 class=""> Library Excel Upload</h3>
-<div class="row">
-    <div class="col-md-6">
-        <div class="col-sm-12 mb-3">
-            <label class="form-label"></label>
-             <input type="file" class="form-control mb-3" id="file" accept=".xls, .xlsx" multiple required>
-             <small class="form-text text-muted mt-3 ms-"><img style="width: 30px; height=30px;" src="images/excel.png" alt="" width="25%"><b class="ms-3">Select .csv files only.</b></small>
-        </div>
-    </div>
-   
-</div>
-<div class="row">
-    <div class="col-12 text-end">
-        <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
-    </div>
-</div>
-
-</div>
+                                            <h3 class=""> Library Excel Upload</h3>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="col-sm-12 mb-3">
+                                                        <label class="form-label"></label>
+                                                        <input type="file" name="file_library" class="form-control mb-3" id="file" accept=".xls, .xlsx" required>
+                                                        <small class="form-text text-muted mt-3 ms-"><img style="width: 30px; height=30px;" src="images/excel.png" alt="" width="25%"><b class="ms-3">Select .csv files only.</b></small>
+                                                    </div>
+                                                </div>
+                                            
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12 text-end">
+                                                    <button type="submit" class="btn btn-primary" id="submitButton">Submit</button>
+                                                </div>
+                                            </div>
+                                            </div>
                                         </div>
                                     </form>
                                 </div>

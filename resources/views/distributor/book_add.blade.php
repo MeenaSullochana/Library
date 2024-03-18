@@ -1807,6 +1807,13 @@
             </div>
         </div>
     </div>
+    <div id="myModal" class="modal">
+  <div class="modal-content">
+    <h2 id="modalTitle"></h2>
+    <p id="modalMessage"></p>
+    <button id="modalCloseBtn">Close</button>
+  </div>
+</div>
     <!--**********************************
                 Content body end
             ***********************************-->
@@ -2485,12 +2492,41 @@ $("input[name='language']").change(function () {
            $.each(subjects22, function(key, value) {
                $('#subjects1').append('<option value="' + value.name + '">' + value.name + '</option>');
            });
+           if(lang == "Tamil"){
+            var customMessage = "தமிழ் புத்தகங்களுக்கு தமிழில் மட்டுமே விவரங்கள் பதிவேற்றம் செய்ய வேண்டும்";
+           }else{
+            var customMessage =  "Details for English or other language books should be submitted in English.";
+           }
+           
+           var customTitle = "";
+       
+
+  customAlert(customTitle, customMessage);
+
+  var closeButton = document.getElementById("modalCloseBtn");
+  closeButton.addEventListener("click", closeModal);
        },
        error: function(xhr, status, error) {
            console.error(error);
        }
    });
 });
+function customAlert(title, message) {
+    var modal = document.getElementById("myModal");
+    var titleElement = document.getElementById("modalTitle");
+    var messageElement = document.getElementById("modalMessage");
+
+    titleElement.textContent = title;
+    messageElement.textContent = message;
+
+    modal.style.display = "block";
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+  }
 
     </script>
 <script>
@@ -2800,3 +2836,47 @@ input#other_img {
 }
     /* image uplode end */
 </style>
+<style>
+    /* Styles for the modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    /* Styles for the modal content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Adjust width as needed */
+      max-width: 300px; /* Set a maximum width */
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      border-radius: 10px; /* Rounded corners */
+    }
+
+    /* Close button styles */
+    .modal-footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #modalCloseBtn {
+      background-color: #007bff; /* Button color */
+      color: #fff; /* Button text color */
+      border: none;
+      padding: 5px 10px; /* Adjust button size */
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px; /* Adjust font size */
+    }
+  </style>

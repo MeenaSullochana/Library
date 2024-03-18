@@ -947,7 +947,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
     //   alert(value);
       if(value == 'Proprietorship'){
          //  $('#ownership_doc').css('display','block');
-          $('.user_file_input').append('<div id="proprietorship_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" placeholder="Enter Udayam*" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" placeholder="Enter GST*" class="form-control name_list" required/></div>');
+          $('.user_file_input').append('<div id="proprietorship_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file" name="udayam" placeholder="Enter Udayam" class="form-control name_list"/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" placeholder="Enter GST" class="form-control name_list"/></div>');
 
           $("#partnership_input").remove();
           $("#private_input").remove();
@@ -963,7 +963,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
       }
       else if(value == 'Partnership'){
          // $('#ownership_doc').css('display','block');
-         $('.user_file_input').append('<div id="partnership_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" class="form-control name_list" required/><label for="formFileSm" class="form-label">Partnership Deed <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_deed" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.user_file_input').append('<div id="partnership_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file" name="udayam" class="form-control name_list"/><label for="formFileSm" class="form-label">Partnership Deed <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_deed" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN / TAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#proprietorship_input").remove();
          $("#private_input").remove();
@@ -978,7 +978,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
 
      }
      else if(value == 'Private'){
-      $('.user_file_input').append('<div id="private_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">MOA <span class="mt-056"></span><span class="text-danger "></span></label><input type="file" name="moa" class="form-control name_list" required/><label for="formFileSm" class="form-label">AOA  <span class="mt-056"></span><span class="text-danger"></span></label><input type="file" name="aoa" class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+      $('.user_file_input').append('<div id="private_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">MOA <span class="mt-056"></span><span class="text-danger "></span></label><input type="file" name="moa" class="form-control name_list" required/><label for="formFileSm" class="form-label">AOA  <span class="mt-056"></span><span class="text-danger"></span></label><input type="file" name="aoa" class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
       $("#proprietorship_input").remove();
       $("#partnership_input").remove();
@@ -994,7 +994,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
      }
       else if(value == 'Publication'){
          //  $('#ownership_doc').css('display','block');
-         $('.user_file_input').append('<div id="publication_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" placeholder="Enter Award Author*" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" placeholder="Enter Award Author*" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" placeholder="Enter Award Author*" class="form-control name_list" required/></div>');
+         $('.user_file_input').append('<div id="publication_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" placeholder="Enter Award Author*" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" placeholder="Enter Award Author*" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" placeholder="Enter Award Author*" class="form-control name_list" required/></div>');
 
          $("#proprietorship_input").remove();
          $("#user_file_input").remove();
@@ -1009,7 +1009,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
 
       }else if(value == 'oneperson'){
          //  $('#ownership_doc').css('display','block');
-         $('.user_file_input').append('<div id="oneperson_input"><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.user_file_input').append('<div id="oneperson_input"><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span></label><input type="file" name="udayam" class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN / TAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         //  $("#proprietorship_input").remove();
          $("#user_file_input").remove();
@@ -1027,7 +1027,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
 
       }else if(value == 'limited'){
 
-         $('.user_file_input').append('<div id="limited_input"><label for="formFileSm" class="form-label">LLP Agreement - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="llp_agre" class="form-control name_list" required/><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.user_file_input').append('<div id="limited_input"><label for="formFileSm" class="form-label">LLP Agreement - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="llp_agre" class="form-control name_list" required/><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span></label><input type="file" name="udayam" class="form-control name_list"/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN / TAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#proprietorship_input").remove();
          $("#user_file_input").remove();
@@ -1045,7 +1045,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
 
       }else if(value == 'trust'){
 
-         $('.user_file_input').append('<div id="trust_input"><label for="formFileSm" class="form-label">Private Trust Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" name="private_trust" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.user_file_input').append('<div id="trust_input"><label for="formFileSm" class="form-label">Private Trust Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" name="private_trust" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#proprietorship_input").remove();
          $("#user_file_input").remove();
@@ -1061,7 +1061,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
 
       }else if(value == 'society'){
 
-        $('.user_file_input').append('<div id="society_input"><label for="formFileSm" class="form-label">Private Society Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" name="private_society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.user_file_input').append('<div id="society_input"><label for="formFileSm" class="form-label">Private Society Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" name="private_society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#proprietorship_input").remove();
         $("#user_file_input").remove();
@@ -1077,7 +1077,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
 
      }else if(value == 'institutional'){
 
-        $('.user_file_input').append('<div id="institutional_input"><label for="formFileSm" class="form-label">Government Institutional Publication Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" name="institution" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.user_file_input').append('<div id="institutional_input"><label for="formFileSm" class="form-label">Government Institutional Publication Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" name="institution" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#proprietorship_input").remove();
         $("#user_file_input").remove();
@@ -1093,7 +1093,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
 
      }else if(value == 'trust-foundation'){
 
-        $('.user_file_input').append('<div id="trust-foundation_input"><label for="formFileSm" class="form-label">Government Trust/Foundation Publication Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" name="trust_foundation" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.user_file_input').append('<div id="trust-foundation_input"><label for="formFileSm" class="form-label">Government Trust/Foundation Publication Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" name="trust_foundation" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#proprietorship_input").remove();
         $("#user_file_input").remove();
@@ -1109,7 +1109,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
 
      }else if(value == 'government-society'){
 
-        $('.user_file_input').append('<div id="government-society_input"><label for="formFileSm" class="form-label">Government Society Publication Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" name="society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.user_file_input').append('<div id="government-society_input"><label for="formFileSm" class="form-label">Government Society Publication Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" name="society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#proprietorship_input").remove();
         $("#user_file_input").remove();
@@ -1743,7 +1743,7 @@ if (arr.length !== 0) {
       var value = $(this).val();
       if(value == 'Proprietorship'){
          //  $('#ownership_doc').css('display','block');
-          $('.dis_user_file_input').append('<div id="dis_proprietorship_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" placeholder="Enter Udayam*" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" placeholder="Enter GST*" class="form-control name_list" required/></div>');
+          $('.dis_user_file_input').append('<div id="dis_proprietorship_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file" name="udayam" placeholder="Enter Udayam*" class="form-control name_list"/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" placeholder="Enter GST*" class="form-control name_list" /></div>');
 
           $("#dis_partnership_input").remove();
           $("#dis_private_input").remove();
@@ -1758,7 +1758,7 @@ if (arr.length !== 0) {
       }
       else if(value == 'Partnership'){
          // $('#ownership_doc').css('display','block');
-         $('.dis_user_file_input').append('<div id="dis_partnership_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" class="form-control name_list" required/><label for="formFileSm" class="form-label">Partnership Deed <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_deed" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.dis_user_file_input').append('<div id="dis_partnership_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file" name="udayam" class="form-control name_list" /><label for="formFileSm" class="form-label">Partnership Deed <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_deed" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN / TAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#dis_proprietorship_input").remove();
          $("#dis_private_input").remove();
@@ -1773,7 +1773,7 @@ if (arr.length !== 0) {
 
      }
      else if(value == 'Private'){
-      $('.dis_user_file_input').append('<div id="dis_private_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">MOA </label><input type="file" name="moa" class="form-control name_list"/><label for="formFileSm" class="form-label">AOA </label><input type="file" name="aoa" class="form-control name_list"/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+      $('.dis_user_file_input').append('<div id="dis_private_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">MOA </label><input type="file" name="moa" class="form-control name_list"/><label for="formFileSm" class="form-label">AOA </label><input type="file" name="aoa" class="form-control name_list"/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
       $("#dis_proprietorship_input").remove();
       $("#dis_partnership_input").remove();
@@ -1789,7 +1789,7 @@ if (arr.length !== 0) {
      }
       else if(value == 'Publication'){
          //  $('#ownership_doc').css('display','block');
-         $('.dis_user_file_input').append('<div id="dis_publication_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.dis_user_file_input').append('<div id="dis_publication_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#dis_proprietorship_input").remove();
          $("#dis_user_file_input").remove();
@@ -1805,7 +1805,7 @@ if (arr.length !== 0) {
 
       }else if(value == 'oneperson'){
          //  $('#ownership_doc').css('display','block');
-         $('.dis_user_file_input').append('<div id="dis_oneperson_input"><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificat <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.dis_user_file_input').append('<div id="dis_oneperson_input"><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span></label><input type="file" name="udayam" class="form-control name_list"/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN / TAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#dis_proprietorship_input").remove();
          $("#dis_user_file_input").remove();
@@ -1821,7 +1821,7 @@ if (arr.length !== 0) {
 
       }else if(value == 'limited'){
 
-         $('.dis_user_file_input').append('<div id="dis_limited_input"><label for="formFileSm" class="form-label">LLP Agreement  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="llp_agre" class="form-control name_list" required/><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.dis_user_file_input').append('<div id="dis_limited_input"><label for="formFileSm" class="form-label">LLP Agreement  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="llp_agre" class="form-control name_list" required/><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file" name="udayam" class="form-control name_list"/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN / TAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#dis_proprietorship_input").remove();
          $("#dis_user_file_input").remove();
@@ -1838,7 +1838,7 @@ if (arr.length !== 0) {
 
       }else if(value == 'society'){
 
-         $('.dis_user_file_input').append('<div id="dis_society_input"><label for="formFileSm" class="form-label">Private Society Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="private_society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.dis_user_file_input').append('<div id="dis_society_input"><label for="formFileSm" class="form-label">Private Society Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="private_society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#dis_proprietorship_input").remove();
          $("#dis_user_file_input").remove();
@@ -1854,7 +1854,7 @@ if (arr.length !== 0) {
 
       }else if(value == 'trust'){
 
-        $('.dis_user_file_input').append('<div id="dis_trust_input"><label for="formFileSm" class="form-label">Private Trust Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="private_trust" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.dis_user_file_input').append('<div id="dis_trust_input"><label for="formFileSm" class="form-label">Private Trust Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="private_trust" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#dis_proprietorship_input").remove();
         $("#dis_user_file_input").remove();
@@ -1870,7 +1870,7 @@ if (arr.length !== 0) {
 
      }else if(value == 'institutional'){
 
-        $('.dis_user_file_input').append('<div id="dis_institutional_input"><label for="formFileSm" class="form-label">Government Institutional Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="institution" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.dis_user_file_input').append('<div id="dis_institutional_input"><label for="formFileSm" class="form-label">Government Institutional Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="institution" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#dis_proprietorship_input").remove();
         $("#dis_user_file_input").remove();
@@ -1886,7 +1886,7 @@ if (arr.length !== 0) {
 
      }else if(value == 'trust-foundation'){
 
-        $('.dis_user_file_input').append('<div id="dis_trust-foundation_input"><label for="formFileSm" class="form-label">Government Trust/Foundation Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="trust_foundation" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.dis_user_file_input').append('<div id="dis_trust-foundation_input"><label for="formFileSm" class="form-label">Government Trust/Foundation Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="trust_foundation" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#dis_proprietorship_input").remove();
         $("#dis_user_file_input").remove();
@@ -1902,7 +1902,7 @@ if (arr.length !== 0) {
 
      }else if(value == 'government-society'){
 
-        $('.dis_user_file_input').append('<div id="dis_government-society_input"><label for="formFileSm" class="form-label">Government Trust/Foundation Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.dis_user_file_input').append('<div id="dis_government-society_input"><label for="formFileSm" class="form-label">Government Trust/Foundation Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#dis_proprietorship_input").remove();
         $("#dis_user_file_input").remove();
@@ -3127,7 +3127,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
       var value = $(this).val();
       if(value == 'Proprietorship'){
          //  $('#ownership_doc').css('display','block');
-          $('.pub_dis_user_file_input').append('<div id="pub_dis_proprietorship_input"<label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" placeholder="Enter Udayam*" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" placeholder="Enter GST*" class="form-control name_list" required/></div>');
+          $('.pub_dis_user_file_input').append('<div id="pub_dis_proprietorship_input"<label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file" name="udayam" placeholder="Enter Udayam*" class="form-control name_list"/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" placeholder="Enter GST*" class="form-control name_list" /></div>');
 
           $("#pub_dis_partnership_input").remove();
           $("#pub_dis_private_input").remove();
@@ -3142,7 +3142,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
       }
       else if(value == 'Partnership'){
          // $('#ownership_doc').css('display','block');
-         $('.pub_dis_user_file_input').append('<div id="pub_dis_partnership_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" class="form-control name_list" required/><label for="formFileSm" class="form-label">Partnership Deed - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_deed" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.pub_dis_user_file_input').append('<div id="pub_dis_partnership_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file" name="udayam" class="form-control name_list" /><label for="formFileSm" class="form-label">Partnership Deed - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_deed" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN / TAN - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#pub_dis_proprietorship_input").remove();
          $("#pub_dis_private_input").remove();
@@ -3157,7 +3157,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
 
      }
      else if(value == 'Private'){
-      $('.pub_dis_user_file_input').append('<div id="pub_dis_private_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">MOA <span class="mt-056"></span></label><input type="file" name="moa" class="form-control name_list"/><label for="formFileSm" class="form-label">AOA  <span class="mt-056"></span></label><input type="file" name="aoa"   class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+      $('.pub_dis_user_file_input').append('<div id="pub_dis_private_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">MOA <span class="mt-056"></span></label><input type="file" name="moa" class="form-control name_list"/><label for="formFileSm" class="form-label">AOA  <span class="mt-056"></span></label><input type="file" name="aoa"   class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
       $("#pub_dis_proprietorship_input").remove();
       $("#pub_dis_partnership_input").remove();
@@ -3173,7 +3173,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
      }
       else if(value == 'Publication'){
          //  $('#ownership_doc').css('display','block');
-         $('.pub_dis_user_file_input').append('<div id="pub_dis_publication_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.pub_dis_user_file_input').append('<div id="pub_dis_publication_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#pub_dis_proprietorship_input").remove();
          $("#pub_dis_user_file_input").remove();
@@ -3189,7 +3189,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
 
       }else if(value == 'oneperson'){
          //  $('#ownership_doc').css('display','block');
-         $('.pub_dis_user_file_input').append('<div id="pub_dis_oneperson_input"><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.pub_dis_user_file_input').append('<div id="pub_dis_oneperson_input"><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span></label><input type="file" name="udayam" class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056"></span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN / TAN - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#pub_dis_proprietorship_input").remove();
          $("#pub_dis_user_file_input").remove();
@@ -3205,7 +3205,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
 
       }else if(value == 'limited'){
 
-         $('.pub_dis_user_file_input').append('<div id="pub_dis_limited_input"><label for="formFileSm" class="form-label">LLP Agreement - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="llp_agre" class="form-control name_list" required/><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.pub_dis_user_file_input').append('<div id="pub_dis_limited_input"><label for="formFileSm" class="form-label">LLP Agreement - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="llp_agre" class="form-control name_list" required/><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span></label><input type="file" name="udayam" class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN / TAN - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#pub_dis_proprietorship_input").remove();
          $("#pub_dis_user_file_input").remove();
@@ -3222,7 +3222,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
 
       }else if(value == 'trust'){
 
-        $('.pub_dis_user_file_input').append('<div id="pub_dis_trust_input"><label for="formFileSm" class="form-label">Private Trust Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="private_trust" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.pub_dis_user_file_input').append('<div id="pub_dis_trust_input"><label for="formFileSm" class="form-label">Private Trust Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="private_trust" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#pub_dis_proprietorship_input").remove();
         $("#pub_dis_user_file_input").remove();
@@ -3238,7 +3238,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
 
      }else if(value == 'society'){
 
-         $('.pub_dis_user_file_input').append('<div id="pub_dis_society_input"><label for="formFileSm" class="form-label">Private Society Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="private_society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+         $('.pub_dis_user_file_input').append('<div id="pub_dis_society_input"><label for="formFileSm" class="form-label">Private Society Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="private_society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
          $("#pub_dis_proprietorship_input").remove();
          $("#pub_dis_user_file_input").remove();
@@ -3254,7 +3254,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
 
       }else if(value == 'institutional'){
 
-        $('.pub_dis_user_file_input').append('<div id="pub_dis_institutional_input"><label for="formFileSm" class="form-label">Government Institutional Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="institution" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.pub_dis_user_file_input').append('<div id="pub_dis_institutional_input"><label for="formFileSm" class="form-label">Government Institutional Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="institution" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#pub_dis_proprietorship_input").remove();
         $("#pub_dis_user_file_input").remove();
@@ -3270,7 +3270,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
 
      }else if(value == 'trust-foundation'){
 
-        $('.pub_dis_user_file_input').append('<div id="pub_dis_trust-foundation_input"><label for="formFileSm" class="form-label">Government Trust/Foundation Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="trust_foundation" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.pub_dis_user_file_input').append('<div id="pub_dis_trust-foundation_input"><label for="formFileSm" class="form-label">Government Trust/Foundation Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="trust_foundation" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#pub_dis_proprietorship_input").remove();
         $("#pub_dis_user_file_input").remove();
@@ -3286,7 +3286,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
 
      }else if(value == 'government-society'){
 
-        $('.pub_dis_user_file_input').append('<div id="pub_dis_government-society_input"><label for="formFileSm" class="form-label">Government Society Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+        $('.pub_dis_user_file_input').append('<div id="pub_dis_government-society_input"><label for="formFileSm" class="form-label">Government Society Publication Registration Certificate  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
         $("#pub_dis_proprietorship_input").remove();
         $("#pub_dis_user_file_input").remove();
