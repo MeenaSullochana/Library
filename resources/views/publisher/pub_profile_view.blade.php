@@ -23,6 +23,9 @@
     <?php
         include "publisher/plugin/plugin_css.php";
     ?>
+<style>
+    
+</style>
 </head>
 
 <body>
@@ -162,8 +165,8 @@
                                                 <p>Latest Book Catalogue</p>
                                                 <a href="#" data-exthumbimage="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
                                                     data-src="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  {{$data->bookCatalogue}} </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i>  {{$data->bookCatalogue}} </h3>
                                                 </a>
                                             </div>
                                         </div>
@@ -220,99 +223,99 @@
                                                  @if($data->gstProof != null)
                                                 <a href="#" data-exthumbimage="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
                                                     data-src="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">GST Certificate</h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> GST Certificate</h3>
                                                 </a>
                                                 @endif
                                                  @if($data->panOrTanProof != null)
                                                       <a href="#" data-exthumbimage="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}"
                                                     data-src="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  PAN / TAN  </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i>  PAN / TAN  </h3>
                                                 </a>
                                                 @endif
                                                  @if($data->udyamProof != null)
                                                     <a href="#" data-exthumbimage="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}"
                                                     data-src="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> Udyam Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Udyam Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->certificationIncorporationProof != null)
                                                       <a href="#" data-exthumbimage="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
                                                     data-src="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> Certificate of Incorporation </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Certificate of Incorporation </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->certificationRegistrationProof != null)
                                                       <a href="#" data-exthumbimage="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
                                                     data-src="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Certificate of Registration </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i>  Certificate of Registration </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->partnershipDeedProof != null)
                                                        <a href="#" data-exthumbimage="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
                                                     data-src="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Partnership Deed  </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i>  Partnership Deed  </h3>
                                                 </a>
                                                 @endif
                                                   @if($data->moaProof != null)
                                                         <a href="#" data-exthumbimage="{{asset("publisher/images/proof/moa/".$data->moaProof)}}"
                                                     data-src="{{asset("publisher/images/proof/moa/".$data->moaProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> MOA </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> MOA </h3>
                                                 </a>
                                                 @endif
                                                   @if($data->llpProof != null)
                                                         <a href="#" data-exthumbimage="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}"
                                                     data-src="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  LLP Agreement </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i>  LLP Agreement </h3>
                                                 </a>
                                                 @endif
                                                     @if($data->aoaProof != null)
                                                         <a href="#" data-exthumbimage="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}"
                                                     data-src="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  AOA </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i>  AOA </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->privateTrustProof != null)
                                                         <a href="#" data-exthumbimage="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
                                                     data-src="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Private Trust Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i>  Private Trust Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->privateSocietyProof != null)
                                                         <a href="#" data-exthumbimage="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
                                                     data-src="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Private Society Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i>  Private Society Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->institutionProof != null)
                                                         <a href="#" data-exthumbimage="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
                                                     data-src="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">Government Institutional Publication Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Government Institutional Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->trustFoundationProof != null)
                                                         <a href="#" data-exthumbimage="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
                                                     data-src="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">Government Trust/Foundation Publication Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Government Trust/Foundation Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->societyProof != null)
                                                         <a href="#" data-exthumbimage="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
                                                     data-src="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> Government Society Publication Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i>  Government Society Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
 
@@ -622,7 +625,7 @@
                                                 <h4 class="text-primary mb-4">Best Seller Titles in Your Publications
                                                 </h4>
                                                 <hr>
-                                                <table id="example3" class="display table" style="min-width: 845px">
+                                                <table id="example3" class="display table">
                                                     <thead>
                                                         <tr>
                                                             <th>Book Title</th>
@@ -632,8 +635,8 @@
                                                     <tbody>
                                                     @foreach($data->topTitles1 as $val)
                                                      <tr>
-                                                        <td>{{$val->title}} </td>
-                                                         <td>{{$val->author}}</td>
+                                                        <td data-label="Book Title">{{$val->title}} </td>
+                                                         <td data-label="Book Author">{{$val->author}}</td>
                                                       </tr>
                                                      @endforeach
                                                     </tbody>
@@ -677,37 +680,39 @@
                                 <h4 class="text-primary">Best 5 Translated Books</h4>
                             </div>
                             <div class="card-body">
-                                <table id="myTable" class="display table" style="min-width: 845px">
-                                    <thead>
-                                        <tr>
-                                            <th>Book Title</th>
-                                            <th>Book Author</th>
-                                            <th>Language From</th>
-                                            <th>Language To</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @if($data->topTranslatedBooks1 != null)
-                        @forelse($data->topTranslatedBooks1 as $val)
-                            <tr>
-                                <td>{{ $val->title }}</td>
-                                <td>{{ $val->author }}</td>
-                                <td>{{ $val->lan_from }}</td>
-                                <td>{{ $val->lan_to }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="2">No data available in table</td>
-                            </tr>
-                        @endforelse
-                    @else
-                        <tr>
-                            <td colspan="2">No data available in table</td>
-                        </tr>
-                    @endif
-
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table id="example3" class="display table">
+                                    {{-- <table id="myTable" class="display table"> --}}
+                                        <thead>
+                                            <tr>
+                                                <th>Book Title</th>
+                                                <th>Book Author</th>
+                                                <th>Language From</th>
+                                                <th>Language To</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($data->topTranslatedBooks1 != null)
+                                            @forelse($data->topTranslatedBooks1 as $val)
+                                            <tr>
+                                                <td data-label="Book Title">{{ $val->title }}</td>
+                                                <td data-label="Book Author">{{ $val->author }}</td>
+                                                <td data-label="Language From">{{ $val->lan_from }}</td>
+                                                <td data-label="Language To">{{ $val->lan_to }}</td>
+                                            </tr>
+                                            @empty
+                                            <tr>
+                                                <td colspan="4">No data available in table</td>
+                                            </tr>
+                                            @endforelse
+                                            @else
+                                            <tr>
+                                                <td colspan="4">No data available in table</td>
+                                            </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -719,30 +724,32 @@
                                 <h4 class="text-primary">Awarded Titles in The Publication</h4>
                             </div>
                             <div class="card-body">
-                                <table id="awarded-titles" class="display table" style="min-width: 845px">
-                                    <thead>
-                                        <tr>
-                                            <th>Award Name</th>
-                                            <th>Book Title</th>
-                                            <!--<th>Language Other Awarded</th>-->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    @if($data->awardTitle1 != null)
-                                    @foreach($data->awardTitle1 as $val)
-                                     <tr>
-                                     <td>{{$val->award_name}} </td>
-                                      <td>{{$val->book_title}}</td>
-
-                                      </tr>
-                                   @endforeach
-                                   @else
-                                   <tr>
-                              <td colspan="2">No data available in table</td>
-                        </tr>
-                                   @endif
-                                    </tbody>
-                                </table>
+                                <div class="table-responsive">
+                                    <table id="example3" class="display table" style="min-width: 200px">
+                                    {{-- <table id="awarded-titles" class="display table" style="min-width: 200px"> --}}
+                                        <thead>
+                                            <tr>
+                                                <th>Award Name</th>
+                                                <th>Book Title</th>
+                                                <!--<th>Language Other Awarded</th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($data->awardTitle1 != null)
+                                            @foreach($data->awardTitle1 as $val)
+                                            <tr>
+                                                <td style="white-space:normal;" data-label="Award Name">{{$val->award_name}} </td>
+                                                <td style="white-space:normal;" data-label="Book Title">{{$val->book_title}}</td>
+                                            </tr>
+                                            @endforeach
+                                            @else
+                                            <tr>
+                                                <td colspan="2">No data available in table</td>
+                                            </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -751,47 +758,45 @@
                     <div class="col-md-12">
                         <div class="profile card">
                             <div class="card-header">
-                                <h4 class="text-primary mb-4">Name of the Subsidiary Publications
-                                </h4>
-
+                                <h4 class="text-primary mb-4">Name of the Subsidiary Publications</h4>
                             </div>
-
                             <div class="card-body">
-                            <h5 class="es-5">{{$data->haveSubsidiary}}</h5>
-                                <table id="subsidiary-pub" class="display table" style="min-width: 845px">
-                                    <thead>
-                                        <tr>
-                                            <th class="fw-bold">name of the subsidiary publication</th>
-                                            <th class="fw-bold">Enter name of the subsidiary Publisher</th>
-                                            <th class="fw-bold">Stack Holder Percentage</th>
-                                            <th class="fw-bold">Document</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if($data->subsidiary1 != null)
-                                    @foreach($data->subsidiary1 as $val)
-                                        <tr>
-                                            <td>{{$val->subsidiary_publication_name}} </td>
-                                            <td>{{$val->subsidiary_publisher_name}} </td>
-                                            <td>{{$val->stack_holder_percentage}}</td>
-                                            <td>
-                                            <a href="#" data-exthumbimage="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}"
-                                                    data-src="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  {{$val->subsidiary_doc}} </h3>
-
-                                                </a>
+                                <h5 class="es-5">{{$data->haveSubsidiary}}</h5>
+                                <div class="table-responsive">
+                                    <table id="example3" class="display table">
+                                    {{-- <table id="subsidiary-pub" class="display table"> --}}
+                                        <thead>
+                                            <tr>
+                                                <th class="fw-bold">Name of the Subsidiary Publication</th>
+                                                <th class="fw-bold">Name of the Subsidiary Publisher</th>
+                                                <th class="fw-bold">Stack Holder Percentage</th>
+                                                <th class="fw-bold">Document</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if($data->subsidiary1 != null)
+                                            @foreach($data->subsidiary1 as $val)
+                                            <tr>
+                                                <td>{{$val->subsidiary_publication_name}}</td>
+                                                <td>{{$val->subsidiary_publisher_name}}</td>
+                                                <td>{{$val->stack_holder_percentage}}</td>
+                                                <td>
+                                                    <a href="#" data-exthumbimage="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}"
+                                                        data-src="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}"
+                                                        class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
+                                                        <h3 class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> {{$val->subsidiary_doc}}</h3>
+                                                    </a>
                                                 </td>
-                                        </tr>
-                                        @endforeach
-                                        @else
-                                   <tr>
-                                       <td colspan="2">No data available in table</td>
-                                         </tr>
-                                   @endif
-
-                                    </tbody>
-                                </table>
+                                            </tr>
+                                            @endforeach
+                                            @else
+                                            <tr>
+                                                <td colspan="4">No data available in table</td>
+                                            </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -824,6 +829,9 @@
         ?>
 </body>
 <style>
+    /* data table start */
+    /* data table end */
+    
     .file-upload {
         display: none;
     }
@@ -866,7 +874,7 @@
     z-index: 1;
     margin-top: -4.5rem;
     margin-right: 6.625rem;
-}
+    }
     .p-image {
         position: absolute;
         top: 65px;
@@ -1009,8 +1017,8 @@
     }
   };
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script> --}}
 
 <script>
     $(document).ready(function() {

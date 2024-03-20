@@ -129,14 +129,14 @@ $bookdescription = $data->bookdescription1;
                                 <input type="radio" id="lang2" name="language" class="custom-control-input" value="English" @if($data->language == "English") checked @endif  required>
                                 <label class="custom-control-label" for="lang2">English</label>
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio newother">
                                 <input type="radio" id="book_primary_language_new" name="language" class="custom-control-input" value="Other_Indian" @if($data->language == "Other_Indian") checked @endif required>
                                 <label class="custom-control-label" for="book_primary_language_new">Other Indian Languages (please specify)</label>
                             </div>
                             <div class="col-md-12 book_primary_lang mb-2">
                                 <input type="text" class="form-control" id="other1" name="Other_Indian" placeholder="Enter Other Indian Languages (please specify)" value="@if($data->Other_Indian != null) {{$data->Other_Indian}} @endif">
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio newother">
                                 <input type="radio" id="book_primary_language_new_forein" name="language" class="custom-control-input" value="Other_Foreign" @if($data->language == "Other_Foreign") checked @endif required>
                                 <label class="custom-control-label" for="book_primary_language_new_forein">Other Foreign Languages (please specify)</label>
                             </div>
@@ -1773,7 +1773,14 @@ $bookdescription = $data->bookdescription1;
                     #navigation.fixed {
                     position: fixed;
                     }
-
+                    a.dropdown-item.ai-icon{
+                        display: flex;
+                    }
+                    @media screen and (max-width: 600px) {
+                        .custom-control.custom-radio.newother {
+                            display: flex;
+                        }
+                    }
                     #navigation h1 {
                     width: 200px;
                     font-size: 16px;

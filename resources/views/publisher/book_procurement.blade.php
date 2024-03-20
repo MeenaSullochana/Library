@@ -92,44 +92,23 @@
                                     </div>
                                 </div>
                                 <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer w-100">
-                                    <table id="example3" class="" role="grid" style="width:100%"
+                                    <table id="example3" class="" role="grid" style="min-width: 200px"
                                         aria-describedby="empoloyees-tbl3_info">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1" aria-sort="ascending"
-                                                    aria-label=": activate to sort column descending"
-                                                    style="width: 25.375px;">
+                                                <th>
                                                     <div class="form-check custom-checkbox ms-0">
                                                         <input type="checkbox" class="form-check-input checkAllInput"
                                                             id="checkAll2" required="">
                                                         <label class="form-check-label" for="checkAll2"></label>
                                                     </div>
                                                 </th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="ERoll No: activate to sort column ascending"
-                                                    style="width: 97.5156px;">S.No</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="ERoll No: activate to sort column ascending"
-                                                    style="width: 97.5156px;">Book ID</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Books: activate to sort column ascending"
-                                                    style="width: 300.219px;">Title</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Books: activate to sort column ascending"
-                                                    style="width: 145.219px;">Author</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Issued: activate to sort column ascending"
-                                                    style="width: 72.7031px;"> ISBN</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Action: activate to sort column ascending"
-                                                    style="width: 87.4688px;"> Action</th>
+                                                <th>S.No</th>
+                                                <th>Book ID</th>
+                                                <th>Title</th>
+                                                <th>Author</th>
+                                                <th> ISBN</th>
+                                                <th> Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -146,7 +125,7 @@
                                                     </td>
                                                     <td  data-label="S/No">{{ $loop->index + 1 }}</td>
                                                     <td  data-label="Book ID">{{ $val->product_code }}</td>
-                                                    <td  data-label="Title" style="width: 100px">
+                                                    <td  data-label="Title">
                                                         {{ $val->book_title }}
                                                     </td>
                                                     <td data-label="Author">Auther Name</td>

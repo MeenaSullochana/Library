@@ -56,7 +56,7 @@
         <div class="content-body">
             <div class="container-fluid">
                 <div class="card-body bg-white">
-                    <div class="d-sm-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-between">
                         <h3 class="mb-0 bc-title">
                             <b>Create Feedback</b>
                         </h3>

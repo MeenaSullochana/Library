@@ -22,6 +22,188 @@
     <?php
     include 'publisher/plugin/plugin_css.php';
     ?>
+    <style>
+        .outerBox {
+            height: 300px;
+            /* background-color: black; */
+            background-image: url('{{ asset('Books/back.jpeg') }}');
+        
+            background-position: top;
+            color: white;
+            font-size: 16px;
+            padding: 10px;
+        }
+        
+        #more {
+            display: none;
+        }
+        
+        /* slider */
+        .carousel-wrap {
+            margin: 10px auto;
+            padding: 0 0;
+            width: 100%;
+            position: relative;
+        }
+        
+        /* fix blank or flashing items on carousel */
+        .owl-carousel .item {
+            position: relative;
+            z-index: 100;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        /* end fix */
+        .owl-nav>div {
+            margin-top: -26px;
+            position: absolute;
+            top: 50%;
+            color: #cdcbcd;
+        }
+        
+        .owl-nav i {
+            font-size: 52px;
+        }
+        
+        .owl-nav .owl-prev {
+            left: -30px;
+        }
+        
+        .owl-nav .owl-next {
+            right: -30px;
+        }
+        
+        .list-group-item.active {
+            background-color: #67635e !important
+        }
+        
+        .active-start {
+            color: yellow;
+        }
+        </style>
+        <style>
+        /* Style for the 'previous' button */
+        #prev {
+            display: inline-block;
+            padding: 10px;
+            margin-right: 10px;
+            color: white;
+            background-color: blue;
+            /* Change to your desired color for 'previous' button */
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #prev:hover {
+            background-color: darkblue;
+            /* Change to your desired hover color for 'previous' button */
+        }
+        
+        /* Style for the 'next' button */
+        #next {
+            display: inline-block;
+            padding: 10px;
+            color: white;
+            background-color: green;
+            /* Change to your desired color for 'next' button */
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        #next:hover {
+            background-color: darkgreen;
+            /* Change to your desired hover color for 'next' button */
+        }
+        </style>
+        <style>
+        .carousel-indicators button.thumbnail {
+            width: 100%;
+        }
+        
+        .carousel-indicators button.thumbnail:not(.active) {
+            opacity: 0.7;
+        }
+        
+        .carousel-indicators {
+            position: static;
+        }
+        
+        @media screen and (max-width: 745px) {
+            h4.ms-5 {
+                font-size: 10px;
+            }
+            img.center.newbanner {
+                width: 100%;
+            }
+        }
+        @media screen and (min-width: 992px) {
+            .carousel {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+        }
+        .product-title {
+            font-size: 20px;
+            font-family: 'Line Awesome Free';
+            font-weight: 700;
+        }
+        
+        .short_desc {
+            font-family: 'Line Awesome Free';
+            font-size: 14px;
+            color: black;
+        }
+        
+        /* Style 7
+           ----------------------------- */
+        .seven h1 {
+            text-align: center;
+            font-size: 17px;
+            font-weight: 300;
+            color: #222;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: grid;
+            grid-template-columns: 1fr max-content 1fr;
+            grid-template-rows: 27px 0;
+            grid-gap: 20px;
+            align-items: center;
+        }
+        
+        .seven h1:after,
+        .seven h1:before {
+            content: " ";
+            display: block;
+            border-bottom: 1px solid #452b90;
+            border-top: 1px solid #452b90;
+            height: 5px;
+            background-color: #f8f8f8;
+        }
+        
+        .bg-main {
+            background-color: #222B40;
+        }
+        img.avatar.avatar-md.rounded-circle {
+            height: 75px !important;
+            width: 75px !important;
+        }
+        /* img {
+          background-position: top;
+          background-size: cover;
+          height: 200px;
+          width: 290px;
+          box-shadow: 0 2px 10px #000;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        img:hover {
+          box-shadow: none;
+          transform: scale(1.1);
+        } */
+        </style>
 </head>
 
 <body>
@@ -238,7 +420,7 @@
                                                     @if($data->trans_author1 !=null)
                                                     <div class="col-md-6">
                                                         <p><span class="fs-6 fw-bold text-primary">Translate Author
-                                                                :</span>
+                                                                 : </span>
                                                             @php
 
                                                             $trans_author = array_filter($data->trans_author1,
@@ -257,8 +439,8 @@
                                                     @endif
 
                                                     <div class="col-md-6">
-                                                        <p><span class="fs-6 fw-bold text-primary">Name Of Publisher
-                                                                :</span>
+                                                        <p><span class="fs-6 fw-bold text-primary">Name of Publisher
+                                                                 : </span>
 
                                                             <strong>{{ $data->nameOfPublisher }}</strong>
 
@@ -317,17 +499,17 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <p class="p-0 m-0"><span class="fs-6 fw-bold text-primary">Year
-                                                                Of Publication:</span> <span
+                                                                of Publication :</span> <span
                                                                 class="item">{{ $data->yearOfPublication }}</span> </p>
 
                                                         <p class="p-0 m-0"><span
-                                                                class="fs-6 fw-bold text-primary">Category:</span> <span
+                                                                class="fs-6 fw-bold text-primary">Category : </span> <span
                                                                 class="item">{{ $data->category }}</span> </p>
                                                         <p class="p-0 m-0"><span
-                                                                class="fs-6 fw-bold text-primary">Subject:</span> <span
+                                                                class="fs-6 fw-bold text-primary">Subject : </span> <span
                                                                 class="item">{{ $data->subject }}</span> </p>
                                                         <p class="p-0 m-0"><span class="fs-6 fw-bold text-primary">Book
-                                                                ID:</span> <span
+                                                                ID : </span> <span
                                                                 class="item">{{ $data->product_code }}</span>
                                                         </p>
                                                     </div>
@@ -891,7 +1073,7 @@
                         <div class="row container ms-3 me-3 mt-3">
 
                             <div class="col-8">
-                                <img class="center" src="{{ asset('Books/banner/' . $val) }}" alt="img" style="">
+                                <img class="center newbanner w-100" src="{{ asset('Books/banner/' . $val) }}" alt="img" style="">
                             </div>
 
 
@@ -927,7 +1109,7 @@
                             <div class="d-flex mb-5">
                                 <div class="auth_details">
                                     <div class="row align-items-center">
-                                        <div class="col-md-auto text-center">
+                                        <div class="col-md-auto mt-2">
                                             @if ($data->author_img != null)
                                             <img src="{{ asset('Books/author_img/' . $data->author_img) }}"
                                                 class="avatar avatar-md rounded-circle" alt="{{ $data->author_name }}">
@@ -1455,178 +1637,4 @@
 </body>
 
 </html>
-<style>
-.outerBox {
-    height: 300px;
-    /* background-color: black; */
-    background-image: url('{{ asset('Books/back.jpeg') }}');
 
-    background-position: top;
-    color: white;
-    font-size: 16px;
-    padding: 10px;
-}
-
-#more {
-    display: none;
-}
-
-/* slider */
-.carousel-wrap {
-    margin: 10px auto;
-    padding: 0 0;
-    width: 100%;
-    position: relative;
-}
-
-/* fix blank or flashing items on carousel */
-.owl-carousel .item {
-    position: relative;
-    z-index: 100;
-    -webkit-backface-visibility: hidden;
-}
-
-/* end fix */
-.owl-nav>div {
-    margin-top: -26px;
-    position: absolute;
-    top: 50%;
-    color: #cdcbcd;
-}
-
-.owl-nav i {
-    font-size: 52px;
-}
-
-.owl-nav .owl-prev {
-    left: -30px;
-}
-
-.owl-nav .owl-next {
-    right: -30px;
-}
-
-.list-group-item.active {
-    background-color: #67635e !important
-}
-
-.active-start {
-    color: yellow;
-}
-</style>
-<style>
-/* Style for the 'previous' button */
-#prev {
-    display: inline-block;
-    padding: 10px;
-    margin-right: 10px;
-    color: white;
-    background-color: blue;
-    /* Change to your desired color for 'previous' button */
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#prev:hover {
-    background-color: darkblue;
-    /* Change to your desired hover color for 'previous' button */
-}
-
-/* Style for the 'next' button */
-#next {
-    display: inline-block;
-    padding: 10px;
-    color: white;
-    background-color: green;
-    /* Change to your desired color for 'next' button */
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#next:hover {
-    background-color: darkgreen;
-    /* Change to your desired hover color for 'next' button */
-}
-</style>
-<style>
-.carousel-indicators button.thumbnail {
-    width: 100%;
-}
-
-.carousel-indicators button.thumbnail:not(.active) {
-    opacity: 0.7;
-}
-
-.carousel-indicators {
-    position: static;
-}
-
-@media screen and (min-width: 992px) {
-    .carousel {
-        max-width: 100%;
-        margin: 0 auto;
-    }
-}
-
-.product-title {
-    font-size: 20px;
-    font-family: 'Line Awesome Free';
-    font-weight: 700;
-}
-
-.short_desc {
-    font-family: 'Line Awesome Free';
-    font-size: 14px;
-    color: black;
-}
-
-/* Style 7
-   ----------------------------- */
-.seven h1 {
-    text-align: center;
-    font-size: 17px;
-    font-weight: 300;
-    color: #222;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: bold;
-    display: grid;
-    grid-template-columns: 1fr max-content 1fr;
-    grid-template-rows: 27px 0;
-    grid-gap: 20px;
-    align-items: center;
-}
-
-.seven h1:after,
-.seven h1:before {
-    content: " ";
-    display: block;
-    border-bottom: 1px solid #452b90;
-    border-top: 1px solid #452b90;
-    height: 5px;
-    background-color: #f8f8f8;
-}
-
-.bg-main {
-    background-color: #222B40;
-}
-img.avatar.avatar-md.rounded-circle {
-    height: 75px !important;
-    width: 75px !important;
-}
-/* img {
-  background-position: top;
-  background-size: cover;
-  height: 200px;
-  width: 290px;
-  box-shadow: 0 2px 10px #000;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-img:hover {
-  box-shadow: none;
-  transform: scale(1.1);
-} */
-</style>

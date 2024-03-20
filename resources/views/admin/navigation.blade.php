@@ -1911,6 +1911,7 @@
                             <!-- <li><a href="/admin/procur_book_list">Book List</a></li> -->
                             <li><a href="/admin/procur_pending_list">Pending List</a></li>
                             <li><a href="/admin/procur_complete_list">Complete List</a></li>
+                            <li><a href="/admin/magazine_add">Magazine Add</a></li>
                             {{-- <li><a href="/admin/procur_reject_view">Unaccept list</a> </li> --}}
                         </ul>
                     </li>

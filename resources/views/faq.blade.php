@@ -7,6 +7,8 @@
     <title>Directorate of Public Libraries</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- FAVICONS ICON -->
+    <link rel="shortcut icon" type="image/png" href="{{ asset('/assets/img/logo/fevi.svg') }}">
     <?php
          include "plugin/css.php";
       ?>
