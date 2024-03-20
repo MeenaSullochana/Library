@@ -845,5 +845,21 @@ Route::get('/review',function(){
 
 
 Route::get('/assign-user-list',function(){ return view('admin.assign-user-list');});
+
+
+Route::post('/report_down_publisher',[SettingController::class,'report_down_publisher']);
+Route::get('/pdfview',function(){ return view('admin.pdfview');});
+Route::get('/report_download_distributor',function(){ return view('admin.report_download_distributor');});
+
+Route::post('/report_downl_distributor ',[SettingController::class,'report_downl_distributor']);
+Route::get('/pdfviewdist',function(){ return view('admin.pdfviewdist');});
+Route::post('/report_downl_pubdist ',[SettingController::class,'report_downl_pubdist']);
+Route::get('/report_download_pub_dist',function(){ return view('admin.report_download_pub_dist');});
+Route::get('/pdfviewpubdist',function(){ return view('admin.pdfviewpubdist');});
+
+
+
+
+
     });
 });

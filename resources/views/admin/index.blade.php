@@ -651,103 +651,6 @@
                                         <div class="row">
                                             <div class="col-xl-12">
                                                 <div class="row">
-                                                    <!-- <div class="col-xl-6 col-sm-6">
-                                                        <div class="card bg-primary text-white">
-                                                            <div class="card-header border-0 flex-wrap">
-                                                                <div class="revenue-date">
-                                                                    <span>revenue</span>
-                                                                    <h4 class="text-white"> 310.435</h4>
-                                                                </div>
-                                                                <div class="avatar-list avatar-list-stacked me-2">
-                                                                    <img src="images/contacts/pic555.jpg"
-                                                                        class="avatar rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic666.jpg"
-                                                                        class="avatar rounded-circle" alt="">
-                                                                    <span
-                                                                        class="avatar rounded-circle bg-white">25+</span>
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="card-body pb-0 custome-tooltip d-flex align-items-center">
-                                                                <div id="chartBar" class="chartBar"></div>
-                                                                <div>
-                                                                    <svg width="20" height="20" viewBox="0 0 20 20"
-                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <circle cx="10" cy="10" r="10" fill="white" />
-                                                                        <g clip-path="url(#clip0_3_443)">
-                                                                            <path opacity="0.3"
-                                                                                d="M13.0641 7.54535C13.3245 7.285 13.3245 6.86289 13.0641 6.60254C12.8038 6.34219 12.3817 6.34219 12.1213 6.60254L6.46445 12.2594C6.2041 12.5197 6.2041 12.9419 6.46445 13.2022C6.7248 13.4626 7.14691 13.4626 7.40726 13.2022L13.0641 7.54535Z"
-                                                                                fill="black" />
-                                                                            <path
-                                                                                d="M7.40729 7.26921C7.0391 7.26921 6.74062 6.97073 6.74062 6.60254C6.74062 6.23435 7.0391 5.93587 7.40729 5.93587H13.0641C13.4211 5.93587 13.7147 6.21699 13.7302 6.57358L13.9659 11.9947C13.9819 12.3626 13.6966 12.6737 13.3288 12.6897C12.961 12.7057 12.6498 12.4205 12.6338 12.0526L12.4258 7.26921H7.40729Z"
-                                                                                fill="black" />
-                                                                        </g>
-                                                                        <defs>
-                                                                            <clipPath id="clip0_3_443">
-                                                                                <rect width="16" height="16"
-                                                                                    fill="white"
-                                                                                    transform="matrix(-1 0 0 -1 18 18)" />
-                                                                            </clipPath>
-                                                                        </defs>
-                                                                    </svg>
-                                                                    <span class="d-block font-w600">45%</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
-                                                    <!-- <div class="col-xl-6 col-sm-6">
-                                                        <div class="card bg-secondary text-white">
-                                                            <div class="card-header border-0">
-                                                                <div class="revenue-date">
-                                                                    <span class="text-black">Expenses</span>
-                                                                    <h4 class="text-black"><i class="fa fa-inr"
-                                                                            aria-hidden="true"></i> 920.035</h4>
-                                                                </div>
-                                                                <div class="avatar-list avatar-list-stacked me-2">
-                                                                    <span class="avatar rounded-circle bg-white">
-                                                                        <a href="#">
-                                                                            <svg width="14" height="15"
-                                                                                viewBox="0 0 14 15" fill="none"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <path fill-rule="evenodd"
-                                                                                    clip-rule="evenodd"
-                                                                                    d="M5.83333 6.27083V1.60417C5.83333 0.959834 6.35567 0.4375 7 0.4375C7.64433 0.4375 8.16667 0.959834 8.16667 1.60417V6.27083H12.8333C13.4777 6.27083 14 6.79317 14 7.4375C14 8.08183 13.4777 8.60417 12.8333 8.60417H8.16667V13.2708C8.16667 13.9152 7.64433 14.4375 7 14.4375C6.35567 14.4375 5.83333 13.9152 5.83333 13.2708V8.60417H1.16667C0.522334 8.60417 0 8.08183 0 7.4375C0 6.79317 0.522334 6.27083 1.16667 6.27083H5.83333Z"
-                                                                                    fill="#222B40" />
-                                                                            </svg>
-                                                                        </a>
-                                                                    </span>
-                                                                </div>
-
-                                                            </div>
-                                                            <div
-                                                                class="card-body pb-0 custome-tooltip d-flex align-items-center">
-                                                                <div id="expensesChart" class="chartBar"></div>
-                                                                <div>
-                                                                    <svg width="20" height="20" viewBox="0 0 20 20"
-                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <circle cx="10" cy="10" r="10" fill="#222B40" />
-                                                                        <g clip-path="url(#clip0_3_473)">
-                                                                            <path opacity="0.3"
-                                                                                d="M13.0641 7.54535C13.3245 7.285 13.3245 6.86289 13.0641 6.60254C12.8038 6.34219 12.3817 6.34219 12.1213 6.60254L6.46446 12.2594C6.20411 12.5197 6.20411 12.9419 6.46446 13.2022C6.72481 13.4626 7.14692 13.4626 7.40727 13.2022L13.0641 7.54535Z"
-                                                                                fill="white" />
-                                                                            <path
-                                                                                d="M7.40728 7.26921C7.03909 7.26921 6.74061 6.97073 6.74061 6.60254C6.74061 6.23435 7.03909 5.93587 7.40728 5.93587H13.0641C13.4211 5.93587 13.7147 6.21699 13.7302 6.57358L13.9659 11.9947C13.9819 12.3626 13.6966 12.6737 13.3288 12.6897C12.9609 12.7057 12.6498 12.4205 12.6338 12.0526L12.4258 7.26921H7.40728Z"
-                                                                                fill="white" />
-                                                                        </g>
-                                                                        <defs>
-                                                                            <clipPath id="clip0_3_473">
-                                                                                <rect width="16" height="16"
-                                                                                    fill="white"
-                                                                                    transform="matrix(-1 0 0 -1 18 18)" />
-                                                                            </clipPath>
-                                                                        </defs>
-                                                                    </svg>
-                                                                    <span
-                                                                        class="d-block font-w600 text-black">45%</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
                                                     <div class="col-xl-3 col-sm-6">
                                                         <div class="card">
                                                             <div class="card-body depostit-card">
@@ -1029,6 +932,244 @@
                                                                                     </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4>Book</h4>
+
+                                            <div class="col-xl-12">
+                                                <div class="row">
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
+                                                                <div
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                        $books = DB::table('books')->where('book_procurement_status','=',0)->count();
+                                                                
+                                                                           @endphp
+                                                                    <div>
+                                                                        <h6>Total Books</h6>
+                                                                        <h3>
+                                                                            {{$books}}</h3>
+                                                                    </div>
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Total Books</p>
+                                                                        <p class="mb-0">{{$books}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $books != 0 ? ($books / $books * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
+                                                                <div
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                      
+                                                                        $pubbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','publisher')->count();
+                                                                           @endphp
+                                                                    <div>
+                                                                        <h6>Total Publisher Books</h6>
+                                                                        <h3>
+                                                                            {{$pubbooks}}</h3>
+                                                                    </div>
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Publisher Books</p>
+                                                                        <p class="mb-0">{{$books}}/{{$pubbooks}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $pubbooks != 0 ? ($pubbooks / $books * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                             
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
+                                                                <div
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                    $distbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','distributor')->count();
+
+                                                                           @endphp
+                                                                    <div>
+                                                                        <h6>Total Distributor Books</h6>
+                                                                        <h3>
+                                                                            {{$distbooks}}</h3>
+                                                                    </div>
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Distbooks Booksr</p>
+                                                                        <p class="mb-0">{{$books}}/{{$distbooks}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $distbooks != 0 ? ($distbooks / $books * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                             
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
+                                                                <div
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                    $pubdistbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','publisher_distributor')->count();
+
+                                                                           @endphp
+                                                                    <div>
+                                                                        <h6>Total Publisher Distributor Books </h6>
+                                                                        <h3>
+                                                                            {{$pubdistbooks}}</h3>
+                                                                    </div>
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Publisher Distributor Books</p>
+                                                                        <p class="mb-0">{{$books}}/{{$pubdistbooks}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $pubdistbooks != 0 ? ($pubdistbooks / $books * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                             
                                                             </div>
                                                         </div>
                                                     </div>

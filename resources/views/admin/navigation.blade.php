@@ -1944,8 +1944,8 @@
                             <span class="nav-text">Management Budget</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/admin/budget">Make Budget</a></li>
-                            <li><a href="/admin/budgetlist">Budget List</a></li>
+                            <li><a href="/admin/budget">Make BookBudget</a></li>
+                            <li><a href="/admin/budgetlist">BookBudget List</a></li>
                         </ul>
                     </li>
                     <li>
@@ -2109,7 +2109,10 @@
 						</a>
 						<ul aria-expanded="false">
 						{{-- <li><a href="report_download">Book Fair Report Download</a></li> --}}
-                            <li><a href="report_download_publisher">Publisher Report Download</a></li>
+                        <li><a href="report_download_publisher">Publisher Report Download</a></li>
+                            <li><a href="/admin/report_download_distributor">distributo Report Download</a></li>
+							<li><a href="report_download_pub_dist">Publisher Cum distributo Report Download</a></li>
+
                             <li><a href="report_download_order">Order Management Download</a></li>
 							<li><a href="report_download_payment">Payment Report Download</a></li>
 							<li><a href="report_download_reviwer">Reviewer Report Download</a></li>
