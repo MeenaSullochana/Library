@@ -30,7 +30,12 @@ use App\Models\Mailurl;
 use App\Models\Thirukkural;
 use App\Models\Newsfeed;
 use App\Models\Manualguidelines;
-
+use TCPDF; 
+use PDF;
+use App\Models\Publisher;
+use Illuminate\Support\Facades\View;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\PublisherDistributor;
 
 
 class SettingController extends Controller
@@ -741,6 +746,251 @@ public function reviewerbatchadd(Request $req){
                                         }
                                                     }
 
+                                                    public function report_down_publisher (Request $request)
+                                                    {
 
+                                                        $validator = Validator::make($request->all(),[
+                                                            'fromDate'=>'required',
+                                                            'toDate'=>'required',
+                                                            'documentType'=>'required',
+                                                       
+                                                    
+                                                        ]); 
+                                                        if($validator->fails()){
+                                                            $data= [
+                                                                'error' => $validator->errors()->first(),
+                                                                     ];
+                                                            return response()->json($data);  
+                                                           
+                                                        }
+                                                       try {
+                                                        $publisher = Publisher::whereBetween('created_at', [$request->fromDate, $request->toDate])->get();
+                                                           if ($publisher->isEmpty()) {
+                                                            return response()->json([
+                                                                'error' => 'No data found for the given date range.',
+                                                            ]);
+
+                                                             
+                                                           }
+                                                           if( $request->documentType == "Excel") {
+                                                        $excelData = [
+                                                            ['S.No', 'Publication Name', 'Publisher Name', 'Email', 'Mobile Number', 'Publication Address', 'Country', 'State', 'District', 'City', 'Postal Code']
+                                                        ];
+                                                        $index=0;
+                                                        foreach ($publisher as $publisher) {
+                                                            $excelData[] = [
+                                                                $index=  $index + 1,
+                                                                $publisher->publicationName,
+                                                                $publisher->firstName." ".$publisher->lastName,
+                                                                $publisher->email,
+                                                                $publisher->mobileNumber,
+                                                                $publisher->publicationAddress,
+                                                                $publisher->country,
+                                                                $publisher->state,
+                                                                $publisher->District,
+                                                                $publisher->city,
+                                                                $publisher->postalCode,
+                                                            ];
+                                                        }
+                                                
+                                                        return response()->json([
+                                                            'excelData' => $excelData,
+                                                            'success' => 'Excel Downloaded Successfully'
+                                                        ]);
+                                                     }else{
+                                                        $pdfContent = View::make('admin.pdfview', ['publisher' => $publisher])->render();
+                                                           
+                                                        if (empty($pdfContent)) {
+                                                            throw new \Exception("PDF content is empty.");
+                                                        }
+                                                    
+                                                        $pdf = PDF::loadHTML($pdfContent);
+                                                        $pdfData = $pdf->output(); 
+                                                  
+                                                        if (empty($pdfData)) {
+                                                            throw new \Exception("PDF data is empty.");
+                                                        }
+                                                    
+                                                        return response()->json([
+                                                            'pdfData' => base64_encode($pdfData),
+                                                            'filename' => 'data1111.pdf' ,
+                                                            'success' => 'Psf Downloaded Successfully'
+                                                        ]);
+                                                       }
+                                                         
+                                                       } catch (\Exception $e) {
+                                                           return response()->json([
+                                                               'error' => $e->getMessage()
+                                                           ], 500);
+                                                       }
+                                                       
+                                                   }
+                                                       
+                                                                                                             
+                                                     public function report_downl_distributor(Request $request)
+                                                     {
+                                                       $validator = Validator::make($request->all(),[
+                                                           'fromDate'=>'required',
+                                                           'toDate'=>'required',
+                                                           'documentType'=>'required',
+                                                      
+                                                   
+                                                       ]); 
+                                                       if($validator->fails()){
+                                                           $data= [
+                                                               'error' => $validator->errors()->first(),
+                                                                    ];
+                                                           return response()->json($data);  
+                                                          
+                                                       }
+                                                       
+                                                       
+                                                       try {
+                                                            $distributor = Distributor::whereBetween('created_at', [$request->fromDate, $request->toDate])->get();
+                                                       
+                                                            if ($distributor->isEmpty()) {
+                                                                return response()->json([
+                                                                    'error' => 'No data found for the given date range.',
+                                                                ]);
+    
+                                                                 
+                                                               }
+                                                               if( $request->documentType == "Excel") {
+                                                            $excelData = [
+                                                                ['S.No', 'Distribution Name', 'Distributor Name', 'Email', 'Mobile Number', 'Distribution Address', 'Country', 'State', 'District', 'City', 'Postal Code']
+                                                            ];
+                                                        
+                                                            $index=0;
+                                                            foreach ($distributor as $distributor) {
+                                                                $excelData[] = [
+                                                                    $index=  $index + 1,
+                                                                    $distributor->distributionName,
+                                                                    $distributor->firstName." ".$distributor->lastName,
+                                                                    $distributor->email,
+                                                                    $distributor->mobileNumber,
+                                                                    $distributor->distributionAddress,
+                                                                    $distributor->country,
+                                                                    $distributor->state,
+                                                                    $distributor->District,
+                                                                    $distributor->city,
+                                                                    $distributor->postalCode,
+                                                                ];
+                                                            }
+                                                    
+                                                            return response()->json([
+                                                                'excelData' => $excelData,
+                                                                'success' => 'Excel Downloaded Successfully'
+                                                            ]);
+                                                         }else{
+                                                        
+                                                            $pdfContent = View::make('admin.pdfviewdist', ['distributor' => $distributor])->render();
+                                                            
+                                                            if (empty($pdfContent)) {
+                                                                throw new \Exception("PDF content is empty.");
+                                                            }
+                                                        
+                                                            $pdf = PDF::loadHTML($pdfContent);
+                                                           
+                                                            $pdfData = $pdf->output(); 
+                                                        
+                                                            if (empty($pdfData)) {
+                                                                throw new \Exception("PDF data is empty.");
+                                                            }
+                                                        
+                                                            return response()->json([
+                                                                'pdfData' => base64_encode($pdfData),
+                                                                'filename' => 'data.pdf' 
+                                                            ]);
+                                                        }
+                                                        } catch (\Exception $e) {
+                                                            return response()->json([
+                                                                'error' => $e->getMessage()
+                                                            ], 500);
+                                                        }
+                                                        
+                                             }
+                                             public function report_downl_pubdist(Request $request)
+                                             {
+                                               $validator = Validator::make($request->all(),[
+                                                   'fromDate'=>'required',
+                                                   'toDate'=>'required',
+                                                   'documentType'=>'required',
+                                              
+                                           
+                                               ]); 
+                                               if($validator->fails()){
+                                                   $data= [
+                                                       'error' => $validator->errors()->first(),
+                                                            ];
+                                                   return response()->json($data);  
+                                                  
+                                               }
+                                               
+                                               
+                                               try {
+                                                    $PubDist = PublisherDistributor::whereBetween('created_at', [$request->fromDate, $request->toDate])->get();
+                                                    // $table->string('publicationDistributionAddress');
+
+                                                    if ($PubDist->isEmpty()) {
+                                                        return response()->json([
+                                                            'error' => 'No data found for the given date range.',
+                                                        ]);
+
+                                                         
+                                                       }
+                                                       if( $request->documentType == "Excel") {
+                                                    $excelData = [
+                                                        ['S.No', 'publication Distribution Name', 'Distributor Name', 'Email', 'Mobile Number', 'publication Distribution Address', 'Country', 'State', 'District', 'City', 'Postal Code']
+                                                    ];
+                                                
+                                                    $index=0;
+                                                    foreach ($PubDist as $PubDist) {
+                                                        $excelData[] = [
+                                                            $index=  $index + 1,
+                                                            $PubDist->publicationDistributionName,
+                                                            $PubDist->firstName." ".$PubDist->lastName,
+                                                            $PubDist->email,
+                                                            $PubDist->mobileNumber,
+                                                            $PubDist->publicationDistributionAddress,
+                                                            $PubDist->country,
+                                                            $PubDist->state,
+                                                            $PubDist->District,
+                                                            $PubDist->city,
+                                                            $PubDist->postalCode,
+                                                        ];
+                                                    }
+                                            
+                                                    return response()->json([
+                                                        'excelData' => $excelData,
+                                                        'success' => 'Excel Downloaded Successfully'
+                                                    ]);
+                                                 }else{
+                                                
+                                                    $pdfContent = View::make('admin.pdfviewdist', ['PubDist' => $PubDist])->render();
+                                                    
+                                                    if (empty($pdfContent)) {
+                                                        throw new \Exception("PDF content is empty.");
+                                                    }
+                                                
+                                                    $pdf = PDF::loadHTML($pdfContent);
+                                                   
+                                                    $pdfData = $pdf->output(); 
+                                                
+                                                    if (empty($pdfData)) {
+                                                        throw new \Exception("PDF data is empty.");
+                                                    }
+                                                
+                                                    return response()->json([
+                                                        'pdfData' => base64_encode($pdfData),
+                                                        'filename' => 'data1111.pdf' 
+                                                    ]);
+                                                }
+                                                } catch (\Exception $e) {
+                                                    return response()->json([
+                                                        'error' => $e->getMessage()
+                                                    ], 500);
+                                                }
+                                                
+                                           }
                                     
                                 }

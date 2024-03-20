@@ -14,6 +14,7 @@
     <meta property="og:description" content="">
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement - Publisher Report Download</title>
@@ -78,19 +79,31 @@
                                             <div class="example">
                                                 <p class="mb-1">From Date <span class="text-danger">*</span></p>
                                                 <input class="form-control input-daterange-datepicker" type="date"
-                                                    name="daterange" value="01/01/2015 - 01/31/2015">
+                                                    id="fromDate">
                                             </div>
                                         </div>
                                         <div class="col-xl-4 mb-3">
                                             <div class="example">
                                                 <p class="mb-1">To Date <span class="text-danger">*</span></p>
                                                 <input type="date" class="form-control input-daterange-timepicker"
-                                                    name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM">
+                                                    id="toDate"">
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 mt-3">
-                                        <button class="dt-button buttons-excel buttons-html5 bg-primary text-white btn btn-sm border-0 mt-3" tabindex="0" aria-controls="projects-tbl" type="button"><span><i class="fa-solid fa-file-excel"></i> Export Report download</span></button>
-                                        </div>
+                                        <div class="col-xl-4 mb-3">
+                                                     <label class="form-label">Document Type<span
+                                                                class="text-danger maditory">*</span></label>
+                                                        <select name="type" class="form-select bg-white" id="type" Required>
+                                                           <option value="">Select type</option>
+                                                           <option value="Pdf">Pdf </option>
+                                                           <option value="Excel">Excel</option>
+                                                            </select>
+                                                    </div>
+                                                    <div class="col-xl-10 mt-3 text-center">
+                                                      <button class="btn btn-primary" id="submitBtn">
+                                                        <span><i class="fa-solid fa-file-excel"></i> Export Report download</span>
+                                                      </button>
+                                                    </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -126,6 +139,151 @@
     <?php
         include "admin/plugin/plugin_js.php";
          ?>
+             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script>
+    $(document).ready(function() {
+        $("#submitBtn").click(function() {
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+            var documentType = $("#type").val();
+
+            var data = {
+                fromDate: fromDate,
+                toDate: toDate,
+                documentType: documentType
+            };
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/admin/report_down_publisher', // Change the URL to your Laravel route
+                data: data,
+                success: function(response) {
+                    if (response.pdfData) {
+          
+            var link = document.createElement('a');
+            link.href = 'data:application/pdf;base64,' + response.pdfData;
+            link.download = response.filename;
+
+           
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+           
+            console.error('PDF data is empty.');
+        }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+</script> -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $("#submitBtn").click(function() {
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+            var documentType = $("#type").val();
+
+            var data = {
+                fromDate: fromDate,
+                toDate: toDate,
+                documentType: documentType
+            };
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            if(documentType == "Excel") {
+                $.ajax({
+                    type: "POST",
+                    url: "/admin/report_down_publisher",
+                    data: data,
+                    success: function(response) {
+                      
+
+                        if (response.excelData) {
+                            toastr.success(response.success,{timeout:45000});
+
+                            downloadExcel(response.excelData);
+                        } else {
+                            toastr.error(response.error,{timeout:45000});
+
+                           
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                      
+                        console.error(error);
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: '/admin/report_down_publisher', 
+                    data: data,
+                    success: function(response) {
+
+                        if (response.pdfData) {
+                            toastr.success(response.success,{timeout:45000});
+
+                            var link = document.createElement('a');
+                            link.href = 'data:application/pdf;base64,' + response.pdfData;
+                            link.download = response.filename;
+
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                            
+                        } else {
+                            toastr.error(response.error,{timeout:45000});
+                            
+                          
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    });
+
+    function downloadExcel(data) {
+        var csvContent = "data:text/csv;charset=utf-8,";
+
+        data.forEach(function(rowArray) {
+            var row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "publishers.csv");
+        document.body.appendChild(link);
+
+        link.click();
+    }
+</script>
+
+
 </body>
 
 </html>

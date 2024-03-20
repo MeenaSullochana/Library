@@ -203,8 +203,8 @@ $('#pub_email_id').keyup(function(){
             // alert($(this).val());
             sramy=0;
             $('div#member_in_publishers_new_old_asr').css('display','none')
-            $('#pub_state_awarded').prop('required', true);
-            $('#pub_central').prop('required', true);
+            $('#pub_state_awarded').prop('required', false);
+            $('#pub_central').prop('required', false);
    
             $('#member_in_publishers_yes_old_asr').prop('required', false);
    
@@ -2826,10 +2826,10 @@ $('input[type=radio][name=member_in_publishers_yes_old_lby]').on('change', funct
             });
             break;
          case 'No':
-             $('#subsidiary_publisher_distributor').prop('required', true);
-            $('#subsidiary_publication_distribution').prop('required', true);
- $('#subsidiary_stackpercentage').prop('required', true);
-            $('#subsidiary_publication_distribution_file').prop('required', true);
+             $('#subsidiary_publisher_distributor').prop('required', false);
+            $('#subsidiary_publication_distribution').prop('required', false);
+ $('#subsidiary_stackpercentage').prop('required', false);
+            $('#subsidiary_publication_distribution_file').prop('required', false);
 
             $('#subsidiary_pub_yes').prop('required', false);
             $('.subsidiary_pub_name_bg').css('display', 'none');
