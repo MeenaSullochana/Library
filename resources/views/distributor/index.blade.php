@@ -86,7 +86,7 @@
 
                                         <a href="/distributor/dist_profile_view" class="btn btn-primary btn-sm mt-4">View Profile</a>
                                     </div>
-                                    <img src="images/analytics/developer_male.png" class="harry-img w-50" alt="">
+                                    <img src="images/analytics/developer_male.png" class="harry-img w-25" alt="">
 
                                 </div>
                             </div>
@@ -184,7 +184,7 @@
                     </div>
                     <div class="col-xl-6 col-md-6">
                     <div class="row">
-                            <div class="col-xl-6 col-sm-6">
+                            <div class="col-xl-6 col-sm-12">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -205,7 +205,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-sm-6">
+                            <div class="col-xl-6 col-sm-12">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -229,7 +229,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-xl-6 col-sm-6">
+                            <div class="col-xl-6 col-sm-12">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -250,7 +250,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-sm-6">
+                            <div class="col-xl-6 col-sm-12">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -284,7 +284,7 @@
                                     </div>
                                     <div class="col-xl-10">
                                         <div class="row">
-                                            <div class="col-xl-4 col-sm-4 col-6">
+                                            <div class="col-xl-4 col-sm-4 col-12">
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">
@@ -301,7 +301,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-4 col-sm-4 col-6">
+                                            <div class="col-xl-4 col-sm-4 col-12">
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">
@@ -318,7 +318,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-4 col-sm-4 col-6">
+                                            <div class="col-xl-4 col-sm-4 col-12">
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">

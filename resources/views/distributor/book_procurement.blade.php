@@ -59,12 +59,12 @@
             <div class="container-fluid">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <div class="d-sm-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
                                 <b>Apply For Procerement</b>
                             </h3>
                            <a onclick="javascript:window.history.back();" class="btn btn-primary  btn-sm" href="/distributor/index">
-                            <i class="fa fa-angle-double-left"></i> Go Back</a>
+                            <i class="fa fa-angle-double-left"></i> GoBack</a>
                         </div>
                     </div>
                 </div>
@@ -88,13 +88,10 @@
                             </div>
                             <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer p-3">
                                 <table id="example3" class="table dataTable no-footer" role="grid"
-                                    aria-describedby="empoloyees-tbl3_info">
+                                    aria-describedby="empoloyees-tbl3_info" style="min-width: 200px">
                                     <thead>
                                         <tr role="row">
-                                            <th class="sorting_asc" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                rowspan="1" colspan="1" aria-sort="ascending"
-                                                aria-label=": activate to sort column descending"
-                                                style="width: 25.375px;">
+                                            <th>
                                                 <div class="form-check custom-checkbox ms-0">
                                                     <input type="checkbox" class="form-check-input checkAllInput"
                                                         id="checkAll2" required="">
@@ -112,7 +109,7 @@
                                     <tbody>
                                         @foreach ($data as $key => $val)
                                             <tr role="row" class="odd">
-                                                <td class="sorting_1">
+                                                <td style="white-space:normal;" class="sorting_1">
                                                     <div class="form-check custom-checkbox">
                                                         <input type="checkbox" class="form-check-input"
                                                             id="customCheckBox100" data-book-id="{{ $val->id }}"
@@ -120,9 +117,9 @@
                                                         <label class="form-check-label" for="customCheckBox100"></label>
                                                     </div>
                                                 </td>
-                                                <td data-label="S/No">{{ $loop->index + 1 }}</td>
-                                                <td data-label="Book Id">{{ $val->product_code }}</td>
-                                                <td data-label="Title">
+                                                <td style="white-space:normal;" data-label="S/No">{{ $loop->index + 1 }}</td>
+                                                <td style="white-space:normal;" data-label="Book Id">{{ $val->product_code }}</td>
+                                                <td style="white-space:normal;" data-label="Title">
                                                     <div>
                                                         <h6><a class="text-left"
                                                                 href="/distributor/book_manage_view/{{ $val->id }}">{{ $val->book_title }}</a>
@@ -130,12 +127,12 @@
                                                         <span class="text-left">{{ $val->subtitle }}</span>
                                                     </div>
                                                 </td>
-                                                <td data-label="Author">Author</td>
-                                                <td data-label="ISBN">{{ $val->isbn }}</td>
+                                                <td style="white-space:normal;" data-label="Author">Author</td>
+                                                <td style="white-space:normal;" data-label="ISBN">{{ $val->isbn }}</td>
                                                 <!-- <td>
                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-id="{{ $val->id }}" data-bs-target="#exampleModalCenter" id="procurement">Send Procurement</button>
                                     </td> -->
-                                                <td data-label="control">
+                                                <td style="white-space:normal;" data-label="control">
 
                                                     <a href="/distributor/book_manage_view/{{ $val->id }}"
                                                         class="btn btn-success shadow btn-xs sharp me-1">

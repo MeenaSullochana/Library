@@ -4,6 +4,34 @@
 		<head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- ... other head elements ... -->
+	<style>
+		.notification {
+		background-color: #555;
+		color: white;
+		text-decoration: none;
+		padding: 15px 26px;
+		position: relative;
+		display: inline-block;
+		border-radius: 2px;
+		}
+
+		.notification:hover {
+		background: red;
+		}
+
+		.notification .badge {
+		position: absolute;
+		top: -10px;
+		right: -10px;
+		padding: 0px 5px;
+		border-radius: 50%;
+		background: red;
+		color: white;
+		}
+		a.nav-link.bell.dz-theme-mode {
+			display: none;
+		}
+	</style>
 </head>
         <div class="nav-header">
             <a href="/publisher/index" class="brand-logo">
@@ -1448,31 +1476,7 @@
        <!--**********************************
             Sidebar end
         ***********************************-->
-        <style>
-            .notification {
-  background-color: #555;
-  color: white;
-  text-decoration: none;
-  padding: 15px 26px;
-  position: relative;
-  display: inline-block;
-  border-radius: 2px;
-}
 
-.notification:hover {
-  background: red;
-}
-
-.notification .badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  padding: 0px 5px;
-  border-radius: 50%;
-  background: red;
-  color: white;
-}
-        </style>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 // Your JavaScript file

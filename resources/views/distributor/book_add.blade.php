@@ -121,14 +121,14 @@
                                 <input type="radio" id="lang2" name="language" class="custom-control-input" value="English" required>
                                 <label class="custom-control-label" for="lang2">English</label>
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio newother">
                                 <input type="radio" id="book_primary_language_new" name="language" class="custom-control-input" value="Other_Indian" required>
                                 <label class="custom-control-label" for="book_primary_language_new">Other Indian Languages (please specify)</label>
                             </div>
                             <div class="col-md-12 book_primary_lang mb-2">
                                 <input type="text" class="form-control" id="other1" name="Other_Indian" placeholder="Enter Other Indian Languages (please specify)">
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio newother">
                                 <input type="radio" id="book_primary_language_new_forein" name="language" class="custom-control-input" value="Other_Foreign" required>
                                 <label class="custom-control-label" for="book_primary_language_new_forein">Other Foreign Languages (please specify)</label>
                             </div>
@@ -2663,7 +2663,11 @@ function numberOnly(id) {
     section.bg-light-new {
         background-color: #d7dadd80;
     }
-
+    @media screen and (max-width: 600px) {
+        .custom-control.custom-radio.newother {
+            display: flex;
+        }
+        }
     #image-container {
         display: flex;
         flex-wrap: wrap;

@@ -69,10 +69,10 @@
                                 <div class="profile-info">
                                     <div class="profile-photo">
                                     @if($data->profileImage == null || !file_exists(public_path("publisher/images/profile/".$data->profileImage)))
-    <img src="{{ asset("images/default.png") }}" class="img-fluid rounded-circle" alt="">
-@else
-    <img src="{{ url("publisher/images/profile/".$data->profileImage) }}" class="img-fluid rounded-circle" alt="">
-@endif
+                                        <img src="{{ asset("images/default.png") }}" class="img-fluid rounded-circle" alt="">
+                                    @else
+                                        <img src="{{ url("publisher/images/profile/".$data->profileImage) }}" class="img-fluid rounded-circle" alt="">
+                                    @endif
                                     </div>
                                     <div class="profile-details">
                                         <div class="profile-name px-3 pt-2">

@@ -82,7 +82,7 @@
                                <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer p-3">
                                   <table id="example3" class=" table dataTable no-footer" role="grid"
                                   {{-- <table id="empoloyees-tbl3" class="table dataTable no-footer" role="grid" --}}
-                                     aria-describedby="empoloyees-tbl3_info">
+                                     aria-describedby="empoloyees-tbl3_info" style="min-width: 200px">
                                      <thead>
                                         <tr role="row">
                                         <th class="sorting_asc" tabindex="0" aria-controls="empoloyees-tbl3"
@@ -103,45 +103,39 @@
                                            <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                               colspan="1" aria-label="Issued: activate to sort column ascending"
                                               style="width: 72.7031px;"> Issued</th> -->
-                                           <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                              colspan="1" aria-label="Action: activate to sort column ascending"
-                                              style="width: 87.4688px;">  Action</th>
+                                           <th>  Action</th>
                                         </tr>
                                      </thead>
                                      <tbody>
                                      @foreach($data as $val)
                                         <tr role="row" class="odd">
-                                        <td class="sorting_1">
+                                        <td style="white-space:normal;" class="sorting_1">
                                        <div class="form-check custom-checkbox">
                                        <input type="checkbox" class="form-check-input"
                                              id="customCheckBox100" data-book-id="{{$val->id}}" required="">
                                               <label class="form-check-label" for="customCheckBox100"></label>
                                            </div>
                                         </td>
-                                           <td data-label="Book ID"><span>{{$val->product_code}}</span></td>
-                                           <td data-label="Title">
-                                              <div class="products">
-                                                 <div>
-                                                    <h6><a class="text-left" href="book_manage_view.php">{{$val->book_title}}</a></h6>
+                                           <td style="white-space:normal;" data-label="Book ID"><span>{{$val->product_code}}</span></td>
+                                           <td style="white-space:normal;" data-label="Title">
+                                                    <h6><a class="text-left" href="#">{{$val->book_title}}</a></h6>
                                                     <span class="text-left">{{$val->subtitle}}</span>
-                                                 </div>
-                                              </div>
                                            </td>
-                                           <td data-label="Auther">
+                                           <td style="white-space:normal;" data-label="Auther">
                                             <span>{{$val->author_name}}</span>
                                             </td>
-                                            <td data-label="Language">
+                                            <td style="white-space:normal;" data-label="Language">
                                                 <span>{{$val->language}}</span>
                                             </td>
-                                            <td data-label="Price"><a href="javascript:void(0)" class="text-primary">{{$val->price}}</a></td>
+                                            <td style="white-space:normal;" data-label="Price"><a href="javascript:void(0)" class="text-primary">{{$val->price}}</a></td>
 
-                                           <td data-label="isbn">
+                                           <td style="white-space:normal;" data-label="isbn">
                                               <span>{{$val->isbn}}</span>
                                            </td>
                                            <!-- <td>
                                               <span>0</span>
                                            </td> -->
-                                           <td data-label="control">
+                                           <td style="white-space:normal;" data-label="control">
                                               <div class="d-flex mt-p0">
                                                  <a href="/distributor/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                                  <i class="fa fa-eye"></i>

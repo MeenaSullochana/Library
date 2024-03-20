@@ -22,6 +22,108 @@
     <?php
         include "publisher/plugin/plugin_css.php";
     ?>
+    <style>
+        table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+        }
+        table caption {
+        font-size: 1.5em;
+        margin: .5em 0 .75em;
+        }
+        table tr {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: .35em;
+        }
+        table th,
+        table td {
+        padding: .625em;
+        text-align: center;
+        }
+        table th {
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        }
+        @media screen and (max-width: 600px) {
+        table {
+        border: 0;
+        }
+        table caption {
+        font-size: 1.3em;
+        }
+        table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+        }
+        .form-check.mt-p00.form-switch {
+        display: flex;
+        justify-content: flex-end;
+        }
+        table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+        }
+        table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+        }
+        table td::before {
+        /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        }
+        table td:last-child {
+        border-bottom: 0;
+        }
+        .d-flex.mt-p0 {
+        display: flex;
+        justify-content: flex-end;
+        }
+        }
+        /* general styling */
+        body {
+        font-family: "Open Sans", sans-serif;
+        line-height: 1.25;
+        }
+        /* .products {
+         display: flex;
+         align-items: center;
+         width: 100%;
+         overflow: scroll;
+         } */
+         .active-projects.style-1 .dt-buttons .dt-button {
+         top: -50px;
+         right: 0 !important;
+     }
+        .active-projects.style-1 .dt-buttons .dt-button {
+         top: -50px;
+         right: 0 !important;
+     }
+     
+     .active-projects tbody tr td:last-child {
+             text-align: center;
+         }
+     </style>
    </head>
    <body>
       <!--*******************
@@ -53,7 +155,7 @@
             <div class="container-fluid">
                <div class="card mb-4">
                   <div class="card-body">
-                     <div class="d-sm-flex align-items-center justify-content-between">
+                     <div class="d-flex align-items-center justify-content-between">
                         <h3 class="mb-0 bc-title">
                            <b>All Books List</b>
                         </h3>
@@ -80,11 +182,11 @@
                             </span>
                             </div>
                             <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
-                            <table id="example3" class="dataTable no-footer" role="grid" aria-describedby="empoloyees-tbl3_info">
+                            <table id="example3" class="dataTable no-footer" role="grid" aria-describedby="empoloyees-tbl3_info" style="min-width: 200px">
                                 <thead>
                                     <tr role="row">
                                     <th class="sorting_asc" tabindex="0" aria-controls="empoloyees-tbl3"
-                                        rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column descending" style="width: 25.375px;">
+                                        rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column descending" style="width: 30.375px;">
                                         <div class="form-check custom-checkbox ms-0">
                                             <input type="checkbox" class="form-check-input checkAllInput"
                                                 id="checkAll2" required="">
@@ -117,13 +219,17 @@
                                         </div>
                                     </td>
                                         <td data-label="Book ID"><span>{{$val->product_code}}</span></td>
-                                        <td data-label="Title">
+                                        {{-- <td data-label="Title">
                                             <div class="products">
                                                 <div>
                                                     <h6><a class="text-left" href="/publisher/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
                                                     <span class="text-left">{{$val->subtitle}}</span>
                                                 </div>
                                             </div>
+                                        </td> --}}
+                                        <td data-label="Title">
+                                            <h6><a class="text-left" href="/publisher/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
+                                            <span>{{$val->author_name}}</span>
                                         </td>
                                         <td data-label="Auther">
                                         <span>{{$val->author_name}}</span>
@@ -304,105 +410,4 @@
 </script>
 
 </html>
-<style>
-   table {
-   border: 1px solid #ccc;
-   border-collapse: collapse;
-   margin: 0;
-   padding: 0;
-   width: 100%;
-   table-layout: fixed;
-   }
-   table caption {
-   font-size: 1.5em;
-   margin: .5em 0 .75em;
-   }
-   table tr {
-   background-color: #f8f8f8;
-   border: 1px solid #ddd;
-   padding: .35em;
-   }
-   table th,
-   table td {
-   padding: .625em;
-   text-align: center;
-   }
-   table th {
-   font-size: .85em;
-   letter-spacing: .1em;
-   text-transform: uppercase;
-   }
-   @media screen and (max-width: 600px) {
-   table {
-   border: 0;
-   }
-   table caption {
-   font-size: 1.3em;
-   }
-   table thead {
-   border: none;
-   clip: rect(0 0 0 0);
-   height: 1px;
-   margin: -1px;
-   overflow: hidden;
-   padding: 0;
-   position: absolute;
-   width: 1px;
-   }
-   .form-check.mt-p00.form-switch {
-   display: flex;
-   justify-content: flex-end;
-   }
-   table tr {
-   border-bottom: 3px solid #ddd;
-   display: block;
-   margin-bottom: .625em;
-   }
-   table td {
-   border-bottom: 1px solid #ddd;
-   display: block;
-   font-size: .8em;
-   text-align: right;
-   }
-   table td::before {
-   /*
-   * aria-label has no advantage, it won't be read inside a table
-   content: attr(aria-label);
-   */
-   content: attr(data-label);
-   float: left;
-   font-weight: bold;
-   text-transform: uppercase;
-   }
-   table td:last-child {
-   border-bottom: 0;
-   }
-   .d-flex.mt-p0 {
-   display: flex;
-   justify-content: flex-end;
-   }
-   }
-   /* general styling */
-   body {
-   font-family: "Open Sans", sans-serif;
-   line-height: 1.25;
-   }
-   /* .products {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    overflow: scroll;
-    } */
-    .active-projects.style-1 .dt-buttons .dt-button {
-    top: -50px;
-    right: 0 !important;
-}
-   .active-projects.style-1 .dt-buttons .dt-button {
-    top: -50px;
-    right: 0 !important;
-}
 
-.active-projects tbody tr td:last-child {
-        text-align: center;
-    }
-</style>

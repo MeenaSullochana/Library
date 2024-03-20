@@ -22,7 +22,189 @@
     include 'publisher/plugin/plugin_css.php';
     ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    <style>
+        section.bg-light-new {
+            background-color: #d7dadd80;
+        }
+    
+        #image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+    
+        .image-wrapper,
+        #image-slot {
+            flex: 0 0 calc(25% - 10px);
+            aspect-ratio: 1/1;
+            /* Para mantenerlo cuadrado */
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+    
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+    
+        .image-options {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 5px;
+            cursor: pointer;
+        }
+    
+        .context-menu {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            display: none;
+            background-color: white;
+            border: 1px solid #ccc;
+            z-index: 10;
+        }
+    
+        #image-slot {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f7f7f7;
+            border: 2px dashed #ccc;
+            cursor: pointer;
+        }
+    
+        #fullscreen-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+    
+        #fullscreen-image {
+            max-width: 80%;
+            max-height: 80%;
+        }
+    
+        #prev-image,
+        #next-image,
+        #close-modal {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            cursor: pointer;
+            z-index: 101;
+        }
+    
+        #prev-image {
+            left: 10px;
+        }
+    
+        #next-image {
+            right: 10px;
+        }
+    
+        #close-modal {
+            top: 10px;
+            right: 10px;
+        }
+    
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    
+        .sortable-ghost {
+            opacity: 0.5;
+        }
+    
+        .sortable-chosen {
+            transform: scale(1.05);
+        }
+    
+        .file-upload {
+            display: none;
+        }
+    
+        .file-upload_back {
+            display: none;
+        }
+    
+        .file-upload_other {
+            display: none;
+        }
+    
+        .circle {
+            /* border-radius: 100% !important; */
+            overflow: hidden;
+            width: 128px;
+            /* height: 128px; */
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            /* position: absolute; */
+            /* top: 72px; */
+        }
+    
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    
+        .p-image {
+            position: absolute;
+            /* top: 167px;
+      right: 30px; */
+            color: #666666;
+            transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+        }
+    
+        .p-image:hover {
+            transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+        }
+    
+        .upload-button {
+            font-size: 1.2em;
+        }
+    
+        .upload-button:hover {
+            transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+            color: #999;
+        }
+        .table thead th{
+            text-transform: inherit !important;
+        }
+        .table thead th{
+            text-transform: initial !important;
+        }
+    
+        .tox-promotion {
+            display: none;
+        }
+        span.tox-statusbar__branding {
+            display: none;
+        }
+        @media screen and (max-width: 600px) {
+        .custom-control.custom-radio.newother {
+            display: flex;
+        }
+        }
+        /* image uplode end */
+    </style>
 </head>
 
 <body>
@@ -121,14 +303,14 @@
                                 <input type="radio" id="lang2" name="language" class="custom-control-input" value="English" required>
                                 <label class="custom-control-label" for="lang2">English</label>
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio newother">
                                 <input type="radio" id="book_primary_language_new" name="language" class="custom-control-input" value="Other_Indian" required>
                                 <label class="custom-control-label" for="book_primary_language_new">Other Indian Languages (please specify)</label>
                             </div>
                             <div class="col-md-12 book_primary_lang mb-2">
                                 <input type="text" class="form-control" id="other1" name="Other_Indian" placeholder="Enter Other Indian Languages (please specify)">
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio newother">
                                 <input type="radio" id="book_primary_language_new_forein" name="language" class="custom-control-input" value="Other_Foreign" required>
                                 <label class="custom-control-label" for="book_primary_language_new_forein">Other Foreign Languages (please specify)</label>
                             </div>

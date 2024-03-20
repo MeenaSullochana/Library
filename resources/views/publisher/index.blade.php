@@ -75,20 +75,20 @@
                     <div class="col-xl-7">
                         <div class="card overflow-hidden">
                             <div class="card-body">
-                                <div class="row">
-                                   <div class="col-md-6">
-                                    @php
+                                <div class="any-card">
+                                    <div class="c-con">
+                                        @php
                                         $name = auth('publisher')->user()->firstName." ".auth('publisher')->user()->lastName;
                                     @endphp
-                                        <h3 class="heading mb-0">Welcome <strong>{{$name}}!!</strong><img
-                                                src="images/crm/party-popper.png" alt=""></h3>
-                                                <a href="/publisher/pub_profile_view" class="btn btn-primary btn-sm mt-4">View Profile</a>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <img class="w-50" src="images/analytics/developer_male.png" class="harry-img" alt="">
-                                    </div>
-                                </div>
+                                        <h4 class="heading mb-0">Congratulations <strong>{{$name}}!!</strong><img
+                                                src="images/crm/party-popper.png" alt=""></h4>
 
+
+                                        <a href="/distributor/dist_profile_view" class="btn btn-primary btn-sm mt-4">View Profile</a>
+                                    </div>
+                                    <img src="images/analytics/developer_male.png" class="harry-img w-25" alt="">
+
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -184,7 +184,7 @@
                     </div>
                     <div class="col-xl-6 col-md-6">
                         <div class="row">
-                            <div class="col-xl-6 col-sm-6">
+                            <div class="col-xl-6 col-sm-12">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -205,7 +205,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-sm-6">
+                            <div class="col-xl-6 col-sm-12">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -229,7 +229,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-xl-6 col-sm-6">
+                            <div class="col-xl-6 col-sm-12">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -250,7 +250,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-sm-6">
+                            <div class="col-xl-6 col-sm-12">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -283,7 +283,7 @@
                                     </div>
                                     <div class="col-xl-10">
                                         <div class="row">
-                                            <div class="col-xl-4 col-sm-4 col-6">
+                                            <div class="col-xl-4 col-sm-6 col-12">
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">
@@ -300,7 +300,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-4 col-sm-4 col-6">
+                                            <div class="col-xl-4 col-sm-6 col-12">
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">
@@ -317,7 +317,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-4 col-sm-4 col-6">
+                                            <div class="col-xl-4 col-sm-6 col-12">
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">

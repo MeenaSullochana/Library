@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="" />
     <meta name="description" content="" />
+<!-- FAVICONS ICON -->
+<link rel="shortcut icon" type="image/png" href="{{ asset('/assets/img/logo/fevi.svg') }}">
     <title>BOOK FAIR</title>
     <?php include "plugin/plugin_css.php"; ?>
 </head>

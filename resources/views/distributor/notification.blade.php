@@ -61,7 +61,7 @@
                         <h3>Notification List</h3>
                      </div>
                      <div class="item">
-                       <a href="index.php"> <button type="button" class="btn btn-primary"><i class="fa fa-backward" aria-hidden="true"></i> Back</button></a>
+                       <a href="index"> <button type="button" class="btn btn-primary"><i class="fa fa-backward" aria-hidden="true"></i> Back</button></a>
                      </div>
                   </div>
                </div>

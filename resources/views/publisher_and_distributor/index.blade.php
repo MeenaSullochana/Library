@@ -77,15 +77,16 @@
                             <div class="card-body">
                                 <div class="any-card">
                                     <div class="c-con">
-                                             @php
+                                        @php
                                         $name = auth('publisher_distributor')->user()->firstName." ".auth('publisher_distributor')->user()->lastName;
                                     @endphp
                                         <h4 class="heading mb-0">Congratulations <strong>{{$name}}!!</strong><img
                                                 src="images/crm/party-popper.png" alt=""></h4>
 
-                                        <a href="/publisher_and_distributor/publisher_and_dis_profile_view" class="btn btn-primary btn-sm mt-4">View Profile</a>
+
+                                                <a href="/publisher_and_distributor/publisher_and_dis_profile_view" class="btn btn-primary btn-sm mt-4">View Profile</a>
                                     </div>
-                                    <img src="images/analytics/developer_male.png" class="harry-img w-50" alt="">
+                                    <img src="images/analytics/developer_male.png" class="harry-img w-25" alt="">
 
                                 </div>
                             </div>
@@ -282,7 +283,7 @@
                                     </div>
                                     <div class="col-xl-10">
                                         <div class="row">
-                                            <div class="col-xl-4 col-sm-4 col-6">
+                                            <div class="col-xl-4 col-sm-6 col-12">
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">
@@ -299,7 +300,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-4 col-sm-4 col-6">
+                                            <div class="col-xl-4 col-sm-6 col-12">
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">
@@ -316,7 +317,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-4 col-sm-4 col-6">
+                                            <div class="col-xl-4 col-sm-6 col-12">
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">

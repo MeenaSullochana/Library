@@ -1,4 +1,3 @@
-<!-- Place favicon.ico in the root directory -->
 <!-- CSS here -->
 <link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
