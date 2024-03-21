@@ -102,22 +102,11 @@
                                           <label class="form-check-label" for="checkAll2"></label>
                                        </div>
                                     </th>
-                                    <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1" aria-label="ERoll No: activate to sort column ascending"
-                                       style="width: 97.5156px;">S.No</th>
-                                    <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1" aria-label="ERoll No: activate to sort column ascending"
-                                       style="width: 97.5156px;">Book ID</th>
-                                    <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1"
-                                       aria-label="Books: activate to sort column ascending"
-                                       style="width: 145.219px;">Title</th>
-                                       <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1" aria-label="Issued: activate to sort column ascending"
-                                       style="width: 72.7031px;"> ISBN</th>
-                                    <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1" aria-label="Action: activate to sort column ascending"
-                                       style="width: 87.4688px;">  Action</th>
+                                    <th>S.No</th>
+                                    <th>Book ID</th>
+                                    <th>Title</th>
+                                    <th> ISBN</th>
+                                    <th> Action</th>
                                  </tr>
                               </thead>
                               <tbody>
@@ -132,13 +121,9 @@
                                  </td>
                                  <td data-label="S/No">{{$loop->index+1}}</td>
                                     <td data-label="Book ID">{{$val->product_code}}</td>
-                                    <td data-label="Title">
-                                       <div>
-
-                                             <h6><a class="text-left" href="/publisher_and_distributor/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
-                                             <span class="text-left">{{$val->subtitle}}</span>
-
-                                       </div>
+                                    <td style="white-space:normal;" data-label="Title">
+                                       <h6><a class="text-left" href="/publisher_and_distributor/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
+                                       <span class="text-left">{{$val->subtitle}}</span>
                                     </td>
                                     <td data-label="ISBN">{{$val->isbn}}</td>
                                     <!-- <td>
