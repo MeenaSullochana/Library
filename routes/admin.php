@@ -813,13 +813,46 @@ Route::post('/currencytype_statuschange',[LibraryTypeController::class,'currency
 
     return view('admin.currencytype_edit')->with("data",$data);
 
-
  });
   Route::post('/currencytype_edit',[LibraryTypeController::class,'currencytype_edit']);
-
-
-
 Route::get('/get-metabooks/{id}',[BookController::class,'metabooks']);
+// magazinecategory
+
+Route::get('/magazinecategory_add',function(){ return view('admin.magazinecategory_add');});
+Route::post('/magazinecategoryadd',[LibraryTypeController::class,'magazinecategoryadd']);
+Route::get('/magazinecategory_list',function(){ return view('admin.magazinecategory_list');});
+Route::post('/magazinecategory_statuschange',[LibraryTypeController::class,'magazinecategory_statuschange']);
+ Route::post('/magazinecategory_delete',[LibraryTypeController::class,'magazinecategory_delete']);
+
+
+ Route::get('/magazinecategory-edit/{id}',[LibraryTypeController::class,'magazinecategoryedit']);
+ Route::get('/MagazineCategorydata',function(){
+    $data = Session::get('MagazineCategory');
+
+    return view('admin.magazinecategory_edit')->with("data",$data);
+
+ });
+   Route::post('/magazine-category-edit',[LibraryTypeController::class,'magazinecategory_edit']);
+
+// Magazine Periodicity
+
+Route::get('/magazineperiodicity_add',function(){ return view('admin.magazineperiodicity_add');});
+Route::post('/magazineperiodicityadd',[LibraryTypeController::class,'magazineperiodicityadd']);
+Route::get('/magazineperiodicity_list',function(){ return view('admin.magazineperiodicity_list');});
+Route::post('/magazineperiodicity_statuschange',[LibraryTypeController::class,'magazineperiodicity_statuschange']);
+ Route::post('/magazineperiodicity_delete',[LibraryTypeController::class,'magazineperiodicity_delete']);
+
+
+ Route::get('/magazineperiodicity-edit/{id}',[LibraryTypeController::class,'magazineperiodicityedit']);
+ Route::get('/MagazinePeriodicitydata',function(){
+    $data = Session::get('MagazinePeriodicity');
+
+    return view('admin.magazineperiodicity_edit')->with("data",$data);
+
+ });
+   Route::post('/magazine-eriodicity-edit',[LibraryTypeController::class,'magazineperiodicity_edit']);
+
+
 
 // negotiation
 Route::post('/sendnegotiation',[BookController::class,'sendnegotiation']);
@@ -860,6 +893,7 @@ Route::post('/report_downl_pubdist ',[SettingController::class,'report_downl_pub
 Route::get('/report_download_pub_dist',function(){ return view('admin.report_download_pub_dist');});
 Route::get('/pdfviewpubdist',function(){ return view('admin.pdfviewpubdist');});
 
+Route::get('/magazinebudget_add',function(){ return view('admin.magazinebudget_add');});
 
 
 

@@ -1,10 +1,11 @@
         <!--**********************************
             Nav header start
         ***********************************-->
+
         <head>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <!-- ... other head elements ... -->
-</head>
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+            <!-- ... other head elements ... -->
+        </head>
         <div class="nav-header">
             <a href="/" class="brand-logo">
 
@@ -1101,7 +1102,7 @@
                                     </a></span>
                             </div> -->
                             <ul class="navbar-nav">
-                                <li class="nav-item dropdown notification_dropdown " >
+                                <li class="nav-item dropdown notification_dropdown ">
                                     <a class="nav-link bell dz-theme-mode " href="javascript:void(0);">
                                         <svg id="icon-light" xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
@@ -1129,18 +1130,18 @@
                                     </a>
                                 </li>
                                 <li class="nav-item dropdown notification_dropdown notify">
-                                <a class="nav-link notification" href="javascript:void(0);" role="button"
+                                    <a class="nav-link notification" href="javascript:void(0);" role="button"
                                         data-bs-toggle="dropdown">
                                         <span><svg width="25" height="24" viewBox="0 0 25 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M17.5 12H19C19.8284 12 20.5 12.6716 20.5 13.5C20.5 14.3284 19.8284 15 19 15H6C5.17157 15 4.5 14.3284 4.5 13.5C4.5 12.6716 5.17157 12 6 12H7.5L8.05827 6.97553C8.30975 4.71226 10.2228 3 12.5 3C14.7772 3 16.6903 4.71226 16.9417 6.97553L17.5 12Z"
-                                                fill="#222B40" />
-                                            <path opacity="0.3"
-                                                d="M14.5 18C14.5 16.8954 13.6046 16 12.5 16C11.3954 16 10.5 16.8954 10.5 18C10.5 19.1046 11.3954 20 12.5 20C13.6046 20 14.5 19.1046 14.5 18Z"
-                                                fill="#222B40" />
-                                        </svg></span>
-                                        <span class="badge bg-danger" id ="count"></span>
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M17.5 12H19C19.8284 12 20.5 12.6716 20.5 13.5C20.5 14.3284 19.8284 15 19 15H6C5.17157 15 4.5 14.3284 4.5 13.5C4.5 12.6716 5.17157 12 6 12H7.5L8.05827 6.97553C8.30975 4.71226 10.2228 3 12.5 3C14.7772 3 16.6903 4.71226 16.9417 6.97553L17.5 12Z"
+                                                    fill="#222B40" />
+                                                <path opacity="0.3"
+                                                    d="M14.5 18C14.5 16.8954 13.6046 16 12.5 16C11.3954 16 10.5 16.8954 10.5 18C10.5 19.1046 11.3954 20 12.5 20C13.6046 20 14.5 19.1046 14.5 18Z"
+                                                    fill="#222B40" />
+                                            </svg></span>
+                                        <span class="badge bg-danger" id="count"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <div id="DZ_W_Notification1" class="widget-media dz-scroll p-2"
@@ -1148,9 +1149,9 @@
                                             <ul class="timeline" name="record">
                                                 <li>
 
-                                                            <h6 class="mb-0">No Notification Found</h6>
+                                                    <h6 class="mb-0">No Notification Found</h6>
 
-                                                 </li>
+                                                </li>
                                             </ul>
                                         </div>
                                         <a class="all-notification" href="javascript:void(0);">See all notifications <i
@@ -1265,7 +1266,8 @@
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             <div class="header-info2 d-flex align-items-center">
                                                 <div class="header-media">
-                                                    <img src="{{asset("admin/AdminImage/".auth('admin')->user()->adminImage)}}" alt="">
+                                                    <img src="{{asset("admin/AdminImage/".auth('admin')->user()->adminImage)}}"
+                                                        alt="">
                                                 </div>
                                             </div>
                                         </a>
@@ -1273,7 +1275,8 @@
                                             <div class="card border-0 mb-0">
                                                 <div class="card-header py-2">
                                                     <div class="products">
-                                                        <img src="{{asset("admin/AdminImage/".auth('admin')->user()->adminImage)}}" class="avatar avatar-md" alt="">
+                                                        <img src="{{asset("admin/AdminImage/".auth('admin')->user()->adminImage)}}"
+                                                            class="avatar avatar-md" alt="">
                                                         <div>
                                                             <h6>{{auth('admin')->user()->name }}</h6>
                                                             <span>{{auth('admin')->user()->email }}</span>
@@ -1309,7 +1312,7 @@
                                                             class="badge badge-sm badge-primary rounded-circle text-white ms-2">4</span>
                                                     </a> -->
                                                     <a href="/admin/change_password" class="dropdown-item ai-icon ">
-                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                                 d="M20.8066 7.62355L20.1842 6.54346C19.6576 5.62954 18.4907 5.31426 17.5755 5.83866V5.83866C17.1399 6.09528 16.6201 6.16809 16.1307 6.04103C15.6413 5.91396 15.2226 5.59746 14.9668 5.16131C14.8023 4.88409 14.7139 4.56833 14.7105 4.24598V4.24598C14.7254 3.72916 14.5304 3.22834 14.17 2.85761C13.8096 2.48688 13.3145 2.2778 12.7975 2.27802H11.5435C11.0369 2.27801 10.5513 2.47985 10.194 2.83888C9.83666 3.19791 9.63714 3.68453 9.63958 4.19106V4.19106C9.62457 5.23686 8.77245 6.07675 7.72654 6.07664C7.40418 6.07329 7.08843 5.98488 6.8112 5.82035V5.82035C5.89603 5.29595 4.72908 5.61123 4.20251 6.52516L3.53432 7.62355C3.00838 8.53633 3.31937 9.70255 4.22997 10.2322V10.2322C4.82187 10.574 5.1865 11.2055 5.1865 11.889C5.1865 12.5725 4.82187 13.204 4.22997 13.5457V13.5457C3.32053 14.0719 3.0092 15.2353 3.53432 16.1453V16.1453L4.16589 17.2345C4.41262 17.6797 4.82657 18.0082 5.31616 18.1474C5.80575 18.2865 6.33061 18.2248 6.77459 17.976V17.976C7.21105 17.7213 7.73116 17.6515 8.21931 17.7821C8.70746 17.9128 9.12321 18.233 9.37413 18.6716C9.53867 18.9488 9.62708 19.2646 9.63043 19.5869V19.5869C9.63043 20.6435 10.4869 21.5 11.5435 21.5H12.7975C13.8505 21.5 14.7055 20.6491 14.7105 19.5961V19.5961C14.7081 19.088 14.9088 18.6 15.2681 18.2407C15.6274 17.8814 16.1154 17.6806 16.6236 17.6831C16.9451 17.6917 17.2596 17.7797 17.5389 17.9393V17.9393C18.4517 18.4653 19.6179 18.1543 20.1476 17.2437V17.2437L20.8066 16.1453C21.0617 15.7074 21.1317 15.1859 21.0012 14.6963C20.8706 14.2067 20.5502 13.7893 20.111 13.5366V13.5366C19.6717 13.2839 19.3514 12.8665 19.2208 12.3769C19.0902 11.8872 19.1602 11.3658 19.4153 10.9279C19.5812 10.6383 19.8213 10.3981 20.111 10.2322V10.2322C21.0161 9.70283 21.3264 8.54343 20.8066 7.63271V7.63271V7.62355Z"
@@ -1414,57 +1417,92 @@
                             <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
-                     <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <li>
+                        <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-tags"></i>
-                            <span class="nav-text"> Management Category</span>
+                            <span class="nav-text">Management Category</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Library Type   </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/admin/library_type_create">Library Type Add</a></li>
-                            <li><a href="/admin/library_type_list">Library Type List</a></li>
-                        </ul>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Library Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/library_type_create">Library Type Add</a></li>
+                                    <li><a href="/admin/library_type_list">Library Type List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Category Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/categories_add">Category Add</a></li>
+                                    <li><a href="/admin/categories_list">Category List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Subject
+                                    Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/booksubject_add">Book Subject Add</a></li>
+                                    <li><a href="/admin/booksubject_list">Book Subject List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book GSM Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/bookgsm_add">Book GSM Add</a></li>
+                                    <li><a href="/admin/bookgsm_list">Book GSM List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Dimension
+                                    Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/bookdimension_add">Book Dimension Add</a></li>
+                                    <li><a href="/admin/bookdimension_list">Book Dimension List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Paper
+                                    Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/bookpapertype_add">Book Paper Type Add</a></li>
+                                    <li><a href="/admin/bookpapertype_list">Book Paper Type List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Paper
+                                    Finishing Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/bookpaperfinishing_add">Book Paper Finishing Add</a></li>
+                                    <li><a href="/admin/bookpaperfinishing_list">Book Paper Finishing List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Currency Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/currencytype_add">Currency Type Add</a></li>
+                                    <li><a href="/admin/currencytype_list">Currency Type List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Magazine
+                                    Category</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/magazinecategory_add">Magazine Category Add</a></li>
+                                    <li><a href="/admin/magazinecategory_list">Magazine Category List</a></li>
+                                </ul>
+                            </li>
 
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Category Type   </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/admin/categories_add">Category Add</a></li>
-                            <li><a href="/admin/categories_list">Category List</a></li>
-                            </ul>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Subject Type   </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/admin/booksubject_add">Book Subject Add</a></li>
-                            <li><a href="/admin/booksubject_list">Book Subject List</a></li>
-                            </ul>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book GSM Type   </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/admin/bookgsm_add">Book GSM Add</a></li>
-                            <li><a href="/admin/bookgsm_list">Book GSM List</a></li>
-                            </ul>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Dimension Type</a>
-                        <ul aria-expanded="false">
-                            <li><a href="/admin/bookdimension_add">Book Dimension Add</a></li>
-                            <li><a href="/admin/bookdimension_list">Book Dimension List</a></li>
-                            </ul>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Paper Type   </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/admin/bookpapertype_add">Book Paper Type Add</a></li>
-                            <li><a href="/admin/bookpapertype_list">Book Paper Type List</a></li>
-                            </ul>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Paper Finishing Type   </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/admin/bookpaperfinishing_add">Book Paper Finishing Add</a></li>
-                            <li><a href="/admin/bookpaperfinishing_list">Book Paper Finishing List</a></li>
-                            </ul>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Currency Type   </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/admin/currencytype_add">Currency Type Add</a></li>
-                            <li><a href="/admin/currencytype_list">Currency Type List</a></li>
-
-
-                            <!-- <li><a href="manage_child_category">Child Category</a></li> -->
-                        </ul>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Magazine
+                                Periodicity</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/magazineperiodicity_add">Magazine Periodicity Add</a></li>
+                                    <li><a href="/admin/magazineperiodicity_list">Magazine Periodicity List</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
+
                     {{-- <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <div class="menu-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -1523,26 +1561,26 @@
                             <span class="nav-text">Site Management </span>
                         </a>
                         <ul aria-expanded="false">
-                        <li><a href="homecontent">Register Page Content</a></li>
+                            <li><a href="homecontent">Register Page Content</a></li>
 
-                        <li><a href="logincontent">Login Page Content</a></li>
-                        <li><a href="forgotcontent">Forgot Page Content</a></li>
+                            <li><a href="logincontent">Login Page Content</a></li>
+                            <li><a href="forgotcontent">Forgot Page Content</a></li>
 
-                        <li><a href="forgotpasswordcontent">Password Page Content</a></li>
-                        <li><a href="mailverificationcontent">Mail Verification Page Content</a></li>
+                            <li><a href="forgotpasswordcontent">Password Page Content</a></li>
+                            <li><a href="mailverificationcontent">Mail Verification Page Content</a></li>
 
                             <li><a href="manage_general_setting">General Setting</a></li>
                             <!-- <li><a href="banner_setting">Home Setting</a></li> -->
-                               <li><a href="usermanualguidelines">User Manual Guidelines</a></li>
-                            
+                            <li><a href="usermanualguidelines">User Manual Guidelines</a></li>
+
                             <li><a href="slider_setting">Thirukkural</a></li>
 
-                            
+
                             {{-- <li><a href="site_announcement">Announcement Setting</a></li> --}}
                             <li><a href="smtp">SMTP</a></li>
                             <li><a href="mailurl">Mail Url</a></li>
 
-                          
+
                             {{-- <li><a href="country_list">Country List</a></li>
                             <li><a href="state_list">State List</a></li>
                             <li><a href="district_list">District List</a></li>
@@ -1603,7 +1641,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="">Chat<span class="badge badge-danger badge-xs ms-1">NEW</span></a></li> -->
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher   </a>
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher </a>
                                 <ul aria-expanded="false">
                                     <!-- <li><a href="./user.html">Publisher List</a></li> -->
                                     <li><a href="publisher_list">List Publisher</a></li>
@@ -1620,7 +1658,7 @@
                             </li>
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor</a>
                                 <ul aria-expanded="false">
-                                <li><a href="distributor_list">List Distributor</a></li>
+                                    <li><a href="distributor_list">List Distributor</a></li>
                                     <li><a href="distributor_active_list">Active Distributor</a></li>
                                     <li><a href="distributor_inactive_list">Inactive Distributor</a></li>
                                     <li><a href="distributor_pending_list">Pending Distributor</a></li>
@@ -1632,7 +1670,7 @@
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher And
                                     Distributor</a>
                                 <ul aria-expanded="false">
-                                <li><a href="publisher_and_dis_list"> List Pub & Dist</a></li>
+                                    <li><a href="publisher_and_dis_list"> List Pub & Dist</a></li>
                                     <li><a href="publisher_and_dis_active_list">Active Pub & Dist</a></li>
                                     <li><a href="publisher_and_dis_inactive_list">Inactive Pub & Dist</a></li>
                                     <li><a href="publisher_and_dis_pending_list">Pending Pub & Dist</a></li>
@@ -1704,7 +1742,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="aplication_fair_list">Fair List</a></li> -->
-                            <!-- <li><a class="has-arrow" href="publisher_list.php" aria-expanded="false">Publisher
+                    <!-- <li><a class="has-arrow" href="publisher_list.php" aria-expanded="false">Publisher
                                     Application</a>
 
                                 <ul aria-expanded="false">
@@ -1730,7 +1768,7 @@
                                     <li><a href="dist_pub_application_rejecte_list.php">Rejected Application </a></li>
                                 </ul>
                             </li> -->
-                        <!-- </ul>
+                    <!-- </ul>
                     </li> -->
 
                     <!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
@@ -1766,7 +1804,7 @@
                         </ul>
                     </li> -->
 
-                     <!-- <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                    <!-- <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-people"></i>
                             <span class="nav-text">Sub Admin Manage </span>
                         </a>
@@ -1779,14 +1817,14 @@
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-person-plus"></i>
-                            <span class="nav-text">Role Management  </span>
+                            <span class="nav-text">Role Management </span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="member_create">Create Member </a></li>
                             <li><a href="multimember_create">Create Multi Member </a></li>
                         </ul>
 
-                        
+
                     </li>
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
@@ -1795,7 +1833,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
-                            <li><a href="member_list">List Reviewer  </a></li>
+                            <li><a href="member_list">List Reviewer </a></li>
                             <li><a href="member_active">Active Reviewer </a></li>
                             <li><a href="member_inactive">Inactive Reviewer </a></li>
                         </ul>
@@ -1807,9 +1845,9 @@
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
-                            <li><a href="library_list">List Library  </a></li>
-                            <li><a href="library_active_list">Active Library  </a></li>
-                            <li><a href="library_unactive_list">Inactive Library  </a></li>
+                            <li><a href="library_list">List Library </a></li>
+                            <li><a href="library_active_list">Active Library </a></li>
+                            <li><a href="library_unactive_list">Inactive Library </a></li>
                         </ul>
                     </li>
                     <!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
@@ -1911,8 +1949,18 @@
                             <!-- <li><a href="/admin/procur_book_list">Book List</a></li> -->
                             <li><a href="/admin/procur_pending_list">Pending List</a></li>
                             <li><a href="/admin/procur_complete_list">Complete List</a></li>
-                            <li><a href="/admin/magazine_add">Magazine Add</a></li>
                             {{-- <li><a href="/admin/procur_reject_view">Unaccept list</a> </li> --}}
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-card-checklist"></i>
+                            <span class="nav-text">Magazine Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+
+                            <li><a href="/admin/magazine_add">Magazine Add</a></li>
+                            <li><a href="/admin/magazine_list">Magazine list</a> </li>
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
@@ -1935,9 +1983,9 @@
                             <span class="nav-text">Management Book </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="manage_book_list">Book list   </a></li>
-                            <li><a href="manage_active_book_list">Active Book List   </a></li>
-                            <li><a href="manage_inactive_book_list">Inactive Book List  </a></li>
+                            <li><a href="manage_book_list">Book list </a></li>
+                            <li><a href="manage_active_book_list">Active Book List </a></li>
+                            <li><a href="manage_inactive_book_list">Inactive Book List </a></li>
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
@@ -1947,12 +1995,14 @@
                         <ul aria-expanded="false">
                             <li><a href="/admin/budget">Make BookBudget</a></li>
                             <li><a href="/admin/budgetlist">BookBudget List</a></li>
-                        </ul>
+                            <li><a href="/admin/magazinebudget_add">Make MagazineBudget</a></li>
+                            <li><a href="/admin/magazinebudget_list">MagazineBudget List</a></li>
+                        </ul> 
                     </li>
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                        <i class="bi bi-receipt"></i>
-							<span class="nav-text">Quote Management</span>
+                            <i class="bi bi-receipt"></i>
+                            <span class="nav-text">Quote Management</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="manage_quote_list">Quote List </a></li>
@@ -1964,7 +2014,7 @@
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-bag"></i>
-							<span class="nav-text">Order Management</span>
+                            <span class="nav-text">Order Management</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="manage_order_list">Order List </a></li>
@@ -1995,7 +2045,7 @@
                         </ul>
                     </li> -->
 
-<!--
+                    <!--
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-megaphone"></i>
                             <span class="nav-text">Manage Announcement</span>
@@ -2014,7 +2064,7 @@
                         </ul>
                     </li> -->
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                        <i class="bi bi-megaphone"></i>
+                            <i class="bi bi-megaphone"></i>
                             <span class="nav-text">Manage Announcement</span>
                         </a>
                         <ul aria-expanded="false">
@@ -2059,10 +2109,11 @@
                     </li>  -->
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-person-lines-fill"></i>
-                            <span class="nav-text">Account Management   </span>
+                            <span class="nav-text">Account Management </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher Payment</a>
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher
+                                    Payment</a>
                                 <ul aria-expanded="false">
                                     <li><a href="publisher_payment_list">List Payment</a></li>
                                     <li><a href="publisher_payment_cancel_list">Cancelled Payment</a></li>
@@ -2070,7 +2121,8 @@
                                     <!-- <li><a href="#">Refound Payment</a></li> -->
                                 </ul>
                             </li>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor Payment</a>
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor
+                                    Payment</a>
                                 <ul aria-expanded="false">
                                     <li><a href="distributor_all_payment_list">List Payment</a></li>
                                     <li><a href="distributor_cencel_payment_list">Cancelled Payment</a></li>
@@ -2078,7 +2130,8 @@
                                     <!-- <li><a href="#">Refound Payment</a></li> -->
                                 </ul>
                             </li>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher & Distributor Payment</a>
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher &
+                                    Distributor Payment</a>
                                 <ul aria-expanded="false">
                                     <li><a href="publisher_and_dis_all_payment_list">List Payment</a></li>
                                     <li><a href="publisher_and_dis_cencel_payment_list">Cancelled Payment</a></li>
@@ -2086,7 +2139,8 @@
                                     <!-- <li><a href="#">Refound Payment</a></li> -->
                                 </ul>
                             </li>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Reviewer Payment</a>
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Reviewer
+                                    Payment</a>
                                 <ul aria-expanded="false">
                                     <li><a href="reviewer_all_user_payment">List Payment</a></li>
                                     <li><a href="reviewer_cencelled_payment">Cancelled Payment</a></li>
@@ -2105,21 +2159,21 @@
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                        <i class="bi bi-printer"></i>
-							<span class="nav-text">Report Management</span>
-						</a>
-						<ul aria-expanded="false">
-						{{-- <li><a href="report_download">Book Fair Report Download</a></li> --}}
-                        <li><a href="report_download_publisher">Publisher Report Download</a></li>
+                            <i class="bi bi-printer"></i>
+                            <span class="nav-text">Report Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            {{-- <li><a href="report_download">Book Fair Report Download</a></li> --}}
+                            <li><a href="report_download_publisher">Publisher Report Download</a></li>
                             <li><a href="/admin/report_download_distributor">distributo Report Download</a></li>
-							<li><a href="report_download_pub_dist">Publisher Cum distributo Report Download</a></li>
+                            <li><a href="report_download_pub_dist">Publisher Cum distributo Report Download</a></li>
 
                             <li><a href="report_download_order">Order Management Download</a></li>
-							<li><a href="report_download_payment">Payment Report Download</a></li>
-							<li><a href="report_download_reviwer">Reviewer Report Download</a></li>
-							<li><a href="report_download_pub_revi">Publisher & Reviewer Report Download</a></li>
-						</ul>
-					</li>
+                            <li><a href="report_download_payment">Payment Report Download</a></li>
+                            <li><a href="report_download_reviwer">Reviewer Report Download</a></li>
+                            <li><a href="report_download_pub_revi">Publisher & Reviewer Report Download</a></li>
+                        </ul>
+                    </li>
                     <!-- <li><a href="#" class="" aria-expanded="false">
                             <div class="menu-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -2151,87 +2205,83 @@
             Sidebar end
         ***********************************-->
         <style>
-            .notification {
-  background-color: #555;
-  color: white;
-  text-decoration: none;
-  padding: 15px 26px;
-  position: relative;
-  display: inline-block;
-  border-radius: 2px;
+.notification {
+    background-color: #555;
+    color: white;
+    text-decoration: none;
+    padding: 15px 26px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
 }
 
 .notification:hover {
-  background: red;
+    background: red;
 }
 
 .notification .badge {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  padding: 0px 5px;
-  border-radius: 50%;
-  background: red;
-  color: white;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 0px 5px;
+    border-radius: 50%;
+    background: red;
+    color: white;
 }
         </style>
-  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
 // Your JavaScript file
 
 $(document).ready(function() {
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            url: '/admin/notifications',
-            type: 'GET',
-            success: function(response) {
-                console.log(response);
-                if(response.record ){
-
-                       $('ul[name="record"]').empty();
-                       $('ul[name="record"]').html(response.record);
-                       if(response.count == 0){
-                        $('#count').empty();
-                       }else{
-                        $('#count').empty();
-                        $('#count').html(response.count);
-                       }
-
-
-
-               }
-
-            },
-
-        });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
 
+    $.ajax({
+        url: '/admin/notifications',
+        type: 'GET',
+        success: function(response) {
+            console.log(response);
+            if (response.record) {
+
+                $('ul[name="record"]').empty();
+                $('ul[name="record"]').html(response.record);
+                if (response.count == 0) {
+                    $('#count').empty();
+                } else {
+                    $('#count').empty();
+                    $('#count').html(response.count);
+                }
 
 
-</script>
-<script>
 
-       $(document).on('click','.notify',function(e){
-        $('#count').empty();
-        e.preventDefault();
+            }
 
-          $.ajaxSetup({
-             headers:{
-                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-             }
-          });
-          $.ajax({
-             type:"get",
+        },
 
-             url: "/admin/notificationstatus",
-             success: function(response) {
-                console.log(response);
+    });
+});
+        </script>
+        <script>
+$(document).on('click', '.notify', function(e) {
+    $('#count').empty();
+    e.preventDefault();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: "get",
+
+        url: "/admin/notificationstatus",
+        success: function(response) {
+            console.log(response);
             //     if(response.success){
             //            $('ul[name="record"]').empty();
             //            $('ul[name="record"]').html(response.success);
@@ -2242,10 +2292,8 @@ $(document).ready(function() {
 
             //    }
 
-            }
-          });
+        }
+    });
 
-       });
-
-      </script>
-
+});
+        </script>

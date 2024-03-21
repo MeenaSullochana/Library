@@ -59,7 +59,7 @@
                     <div class="row p-3 bg-white rounded-2 mb-3">
                         <div class="col-md-12 d-flex justify-content-between">
                             <div class="item">
-                                <h3>Create Budget</h3>
+                                <h3>Create Magazine Budget</h3>
                             </div>
                             <div class="item">
                                 <a href="index.php"> <button type="button" class="btn btn-primary"><i
@@ -77,9 +77,9 @@
                                             <div class="mail-list rounded ">
                                                 <a class="list-group-item active">
                                                     <i class="fa-solid fa-money-bill"></i>Create Library
-                                                    Budget </a>
-                                                <a href="/admin/budgetlist" class="list-group-item">
-                                                    <i class="fa-solid fa-list-check"></i>Library Budget List<span
+                                                    Magazine Budget </a>
+                                                <a href="/admin/magazinebudget_list" class="list-group-item">
+                                                    <i class="fa-solid fa-list-check"></i>Library Magazine Budget List<span
                                                         class="badge badge-purple badge-sm float-end rounded">2</span></a>
                                             </div>
                                         </div>
@@ -134,12 +134,29 @@
                                                         </div>
                                                         <div class="row">
                                                             @php
-                                                            $categories =
-                                                            DB::table('special_categories')->where('status', '=',
-                                                            1)->get();
+                                                            $categories = DB::table('magazine_categories')
+                                                             ->where('status', '=', 1)
+                                                                ->where('language', '=', 'Tamil') 
+                                                                  ->orderBy('created_at', 'Asc') 
+                                                               ->get();
+                                                               $categories1 = DB::table('magazine_categories')
+                                                             ->where('status', '=', 1)
+                                                                ->where('language', '=', 'English') 
+                                                                  ->orderBy('created_at', 'Asc') 
+                                                               ->get();
                                                             @endphp
 
                                                             @foreach($categories as $val)
+                                                            <div class="col-md-4">
+                                                                <p>{{ $val->name }}<span
+                                                                        class="text-danger maditory">*</span></p>
+                                                                Rs.<input type="number"
+                                                                    class="form-control category-input"
+                                                                    data-name="{{ $val->name }}"
+                                                                    name="category[{{ $val->name }}]">
+                                                            </div>
+                                                            @endforeach
+                                                            @foreach($categories1 as $val)
                                                             <div class="col-md-4">
                                                                 <p>{{ $val->name }}<span
                                                                         class="text-danger maditory">*</span></p>
