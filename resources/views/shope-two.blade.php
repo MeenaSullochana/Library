@@ -179,8 +179,45 @@
                                                     </ul>
                                                 </div>
                                                 <div class="product__details-payment text-center">
-                                                    <img src="https://cdn.shopify.com/s/files/1/0280/8365/0642/files/Add_a_heading_480x480.png" alt="">
-                                                    <span>Guarantee safe & Secure checkout</span>
+                                                    <img src="https://cdn.shopify.com/s/files/1/0280/8365/0642/files/Add_a_heading_480x480.png"
+                                                        alt="">
+                                                    <button class="btn btn-primary">
+                                                        <span class="btn-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#modalId"><i class="fa fa-book"></i> Read Sample PDF</span></button>
+
+                                                    <!-- Modal Body -->
+                                                    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+                                                    <div class="modal fade" id="modalId" tabindex="-1"
+                                                        data-bs-backdrop="static" data-bs-keyboard="false"
+                                                        role="dialog" aria-labelledby="modalTitleId"
+                                                        aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl"
+                                                            role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="modalTitleId">
+                                                                        Read Sample Pdf
+                                                                    </h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <iframe
+                                                                        src="http://docs.google.com/gview?url=http://www.pdf995.com/samples/pdf.pdf&embedded=true"
+                                                                        style="width:100%; height:1000px;"
+                                                                        frameborder="0"></iframe>
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">
+                                                                        Close
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -198,7 +235,8 @@
                                                 aria-selected="true">Magazine Description</button>
                                             <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab"
                                                 data-bs-target="#nav-information" type="button" role="tab"
-                                                aria-controls="nav-information" aria-selected="false">Addition information</button>
+                                                aria-controls="nav-information" aria-selected="false">Addition
+                                                information</button>
                                         </div>
                                     </nav>
                                 </div>
@@ -228,7 +266,8 @@
                                                 </ul>
                                                 <p>Lemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
                                                     <br> fugit, sed quia consequuntur magni dolores eos qui ratione
-                                                    voluptatem <br> sequi nesciunt.</p>
+                                                    voluptatem <br> sequi nesciunt.
+                                                </p>
                                             </div>
                                             <div class="tpdescription__product-thumb">
                                                 <img src="assets/img/product/product-single-1.png" alt="">
@@ -304,7 +343,8 @@
                                                 </ul>
                                                 <p>Lemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
                                                     <br> fugit, sed quia consequuntur magni dolores eos qui ratione
-                                                    voluptatem <br> sequi nesciunt.</p>
+                                                    voluptatem <br> sequi nesciunt.
+                                                </p>
                                             </div>
                                             <div class="tpdescription__product-thumb">
                                                 <img src="assets/img/product/product-single-1.png" alt="">
@@ -363,13 +403,15 @@
                                 </ul>
                             </div>
                             <div class="tpsidebar__banner mb-30">
-                                <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt="">
+                                <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                    alt="">
                             </div>
                             <div class="tpsidebar__product">
                                 <h4 class="tpsidebar__title mb-15">Recent Products</h4>
                                 <div class="tpsidebar__product-item">
                                     <div class="tpsidebar__product-thumb p-relative">
-                                        <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt="">
+                                        <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                            alt="">
                                         <div class="tpsidebar__info bage">
                                             <span class="tpproduct__info-hot bage__hot">HOT</span>
                                         </div>
@@ -379,7 +421,8 @@
                                             <a href="shop-details-3.html">Childen</a>
                                         </span>
                                         <h4 class="tpsidebar__product-title">
-                                            <a href="shop-details-3.html">Watch Where They Hide: A Jordan Manning Novel</a>
+                                            <a href="shop-details-3.html">Watch Where They Hide: A Jordan Manning
+                                                Novel</a>
                                         </h4>
                                         <div class="tpproduct__price">
                                             <span>₹56.00</span>
@@ -389,7 +432,8 @@
                                 </div>
                                 <div class="tpsidebar__product-item">
                                     <div class="tpsidebar__product-thumb p-relative">
-                                        <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt="">
+                                        <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                            alt="">
                                         <div class="tpsidebar__info bage">
                                             <span class="tpproduct__info-hot bage__hot">HOT</span>
                                         </div>
@@ -399,7 +443,8 @@
                                             <a href="shop-details-3.html">Childen</a>
                                         </span>
                                         <h4 class="tpsidebar__product-title">
-                                            <a href="shop-details-3.html">Watch Where They Hide: A Jordan Manning Novel</a>
+                                            <a href="shop-details-3.html">Watch Where They Hide: A Jordan Manning
+                                                Novel</a>
                                         </h4>
                                         <div class="tpproduct__price">
                                             <span>₹56.00</span>
@@ -409,7 +454,8 @@
                                 </div>
                                 <div class="tpsidebar__product-item">
                                     <div class="tpsidebar__product-thumb p-relative">
-                                        <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt="">
+                                        <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                            alt="">
                                         <div class="tpsidebar__info bage">
                                             <span class="tpproduct__info-hot bage__hot">HOT</span>
                                         </div>
@@ -419,7 +465,8 @@
                                             <a href="shop-details-3.html">Childen</a>
                                         </span>
                                         <h4 class="tpsidebar__product-title">
-                                            <a href="shop-details-grid.html">Watch Where They Hide: A Jordan Manning Novel</a>
+                                            <a href="shop-details-grid.html">Watch Where They Hide: A Jordan Manning
+                                                Novel</a>
                                         </h4>
                                         <div class="tpproduct__price">
                                             <span>₹56.00</span>
@@ -449,10 +496,12 @@
                             <div class="swiper-slide">
                                 <div class="tpproduct p-relative">
                                     <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                        <a href="#"><img
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
                                                 alt=""></a>
                                         <a class="tpproduct__thumb-img" href="shop-details.html"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                alt=""></a>
                                         <div class="tpproduct__info bage">
                                             <span class="tpproduct__info-discount bage__discount">-50%</span>
                                             <span class="tpproduct__info-hot bage__hot">HOT</span>
@@ -471,7 +520,8 @@
                                             <a href="shop-details.html">children</a>
                                         </span>
                                         <h4 class="tpproduct__title">
-                                            <a href="shop-details-top-.html">Watch Where They Hide: A Jordan Manning Novel</a>
+                                            <a href="shop-details-top-.html">Watch Where They Hide: A Jordan Manning
+                                                Novel</a>
                                         </h4>
                                         <div class="tpproduct__price">
                                             <span>₹56.00</span>
@@ -495,8 +545,12 @@
                             <div class="swiper-slide">
                                 <div class="tpproduct p-relative">
                                     <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
-                                        <a class="tpproduct__thumb-img" href="shop-details.html"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                                        <a href="#"><img
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                alt=""></a>
+                                        <a class="tpproduct__thumb-img" href="shop-details.html"><img
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                alt=""></a>
                                         <div class="tpproduct__info bage">
                                             <span class="tpproduct__info-discount bage__discount">-40%</span>
                                         </div>
@@ -514,7 +568,8 @@
                                             <a href="shop-details.html">children</a>
                                         </span>
                                         <h4 class="tpproduct__title">
-                                            <a href="shop-details-top.html">Watch Where They Hide: A Jordan Manning Novel</a>
+                                            <a href="shop-details-top.html">Watch Where They Hide: A Jordan Manning
+                                                Novel</a>
                                         </h4>
                                         <div class="tpproduct__price">
                                             <span>₹56.00</span>
@@ -538,10 +593,12 @@
                             <div class="swiper-slide">
                                 <div class="tpproduct p-relative">
                                     <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                        <a href="#"><img
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
                                                 alt=""></a>
                                         <a class="tpproduct__thumb-img" href="shop-details.html"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                alt=""></a>
                                         <div class="tpproduct__info bage">
                                             <span class="tpproduct__info-discount bage__discount">-10%</span>
                                         </div>
@@ -559,7 +616,8 @@
                                             <a href="shop-details-3.html">Childen</a>
                                         </span>
                                         <h4 class="tpproduct__title">
-                                            <a href="shop-details.html">Watch Where They Hide: A Jordan Manning Novel</a>
+                                            <a href="shop-details.html">Watch Where They Hide: A Jordan Manning
+                                                Novel</a>
                                         </h4>
                                         <div class="tpproduct__price">
                                             <span>₹56.00</span>
@@ -583,18 +641,23 @@
                             <div class="swiper-slide">
                                 <div class="tpproduct p-relative">
                                     <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                        <a href="#"><img
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
                                                 alt=""></a>
                                         <a class="tpproduct__thumb-img" href="shop-details.html"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                alt=""></a>
                                         <div class="tpproduct__info bage">
                                             <span class="tpproduct__info-discount bage__discount">-90%</span>
                                             <span class="tpproduct__info-hot bage__hot">HOT</span>
                                         </div>
                                         <div class="tpproduct__shopping">
-                                            <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                            <a class="tpproduct__shopping-wishlist" href="#"><i class="icon-layers"></i></a>
-                                            <a class="tpproduct__shopping-cart" href="#"><i class="icon-eye"></i></a>
+                                            <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i
+                                                    class="icon-heart icons"></i></a>
+                                            <a class="tpproduct__shopping-wishlist" href="#"><i
+                                                    class="icon-layers"></i></a>
+                                            <a class="tpproduct__shopping-cart" href="#"><i
+                                                    class="icon-eye"></i></a>
                                         </div>
                                     </div>
                                     <div class="tpproduct__content">
@@ -602,7 +665,8 @@
                                             <a href="shop-details-3.html">Childen</a>
                                         </span>
                                         <h4 class="tpproduct__title">
-                                            <a href="shop-details-grid.html">Watch Where They Hide: A Jordan Manning Novel</a>
+                                            <a href="shop-details-grid.html">Watch Where They Hide: A Jordan Manning
+                                                Novel</a>
                                         </h4>
                                         <div class="tpproduct__price">
                                             <span>₹56.00</span>
@@ -626,10 +690,12 @@
                             <div class="swiper-slide">
                                 <div class="tpproduct p-relative">
                                     <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                        <a href="#"><img
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
                                                 alt=""></a>
                                         <a class="tpproduct__thumb-img" href="shop-details.html"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                alt=""></a>
                                         <div class="tpproduct__info bage">
                                             <span class="tpproduct__info-discount bage__discount">-50%</span>
                                         </div>
@@ -647,7 +713,8 @@
                                             <a href="shop-details-3.html">Vagetables</a>
                                         </span>
                                         <h4 class="tpproduct__title">
-                                            <a href="shop-details-3.html">Watch Where They Hide: A Jordan Manning Novel</a>
+                                            <a href="shop-details-3.html">Watch Where They Hide: A Jordan Manning
+                                                Novel</a>
                                         </h4>
                                         <div class="tpproduct__price">
                                             <span>₹56.00</span>
@@ -671,10 +738,12 @@
                             <div class="swiper-slide">
                                 <div class="tpproduct p-relative">
                                     <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                        <a href="#"><img
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
                                                 alt=""></a>
                                         <a class="tpproduct__thumb-img" href="shop-details.html"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                alt=""></a>
                                         <div class="tpproduct__info bage">
                                             <span class="tpproduct__info-discount bage__discount">-40%</span>
                                             <span class="tpproduct__info-hot bage__hot">HOT</span>
@@ -693,7 +762,8 @@
                                             <a href="shop-details-3.html">Childen</a>
                                         </span>
                                         <h4 class="tpproduct__title">
-                                            <a href="shop-details-grid.html">Watch Where They Hide: A Jordan Manning Novel</a>
+                                            <a href="shop-details-grid.html">Watch Where They Hide: A Jordan Manning
+                                                Novel</a>
                                         </h4>
                                         <div class="tpproduct__price">
                                             <span>₹56.00</span>
