@@ -62,8 +62,8 @@
                                 <h3>Create Budget</h3>
                             </div>
                             <div class="item">
-                                <a href="index.php"> <button type="button" class="btn btn-primary"><i
-                                            class="fa fa-backward" aria-hidden="true"></i> Back</button></a>
+                                <!-- <a href="index.php"> <button type="button" class="btn btn-primary"><i
+                                            class="fa fa-backward" aria-hidden="true"></i> Back</button></a> -->
                             </div>
                         </div>
                     </div>
@@ -254,6 +254,7 @@ $(document).ready(function() {
             description: $("#description").val(),
             CategorieAmount: categoryData,
             totalAmount: $("#totalAmount").val(),
+            type: "bookbudget"
         };
 
         $.ajaxSetup({

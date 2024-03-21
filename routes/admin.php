@@ -897,7 +897,19 @@ Route::get('/pdfviewpubdist',function(){ return view('admin.pdfviewpubdist');});
 
 Route::get('/magazinebudget_add',function(){ return view('admin.magazinebudget_add');});
 
+Route::get('/magazinebudget_list',function(){ return view('admin.magazinebudget_list');});
+Route::get('/magazinebudget_view/{id}',[BudgetController::class,'magazinebudget_view']);
 
+
+Route::get('/magazinebudgetview',function(){
+
+    $data = Session::get('budget');
+     if($data !==null){
+ 
+         return view('admin.magazinebudget_view')->with("data",$data);
+     }
+ 
+ });
 
 
     });

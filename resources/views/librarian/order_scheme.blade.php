@@ -85,6 +85,7 @@
                                                 </th>
                                                 <th>S.No</th>
                                                 <th>Library Type</th>
+                                                <th>Budget Type</th>
                                                 <th>Total Amount</th>
 
                                                 <th>Date</th>
@@ -111,6 +112,13 @@
                                                         <div>
                                                             <!-- <h6>Create Frontend WordPress</h6> -->
                                                             <span>{{$val->libraryType}}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="products">
+                                                        <div>
+                                                            <span>{{$val->type}}</span>
                                                         </div>
                                                     </div>
                                                 </td>

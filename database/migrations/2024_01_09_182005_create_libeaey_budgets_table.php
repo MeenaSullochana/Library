@@ -19,6 +19,7 @@ return new class extends Migration
             $table->String('subject');
             $table->String('description');
             $table->String('totalAmount');
+            $table->String('type');
             $table->json('CategorieAmount');
             $table->timestamps();
         });
