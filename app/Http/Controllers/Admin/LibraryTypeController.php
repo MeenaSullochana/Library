@@ -12,6 +12,8 @@ use App\Models\Bookdimension;
 use App\Models\Bookpapertype;
 use App\Models\Bookpaperfinishing;
 use App\Models\Currencytype;
+use App\Models\MagazineCategory;
+use App\Models\MagazinePeriodicity;
 
 
 
@@ -626,7 +628,197 @@ class LibraryTypeController extends Controller
         return response()->json($data);  
     }
 
+
+
+// MagazineCategory
+
+
+    public function magazinecategoryadd(Request $req){
     
+        $validator = Validator::make($req->all(),[
+            'name'=>'required|string',
+            'language'=>'required|string',
+
+            'status'=>'required|string',
+            
+           
+        ]);
+        if($validator->fails()){
+            $data= [
+                'error' => $validator->errors()->first(),
+                     ];
+            return response()->json($data);  
+           
+        }
+      
+      
+             $MagazineCategory= New MagazineCategory();
+             $MagazineCategory->name=$req->name;
+             $MagazineCategory->language=$req->language;
+
+             $MagazineCategory->status=$req->status;
+             $MagazineCategory->save();
+             $data= [
+                'success' => 'Magazine Category  Create Successfully',
+                     ];
+            return response()->json($data);  
+    
+    }
+    
+    public function  magazinecategory_statuschange(Request $req){
+     
+        $MagazineCategory=MagazineCategory::find($req->id);
+        $MagazineCategory->status=$req->status;
+        $MagazineCategory->save();
+        $data= [
+            'success' => 'Status Change  Successfully',
+                 ];
+        return response()->json($data);  
+    }
+    
+
+
+    public function magazinecategoryedit($id){
+       
+        $MagazineCategory=MagazineCategory::find($id);
+      
+          \Session::put('MagazineCategory', $MagazineCategory);
+          return redirect('admin/MagazineCategorydata');
+      }
+      
+
+
+      public function magazinecategory_edit(Request $req){
+   
+        $validator = Validator::make($req->all(),[
+            'name'=>'required|string',
+
+            'language'=>'required|string',
+            'status'=>'required|string',
+
+
+        ]);
+        if($validator->fails()){
+            $data= [
+                'error' => $validator->errors()->first(),
+                     ];
+            return response()->json($data);  
+           
+        }
+       
+             $MagazineCategory=MagazineCategory::find($req->id);
+             $MagazineCategory->name=$req->name;
+             $MagazineCategory->language=$req->language;
+
+             $MagazineCategory->status=$req->status;
+             $MagazineCategory->save();
+             $data= [
+                'success' => 'Magazine Category Update Successfully',
+                     ];
+            return response()->json($data);  
+           
+          
+      
+    
+    }
+    public function magazinecategory_delete(Request $req){
+        $MagazineCategory=MagazineCategory::find($req->id);
+        $MagazineCategory->delete();
+        $data= [
+            'success' => 'Magazine Category delete Successfully',
+                 ];
+        return response()->json($data);  
+    }
+    // MagazinePeriodicity
+   public function magazineperiodicityadd(Request $req){
+    
+        $validator = Validator::make($req->all(),[
+            'name'=>'required|string',
+            'status'=>'required|string',
+            
+           
+        ]);
+        if($validator->fails()){
+            $data= [
+                'error' => $validator->errors()->first(),
+                     ];
+            return response()->json($data);  
+           
+        }
+      
+      
+             $MagazinePeriodicity= New MagazinePeriodicity();
+             $MagazinePeriodicity->name=$req->name;
+             $MagazinePeriodicity->status=$req->status;
+             $MagazinePeriodicity->save();
+             $data= [
+                'success' => 'Magazine Periodicity  Create Successfully',
+                     ];
+            return response()->json($data);  
+    
+    }
+    
+    public function  magazineperiodicity_statuschange(Request $req){
+     
+        $MagazinePeriodicity=MagazinePeriodicity::find($req->id);
+        $MagazinePeriodicity->status=$req->status;
+        $MagazinePeriodicity->save();
+        $data= [
+            'success' => 'Status Change  Successfully',
+                 ];
+        return response()->json($data);  
+    }
+    
+
+
+    public function magazineperiodicityedit($id){
+       
+        $MagazinePeriodicity=MagazinePeriodicity::find($id);
+      
+          \Session::put('MagazinePeriodicity', $MagazinePeriodicity);
+          return redirect('admin/MagazinePeriodicitydata');
+      }
+      
+
+
+      public function magazineperiodicity_edit(Request $req){
+    
+        $validator = Validator::make($req->all(),[
+            'status'=>'required|string',
+            'name'=>'required|string',
+           
+
+        ]);
+        if($validator->fails()){
+            $data= [
+                'error' => $validator->errors()->first(),
+                     ];
+            return response()->json($data);  
+           
+        }
+       
+             $MagazinePeriodicity=MagazinePeriodicity::find($req->id);
+             $MagazinePeriodicity->name=$req->name;
+             $MagazinePeriodicity->status=$req->status;
+             $MagazinePeriodicity->save();
+             $data= [
+                'success' => 'Magazine Periodicity Update Successfully',
+                     ];
+            return response()->json($data);  
+           
+          
+      
+    
+    }
+    public function magazineperiodicity_delete(Request $req){
+        $MagazinePeriodicity=MagazinePeriodicity::find($req->id);
+        $MagazinePeriodicity->delete();
+        $data= [
+            'success' => 'Magazine Periodicity delete Successfully',
+                 ];
+        return response()->json($data);  
+    }
+
 }
 
 

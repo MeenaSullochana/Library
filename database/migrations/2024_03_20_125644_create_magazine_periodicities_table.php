@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('magazine_categories', function (Blueprint $table) {
+        Schema::create('magazine_periodicities', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->String('name');
-            $table->String('language');
             $table->enum('status',['1','0'])->default('1');
             $table->timestamps();
         });
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('magazine_categories');
+        Schema::dropIfExists('magazine_periodicities');
     }
 };

@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UUID;
 
-class MagazineCategory extends Model
+class MagazinePeriodicity extends Model
 {
     use UUID;
 
-    protected $table = 'magazine_categories';
+    protected $table = 'magazine_periodicities';
     protected $fillable = [
         'name',
-        'language',
         'status',
-        
-       
     ];
 }
