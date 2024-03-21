@@ -181,7 +181,20 @@
 </script>
 
 </body>
+@if (Session::has('successlib'))
 
+<script>
+
+toastr.success("{{ Session::get('successlib') }}",{timeout:15000});
+
+</script>
+@elseif (Session::has('errorlib'))
+<script>
+
+toastr.error("{{ Session::get('errorlib') }}",{timeout:15000});
+
+</script>
+@endif
 
     <script>
         $(document).ready(function() {

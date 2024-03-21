@@ -20,4 +20,5 @@ Route::middleware(['librarian'])->group(function () {
     // Route::get('/checkout',function(){ return view('checkout');});
     Route::get('/cart',[WebsitebookController::class, 'bookcart']);
     Route::get('/shope/{id}', [WebsitebookController::class, 'bookview']);
+    Route::get('/product-two',function(){return view('product-two');});
 });
