@@ -6,6 +6,9 @@ use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Budget;
+use App\Models\Notifications;
+
+
 class BudgetController extends Controller
 {
     public function budgetadd(Request $req){
@@ -38,9 +41,10 @@ class BudgetController extends Controller
         $budget->subject = $req->subject;
         $budget->description = $req->description;
         $budget->totalAmount = $req->totalAmount;
+        $budget->type = $req->type;
         $budget->CategorieAmount = json_encode($req->CategorieAmount); 
         $budget->save();
-        
+
         $data= [
             'success' => 'Budget Create Successfully',
                  ];
@@ -60,6 +64,13 @@ class BudgetController extends Controller
          \Session::put('budget', $budget);
         return redirect('admin/budget_view');
     }
-    
+    public function magazinebudget_view($id){
+        $budget = Budget::find($id);
+         $budget->CategorieAmount1= json_decode($budget->CategorieAmount); 
+          \Session::put('budget', $budget);
+         return redirect('admin/magazinebudgetview');
+     }
+
+   
     
 }

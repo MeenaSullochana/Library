@@ -60,8 +60,8 @@
                             <h3>Budget List</h3>
                         </div>
                         <div class="item">
-                            <a href="index.php"> <button type="button" class="btn btn-primary"><i class="fa fa-backward"
-                                        aria-hidden="true"></i> Back</button></a>
+                            <!-- <a href="index.php"> <button type="button" class="btn btn-primary"><i class="fa fa-backward"
+                                        aria-hidden="true"></i> Back</button></a> -->
                         </div>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                                                     aria-labelledby="pills-home-tab">
                                                     <div class="email-list dz-scroll" id="emails">
                                                         @php
-                                                        $categories = DB::table('libeaey_budgets')->get();
+                                                        $categories = DB::table('libeaey_budgets')->where('type','=','bookbudget')->get();
                                                         @endphp
 
                                                         @foreach($categories as $val)
