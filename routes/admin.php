@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\BudgetController;
 use App\Http\Controllers\Admin\LibraryTypeController;
 use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\MagazineController;
 
 
 
@@ -122,6 +123,7 @@ Route::get('/procur_complete_list',function(){ return view('admin.procur_complet
 Route::get('/procur_pending_list',function(){ return view('admin.procur_pending_list');});
 Route::get('/procur_reject_view',function(){ return view('admin.procur_reject_view');});
 Route::get('/magazine_add',function(){ return view('admin.magazine_add');});
+Route::post('/magazine/import', [MagazineController::class,'importFile']);
 Route::get('/magazine_list',function(){ return view('admin.magazine_list');});
 
 Route::get('/manage_complete_quote_list',function(){ return view('admin.manage_complete_quote_list');});

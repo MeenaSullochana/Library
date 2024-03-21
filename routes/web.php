@@ -22,7 +22,7 @@ Route::get('/procurement-policy',function(){return view('procurement-policy');})
 Route::get('/thirukkural-view',function(){return view('thirukkural-view');});
 Route::get('/splash-screen',function(){return view('splash-screen');});
 
-Route::get('/product-two',function(){return view('product-two');});
+
 Route::get('/invoice-pdf',function(){return view('invoice-view');});
 Route::get('/shope-magazine',function(){return view('shope-two');});
 Route::get('/cart-magazine',function(){return view('cart-magazine');});

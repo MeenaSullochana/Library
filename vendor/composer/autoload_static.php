@@ -752,6 +752,7 @@ class ComposerStaticInitd39b1136eb41a05a9c3a8e3e6f45629b
         'App\\Models\\Librarian' => __DIR__ . '/../..' . '/app/Models/Librarian.php',
         'App\\Models\\LibraryType' => __DIR__ . '/../..' . '/app/Models/LibraryType.php',
         'App\\Models\\Loginhidelins' => __DIR__ . '/../..' . '/app/Models/Loginhidelins.php',
+        'App\\Models\\Magazine' => __DIR__ . '/../..' . '/app/Models/Magazine.php',
         'App\\Models\\Mailconfirmtitle' => __DIR__ . '/../..' . '/app/Models/Mailconfirmtitle.php',
         'App\\Models\\Mailurl' => __DIR__ . '/../..' . '/app/Models/Mailurl.php',
         'App\\Models\\Manualguidelines' => __DIR__ . '/../..' . '/app/Models/Manualguidelines.php',

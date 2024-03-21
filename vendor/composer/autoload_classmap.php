@@ -122,6 +122,7 @@ return array(
     'App\\Models\\Librarian' => $baseDir . '/app/Models/Librarian.php',
     'App\\Models\\LibraryType' => $baseDir . '/app/Models/LibraryType.php',
     'App\\Models\\Loginhidelins' => $baseDir . '/app/Models/Loginhidelins.php',
+    'App\\Models\\Magazine' => $baseDir . '/app/Models/Magazine.php',
     'App\\Models\\Mailconfirmtitle' => $baseDir . '/app/Models/Mailconfirmtitle.php',
     'App\\Models\\Mailurl' => $baseDir . '/app/Models/Mailurl.php',
     'App\\Models\\Manualguidelines' => $baseDir . '/app/Models/Manualguidelines.php',

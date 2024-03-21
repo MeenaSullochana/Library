@@ -154,7 +154,7 @@
                                                 </thead>
                                                 <tbody>
                                                 @php
-                                                $rev = DB::table('librarians')->where('status','=','1')->get();
+                                                $rev = DB::table('librarians')->where('status','=','1')->orderBy('sNo','ASC')->get();
                                                 @endphp
                                                 @foreach($rev as $val)
 
@@ -165,7 +165,7 @@
                                                     <label class="form-check-label" for="customCheckBox100"></label>
                                                 </div>
                                             </td>
-                                                        <td><span>{{$loop->index +1}}</span></td>
+                                                        <td><span>{{$val->sNo}}</span></td>
                                                         <td>
                                                             <div class="products">
                                                                 <div>
@@ -214,7 +214,7 @@
                          </td>
                          @else
                           <td>
-                          <span class="badge badge-danger light border-0 me-1">Inctive</span>
+                          <span class="badge badge-danger light border-0 me-1">Inactive</span>
                           </td>
                           @endif
                           <td>
@@ -224,7 +224,7 @@
                                                                     <i class="fa fa-eye"></i>
                                                                 </a>
                                                                 <a href="/admin/libraryedit/{{$val->id}}" class="btn btn-danger shadow btn-xs sharp">
-                                                                    <i class="fa fa-trash"></i>
+                                                                    <i class="fa fa-pencil"></i>
                                                                 </a>
                                                             </div>
                                                         </td>

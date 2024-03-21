@@ -348,57 +348,113 @@ $librarian->subject1=json_decode($librarian->subject);
 //     }
 // }
 
+// public function importFile(Request $request)
+// {
+//     try {
+//         $admin = auth('admin')->user();
+//         if ($request->hasFile('file_library')) {
+//             $file = $request->file('file_library');
+//             $fileContents = file($file->getPathname());
+
+//             // Remove the first row (header row)
+//             unset($fileContents[0]);
+
+//             $librarianId = [];
+//             foreach ($fileContents as $line) {
+//                 $data = str_getcsv($line);
+
+//                 $librarian = Librarian::where('librarianId', $data[1])->exists();
+//                 if ($librarian) {
+//                     return redirect()->back()->with('errorlib', $data[1] . " already exists");
+//                 }
+
+//                 if (in_array($data[1], $librarianId)) {
+//                     return redirect()->back()->with('errorlib', $data[1] . " Duplicate entry");
+//                 } else {
+//                    array_push($librarianId,$data[1]);
+//                 }
+//             }
+//             foreach ($fileContents as $line) {
+//                 $data = str_getcsv($line);
+//                 $library = new Librarian();
+//                 $library->libraryType = $data[3];
+//                 $library->libraryName =$data[2];
+//                 $library->state = "Tamil Nadu";
+//                 $library->district = $data[4];
+//                 $library->password = Hash::make("12345678");
+//                 $library->role = "librarian";
+//                 $library->metaChecker = "no";
+//                 $library->librarianId =$data[1];
+//                 $library->sNo = $data[0];
+//                 $library->save();
+                
+//             }
+
+//             return redirect()->back()->with('successlib', 'File imported successfully');
+//         } else {
+//             return redirect()->back()->with('errorlib', 'No file uploaded');
+//         }
+//     } catch (\Throwable $e) {
+//         // Handle the exception (e.g., log it)
+//         return redirect()->back()->with('errorlib', 'An error occurred while importing.');
+//     }
+// }
 public function importFile(Request $request)
 {
     try {
         $admin = auth('admin')->user();
-        
         if ($request->hasFile('file_library')) {
             $file = $request->file('file_library');
             $fileContents = file($file->getPathname());
-            $librarianIds = [];
-            
-            foreach ($fileContents as $line) {
-                $data = str_getcsv($line);
-                
-                // Check if the librarian with the same ID already exists
-                if (Librarian::where('librarianId', $data[7])->exists()) {
-                    return redirect()->back()->with('error', $data[7] . " already exists");
+
+            // Remove the first row (header row)
+            unset($fileContents[0]);
+
+            $batchSize = 100; // Set your desired batch size
+
+            $chunks = array_chunk($fileContents, $batchSize);
+
+            foreach ($chunks as $chunk) {
+                $librarianId = [];
+                foreach ($chunk as $line) {
+                    $data = str_getcsv($line);
+
+                    $librarian = Librarian::where('librarianId', $data[1])->exists();
+                    if ($librarian) {
+                        return redirect()->back()->with('errorlib', $data[1] . " already exists");
+                    }
+
+                    if (in_array($data[1], $librarianId)) {
+                        return redirect()->back()->with('errorlib', $data[1] . " Duplicate entry");
+                    } else {
+                        array_push($librarianId, $data[1]);
+                    }
                 }
                 
-                // Check if the ID is duplicated in the file
-                if (in_array($data[7], $librarianIds)) {
-                    return redirect()->back()->with('error', $data[7] . " Duplicate entry");
+                foreach ($chunk as $line) {
+                    $data = str_getcsv($line);
+                    $library = new Librarian();
+                    $library->libraryType = $data[3];
+                    $library->libraryName = $data[2];
+                    $library->state = "Tamil Nadu";
+                    $library->district = $data[4];
+                    $library->password = Hash::make("12345678");
+                    $library->role = "librarian";
+                    $library->metaChecker = "no";
+                    $library->librarianId = $data[1];
+                    $library->sNo = $data[0];
+                    $library->save();
                 }
-                
-                $librarianIds[] = $data[7];
             }
-            
-            foreach ($fileContents as $line) {
-                $data = str_getcsv($line);
-                
-                $library = new Librarian();
-                $library->libraryType = $data[0];
-                $library->libraryName = $data[1];
-                $library->state = $data[2];
-                $library->district = $data[3];
-                $library->city = $data[4];
-                $library->Village = $data[5];
-                $library->password = Hash::make($data[6]);
-                $library->role = "librarian";
-                $library->creater = $admin->id; 
-                $library->librarianId = $data[7];
-                   
-                $library->save();
-            }
-            
-            return redirect()->back()->with('success', 'Librarians imported successfully.');
+
+            return redirect()->back()->with('successlib', 'File imported successfully');
         } else {
-            return redirect()->back()->with('error', 'No file uploaded.');
+            return redirect()->back()->with('errorlib', 'No file uploaded');
         }
-    } catch (Throwable $e) {
+    } catch (\Throwable $e) {
         // Handle the exception (e.g., log it)
-        return redirect()->back()->with('error', 'An error occurred while importing.');
+        return redirect()->back()->with('errorlib', 'An error occurred while importing.');
     }
 }
+
 }

@@ -102,13 +102,14 @@
 
                                           
                                           <div class="col-sm-6 mb-3">
-                                                     <label class="form-label">State<span
+                                                     <label class="form-label">Subject<span
                                                                 class="text-danger maditory">*</span></label>
                                           <select id="limit-selection" name="subject[]" multiple class="select2">
     @php
         $categori = DB::table('book_subject')->where('status','=','1')->get();
         $selectedSubjects = is_array($data->subject1) ? $data->subject1 : [$data->subject1];
     @endphp
+    <option value="">Select Subject</option>
     @foreach($categori as $val)
         <option value="{{$val->name}}" {{in_array($val->name, $selectedSubjects) ? 'selected' : ''}}>{{$val->name}}</option>
     @endforeach
@@ -208,7 +209,7 @@
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Email<span
                                                             class="text-danger maditory">*</span></label>
-                                                    <input type="email" class="form-control" placeholder="Enter Emaile" value="{{$data->email}}"
+                                                    <input type="email" class="form-control" placeholder="Enter Email" value="{{$data->email}}"
                                                         id="email" required="">
                                                 </div>
                                             </div>
