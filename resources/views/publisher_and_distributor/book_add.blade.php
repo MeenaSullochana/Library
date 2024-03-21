@@ -121,14 +121,14 @@
                                 <input type="radio" id="lang2" name="language" class="custom-control-input" value="English" required>
                                 <label class="custom-control-label" for="lang2">English</label>
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio newother">
                                 <input type="radio" id="book_primary_language_new" name="language" class="custom-control-input" value="Other_Indian" required>
                                 <label class="custom-control-label" for="book_primary_language_new">Other Indian Languages (please specify)</label>
                             </div>
                             <div class="col-md-12 book_primary_lang mb-2">
                                 <input type="text" class="form-control" id="other1" name="Other_Indian" placeholder="Enter Other Indian Languages (please specify)">
                             </div>
-                            <div class="custom-control custom-radio">
+                            <div class="custom-control custom-radio newother">
                                 <input type="radio" id="book_primary_language_new_forein" name="language" class="custom-control-input" value="Other_Foreign" required>
                                 <label class="custom-control-label" for="book_primary_language_new_forein">Other Foreign Languages (please specify)</label>
                             </div>
@@ -702,10 +702,10 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="text-label form-label text-black"
-                                            for="validationCustomUsername"> Year Of Publication <span class="text-danger">*</span>
+                                            for="validationCustomUsername"> Year of Publication <span class="text-danger">*</span>
                                                 </label>
                                             <div class="input-group transparent-append">
-                                                <input type="text" name="yearOfPublication" id="yearOfPublication" class="form-control" placeholder="Enter Year Of Publication.." pattern="\d{4}" title="Please enter exactly 4 numbers" maxlength="4" required>
+                                                <input type="text" name="yearOfPublication" id="yearOfPublication" class="form-control" placeholder="Enter Year of Publication.." pattern="\d{4}" title="Please enter exactly 4 numbers" maxlength="4" required>
                                             </div>
                                         </div>
                                                 <div class="mb-3">
@@ -2807,6 +2807,11 @@ span.tox-statusbar__branding {
 input#other_img {
     width: 100%;
 }
+@media screen and (max-width: 600px) {
+        .custom-control.custom-radio.newother {
+            display: flex;
+        }
+        }
 
     /* image uplode end */
 </style>

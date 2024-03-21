@@ -243,7 +243,7 @@
                                                 @endif
 
                                                 <td class="sorting_1">
-                                                    <div class="form-check form-switch id=" load">
+                                                    <div class="form-check form-switch" id="load">
                                                         <input class="form-check-input toggle-class" type="checkbox"
                                                             data-id="{{$val->id}}" name="featured_status" data-isprm="1"
                                                             data-onstyle="success" data-offstyle="danger"

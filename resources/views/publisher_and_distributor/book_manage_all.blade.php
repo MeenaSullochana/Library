@@ -53,7 +53,7 @@
             <div class="container-fluid">
                <div class="card mb-4">
                   <div class="card-body">
-                     <div class="d-sm-flex align-items-center justify-content-between">
+                     <div class="d-flex align-items-center justify-content-between">
                         <h3 class="mb-0 bc-title">
                            <b>All Books List</b>
                         </h3>
@@ -82,7 +82,7 @@
                             <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
                                 {{-- empoloyees-tbl3 --}}
                             <table id="example3" class="table dataTable no-footer memeber_table" role="grid"
-                                aria-describedby="empoloyees-tbl3_info">
+                                aria-describedby="empoloyees-tbl3_info" style="min-width: 200px; overflow-x: auto;">
                                 <thead>
                                     <tr role="row">
                                     <th class="sorting_asc" tabindex="0" aria-controls="empoloyees-tbl3"
@@ -93,33 +93,13 @@
                                             <label class="form-check-label" for="checkAll2"></label>
                                         </div>
                                         </th>
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1" aria-label="ERoll No: activate to sort column ascending"
-                                        style="width: 97.5156px;">Book ID</th>
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Books: activate to sort column ascending"
-                                        style="width: 145.219px;">Title</th>
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Stock: activate to sort column ascending"
-                                        style="width: 109.984px;">Author</th>
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Stock: activate to sort column ascending"
-                                        style="width: 109.984px;">Primary language </th>
-                                    
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Stock: activate to sort column ascending"
-                                        style="width: 109.984px;">Price</th>
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1"
-                                        aria-label="ISBN(10/13): activate to sort column ascending"
-                                        style="width: 126.609px;">ISBN</th>
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1" aria-label="Action: activate to sort column ascending"
-                                        style="width: 87.4688px;">  Action</th>
+                                        <th>Book ID</th>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>Primary Language </th>
+                                        <th>Price</th>
+                                        <th>ISBN</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -133,13 +113,11 @@
                                         </div>
                                     </td>
                                         <td data-label="Book ID"><span>{{$val->product_code}}</span></td>
-                                        <td data-label="Title">
-                                        <div class="products">
+                                        <td style="white-space:normal;" data-label="Title">
                                             <div>
-                                                <h6><a class="text-left" href="book_manage_view.php">{{$val->book_title}}</a></h6>
+                                                <h6><a class="text-left" href="#">{{$val->book_title}}</a></h6>
                                                 <span class="text-left">{{$val->subtitle}}</span>
                                             </div>
-                                        </div>
                                         </td>
                                         <td data-label="Auther">
                                             <span>{{$val->author_name}}</span>

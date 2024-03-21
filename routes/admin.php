@@ -124,7 +124,9 @@ Route::get('/procur_pending_list',function(){ return view('admin.procur_pending_
 Route::get('/procur_reject_view',function(){ return view('admin.procur_reject_view');});
 Route::get('/magazine_add',function(){ return view('admin.magazine_add');});
 Route::post('/magazine/import', [MagazineController::class,'importFile']);
+Route::get('/magazine_add_new',function(){ return view('admin.magazine_add_new');});
 Route::get('/magazine_list',function(){ return view('admin.magazine_list');});
+Route::get('/magazine_edit',function(){ return view('admin.magazine_edit');});
 
 Route::get('/manage_complete_quote_list',function(){ return view('admin.manage_complete_quote_list');});
 Route::get('/manage_pending_quote_list',function(){ return view('admin.manage_pending_quote_list');});

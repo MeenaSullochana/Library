@@ -17,7 +17,7 @@
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('publisher_and_distributor/images/favicon.png') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('publisher_and_distributor/images/fevi.svg') }}">
 
 <link href="{{ asset('vendor/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet">
 <link href="{{ asset('vendor/swiper/css/swiper-bundle.min.css') }}" rel="stylesheet">

@@ -95,12 +95,7 @@
                                     {{-- <td style="white-space:normal;"> <span class="badge bg-danger text-white">Inactive</span></td> --}}
 
 
-                                    <td data-label="control">
-                                        <a href="#"><i class="fa fa-eye "></i></a>
-                                        <a href="#" class="btn btn-danger  shadow btn-xs sharp me-1">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
