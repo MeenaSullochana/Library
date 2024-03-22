@@ -63,26 +63,27 @@ public function importFile(Request $request)
                     $magazine = new Magazine();
                     $magazine->language = $data[0];
                     $magazine->category =$data[1];
-                    $magazine->periodicity = $data[2];
-                    $magazine->single_issue_rate = $data[3];
-                    $magazine->annual_subscription =$data[4];
-                    $magazine->discount =$data[5];
-                    $magazine->single_issue_after_discount =$data[6];
-                    $magazine->annual_cost_after_discount = $data[7];
-                    $magazine->rni_details = $data[8];
-                    $magazine->total_pages =$data[9];
-                    $magazine->total_multicolour_pages =$data[10];
-                    $magazine->total_monocolour_pages =$data[11];
-                    $magazine->paper_quality =$data[12];
-                    $magazine->magazine_size =$data[13];
-                    $magazine->contact_person =$data[14];
-                    $magazine->phone =$data[15];
-                    $magazine->email =$data[16];
-                    $magazine->address =$data[17];
-                    $magazine->front_img =$data[18];
-                    $magazine->back_img =$data[19];
-                    $magazine->full_img =$data[20];
-                    $magazine->sample_pdf =$data[21];
+                    $magazine->title = $data[2];
+                    $magazine->periodicity = $data[3];
+                    $magazine->single_issue_rate = $data[4];
+                    $magazine->annual_subscription =$data[5];
+                    $magazine->discount =$data[6];
+                    $magazine->single_issue_after_discount =$data[7];
+                    $magazine->annual_cost_after_discount = $data[8];
+                    $magazine->rni_details = $data[9];
+                    $magazine->total_pages =$data[10];
+                    $magazine->total_multicolour_pages =$data[11];
+                    $magazine->total_monocolour_pages =$data[12];
+                    $magazine->paper_quality =$data[13];
+                    $magazine->magazine_size =$data[14];
+                    $magazine->contact_person =$data[15];
+                    $magazine->phone =$data[16];
+                    $magazine->email =$data[17];
+                    $magazine->address =$data[18];
+                    $magazine->front_img =$data[19];
+                    $magazine->back_img =$data[20];
+                    $magazine->full_img =$data[21];
+                    $magazine->sample_pdf =$data[22];
                     $magazine->user_type = "admin";
                     $magazine->user_id =$admin->id ;
                     $magazine->save();
@@ -96,6 +97,16 @@ public function importFile(Request $request)
     } catch (\Throwable $e) {
         // Handle the exception (e.g., log it)
         return redirect()->back()->with('errorlib', 'An error occurred while importing.');
+    }
+}
+
+public function list(){
+    try{
+      $magazines = Magazine::get();
+ 
+      return view('admin.magazine_list',compact('magazines'));
+    }catch(\Throwable $e){
+        return redirect()->back()->with('errorlist', 'An error occurred while listing magazine details.');
     }
 }
 

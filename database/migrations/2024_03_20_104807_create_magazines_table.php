@@ -17,6 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('language'); 
             $table->string('category'); 
+            $table->string('title'); 
             $table->string('periodicity');
             $table->string('single_issue_rate');
             $table->string('annual_subscription');

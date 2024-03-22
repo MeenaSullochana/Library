@@ -12,6 +12,7 @@ class Magazine extends Model
     protected $table = 'magazines';
     protected $fillable = [
         'language',
+        'title',
         'category',
         'periodicity',
         'single_issue_rate',

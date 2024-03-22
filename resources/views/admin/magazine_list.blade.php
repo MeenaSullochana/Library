@@ -64,39 +64,46 @@
                         <table id="example3" class="display table" style="min-width: 200px">
                             <thead>
                                 <tr>
-                                    <th>Roll No</th>
-                                    <th>Contact Person Name</th>
+                                    <th>S.No</th>
                                     <th>Title of the Magazine</th>
-                                    <th>Frequency</th>
-                                    <th>Type of Library</th>
+                                    <th>Language</th>
+                                    <th>Category</th>
+                                    <th>Periodicity</th>
                                     <th>Size of the Magazine</th>
-                                    <th>Phone Number </th>
+                                    <th>Contact Person</th>
+                                    <th>Phone</th>
                                     <th>Status </th>
                                     <th>Control</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td style="white-space:normal;" data-label="1">1</td>
-                                    <td style="white-space:normal;" data-label="Contact Person Name">Contact Person Name
+                            @forelse($magazines as $key => $magazine)
+        <tr>
+            <td>{{ $loop->iteration }}</td>
+            <td>{{ $magazine->title }}</td>
+            <td>{{ $magazine->language }}</td>
+            <td>{{ $magazine->category }}</td>
+            <td>{{ $magazine->periodicity }}</td>
+            <td>{{ $magazine->magazine_size }}</td>
+            <td>{{ $magazine->contact_person }}</td>
+            <td>{{ $magazine->phone }}</td>
+            <td>
+                <span class="badge bg-success text-white">Active</span>
+            </td>
+            <td data-label="control">
+                                        <a href="#" class="btn btn-warning shadow btn-xs sharp me-1"><i class="fa fa-eye "></i></a>
+                                        <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fa fa-pencil"></i></a>
+                                        <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </td>
-                                    <td style="white-space:normal;" data-label="Title of the Magazine">
-                                        Title of the Magazine
-                                    </td>
-                                    <td style="white-space:normal;" data-label="Frequency"> Frequency </td>
-                                    <td style="white-space:normal;" data-label="Type of Library">Type of Library</td>
-                                    <td style="white-space:normal;" data-label="Size of the Magazine">Size of the
-                                        Magazine</td>
-                                    <td style="white-space:normal;" data-label="Phone Number">9999999999</td>
-                                    <td style="white-space:normal;" data-label="Status"> <span
-                                            class="badge bg-success text-white">Active</span></td>
-
-
-                                    {{-- <td style="white-space:normal;"> <span class="badge bg-danger text-white">Inactive</span></td> --}}
-
-
-                                    
-                                </tr>
+        </tr>
+        @empty
+        <tr>
+            <td colspan="9">No magazines found.</td>
+        </tr>
+        @endforelse
+    </tbody>
                             </tbody>
                         </table>
                     </div>
@@ -104,6 +111,29 @@
             </div>
         </div>
     </div>
+
+    <!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Confirm Deletion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this item?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <form method="POST" action="/delete">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
     <!--************
          Content body end
          *************-->
