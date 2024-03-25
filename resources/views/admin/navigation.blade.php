@@ -2011,7 +2011,35 @@
                             <li><a href="manage_rejected_quote_list">Rejected Quote List</a></li>
                         </ul>
                     </li>
-                    <li>
+                       <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-bag"></i>
+                            <span class="nav-text">Order Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a class="has-arrow" href="publisher_list.php" aria-expanded="false">Book Orders
+                                </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="manage_order_list">Order List </a></li>
+                                        <li><a href="manage_pending_order_list">Pending Order List</a></li>
+                                        <li><a href="manage_completed_order_list">Completed Order List</a></li>
+                                        <li><a href="manage_rejected_order_list">Rejected Order List</a></li>
+                                    </ul>
+                            </li>
+                        </ul>
+                        <ul aria-expanded="false">
+                            <li><a class="has-arrow" href="publisher_list.php" aria-expanded="false">Magazine Order
+                                <span class="badge badge-danger badge-xs ms-1">NEW</span></a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="magazine_order">Order List </a></li>
+                                        <li><a href="manage_pending_order_list">Pending Order List</a></li>
+                                        <li><a href="manage_completed_order_list">Completed Order List</a></li>
+                                        <li><a href="manage_rejected_order_list">Rejected Order List</a></li>
+                                    </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-bag"></i>
                             <span class="nav-text">Order Management</span>
@@ -2022,7 +2050,7 @@
                             <li><a href="manage_completed_order_list">Completed Order List</a></li>
                             <li><a href="manage_rejected_order_list">Rejected Order List</a></li>
                         </ul>
-                    </li>
+                    </li> --}}
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-cash-stack"></i>
