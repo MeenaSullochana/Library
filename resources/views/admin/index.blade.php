@@ -12,7 +12,7 @@
 
 
     <!-- PAGE TITLE HERE -->
-    <title>Tamil Nadu Book Procurement - Government of Tamil Nau</title>
+    <title>Tamil Nadu Book Procurement - Government of Tamil Nadu</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href= "{{ asset('admin/images/fevi.svg') }}">
 
@@ -3352,7 +3352,7 @@
                                                     <marquee width="100%" direction="up" scrollamount="1" >
                                                     <div class="card-body p-0">
                                                         <div id="DZ_W_TimeLine" class="widget-timeline dz-scroll height370 my-4 px-4">
-                                                            <ul class="timeline">
+                                                            <!-- <ul class="timeline">
                                                                 <li>
                                                                     <div class="timeline-badge primary"></div>
                                                                     <a class="timeline-panel " href="#">
@@ -3377,7 +3377,7 @@
                                                                         <h6 class="mb-0">john just buy your product <strong class="text-warning">Sell $250</strong></h6>
                                                                     </a>
                                                                 </li>
-                                                            </ul>
+                                                            </ul> -->
                                                         </div>
                                                     </div>
                                                     </marquee>
@@ -3519,9 +3519,11 @@
                                             <table id="projects-tbl" class="table">
                                                 <thead>
                                                     <tr>
+                                                        <th>Publication Name</th>
                                                         <th>Name</th>
                                                         <th>User Type</th>
                                                         <th>District</th>
+                                                        <th>Book Count</th>
                                                         <th>Date</th>
                                                         <th>Status</th>
                                                         <th>Control</th>
@@ -3530,15 +3532,27 @@
                                                 <tbody>
                                                 @foreach($allpub as $val)
                                                     <tr>
+
+                                                    
+                                                    <td>{{$val->publicationName}} </td>
+
                                                         <td>{{$val->firstName}} {{$val->lastName}}</td>
                                                         <td>{{$val->usertype}}</td>
                                                         <td class="pe-0">
                                                             <span
                                                                 class="badge badge-danger light border-0">{{$val->District}}</span>
                                                         </td>
-                                                        <!-- <td>Publisher</td> -->
+                                                        @php
+                                                           $records = DB::table('books')
+                                                           ->where('user_id', '=', $val->id)
+                                                            ->where('book_active_status', '=', '1')
+                                                             ->count();
+                                                           $displayCount = $records ?? 0; 
+                                                              @endphp
+                                                        <td>{{ $displayCount }}</td>
+
                                                         <td class="text-success">
-                                                        {{$val->created_at->format('Y-m-d')}}
+                                                        {{$val->created_at->format('d-m-Y')}}
                                                         </td>
                                                         @if($val->status == "1")
                                                         <td> <span class="badge bg-success text-white">Active</span></td>
@@ -3573,9 +3587,14 @@
                                                 <thead>
 
                                                     <tr>
+
+                                                        <th>Distribution Name</th>
                                                         <th>Name</th>
+
                                                         <th>User Type</th>
                                                         <th>District</th>
+                                                        <th>Book Count</th>
+
                                                         <th>Date</th>
                                                         <th>Status</th>
                                                         <th>Control</th>
@@ -3584,15 +3603,24 @@
                                                 <tbody>
                                                 @foreach($alldist as $val)
                                                 <tr>
+                                                <td>{{$val->distributionName}} </td>
+
                                                         <td>{{$val->firstName}} {{$val->lastName}}</td>
                                                         <td>{{$val->usertype}}</td>
                                                         <td class="pe-0">
                                                             <span
                                                                 class="badge badge-danger light border-0">{{$val->District}}</span>
                                                         </td>
-                                                        <!-- <td>Publisher</td> -->
+                                                        @php
+                                                           $records = DB::table('books')
+                                                           ->where('user_id', '=', $val->id)
+                                                            ->where('book_active_status', '=', '1')
+                                                             ->count();
+                                                           $displayCount = $records ?? 0; 
+                                                              @endphp
+                                                        <td>{{ $displayCount }}</td>
                                                         <td class="text-success">
-                                                        {{$val->created_at->format('Y-m-d')}}
+                                                        {{$val->created_at->format('d-m-Y')}}
                                                         </td>
                                                         @if($val->status == "1")
                                                         <td> <span class="badge bg-success text-white">Active</span></td>
@@ -3626,9 +3654,12 @@
                                             <table id="projects-tbl" class="table">
                                                 <thead>
                                                     <tr>
+                                                        <th> Publication / Distribution Name </th>
                                                         <th>Name</th>
                                                         <th>User Type</th>
                                                         <th>District</th>
+                                                        <th>Book Count</th>
+
                                                         <th>Date</th>
                                                         <th>Status</th>
                                                         <th>Control</th>
@@ -3637,15 +3668,23 @@
                                                 <tbody>
                                                 @foreach($allpubdist as $val)
                                                 <tr>
+                                                    <td> {{$val->publicationDistributionName}} </td>
                                                         <td>{{$val->firstName}} {{$val->lastName}}</td>
                                                         <td>{{$val->usertype}}</td>
                                                         <td class="pe-0">
                                                             <span
                                                                 class="badge badge-danger light border-0">{{$val->District}}</span>
                                                         </td>
-                                                        <!-- <td>Publisher</td> -->
+                                                        @php
+                                                           $records = DB::table('books')
+                                                           ->where('user_id', '=', $val->id)
+                                                            ->where('book_active_status', '=', '1')
+                                                             ->count();
+                                                           $displayCount = $records ?? 0; 
+                                                              @endphp
+                                                        <td>{{ $displayCount }}</td>
                                                         <td class="text-success">
-                                                        {{$val->created_at->format('Y-m-d')}}
+                                                        {{$val->created_at->format('d-m-Y')}}
                                                         </td>
                                                         @if($val->status == "1")
                                                         <td> <span class="badge bg-success text-white">Active</span></td>

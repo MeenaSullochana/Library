@@ -16,7 +16,7 @@
                         @elseif (auth('admin')->user())
                         <a class="text-white fw-bold" href="/admin/index">Dashboard</a>
                         @elseif (auth('publisher_distributor')->user())
-                        <a class="text-white fw-bold" href="/publisher_distributor/index">Dashboard</a>
+                        <a class="text-white fw-bold" href="/publisher_and_distributor/index">Dashboard</a>
                         @elseif (auth('librarian')->user())
                         <a class="text-white fw-bold" href="/librarian/index">Dashboard</a>
                         @elseif (auth('reviewer')->user())

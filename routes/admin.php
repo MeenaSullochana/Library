@@ -911,7 +911,18 @@ Route::get('/magazinebudgetview',function(){
      }
  
  });
+ Route::get('/book_manage/{id}',[BookController::class,'book_manage']);
 
 
+ Route::get('/book_manageview',function(){
+ 
+     $data = Session::get('book');
+      if($data !==null){
+  
+          return view('admin.book_manage')->with("data",$data);
+      }
+  
+  });
+ 
     });
 });

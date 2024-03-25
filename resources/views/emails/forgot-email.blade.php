@@ -46,13 +46,13 @@ padding: 10px;">
     </div>
     <div class="term_layer">
         <div class="distruption text-center" style="text-align: center; padding: 0px 25px 0px 25px;">
-            <p style="text-align: center; padding: 0px 50px 0px 50px;">if you have any questions, please email us at customer.success@unlayer.com or visit our FAQS, you can also chat with a reel live human during our operating hours. They can answer questions about your account</p>
+            <p style="text-align: center; padding: 0px 50px 0px 50px;">if you have any questions, please email us at tndplbookprocurement@gmail.com or visit our FAQS.</p>
         </div>
     </div>
 
    
     <div class="copyright" style="text-align: center;">
-        <p>Copyright @ 2o23 Directorate of Public Libraries. All Rights reserved. Design by <a href="#">Gladindia.</a></p>
+        <p>Copyright © 2024 .Directorate of Public Libraries, பொது நூலக இயக்ககம். All rights reserved by Directorate of Public Libraries. </p>
     </div>
 </blockquote>
 </div>

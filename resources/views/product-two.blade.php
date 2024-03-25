@@ -73,31 +73,33 @@
                     <div class="col-xl-2 col-lg-12 col-md-12">
                         <div class="tpshop__leftbar">
                             <div class="tpshop__widget mb-30 pb-25">
-                                <h4 class="tpshop__widget-title">Product Tamil Categories</h4> 
+                                <h4 class="tpshop__widget-title">Product Tamil Categories</h4>
                                 @foreach($categories as $val)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="{{$val->id}}"
-                                        id="flexCheckDefault{{$val->id}}">
-                                    <label class="form-check-label"
-                                        for="flexCheckDefault{{$val->id}}">{{$val->name}}</label>
+                                    <input class="form-check-input category-checkbox" type="checkbox" value=""
+                                        data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}">
+                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}">
+                                        {{ $val->name }}
+                                    </label>
                                 </div>
-                                @endforeach 
+                                @endforeach
                             </div>
                             <div class="tpshop__widget mb-30 pb-25">
                                 <h4 class="tpshop__widget-title">Product English Categories</h4>
                                 @foreach($categories1 as $val)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="{{$val->id}}"
-                                        id="flexCheckDefault{{$val->id}}">
-                                    <label class="form-check-label"
-                                        for="flexCheckDefault{{$val->id}}">{{$val->name}}</label>
+                                    <input class="form-check-input category-checkbox" type="checkbox" value=""
+                                        data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}">
+                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}">
+                                        {{ $val->name }}
+                                    </label>
                                 </div>
                                 @endforeach
 
-                               
+
                             </div>
                             <div class="tpshop__widget mb-30 pb-25">
-                                <h4 class="tpshop__widget-title mb-20">FILTER BY PRICE</h4>
+                                <!-- <h4 class="tpshop__widget-title mb-20">FILTER BY PRICE</h4>
                                 <div class="productsidebar">
                                     <div class="productsidebar__head">
                                     </div>
@@ -106,9 +108,9 @@
                                         <div class="price-filter mt-10"><input type="text" id="amount">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="productsidebar__btn mt-15 mb-15">
-                                    <a href="#">FILTER</a>
+                                    <a href="#" id="filterButton">FILTER</a>
                                 </div>
                             </div>
                             <div class="tpshop__widget mb-30 pb-25">
@@ -120,15 +122,13 @@
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" checked
-                                        id="flexCheckDefault19">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault19">
                                     <label class="form-check-label" for="flexCheckDefault19">
                                         Sanjeev Joshi
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" checked
-                                        id="flexCheckDefault20">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault20">
                                     <label class="form-check-label" for="flexCheckDefault20">
                                         Sanjeev Joshi
                                     </label>
@@ -153,14 +153,14 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="col-xl-10 col-lg-12 col-md-12">
                         <div class="tpshop__top ml-60">
                             <div class="tpshop__category">
                                 <div class="swiper-container inner-category-active">
                                     <div class="swiper-wrapper">
-                                    @foreach($categories as $val)
+                                        @foreach($categories as $val)
                                         <div class="swiper-slide">
                                             <div class="category__item mb-30">
                                                 <div class="category__thumb fix mb-15">
@@ -206,9 +206,9 @@
                                             class="tpproductnav tpnavbar product-filter-nav d-flex align-items-center justify-content-center">
                                             <nav>
                                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                    <button class="nav-link active" id="nav-all-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#nav-all" type="button" role="tab"
-                                                        aria-controls="nav-all" aria-selected="true">
+                                                    <button class="nav-link active" id="nav-all-tab"
+                                                        data-bs-toggle="tab" data-bs-target="#nav-all" type="button"
+                                                        role="tab" aria-controls="nav-all" aria-selected="true">
                                                         <i>
                                                             <svg width="22" height="16" viewBox="0 0 22 16" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
@@ -251,9 +251,9 @@
                                                             </svg>
                                                         </i>
                                                     </button>
-                                                    <button class="nav-link " id="nav-popular-tab"
-                                                        data-bs-toggle="tab" data-bs-target="#nav-popular" type="button"
-                                                        role="tab" aria-controls="nav-popular" aria-selected="false">
+                                                    <button class="nav-link " id="nav-popular-tab" data-bs-toggle="tab"
+                                                        data-bs-target="#nav-popular" type="button" role="tab"
+                                                        aria-controls="nav-popular" aria-selected="false">
                                                         <i>
                                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                                 xmlns="http://www.w3.org/2000/svg">
@@ -333,173 +333,182 @@
                                 </div>
                             </div>
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
-                                    <div
-                                        class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">
-                                        @for($i=0;$i<12;$i++) 
+                                <div class="tab-pane fade fade show active" id="nav-all" role="tabpanel"
+                                    aria-labelledby="nav-all-tab">
+                                    <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">
+                                    
+                                    @foreach($magazines as $val)
                                         <div class="col">
                                             <div class="tpproduct p-relative mb-20">
                                                 <div class="tpproduct__thumb p-relative text-center">
-                                                    <a href="/shope-magazine"><img
+                                                    <a href="/shope-magazine/{{$val->id}}"><img
                                                             src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
                                                             alt=""></a>
-                                                    <a class="tpproduct__thumb-img" href="/shope-magazine">
+                                                    <a class="tpproduct__thumb-img" href="/shope-magazine/{{$val->id}}">
                                                         <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
                                                             alt=""></a>
-                                               
+
                                                     <div class="tpproduct__shopping">
-                                                      
-                                                        <a class="tpproduct__shopping-cart" href="/shope-magazine"><i
+
+                                                        <a class="tpproduct__shopping-cart" href="/shope-magazine/{{$val->id}}"><i
                                                                 class="icon-eye"></i></a>
                                                     </div>
                                                 </div>
                                                 <div class="tpproduct__content">
                                                     <span class="tpproduct__content-weight">
-                                                        <a href="shop-details-3.html">Children</a>,
-                                                        <a href="shop-details-3.html">tagname</a>
+                                                        <a href="shop-details-3.html">{{$val->category}}</a>,
+                                                        <a href="shop-details-3.html">{{$val->language}}</a>
                                                     </span>
                                                     <h4 class="tpproduct__title">
-                                                        <a href="/shope-magazine">Watch Where They Hide: A Jordan
-                                                            Manning Novel</a>
+                                                        <a href="/shope-magazine/{{$val->id}}"> Magazine Title: {{$val->title}} </a>
                                                     </h4>
-                                                
+
                                                     <div class="tpproduct__price">
-                                                        <span>₹56.00</span>
-                                                        <del>₹19.00</del>
+                                                        <span>₹{{$val->annual_cost_after_discount}}</span>
+                                                        <!-- <del>₹19.00</del> -->
                                                     </div>
                                                 </div>
                                                 <div class="tpproduct__hover-text">
                                                     <div
                                                         class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                                        <a class="tp-btn-2" href="cart.html">Add to cart</a>
+                                                        <button class="tp-btn-2 Add-to-cart3"  data-id3="{{$val->id}}">Add to cart</button>
                                                     </div>
                                                     <div class="tpproduct__descrip">
                                                         <ul>
-                                                            <li>Subject: Children</li>
-                                                            <li>Date of updated: August 4.2021</li>
+                                                            <li>category: {{$val->category}}</li>
+                                                            <li>periodicity: {{$val->periodicity}}</li>
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        @endforeach
                                     </div>
-                                    @endfor
                                 </div>
-                            </div>
-                            <div class="tab-pane whight-product" id="nav-popular" role="tabpanel"
-                                aria-labelledby="nav-popular-tab">
-                                <div
-                                    class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">
-                                    @for($i=0;$i<12;$i++) <div class="col">
-                                        <div class="tpproduct p-relative mb-20">
-                                            <div class="tpproduct__thumb p-relative text-center">
-                                                <a href="/shope-magazine"><img
-                                                        src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                        alt=""></a>
-                                                <a class="tpproduct__thumb-img" href="/shope-magazine"><img
-                                                        src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                        alt=""></a>
-                                               
-                                                <div class="tpproduct__shopping">
-                                             
-                                                    <a class="tpproduct__shopping-cart" href="/shope-magazine"><i
-                                                            class="icon-eye"></i></a>
+                                <div class="tab-pane whight-product" id="nav-popular" role="tabpanel"
+                                    aria-labelledby="nav-popular-tab">
+                                    <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">
+                               
+                                    @foreach($magazines as $val) 
+                                        <div class="col">
+                                            <div class="tpproduct p-relative mb-20">
+                                                <div class="tpproduct__thumb p-relative text-center">
+                                                    <a href="/shope-magazine/{{$val->id}}"><img
+                                                            src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                            alt=""></a>
+                                                    <a class="tpproduct__thumb-img" href="/shope-magazine/{{$val->id}}"><img
+                                                            src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                            alt=""></a>
+
+                                                    <div class="tpproduct__shopping">
+
+                                                        <a class="tpproduct__shopping-cart" href="/shope-magazine/{{$val->id}}"><i
+                                                                class="icon-eye"></i></a>
+                                                    </div>
+                                                </div>
+                                                <div class="tpproduct__content">
+                                                    <span class="tpproduct__content-weight">
+                                                        <a href="shop-details-3.html">{{$val->category}}</a>,
+                                                        <a href="shop-details-3.html">{{$val->language}}</a>
+                                                    </span>
+                                                    <h4 class="tpproduct__title">
+                                                        <a href="/shope-magazine/{{$val->id}}">Magazine Title: {{$val->title}}</a>
+                                                    </h4>
+
+                                                    <div class="tpproduct__price">
+                                                        <span>₹{{$val->annual_cost_after_discount}}</span>
+                                                        <!-- <del>₹19.00</del> -->
+                                                    </div>
+                                                </div>
+                                                <div class="tpproduct__hover-text">
+                                                    <div
+                                                        class="tpproduct__hover-btn d-flex justify-content-center mb-10">
+                                                        <button  class="tp-btn-2  Add-to-cart2"  data-id2="{{$val->id}}">Add to cart</button>
+                                                    </div>
+                                                    <div class="tpproduct__descrip">
+                                                        <ul>
+                                                            <li>category: {{$val->category}}</li>
+                                                            <li>periodicity: {{$val->periodicity}}</li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="tpproduct__content">
-                                                <span class="tpproduct__content-weight">
-                                                    <a href="shop-details-3.html">Children</a>,
-                                                    <a href="shop-details-3.html">tagname</a>
-                                                </span>
-                                                <h4 class="tpproduct__title">
-                                                    <a href="/shope-magazine">Watch Where They Hide: A Jordan
-                                                        Manning Novel</a>
-                                                </h4>
-                                        
-                                                <div class="tpproduct__price">
-                                                    <span>₹56.00</span>
-                                                    <del>₹19.00</del>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade whight-product" id="nav-product" role="tabpanel"
+                                    aria-labelledby="nav-product-tab">
+                                
+                                    @foreach($magazines as $val)
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="tplist__product d-flex align-items-center justify-content-between mb-20">
+                                                <div class="tplist__product-img">
+                                                    <a href="/shope-magazine/{{$val->id}}" class="tplist__product-img-one"><img
+                                                            src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                            alt=""></a>
+                                                    <a class="tplist__product-img-two" href="/shope-magazine/{{$val->id}}"><img
+                                                            src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
+                                                            alt=""></a>
+
                                                 </div>
-                                            </div>
-                                            <div class="tpproduct__hover-text">
-                                                <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                                    <a class="tp-btn-2" href="cart.html">Add to cart</a>
-                                                </div>
-                                                <div class="tpproduct__descrip">
-                                                    <ul>
-                                                        <li>Subject: Children</li>
-                                                        <li>Date of updated: August 4.2021</li>
+                                                <div class="tplist__content">
+                                                    <span>{{$val->category}}</span>,
+                                                    <span>{{$val->language}}</span>
+                                                    <h4 class="tplist__content-title"><a href="/shope-magazine/{{$val->id}}">Magazine
+                                                            Title: {{$val->title}}</a></h4>
+
+                                                    <ul class="tplist__content-info">
+                                                        <li>category: {{$val->category}}</li>
+                                                        <li>periodicity: {{$val->periodicity}}</li>
+
                                                     </ul>
                                                 </div>
-                                            </div>
-                                        </div>
-                                </div>
-                                @endfor
-                            </div>
-                        </div>
-                        <div class="tab-pane fade whight-product" id="nav-product" role="tabpanel"
-                            aria-labelledby="nav-product-tab">
-                            @for($i=0;$i<12;$i++) <div class="row">
-                                <div class="col-lg-12">
-                                    <div
-                                        class="tplist__product d-flex align-items-center justify-content-between mb-20">
-                                        <div class="tplist__product-img">
-                                            <a href="/shope-magazine" class="tplist__product-img-one"><img
-                                                    src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                    alt=""></a>
-                                            <a class="tplist__product-img-two" href="/shope-magazine"><img
-                                                    src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                    alt=""></a>
-                                         
-                                        </div>
-                                        <div class="tplist__content">
-                                            <span>tagname</span>
-                                            <h4 class="tplist__content-title"><a href="/shope-magazine">Watch Where They Hide: A
-                                                    Jordan Manning Novel</a></h4>
-                                   
-                                            <ul class="tplist__content-info">
-                                                <li>Subject: Children</li>
-                                                <li>Date of updated: August 4.2021</li>
-                                             
-                                            </ul>
-                                        </div>
-                                        <div class="tplist__price justify-content-end">
-                                            <h4 class="tplist__instock">Availability: <span>92 in stock</span>
-                                            </h4>
-                                            <h3 class="tplist__count mb-15">₹56.00</h3>
-                                            <button class="tp-btn-2 mb-10">Add to cart</button>
-                                            <div class="tplist__shopping">
-                                               
+                                                <div class="tplist__price justify-content-end">
+                                                    <!-- <h4 class="tplist__instock">Availability: <span>92 in stock</span>
+                                            </h4> -->
+                                                    <h3 class="tplist__count mb-15">
+                                                        ₹{{$val->annual_cost_after_discount}}</h3>
+                                                        <button class="tp-btn-2 mb-10 Add-to-cart1" data-id1="{{$val->id}}">Add to cart</button>
+                                                    <div class="tplist__shopping">
+
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    @endforeach
                                 </div>
+                                 <div class="basic-pagination text-center mt-35">
+                                   <nav>
+                                     <ul>
+                                        @if ($magazines->onFirstPage())
+                                        <li><span class="current">1</span></li>
+                                        @else
+                                        <li><a href="{{ $magazines->previousPageUrl() }}">1</a></li>
+                                        @endif
+
+                                        @if ($magazines->currentPage() >= 2)
+                                        <li><a href="{{ $magazines->url(2) }}">2</a></li>
+                                        @endif
+
+                                        @if ($magazines->currentPage() >= 3)
+                                        <li><a href="{{ $magazines->url(3) }}">3</a></li>
+                                        @endif
+
+                                        @if ($magazines->hasMorePages())
+                                        <li><a href="{{ $magazines->nextPageUrl() }}"><i
+                                                    class="icon-chevrons-right"></i></a></li>
+                                        @endif
+                                    </ul>
+                                  </nav>
+                                </div>
+                            </div>
+                           
                         </div>
-                        @endfor
                     </div>
                 </div>
-                <div class="basic-pagination text-center mt-35">
-                    <nav>
-                        <ul>
-                            <li>
-                                <span class="current">1</span>
-                            </li>
-                            <li>
-                                <a href="blog.html">2</a>
-                            </li>
-                            <li>
-                                <a href="blog.html">3</a>
-                            </li>
-                            <li>
-                                <a href="blog.html">
-                                    <i class="icon-chevrons-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            </div>
-            </div>
             </div>
         </section>
         <!-- shop-area-end -->
@@ -514,8 +523,250 @@
     include 'plugin/js.php';
     ?>
 
-</body>
+<!-- </body>
+<script>
+$(document).ready(function() {
+    $(document).on('click', '#filterButton', function() {
+        handlePaginationAndFiltering();
+    });
 
+    function handlePaginationAndFiltering() {
+        const checkedIds = $('.category-checkbox:checked').map(function() {
+            return $(this).data('id');
+        }).get();
+
+        $.ajax({
+            url: '/megazine_categories', // Ensure this URL is correct
+            method: 'get',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'checkedIds': checkedIds
+            },
+            success: function(response) {
+                if (response.success) {
+                    appendRecords(response.success);
+
+                    if (response.pagination) {
+                        $('#pagination-container').html(response.pagination);
+                        attachPaginationHandler();
+                    }
+                } else {
+                    console.log('No data received.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    function appendRecords(records) {
+        $('#nav-tabContent').html(records);
+    }
+
+    function attachPaginationHandler() {
+        $('.basic-pagination a').off('click'); 
+        $('.basic-pagination a').on('click', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+
+            $.ajax({
+                url: url,
+                method: 'get',
+                success: function(response) {
+                    if (response.success) {
+                        appendRecords(response.success);
+                      
+                        if (response.pagination) {
+                            $('#pagination-container').html(response.pagination);
+                            attachPaginationHandler(); 
+                        }
+                    } else {
+                        console.log('No paginated data received.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching paginated records:', error);
+                }
+            });
+        });
+    }
+});
+
+</script> -->
+
+
+<!-- 
+<script> 
+$(document).ready(function() {
+    // Function to handle pagination and filtering
+    function handlePaginationAndFiltering() {
+        // Gather IDs of checked category checkboxes
+        const checkedIds = $('.category-checkbox:checked').map(function() {
+            return $(this).data('id');
+        }).get();
+
+        // Send AJAX request to the server
+        $.ajax({
+            url: '/megazine_categories',
+            method: 'GET',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'checkedIds': checkedIds
+            },
+            success: function(response) {
+                // Update content and pagination if available
+                $('#nav-tabContent').html(response.success);
+                if (response.pagination) {
+                    $('#pagination-container').html(response.pagination);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    // Handle click event on the filter button
+    $(document).on('click', '#filterButton', function() {
+        handlePaginationAndFiltering();
+    });
+
+    // Handle click event on pagination links
+    $(document).on('click', '.basic-pagination a', function(e) {
+        e.preventDefault();
+        var url = $(this).attr('href'); 
+
+        // Send AJAX request to the clicked URL
+        $.ajax({
+            url: url,
+            method: 'GET',
+            success: function(response) {
+                // Update content
+                $('#nav-tabContent').html(response.success);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+});
+</script> -->
+<script>
+$(document).ready(function() {
+    $(document).on('click', '#filterButton', function() {
+
+ 
+    const checkedIds = $('.category-checkbox:checked').map(function() {
+            return $(this).data('id');
+        }).get();
+
+        $.ajax({
+            url: '/megazine_categories',
+            method: 'get',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'checkedIds': checkedIds
+            },
+            success: function(response) {
+                $('#nav-tabContent').html(response.success); 
+              
+            },
+            error: function(xhr, status, error) {
+                console.log('Error:', error);
+            }
+        });
+    });
+
+
+});
+</script>
+
+
+<script>
+$(document).ready(function(){
+    $('.Add-to-cart1').click(function(){
+        var id = $(this).data('id1');
+        $.ajax({
+            url: '/add-to-cart',
+            method: 'POST', 
+            data: {
+                '_token': '{{ csrf_token() }}',
+               'id': id
+               },
+            success: function(response) {
+                if(response.magazinecartcount){
+                    $('#magazinecartcount').text(response.magazinecartcount);
+
+                }
+                  
+                toastr.success(response.success, { timeout: 2000 });
+               
+            },
+            error: function(xhr, status, error) {
+              
+                console.error('AJAX request failed:', status, error);
+            }
+        });
+    });
+});
+</script>
+<script>
+$(document).ready(function(){
+    $('.Add-to-cart2').click(function(){
+        var id = $(this).data('id2');
+        $.ajax({
+            url: '/add-to-cart', 
+            method: 'POST', 
+            data: {
+             '_token': '{{ csrf_token() }}',
+            'id': id
+               },
+            success: function(response) {
+                if(response.magazinecartcount){
+                    $('#magazinecartcount').text(response.magazinecartcount);
+
+                }
+
+                toastr.success(response.success, { timeout: 2000 });
+               
+            },
+            error: function(xhr, status, error) {
+              
+                console.error('AJAX request failed:', status, error);
+            }
+        });
+    });
+});
+</script>
+<script>
+$(document).ready(function(){
+    $('.Add-to-cart3').click(function(){
+        var id = $(this).data('id3');
+        $.ajax({
+            url: '/add-to-cart',
+            method: 'POST', 
+            data: {
+                  '_token': '{{ csrf_token() }}',
+                 'id': id
+                   },
+            success: function(response) {
+                if(response.magazinecartcount){
+                    $('#magazinecartcount').text(response.magazinecartcount);
+
+                }
+
+                toastr.success(response.success, { timeout: 2000 });
+               
+            },
+            error: function(xhr, status, error) {
+              
+                console.error('AJAX request failed:', status, error);
+            }
+        });
+    });
+});
+</script>
 <style>
 .tpproduct__thumb {
     padding: 20px 20px;
