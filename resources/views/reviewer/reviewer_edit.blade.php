@@ -88,7 +88,7 @@
                                                     <div class="col-sm-12 mb-3" >
                                                             <label class="form-label">Public Reviewer Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Public Reviewer Name" value="{{$data->name}}" id="publicreviewername" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter public reviewer name" value="{{$data->name}}" id="publicreviewername" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3" >
                                                         <label class="form-label">District<span
@@ -110,7 +110,7 @@
                                                               <div class="col-sm-12 mb-3"  >
                                                             <label class="form-label">Membership Id<span
                                                                 class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Membership Id" value="{{$data->membershipId}}" id="membershipId" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter membership id" value="{{$data->membershipId}}" id="membershipId" Required>
                                                         </div>
                                                        
                                                     </div>
@@ -120,7 +120,7 @@
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Book Categories<span
                                                               class="text-danger maditory">*</span></label>
-                                                            <!-- <input type="text" class="form-control" placeholder="Enter Subject" id="subject" Required> -->
+                                                            <!-- <input type="text" class="form-control" placeholder="Enter subject" id="subject" Required> -->
                                                             <select class="form-select bg-white" id="Category"
                                                         name="Category" required>
                                                         <option value="{{$data->Category}}">{{$data->Category}}</option>
@@ -137,7 +137,7 @@
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Phone number<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <input type="number" class="form-control" placeholder="Enter  Phonenumber" value="{{$data->phoneNumber}}" id="phoneNumber" Required>
+                                                            <input type="number" class="form-control" placeholder="Enter phone number" value="{{$data->phoneNumber}}" id="phoneNumber" Required>
                                                         </div>
 
                                                     </div>
@@ -177,24 +177,24 @@
                                             <h3 class="">Login Details</h3>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="col-sm-12 mb-6">
+                                                    <div class="col-sm-12 mb-6 mt-2">
                                                         <label class="form-label">Email</label>
-                                                        <input type="text" class="form-control" placeholder="Enter Email" value="{{$data->email}}" id="email" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter email" value="{{$data->email}}" id="email" Required>
                                                     </div>
-                                                    <div class="col-sm-12 mb-6">
+                                                    <div class="col-sm-12 mb-6 mt-2">
                                                         <label class="form-label">New Password<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter New Password" id="password" Required>
+                                                        <input type="password" class="form-control" placeholder="Enter new password" id="password" Required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                <div class="col-sm-12 mb-6">
+                                                <div class="col-sm-12 mb-6 mt-2">
                                                         <label class="form-label">Confirm Password</label>
-                                                        <input type="password" class="form-control" placeholder="Enter Confirm Password" id="Confirmpassword">
+                                                        <input type="password" class="form-control" placeholder="Enter confirm password" id="Confirmpassword">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row mt-3">
                                                 <div class="col-12 text-end">
                                                     <button type="submit" class="btn btn-primary" data-id="{{$data->id}}" id="submitButton">Submit</button>
                                                 </div>
@@ -322,5 +322,8 @@
 .img-ava{
     width: 175px !important;
     height: 175px;
+}
+.profile-form .form-control, .profile-form .bootstrap-select .dropdown-toggle {
+    height: 33px !important;
 }
 </style>

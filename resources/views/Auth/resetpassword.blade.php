@@ -181,58 +181,58 @@
                                 </div>
                                 <form action="" class="p-2" id="userloginForm" method="POST">
                                 <div class="row login_static">
-                                <div class="col-md-3">
+                                <div class="col-lg-3 col-md-6">
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" name="usertype" id="publisher" value="publisher" @if($data->type == "publisher") checked @endif disabled>
                                         <label class="form-check-label" for="radio1"> Publisher</label>
                                     </div>
                                 </div>
 
-                                <div class="col-md-3">
+                                <div class="col-lg-3 col-md-6">
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" name="usertype" id="distributor" value="distributor" @if($data->type == "distributor") checked @endif disabled>
                                         <label class="form-check-label" for="radio2"> Distributor</label>
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-lg-6 col-md-12">
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" name="usertype" id="publisherdistributor" value="publisherdistributor" @if($data->type == "publisherdistributor") checked @endif disabled>
                                         <label class="form-check-label" for="radio3"> Publisher And Distributor</label>
                                     </div>
                                 </div>
-                                    <div class="col-md-8 mt-2">
-                                        <label for="inputEmail4" class="form-label">Enter Email ID<span
-                                                class="text-danger maditory">*</span></label></label>
-                                        <input type="email" class="form-control" id="email" name="email"
-                                            placeholder=" Enter your User Name" value="{{$data->email}}" required>
-                                    </div>
-                                    <div class="col-md-8 mt-2">
-                                        <label for="inputEmail4" class="form-label">Enter the New Password<span
-                                                class="text-danger maditory">*</span></label></label>
-                                        <input type="password" class="form-control" id="newpassword" name="newpassword"
-                                            placeholder=" Enter your User Name" required>
-                                            <i class="toggle-password fa fa-fw fa-eye-slash"></i>
-                                    </div>
-                                    <div class="col-md-8 mt-2">
-                                        <label for="inputPassword4" class="form-label">Enter the Confirm Password <span
-                                                class="text-danger maditory">*</span></label></label>
-                                        <input type="password" class="form-control" id="conformpassword" name="conformpassword"
-                                            placeholder="Enter Password" required>
-                                            <i class="toggle-password fa fa-fw fa-eye-slash"></i>
-                                    </div>
-                                    <p class="reg-redirect mt-3 p-0 ms-3 m-0">
-                                        Don't have an account? <a class="text-primary" href="/register"> Register Now</a>
-                                    </p>
-                                    <p class="reg-redirect ms-3 p-0 m-0">
-                                         <a class="text-primary" href="#"> Back To Login?</a>
-                                    </p>
-                                    <div class="tpabout__inner-btn login_static_new mb-5">
-                                    <button class="g-recaptcha btn btn-dark bg-dark text-white"
-                                        data-sitekey="6Lf0cxIpAAAAAHaHPbmPV8l4O6U5Iy1ZZvfNH3OZ"
-                                        data-callback='onSubmit'
-                                        data-action='submit'  id="submit">Submit</button>
-                                    </div>
+                                <div class="col-md-8 mt-2">
+                                    <label for="inputEmail4" class="form-label">Enter Email ID<span
+                                            class="text-danger maditory">*</span></label></label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                        placeholder=" Enter your User Name" value="{{$data->email}}" required>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <label for="inputEmail4" class="form-label">Enter the New Password<span
+                                            class="text-danger maditory">*</span></label></label>
+                                    <input type="password" class="form-control" id="newpassword" name="newpassword"
+                                        placeholder=" Enter your User Name" required>
+                                        <i class="toggle-password fa fa-fw fa-eye-slash"></i>
+                                </div>
+                                <div class="col-md-8 mt-2">
+                                    <label for="inputPassword4" class="form-label">Enter the Confirm Password <span
+                                            class="text-danger maditory">*</span></label></label>
+                                    <input type="password" class="form-control" id="conformpassword" name="conformpassword"
+                                        placeholder="Enter Password" required>
+                                        <i class="toggle-password fa fa-fw fa-eye-slash"></i>
+                                </div>
+                                <p class="reg-redirect mt-3 p-0 ms-3 m-0">
+                                    Don't have an account? <a class="text-primary" href="/register"> Register Now</a>
+                                </p>
+                                <p class="reg-redirect ms-3 p-0 m-0">
+                                        <a class="text-primary" href="#"> Back To Login?</a>
+                                </p>
+                                <div class="tpabout__inner-btn login_static_new mb-5">
+                                <button class="g-recaptcha btn btn-dark bg-dark text-white"
+                                    data-sitekey="6Lf0cxIpAAAAAHaHPbmPV8l4O6U5Iy1ZZvfNH3OZ"
+                                    data-callback='onSubmit'
+                                    data-action='submit'  id="submit">Submit</button>
+                                </div>
 
                                 </form>
                             </div>

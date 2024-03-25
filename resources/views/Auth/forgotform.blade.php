@@ -181,21 +181,21 @@
                                 </div>
                                 <form action="/action_page.php" class="p-2" id="userloginForm" method="POST">
                                 <div class="row login_static">
-                                        <div class="col-md-3">
+                                        <div class="col-lg-3 col-md-6">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio1" name='usertype'
                                                     value="publisher" checked>
                                                 <label class="form-check-label" for="radio1"> Publisher</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-lg-3 col-md-6">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio2" name='usertype'
                                                     value="distributor">
                                                 <label class="form-check-label" for="radio2"> Distributor</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-lg-6 col-md-12">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio3"
                                                  name='usertype' value="publisherdistributor">

@@ -23,7 +23,14 @@
         include "librarian/plugin/plugin_css.php";
     ?>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
-
+    <style>
+        .profile-form .form-control, .profile-form .bootstrap-select .dropdown-toggle {
+            height: 36px !important;
+            font-size: 1rem;
+            border-radius: 0.375rem;
+            border-color: #E6E6E6;
+        }
+    </style>
 </head>
 
 <body>
@@ -104,7 +111,7 @@
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Library Name<span
                                                        class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Library Name" value="{{$data->libraryName}}" id="libraryName" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter library name" value="{{$data->libraryName}}" id="libraryName" Required>
                                           </div>
                                           <div class="col-sm-6 mb-3">
                                                      <label class="form-label">Subject<span
@@ -155,12 +162,12 @@
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">City<span
                                                          class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter City" value="{{$data->city}}" id="city" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter city" value="{{$data->city}}" id="city" Required>
                                                     </div>
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Village<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Village" value="{{$data->Village}}" id="Village" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter village" value="{{$data->Village}}" id="Village" Required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,13 +180,13 @@
                                                     <label class="form-label">Librarian Name<span
                                                             class="text-danger maditory">*</span></label>
                                                     <input type="text" class="form-control"
-                                                        placeholder="Enter librarian Name" id="librarianName" value="{{$data->librarianName}}"
+                                                        placeholder="Enter librarian name" id="librarianName" value="{{$data->librarianName}}"
                                                         required="">
                                                 </div>
                                                 <div class="col-sm-6 mb-3">
                                                     <label class="form-label">Are You Meta Checker<span
                                                             class="text-danger maditory">*</span></label>
-                                                    <select name="" id="metaChecker" class="form-select" required="">
+                                                    <select name="" id="metaChecker" class="form-select bg-white" required="">
                                                        @if($data->metaChecker == "yes")
                                                         <option value="yes">Yes</option>
                                                         <option value="no">No</option>
@@ -196,14 +203,14 @@
                                                     <label class="form-label">Librarian Designation<span
                                                             class="text-danger maditory">*</span></label>
                                                     <input type="text" class="form-control"
-                                                        placeholder="Enter librarian Designation" value="{{$data->librarianDesignation}}"
+                                                        placeholder="Enter librarian designation" value="{{$data->librarianDesignation}}"
                                                         id="librarianDesignation" required="">
                                                 </div>
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Phone number<span
                                                             class="text-danger maditory">*</span></label>
                                                     <input type="number" class="form-control"
-                                                        placeholder="Enter Phone number" id="mobileNumber"  value="{{$data->phoneNumber}}" required="">
+                                                        placeholder="Enter phone number" id="mobileNumber"  value="{{$data->phoneNumber}}" required="">
                                                 </div>
 
                                             </div>
@@ -214,7 +221,7 @@
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Email<span
                                                             class="text-danger maditory">*</span></label>
-                                                    <input type="email" class="form-control" placeholder="Enter Emaile" value="{{$data->email}}"
+                                                    <input type="email" class="form-control" placeholder="Enter email" value="{{$data->email}}"
                                                         id="email" required="">
                                                 </div>
                                             </div>
@@ -222,14 +229,14 @@
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">New Password<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter New Password" id="newpassword" >
+                                                        <input type="password" class="form-control" placeholder="Enter new password" id="newpassword" >
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Confirm Password<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter Confirm Password" id="confirmpassword"  >
+                                                        <input type="password" class="form-control" placeholder="Enter confirm password" id="confirmpassword"  >
                                                     </div>
                                                 </div>
                                         </div>

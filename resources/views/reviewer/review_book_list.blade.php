@@ -75,7 +75,7 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="row task">
-									<div class="col-xl-4 col-sm-4 col-6">
+									<div class="col-xl-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-primary count">{{$totalreview}}</h2>
@@ -84,7 +84,7 @@
 											<p>Review Book</p>
 										</div>
 									</div>
-									<div class="col-xl-4 col-sm-4 col-6">
+									<div class="col-xl-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-purple count">{{$pendingreview}}</h2>
@@ -93,7 +93,7 @@
 											<p>Current Review</p>
 										</div>
 									</div>
-									<div class="col-xl-4 col-sm-4 col-6">
+									<div class="col-xl-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-warning count">{{$completedreview}}</h2>
@@ -140,37 +140,32 @@
 									{{-- <div class="tbl-caption">
 										<h4 class="heading mb-0"><i class="fa fa-trash p-2" aria-hidden="true"></i></h4>
 									</div> --}}
-									<table id="example" class="table">
+									<table id="example3" class="table">
 										<thead>
 											<tr>
-
 												<th>S.No</th>
 												<th>Book No</th>
 												<th>Book Title</th>
 												<th>Date</th>
-
-												<th class="text-end">Control</th>
+												<th>Control</th>
 											</tr>
 										</thead>
 										<tbody>
 											@foreach($data as $key=>$val)
 											<tr>
 
-												<td>{{$loop->index+1}}</td>
-												<td><span>{{$val->book->product_code}}</span></td>
-												<td>
-													<div class="products">
-														<div>
+												<td data-label="S/No">{{$loop->index+1}}</td>
+												<td data-label="Book No"><span>{{$val->book->product_code}}</span></td>
+												<td style="white-space:normal;" data-label="Book Title">
 															<h6>{{$val->book->book_title}}</h6>
 															<!-- <span>INV-100023456</span> -->
-														</div>
 													</div>
 												</td>
-												<td>
+												<td data-label="Date">
 													<span>{{ $val->created_at->format('d-m-Y') }}</span>
 												</td>
 
-												<td>
+												<td data-label="Control">
 													<!-- <a href="/reviewer/review_post_book/{{$val->book->id}}/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a> -->
 											<a href="/reviewer/book_view/{{$val->book->id}}/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
 

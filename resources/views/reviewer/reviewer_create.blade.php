@@ -88,7 +88,7 @@
                                                     <div class="col-sm-12 mb-3" >
                                                             <label class="form-label">Public Reviewer Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Public Reviewer Name" id="publicreviewername" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter public reviewer name" id="publicreviewername" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3" >
                                                         <label class="form-label">District<span
@@ -110,7 +110,7 @@
                                                               <div class="col-sm-12 mb-3"  >
                                                             <label class="form-label">Membership Id<span
                                                                 class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Membership Id" id="membershipId" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter membership id" id="membershipId" Required>
                                                         </div>
                                                        
                                                     </div>
@@ -138,7 +138,7 @@
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Phone Number<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <input type="number" class="form-control" placeholder="Enter  Phone Number" id="phoneNumber" Required>
+                                                            <input type="number" class="form-control" placeholder="Enter phone number" id="phoneNumber" Required>
                                                         </div>
 
                                                     </div>
@@ -176,14 +176,14 @@
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Email<span
                                                          class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Email" id="email" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter email" id="email" Required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Password<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter Password" id="password" Required>
+                                                        <input type="password" class="form-control" placeholder="Enter password" id="password" Required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -311,5 +311,8 @@
 .img-ava{
     width: 175px !important;
     height: 175px;
+}
+.profile-form .form-control, .profile-form .bootstrap-select .dropdown-toggle {
+    height: 33px !important;
 }
 </style>

@@ -68,28 +68,26 @@
                     </div>
                 </div>
                 @php
-    $id = auth('reviewer')->user()->id;
-    $data = DB::table('reviewer')->find($id);
-  
-@endphp
+                    $id = auth('reviewer')->user()->id;
+                    $data = DB::table('reviewer')->find($id);
+                @endphp
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                               
                                 <div class="reviewer">
                                     <form form class="profile-form" id="formId">
                                         @csrf
                                     <div class="form-validation">
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <hr>
+                                                {{-- <hr> --}}
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Select Reviewer Type<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <select name="reviewer_type" id="reviewerType" class="form-select" Required>
+                                                            <select name="reviewer_type" id="reviewerType" class="form-select bg-white" Required>
                                                           
                                                                 <option value="internal">Librarian Reviewer</option>
                                                             </select>
@@ -115,14 +113,14 @@
                                                         <div class="col-sm-12 mb-3" >
                                                             <label class="form-label">Librarian Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Librarian Name" value="{{$data->name}}" id="Librarian_Name" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter librarian name" value="{{$data->name}}" id="Librarian_Name" Required>
                                                         </div>
                                                     
                                                         <div class="col-sm-12 mb-3" >
                                                             <label class="form-label">Subject<span
                                                               class="text-danger maditory">*</span></label>
                                                             <!-- <input type="text" class="form-control" placeholder="Enter Subject" id="subject" Required> -->
-                                                            <select class="form-select" id="subject"
+                                                            <select class="form-select bg-white" id="subject"
                                                         name="subject" required>
                                                         <option value="{{$data->subject}}">{{$data->subject}}</span></option>
                                                         @php
@@ -140,9 +138,8 @@
                                                     <div class="col-md-6">
                                                       
                                        <div class="col-sm-12 mb-3" >
-                                                        <label class="form-label">Library Type<span
-                                 class="text-danger maditory">*</span></label>
-                                                        <select name="library_type" id="libraryType"  class="form-select" Required>
+                                                        <label class="form-label">Library Type<span class="text-danger maditory">*</span></label>
+                                                        <select name="library_type" id="libraryType"  class="form-select bg-white" Required>
                                                         <option value="{{$data->libraryType}}">{{$data->libraryType}}</option>
                                                         @php
                                                           $categori = DB::table('library_types')->where('status','=','1')->get();
@@ -156,14 +153,14 @@
                                                     <div class="col-sm-12 mb-3" >
                                                             <label class="form-label">Library Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="EnterLibrary Name"  value="{{$data->libraryName}}" id="libraryName" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter library name"  value="{{$data->libraryName}}" id="libraryName" Required>
                                                         </div>
            
                                                      
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Phone number<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <input type="number" class="form-control" placeholder="Enter  Phonenumber" value="{{$data->phoneNumber}}" id="phoneNumber" Required>
+                                                            <input type="number" class="form-control" placeholder="Enter phone number" value="{{$data->phoneNumber}}" id="phoneNumber" Required>
                                                         </div>
 
                                                     </div>
@@ -204,24 +201,24 @@
                                             <h3 class="">Login Details</h3>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <div class="col-sm-12 mb-6">
+                                                    <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Email</label>
-                                                        <input type="text" class="form-control" placeholder="Enter Email" value="{{$data->email}}" id="email" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter email" value="{{$data->email}}" id="email" Required>
                                                     </div>
-                                                    <div class="col-sm-12 mb-6">
+                                                    <div class="col-sm-12 mb-3">
                                                         <label class="form-label">New Password<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter New Password" id="password" Required>
+                                                        <input type="password" class="form-control" placeholder="Enter new password" id="password" Required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
-                                                <div class="col-sm-12 mb-6">
+                                                    <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Confirm Password</label>
-                                                        <input type="password" class="form-control" placeholder="Enter Confirm Password" id="Confirmpassword">
+                                                        <input type="password" class="form-control" placeholder="Enter confirm password" id="Confirmpassword">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row mb-3 ">
                                                 <div class="col-12 text-end">
                                                     <button type="submit" class="btn btn-primary"  data-id="{{$data->id}}" id="submitButton">Submit</button>
                                                 </div>
@@ -352,5 +349,10 @@
 
 </html>
 <style>
-
+.profile-form .form-control, .profile-form .bootstrap-select .dropdown-toggle {
+    height: 36px !important;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    border-color: #E6E6E6;
+}
 </style>

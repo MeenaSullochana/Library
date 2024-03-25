@@ -508,7 +508,7 @@
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
-                                                            <h5 class="f-w-500">Number of Books Available<</h5>
+                                                            <h5 class="f-w-500">Number of Books Available</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
                                                             <span>: <b class="ms-3">{{$data->noOfBooksAvailable}}</b></span>

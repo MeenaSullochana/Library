@@ -303,13 +303,13 @@
                             </div>
                             @if(auth('librarian')->user()->metaChecker =="no")
                             <div class="col-xl-6">
-                                <div class="card">
+                                <div class="card p-3">
                                     <div class="card-header border-0">
                                         <h4 class="heading mb-0">New Book</h4>
                                     </div>
-                                    <div class="card-body p-0">
+                                    <div class="card-body">
                                         <div class="table-responsive active-projects">
-                                            <table id="projects-tbl4" class="table">
+                                            <table id="example3" class="table">
                                                 <thead>
                                                     <tr>
                                                         <th>BOOK NAME</th>
@@ -334,7 +334,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>$655</td>
+                                                        <td><i class="fa fa-inr" aria-hidden="true"></i> 655</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -352,7 +352,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>$655</td>
+                                                        <td><i class="fa fa-inr" aria-hidden="true"></i> 655</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -370,7 +370,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>$699</td>
+                                                        <td><i class="fa fa-inr" aria-hidden="true"></i> 699</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -388,7 +388,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>$955</td>
+                                                        <td><i class="fa fa-inr" aria-hidden="true"></i> 955</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -406,7 +406,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>$655</td>
+                                                        <td><i class="fa fa-inr" aria-hidden="true"></i> 655</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -420,9 +420,9 @@
                                     <div class="card-header border-0">
                                         <h4 class="heading mb-0">Top rating books</h4>
                                     </div>
-                                    <div class="card-body p-0">
+                                    <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
-                                            <table id="projects-tbl2" class="table">
+                                            <table id="example3" class="table">
                                                 <thead>
                                                     <tr>
                                                         <th>BOOK NAME</th>
@@ -447,7 +447,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>$655</td>
+                                                        <td><i class="fa fa-inr" aria-hidden="true"></i> 655</td>
                                                         <td>55</td>
                                                     </tr>
                                                     <tr>
@@ -466,7 +466,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>$585</td>
+                                                        <td><i class="fa fa-inr" aria-hidden="true"></i> 585</td>
                                                         <td>485</td>
                                                     </tr>
                                                     <tr>
@@ -485,7 +485,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>$852</td>
+                                                        <td><i class="fa fa-inr" aria-hidden="true"></i> 852</td>
                                                         <td>5525</td>
                                                     </tr>
                                                     <tr>
@@ -504,7 +504,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>$852</td>
+                                                        <td><i class="fa fa-inr" aria-hidden="true"></i> 852</td>
                                                         <td>5985</td>
                                                     </tr>
                                                     <tr>
@@ -523,7 +523,7 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td>$182</td>
+                                                        <td><i class="fa fa-inr" aria-hidden="true"></i> 182</td>
                                                         <td>525</td>
                                                     </tr>
                                                 </tbody>

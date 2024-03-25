@@ -23,6 +23,14 @@
     <?php
         include "reviewer/plugin/plugin_css.php";
     ?>
+    <style>
+        .profile-form .form-control, .profile-form .bootstrap-select .dropdown-toggle {
+            height: 36px !important;
+            font-size: 1rem;
+            border-radius: 0.375rem;
+            border-color: #E6E6E6;
+        }
+        </style>
 </head>
 
 <body>
@@ -61,16 +69,16 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Edit Profile</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="member_list.php">
-                                <i class="fas fa-plus"></i> List Of Member </a>
+                            <a class="btn btn-primary  btn-sm" href="/reviewer/index">
+                                <i class="fas fa-arrow-left"></i> Dashboard </a>
                         </div>
                     </div>
                 </div>
                 @php
-    $id = auth('reviewer')->user()->id;
-    $data = DB::table('reviewer')->find($id);
-  
-@endphp
+                    $id = auth('reviewer')->user()->id;
+                    $data = DB::table('reviewer')->find($id);
+                
+                @endphp
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -86,7 +94,7 @@
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Select Reviewer Type<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <select name="reviewer_type" id="reviewerType" class="form-select" Disable>
+                                                            <select name="reviewer_type" id="reviewerType" class="form-select bg-white" Disable>
                                                               @if($data->reviewerType  == "internal")
                                                                 <option value="internal">Internal</option>
 
@@ -99,12 +107,12 @@
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Name" id="name" value="{{$data->name}}" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter name" id="name" value="{{$data->name}}" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Subject<span
                                                               class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Subject" id="subject" value="{{$data->subject}}" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter subject" id="subject" value="{{$data->subject}}" Required>
                                                         </div>
 
                                                     </div>
@@ -117,12 +125,12 @@
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Organisation Details <span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter OrganisationDetails" id="organisationDetails"  value="{{$data->organisationDetails}}" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter organisation details" id="organisationDetails"  value="{{$data->organisationDetails}}" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
-                                                            <label class="form-label">Phone number<span
+                                                            <label class="form-label">Phone Number<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <input type="number" class="form-control" placeholder="Enter  Phonenumber" id="phoneNumber" value="{{$data->phoneNumber}}"  Required>
+                                                            <input type="number" class="form-control" placeholder="Enter phone number" id="phoneNumber" value="{{$data->phoneNumber}}"  Required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -162,24 +170,24 @@
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Bank Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Bank Name"  id= "bankName" value="{{$data->bankName}}" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter bank name"  id= "bankName" value="{{$data->bankName}}" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Account Number<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Account Number" id="accountNumber" value="{{$data->accountNumber}}" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter account number" id="accountNumber" value="{{$data->accountNumber}}" Required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Branch<span
                                                                 class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Branch" id="branch" value="{{$data->branch}}" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter branch" id="branch" value="{{$data->branch}}" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">IFSC Number<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter IFSC Number" id="ifscNumber" value="{{$data->ifscNumber}}" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter IFSC number" id="ifscNumber" value="{{$data->ifscNumber}}" Required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -191,21 +199,21 @@
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Email<span
                                                          class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Email" id="email"  value="{{$data->email}}" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter email" id="email"  value="{{$data->email}}" Required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">New Password<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter Password" id="newpassword" >
+                                                        <input type="password" class="form-control" placeholder="Enter new password" id="newpassword" >
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Confirm Password<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter Password" id="confirmpassword"  >
+                                                        <input type="password" class="form-control" placeholder="Enter confirm password" id="confirmpassword"  >
                                                     </div>
                                                 </div>
                                             </div>

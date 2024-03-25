@@ -6,8 +6,8 @@ use App\Http\Controllers\Reviewer\ReviewerController;
 use App\Http\Controllers\Reviewer\FeedbackController;
 use App\Http\Controllers\Reviewer\notificationController;
 
-Route::middleware(['reviewer'])->group(function () {
-Route::prefix('reviewer')->group(function () { 
+    Route::middleware(['reviewer'])->group(function () {
+    Route::prefix('reviewer')->group(function () { 
     Route::get('/notifications',[notificationController::class,'notifi']);
     Route::get('/notificationstatus',[notificationController::class,'notificationstatus']);
     Route::get('/notification',function(){ return view('reviewer.notification');});
