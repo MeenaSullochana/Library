@@ -64,30 +64,37 @@ $('#user_name').keyup(function(){
     if ($('#user_name').val) {
         typingTimer = setTimeout(function(){
              var v = $("#user_name").val();
-            //ajax
-            $.ajaxSetup({
-               headers:{
-                  'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-               }
-            });
-          $.ajax({
-              type: "post",
-              dataType: "json",
-              url: '/check/username',
-              data: {'userName':v},
-              success: function(response) {
-                 if(response.success){
-                  var username = document.getElementById("usernameval");
-                  username.value = 1;
-                  $("#checkusername").html("");
-                 }else{
-                  var username = document.getElementById("usernameval");
-                  username.value = 0;
-                  $("#checkusername").html("Username already taken");
-                 }
+             if(v.length == 0){
+               $("#checkusername").html("Username required");
+               toastr.error('Username required!');
+             }else{
+  //ajax
+  $.ajaxSetup({
+   headers:{
+      'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+   }
+});
+$.ajax({
+  type: "post",
+  dataType: "json",
+  url: '/check/username',
+  data: {'userName':v},
+  success: function(response) {
+     if(response.success){
+      var username = document.getElementById("usernameval");
+      username.value = 1;
+      $("#checkusername").html("");
+     }else{
+      var username = document.getElementById("usernameval");
+      username.value = 0;
+      $("#checkusername").html("Username already taken");
+      toastr.error('Username already taken!');
+     }
 
-              }
-          });
+  }
+});
+             }
+          
 
 
         }, doneTypingInterval);
@@ -102,38 +109,46 @@ $('#pub_email_id').keyup(function(){
     if ($('#pub_email_id').val) {
         typingTimer = setTimeout(function(){
              var v = $("#pub_email_id").val();
-             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
-             if (reg.test(v) == false)
-             {
-               var email = document.getElementById("emailval");
-                  email.value = 2;
-               $("#checkemail").html("Invalid Email!!");
+             if(v.length == 0){
+               $("#checkemail").html("Email Required!!");
+               toastr.error('Email Required!');
              }else{
-                  $("#checkemail").html("");
-                     $.ajaxSetup({
-                        headers:{
-                           'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                        }
-                     });
-                  $.ajax({
-                     type: "post",
-                     dataType: "json",
-                     url: '/check/email',
-                     data: {'email':v},
-                     success: function(response) {
-                        if(response.success){
-                           var email = document.getElementById("emailval");
-                           email.value = 1;
-                           $("#checkemail").html("");
-                        }else{
-                           var email = document.getElementById("emailval");
-                           email.value = 0;
-                           $("#checkemail").html("Email already taken");
-                        }
+               var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
-                     }
-                  });
+               if (reg.test(v) == false)
+               {
+                 var email = document.getElementById("emailval");
+                    email.value = 2;
+                 $("#checkemail").html("Invalid Email!!");
+                 toastr.error('Invalid Email!');
+               }else{
+                    $("#checkemail").html("");
+                       $.ajaxSetup({
+                          headers:{
+                             'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                          }
+                       });
+                    $.ajax({
+                       type: "post",
+                       dataType: "json",
+                       url: '/check/email',
+                       data: {'email':v},
+                       success: function(response) {
+                          if(response.success){
+                             var email = document.getElementById("emailval");
+                             email.value = 1;
+                             $("#checkemail").html("");
+                          }else{
+                             var email = document.getElementById("emailval");
+                             email.value = 0;
+                             $("#checkemail").html("Email already taken");
+                             toastr.error('Email already taken!');
+                          }
+  
+                       }
+                    });
+             }
+           
              }
         }, doneTypingInterval);
     }
@@ -144,15 +159,19 @@ $('#pub_email_id').keyup(function(){
    function checkPasswordMatch() {
       var password = $("#password").val();
       var confirmPassword = $("#password_confirmation").val();
-
+    if(password.length == 0){
+      $("#divCheckPasswordMatch").html("Password is required!");
+      toastr.error('Passwords required!');
+    }else{
       if (password != confirmPassword){
-         console.log("asdfasdf");
-      $("#divCheckPasswordMatch").html("Passwords does not match!");
-      toastr.error('Passwords does not match!');
-      }
-      else {
-      $("#divCheckPasswordMatch").html("");
-      }
+         $("#divCheckPasswordMatch").html("Passwords does not match!");
+         toastr.error('Passwords does not match!');
+         }
+         else {
+         $("#divCheckPasswordMatch").html("");
+         }
+    }
+    
   }
 
      $('#password_confirmation').keyup( function() {
@@ -232,22 +251,47 @@ $('#pub_email_id').keyup(function(){
       $("#form_publisher").submit(function (e) {
          showLoading();
          //username
-      var username1 = $("#usernameval").val();
-      if(username1 && username1 == 0){
+        var uname =  $("#user_name").val();
+        if(uname.length == 0){
          hideLoadingBar();
-         toastr.error("Username already taken!!!");
+         toastr.error("Username required!!!");
          e.preventDefault();
+        }else{
+         var username1 = $("#usernameval").val();
+        if(username1 && username1 == 0){
+           hideLoadingBar();
+           toastr.error("Username already taken!!!");
+           e.preventDefault();
+        }
       }
+      
    //password
       var password = $("#password").val();
       var confirmPassword = $("#password_confirmation").val();
-      if(password != confirmPassword){
+      if(password.length == 0){
          hideLoadingBar();
-          toastr.error("Password and confirm password doesn't match!!");
-         e.preventDefault();
+         toastr.error("Password is required!!");
+        e.preventDefault();
+      }else if(confirmPassword.length == 0){
+         hideLoadingBar();
+         toastr.error("Confirm Password is required!!");
+        e.preventDefault();
+      }else{
+         if(password != confirmPassword){
+            hideLoadingBar();
+             toastr.error("Password and confirm password doesn't match!!");
+            e.preventDefault();
+         }
       }
+    
 
    //email
+   var uemail =  $("#pub_email_id").val();
+   if (uemail.length === 0){
+      hideLoadingBar();
+      toastr.error('Email Required!!');
+      e.preventDefault();
+   }else{
       var email = $("#emailval").val();
       if(email == 0){
          hideLoadingBar();
@@ -259,7 +303,7 @@ $('#pub_email_id').keyup(function(){
          toastr.error('Invalid Email!!');
          e.preventDefault();
       }
-
+   }
 //category check 
   var ctg_book = $("[name='category_of_books_published[]']:checked").length; // count the checked rows
          var s_ctg_book = $("[name='specialized_category_books[]']:checked").length; // count the checked rows
@@ -978,7 +1022,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
 
      }
      else if(value == 'Private'){
-      $('.user_file_input').append('<div id="private_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">MOA <span class="mt-056"></span><span class="text-danger "></span></label><input type="file" name="moa" class="form-control name_list" required/><label for="formFileSm" class="form-label">AOA  <span class="mt-056"></span><span class="text-danger"></span></label><input type="file" name="aoa" class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+      $('.user_file_input').append('<div id="private_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">MOA <span class="mt-056"></span><span class="text-danger "></span></label><input type="file" name="moa" class="form-control name_list"/><label for="formFileSm" class="form-label">AOA  <span class="mt-056"></span><span class="text-danger"></span></label><input type="file" name="aoa" class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span></label><input type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
 
       $("#proprietorship_input").remove();
       $("#partnership_input").remove();
@@ -1210,30 +1254,37 @@ $('#dis_user_name').keyup(function(){
     if ($('#dis_user_name').val) {
         typingTimer = setTimeout(function(){
              var v = $("#dis_user_name").val();
-            //ajax
-            $.ajaxSetup({
-               headers:{
-                  'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-               }
-            });
-          $.ajax({
-              type: "post",
-              dataType: "json",
-              url: '/check/dis_username',
-              data: {'userName':v},
-              success: function(response) {
-                 if(response.success){
-                  var username = document.getElementById("disusernameval");
-                  username.value = 1;
-                  $("#discheckusername").html("");
-                 }else{
-                  var username = document.getElementById("disusernameval");
-                  username.value = 0;
-                  $("#discheckusername").html("Username already taken");
-                 }
+             if(v.length == 0){
+               $("#discheckusername").html("Username required");
+               toastr.error('Username required!!');
+             }else{
+   //ajax
+   $.ajaxSetup({
+      headers:{
+         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+      }
+   });
+ $.ajax({
+     type: "post",
+     dataType: "json",
+     url: '/check/dis_username',
+     data: {'userName':v},
+     success: function(response) {
+        if(response.success){
+         var username = document.getElementById("disusernameval");
+         username.value = 1;
+         $("#discheckusername").html("");
+        }else{
+         var username = document.getElementById("disusernameval");
+         username.value = 0;
+         $("#discheckusername").html("Username already taken");
+         toastr.error('Username already taken!!');
+        }
 
-              }
-          });
+     }
+ });
+             }
+         
 
 
         }, doneTypingInterval);
@@ -1251,38 +1302,46 @@ $('#distn_email_id').keyup(function(){
     if ($('#distn_email_id').val) {
         typingTimer = setTimeout(function(){
              var v = $("#distn_email_id").val();
-             var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-
-             if (reg.test(v) == false)
-             {
-               var email = document.getElementById("disemailval");
-                  email.value = 2;
-               $("#discheckemail").html("Invalid Email!!");
+             if(v.length == 0){
+               $("#discheckemail").html("Email required");
+               toastr.error('Email required!!');
              }else{
-                  $("#discheckemail").html("");
-                     $.ajaxSetup({
-                        headers:{
-                           'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                        }
-                     });
-                  $.ajax({
-                     type: "post",
-                     dataType: "json",
-                     url: '/check/dis_email',
-                     data: {'email':v},
-                     success: function(response) {
-                        if(response.success){
-                           var email = document.getElementById("disemailval");
-                           email.value = 1;
-                           $("#discheckemail").html("");
-                        }else{
-                           var email = document.getElementById("disemailval");
-                           email.value = 0;
-                           $("#discheckemail").html("Email already taken");
-                        }
+               var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
-                     }
-                  });
+               if (reg.test(v) == false)
+               {
+                 var email = document.getElementById("disemailval");
+                    email.value = 2;
+                 $("#discheckemail").html("Invalid Email!!");
+                 toastr.error('Invalid Email!!');
+               }else{
+                    $("#discheckemail").html("");
+                       $.ajaxSetup({
+                          headers:{
+                             'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                          }
+                       });
+                    $.ajax({
+                       type: "post",
+                       dataType: "json",
+                       url: '/check/dis_email',
+                       data: {'email':v},
+                       success: function(response) {
+                          if(response.success){
+                             var email = document.getElementById("disemailval");
+                             email.value = 1;
+                             $("#discheckemail").html("");
+                          }else{
+                             var email = document.getElementById("disemailval");
+                             email.value = 0;
+                             $("#discheckemail").html("Email already taken");
+                             toastr.error('Email already taken!!');
+                          }
+  
+                       }
+                    });
+             }
+             
              }
         }, doneTypingInterval);
     }
@@ -1293,8 +1352,11 @@ $('#distn_email_id').keyup(function(){
    function discheckPasswordMatch() {
       var password = $("#dis_password").val();
       var confirmPassword = $("#dis_conform_password").val();
-
-      if (password != confirmPassword){
+if(password.length == 0){
+   $("#disdivCheckPasswordMatch").html("Password required!");
+   toastr.error('Password required!');
+}else{
+   if (password != confirmPassword){
       $("#disdivCheckPasswordMatch").html("Passwords does not match!");
        toastr.error('Passwords does not match!');
 
@@ -1302,6 +1364,8 @@ $('#distn_email_id').keyup(function(){
       else {
       $("#disdivCheckPasswordMatch").html("");
       }
+}
+   
   }
 
      $('#dis_conform_password').keyup( function() {
@@ -1327,19 +1391,44 @@ $('#distn_email_id').keyup(function(){
            //password
       var password = $("#dis_password").val();
       var confirmPassword = $("#dis_conform_password").val();
-      if(password != confirmPassword){
+      if(password.length == 0){
          hideLoadingBar1();
-         toastr.error("Password and confirm password doesn't match!!");
+         toastr.error("Password required!!");
          e.preventDefault();
+      }else if(confirmPassword.length == 0){
+         hideLoadingBar1();
+         toastr.error("Confirm password required!!");
+         e.preventDefault();
+      }else{
+         if(password != confirmPassword){
+            hideLoadingBar1();
+            toastr.error("Password and confirm password doesn't match!!");
+            e.preventDefault();
+         }
       }
+     
    //username
+   var uname1 = $("#dis_user_name").val();
+   if(uname1.length == 0){
+      hideLoadingBar1();
+      toastr.error("Username required!!!");
+     e.preventDefault();
+   }else{
       var username1 = $("#disusernameval").val();
       if(username1 && username1 == 0){
            hideLoadingBar1();
             toastr.error("Username already taken!!!");
            e.preventDefault();
         }
+   }
+     
    //email
+   var uemail1 = $("#distn_email_id").val();
+   if(uemail1.length == 0){
+      hideLoadingBar1();
+      toastr.error('Email required!!');
+     e.preventDefault();
+   }else{
       var email = $("#disemailval").val();
       if(email == 0){
          hideLoadingBar1();
@@ -1351,6 +1440,8 @@ $('#distn_email_id').keyup(function(){
           toastr.error('Invalid Email!!');
          e.preventDefault();
       }
+   }
+     
 //Language
  var ctg_book = $("[name='language_of_books_you_dealing_with[]']:checked").length; // count the checked rows
          if (ctg_book != 0) {
@@ -2004,30 +2095,37 @@ if (arr.length !== 0) {
        if ($('#pub_dis_user_name').val) {
            typingTimer = setTimeout(function(){
                 var v = $("#pub_dis_user_name").val();
-               //ajax
-               $.ajaxSetup({
-                  headers:{
-                     'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                  }
-               });
-             $.ajax({
-                 type: "post",
-                 dataType: "json",
-                 url: '/check/both_username',
-                 data: {'userName':v},
-                 success: function(response) {
-                    if(response.success){
-                     var username = document.getElementById("bothusernameval");
-                     username.value = 1;
-                     $("#bothcheckusername").html("");
-                    }else{
-                     var username = document.getElementById("bothusernameval");
-                     username.value = 0;
-                     $("#bothcheckusername").html("Username already taken");
-                    }
+               if(v.length == 0){
+                  $("#bothcheckusername").html("Username required");
+                  toastr.error('Username required!!');
+               }else{
+     //ajax
+     $.ajaxSetup({
+      headers:{
+         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+      }
+   });
+ $.ajax({
+     type: "post",
+     dataType: "json",
+     url: '/check/both_username',
+     data: {'userName':v},
+     success: function(response) {
+        if(response.success){
+         var username = document.getElementById("bothusernameval");
+         username.value = 1;
+         $("#bothcheckusername").html("");
+        }else{
+         var username = document.getElementById("bothusernameval");
+         username.value = 0;
+         $("#bothcheckusername").html("Username already taken");
+         toastr.error('Username already taken!!');
+        }
 
-                 }
-             });
+     }
+ });
+               }
+          
 
 
            }, doneTypingInterval);
@@ -2045,38 +2143,46 @@ if (arr.length !== 0) {
        if ($('#dis_publication_email_id').val) {
            typingTimer = setTimeout(function(){
                 var v = $("#dis_publication_email_id").val();
-                var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+   if(v.length == 0){
+      $("#bothcheckemail").html("Email required");
+      toastr.error('Email required!!');
+   }else{
+      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
-                if (reg.test(v) == false)
-                {
-                  var email = document.getElementById("bothemailval");
-                     email.value = 2;
-                  $("#bothcheckemail").html("Invalid Email!!");
-                }else{
-                     $("#bothcheckemail").html("");
-                        $.ajaxSetup({
-                           headers:{
-                              'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                           }
-                        });
-                     $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: '/check/both_email',
-                        data: {'email':v},
-                        success: function(response) {
-                           if(response.success){
-                              var email = document.getElementById("bothemailval");
-                              email.value = 1;
-                              $("#bothcheckemail").html("");
-                           }else{
-                              var email = document.getElementById("bothemailval");
-                              email.value = 0;
-                              $("#bothcheckemail").html("Email already taken");
-                           }
+      if (reg.test(v) == false)
+      {
+        var email = document.getElementById("bothemailval");
+           email.value = 2;
+        $("#bothcheckemail").html("Invalid Email!!");
+        toastr.error('Invalid Email!!');
+      }else{
+           $("#bothcheckemail").html("");
+              $.ajaxSetup({
+                 headers:{
+                    'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                 }
+              });
+           $.ajax({
+              type: "post",
+              dataType: "json",
+              url: '/check/both_email',
+              data: {'email':v},
+              success: function(response) {
+                 if(response.success){
+                    var email = document.getElementById("bothemailval");
+                    email.value = 1;
+                    $("#bothcheckemail").html("");
+                 }else{
+                    var email = document.getElementById("bothemailval");
+                    email.value = 0;
+                    $("#bothcheckemail").html("Email already taken");
+                    toastr.error('Email already required!!');
+                 }
 
-                        }
-                     });
+              }
+           });
+   }
+              
                 }
            }, doneTypingInterval);
        }
@@ -2087,14 +2193,19 @@ if (arr.length !== 0) {
       function bothcheckPasswordMatch() {
          var password = $("#pub_dis_password").val();
          var confirmPassword = $("#pub_dis_conform_password").val();
-
-         if (password != confirmPassword){
-         $("#bothdivCheckPasswordMatch").html("Passwords does not match!");
-         toastr.error('Passwords does not match!');
-         }
-         else {
-         $("#bothdivCheckPasswordMatch").html("");
-         }
+if(password.length == 0){
+   $("#bothdivCheckPasswordMatch").html("Password required!");
+   toastr.error('Password required!');
+}else{
+   if (password != confirmPassword){
+      $("#bothdivCheckPasswordMatch").html("Passwords does not match!");
+      toastr.error('Passwords does not match!');
+      }
+      else {
+      $("#bothdivCheckPasswordMatch").html("");
+      }
+}
+    
      }
 
         $('#pub_dis_conform_password').keyup( function() {
@@ -2121,31 +2232,58 @@ $(document).ready(function () {
            // Password
            var password = $("#pub_dis_password").val();
            var confirmPassword = $("#pub_dis_conform_password").val();
-           if (password != confirmPassword) {
+           if(password.length == 0){
+            hideLoadingBar2();
+            toastr.error("Password required!!");
+            e.preventDefault();
+           }else if(confirmPassword.length == 0){
+            hideLoadingBar2();
+            toastr.error("Confirm password required!!");
+            e.preventDefault();
+           }else{
+            if (password != confirmPassword) {
                hideLoadingBar2();
                toastr.error("Password and confirm password don't match!!");
                e.preventDefault();
            }
+           }
+        
 
            // Username
-           var username1 = $("#bothusernameval").val();
-           if (username1 && username1 == 0) {
-               hideLoadingBar2();
-               toastr.error("Username already taken!!!");
-               e.preventDefault();
+           var uname2 = $("#pub_dis_user_name").val();
+           if(uname2.length == 0){
+            hideLoadingBar2();
+            toastr.error("Username required!!!");
+            e.preventDefault();
+           }else{
+            var username1 = $("#bothusernameval").val();
+            if (username1 && username1 == 0) {
+                hideLoadingBar2();
+                toastr.error("Username already taken!!!");
+                e.preventDefault();
+            }
            }
+          
 
            // Email
-           var email = $("#bothemailval").val();
-           if (email == 0) {
-               hideLoadingBar2();
-               toastr.error('Email already taken!!');
-               e.preventDefault();
-           } else if (email == 2) {
-               hideLoadingBar2();
-               toastr.error('Invalid Email!!');
-               e.preventDefault();
+           var uemail2 = $("#dis_publication_email_id").val();
+           if(uemail2.length == 0){
+            hideLoadingBar2();
+            toastr.error('Email required!!');
+            e.preventDefault();
+           }else{
+            var email = $("#bothemailval").val();
+            if (email == 0) {
+                hideLoadingBar2();
+                toastr.error('Email already taken!!');
+                e.preventDefault();
+            } else if (email == 2) {
+                hideLoadingBar2();
+                toastr.error('Invalid Email!!');
+                e.preventDefault();
+            }
            }
+          
 //Category check
           var pd_ctg_book = $("[name='pub_dis_category_of_books_published[]']:checked").length; // count the checked rows
           var pd_s_ctg_book = $("[name='pub_dis_specialized_category_books[]']:checked").length; // count the checked rows
