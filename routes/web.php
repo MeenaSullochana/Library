@@ -27,3 +27,4 @@ Route::get('/invoice-pdf',function(){return view('invoice-view');});
 // Route::get('/cart-magazine',function(){return view('cart-magazine');});
 
 Route::get('/policy',function(){return view('policy');});
+
