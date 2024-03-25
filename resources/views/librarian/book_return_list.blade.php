@@ -75,7 +75,7 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="row task">
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-primary count">8</h2>
@@ -84,7 +84,7 @@
 											<p>Order Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-purple count">7</h2>
@@ -93,7 +93,7 @@
 											<p>Order Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-warning count">13</h2>
@@ -102,7 +102,7 @@
 											<p>Order Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-danger count">11</h2>
@@ -111,7 +111,7 @@
 											<p>Order Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-success count">21</h2>
@@ -120,7 +120,7 @@
 											<p>Order Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-danger count">16</h2>
@@ -173,8 +173,10 @@
                                                 <td>Comics</td>
 												<td><span>06 Feb 2023</span></td>
 												<td>
-                                                    <a href="book_profile.php"> <i class="fa fa-eye p-2"></i></a>
-													<a href="book_profile.php"><i class="fa fa-edit p-2"></i></a>
+                                                    <a href="#"> <i class="fa fa-eye p-2"></i></a>
+													<a href="#"><i class="fa fa-edit p-2"></i></a>
+													{{-- <a href="book_profile.php"> <i class="fa fa-eye p-2"></i></a>
+													<a href="book_profile.php"><i class="fa fa-edit p-2"></i></a> --}}
 													<i class="fa fa-trash-o p-2" aria-hidden="true"></i>
 												</td>
 											</tr>
@@ -198,8 +200,8 @@
                                                 <td>Comics</td>
 												<td><span>06 Feb 2023</span></td>
 												<td>
-                                                    <a href="book_profile.php"> <i class="fa fa-eye p-2"></i></a>
-													<a href="book_profile.php"><i class="fa fa-edit p-2"></i></a>
+                                                    <a href="#"> <i class="fa fa-eye p-2"></i></a>
+													<a href="#"><i class="fa fa-edit p-2"></i></a>
 													<i class="fa fa-trash-o p-2" aria-hidden="true"></i>
 												</td>
 											</tr>

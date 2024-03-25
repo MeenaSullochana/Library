@@ -56,7 +56,7 @@
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row task bg-white">
-                    <div class="col-xl-2 col-sm-4 col-6">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-12">
                         <div class="task-summary">
                             <div class="d-flex align-items-baseline">
                                 <h2 class="text-primary count">8</h2>
@@ -65,7 +65,7 @@
                             <p>Payment Transection</p>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-sm-4 col-6">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-12">
                         <div class="task-summary">
                             <div class="d-flex align-items-baseline">
                                 <h2 class="text-purple count">7</h2>
@@ -74,7 +74,7 @@
                             <p>Payment Transection</p>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-sm-4 col-6">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-12">
                         <div class="task-summary">
                             <div class="d-flex align-items-baseline">
                                 <h2 class="text-warning count">13</h2>
@@ -83,7 +83,7 @@
                             <p>Payment Transection</p>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-sm-4 col-6">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-12">
                         <div class="task-summary">
                             <div class="d-flex align-items-baseline">
                                 <h2 class="text-danger count">11</h2>
@@ -92,7 +92,7 @@
                             <p>Payment Transection</p>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-sm-4 col-6">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-12">
                         <div class="task-summary">
                             <div class="d-flex align-items-baseline">
                                 <h2 class="text-success count">21</h2>
@@ -101,7 +101,7 @@
                             <p>Payment Transection</p>
                         </div>
                     </div>
-                    <div class="col-xl-2 col-sm-4 col-6">
+                    <div class="col-xl-2 col-md-4 col-sm-6 col-12">
                         <div class="task-summary">
                             <div class="d-flex align-items-baseline">
                                 <h2 class="text-danger count">16</h2>
@@ -139,7 +139,7 @@
                                     </td>
                                     <td>2 Feb 2023</td>
                                     <td class="text-primary">HA-22533</td>
-                                    <td>$5,5225</td>
+                                    <td><i class="fa fa-inr" aria-hidden="true"></i> 5,5225</td>
                                     <td>
                                         <span class="badge badge-danger light border-0">Pending</span>
                                     </td>
@@ -158,12 +158,12 @@
                                     </td>
                                     <td>2 Feb 2023</td>
                                     <td class="text-primary">HA-22533</td>
-                                    <td>$5,5225</td>
+                                    <td><i class="fa fa-inr" aria-hidden="true"></i> 5,5225</td>
                                     <td>
                                         <span class="badge badge-success light border-0">Sueecss</span>
                                     </td>
                                     <td>
-                                        <a href="payment_raciept.php">
+                                        <a href="#">
                                         <i class="fa fa-eye" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>

@@ -184,21 +184,21 @@
                                     <p id="tooltip-1" title="Please Select Who You are" class="fs-5 fw-bold">Please select who you are?</p>
                                     <hr>
                                     <div class="row login_static">
-                                        <div class="col-md-3">
+                                        <div class="col-lg-3 col-md-6">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio1" name="type"
                                                     value="publisher" checked>
                                                 <label class="form-check-label" for="radio1"> Publisher</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-lg-3 col-md-6">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio2" name="type"
                                                     value="distributor">
                                                 <label class="form-check-label" for="radio2"> Distributor</label>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-lg-6 col-md-12">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio3"
                                                     name="type" value="publisher_distributor">

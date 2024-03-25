@@ -103,7 +103,7 @@
                               <label for="inputEmail4" class="form-label">User Name <span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="text" value="{{ old('userName') }}" class="form-control @error('userName') is-invalid @enderror" id="user_name" name="userName"
-                                 placeholder=" Enter your User Name" required>
+                                 placeholder=" Enter your user name" required>
                                  <p id="checkusername" style="color: rgb(202, 14, 14)"></p>
                              <input id="usernameval" type="text" name="usernameval" value="" hidden/>
                            </div>
@@ -111,7 +111,7 @@
                               <label for="inputPassword4" class="form-label">Password <span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
-                                 placeholder=" Enter Password" minlength="8" maxlength="8" required >
+                                 placeholder=" Enter password" minlength="8" maxlength="8" required >
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                  @error('password')
                                  <span class="invalid-feedback" role="alert">
@@ -124,7 +124,7 @@
                               <label for="inputAddress" class="form-label">Confirm Password <span
                                  class="text-danger maditory">*</span></label>
                               <input type="password" value="{{ old('password_confirmation') }}" class="form-control" id="password_confirmation"
-                                 name="password_confirmation" placeholder="Enter your Confirm Password" minlength="8" maxlength="8" required >
+                                 name="password_confirmation" placeholder="Enter your confirm password" minlength="8" maxlength="8" required >
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                            </div>
                         </div>
@@ -217,7 +217,7 @@
                               குறியீடு</span><span class="text-danger maditory">*</span></label></label>
                               <input type="number" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="6" maxlength="6" id="pub_pin_code"
-                                 name="pub_pin_code" required>
+                                 name="pub_pin_code" placeholder="Enter pincode" required>
                            </div>
                            <h4 class="fw-bold">Contact Person Details - <span class="mt-055">தொடர்பு கொள்ள வேண்டிய நபரின் விவரங்கள்</span> </h4>
                            <small>Same as above - (மேற்கூறியவாறு)
@@ -312,7 +312,7 @@
                               குறியீடு</span><span class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="6" maxlength="6" id="con_pin_code" name="con_pin_code"
-                                 required>
+                                 placeholder="Enter pincode" required>
                            </div>
 
                            <h4 class="fw-bold">Other Details -<span class="mt-055"> பிற விவரங்கள் </span></h4>
@@ -359,11 +359,11 @@
                                              <tr>
                                                 <td><input type="text"
                                                    name="publications_shope_book_title[]"
-                                                   placeholder=" Title*"
+                                                   placeholder="Enter title*"
                                                     class="form-control name_list" required /></td>
                                                 <td><input type="text"
                                                    name="publications_shope_book_author[]"
-                                                   placeholder=" Author*"
+                                                   placeholder="Enter author*"
                                                   class="form-control name_list" required /></td>
                                                 <td><button type="button" name="add" id="add"
                                                    class="btn btn-success" onclick="">+</button></td>
@@ -520,10 +520,10 @@
                                              </tr>
                                              <tr>
                                                 <td><input type="text" id="pub_state_awarded" name="trs_state_awarded[]"
-                                                   placeholder="Award Name*"
+                                                   placeholder="Enter award name*"
                                                    class="form-control name_list"/></td>
                                                 <td><input type="text" id="pub_central" name="trs_central_awarded[]"
-                                                   placeholder="Title*"
+                                                   placeholder="Enter title*"
                                                    class="form-control name_list"/></td>
                                                 <td><button type="button" name="trs_central_awarded"
                                                    id="translated_pub_asr"
@@ -967,7 +967,7 @@
                                                 <td> <input class="form-control"
                                                    id="content_of_the_subsidiary_publication_file"
                                                    name="subsidiary_doc[]"
-                                                   placeholder="Enter Document" type="file" multiple
+                                                   placeholder="Enter document" type="file" multiple
                                                    >
                                                    <span class="text-danger"><small>Doc, PDF other
                                                    format</small></span>
@@ -991,7 +991,7 @@
                            <div class="form-check">
                               <input class="form-check-input" type="checkbox" id="check2" name="declaration-two"
                                  value="yes" required>
-                              <label class="form-check-label">Acknowledge that I will submit five copies each book for review and relection purposes.
+                              <label class="form-check-label">Acknowledge that I will submit five copies each book for review and selection purposes.
 Archiving purpose: To comply with the delivery of books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.
 Review purpose:  send two copies for review of books in Chennai for review. Address to be sent: Anna Centenary Library, Chennai.</label>
                            </div>
@@ -1046,7 +1046,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputEmail4" class="form-label">User Name <span
                                  class="text-danger maditory">*</span></label></label>
                                  <input type="text" value="{{ old('userName') }}" class="form-control @error('userName') is-invalid @enderror" id="dis_user_name" name="userName"
-                                 placeholder=" Enter your User Name" required>
+                                 placeholder=" Enter your user name" required>
                                  @error('userName')
                                  <span class="invalid-feedback" role="alert">
                                      <strong>{{ $message }}</strong>
@@ -1059,7 +1059,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputPassword4" class="form-label">Password <span
                                  class="text-danger maditory">*</span></label></label>
                                  <input type="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror" id="dis_password" name="password"
-                                 placeholder=" Enter Password" minlength="8" maxlength="8" required >
+                                 placeholder=" Enter password" minlength="8" maxlength="8" required >
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                  @error('password')
                                  <span class="invalid-feedback" role="alert">
@@ -1072,7 +1072,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputAddress" class="form-label">Confirm Password <span
                                  class="text-danger maditory">*</span></label>
                               <input type="password" class="form-control" id="dis_conform_password"
-                                 name="conform_password" placeholder="Enter your Confirm Password"  minlength="8" maxlength="8" required>
+                                 name="conform_password" placeholder="Enter your confirm password"  minlength="8" maxlength="8" required>
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                            </div>
                            <h4 class="fw-bold">Book Distributor Details - <span class="mt-055">புத்தக விற்பனையாளரின் விவரங்கள் </span></h4>
@@ -1158,7 +1158,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputZip" class="form-label">Pincode - <span class="mt-056">அஞ்சல்
                               குறியீடு</span><span class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
-                                 class="test_css" minlength="6" maxlength="6" id="distn_pincode" name="distn_pincode"
+                                 class="test_css" minlength="6" maxlength="6" id="distn_pincode" name="distn_pincode"placeholder="Enter pincode"
                                  required>
                            </div>
 
@@ -1243,7 +1243,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               குறியீடு</span><span class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="6" maxlength="6" id="cont_per_pincode"
-                                 name="cont_per_pincode" required>
+                                 name="cont_per_pincode"placeholder="Enter pincode" required>
                            </div>
 
                            <h4 class="fw-bold">Other Details -<span class="mt-055"> பிற விவரங்கள் </span></h4>
@@ -1340,10 +1340,10 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                              </tr>
                                              <tr>
                                                 <td><input type="text" name="publisher_name[]"
-                                                   placeholder=" Publisher name*"
+                                                   placeholder="Enter publisher name*"
                                                    class="form-control name_list" required /></td>
                                                 <td><input type="text" name="publisher_place[]"
-                                                   placeholder=" Place*"
+                                                   placeholder="Enter place*"
                                                    class="form-control name_list" required /></td>
                                                 <td><input type="file" name="authorization_letter[]"
                                                     class="form-control name_list" required /></td>
@@ -1496,7 +1496,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                            <div class="form-check">
                               <input class="form-check-input" type="checkbox" id="check2" name="declaration-two"
                                  value="yes" required>
-                              <label class="form-check-label">Acknowledge that i will submit five copies each book for review and relection purposes.
+                              <label class="form-check-label">Acknowledge that i will submit five copies each book for review and selection purposes.
 Archiving purpose: To comply with the delivery of books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.
 Review purpose:  send two copies for review of books in Chennai for review. Address to be sent: Anna Centenary Library, Chennai.</label>
                            </div>
@@ -1549,7 +1549,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputEmail4" class="form-label">User Name <span
                                  class="text-danger maditory">*</span></label>
                                  <input type="text" value="{{ old('userName') }}" class="form-control @error('userName') is-invalid @enderror" id="pub_dis_user_name" name="userName"
-                                 placeholder=" Enter your User Name" required>
+                                 placeholder=" Enter your user name" required>
                                  @error('userName')
                                  <span class="invalid-feedback" role="alert">
                                      <strong>{{ $message }}</strong>
@@ -1562,7 +1562,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputPassword4" class="form-label">Password <span
                                  class="text-danger maditory">*</span></label></label>
                                  <input type="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror" id="pub_dis_password" name="password"
-                                 placeholder=" Enter Password" minlength="8" maxlength="8"  required >
+                                 placeholder=" Enter password" minlength="8" maxlength="8"  required >
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                  @error('password')
                                  <span class="invalid-feedback" role="alert">
@@ -1576,7 +1576,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputAddress" class="form-label">Confirm Password <span
                                  class="text-danger maditory">*</span></label>
                               <input type="password" class="form-control" id="pub_dis_conform_password"
-                                 name="conform_password" placeholder="Enter your Confirm Password"  minlength="8" maxlength="8" required>
+                                 name="conform_password" placeholder="Enter your confirm password"  minlength="8" maxlength="8" required>
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                            </div>
                            <h4 class="fw-bold">Book Publisher and Distributor Details - <span class="mt-055"> புத்தக பதிப்பாளர்
@@ -1666,7 +1666,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               குறியீடு</span><span class="text-danger maditory">*</span></label>
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="6" maxlength="6" id="dst_publication_pincode"
-                                 name="publication_pincode" required>
+                                 name="publication_pincode"placeholder="Enter pincode" required>
                            </div>
 
                            <h4 class="fw-bold">Contact Person Details - <span class="mt-055">தொடர்பு கொள்ள வேண்டிய நபரின் விவரங்கள்</span></h4>
@@ -1755,7 +1755,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               குறியீடு</span><span class="text-danger maditory">*</span></label>
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="6" maxlength="6" id="publication_contact_person_pincode"
-                                 name="publication_contact_person_pincode" required>
+                                 name="publication_contact_person_pincode"placeholder="Enter pincode" required>
                            </div>
 
                            <h4 class="fw-bold">Other Details -<span class="mt-055"> பிற விவரங்கள் </span></h4>
@@ -1822,10 +1822,10 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                              </tr>
                                              <tr>
                                                 <td><input type="text" name="publisher_name[]"
-                                                   placeholder=" publisher name"
+                                                   placeholder="Enter publisher name"
                                                    class="form-control name_list" required /></td>
                                                 <td><input type="text" name="publisher_place[]"
-                                                   placeholder=" Place"
+                                                   placeholder="Enter place"
                                                    class="form-control name_list" required /></td>
                                                    <td><input type="file" name="authorization_letter[]"
                                                     class="form-control name_list" required /></td>
@@ -1875,7 +1875,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  </div>
                               </div>
                            </div>
-                           <h4 class="fw-bold">Best 5 Translated Books (if any) -<span class="mt-055"> சிறந்த 5 மொழிபெயர்க்கப்பட்ட புத்தகங்கள் (ஏதேனும் இருந்தால் குறிப்பிடவும்)<span class="text-danger maditory">*</span><span class="text-danger maditory">*</span></span></h4>
+                           <h4 class="fw-bold">Best 5 Translated Books (if any) -<span class="mt-055"> சிறந்த 5 மொழிபெயர்க்கப்பட்ட புத்தகங்கள் (ஏதேனும் இருந்தால் குறிப்பிடவும்)<span class="text-danger maditory">*</span></h4>
                            </hr>
                            <div class="col-md-6 form-group ">
 
@@ -1984,10 +1984,10 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                                   </tr>
                                                   <tr>
                                                       <td><input type="text" name="trs_state_awarded_dis_pub[]" id="pub_test"
-                                                              placeholder="Award Name*"
+                                                              placeholder="Enter award name*"
                                                               class="form-control name_list" /></td>
                                                       <td><input type="text" name="trs_central_awarded_dis_pub[]" id="pub_testone"
-                                                              placeholder="Title*"
+                                                              placeholder="Enter title*"
                                                               class="form-control name_list" /></td>
                                                       <td><button type="button" name="trs_central_awarded"
                                                               id="translated_pub_dis_asrmy"
@@ -2151,7 +2151,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                            </div>
 
                                         <h4 class="fw-bold">Required Documents - <span class="mt-055">தேவைப்படும் ஆவணங்கள்<span class="text-danger maditory">*</span></span></h4>
-                           <div class="card-header">
+                           {{-- <div class="card-header"> --}}
                             </hr>
                          </div>
                               <div class="col-md-6 form-group">
@@ -2257,7 +2257,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                                 <td> <input class="form-control"
                                                    id="subsidiary_publication_distribution_file"
                                                    name="subsidiary_publication_distribution_file[]"
-                                                   placeholder="Enter Document" type="file" multiple
+                                                   placeholder="Enter document" type="file" multiple
                                                    >
                                                    <span class="text-danger"><small>Doc, PDF other
                                                    format</small></span>
@@ -2282,7 +2282,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                            <div class="form-check">
                               <input class="form-check-input" type="checkbox" id="check2" name="declaration-two"
                                  value="yes" required>
-                              <label class="form-check-label">Acknowledge that I will submit five copies each book for review and relection purposes.
+                              <label class="form-check-label">Acknowledge that I will submit five copies each book for review and selection purposes.
 Archiving purpose: To comply with the delivery of books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.
 Review purpose:  send two copies for review of books in Chennai for review. Address to be sent: Anna Centenary Library, Chennai.</label>
                            </div>

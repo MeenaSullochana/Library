@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +19,7 @@
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('reviewer/images/fevi.svg') }}">
     <?php
-        include "reviewer/plugin/plugin_css.php";
+    include 'reviewer/plugin/plugin_css.php';
     ?>
 </head>
 
@@ -62,527 +61,538 @@
                                 <b>Library View</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="/reviewer/reviewer_list">
-                                <i class="fas fa-plus"></i> List Of Reviewer</a>
+                                <i class="fas fa-plus"></i> List of Reviewer</a>
                         </div>
                     </div>
                 </div>
-                <div class="container bootdey">
-                    <section class="col-md-12">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <div class="card-header-menu">
-                                            <i class="fa fa-bars"></i>
-                                        </div>
-                                        <div class="card-header-headshot"></div>
-                                    </div>
-                                    <div class="card-content ">
-                                        <div class="card-content-member">
-                                            <h4 class="m-t-0 text-primary">Public Reviewer Name</h4>
-                                            <h5 class="m-0"><i class="pe-7s-map-marker"></i>{{$data->name}} </p>
-                                        </div>
-                                            <h3 class="text-center pt-4">Reviewer Details</h3>
-                                        <div class="row pb-5 ">
-                                            <div class="col-md-6 text-end fw-bold text-primary"><b> Reviewer Name</b>  </div>
-                                            <div class="col-md-6">: {{$data->name}}</div>
-                                            <div class="col-md-6 text-end fw-bold text-primary"> <b>Reviewer Email</b> </div>
-                                            <div class="col-md-6">: {{$data->email}}</div>
-                                            <div class="col-md-6 text-end fw-bold text-primary"> <b>Reviewer phonenumber </b></div>
-                                            <div class="col-md-6">: {{$data->phoneNumber}}</div>
+				<div class="row">
+					<div class="col-xl-4 col-md-4 col-sm-12">
+						<div class="bg-white overflow-hidden mb-3">
+							<div class="card">
+								<div class="card-header">
+									<div class="card-header-menu">
+										<i class="fa fa-bars"></i>
+									</div>
+									<div class="card-header-headshot"></div>
+								</div>
+								<div class="card-content ">
+									<div class="card-content-member">
+										<h4 class="m-t-0 text-primary">Public Reviewer Name</h4>
+										<h5 class="m-0"><i class="pe-7s-map-marker"></i>{{ $data->name }} </p>
+											<h4 class="m-t-0 text-primary">MembershipId</h4>
+										<h5 class="m-0"><i class="pe-7s-map-marker"></i> {{$data->membershipId}} </p>
+									</div>
+								</div>
 
-                                               <div class="col-md-6 text-end fw-bold text-primary"><b>Category</b> </div>
-											<div class="col-md-6">
-											 
-												: {{$data->Category}}
-                    
-											</div>
-
-											<div class="col-md-6 text-end fw-bold text-primary"><b> MembershipId </b>  </div>
-                                            <div class="col-md-6">: {{$data->membershipId}}</div>
-
-											<div class="col-md-6 text-end fw-bold text-primary"><b> District</b>  </div>
-                                            <div class="col-md-6">: {{$data->district}}</div>
-
-					
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                          
-                        </div>
-                    </section>
-                </div>
+							</div>
+						</div>
+						<!-- end card -->
+						
+					</div>
+					<div class="col-xl-8 col-md-8 col-sm-12">
+						<div class="bg-white">
+							<div class="card-body">
+								<h4 class="card-title mb-4">Reviewer Details</h4>
+								<div class="table-responsive">
+									<table class="table mb-0">
+										<tbody>
+											<tr>
+												<th scope="row">Reviewer Name</th>
+												<td>: {{$data->name}}</td>
+											</tr>
+											<tr>
+												<th scope="row">Reviewer Email</th>
+												<td>:  {{$data->email}} </td>
+											</tr>
+											<tr>
+												<th scope="row">Reviewer Phonenumber</th>
+												<td>:  {{$data->phoneNumber}} </td>
+											</tr>
+											<tr>
+												<th scope="row">Category</th>
+												<td>:  {{$data->Category}} </td>
+											</tr>
+											<tr>
+												<th scope="row">District</th>
+												<td>:  {{$data->district}} </td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- end card -->
+					</div>
+				</div>
+                
+                
             </div>
         </div>
     </div>
-   <!--**********************************
+    <!--**********************************
             Content body end
         ***********************************-->
-	<!--**********************************
+    <!--**********************************
             Footer start
         ***********************************-->
-        @include ("reviewer.footer")
+    @include ('reviewer.footer')
 
-	<!--**********************************
+    <!--**********************************
             Footer end
         ***********************************-->
 
-	<!--**********************************
+    <!--**********************************
            Support ticket button start
         ***********************************-->
 
-	<!--**********************************
+    <!--**********************************
            Support ticket button end
         ***********************************-->
 
 
-	</div>
-	<!--**********************************
+    </div>
+    <!--**********************************
         Main wrapper end
     ***********************************-->
-	<style>
-		/*** Portfolio page
+    <style>
+        /*** Portfolio page
 ==============================================================================*/
 
-		.card {
-			margin-bottom: 20px;
-		}
+        .card {
+            margin-bottom: 20px;
+        }
 
-		.card-header {
-			position: relative;
-			display: -webkit-box;
-			display: -ms-flexbox;
-			display: flex;
-			-webkit-box-pack: center;
-			-ms-flex-pack: center;
-			justify-content: center;
-			/* background-image: url('/librarian/images'); */
-			background-size: cover;
-			background-position: center center;
-			padding: 30px 15px;
-			border-top-left-radius: 4px;
-			border-top-right-radius: 4px;
-		}
+        .card-header {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            /* background-image: url('/librarian/images'); */
+            background-size: cover;
+            background-position: center center;
+            padding: 30px 15px;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
 
-		.card-header-menu {
-			position: absolute;
-			top: 0;
-			right: 0;
-			height: 4em;
-			width: 4em;
-		}
+        .card-header-menu {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 4em;
+            width: 4em;
+        }
 
-		.card-header-menu:after {
-			position: absolute;
-			top: 0;
-			right: 0;
-			content: "";
-			border-left: 2em solid transparent;
-			border-bottom: 2em solid transparent;
-			border-right: 2em solid #37a000;
-			border-top: 2em solid #37a000;
-			border-top-right-radius: 4px;
-		}
+        .card-header-menu:after {
+            position: absolute;
+            top: 0;
+            right: 0;
+            content: "";
+            border-left: 2em solid transparent;
+            border-bottom: 2em solid transparent;
+            border-right: 2em solid #37a000;
+            border-top: 2em solid #37a000;
+            border-top-right-radius: 4px;
+        }
 
-		.card-header-menu i {
-			position: absolute;
-			top: 9px;
-			right: 9px;
-			color: #fff;
-			z-index: 1;
-		}
+        .card-header-menu i {
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            color: #fff;
+            z-index: 1;
+        }
 
-		.card-header-headshot {
-			height: 6em;
-			width: 6em;
-			border-radius: 50%;
-			border: 2px solid #37a000;
+        .card-header-headshot {
+            height: 6em;
+            width: 6em;
+            border-radius: 50%;
+            border: 2px solid #37a000;
             background-image: url('{{ !empty($data->profileImage) ? asset('reviewer/ProfileImage/' . $data->profileImage) : asset('reviewer/images/default.png') }}');
-			background-size: cover;
-			background-position: center center;
-			box-shadow: 1px 3px 3px #3E4142;
-		}
+            background-size: cover;
+            background-position: center center;
+            box-shadow: 1px 3px 3px #3E4142;
+        }
 
-		.card-content-member {
-			position: relative;
-			background-color: #fff;
-			padding: 1em;
-			box-shadow: 0 2px 2px rgba(62, 65, 66, 0.15);
-		}
+        .card-content-member {
+            position: relative;
+            background-color: #fff;
+            padding: 1em;
+            box-shadow: 0 2px 2px rgba(62, 65, 66, 0.15);
+        }
 
-		.card-content-member {
-			text-align: center;
-		}
+        .card-content-member {
+            text-align: center;
+        }
 
-		.card-content-member p i {
-			font-size: 16px;
-			margin-right: 10px;
-		}
+        .card-content-member p i {
+            font-size: 16px;
+            margin-right: 10px;
+        }
 
-		.card-content-languages {
-			background-color: #fff;
-			padding: 15px;
-		}
+        .card-content-languages {
+            background-color: #fff;
+            padding: 15px;
+        }
 
-		.card-content-languages .card-content-languages-group {
-			display: -webkit-box;
-			display: -ms-flexbox;
-			display: flex;
-			padding-bottom: 0.5em;
-		}
+        .card-content-languages .card-content-languages-group {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding-bottom: 0.5em;
+        }
 
-		.card-content-languages .card-content-languages-group:last-of-type {
-			padding-bottom: 0;
-		}
+        .card-content-languages .card-content-languages-group:last-of-type {
+            padding-bottom: 0;
+        }
 
-		.card-content-languages .card-content-languages-group>div:first-of-type {
-			-webkit-box-flex: 0;
-			-ms-flex: 0 0 5em;
-			flex: 0 0 5em;
-		}
+        .card-content-languages .card-content-languages-group>div:first-of-type {
+            -webkit-box-flex: 0;
+            -ms-flex: 0 0 5em;
+            flex: 0 0 5em;
+        }
 
-		.card-content-languages h4 {
-			line-height: 1.5em;
-			margin: 0;
-			font-size: 15px;
-			font-weight: 500;
-			letter-spacing: 0.5px;
-		}
+        .card-content-languages h4 {
+            line-height: 1.5em;
+            margin: 0;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
 
-		.card-content-languages li {
-			display: inline-block;
-			padding-right: 0.5em;
-			font-size: 0.9em;
-			line-height: 1.5em;
-		}
+        .card-content-languages li {
+            display: inline-block;
+            padding-right: 0.5em;
+            font-size: 0.9em;
+            line-height: 1.5em;
+        }
 
-		.card-content-summary {
-			background-color: #fff;
-			padding: 15px;
-		}
+        .card-content-summary {
+            background-color: #fff;
+            padding: 15px;
+        }
 
-		.card-content-summary p {
-			text-align: center;
-			font-size: 12px;
-			font-weight: 600;
-		}
+        .card-content-summary p {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
 
-		.card-footer-stats {
-			display: -webkit-box;
-			display: -ms-flexbox;
-			display: flex;
-			background-color: #2c3136;
-		}
+        .card-footer-stats {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            background-color: #2c3136;
+        }
 
-		.card-footer-stats div {
-			-webkit-box-flex: 1;
-			-ms-flex: 1 0 33%;
-			flex: 1 0 33%;
-			padding: 0.75em;
-		}
+        .card-footer-stats div {
+            -webkit-box-flex: 1;
+            -ms-flex: 1 0 33%;
+            flex: 1 0 33%;
+            padding: 0.75em;
+        }
 
-		.card-footer-stats div:nth-of-type(2) {
-			border-left: 1px solid #3E4142;
-			border-right: 1px solid #3E4142;
-		}
+        .card-footer-stats div:nth-of-type(2) {
+            border-left: 1px solid #3E4142;
+            border-right: 1px solid #3E4142;
+        }
 
-		.card-footer-stats p {
-			font-size: 0.8em;
-			color: #A6A6A6;
-			margin-bottom: 0.4em;
-			font-weight: 600;
-			text-transform: uppercase;
-		}
+        .card-footer-stats p {
+            font-size: 0.8em;
+            color: #A6A6A6;
+            margin-bottom: 0.4em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
 
-		.card-footer-stats i {
-			color: #ddd;
-		}
+        .card-footer-stats i {
+            color: #ddd;
+        }
 
-		.card-footer-stats span {
-			color: #ddd;
-		}
+        .card-footer-stats span {
+            color: #ddd;
+        }
 
-		.card-footer-stats span.stats-small {
-			font-size: 0.9em;
-		}
+        .card-footer-stats span.stats-small {
+            font-size: 0.9em;
+        }
 
-		.card-footer-message {
-			background-color: #37a000;
-			padding: 15px;
-			border-bottom-left-radius: 4px;
-			border-bottom-right-radius: 4px;
-		}
+        .card-footer-message {
+            background-color: #37a000;
+            padding: 15px;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
 
-		.card-footer-message h4 {
-			margin: 0;
-			text-align: center;
-			color: #fff;
-			font-weight: 400;
-		}
+        .card-footer-message h4 {
+            margin: 0;
+            text-align: center;
+            color: #fff;
+            font-weight: 400;
+        }
 
-		.review-number {
-			float: left;
-			width: 35px;
-			line-height: 1;
-		}
+        .review-number {
+            float: left;
+            width: 35px;
+            line-height: 1;
+        }
 
-		.review-number div {
-			height: 9px;
-			margin: 5px 0
-		}
+        .review-number div {
+            height: 9px;
+            margin: 5px 0
+        }
 
-		.review-progress {
-			float: left;
-			width: 230px;
-		}
+        .review-progress {
+            float: left;
+            width: 230px;
+        }
 
-		.review-progress .progress {
-			margin: 8px 0;
-		}
+        .review-progress .progress {
+            margin: 8px 0;
+        }
 
-		.progress-number {
-			margin-left: 10px;
-			float: left;
-		}
+        .progress-number {
+            margin-left: 10px;
+            float: left;
+        }
 
-		.rating-block,
-		.review-block {
-			background-color: #fff;
-			border: 1px solid #e1e6ef;
-			padding: 15px;
-			border-radius: 4px;
-			margin-bottom: 20px;
-		}
+        .rating-block,
+        .review-block {
+            background-color: #fff;
+            border: 1px solid #e1e6ef;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
 
-		.review-block {
-			margin-bottom: 20px;
-		}
+        .review-block {
+            margin-bottom: 20px;
+        }
 
-		.review-block-img img {
-			height: 60px;
-			width: 60px;
-		}
+        .review-block-img img {
+            height: 60px;
+            width: 60px;
+        }
 
-		.review-block-name {
-			font-size: 12px;
-			margin: 10px 0;
-			font-weight: 600;
-			text-transform: uppercase;
-			letter-spacing: 0.5px;
-		}
+        .review-block-name {
+            font-size: 12px;
+            margin: 10px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-		.review-block-name a {
-			color: #374767;
-		}
+        .review-block-name a {
+            color: #374767;
+        }
 
-		.review-block-date {
-			font-size: 12px;
-		}
+        .review-block-date {
+            font-size: 12px;
+        }
 
-		.review-block-rate {
-			font-size: 13px;
-			margin-bottom: 15px;
-		}
+        .review-block-rate {
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
 
-		.review-block-title {
-			font-size: 15px;
-			font-weight: 700;
-			margin-bottom: 10px;
-		}
+        .review-block-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
 
-		.review-block-description {
-			font-size: 13px;
-		}
+        .review-block-description {
+            font-size: 13px;
+        }
 
 
 
-		/* Widgets page
+        /* Widgets page
 ==============================================================================*/
 
 
-		/*-- Monthly calender --*/
+        /*-- Monthly calender --*/
 
-		.monthly_calender {
-			width: 100%;
-			max-width: 600px;
-			display: inline-block;
-		}
-
-
-		/*-- Profile widget --*/
-
-		.profile-widget .panel-heading {
-			min-height: 200px;
-			background: #fff;
-			background-size: cover;
-		}
-
-		.profile-widget .media-heading {
-			color: #5B5147;
-		}
-
-		.profile-widget .panel-body {
-			padding: 25px 15px;
-		}
-
-		.profile-widget .panel-body .img-circle {
-			height: 90px;
-			width: 90px;
-			padding: 8px;
-			border: 1px solid #e2dfdc;
-		}
-
-		.profile-widget .panel-footer {
-			padding: 0px;
-			border: none;
-		}
-
-		.profile-widget .panel-footer .btn-group .btn {
-			border: none;
-			font-size: 1.2em;
-			background-color: #F6F1ED;
-			color: #BAACA3;
-			border-top-left-radius: 0px;
-			border-top-right-radius: 0px;
-			padding: 15px 0;
-		}
-
-		.profile-widget .panel-footer .btn-group .btn:hover {
-			color: #F6F1ED;
-			background-color: #8F7F70;
-		}
-
-		.profile-widget .panel-footer .btn-group>.btn:not(:first-child) {
-			border-left: 1px solid #fff;
-		}
-
-		.profile-widget .panel-footer .btn-group .highlight {
-			color: #E56E4C;
-		}
-
-		.circle-image img {
-
-			border: 6px solid #fff;
-			border-radius: 100%;
-			padding: 0px;
-			top: -28px;
-			position: relative;
-			width: 70px;
-			height: 70px;
-			border-radius: 100%;
-			z-index: 1;
-			background: #e7d184;
-			cursor: pointer;
-
-		}
+        .monthly_calender {
+            width: 100%;
+            max-width: 600px;
+            display: inline-block;
+        }
 
 
-		.dot {
-			height: 18px;
-			width: 18px;
-			background-color: blue;
-			border-radius: 50%;
-			display: inline-block;
-			position: relative;
-			border: 3px solid #fff;
-			top: -48px;
-			left: 186px;
-			z-index: 1000;
-		}
+        /*-- Profile widget --*/
 
-		.name {
-			margin-top: -21px;
-			font-size: 18px;
-		}
+        .profile-widget .panel-heading {
+            min-height: 200px;
+            background: #fff;
+            background-size: cover;
+        }
 
+        .profile-widget .media-heading {
+            color: #5B5147;
+        }
 
-		.fw-500 {
-			font-weight: 500 !important;
-		}
+        .profile-widget .panel-body {
+            padding: 25px 15px;
+        }
 
+        .profile-widget .panel-body .img-circle {
+            height: 90px;
+            width: 90px;
+            padding: 8px;
+            border: 1px solid #e2dfdc;
+        }
 
-		.start {
+        .profile-widget .panel-footer {
+            padding: 0px;
+            border: none;
+        }
 
-			color: green;
-		}
+        .profile-widget .panel-footer .btn-group .btn {
+            border: none;
+            font-size: 1.2em;
+            background-color: #F6F1ED;
+            color: #BAACA3;
+            border-top-left-radius: 0px;
+            border-top-right-radius: 0px;
+            padding: 15px 0;
+        }
 
-		.stop {
-			color: red;
-		}
+        .profile-widget .panel-footer .btn-group .btn:hover {
+            color: #F6F1ED;
+            background-color: #8F7F70;
+        }
 
+        .profile-widget .panel-footer .btn-group>.btn:not(:first-child) {
+            border-left: 1px solid #fff;
+        }
 
-		.rate {
+        .profile-widget .panel-footer .btn-group .highlight {
+            color: #E56E4C;
+        }
 
-			border-bottom-right-radius: 12px;
-			border-bottom-left-radius: 12px;
+        .circle-image img {
 
-		}
+            border: 6px solid #fff;
+            border-radius: 100%;
+            padding: 0px;
+            top: -28px;
+            position: relative;
+            width: 70px;
+            height: 70px;
+            border-radius: 100%;
+            z-index: 1;
+            background: #e7d184;
+            cursor: pointer;
 
-
-
-		.rating {
-			display: flex;
-			flex-direction: row-reverse;
-			justify-content: center
-		}
-
-		.rating>input {
-			display: none
-		}
-
-		.rating>label {
-			position: relative;
-			width: 1em;
-			font-size: 30px;
-			font-weight: 300;
-			color: #FFD600;
-			cursor: pointer
-		}
-
-		.rating>label::before {
-			content: "\2605";
-			position: absolute;
-			opacity: 0
-		}
-
-		.rating>label:hover:before,
-		.rating>label:hover~label:before {
-			opacity: 1 !important
-		}
-
-		.rating>input:checked~label:before {
-			opacity: 1
-		}
-
-		.rating:hover>input:checked~label:before {
-			opacity: 0.4
-		}
+        }
 
 
-		.buttons {
-			top: 36px;
-			position: relative;
-		}
+        .dot {
+            height: 18px;
+            width: 18px;
+            background-color: blue;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            border: 3px solid #fff;
+            top: -48px;
+            left: 186px;
+            z-index: 1000;
+        }
+
+        .name {
+            margin-top: -21px;
+            font-size: 18px;
+        }
 
 
-		.rating-submit {
-			border-radius: 15px;
-			color: #fff;
-			height: 49px;
-		}
+        .fw-500 {
+            font-weight: 500 !important;
+        }
 
 
-		.rating-submit:hover {
+        .start {
 
-			color: #fff;
-		}
-	</style>
+            color: green;
+        }
+
+        .stop {
+            color: red;
+        }
+
+
+        .rate {
+
+            border-bottom-right-radius: 12px;
+            border-bottom-left-radius: 12px;
+
+        }
+
+
+
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center
+        }
+
+        .rating>input {
+            display: none
+        }
+
+        .rating>label {
+            position: relative;
+            width: 1em;
+            font-size: 30px;
+            font-weight: 300;
+            color: #FFD600;
+            cursor: pointer
+        }
+
+        .rating>label::before {
+            content: "\2605";
+            position: absolute;
+            opacity: 0
+        }
+
+        .rating>label:hover:before,
+        .rating>label:hover~label:before {
+            opacity: 1 !important
+        }
+
+        .rating>input:checked~label:before {
+            opacity: 1
+        }
+
+        .rating:hover>input:checked~label:before {
+            opacity: 0.4
+        }
+
+
+        .buttons {
+            top: 36px;
+            position: relative;
+        }
+
+
+        .rating-submit {
+            border-radius: 15px;
+            color: #fff;
+            height: 49px;
+        }
+
+
+        .rating-submit:hover {
+
+            color: #fff;
+        }
+    </style>
     <?php
-        include "reviewer/plugin/plugin_js.php";
+    include 'reviewer/plugin/plugin_js.php';
     ?>
 </body>
 

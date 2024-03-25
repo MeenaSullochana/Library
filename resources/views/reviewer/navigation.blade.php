@@ -6,7 +6,7 @@
     <!-- ... other head elements ... -->
 </head>
         <div class="nav-header">
-            <a href="index.php" class="brand-logo">
+            <a href="/reviewer/index" class="brand-logo">
 				
                 <?xml version="1.0" encoding="UTF-8"?>
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25px" height="25px" viewBox="0 0 123.6 204.9" version="1.1">
@@ -1070,7 +1070,7 @@
 								</a></span>
 							</div> -->
 							<ul class="navbar-nav">
-								<li class="nav-item dropdown notification_dropdown">
+								{{-- <li class="nav-item dropdown notification_dropdown">
 									<a class="nav-link bell dz-theme-mode" href="javascript:void(0);">
 										<svg id="icon-light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
 											<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -1086,7 +1086,7 @@
 										</g>
 										</svg>	
 									</a>
-								</li>
+								</li> --}}
 								<li class="nav-item dropdown notification_dropdown notify">
                                 <a class="nav-link notification" href="javascript:void(0);" role="button"
                                         data-bs-toggle="dropdown">
@@ -1382,7 +1382,7 @@
                     </li>
 					<li><a href="/reviewer/payment_cancel" class="" aria-expanded="false">
 						<i class="bi bi-bookmark-x-fill"></i>
-                            <span class="nav-text">Cencelled Payment</span>
+                            <span class="nav-text">Cancelled Payment</span>
                         </a>
                     </li>
 					<li><a href="/reviewer/payment_pending" class="" aria-expanded="false">

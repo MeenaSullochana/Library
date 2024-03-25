@@ -73,7 +73,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="card">
-                            <div class="card-body p-0">
+                            <div class="card-body p-3">
                                 <div class="table-responsive active-projects task-table">
                                     <div class="tbl-caption">
                                         <h4 class="heading mb-0">Scheme List</h4>

@@ -401,7 +401,7 @@
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">City <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">City <span class="pull-end"></span>
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
@@ -448,7 +448,7 @@
                                                     <hr>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500"> Name<span class="pull-end">:</span>
+                                                            <h5 class="f-w-500"> Name
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
