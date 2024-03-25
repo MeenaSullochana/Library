@@ -43,11 +43,11 @@
                     <div class="col-lg-12">
                         <div class="tp-breadcrumb__content">
                             <div class="tp-breadcrumb__list">
-                                <span class="tp-breadcrumb__active"><a href="index.html">Home</a></span>
+                                <span class="tp-breadcrumb__active"><a href="/">Home</a></span>
                                 <span class="dvdr">/</span>
-                                <span class="tp-breadcrumb__active"><a href="index.html">Breakfast & Dairy</a></span>
+                                <span class="tp-breadcrumb__active"><a href="/librarian/index">Dashborad</a></span>
                                 <span class="dvdr">/</span>
-                                <span>Watch Where They Hide: A Jordan Manning Novel</span>
+                                <a href="/product-two"><span>Website Home</span></a>
                             </div>
                         </div>
                     </div>
@@ -64,12 +64,12 @@
                         <div class="tpdetails__area mr-60 pb-30">
                             <div class="tpdetails__product mb-30">
                                 <div class="tpdetails__title-box">
-                                    <h3 class="tpdetails__title">Watch Where They Hide: A Jordan Manning Novel
+                                    <h3 class="tpdetails__title">Magazine Title: {{$data->title}}
                                     </h3>
                                     <ul class="tpdetails__brand">
-                                        <li> Magazine name: <a href="#">ORFARM</a> </li>
+                                        <li> Category: <a href="#">{{$data->category}}</a> </li>
                                         <li>
-                                            Magazine: <span>ORFARMVE005</span>
+                                        Language: <span> {{$data->language}}</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -136,10 +136,10 @@
                                         <div class="col-lg-6">
                                             <div class="product__details">
                                                 <div class="product__details-price-box">
-                                                    <h5 class="product__details-price">₹ 56.00</h5>
+                                                    <h5 class="product__details-price">₹ {{$data->annual_cost_after_discount}}</h5>
                                                     <ul class="product__details-info-list">
-                                                        <li>Subject: Children</li>
-                                                        <li>Date of updated: August 4.2021</li>
+                                                    <li> Magazine Title: {{$data->title}}</li>
+                                                              <li>Language: {{$data->language}}</li>
                                                     </ul>
                                                 </div>
                                                 <div class="product__details-cart">
@@ -150,11 +150,11 @@
                                                             <span class="cart-minus"><i
                                                                     class="far fa-minus"></i></span>
                                                             <input class="tp-cart-input" type="text"
-                                                                value="1">
+                                                                value="{{$data->quantity}}" id="quantity_{{$data->id}}">
                                                             <span class="cart-plus"><i class="far fa-plus"></i></span>
                                                         </div>
                                                         <div class="product__details-btn">
-                                                            <a href="cart.html">add to cart</a>
+                                                        <button class="tp-btn-2 mb-5 Add-to-cart" data-id="{{$data->id}}">Add to cart</button>
                                                         </div>
                                                     </div>
                                                     <ul class="product__details-check">
@@ -166,16 +166,16 @@
                                                             <a href="#"><i class="icon-layers"></i> Add to
                                                                 Compare</a>
                                                         </li> --}}
-                                                        <li>
+                                                        <!-- <li>
                                                             <a href="#"><i class="icon-share-2"></i> Share</a>
-                                                        </li>
+                                                        </li> -->
                                                     </ul>
                                                 </div>
                                                 <div class="product__details-stock mb-25">
                                                     <ul>
-                                                        <li>Availability: <i>54 Instock</i></li>
-                                                        <li>Categories: <span>Children</span></li>
-                                                        <li>Tags: <span>Children</span></li>
+                                                       
+                                                        <li>Category: <span>{{$data->category}}</span></li>
+                                                        <li>Periodicity: <span>{{$data->periodicity}}</span></li>
                                                     </ul>
                                                 </div>
                                                 <div class="product__details-payment text-center">
@@ -233,17 +233,17 @@
                                                 data-bs-toggle="tab" data-bs-target="#nav-description" type="button"
                                                 role="tab" aria-controls="nav-description"
                                                 aria-selected="true">Magazine Description</button>
-                                            <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab"
+                                            <!-- <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab"
                                                 data-bs-target="#nav-information" type="button" role="tab"
                                                 aria-controls="nav-information" aria-selected="false">Addition
-                                                information</button>
+                                                information</button> -->
                                         </div>
                                     </nav>
                                 </div>
                                 <div class="tab-content" id="nav-tabContent">
                                     <div class="tab-pane fade show active" id="nav-description" role="tabpanel"
                                         aria-labelledby="nav-description-tab" tabindex="0">
-                                        <div class="tpdescription__content">
+                                        <!-- <div class="tpdescription__content">
                                             <p>Designed by Puik in 1949 as one of the first models created especially
                                                 for Carl Hansen & Son, and produced since 1950. The last of a series of
                                                 chairs wegner designed based on inspiration from antique chinese
@@ -252,28 +252,38 @@
                                                 omnis iste natus error sit voluptatem accusantium doloremque laudantium,
                                                 totam rem aperiam, aque ipsa quae ab illo inventore veritatis et quasi
                                                 architecto beatae vitae dicta sunt explicabo. </p>
-                                        </div>
+                                        </div> -->
                                         <div
                                             class="tpdescription__product-wrapper mt-30 mb-30 d-flex justify-content-between align-items-center">
                                             <div class="tpdescription__product-info">
                                                 <h5 class="tpdescription__product-title">PRODUCT DETAILS</h5>
                                                 <ul class="tpdescription__product-info">
-                                                    <li>Material: Plastic, Wood</li>
-                                                    <li>Legs: Lacquered oak and black painted oak</li>
-                                                    <li>Dimensions and Weight: Height: 80 cm, Weight: 5.3 kg</li>
-                                                    <li>Length: 48cm</li>
-                                                    <li>Depth: 52 cm</li>
+                                                    <li>Magazine Title: {{$data->title}}</li>
+                                                    <li>Category: {{$data->category}}</li>
+                                                    <li>Language: {{$data->language}}</li>
+                                                    <li>Periodicity: {{$data->periodicity}}</li>
+                                                    <li>Peice: {{$data->annual_cost_after_discount}}</li>
+                                                    <li>Rni: {{$data->rni_details}}</li>
+                                                    <li>Total Pages: {{$data->total_pages}}</li>
+                                                    <li>Total Multicolour Pages: {{$data->total_multicolour_pages}}</li>
+                                                    <li>Total Monocolour Pages: {{$data->total_monocolour_pages}}</li>
+                                                    <li>Paper Quality: {{$data->paper_quality}}</li>
+                                                    <li>Magazine Size: {{$data->magazine_size}}</li>
+
+
+                                                    
+                                                    
                                                 </ul>
-                                                <p>Lemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+                                                <!-- <p>Lemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
                                                     <br> fugit, sed quia consequuntur magni dolores eos qui ratione
                                                     voluptatem <br> sequi nesciunt.
-                                                </p>
+                                                </p> -->
                                             </div>
                                             <div class="tpdescription__product-thumb">
-                                                <img src="assets/img/product/product-single-1.png" alt="">
+                                                <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt="">
                                             </div>
                                         </div>
-                                        <div class="tpdescription__video">
+                                        <!-- <div class="tpdescription__video">
                                             <h5 class="tpdescription__product-title">PRODUCT DETAILS</h5>
                                             <p>Form is an armless modern chair with a minimalistic expression. With a
                                                 simple and contemporary design Form Chair has a soft and welcoming
@@ -316,9 +326,9 @@
                                                 enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                                                 aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
                                                 in voluptate.</p>
-                                        </div>
+                                        </div> -->
                                     </div>
-                                    <div class="tab-pane fade" id="nav-information" role="tabpanel"
+                                    <!-- <div class="tab-pane fade" id="nav-information" role="tabpanel"
                                         aria-labelledby="nav-info-tab" tabindex="0">
                                         <div class="tpdescription__content">
                                             <p>Designed by Puik in 1949 as one of the first models created especially
@@ -361,120 +371,53 @@
                                                 Gronbech. Est eum itaque maiores qui blanditiis architecto. Eligendi
                                                 saepe rem ut. Cumque quia earum eligendi. </p>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-12">
                         <div class="tpsidebar pb-30">
-                            <div class="tpsidebar__warning mb-30">
-                                <ul>
-                                    <li>
-                                        <div class="tpsidebar__warning-item">
-                                            <div class="tpsidebar__warning-icon">
-                                                <i class="icon-package"></i>
-                                            </div>
-                                            <div class="tpsidebar__warning-text">
-                                                <p>Free shipping apply to all <br> orders over ₹90</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="tpsidebar__warning-item">
-                                            <div class="tpsidebar__warning-icon">
-                                                <i class="icon-shield"></i>
-                                            </div>
-                                            <div class="tpsidebar__warning-text">
-                                                <p>Guaranteed 100% Organic <br> from nature farms</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="tpsidebar__warning-item">
-                                            <div class="tpsidebar__warning-icon">
-                                                <i class="icon-package"></i>
-                                            </div>
-                                            <div class="tpsidebar__warning-text">
-                                                <p>60 days returns if you change <br> your mind</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="tpsidebar__banner mb-30">
-                                <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                    alt="">
-                            </div>
+                        @php
+                     $magazines = DB::table('magazines')
+                   ->where('id', '!=', $data->id)
+                   ->where('category', $data->category)
+                   ->orderBy('created_at', 'asc')
+                   ->take(5) 
+                   ->get();
+                    @endphp
+
+                        @foreach( $magazines as $val)
                             <div class="tpsidebar__product">
                                 <h4 class="tpsidebar__title mb-15">Recent Products</h4>
                                 <div class="tpsidebar__product-item">
                                     <div class="tpsidebar__product-thumb p-relative">
+                                    <a href="/shope-magazine/{{$val->id}}">
                                         <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
                                             alt="">
                                         <div class="tpsidebar__info bage">
-                                            <span class="tpproduct__info-hot bage__hot">HOT</span>
+                                            <!-- <span class="tpproduct__info-hot bage__hot">HOT</span> -->
                                         </div>
                                     </div>
                                     <div class="tpsidebar__product-content">
                                         <span class="tpproduct__product-category">
-                                            <a href="shop-details-3.html">Childen</a>
+                                            <a href="/shope-magazine/{{$val->id}}">{{$val->category}}</a>,
+                                            <a href="/shope-magazine/{{$val->id}}">{{$val->language}}</a>,
+                                    
                                         </span>
                                         <h4 class="tpsidebar__product-title">
-                                            <a href="shop-details-3.html">Watch Where They Hide: A Jordan Manning
-                                                Novel</a>
+                                            <a href="/shope-magazine/{{$val->id}}">Magazine Title: {{$val->title}}</a>
                                         </h4>
                                         <div class="tpproduct__price">
-                                            <span>₹56.00</span>
-                                            <del>₹19.00</del>
+                                        <span>₹{{$val->annual_cost_after_discount}}</span>
+
+                                            <!-- <del>₹19.00</del> -->
                                         </div>
                                     </div>
                                 </div>
-                                <div class="tpsidebar__product-item">
-                                    <div class="tpsidebar__product-thumb p-relative">
-                                        <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                            alt="">
-                                        <div class="tpsidebar__info bage">
-                                            <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                        </div>
-                                    </div>
-                                    <div class="tpsidebar__product-content">
-                                        <span class="tpproduct__product-category">
-                                            <a href="shop-details-3.html">Childen</a>
-                                        </span>
-                                        <h4 class="tpsidebar__product-title">
-                                            <a href="shop-details-3.html">Watch Where They Hide: A Jordan Manning
-                                                Novel</a>
-                                        </h4>
-                                        <div class="tpproduct__price">
-                                            <span>₹56.00</span>
-                                            <del>₹19.00</del>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tpsidebar__product-item">
-                                    <div class="tpsidebar__product-thumb p-relative">
-                                        <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                            alt="">
-                                        <div class="tpsidebar__info bage">
-                                            <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                        </div>
-                                    </div>
-                                    <div class="tpsidebar__product-content">
-                                        <span class="tpproduct__product-category">
-                                            <a href="shop-details-3.html">Childen</a>
-                                        </span>
-                                        <h4 class="tpsidebar__product-title">
-                                            <a href="shop-details-grid.html">Watch Where They Hide: A Jordan Manning
-                                                Novel</a>
-                                        </h4>
-                                        <div class="tpproduct__price">
-                                            <span>₹56.00</span>
-                                            <del>₹19.00</del>
-                                        </div>
-                                    </div>
-                                </div>
+                               
                             </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -493,297 +436,67 @@
                 <div class="tpproduct__arrow double-product p-relative">
                     <div class="swiper-container tpproduct-active tpslider-bottom p-relative">
                         <div class="swiper-wrapper">
+                        @php
+                           $magazine = DB::table('magazines')
+                           ->where('id','!=', $data->id)
+                           ->where('category', $data->category)
+                           ->orderBy('created_at', 'Asc')
+                            ->get();
+                       @endphp
+                        @foreach( $magazine as $val)
                             <div class="swiper-slide">
                                 <div class="tpproduct p-relative">
                                     <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img
+                                        <a href="/shope-magazine/{{$val->id}}"><img
                                                 src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
                                                 alt=""></a>
-                                        <a class="tpproduct__thumb-img" href="shop-details.html"><img
+                                        <a class="tpproduct__thumb-img" href="/shope-magazine/{{$val->id}}"><img
                                                 src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
                                                 alt=""></a>
                                         <div class="tpproduct__info bage">
-                                            <span class="tpproduct__info-discount bage__discount">-50%</span>
-                                            <span class="tpproduct__info-hot bage__hot">HOT</span>
+                                            <!-- <span class="tpproduct__info-discount bage__discount">-50%</span>
+                                            <span class="tpproduct__info-hot bage__hot">HOT</span> -->
                                         </div>
                                         <div class="tpproduct__shopping">
                                             <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i
                                                     class="icon-heart icons"></i></a>
-                                            <a class="tpproduct__shopping-wishlist" href="#"><i
+                                            <a class="tpproduct__shopping-wishlist" href="/shope-magazine/{{$val->id}}"><i
                                                     class="icon-layers"></i></a>
-                                            <a class="tpproduct__shopping-cart" href="#"><i
-                                                    class="icon-eye"></i></a>
+                                            <!-- <a class="tpproduct__shopping-cart" href="#"><i
+                                                    class="icon-eye"></i></a> -->
                                         </div>
                                     </div>
                                     <div class="tpproduct__content">
                                         <span class="tpproduct__content-weight">
-                                            <a href="shop-details.html">children</a>
+                                        <a href="shop-details-3.html">{{$val->category}}</a>,
+                                       <a href="shop-details-3.html">{{$val->language}}</a>
                                         </span>
+                                        
                                         <h4 class="tpproduct__title">
-                                            <a href="shop-details-top-.html">Watch Where They Hide: A Jordan Manning
-                                                Novel</a>
+                                            <a href="shop-details-top-.html">Magazine Title: {{$val->title}}</a>
                                         </h4>
                                         <div class="tpproduct__price">
-                                            <span>₹56.00</span>
-                                            <del>₹19.00</del>
+                                            <span>₹{{$val->annual_cost_after_discount}}</span>
+                                            <!-- <del>₹19.00</del> -->
                                         </div>
                                     </div>
                                     <div class="tpproduct__hover-text">
                                         <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                            <a class="tp-btn-2" href="cart.html">Add to cart</a>
+                                        <button class="tp-btn-2 Add-to-cart1" data-id1="{{$val->id}}">Add to cart</button>
+
+                                  
+
                                         </div>
                                         <div class="tpproduct__descrip">
                                             <ul>
-                                                <li>Type: Organic</li>
-                                                <li>MFG: August 4.2021</li>
-                                                <li>LIFE: 60 days</li>
+                                            <li>Category: {{$val->category}}</li>
+                                            <li>Periodicity: {{$val->periodicity}}</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-slide">
-                                <div class="tpproduct p-relative">
-                                    <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                alt=""></a>
-                                        <a class="tpproduct__thumb-img" href="shop-details.html"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                alt=""></a>
-                                        <div class="tpproduct__info bage">
-                                            <span class="tpproduct__info-discount bage__discount">-40%</span>
-                                        </div>
-                                        <div class="tpproduct__shopping">
-                                            <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i
-                                                    class="icon-heart icons"></i></a>
-                                            <a class="tpproduct__shopping-wishlist" href="#"><i
-                                                    class="icon-layers"></i></a>
-                                            <a class="tpproduct__shopping-cart" href="#"><i
-                                                    class="icon-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="tpproduct__content">
-                                        <span class="tpproduct__content-weight">
-                                            <a href="shop-details.html">children</a>
-                                        </span>
-                                        <h4 class="tpproduct__title">
-                                            <a href="shop-details-top.html">Watch Where They Hide: A Jordan Manning
-                                                Novel</a>
-                                        </h4>
-                                        <div class="tpproduct__price">
-                                            <span>₹56.00</span>
-                                            <del>₹19.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="tpproduct__hover-text">
-                                        <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                            <a class="tp-btn-2" href="cart.html">Add to cart</a>
-                                        </div>
-                                        <div class="tpproduct__descrip">
-                                            <ul>
-                                                <li>Type: Organic</li>
-                                                <li>MFG: August 4.2021</li>
-                                                <li>LIFE: 60 days</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="tpproduct p-relative">
-                                    <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                alt=""></a>
-                                        <a class="tpproduct__thumb-img" href="shop-details.html"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                alt=""></a>
-                                        <div class="tpproduct__info bage">
-                                            <span class="tpproduct__info-discount bage__discount">-10%</span>
-                                        </div>
-                                        <div class="tpproduct__shopping">
-                                            <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i
-                                                    class="icon-heart icons"></i></a>
-                                            <a class="tpproduct__shopping-wishlist" href="#"><i
-                                                    class="icon-layers"></i></a>
-                                            <a class="tpproduct__shopping-cart" href="#"><i
-                                                    class="icon-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="tpproduct__content">
-                                        <span class="tpproduct__content-weight">
-                                            <a href="shop-details-3.html">Childen</a>
-                                        </span>
-                                        <h4 class="tpproduct__title">
-                                            <a href="shop-details.html">Watch Where They Hide: A Jordan Manning
-                                                Novel</a>
-                                        </h4>
-                                        <div class="tpproduct__price">
-                                            <span>₹56.00</span>
-                                            <del>₹19.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="tpproduct__hover-text">
-                                        <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                            <a class="tp-btn-2" href="cart.html">Add to cart</a>
-                                        </div>
-                                        <div class="tpproduct__descrip">
-                                            <ul>
-                                                <li>Type: Organic</li>
-                                                <li>MFG: August 4.2021</li>
-                                                <li>LIFE: 60 days</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="tpproduct p-relative">
-                                    <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                alt=""></a>
-                                        <a class="tpproduct__thumb-img" href="shop-details.html"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                alt=""></a>
-                                        <div class="tpproduct__info bage">
-                                            <span class="tpproduct__info-discount bage__discount">-90%</span>
-                                            <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                        </div>
-                                        <div class="tpproduct__shopping">
-                                            <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i
-                                                    class="icon-heart icons"></i></a>
-                                            <a class="tpproduct__shopping-wishlist" href="#"><i
-                                                    class="icon-layers"></i></a>
-                                            <a class="tpproduct__shopping-cart" href="#"><i
-                                                    class="icon-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="tpproduct__content">
-                                        <span class="tpproduct__content-weight">
-                                            <a href="shop-details-3.html">Childen</a>
-                                        </span>
-                                        <h4 class="tpproduct__title">
-                                            <a href="shop-details-grid.html">Watch Where They Hide: A Jordan Manning
-                                                Novel</a>
-                                        </h4>
-                                        <div class="tpproduct__price">
-                                            <span>₹56.00</span>
-                                            <del>₹19.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="tpproduct__hover-text">
-                                        <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                            <a class="tp-btn-2" href="cart.html">Add to cart</a>
-                                        </div>
-                                        <div class="tpproduct__descrip">
-                                            <ul>
-                                                <li>Type: Organic</li>
-                                                <li>MFG: August 4.2021</li>
-                                                <li>LIFE: 60 days</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="tpproduct p-relative">
-                                    <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                alt=""></a>
-                                        <a class="tpproduct__thumb-img" href="shop-details.html"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                alt=""></a>
-                                        <div class="tpproduct__info bage">
-                                            <span class="tpproduct__info-discount bage__discount">-50%</span>
-                                        </div>
-                                        <div class="tpproduct__shopping">
-                                            <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i
-                                                    class="icon-heart icons"></i></a>
-                                            <a class="tpproduct__shopping-wishlist" href="#"><i
-                                                    class="icon-layers"></i></a>
-                                            <a class="tpproduct__shopping-cart" href="#"><i
-                                                    class="icon-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="tpproduct__content">
-                                        <span class="tpproduct__content-weight">
-                                            <a href="shop-details-3.html">Vagetables</a>
-                                        </span>
-                                        <h4 class="tpproduct__title">
-                                            <a href="shop-details-3.html">Watch Where They Hide: A Jordan Manning
-                                                Novel</a>
-                                        </h4>
-                                        <div class="tpproduct__price">
-                                            <span>₹56.00</span>
-                                            <del>₹19.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="tpproduct__hover-text">
-                                        <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                            <a class="tp-btn-2" href="cart.html">Add to cart</a>
-                                        </div>
-                                        <div class="tpproduct__descrip">
-                                            <ul>
-                                                <li>Type: Organic</li>
-                                                <li>MFG: August 4.2021</li>
-                                                <li>LIFE: 60 days</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="tpproduct p-relative">
-                                    <div class="tpproduct__thumb p-relative text-center">
-                                        <a href="#"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                alt=""></a>
-                                        <a class="tpproduct__thumb-img" href="shop-details.html"><img
-                                                src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg"
-                                                alt=""></a>
-                                        <div class="tpproduct__info bage">
-                                            <span class="tpproduct__info-discount bage__discount">-40%</span>
-                                            <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                        </div>
-                                        <div class="tpproduct__shopping">
-                                            <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i
-                                                    class="icon-heart icons"></i></a>
-                                            <a class="tpproduct__shopping-wishlist" href="#"><i
-                                                    class="icon-layers"></i></a>
-                                            <a class="tpproduct__shopping-cart" href="#"><i
-                                                    class="icon-eye"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="tpproduct__content">
-                                        <span class="tpproduct__content-weight">
-                                            <a href="shop-details-3.html">Childen</a>
-                                        </span>
-                                        <h4 class="tpproduct__title">
-                                            <a href="shop-details-grid.html">Watch Where They Hide: A Jordan Manning
-                                                Novel</a>
-                                        </h4>
-                                        <div class="tpproduct__price">
-                                            <span>₹56.00</span>
-                                            <del>₹19.00</del>
-                                        </div>
-                                    </div>
-                                    <div class="tpproduct__hover-text">
-                                        <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
-                                            <a class="tp-btn-2" href="cart.html">Add to cart</a>
-                                        </div>
-                                        <div class="tpproduct__descrip">
-                                            <ul>
-                                                <li>Type: Organic</li>
-                                                <li>MFG: August 4.2021</li>
-                                                <li>LIFE: 60 days</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                         @endforeach
                         </div>
                     </div>
                 </div>
@@ -793,14 +506,81 @@
 
     </main>
 
-    <!-- footer-area-start -->
+   
     @include('footer.footer')
 
-    <!-- footer-area-end -->
+    
     <?php
     include 'plugin/js.php';
     ?>
+<script>
+$(document).ready(function(){
+    $('.Add-to-cart1').click(function(){
+        var id = $(this).data('id1');
+        $.ajax({
+            url: '/add-to-cart', 
+            method: 'POST', 
+            data: {
+             '_token': '{{ csrf_token() }}',
+            'id': id
+               },
+            success: function(response) {
+                if(response.magazinecartcount){
+                    $('#magazinecartcount').text(response.magazinecartcount);
 
+                }
+                toastr.success(response.success, { timeout: 2000 });
+               
+            },
+            error: function(xhr, status, error) {
+              
+                console.error('AJAX request failed:', status, error);
+            }
+        });
+    });
+});
+</script>
+
+
+<script>
+$(document).ready(function() {
+    $('.Add-to-cart').click(function() {
+        var productId = $(this).data('id');
+        var quantity = $('#quantity_' + productId).val();
+        console.log(quantity);
+        console.log(productId);
+        updateCart(productId, quantity);
+    });
+
+    function updateCart(productId, quantity) {
+        $.ajax({
+            type: "POST",
+            url: "updatecart", 
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'id': productId,
+                'quantity': quantity
+            },
+            success: function(response) {
+                if (response.success) {
+                    if(response.magazinecartcount){
+                    $('#magazinecartcount').text(response.magazinecartcount);
+
+                }
+                    toastr.success(response.success, { timeout: 2000 });
+
+                } else {
+                    toastr.error(response.success, { timeout: 2000 });
+
+                }
+            },
+            error: function(xhr, status, error) {
+              
+            }
+        });
+    }
+});
+</script>
 </body>
 
 <style>

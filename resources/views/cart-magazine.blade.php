@@ -47,9 +47,10 @@
                     <div class="col-lg-12">
                         <div class="tp-breadcrumb__content">
                             <div class="tp-breadcrumb__list">
-                                <span class="tp-breadcrumb__active"><a href="index.html">Home</a></span>
+                                <span class="tp-breadcrumb__active"><a href="/">Home</a></span>
                                 <span class="dvdr">/</span>
-                                <span>Cart</span>
+                                <a href="/product-two"><span>Website Home</span></a>
+
                             </div>
                         </div>
                     </div>
@@ -57,21 +58,16 @@
             </div>
         </div>
         <!-- breadcrumb-area-end -->
+
+        
         @php
-           $dataPoints = array(
-                array("label"=> "Children", "y"=> 284935),
-                array("label"=> "Competitive", "y"=> 256548),
-                array("label"=> "Economics", "y"=> 245214),
-                array("label"=> "Entertainment", "y"=> 233464),
-                array("label"=> "General", "y"=> 200285),
-                array("label"=> "Health", "y"=> 194422),
-                array("label"=> "Literature", "y"=> 180337),
-                array("label"=> "Religion", "y"=> 172340),
-                array("label"=> "Science & Technology", "y"=> 118187),
-                array("label"=> "Sports", "y"=> 107530),
-                array("label"=> "Women", "y"=> 107530)
-            );
-        @endphp 
+    $dataPoints = array();
+    foreach ($magazinebudget->CategorieAmount1 as $category) {
+        $dataPoints[] = array("label"=> $category->name, "y"=> $category->amount);
+    }
+@endphp
+
+
         <section class="budget-chat-data pb-80">
             <div class="container">
                 <div class="row">
@@ -90,8 +86,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <form action="#">
-                            <div class="table-content table-responsive">
+                       
+                            <div class="table-content table-responsive" >
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -105,36 +101,37 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                        @for ($i=0;$i<10;$i++)
-                                        <tr>
-                                            <td class="product-thumbnail">
+                                    <!-- cartdata -->
+                                       @foreach($cartdata as $val)
+                                       <tr id="row_{{ $val->id }}">
+                                            <td class="product-thumbnail" >
                                                 <a href="#">
                                                     <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt="">
                                                 </a>
                                             </td>
                                             <td class="product-name">
-                                                <a href="#">Summer Breakfast For Healthy Morning</a>
+                                                <a href="#">{{$val->title}}</a>
                                             </td>
                                             <td>
-                                                children
+                                            {{$val->category}}
                                             </td>
                                             <td class="product-price">
-                                                <span class="amount">₹130.00</span>
+                                                <span class="amount">₹{{$val->amount}}</span>
                                             </td>
                                             <td class="product-quantity">
                                                 <span class="cart-minus">-</span>
-                                                <input class="cart-input" type="text" value="1">
+                                                <input class="cart-input" type="text" value="{{$val->quantity}}" data-id="{{ $val->id }}">
                                                 <span class="cart-plus">+</span>
                                             </td>
                                             <td class="product-subtotal">
-                                                <span class="amount">₹130.00</span>
+                                                <span class="amount">₹{{$val->totalAmount}}</span>
                                             </td>
                                             <td class="product-remove">
-                                                <a href="#"><i class="fa fa-times"></i></a>
+                                            <button class="btn btn-danger delete-btn" data-id="{{ $val->id }}"><i class="fa fa-times"></i></button>
+                                                
                                             </td>
                                         </tr>
-                                        @endfor
+                                        @endforeach
                                        
                                     </tbody>
                                 </table>
@@ -154,15 +151,15 @@
                                     <div class="cart-page-total">
                                         <h2>Cart totals</h2>
                                         <ul class="mb-20">
-                                            <li>Subtotal <span>₹250.00</span></li>
-                                            <li>Total <span>₹250.00</span></li>
+                                            <!-- <li>Subtotal <span>₹250.00</span></li> -->
+                                            <li>Total <span id="cartdatacount">₹{{$cartdatacount}}</span></li>
                                         </ul>
                                         <a href="checkout.html" class="tp-btn tp-color-btn banner-animation">Proceed to
                                             Checkout</a>
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                    
                     </div>
                 </div>
             </div>
@@ -178,30 +175,111 @@
     ?>
     <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
     <script>
-        window.onload = function () {
- 
- var chart = new CanvasJS.Chart("chartContainer", {
-     animationEnabled: true,
-     exportEnabled: true,
-     theme: "light1", // "light1", "light2", "dark1", "dark2"
-     title:{
-         text: "Budget for magazine procurement - 2024"
-     },
-     axisY:{
-         includeZero: true
-     },
-     data: [{
-         type: "column", //change type to bar, line, area, pie, etc
-         //indexLabel: "{y}", //Shows y value on all Data Points
-         indexLabelFontColor: "#5A5757",
-         indexLabelPlacement: "outside",   
-         dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
-     }]
- });
- chart.render();
-  
- }
-        </script>
+window.onload = function () {
+    var currentYear = <?php echo date('Y'); ?>;
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        exportEnabled: true,
+        theme: "light1",
+        title:{
+            text: "Budget for magazine procurement - " + currentYear
+        },
+        axisX:{
+            title: "Categories", 
+            interval: 1,
+            labelAngle: 0 
+        },
+        axisY:{
+            title: "Budget (in INR)", // Y-axis label
+            includeZero: true
+        },
+        data: [{
+            type: "column", 
+            indexLabelFontColor: "#5A5757",
+            indexLabelPlacement: "outside",   
+            dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+        }]
+    });
+    chart.render();
+}
+</script>
+
+<script>
+$(document).ready(function() {
+    $('.delete-btn').on('click', function () {
+        var id = $(this).data('id');
+        console.log(id);
+        $.ajax({
+            url: '/delete-to-cart',
+            method: 'POST',
+            data: { '_token': '{{ csrf_token() }}', 'id': id },
+            success: function (response) {
+                if (response.success) {
+                    $('#row_' + id).remove();
+
+                   toastr.success(response.success, { timeout: 2000 });
+                   $('#magazinecartcount').text(response.magazinecartcount != 0 ? response.magazinecartcount : '0');
+                   $('#cartdatacount').text(response.cartdatacount != 0 ? response.cartdatacount : '0');
+
+                   
+                } else {
+                    toastr.error('Failed to delete item', { timeout: 2000 });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log('Error:', error);
+                toastr.error('Error occurred while deleting item', { timeout: 2000 });
+            }
+        });
+    });
+});
+</script>
+
+<script>
+$(document).ready(function() {
+   
+    $('.cart-plus').click(function() {
+        var input = $(this).siblings('.cart-input');
+        var quantity = parseInt(input.val());
+        var itemId = input.data('id');
+        updateCart(itemId, quantity, input);
+       
+    });
+
+    $('.cart-minus').click(function() {
+        var input = $(this).siblings('.cart-input');
+        var quantity = parseInt(input.val());
+        if (quantity < 1) return;
+    var itemId = input.data('id');
+    updateCart(itemId, quantity, input);
+    });
+    
+    function updateCart(itemId, quantity, input) {
+    $.ajax({
+        type: "POST",
+        url: "/updateQuantity",
+        data: {
+            '_token': '{{ csrf_token() }}',
+            'id': itemId,
+            'quantity': quantity
+        },
+        success: function(response) {
+           
+            $('#row_' + itemId + ' .product-subtotal .amount').text('₹' + response.totalAmount);
+            $('#cartdatacount').text(response.cartdatacount != 0 ? response.cartdatacount : '0');
+
+
+           
+        }
+    });
+}
+
+});
+
+
+</script>
+
+
 </body>
 
 </html>

@@ -139,57 +139,6 @@
     <?php
         include "admin/plugin/plugin_js.php";
          ?>
-             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- <script>
-    $(document).ready(function() {
-        $("#submitBtn").click(function() {
-            var fromDate = $("#fromDate").val();
-            var toDate = $("#toDate").val();
-            var documentType = $("#type").val();
-
-            var data = {
-                fromDate: fromDate,
-                toDate: toDate,
-                documentType: documentType
-            };
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: '/admin/report_down_publisher', // Change the URL to your Laravel route
-                data: data,
-                success: function(response) {
-                    if (response.pdfData) {
-          
-            var link = document.createElement('a');
-            link.href = 'data:application/pdf;base64,' + response.pdfData;
-            link.download = response.filename;
-
-           
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } else {
-           
-            console.error('PDF data is empty.');
-        }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
-            });
-        });
-    });
-</script> -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         $("#submitBtn").click(function() {

@@ -70,7 +70,9 @@
                               <th>Publication Name</th>
                               <th>Contact Number</th>
                               <th>District </th>
+                              <th>Book count </th>
                               <th>Status </th>
+                            
                               <!-- <th>Update Status</th> -->
                               <th>Date</th>
                               <th>Control</th>
@@ -86,6 +88,14 @@
                               <td style="white-space:normal;">{{$val->publicationName}}   </td>
                               <td style="white-space:normal;">{{$val->mobileNumber}}</td>
                               <td style="white-space:normal;">{{$val->District}}</td>
+                              @php
+                                                           $records = DB::table('books')
+                                                           ->where('user_id', '=', $val->id)
+                                                            ->where('book_active_status', '=', '1')
+                                                             ->count();
+                                                           $displayCount = $records ?? 0; 
+                                                              @endphp
+                                                        <td>{{ $displayCount }}</td>
                               <!-- <td style="white-space:normal;" class="sorting_1">
                                  <div class="form-check form-switch" id="load">
                                     <input class="form-check-input toggle-class" type="checkbox"
@@ -127,7 +137,10 @@
                                  <a href="/admin/pub_profile/{{$val->id}}"><i class="fa fa-eye p-2"></i></a>
                                  <!-- <i class="fa fa-pencil p-2"></i>
                                  <i class="fa fa-trash p-2"></i> -->
-                                 <a href="/admin/pub_payment_list"><i class="fa fa-list-check p-2"></i></a>
+                                 <!-- <a href="/admin/pub_payment_list"><i class="fa fa-list-check p-2"></i></a> -->
+
+                                
+                                 <a href="/admin/book_manage/{{$val->id}}"><i class="fa fa-list-check p-2"></i></a>
                               </td>
                            </tr>
                            @endforeach

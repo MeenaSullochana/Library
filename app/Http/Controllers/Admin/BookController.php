@@ -1200,6 +1200,20 @@ return response()->json($data);
   
       return redirect('admin/review'); 
   }
+
+  public function book_manage($id){
+      
+    $book = Book::
+    where('book_active_status', '=', '1')
+    ->where('user_id', '=', $id)
+    ->get();
+
+    \Session::put('book', $book);
+  
+   
+        return redirect('admin/book_manageview');  
+  }
+  
     } 
     
     

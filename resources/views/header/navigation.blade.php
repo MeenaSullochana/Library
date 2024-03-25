@@ -69,17 +69,13 @@
                             @endphp
 
                             @if($user && $user->metaChecker =="no")
-                            @if(Session::has('cart'))
-                            <a href="/cart">
-                                <button>
-                                    <i><img src="assets/img/icon/cart-1.svg" alt=""></i>
+                            @if(Session::has('magazinecartcount'))
+                            <a href="/cart-magazine">
+                            <button id="magazinecartcountId">
+                              <i><img src="assets/img/icon/cart-1.svg" alt=""></i>
+                               <span id='magazinecartcount'>{{ Session::get('magazinecartcount') }}</span>
+                             </button>
 
-                                    <span>
-                                        {{count(Session::get('cart'))}}
-                                    </span>
-
-
-                                </button>
                             </a>
                             @else
                             <a href="#">
@@ -211,8 +207,8 @@
         <div class="row align-items-center">
             <div class="col-lg-12 col-md-12">
             @php
-                                                $news_feeds = DB::table('news_feeds')->first();
-                                                @endphp
+            $news_feeds = DB::table('news_feeds')->first();
+                  @endphp
                 <div class="header__top-left text-white">
                     <marquee behavior="" direction="">{{ $news_feeds->newsFeed}}</marquee>
                 </div>

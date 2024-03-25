@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Budget;
+use App\Models\Magazine;
+use App\Models\Cart;
+
+
 use App\Models\Specialcategories;
 use Illuminate\Support\Facades\Session;
 class WebsitebookController extends Controller
@@ -447,6 +451,393 @@ public function checkout(){
     //     }
     // }
     return view('checkout');
+}
+
+
+public function product_two()
+{
+   
+ $magazines = Magazine::paginate(12);
+   
+    return view('product-two', compact('magazines'));
+}
+
+public function megazine_categories(Request $req)
+{
+    $checkedIds = $req->input('checkedIds', []);
+
+    $query = Magazine::query(); 
+    
+    if (!empty($checkedIds)) {
+        $query->whereIn('category', $checkedIds);
+    }
+    
+    $Magazine = $query->paginate(12);
+
+
+    $html = '';
+    $html = '<div class="tab-pane fade fade show active" id="nav-all" role="tabpanel"
+    aria-labelledby="nav-all-tab">';
+    $html .= ' <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">';
+    
+    foreach ($Magazine as $val) {
+        $html .= '<div class="col">
+        <div class="tpproduct p-relative mb-20">
+            <div class="tpproduct__thumb p-relative text-center">
+                <a href="/shope-magazine"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                <a class="tpproduct__thumb-img" href="/shope-magazine"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                <div class="tpproduct__shopping">
+                    <a class="tpproduct__shopping-cart" href="/shope-magazine"><i class="icon-eye"></i></a>
+                </div>
+            </div>
+            <div class="tpproduct__content">
+                <span class="tpproduct__content-weight">
+                    <a href="shop-details-3.html">'.$val->category.'</a>,
+                    <a href="shop-details-3.html">'.$val->language.'</a>
+                </span>
+                <h4 class="tpproduct__title">
+                    <a href="/shope-magazine"> Magazine Title: '.$val->title.' </a>
+                </h4>
+                <div class="tpproduct__price">
+                    <span>₹'.$val->annual_cost_after_discount.'</span>
+                    <!-- <del>₹19.00</del> -->
+                </div>
+            </div>
+            <div class="tpproduct__hover-text">
+                <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
+                    <a class="tp-btn-2" href="cart.html">Add to cart</a>
+                </div>
+                <div class="tpproduct__descrip">
+                    <ul>
+                        <li>category: '.$val->category.'</li>
+                        <li>periodicity: '.$val->periodicity.'</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>';
+    }
+    $html .= '</div>';
+    $html .= '</div>';
+    
+    
+    $html .= '<div class="tab-pane whight-product" id="nav-popular" role="tabpanel" aria-labelledby="nav-popular-tab">';
+    $html .= '<div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">';
+    foreach ($Magazine as $val) {
+        $html .= '<div class="col">
+                    <div class="tpproduct p-relative mb-20">
+                        <div class="tpproduct__thumb p-relative text-center">
+                            <a href="/shope-magazine"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                            <a class="tpproduct__thumb-img" href="/shope-magazine"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                            <div class="tpproduct__shopping">
+                                <a class="tpproduct__shopping-cart" href="/shope-magazine"><i class="icon-eye"></i></a>
+                            </div>
+                        </div>
+                        <div class="tpproduct__content">
+                            <span class="tpproduct__content-weight">
+                                <a href="shop-details-3.html">' . $val->category . '</a>,
+                                <a href="shop-details-3.html">' . $val->language . '</a>
+                            </span>
+                            <h4 class="tpproduct__title">
+                                <a href="/shope-magazine">Magazine Title: ' . $val->title . '</a>
+                            </h4>
+                            <div class="tpproduct__price">
+                                <span>₹' . $val->annual_cost_after_discount . '</span>
+                            </div>
+                        </div>
+                        <div class="tpproduct__hover-text">
+                            <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
+                                <a class="tp-btn-2" href="cart.html">Add to cart</a>
+                            </div>
+                            <div class="tpproduct__descrip">
+                                <ul>
+                                    <li>Category: ' . $val->category . '</li>
+                                    <li>Periodicity: ' . $val->periodicity . '</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+    }
+    $html .= '</div>';
+    $html .= '</div>';
+    
+    $html .= '<div class="tab-pane fade whight-product" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">';
+    
+    foreach ($Magazine as $val) {
+        $html .= '<div class="row">
+                    <div class="col-lg-12">
+                        <div class="tplist__product d-flex align-items-center justify-content-between mb-20">
+                            <div class="tplist__product-img">
+                                <a href="/shope-magazine" class="tplist__product-img-one"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                                <a class="tplist__product-img-two" href="/shope-magazine"><img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt=""></a>
+                            </div>
+                            <div class="tplist__content">
+                                <span>'.$val->category.'</span>,
+                                <span>'.$val->language.'</span>
+                                <h4 class="tplist__content-title"><a href="/shope-magazine">Magazine Title: '.$val->title.'</a></h4>
+                                <ul class="tplist__content-info">
+                                    <li>Category: '.$val->category.'</li>
+                                    <li>Periodicity: '.$val->periodicity.'</li>
+                                </ul>
+                            </div>
+                            <div class="tplist__price justify-content-end">
+                                <h3 class="tplist__count mb-15">₹'.$val->annual_cost_after_discount.'</h3>
+                                <button class="tp-btn-2 mb-10">Add to cart</button>
+                                <div class="tplist__shopping"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+    }
+    
+    $html .= '</div>';
+    
+    $html .= '<div class="basic-pagination text-center mt-35">
+                <nav>
+                    <ul>';
+    
+    if ($Magazine->onFirstPage()) {
+        $html .= '<li><span class="current">1</span></li>';
+    } else {
+        $html .= '<li><a href="' . $Magazine->previousPageUrl() . '">1</a></li>';
+    }
+    
+    if ($Magazine->currentPage() >= 2) {
+        $html .= '<li><a href="' . $Magazine->url(2) . '">2</a></li>';
+    }
+    
+    if ($Magazine->currentPage() >= 3) {
+        $html .= '<li><a href="' . $Magazine->url(3) . '">3</a></li>';
+    }
+    
+    if ($Magazine->hasMorePages()) {
+        $html .= '<li><a href="' . $Magazine->nextPageUrl() . '"><i class="icon-chevrons-right"></i></a></li>';
+    }
+    
+    $html .= '</ul>
+            </nav>
+        </div>';
+    $data = [
+        "success" => $html,
+    ];
+
+    return response()->json($data);
+}
+
+public function shope_magazine($id)
+{
+
+ $shopemagazine = Magazine::find($id);
+
+ $cart = Cart::where('magazineid', '=', $shopemagazine->id)
+ ->where('status', '=', '1')
+ ->first();
+
+if ($cart == null) {
+$shopemagazine->quantity = '1';
+} else {
+$shopemagazine->quantity = $cart->quantity;
+}
+
+        Session::put('shopemagazine', $shopemagazine);
+      return redirect('shopemagazine');  
+   
+}
+public function cart_magazine(){
+    $librarian=auth('librarian')->user()->first();
+
+    $magazinebudget = Budget::where('libraryType','=',$librarian->libraryType)->first();
+    $magazinebudget->CategorieAmount1= json_decode($magazinebudget->CategorieAmount); 
+    $cartdata = Cart::where('librarianid', '=', $librarian->id)
+    ->get();
+    
+    $cartdatacount = Cart::where('librarianid', '=', $librarian->id)
+    ->sum('totalAmount');
+  
+    if(Session::has('magazinecartcount')) {
+        Session::forget('magazinecartcount');
+    }
+    $magazinecartcount=count($cartdata);
+    Session::put('magazinecartcount', $magazinecartcount);
+    
+    return view('cart-magazine', compact('magazinebudget','cartdata','cartdatacount'));
+    
+}
+
+public function add_to_cart(Request $req) {
+    $librarian = auth('librarian')->user()->first();
+  
+    $Cartdata = Cart::where('librarianid', '=', $librarian->id)
+                    ->where('magazineid', '=', $req->id)
+                    ->first();
+    
+    if (is_null($Cartdata)) {
+        $magazine = Magazine::find($req->id);
+
+        $cart = new Cart();
+        $cart->title = $magazine->title;
+        $cart->image = $magazine->front_img;
+        $cart->librarianid = $librarian->id;
+        $cart->magazineid = $magazine->id;
+        $cart->amount = $magazine->annual_cost_after_discount;
+        $cart->quantity = 1; 
+        $cart->totalAmount = $magazine->annual_cost_after_discount;
+        $cart->category = $magazine->category;
+        $cart->save();
+        if(Session::has('magazinecartcount')) {
+            Session::forget('magazinecartcount');
+        }
+        $cartdata = Cart::where('librarianid', '=', $librarian->id)
+        ->get();
+        $magazinecartcount=count($cartdata);
+        Session::put('magazinecartcount', $magazinecartcount);
+        $data= [
+            'success' => 'Product add successfully',
+            'magazinecartcount'=>$magazinecartcount,
+                 ];
+        return response()->json($data);   
+    } else {
+      
+        $Cartdata->quantity += 1;
+        $Cartdata->totalAmount = $Cartdata->amount * $Cartdata->quantity;
+        $Cartdata->save();
+        if(Session::has('magazinecartcount')) {
+            Session::forget('magazinecartcount');
+        }
+        $cartdata = Cart::where('librarianid', '=', $librarian->id)
+        ->get();
+        $magazinecartcount=count($cartdata);
+        Session::put('magazinecartcount', $magazinecartcount);
+        $data= [
+            'success' => 'Product add successfully',
+                 ];
+        return response()->json($data);   
+    }
+}
+public function delete_to_cart(Request $req) {
+    $librarian = auth('librarian')->user()->first();
+
+    $Cartdata = Cart::find($req->id);
+
+    if(Session::has('shopemagazine')) {
+        Session::forget('shopemagazine');
+    }
+    $magazine = Magazine::find($Cartdata->magazineid);
+    $shopemagazine = $magazine;
+    $shopemagazine->quantity = '1';
+    Session::put('shopemagazine', $shopemagazine);
+    if(Session::has('magazinecartcount')) {
+        Session::forget('magazinecartcount');
+    }
+   
+    $Cartdata->delete();
+
+    $cartdata = Cart::where('librarianid', '=', $librarian->id)
+    ->get();
+    
+    $magazinecartcount=count($cartdata);
+
+    Session::put('magazinecartcount', $magazinecartcount);
+    $cartdatacount = Cart::where('librarianid', '=', $librarian->id)
+    ->sum('totalAmount');
+    $data= [
+        'success' => 'Product Removed successfully',
+        'magazinecartcount'=>$magazinecartcount,
+        'cartdatacount'=>$cartdatacount,
+             ];
+    return response()->json($data);   
+
+}
+
+public function updateQuantity(Request $request) {
+    $cartItem = Cart::find($request->id);
+    $librarian = auth('librarian')->user()->first();
+
+   
+    if ($cartItem) {
+       
+        $cartItem->quantity = $request->quantity;
+        $cartItem->totalAmount = $cartItem->amount * $request->quantity; 
+        $cartItem->save();
+        if(Session::has('shopemagazine')) {
+            Session::forget('shopemagazine');
+        }
+        $magazine = Magazine::find($cartItem->magazineid);
+        $shopemagazine = $magazine;
+        $shopemagazine->quantity =  $cartItem->quantity;
+        Session::put('shopemagazine', $shopemagazine);
+        $cartdatacount = Cart::where('librarianid', '=', $librarian->id)
+         ->sum('totalAmount');
+        return response()->json(['totalAmount' => $cartItem->totalAmount,'cartdatacount' => $cartdatacount]);
+    } else {
+        return response()->json(['error' => 'Cart item not found.'], 404);
+    }
+}
+
+
+
+public function update_cart(Request $req) {
+    $librarian = auth('librarian')->user()->first();
+    
+    $Cartdata = Cart::where('librarianid', '=', $librarian->id)
+                    ->where('magazineid', '=', $req->id)
+                    ->first();
+
+    if (is_null($Cartdata)) {
+        $magazine = Magazine::find($req->id);
+        $cart = new Cart();
+        $cart->title = $magazine->title;
+        $cart->image = $magazine->front_img;
+        $cart->librarianid = $librarian->id;
+        $cart->magazineid = $magazine->id;
+        $cart->amount = $magazine->annual_cost_after_discount;
+        $cart->quantity = $req->quantity; 
+        $cart->totalAmount =$req->quantity * $magazine->annual_cost_after_discount;
+        $cart->category = $magazine->category;
+        $cart->save();
+        if(Session::has('shopemagazine')) {
+            Session::forget('shopemagazine');
+        }
+        
+        $shopemagazine = $magazine;
+        $shopemagazine->quantity = $req->quantity;
+        Session::put('shopemagazine', $shopemagazine);
+        if(Session::has('magazinecartcount')) {
+            Session::forget('magazinecartcount');
+        }
+        $cartdata = Cart::where('librarianid', '=', $librarian->id)
+         ->get();
+        $magazinecartcount=count($cartdata);
+
+        Session::put('magazinecartcount', $magazinecartcount);
+       
+        $data= [
+            'success' => 'Product add successfully',
+             'magazinecartcount'=>$magazinecartcount,
+                 ];
+        return response()->json($data);   
+    } else {
+      
+        $Cartdata->quantity = $req->quantity;
+        $Cartdata->totalAmount = $Cartdata->amount * $req->quantity;
+        $Cartdata->save();
+        $magazine = Magazine::find($req->id);
+        if(Session::has('shopemagazine')) {
+            Session::forget('shopemagazine');
+        }
+        
+        $shopemagazine = $magazine;
+        $shopemagazine->quantity = $req->quantity;
+        Session::put('shopemagazine', $shopemagazine);
+        
+       
+        
+        $data= [
+            'success' => 'Product Updated successfully',
+                 ];
+        return response()->json($data);   
+    }
 }
 
 }
