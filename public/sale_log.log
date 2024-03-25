@@ -46,3 +46,7 @@ Request:[24-03-2024 18:10:15]["SecureHash||074552f93d8a2b1c6d2be0b93e47b874218e7
 
 Response:[24-03-2024 18:13:47]{"Amount":"100","BankId":"000004","Currency":"356","MCC":"5111","MerchantId":"101000000000781","Message":"Payee Virtual Address is not valid","PassCode":"SVPL4257","PaymentOption":"UPI","ResponseCode":"MD335","TerminalId":"10100781","TxnRefNo":"xyzsdfsad","payOpt":"UPI","pgTxnId":"240843837436"}
 
+Request:[25-03-2024 12:03:46]["SecureHash||99bc95234ccea3981f59a2abd998143cdc56e69e7ad328bcc41774f8319fdf40","Amount||100","BankId||000004","CardNumber||4121510007948726","CardSecurityCode||784","Currency||356","ExpiryDate||112026","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnRefNo||asdfasdf","TxnType||Pay","Version||1","_token||9pUqCA6V7KtbBXM6OOIFclrarj0K5ZBBc6e1cGhy","payOpt||dc"]
+
+Response:[25-03-2024 12:05:43]{"Amount":"100","AuthCode":"004679","AuthStatus":"Y","BankId":"000004","CAVV":"jK2HDrZhBenBCBF0RllRA5cAAAA=","CardNum":"412151XXXXXX8726","Currency":"356","ENROLLED":"Y","MCC":"5111","MaskedCardNumber":"412151XXXXXX8726","MerchantId":"101000000000781","Message":"Transaction Successful","PassCode":"SVPL4257","PaymentOption":"dc","ResponseCode":"00","RetRefNo":"408512200670","TerminalId":"10100781","TxnRefNo":"asdfasdf","UCAP":"05","payOpt":"dc","pgTxnId":"240853837548"}
+
