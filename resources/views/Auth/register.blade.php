@@ -11,6 +11,33 @@
     <?php
          include "plugin/css.php";
       ?>
+      <style>
+   .validation-errors {
+    position: fixed;
+    top: 250px;
+    right: 20px;
+    background-color: #ffcccc;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 500px;
+    max-height: 200px; /* Set a fixed height */
+    overflow-y: auto; /* Add vertical scrollbar */
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+.validation-errors ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.validation-errors ul li {
+    color: #ff0000;
+    margin-bottom: 5px;
+}
+
+</style>
 </head>
 
 <body>
@@ -43,15 +70,26 @@
             <section class="about_register">
                <!-- <h2 class="text-center p-3"></h2> -->
                <h5>Transparent Book Procurement-2024</h5>
+               @if (Session::has('validation_error'))
+    <div class="validation-errors">
+        <div class="error-list">
+            <ul>
+                @foreach (Session::get('validation_error')->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
                <div class="card p-5">
                   <nav>
                      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                        @if($user == "Publisher")
+                     @if($user == "Publisher" || $user == "publisher")
                         <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab"
                            data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
                            aria-selected="false">Book Publisher - <span class="mt-056"> புத்தக
                         பதிப்பாளர்</span></button>
-                        @elseif($user == "Distributor")
+                        @elseif($user == "Distributor" || $user == "distributor")
                         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
                            data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
                            aria-selected="false">Book Distributor - <span class="mt-056"> புத்தக
@@ -65,7 +103,7 @@
                      </div>
                   </nav>
                   <div class="tab-content bg-white" id="nav-tabContent">
-                  @if($user == "Publisher")
+                  @if($user == "Publisher" || $user == "publisher")
                      <!-- ###############################################################################-->
                      <!-- ++++++++++++++++++++++++++First Tab Registration +++++++++++++++++++++++++++-->
                      <!-- ###############################################################################-->
@@ -837,7 +875,7 @@
                                     class="text-danger maditory">*</span></label></label>
                                  <input class="form-control" id="publication_proof" type="file"
                                     name="publication_proof" value="{{ old('publication_proof') }}" required >
-                                 <span class="text-danger"><small>Doc, PDF other format</small></span>
+                                 <span class="text-danger"><small>PDF format</small></span>
                               </div>
                            </div> --}}
 {{-- Latest catalogue --}}
@@ -1001,7 +1039,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label class="form-check-label">Acknowledge that I will send the purchased books to the central facility in Chennai, from where the delivery partner distributes the books to various libraries across Tamil Nadu.</label>
                            </div>
                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="check4" name="declaration-three"
+                              <input class="form-check-input" type="checkbox" id="check4" name="declaration-four"
                                  value="yes" required>
                               <label class="form-check-label">I acknowledge that a payment of an application fee is required for each book submission. This fee is necessary to ensure that submissions are taken seriously and to cover the costs associated with evaluating the submissions.</label>
                            </div>
@@ -1017,7 +1055,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                         <div class="loading-text">Loading...</div>
             </div>
                      </div>
-                     @elseif($user == "Distributor")
+                     @elseif($user == "Distributor"  || $user == "distributor")
                      <!-- ###############################################################################-->
                      <!-- ++++++++++++++++++++++++++Second Tab Registration +++++++++++++++++++++++++++-->
                      <!-- ###############################################################################-->
@@ -1094,7 +1132,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputAddress" class="form-label">Email Id - <span
                                  class="mt-056">மின்னஞ்சல்
                               முகவரி</span><span class="text-danger maditory">*</span></label></label>
-                              <input type="email" value="{{ old('distn_email_id') }}" class="form-control" id="distn_email_id" name="distn_email_id"
+                              <input type="email" value="{{ old('distn_email_id') }}" class="form-control" id="distn_email_id" name="email"
                                  placeholder="Enter your email id" required>
                                  <p id="discheckemail" style="color: rgb(202, 14, 14)"></p>
                                  <input id="disemailval" type="text" value="" hidden/>
@@ -1506,7 +1544,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label class="form-check-label">Acknowledge that I will send the purchased books to the central facility in Chennai, from where the delivery partner distributes the books to various libraries across Tamil Nadu.</label>
                            </div>
                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="check4" name="declaration-three"
+                              <input class="form-check-input" type="checkbox" id="check4" name="declaration-four"
                                  value="yes" required>
                               <label class="form-check-label">I acknowledge that a payment of an application fee is required for each book submission. This fee is necessary to ensure that submissions are taken seriously and to cover the costs associated with evaluating the submissions.</label>
                            </div>
@@ -1600,7 +1638,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputAddress" class="form-label">Email Id - <span
                                  class="mt-056">மின்னஞ்சல்
                               முகவரி</span><span class="text-danger maditory">*</span></label>
-                                 <input type="email" value="" class="form-control" id="dis_publication_email_id" name="publication_email_id"
+                                 <input type="email" value="" class="form-control" id="dis_publication_email_id" name="email"
                                  placeholder="Enter your email id" required>
                                  <p id="bothcheckemail" style="color: rgb(202, 14, 14)"></p>
                                  <input id="bothemailval" type="text" value="" hidden/>
@@ -2292,7 +2330,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label class="form-check-label">Acknowledge that I will send the purchased books to the central facility in Chennai, from where the delivery partner distributes the books to various libraries across Tamil Nadu.</label>
                            </div>
                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="check4" name="declaration-three"
+                              <input class="form-check-input" type="checkbox" id="check4" name="declaration-four"
                                  value="yes" required>
                               <label class="form-check-label">I acknowledge that a payment of an application fee is required for each book submission. This fee is necessary to ensure that submissions are taken seriously and to cover the costs associated with evaluating the submissions.</label>
                            </div>
@@ -2355,6 +2393,7 @@ toastr.error("{{ Session::get('error') }}",{timeout:15000});
 
 @endif
 </html>
+
 <style>
 h5 {
     color: #ffffff;

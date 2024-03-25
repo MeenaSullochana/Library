@@ -38,9 +38,8 @@ Route::post('/check/dis_email', [RegisterController::class, 'disemailCheck']);
 Route::post('/check/both_username', [RegisterController::class, 'pub_dis_usernameCheck']);
 Route::post('/check/both_email', [RegisterController::class, 'pub_dis_emailCheck']);
 Route::get('/register',function(){return view('newindex');});
+ Route::get('/userregister', [RegisterController::class, 'showRegistrationForm'])->name('register.form');
  Route::post('/userregister', [RegisterController::class, 'showRegistrationForm'])->name('userregister');
-
-
 //login
 Route::get('/login',[LoginController::class,'showLoginForm'])->name('user.login-view');
 Route::post('/login',[LoginController::class,'userLogin'])->name('user.login');

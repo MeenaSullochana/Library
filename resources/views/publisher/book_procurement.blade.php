@@ -218,14 +218,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <p>Our payment gateway is currently being set up. Book procurement applications will be possible once it's fully functional. We'll notify you when it's ready.</p>
-                    <!-- <p>Comming Zoon</p>
-                    <p>Number Of Book Selected : </p> -->
+                    <!-- <p>Our payment gateway is currently being set up. Book procurement applications will be possible once it's fully functional. We'll notify you when it's ready.</p> -->
+                    <p>Comming Zoon</p>
+                    <p>Number Of Book Selected : </p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                    <!-- <button type="button" id="submitbutton11"
-                        class="btn btn-primary submitbutton11">Confirm</button> -->
+                    <button type="button" id="submitbutton11"
+                        class="btn btn-primary submitbutton11">Confirm</button>
                 </div>
             </div>
         </div>
@@ -355,9 +355,8 @@
 <script>
     $(document).ready(function() {
         $('#basicModal').on('shown.bs.modal', function () {
-            $('#basicModal').modal('show');
-
-
+            var checkedBooks = $('#customCheckBox100:checked').length;
+            $('#basicModal .modal-body p:last').text('Number Of Book Selected: ' + checkedBooks);
         });
     });
 </script>

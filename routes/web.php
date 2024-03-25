@@ -12,7 +12,7 @@ include(base_path('routes/reviewer.php'));
 include(base_path('routes/memberauth.php'));
 include(base_path('routes/librarian.php'));
 include(base_path('routes/order.php'));
-
+include(base_path('routes/payment.php'));
 Route::get('/', function () {return view('index');});
 Route::get('/faq',function(){return view('faq');});
 Route::get('/guidelines',function(){return view('guidelines');});
@@ -27,4 +27,5 @@ Route::get('/invoice-pdf',function(){return view('invoice-view');});
 // Route::get('/cart-magazine',function(){return view('cart-magazine');});
 
 Route::get('/policy',function(){return view('policy');});
+
 
