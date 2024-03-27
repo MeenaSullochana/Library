@@ -121,54 +121,88 @@
 
                 </div>
                 <div class="card">
-                    <div class="table-responsive p-3">
-                        <table id="example3" class="display table" style="min-width: 200px">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Title of the Magazine</th>
-                                    <th>Language</th>
-                                    <th>Category</th>
-                                    <th>Periodicity</th>
-                                    <th>Size of the Magazine</th>
-                                    <th>Contact Person</th>
-                                    <th>Phone</th>
-                                    <th>Status </th>
-                                    <th>Control</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($magazines as $key => $magazine)
+                    <div class="card-body p-3">
+                        <div class="d-flex justify-content-between align-items-end">
+                            <h6>Export Option</h6>
+                            <a href="magazine_add">
+                                <button type="button" class="btn btn-primary"><span
+                                        class="btn-icon-start text-primary"><i class="fa fa-plus"></i>
+                                    </span>Add</button>
+                            </a>
+                        </div>
+                        <hr>
+                        <div class="row mb-4 d-flex">
+                            <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                                <label class="form-label">Select Range</label>
+                                <select name="" id=""
+                                    class="form-select bg-white p-2 border border-1">
+                                    <option value="500">100</option>
+                                    <option value="1000">1000</option>
+                                </select>
+                            </div>
+                            <div class="col-xl-9 col-sm-6 mt-4 text-end">
+                                <button type="button" class="btn btn-primary"><span
+                                        class="btn-icon-start text-primary"><i class="fa fa-file-pdf-o"></i>
+                                    </span>PDF</button>
+                                <button type="button" class="btn  btn-info"><span
+                                        class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i>
+                                    </span>Excel</button>
+                                <button type="button" class="btn  btn-warning"><span
+                                        class="btn-icon-start text-warning"><i
+                                            class="fa fa-download color-warning"></i>
+                                    </span>Download</button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="table-responsive p-3">
+                            <table id="example3" class="display table" style="min-width: 200px">
+                                <thead>
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $magazine->title }}</td>
-                                        <td>{{ $magazine->language }}</td>
-                                        <td>{{ $magazine->category }}</td>
-                                        <td>{{ $magazine->periodicity }}</td>
-                                        <td>{{ $magazine->magazine_size }}</td>
-                                        <td>{{ $magazine->contact_person }}</td>
-                                        <td>{{ $magazine->phone }}</td>
-                                        <td>
-                                            <span class="badge bg-success text-white">Active</span>
-                                        </td>
-                                        <td data-label="control">
-                                            <a href="#" class="btn btn-warning shadow btn-xs sharp me-1"><i
-                                                    class="fa fa-eye "></i></a>
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                    class="fa fa-pencil"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </td>
+                                        <th>S.No</th>
+                                        <th>Title of the Magazine</th>
+                                        <th>Language</th>
+                                        <th>Category</th>
+                                        <th>Periodicity</th>
+                                        <th>Size of the Magazine</th>
+                                        <th>Contact Person</th>
+                                        <th>Phone</th>
+                                        <th>Status </th>
+                                        <th>Control</th>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="9">No magazines found.</td>
-                                    </tr>
-                                @endforelse
-                            </tbody>
+                                </thead>
+                                <tbody>
+                                    @forelse($magazines as $key => $magazine)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $magazine->title }}</td>
+                                            <td>{{ $magazine->language }}</td>
+                                            <td>{{ $magazine->category }}</td>
+                                            <td>{{ $magazine->periodicity }}</td>
+                                            <td>{{ $magazine->magazine_size }}</td>
+                                            <td>{{ $magazine->contact_person }}</td>
+                                            <td>{{ $magazine->phone }}</td>
+                                            <td>
+                                                <span class="badge bg-success text-white">Active</span>
+                                            </td>
+                                            <td data-label="control">
+                                                <a href="magazine_view" class="btn btn-warning shadow btn-xs sharp me-1"><i
+                                                        class="fa fa-eye "></i></a>
+                                                <a href="magazine_edit" class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                                        class="fa fa-pencil"></i></a>
+                                                <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="9">No magazines found.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
 
-                        </table>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

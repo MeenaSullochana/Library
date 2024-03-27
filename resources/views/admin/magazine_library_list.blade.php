@@ -58,7 +58,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Users Order View</b>
+                                <b>Library List View</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="javascript:history.back()">
                                 <i class="fas fa-chevron-left"></i> Back </a>
@@ -87,11 +87,6 @@
                                         </select>
                                     </div>
                                     <div class="col-xl-9 col-sm-6 mt-4 text-end">
-                                        <a href="magazine_invoice">
-                                        <button type="button" class="btn btn-primary"><span
-                                            class="btn-icon-start text-primary"><i class="fa fa-file-invoice"></i>
-                                        </span>View invoice</button></a>
-
                                         <button type="button" class="btn btn-primary"><span
                                             class="btn-icon-start text-primary"><i class="fa fa-file-pdf-o"></i>
                                         </span>PDF</button>
@@ -104,8 +99,7 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <div class="table-responsive">
-                                    <table class="table table-sm mb-0 table-striped student-tbl" id="example3">
+                                    <table class="table table-sm mb-0 table-striped student-tbl table-responsive" id="example3">
                                         <thead>
                                             <tr>
                                                 <th class=" pe-3">
@@ -114,14 +108,11 @@
                                                         <label class="form-check-label" for="checkAll"></label>
                                                     </div>
                                                 </th>
-                                                <th>Magazine Name</th>
+                                                <th>library Name</th>
                                                 <th>language</th>
-                                                <th>User type</th>
                                                 <th>Qty</th>
                                                 <th>Single Piece Price
                                                 <th>Total Price</th>
-                                                <th class=" ps-5" style="min-width: 200px;">Name of the Company
-                                                </th>
                                                 <th>Created</th>
                                                 <th></th>
                                             </tr>
@@ -145,17 +136,15 @@
                                                                 </div>
                                                             </div>
                                                             <div class="media-body">
-                                                                <h6 class="mb-0 fs--1">Ricky Antony</h6>
+                                                                <h6 class="mb-0 fs--1">Library one</h6>
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </td>
                                                 <td class="py-2">Tamil</a></td>
-                                                <td class="py-2">Publisher</a></td>
                                                 <th><i class="fa fa-rupee"></i> 100</th>
                                                 <th>10
                                                 <th><i class="fa fa-rupee"></i>1000</th>
-                                                <td class="py-2 ps-5">Company Name</td>
                                                 <td class="py-2">30/03/2018</td>
                                                 <td class="py-2 text-end">
                                                     <div class="dropdown"><button
@@ -180,15 +169,14 @@
                                                         <div class="dropdown-menu dropdown-menu-end border py-0"
                                                             style="">
                                                             <div class="py-2">
-                                                                <a class="dropdown-item" href="magazine_view"><i class="fa fa-eye p-2"></i>View</a>
-                                                                <a class="dropdown-item" href="magazine_view"><i class="fa fa-file-invoice p-2"></i>Show invoice</a>
+                                                                <a class="dropdown-item" href="magazine_invoice_view"><i class="fa fa-eye p-2"></i>View</a>
+                                                                <a class="dropdown-item" href="magazine_invoice_view"><i class="fa fa-pencil p-2"></i> View Order</a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
                     </div>

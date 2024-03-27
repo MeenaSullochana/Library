@@ -19,7 +19,8 @@
     <title>Government of Tamil Nadu - Book Procurement - Magazine Add</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
-    <?php include 'admin/plugin/plugin_css.php'; ?>
+    <?php include "librarian/plugin/plugin_css.php"; ?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
@@ -45,7 +46,7 @@
         <!--************
                 Nav header start
             *************-->
-        @include ('admin.navigation')
+            @include ('librarian.navigation')
         <!--************
                 Sidebar end
             *************-->
@@ -58,24 +59,84 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Users Order View</b>
+                                <b>Users order Pending List</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="javascript:history.back()">
                                 <i class="fas fa-chevron-left"></i> Back </a>
                         </div>
                     </div>
                 </div>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item card">
+                        <h2 class="accordion-header p-0 m-0 bg-white" id="headingOne">
+                            <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div class="cpa">
+									<i class="fa-sharp fa-solid fa-filter me-2"></i>Order Filter
+								</div>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-xl-3 col-sm-6">
+                                            <label class="form-label">From Date</label>
+                                            <label class="sr-only">Date</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-text"><i class="far fa-calendar"></i></div>
+                                                <input type="date" class="form-control" placeholder="Username">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-sm-6">
+                                            <label class="form-label">To Date</label>
+                                            <label class="sr-only">Date</label>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-text"><i class="far fa-calendar"></i></div>
+                                                <input type="date" class="form-control" placeholder="Username">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-sm-6">
+											<label class="form-label">Frequency</label>
+											<select name="" id="" class="form-select bg-white p-2 border border-1">
+                                                <option value="tamil">monhly</option>
+                                                <option value="English">Year</option>
+                                            </select>
+										</div>
+										<div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+											<label class="form-label">languvage</label>
+											<select name="" id="" class="form-select bg-white p-2 border border-1">
+                                                <option value="tamil">Tamil</option>
+                                                <option value="English">English</option>
+                                            </select>
+										</div>
+                                    </div>
+									<div class="row">
+										
+                                        <div class="col-xl-3 col-sm-6 align-self-end mt-2">
+											<div>
+												<button class="btn btn-primary me-2" title="Click here to Search" type="button"><i class="fa fa-filter me-1"></i>Filter</button>
+												<button class="btn btn-danger light" title="Click here to remove filter" type="button">Remove Filter</button>
+											</div>
+										</div>
+									</div>
+								</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
                 <div class="row">
+                    
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body p-3">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <h6>Export Option</h6>
-                                    <a href="magazine_add">
-                                        <button type="button" class="btn btn-primary"><span
-                                            class="btn-icon-start text-primary"><i class="fa fa-plus"></i>
-                                        </span>Add Order</button>
-                                    </a>
+                                    <button type="button" class="btn btn-primary"><span
+                                        class="btn-icon-start text-primary"><i class="fa fa-plus"></i>
+                                    </span>Add order</button>
                                 </div>
                                 <hr>
                                 <div class="row mb-4 d-flex">
@@ -85,12 +146,11 @@
                                             <option value="500">100</option>
                                             <option value="1000">1000</option>
                                         </select>
-                                    </div>
+                                    </div> 
                                     <div class="col-xl-9 col-sm-6 mt-4 text-end">
-                                        <a href="magazine_invoice">
-                                        <button type="button" class="btn btn-primary"><span
-                                            class="btn-icon-start text-primary"><i class="fa fa-file-invoice"></i>
-                                        </span>View invoice</button></a>
+                                        <button type="button" class="btn  btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><span
+                                            class="btn-icon-start text-warning"><i class="fa fa-trash-o color-warning"></i>
+                                        </span>Delete</button> 
 
                                         <button type="button" class="btn btn-primary"><span
                                             class="btn-icon-start text-primary"><i class="fa fa-file-pdf-o"></i>
@@ -100,7 +160,9 @@
                                         </span>Excel</button>
                                         <button type="button" class="btn  btn-warning"><span
                                             class="btn-icon-start text-warning"><i class="fa fa-download color-warning"></i>
-                                        </span>Download</button>    
+                                        </span>Download</button>  
+                                        
+                                        
                                     </div>
                                 </div>
                                 <hr>
@@ -114,15 +176,11 @@
                                                         <label class="form-check-label" for="checkAll"></label>
                                                     </div>
                                                 </th>
-                                                <th>Magazine Name</th>
-                                                <th>language</th>
-                                                <th>User type</th>
+                                                <th>Order Id</th>
                                                 <th>Qty</th>
-                                                <th>Single Piece Price
-                                                <th>Total Price</th>
-                                                <th class=" ps-5" style="min-width: 200px;">Name of the Company
-                                                </th>
-                                                <th>Created</th>
+                                                <th>Amount</th>
+                                                <th>Order Status</th>
+                                                <th>Order Date</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -134,28 +192,10 @@
                                                         <label class="form-check-label" for="checkbox1"></label>
                                                     </div>
                                                 </td>
-                                                <td class="py-3">
-                                                    <a href="#">
-                                                        <div class="media d-flex align-items-center">
-                                                            <div class="avatar avatar-sm me-2">
-                                                                <div class=""><img
-                                                                        class="rounded-circle img-fluid"
-                                                                        src="./images/avatar/5.png" width="30"
-                                                                        alt="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <h6 class="mb-0 fs--1">Ricky Antony</h6>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="py-2">Tamil</a></td>
-                                                <td class="py-2">Publisher</a></td>
-                                                <th><i class="fa fa-rupee"></i> 100</th>
-                                                <th>10
-                                                <th><i class="fa fa-rupee"></i>1000</th>
-                                                <td class="py-2 ps-5">Company Name</td>
+                                                <td class="py-2">INVOI90009879</td>
+                                                <td class="py-2">898</td>
+                                                <td class="py-2"><i class="fa fa-rupee"></i> 898</td>
+                                                <td class="py-2"> <span class="badge bg-primary">Pending</span></td>
                                                 <td class="py-2">30/03/2018</td>
                                                 <td class="py-2 text-end">
                                                     <div class="dropdown"><button
@@ -180,8 +220,9 @@
                                                         <div class="dropdown-menu dropdown-menu-end border py-0"
                                                             style="">
                                                             <div class="py-2">
-                                                                <a class="dropdown-item" href="magazine_view"><i class="fa fa-eye p-2"></i>View</a>
-                                                                <a class="dropdown-item" href="magazine_view"><i class="fa fa-file-invoice p-2"></i>Show invoice</a>
+                                                                <a class="dropdown-item" href="magazine_invoice_view"><i class="fa fa-eye p-2"></i>View</a>
+                                                                <a class="dropdown-item" href="magazine_invoice_view"><i class="fa fa-pencil p-2"></i> View Order</a>
+                                                                <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" href="magazine_delete"><i class="fa fa-trash p-2"></i>Delete</a></div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -202,7 +243,7 @@
     <!--************
                 Footer start
             *************-->
-    @include ('publisher.footer')
+            @include ("librarian.footer")
     <!--************
                 Footer end
             *************-->
@@ -221,8 +262,114 @@
             Main wrapper end
         *************-->
     <?php
-    include 'publisher/plugin/plugin_js.php';
+    include 'librarian/plugin/plugin_js.php';
     ?>
 </body>
+<!-- Modal -->
+<style>
+    .modal-confirm {
+  color: #636363;
+  width: 400px;
+}
+.modal-confirm .modal-content {
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  text-align: center;
+  font-size: 14px;
+}
+.modal-confirm .modal-header {
+  border-bottom: none;
+  position: relative;
+}
+.modal-confirm h4 {
+  text-align: center;
+  font-size: 26px;
+  margin: 30px 0 -10px;
+}
+.modal-confirm .close {
+  position: absolute;
+  top: -5px;
+  right: -2px;
+}
+.modal-confirm .modal-body {
+  color: #999;
+}
+.modal-confirm .modal-footer {
+  border: none;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 13px;
+  padding: 10px 15px 25px;
+}
+.modal-confirm .modal-footer a {
+  color: #999;
+}
+.modal-confirm .icon-box {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  z-index: 9;
+  text-align: center;
+  border: 3px solid #f15e5e;
+}
+.modal-confirm .icon-box i {
+  color: #f15e5e;
+  font-size: 46px;
+  display: inline-block;
+  margin-top: 13px;
+}
+.modal-confirm .btn {
+  color: #fff;
+  border-radius: 4px;
+  background: #60c7c1;
+  text-decoration: none;
+  transition: all 0.4s;
+  line-height: normal;
+  min-width: 120px;
+  border: none;
+  min-height: 40px;
+  border-radius: 3px;
+  margin: 0 5px;
+  outline: none !important;
+}
+.modal-confirm .btn-info {
+  background: #c1c1c1;
+}
+.modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
+  background: #a8a8a8;
+}
+.modal-confirm .btn-danger {
+  background: #f15e5e;
+}
+.modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
+  background: #ee3535;
+}
+.trigger-btn {
+  display: inline-block;
+  margin: 100px auto;
+}
+
+</style>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="icon-box">
+                <i class="fa fa-exclamation"></i>
+            </div>
+            <h4 class="modal-title">Are you sure?</h4>
+          </div>
+          <div class="modal-body">
+            <p>Do you really want to delete these records? This process cannot be undone.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </div>
+  </div>
 
 </html>

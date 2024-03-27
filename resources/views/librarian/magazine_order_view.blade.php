@@ -1,57 +1,57 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-    <meta name="robots" content="">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta property="og:title" content="">
-    <meta property="og:description" content="">
-    <meta property="og:image" content="">
-    <meta name="format-detection" content="telephone=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<meta name="robots" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta property="og:title" content="">
+	<meta property="og:description" content="">
+	<meta property="og:image" content="">
+	<meta name="format-detection" content="telephone=no">
 
-    <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Magazine Add</title>
-    <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
-    <?php include 'admin/plugin/plugin_css.php'; ?>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+	<!-- PAGE TITLE HERE -->
+    <title>Government of Tamil Nadu - Book Procurement</title>
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
+    <?php
+        include "librarian/plugin/plugin_css.php";
+    ?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
 
-    <!--*******
-            Preloader start
-        ********-->
+    <!--*******************
+        Preloader start
+    ********************-->
     <div id="preloader">
-        <div class="text-center">
-            <img src="images/goverment_loader.gif" alt="" width="25%">
-        </div>
+		<div class="text-center">
+			<img src="images/goverment_loader.gif" alt="" width="25%">
+		</div>
     </div>
-    <!--*******
-            Preloader end
-        ********-->
+    <!--*******************
+        Preloader end
+    ********************-->
 
-    <!--************
-            Main wrapper start
-        *************-->
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
     <div id="main-wrapper">
-        <!--************
-                Nav header start
-            *************-->
-        @include ('admin.navigation')
-        <!--************
-                Sidebar end
-            *************-->
-        <!--************
-                Content body start
-            *************-->
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+		@include ('librarian.navigation')
+
+		<!--**********************************
+            Sidebar end
+        ***********************************-->
+		<!--**********************************
+            Content body start
+        ***********************************-->
         <div class="content-body">
             <div class="container-fluid">
                 <div class="card mb-4 mb-4">
@@ -123,7 +123,7 @@
                                                 <th class=" ps-5" style="min-width: 200px;">Name of the Company
                                                 </th>
                                                 <th>Created</th>
-                                                <th></th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="customers">
@@ -152,9 +152,9 @@
                                                 </td>
                                                 <td class="py-2">Tamil</a></td>
                                                 <td class="py-2">Publisher</a></td>
-                                                <th><i class="fa fa-rupee"></i> 100</th>
-                                                <th>10
-                                                <th><i class="fa fa-rupee"></i>1000</th>
+                                                <td><i class="fa fa-rupee"></i> 100</th>
+                                                <td>10</td>
+                                                <td><i class="fa fa-rupee"></i>1000</th>
                                                 <td class="py-2 ps-5">Company Name</td>
                                                 <td class="py-2">30/03/2018</td>
                                                 <td class="py-2 text-end">
@@ -196,32 +196,32 @@
             </div>
         </div>
     </div>
-    <!--************
-                Content body end
-            *************-->
-    <!--************
-                Footer start
-            *************-->
-    @include ('publisher.footer')
-    <!--************
-                Footer end
-            *************-->
+    <!--**********************************
+            Content body end
+        ***********************************-->
+        <!--**********************************
+            Footer start
+        ***********************************-->
+		@include ("librarian.footer")
+        <!--**********************************
+            Footer end
+        ***********************************-->
 
-    <!--************
-            Support ticket button start
-            *************-->
+		<!--**********************************
+           Support ticket button start
+        ***********************************-->
 
-    <!--************
-            Support ticket button end
-            *************-->
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
 
 
-    </div>
-    <!--************
-            Main wrapper end
-        *************-->
-    <?php
-    include 'publisher/plugin/plugin_js.php';
+	</div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+	<?php
+        include "librarian/plugin/plugin_js.php";
     ?>
 </body>
 
