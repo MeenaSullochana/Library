@@ -2375,6 +2375,13 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
             });
             </script>
 </body>
+<script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.validation-errors').fadeOut('slow');
+            }, 15000); 
+        });
+    </script>
 
 @if (Session::has('success'))
 

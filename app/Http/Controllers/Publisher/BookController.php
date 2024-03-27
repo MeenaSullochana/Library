@@ -529,7 +529,8 @@ public function checkBookTitle(Request $request)
 
         }
         \Session::put('bookitem', $bookitem);
-
+$user = auth('publisher')->user();
+        \Session::put('user',$user);
         $data= [
             'success' => 'Book Send Payment Page Successfully',
                  ];
