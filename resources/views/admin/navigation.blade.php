@@ -1742,26 +1742,21 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="aplication_fair_list">Fair List</a></li> -->
-                    <!-- <li><a class="has-arrow" href="publisher_list.php" aria-expanded="false">Publisher
-                                    Application</a>
-
+                    <!-- <li><a class="has-arrow" href="publisher_list.php" aria-expanded="false">Publisher Application</a>
                                 <ul aria-expanded="false">
-
                                     <li><a href="application_list.php">List Application</a></li>
                                     <li><a href="application_approved.php">Approved Application </a></li>
                                     <li><a href="application_rejected.php">Rejected Application</a></li>
                                 </ul>
                             </li>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Dist
-                                    Application</a>
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Dist Application</a>
                                 <ul aria-expanded="false">
                                     <li><a href="dist_application_list.php">List Application</a></li>
                                     <li><a href="dist_application_approved_list.php">Approved Application</a></li>
                                     <li><a href="dist_application_rejected_list.php">Rejected Application</a></li>
                                 </ul>
                             </li>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor And
-                                    Publisher Application</a>
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor And Publisher Application</a>
                                 <ul aria-expanded="false">
                                     <li><a href="dist_pub_application_list.php">List Application</a></li>
                                     <li><a href="dist_pub_application_approve_list.php">Approved Application</a></li>
@@ -2011,13 +2006,13 @@
                             <li><a href="manage_rejected_quote_list">Rejected Quote List</a></li>
                         </ul>
                     </li>
-                       <li>
+                    <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-bag"></i>
                             <span class="nav-text">Order Management</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="has-arrow" href="publisher_list.php" aria-expanded="false">Book Orders
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Book Orders
                                 </a>
                                     <ul aria-expanded="false">
                                         <li><a href="manage_order_list">Order List </a></li>
@@ -2026,17 +2021,53 @@
                                         <li><a href="manage_rejected_order_list">Rejected Order List</a></li>
                                     </ul>
                             </li>
-                        </ul>
-                        <ul aria-expanded="false">
-                            <li><a class="has-arrow" href="publisher_list.php" aria-expanded="false">Magazine Order
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Order
                                 <span class="badge badge-danger badge-xs ms-1">NEW</span></a>
                                     <ul aria-expanded="false">
                                         <li><a href="magazine_order">Order List </a></li>
-                                        <li><a href="manage_pending_order_list">Pending Order List</a></li>
+                                        <li><a href="magazine_order_pending">Pending Order List</a></li>
                                         <li><a href="manage_completed_order_list">Completed Order List</a></li>
-                                        <li><a href="manage_rejected_order_list">Rejected Order List</a></li>
+                                        <li><a href="magazine_order_reject">Rejected Order List</a></li>
                                     </ul>
                             </li>
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Subscription
+                                <span class="badge badge-danger badge-xs ms-1">NEW</span></a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="magazine_order_subscritpion">Order List </a></li>
+                                        <li><a href="magazine_order_pending">Pending Order List</a></li>
+                                        <li><a href="manage_completed_order_list">Completed Order List</a></li>
+                                        <li><a href="magazine_order_reject">Rejected Order List</a></li>
+                                    </ul>
+                            </li>
+                        </ul>
+                    </li>
+                        <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-truck"></i>
+                            <span class="nav-text">Delivery Managemnt</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            {{-- <li><a href="aplication_fair_list">Fair List</a></li> --}}
+                            <li><a class="has-arrow" href="publisher_list.php" aria-expanded="false">Book Order</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="application_list.php">List Application</a></li>
+                                    <li><a href="application_approved.php">Approved Application </a></li>
+                                    <li><a href="application_rejected.php">Rejected Application</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Magazine Order</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="magazine_delivery_list">List Delivery</a></li>
+                                    <li><a href="dist_application_approved_list.php">Approved Application</a></li>
+                                    <li><a href="dist_application_rejected_list.php">Rejected Application</a></li>
+                                </ul>
+                            </li>
+                            {{-- <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor And Publisher Application</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="dist_pub_application_list.php">List Application</a></li>
+                                    <li><a href="dist_pub_application_approve_list.php">Approved Application</a></li>
+                                    <li><a href="dist_pub_application_rejecte_list.php">Rejected Application </a></li>
+                                </ul>
+                            </li>  --}}
                         </ul>
                     </li>
                     {{-- <li>

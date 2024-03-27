@@ -127,12 +127,22 @@ Route::get('/magazine_add',function(){ return view('admin.magazine_add');});
 Route::post('/magazine/import', [MagazineController::class,'importFile']);
 Route::get('/magazine_add_new',function(){ return view('admin.magazine_add_new');});
 Route::get('/magazine_list',[MagazineController::class,'list']);
+Route::get('/magazine_list_dummy',function(){ return view('admin.magazine_list_dummy');});
 Route::get('/magazine_view',function(){ return view('admin.magazine_view');});
 
 Route::get('/magazine_edit',function(){ return view('admin.magazine_edit');});
 Route::get('/magazine_order',function(){ return view('admin.magazine_order');});
 Route::get('/magazine_invoice_view',function(){return view('admin.magazine_order_view');});
 Route::get('/magazine_invoice',function(){return view('admin.magazine_order_invoice');});
+Route::get('/magazine_order_pending',function(){ return view('admin.magazine_order_pending');});
+Route::get('/magazine_order_reject',function(){ return view('admin.magazine_reject_list');});
+Route::get('/magazine_order_complete',function(){ return view('admin.magazine_complete_list');});
+
+//magazine Subscritpion
+Route::get('/magazine_order_subscritpion',function(){ return view('admin.magazine_subscription');});
+Route::get('/magazine_subscritpion_library',function(){ return view('admin.magazine_library_list');});
+
+Route::get('/magazine_delivery_list',function(){ return view('admin.magazine_delivery_list');});
 
 Route::get('/list-magazine',function(){return view('cart-magazine');});
 

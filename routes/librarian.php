@@ -59,6 +59,14 @@ Route::prefix('librarian')->group(function () {
     Route::get('/store_books',function(){ return view('librarian.store_books');});
     Route::get('/update_profile',function(){ return view('librarian.update_profile');});
 
+    Route::get('/magazine_view',function(){ return view('librarian.magazine_view');});
+    Route::get('/magazine-order-list',function(){ return view('librarian.magazine_list');});
+    Route::get('/magazine_invoice_view',function(){return view('librarian.magazine_order_view');});
+    Route::get('/magazine_invoice',function(){return view('librarian.magazine_order_invoice');});
+    Route::get('/magazine_order_pending',function(){ return view('librarian.magazine_order_pending');});
+    Route::get('/magazine_order_reject',function(){ return view('librarian.magazine_reject_list');});
+    Route::get('/magazine_order_complete',function(){ return view('librarian.magazine_complete_list');});
+
     Route::get('/meta_book_list',[LibrarianController::class,'metabooklist']);
     Route::post('/librarianapprovestatus',[LibrarianController::class,'librarianapprovestatus']);
     Route::post('/librarianrejectstatus',[LibrarianController::class,'librarianrejectstatus']);
