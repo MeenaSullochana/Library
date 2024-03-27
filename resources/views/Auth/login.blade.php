@@ -10,6 +10,33 @@
     <?php
          include "plugin/css.php";
       ?>
+        <style>
+   .validation-errors {
+    position: fixed;
+    top: 250px;
+    right: 20px;
+    background-color: #ffcccc;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 500px;
+    max-height: 200px; /* Set a fixed height */
+    overflow-y: auto; /* Add vertical scrollbar */
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+.validation-errors ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.validation-errors ul li {
+    color: #ff0000;
+    margin-bottom: 5px;
+}
+
+</style>
 </head>
 
 <body>
@@ -42,6 +69,17 @@
                 <div class="card mt-5">
                     <div class="row">
                         <div class="col-md-6">
+ @if (Session::has('validation_error'))
+    <div class="validation-errors">
+        <div class="error-list">
+            <ul>
+                @foreach (Session::get('validation_error')->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
                             <div class="modal-bottom-logo mt-5">
                                 <img class="w-100" src="assets/img/logo/logo.png" alt="">
                             </div>
@@ -259,6 +297,13 @@
     <?php
          include "plugin/js.php";
       ?>
+      <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.validation-errors').fadeOut('slow');
+            }, 15000); 
+        });
+    </script>
       <script>
         // password
         $(".toggle-password").click(function() {

@@ -124,22 +124,52 @@ class LoginController extends Controller
     public function usercheck($user,$redirect_route,$guard){
         if($user->approved_status == "approve"){
             if($user->status == 1 && $user->verfication == 1){
+                if(Session::has('validation_error')){
+                    Session::forget('validation_error');
+                }
+                if(Session::has('error')){
+                    Session::forget('error');
+                }
              return redirect($redirect_route)->with('success',"Logged in successfully");
             }else if($user->status != 1 && $user->verfication == 1){
              \Auth::guard($guard)->logout();
+             if(Session::has('validation_error')){
+                Session::forget('validation_error');
+            }
+            if(Session::has('error')){
+                Session::forget('error');
+            }
              return back()->withInput()->with('error',"Your account was inactive");
             }else if($user->status == 1 && $user->verfication != 1){
                 \Auth::guard($guard)->logout();
                 Session::put('publisher',$user);
+                if(Session::has('validation_error')){
+                    Session::forget('validation_error');
+                }
+                if(Session::has('error')){
+                    Session::forget('error');
+                }
                 return redirect('/mailconfirmation')->with('error',"Your account was not verified yet..Please verify");
             }
         }
         else if($user->approved_status == "pending"){
          \Auth::guard($guard)->logout();
+         if(Session::has('validation_error')){
+            Session::forget('validation_error');
+        }
+        if(Session::has('error')){
+            Session::forget('error');
+        }
          return back()->withInput()->with('error',"Your account was in pending status !! Please wait for admin approval");
         }
        else if($user->approved_status == "reject"){
          \Auth::guard($guard)->logout();
+         if(Session::has('validation_error')){
+            Session::forget('validation_error');
+        }
+        if(Session::has('error')){
+            Session::forget('error');
+        }
          return back()->withInput()->with('error',"Your account was rejected");
         }
     }
@@ -149,11 +179,24 @@ class LoginController extends Controller
            if(isset($request->type)){
                 $validator=Validator::make($request->all(),[
                     "user_name"=>"required",
-                    "password"=>"required|min:8",
+                    'password'=> 'required|string|min:8',
                     "type"=>"required"
+                   ],[
+                    'user_name.required'=> 'The user name is required.',
+                    'password.required'=> 'The password is required.',
+                    'password.min'=> 'The password must be at least 8 characters.',
+                    'type.required'=> 'User type is required.',
                    ]);
                    if($validator->fails()){
-                    return redirect()->back()->withInput()->withErrors($validator->errors());
+                    $errors = $validator->errors();
+                    if(Session::has('validation_error')){
+                        Session::forget('validation_error');
+                    }
+                    if(Session::has('error')){
+                        Session::forget('error');
+                    }
+                    Session::put('validation_error',$errors);
+                    return redirect()->back();
                    }
 
                    $u=Validator::make($request->all(),[
@@ -170,6 +213,12 @@ class LoginController extends Controller
                    $credentials = [$user => $request->user_name, 'password' => $request->password];
             }
             else{
+                if(Session::has('validation_error')){
+                    Session::forget('validation_error');
+                }
+                if(Session::has('error')){
+                    Session::forget('error');
+                }
                 return back()->withInput()->with('error',"Please select your usertype ");
             }
             if($request->type == "publisher"){
@@ -178,6 +227,12 @@ class LoginController extends Controller
                     $redirect_route = '/publisher/index';
                     $guard = 'publisher';
                     return $this->usercheck($login_user,$redirect_route,$guard);
+                    }
+                    if(Session::has('validation_error')){
+                        Session::forget('validation_error');
+                    }
+                    if(Session::has('error')){
+                        Session::forget('error');
                     }
                 return back()->withInput()->with('error',"Invalid Credentials");
             }
@@ -188,6 +243,12 @@ class LoginController extends Controller
                     $guard = 'distributor';
                     return $this->usercheck($login_user,$redirect_route,$guard);
                     }
+                    if(Session::has('validation_error')){
+                        Session::forget('validation_error');
+                    }
+                    if(Session::has('error')){
+                        Session::forget('error');
+                    }
                 return back()->withInput()->with('error',"Invalid Credentials");
             }
             if($request->type == "publisher_distributor"){
@@ -196,6 +257,12 @@ class LoginController extends Controller
                     $redirect_route = '/publisher_and_distributor/index';
                     $guard = 'publisher_distributor';
                     return $this->usercheck($login_user,$redirect_route,$guard);
+                    }
+                    if(Session::has('validation_error')){
+                        Session::forget('validation_error');
+                    }
+                    if(Session::has('error')){
+                        Session::forget('error');
                     }
                 return back()->withInput()->with('error',"Invalid Credentials");
             }

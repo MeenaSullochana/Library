@@ -17,7 +17,7 @@ class SaleController extends Controller
     {
         // Set time limit and include necessary files
         set_time_limit(0);
-
+          
         // Initialize Utility class
         $utility = new Utility();
 
@@ -76,8 +76,7 @@ class SaleController extends Controller
 
         /* Encrypt data with AES */
         $EncData = $utility->encrypt($dataToPostToPG, $EncKey);
-
         // Pass necessary data to Blade view
-        return view('payment.sale', compact('EncData', 'data', 'gatewayURL'));
+        return view('payment.sale', compact('EncData', 'data', 'gatewayURL','amount','user'));
     }
 }

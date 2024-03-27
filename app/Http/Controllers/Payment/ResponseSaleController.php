@@ -15,6 +15,7 @@ class ResponseSaleController extends Controller
 {
     public function processPaymentResponse(Request $request)
     {
+
         $utility = new Utility();
         $logFilePath = 'sale_log.log';
         
@@ -40,6 +41,7 @@ class ResponseSaleController extends Controller
         
         
         $data=$utility->decrypt($EncData, $EncKey); 
+    
         $data=substr($data, 0, -2);
         
         $dataArray=explode("::",$data);
@@ -78,7 +80,6 @@ class ResponseSaleController extends Controller
         $responseCode= $utility->null2unknown("ResponseCode",$dataFromPostFromPG);
         $message= $utility->null2unknown("Message",$dataFromPostFromPG);
         $pgTxnId= $utility->null2unknown("pgTxnId",$dataFromPostFromPG);	
-        
         $SecureHash_final = $utility->generateSecurehash($dataFromPostFromPG);
         
         $hashValidated = 'Invalid Hash';

@@ -99,7 +99,7 @@ class ApplicationController extends Controller
         public function applicationview($id){
           
             $events=events::where('id', '=', $id)->first();
-            $distributor=auth('distributor')->user()->first();
+            $distributor=auth('distributor')->user();
             $event=ApplicationApply::where('apply_id', '=',$distributor->id)->where('event_id', '=', $id)->first();
             $events->record1 = $distributor;
             $events->record = $event;
@@ -109,7 +109,7 @@ class ApplicationController extends Controller
      }
         public function distributorapplication($id){
           $events=events::where('id', '=', $id)->first();
-          $distributor=auth('distributor')->user()->first();
+          $distributor=auth('distributor')->user();
            $events->distributorrecord = $distributor;
         //  return $events;
          return redirect('distributor/fairmanage')->with('events',$events);   

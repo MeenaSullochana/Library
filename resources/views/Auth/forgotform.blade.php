@@ -255,7 +255,7 @@
 
      $(document).on('click','#submit',function(e){
         e.preventDefault();
-
+     
         var data={
            'email':$('#email').val(),
             'usertype':$("[name='usertype']:checked").val(),
