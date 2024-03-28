@@ -45,7 +45,7 @@
         <!--************
                 Nav header start
             *************-->
-        @include ('admin.navigation')
+        @include ('librarian.navigation')
         <!--************
                 Sidebar end
             *************-->
@@ -220,8 +220,8 @@
     <!--************
             Main wrapper end
         *************-->
-    <?php
-    include 'publisher/plugin/plugin_js.php';
+        <?php
+        include "librarian/plugin/plugin_js.php";
     ?>
 </body>
 
