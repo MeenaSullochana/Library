@@ -12,7 +12,7 @@
 
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement</title>
-
+   
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
 
@@ -23,6 +23,7 @@
     <link href="/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- tagify-css -->
     <link href="/vendor/tagify/dist/tagify.css" rel="stylesheet">
@@ -579,7 +580,8 @@
     <script src="{{asset('librarian/js/deznav-init.js')}}"></script>
     <script src="{{asset('librarian/js/demo.js')}}"></script>
     <script src="{{asset('librarian/js/styleSwitcher.js')}}"></script>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+       
 </body>
 @if (Session::has('success'))
 

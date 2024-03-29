@@ -105,6 +105,7 @@
                                     <th>S.No</th>
                                     <th>Book ID</th>
                                     <th>Title</th>
+                                    <th>Author</th>
                                     <th> ISBN</th>
                                     <th> Action</th>
                                  </tr>
@@ -125,6 +126,7 @@
                                        <h6><a class="text-left" href="/publisher_and_distributor/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
                                        <span class="text-left">{{$val->subtitle}}</span>
                                     </td>
+                                    <td data-label="Author"> {{$val->author_name}}</td>
                                     <td data-label="ISBN">{{$val->isbn}}</td>
                                     <!-- <td>
                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-id="{{$val->id}}" data-bs-target="#exampleModalCenter" id="procurement">Send Procurement</button>

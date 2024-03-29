@@ -125,10 +125,11 @@
                                                     </td>
                                                     <td  data-label="S/No">{{ $loop->index + 1 }}</td>
                                                     <td  data-label="Book ID">{{ $val->product_code }}</td>
-                                                    <td  data-label="Title">
-                                                        {{ $val->book_title }}
-                                                    </td>
-                                                    <td data-label="Author">Auther Name</td>
+                                                    <td style="white-space:normal;" data-label="Title">
+                                       <h6><a class="text-left" href="/publisher_and_distributor/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
+                                       <span class="text-left">{{$val->subtitle}}</span>
+                                    </td>
+                                                    <td data-label="Author">{{$val->author_name}}</td>
                                                     <td>{{ $val->isbn }}</td>
                                                     <td data-label="Conntrol">
                                                         <!-- <div class="d-flex mt-p0"> -->

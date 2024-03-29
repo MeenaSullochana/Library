@@ -13,10 +13,30 @@
                 </div>
                  <div class="col-lg-4 col-md-2 col-2 col-sm-2">
                      <div class="header__info d-flex align-items-center">
-                        <div class="header__info-cart tpcolor__oasis ml-10 tp-cart-toggle">
-                           <button><i><img src="assets/img/icon/cart-1.svg" alt=""></i>
-                              <span>5</span>
-                           </button>
+                        <div class="header__info-cart tpcolor__oasis ml-10 ">
+                        @php
+                            $user = auth('librarian')->user();
+                            @endphp
+
+                            @if($user && $user->metaChecker =="no")
+                            @if(Session::has('magazinecartcount'))
+                            <a href="/cart-magazine">
+                            <button id="magazinecartcountId">
+                              <i><img src="assets/img/icon/cart-1.svg" alt=""></i>
+                               <span id='magazinecartcount'>{{ Session::get('magazinecartcount') }}</span>
+                             </button>
+
+                            </a>
+                            @else
+                            <a href="#">
+                                <button>
+                                    <i><img src="assets/img/icon/cart-1.svg" alt=""></i>
+                                    <!-- <span>
+                                 </span> -->
+                                </button>
+                            </a>
+                            @endif
+                            @endif
                         </div>
                      </div> 
                  </div>
