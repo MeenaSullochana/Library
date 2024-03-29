@@ -31,8 +31,8 @@
             <div class="header-content">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
-						<div class="header-left">
-							
+					<div class="header-left">
+						<h4 class="ms-5"><b>{{auth('librarian')->user()->libraryName}} - {{auth('librarian')->user()->libraryType}}</b></h4>
 						</div>
                         <div class="header-right d-flex align-items-center">
 							<!-- <div class="input-group search-area">
@@ -292,7 +292,7 @@
                         </a>
                     </li>
 					@if(auth('librarian')->user()->metaChecker =="no")
-					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+					<!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 							<i class="bi bi-book"></i>	
 							<span class="nav-text">Books Management</span>
 						</a>
@@ -300,17 +300,17 @@
 							<li><a href="/librarian/book_stock_list">Stock Book list</a></li>
 							<li><a href="/librarian/book_return_list">Return Book list</a></li>
 						</ul>
-					</li>
+					</li> -->
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 							<i class="bi bi-blockquote-left"></i>
 							<span class="nav-text">Quote Management</span>
 						</a>
 						<ul aria-expanded="false">
 							<li><a href="/librarian/order_scheme">Orders Scheme</a></li>
-							<li><a href="/librarian/cart_books">Cart Books</a></li>
+							<!-- <li><a href="/librarian/cart_books">Cart Books</a></li>
 							<li><a href="/librarian/quote_pending">Pending Quote</a></li>							
 							<li><a href="/librarian/quote_reject_list">Cancelled Quote</a></li>
-							<li><a href="../website/">Visit Book Store</a></li>
+							<li><a href="../website/">Visit Book Store</a></li> -->
 						</ul>
 					</li>
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
@@ -318,7 +318,7 @@
                             <span class="nav-text">Website</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/product">Book List</a></li>
+                            <!-- <li><a href="/product">Book List</a></li> -->
                             <li><a href="/product-two">Magazine List</a></li>
                         </ul>
                     </li>
@@ -328,7 +328,7 @@
                             <span class="nav-text">Order Management</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Book Orders
+                            <!-- <li><a class="has-arrow" href="#" aria-expanded="false">Book Orders
                                 </a>
                                     <ul aria-expanded="false">
                                         <li><a href="/librarian/book_order_list">Received  Order</a></li>
@@ -336,14 +336,14 @@
 										<li><a href="/librarian/book_order_cancel_list">Cancelled Order</a></li>
 										<li><a href="../website/">Visit Book Store</a></li>
                                     </ul>
-                            </li>
+                            </li> -->
                             <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Order
-                                <span class="badge badge-danger badge-xs ms-1">NEW</span></a>
+                                </a>
                                     <ul aria-expanded="false">
                                         <li><a href="/librarian/magazine-order-list">Order List </a></li>
-										<li><a href="/librarian/magazine_order_pending">Pending Order List</a></li>
+										<!-- <li><a href="/librarian/magazine_order_pending">Pending Order List</a></li>
                                         <li><a href="/librarian/manage_completed_order_list">Completed Order List</a></li>
-                                        <li><a href="/librarian/magazine_order_reject">Rejected Order List</a></li>
+                                        <li><a href="/librarian/magazine_order_reject">Rejected Order List</a></li> -->
                                     </ul>
                             </li>
                         </ul>

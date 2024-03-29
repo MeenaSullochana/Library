@@ -377,11 +377,15 @@ $(document).ready(function() {
                  'state':$('#state').val(),
                  'district':$('#district').val(),
          }
-
+         $.ajaxSetup({
+                headers:{
+                    'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                }
+            });
         $.ajax({
             url: '/magazineCheckout',
             method: 'GET',
-            data: { '_token': '{{ csrf_token() }}','data':data},
+            data: data,
             success: function (response) {
                 if (response.success) {
                   
