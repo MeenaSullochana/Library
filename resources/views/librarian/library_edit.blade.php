@@ -115,8 +115,9 @@
                                           </div>
                                           <div class="col-sm-6 mb-3">
                                             <label class="form-label"> Library Code <span class="text-danger maditory">*</span></label>
-                                            <input type="text" class="form-control" name="library_code" placeholder="Enter Library Code" id="library_code" readonly>
+                                            <input type="text" class="form-control" name="library_code" value="{{$data->librarianId}}"placeholder="Enter Library Code" id="library_code" readonly>
                                         </div>
+                                        @if($data->metaChecker == "yes")
                                           <div class="col-sm-6 mb-3">
                                                      <label class="form-label">Subject<span
                                                                 class="text-danger maditory">*</span></label>
@@ -130,6 +131,7 @@
     @endforeach
 </select>
 </div>
+@endif
 
                                                     <div class="col-sm-6 mb-3">
                                                      <label class="form-label">State<span
@@ -163,49 +165,46 @@
                                                         </select>
 
                                                     </div>
-                                                    <div class="col-sm-6 mb-3">
-                                                        <label class="form-label">City<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter the City" id="city" Required>
-                                                    </div>
+                                               
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Village<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter the Village" id="village" Required>
+                                                        <input type="text" name="Village" class="form-control" placeholder="Enter the Village" id="Village" value="{{$data->Village}}" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Taluk<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter the Taluk" id="taluk" Required>
+                                                        <input type="text" name="taluk" class="form-control" placeholder="Enter the Taluk" id="taluk" value="{{$data->taluk}}" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Door No<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="door_no" placeholder="Enter the Door No" id="Village" Required>
+                                                        <input type="text" name="door_no" class="form-control" placeholder="Enter the Door No" id="door_no" value="{{$data->door_no}}" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Street Name<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="street_name" placeholder="Enter the Street Name" id="street_name" Required>
+                                                        <input type="text" name="street" class="form-control"  placeholder="Enter the Street Name" id="street" value="{{$data->street}}" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Place<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="place" placeholder="Enter the Place" id="place" Required>
+                                                        <input type="text" name="place" class="form-control" placeholder="Enter the Place" id="place" value="{{$data->place}}" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Landmark <span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="landmark" placeholder="Enter the Landmark" id="landmark" Required>
+                                                        <input type="text" name="landmark" class="form-control" placeholder="Enter the Landmark" id="landmark" value="{{$data->landmark}}" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Post <span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="post" placeholder="Enter the Post" id="post" Required>
+                                                        <input type="text" name="post" class="form-control" placeholder="Enter the Post" id="post" value="{{$data->post}}" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Pin Code <span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="pin_code" placeholder="Enter the Pin code" id="pin_code" Required>
+                                                        <input type="text" name="pincode" class="form-control"  placeholder="Enter the Pin code" id="pincode" value="{{$data->pincode}}" Required>
                                                     </div>
 
                                                 </div>
@@ -222,6 +221,7 @@
                                                         placeholder="Enter the librarian name" id="librarianName" value="{{$data->librarianName}}"
                                                         required="">
                                                 </div>
+                                                @if($data->metaChecker == "yes")
                                                 <div class="col-sm-6 mb-3">
                                                     <label class="form-label">Are You Meta Checker<span
                                                             class="text-danger maditory">*</span></label>
@@ -235,7 +235,7 @@
                                                         @endif
                                                     </select>
                                                 </div>
-
+                                                @endif
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="col-sm-12 mb-3">
@@ -249,7 +249,7 @@
                                                     <label class="form-label">Phone number<span
                                                             class="text-danger maditory">*</span></label>
                                                     <input type="number" class="form-control"
-                                                        placeholder="Enter the phone number" id="mobileNumber"  value="{{$data->phoneNumber}}" required="">
+                                                        placeholder="Enter the phone number" name="phoneNumber"  id="phoneNumber"  value="{{$data->phoneNumber}}" required="">
                                                 </div>
 
                                             </div>
@@ -341,13 +341,19 @@ $(document).on('click','#submit',function(e){
       'libraryType':$('#libraryType').val(),
       'metaChecker':$('#metaChecker').val(),
       'libraryName':$('#libraryName').val(),
+      'door_no':$('#door_no').val(),
+      'street':$('#street').val(),
+      'place':$('#place').val(),
+      'Village':$('#Village').val(),
+      'landmark':$('#landmark').val(),
+      'taluk':$('#taluk').val(),
+      'post':$('#post').val(),
+      'pincode':$('#pincode').val(),
       'state':$('#state').val(),
       'district':$('#district').val(),
-      'city':$('#city').val(),
-      'Village':$('#Village').val(),
       'librarianName':$('#librarianName').val(),
       'librarianDesignation':$('#librarianDesignation').val(),
-      'phoneNumber':$('#mobileNumber').val(),
+      'phoneNumber':$('#phoneNumber').val(),
       'email':$('#email').val(),
       'subject': $('select[name="subject[]"]').val(),
       'newpassword':$('#newpassword').val(),

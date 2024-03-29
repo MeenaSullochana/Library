@@ -243,14 +243,22 @@ public function librarianreturnmessage(Request $req){
 
 
  public function librarianedit(Request $req){
-  $validator = Validator::make($req->all(),[
+  $user = auth('librarian')->user();
+  if($user->metaChecker == "yes"){
+    $validator = Validator::make($req->all(),[
       'libraryType'=>'required|string',
       'libraryName'=>'required|string',
+      'door_no'=>'required',
+      'street'=>'required',
+      'place'=>'required',
+      'Village'=>'required',
+      'taluk'=>'required',
+      'post'=>'required',
+      'pincode'=>'required',
+      'landmark'=>'required',
       'state'=>'required',
       'district'=>'required|string',
       'subject'=>'required',
-      'city'=>'required|string',
-      'Village'=>'required',
       'metaChecker'=>'required',
       'librarianName'=>'required',
       'librarianDesignation'=>'required|string',
@@ -272,10 +280,17 @@ public function librarianreturnmessage(Request $req){
          
           $librarian->libraryType = $req->libraryType;
           $librarian->libraryName = $req->libraryName;
+          $librarian->door_no = $req->door_no;
+          $librarian->street = $req->street;
+          $librarian->place = $req->place;
+          $librarian->Village = $req->Village;
+          $librarian->taluk = $req->taluk;
+          $librarian->landmark = $req->landmark;
+          $librarian->post = $req->post;
+          $librarian->pincode = $req->pincode;
           $librarian->state = $req->state;
           $librarian->district = $req->district;
-          $librarian->city = $req->city;
-          if ($librarian->email == $req->email) {
+          if ($librarian->email == $req->email){
               $librarian->email = $req->email;
           } else {
               $existinglibrarian = Librarian::where('email', $req->email)->first();
@@ -290,7 +305,6 @@ public function librarianreturnmessage(Request $req){
               }
           }
           $librarian->phoneNumber = $req->phoneNumber; 
-          $librarian->Village = $req->Village;
           $librarian->metaChecker = $req->metaChecker;
           $librarian->librarianName = $req->librarianName;
           $librarian->librarianDesignation = $req->librarianDesignation;
@@ -329,9 +343,17 @@ public function librarianreturnmessage(Request $req){
           $librarian=Librarian::find($req->id);
           $librarian->libraryType = $req->libraryType;
           $librarian->libraryName = $req->libraryName;
+          $librarian->door_no = $req->door_no;
+          $librarian->street = $req->street;
+          $librarian->place = $req->place;
+          $librarian->Village = $req->Village;
+          $librarian->taluk = $req->taluk;
+          $librarian->landmark = $req->landmark;
+          $librarian->post = $req->post;
+          $librarian->pincode = $req->pincode;
           $librarian->state = $req->state;
           $librarian->district = $req->district;
-          $librarian->city = $req->city;
+
           if ($librarian->email == $req->email) {
               $librarian->email = $req->email;
           } else {
@@ -347,7 +369,6 @@ public function librarianreturnmessage(Request $req){
               }
           }
           $librarian->phoneNumber = $req->phoneNumber; 
-          $librarian->Village = $req->Village;
           $librarian->subject = json_encode($req->subject);
 
           $librarian->metaChecker = $req->metaChecker;
@@ -384,6 +405,162 @@ public function librarianreturnmessage(Request $req){
   return redirect('/admin/librarydata')->with('librarian',$librarian); 
 
  }
+  }else{
+    $validator = Validator::make($req->all(),[
+      'libraryType'=>'required|string',
+      'libraryName'=>'required|string',
+      'door_no'=>'required',
+      'street'=>'required',
+      'place'=>'required',
+      'Village'=>'required',
+      'taluk'=>'required',
+      'post'=>'required',
+      'pincode'=>'required',
+      'landmark'=>'required',
+      'state'=>'required',
+      'district'=>'required|string',
+      'librarianName'=>'required',
+      'librarianDesignation'=>'required|string',
+      'phoneNumber'=>'required|string|min:10|max:10',
+      'email'=>'required',
+    
+  ]);
+  if($validator->fails()){
+      $data= [
+          'error' => $validator->errors()->first(),
+               ];
+      return response()->json($data);  
+     
+  }
+
+  if(empty($req->newpassword) && empty($req->confirmpassword)) {
+     
+           $librarian=Librarian::find($req->id);
+         
+          $librarian->libraryType = $req->libraryType;
+          $librarian->libraryName = $req->libraryName;
+          $librarian->door_no = $req->door_no;
+          $librarian->street = $req->street;
+          $librarian->place = $req->place;
+          $librarian->Village = $req->Village;
+          $librarian->taluk = $req->taluk;
+          $librarian->landmark = $req->landmark;
+          $librarian->post = $req->post;
+          $librarian->pincode = $req->pincode;
+          $librarian->state = $req->state;
+          $librarian->district = $req->district;
+
+          if ($librarian->email == $req->email){
+              $librarian->email = $req->email;
+          } else {
+              $existinglibrarian = Librarian::where('email', $req->email)->first();
+          
+              if ($existinglibrarian == null) {
+                  $librarian->email = $req->email;
+              } else {
+                  $data = [
+                      'error' => 'Email is already taken',
+                  ];
+                  return response()->json($data);
+              }
+          }
+          $librarian->phoneNumber = $req->phoneNumber; 
+          $librarian->librarianName = $req->librarianName;
+          $librarian->librarianDesignation = $req->librarianDesignation;
+           $librarian->save();
+
+           $user =  $librarian->email;
+           $record =  $librarian;
+         
+           $password = "Your Old Password";
+          //  $rev =Mailurl::first();
+          //  $url = $rev->name . "/member/login";
+          //  $url = "http://127.0.0.1:8000/member/login";
+          //  Notification::route('mail',$librarian->email)->notify(new Member1detailNotification($user, $url,$record,$password));  
+           $data= [
+              'success' => 'librarian Update Successfully',
+                   ];
+          return response()->json($data);
+      
+   }elseif(!empty($req->newpassword) && empty($req->confirmpassword) ){
+    $data= [
+      'error' => 'please enter confirmPassword',
+           ];
+       return response()->json($data);
+ 
+   }elseif(empty($req->newpassword) && !empty($req->confirmpassword) ){
+    $data= [
+      'error' => 'please enter newpassword ',
+           ];
+       return response()->json($data);
+   }else{
+
+    if($req->newpassword == $req->confirmpassword){
+      if (strlen($req->newpassword ) == 8 && strlen($req->confirmpassword) == 8) {
+          $librarian=Librarian::find($req->id);
+          $librarian->libraryType = $req->libraryType;
+          $librarian->libraryName = $req->libraryName;
+          $librarian->door_no = $req->door_no;
+          $librarian->street = $req->street;
+          $librarian->place = $req->place;
+          $librarian->Village = $req->Village;
+          $librarian->taluk = $req->taluk;
+          $librarian->landmark = $req->landmark;
+          $librarian->post = $req->post;
+          $librarian->pincode = $req->pincode;
+          $librarian->state = $req->state;
+          $librarian->district = $req->district;
+     
+          if ($librarian->email == $req->email) {
+              $librarian->email = $req->email;
+          } else {
+              $existinglibrarian = Librarian::where('email', $req->email)->first();
+          
+              if ($existinglibrarian == null) {
+                  $librarian->email = $req->email;
+              } else {
+                  $data = [
+                      'error' => 'Email is already taken',
+                  ];
+                  return response()->json($data);
+              }
+          }
+          $librarian->phoneNumber = $req->phoneNumber; 
+          $librarian->librarianName = $req->librarianName;
+          $librarian->librarianDesignation = $req->librarianDesignation;
+          $librarian->password=Hash::make($req->newpassword);
+           $librarian->save();
+           $user =  $librarian->email;
+           $record =  $librarian;
+           $password = $req->password;
+          //  $url = "http://127.0.0.1:8000/member/login";
+          // $rev =Mailurl::first();
+          // $url = $rev->name . "/member/login";
+          //  Notification::route('mail',$librarian->email)->notify(new Member1detailNotification($user, $url,$record,$password));  
+           $data= [
+              'success' => 'librarian update Successfully',
+                   ];
+          return response()->json($data);
+      
+     
+    }else{
+      $data= [
+        'error' => 'Password must be at least 8 characters long',
+             ];
+         return response()->json($data);
+          }
+   }else{
+    $data= [
+      'error' => 'Password and confirmPassword is mishmatch',
+           ];
+       return response()->json($data);
+  }
+
+  return redirect('/admin/librarydata')->with('librarian',$librarian); 
+
+ }
+  }
+ 
  
   }
 

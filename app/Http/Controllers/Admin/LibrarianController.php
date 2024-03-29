@@ -434,15 +434,31 @@ public function importFile(Request $request)
                 foreach ($chunk as $line) {
                     $data = str_getcsv($line);
                     $library = new Librarian();
-                    $library->libraryType = $data[3];
-                    $library->libraryName = $data[2];
+                    $library->sNo = $data[0];
+                    $library->librarianId = $data[1]??null;
+                    $library->libraryName = $data[2]??null;
+                    $library->libraryType = $data[3]??null;
+                 
+                    $library->street = $data[4]??null;
+                    $library->place = $data[5]??null;
+                    $library->Village = $data[6]??null;
+                    $library->taluk = $data[7]??null;
+                    $library->landmark = $data[8]??null;
+                    $library->district = $data[9]??null;
+                    $library->post = $data[10]??null;
+                    $library->pincode= $data[11]??null;
+                    $library->librarianName = $data[12]??null;
+                    $library->librarianDesignation = $data[13]??null;
+                    $library->phoneNumber = $data[14]??null;
+                    $library->door_no= $data[15]??null;
+     
+
                     $library->state = "Tamil Nadu";
-                    $library->district = $data[4];
                     $library->password = Hash::make("12345678");
                     $library->role = "librarian";
                     $library->metaChecker = "no";
-                    $library->librarianId = $data[1];
-                    $library->sNo = $data[0];
+                  
+                  
                     $library->save();
                 }
             }
@@ -452,6 +468,7 @@ public function importFile(Request $request)
             return redirect()->back()->with('errorlib', 'No file uploaded');
         }
     } catch (\Throwable $e) {
+        return $e;
         // Handle the exception (e.g., log it)
         return redirect()->back()->with('errorlib', 'An error occurred while importing.');
     }
