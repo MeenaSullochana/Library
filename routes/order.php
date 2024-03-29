@@ -21,6 +21,7 @@ Route::middleware(['librarian'])->group(function () {
     Route::get('/cart',[WebsitebookController::class, 'bookcart']);
     Route::get('/shope/{id}', [WebsitebookController::class, 'bookview']);
     Route::get('/product-two', [WebsitebookController::class, 'product_two']);
+   Route::get('/product-two-category/{cat?}', [WebsitebookController::class, 'product_two_category']);
     Route::get('/megazine_categories', [WebsitebookController::class, 'megazine_categories']);
     Route::get('/shope-magazine/{id}', [WebsitebookController::class, 'shope_magazine']);
     Route::get('/shopemagazine',function(){
@@ -37,6 +38,7 @@ Route::middleware(['librarian'])->group(function () {
      Route::post('/delete-to-cart',[WebsitebookController::class, 'delete_to_cart']);
      Route::post('/updateQuantity',[WebsitebookController::class, 'updateQuantity']);
      Route::post('/updatecart',[WebsitebookController::class, 'update_cart']);
+     Route::get('/magazineCheckout',[WebsitebookController::class, 'magazineCheckout']);
 
      
     });

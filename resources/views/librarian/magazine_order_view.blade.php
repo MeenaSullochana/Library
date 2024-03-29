@@ -60,7 +60,7 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Users Order View</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="javascript:history.back()">
+                            <a class="btn btn-primary  btn-sm" href="/librarian/magazine-order-list">
                                 <i class="fas fa-chevron-left"></i> Back </a>
                         </div>
                     </div>
@@ -69,7 +69,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body p-3">
-                                <div class="d-flex justify-content-between align-items-end">
+                                <!-- <div class="d-flex justify-content-between align-items-end">
                                     <h6>Export Option</h6>
                                     <a href="magazine_add">
                                         <button type="button" class="btn btn-primary"><span
@@ -102,61 +102,63 @@
                                             class="btn-icon-start text-warning"><i class="fa fa-download color-warning"></i>
                                         </span>Download</button>    
                                     </div>
-                                </div>
+                                </div> -->
                                 <hr>
                                 <div class="table-responsive">
                                     <table class="table table-sm mb-0 table-striped student-tbl" id="example3">
                                         <thead>
                                             <tr>
-                                                <th class=" pe-3">
+                                                <!-- <th class=" pe-3">
                                                     <div class="form-check custom-checkbox mx-2">
                                                         <input type="checkbox" class="form-check-input" id="checkAll">
                                                         <label class="form-check-label" for="checkAll"></label>
                                                     </div>
-                                                </th>
-                                                <th>Magazine Name</th>
+                                                </th> -->
+                                                <th>S.Noe</th>
+                                                <th>Magazine Title</th>
                                                 <th>language</th>
-                                                <th>User type</th>
+                                                <th>Category</th>
                                                 <th>Qty</th>
-                                                <th>Single Piece Price
-                                                <th>Total Price</th>
-                                                <th class=" ps-5" style="min-width: 200px;">Name of the Company
-                                                </th>
-                                                <th>Created</th>
+                                                <th>Price</th>
+                                                <!-- <th class=" ps-5" style="min-width: 200px;">Name of the Company
+                                                </th> -->
+                                                <!-- <th>date</th> -->
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="customers">
+                                        @foreach($data->magazineProduct as $val)
                                             <tr class="btn-reveal-trigger">
-                                                <td class="py-2">
+                                                <!-- <td class="py-2">
                                                     <div class="form-check custom-checkbox mx-2">
                                                         <input type="checkbox" class="form-check-input" id="checkbox1">
                                                         <label class="form-check-label" for="checkbox1"></label>
                                                     </div>
-                                                </td>
+                                                </td> -->
+                                                <td class="py-2">{{$loop->index + 1}}</a></td>
                                                 <td class="py-3">
                                                     <a href="#">
                                                         <div class="media d-flex align-items-center">
                                                             <div class="avatar avatar-sm me-2">
                                                                 <div class=""><img
                                                                         class="rounded-circle img-fluid"
-                                                                        src="./images/avatar/5.png" width="30"
+                                                                        src="{{ asset('Magazine/front/' . $val->image) }}" width="30"
                                                                         alt="">
                                                                 </div>
                                                             </div>
                                                             <div class="media-body">
-                                                                <h6 class="mb-0 fs--1">Ricky Antony</h6>
+                                                                <h6 class="mb-0 fs--1">{{$val->title}}</h6>
                                                             </div>
                                                         </div>
                                                     </a>
                                                 </td>
-                                                <td class="py-2">Tamil</a></td>
-                                                <td class="py-2">Publisher</a></td>
-                                                <td><i class="fa fa-rupee"></i> 100</th>
-                                                <td>10</td>
-                                                <td><i class="fa fa-rupee"></i>1000</th>
-                                                <td class="py-2 ps-5">Company Name</td>
-                                                <td class="py-2">30/03/2018</td>
+                                                <td class="py-2">{{$val->language}}</a></td>
+                                                <td class="py-2">{{$val->category}}</a></td>
+                                               
+                                                <td>{{$val->quantity}}</td>
+                                                <td><i class="fa fa-rupee"></i>{{$val->magazine_price}}</th>
+                                                <!-- <td class="py-2 ps-5">Company Name</td>
+                                                <td class="py-2">30/03/2018</td> -->
                                                 <td class="py-2 text-end">
                                                     <div class="dropdown"><button
                                                             class="btn btn-primary tp-btn-light sharp" type="button"
@@ -181,11 +183,12 @@
                                                             style="">
                                                             <div class="py-2">
                                                                 <a class="dropdown-item" href="magazine_view"><i class="fa fa-eye p-2"></i>View</a>
-                                                                <a class="dropdown-item" href="magazine_view"><i class="fa fa-file-invoice p-2"></i>Show invoice</a>
+                                                                <!-- <a class="dropdown-item" href="magazine_view"><i class="fa fa-file-invoice p-2"></i>Show invoice</a> -->
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

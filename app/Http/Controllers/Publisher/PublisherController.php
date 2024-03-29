@@ -32,7 +32,7 @@ class PublisherController extends Controller
             return response()->json($data);
 
         }
-        $publisher=auth('publisher')->user()->first();
+        $publisher=auth('publisher')->user();
         if((Hash::check($req->currentPassword,$publisher->password))){
            if($req->newPassword == $req->confirmPassword){
              $publisher->password=Hash::make($req->newPassword);
@@ -80,7 +80,7 @@ class PublisherController extends Controller
 
              }
              public function pubprofileedit(){
-                $data=auth('publisher')->user()->first();
+                $data=auth('publisher')->user();
                 $data->topTitles1= json_decode($data->topTitles);
                 $data->topTranslatedBooks1= json_decode($data->topTranslatedBooks);
                 $data->awardTitle1= json_decode($data->awardTitle);

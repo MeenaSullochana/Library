@@ -95,8 +95,8 @@
                                            </th>
                                            <th>Book ID</th>
                                            <th>Title</th>
+                                           <th>Author</th>
                                             <th>Primary Language</th>
-                                            <th>Author</th>
                                             <th>Price</th>
                                            <th>ISBN(10/13)</th>
 

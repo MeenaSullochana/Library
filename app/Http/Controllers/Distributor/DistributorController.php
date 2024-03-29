@@ -32,7 +32,7 @@ class DistributorController extends Controller
             return response()->json($data);  
            
         }
-        $distributor=auth('distributor')->user()->first();
+        $distributor=auth('distributor')->user();
         if((Hash::check($req->currentPassword,$distributor->password))){
            if($req->newPassword == $req->confirmPassword){
              $distributor->password=Hash::make($req->newPassword);
@@ -70,7 +70,7 @@ class DistributorController extends Controller
         
 
          public function distprofileview(){
-           $data=auth('distributor')->user()->first();
+           $data=auth('distributor')->user();
 
            $data->publisher1= json_decode($data->publisher);
             $data->subsidiary1= json_decode($data->subsidiary);
@@ -80,7 +80,7 @@ class DistributorController extends Controller
              } 
 
              public function distprofileedit(){
-                $data=auth('distributor')->user()->first();
+                $data=auth('distributor')->user();
      
                 $data->publisher1= json_decode($data->publisher);
                  $data->subsidiary1= json_decode($data->subsidiary);

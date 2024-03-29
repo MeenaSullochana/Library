@@ -61,7 +61,7 @@ Route::prefix('librarian')->group(function () {
 
     Route::get('/magazine_view',function(){ return view('librarian.magazine_view');});
     Route::get('/magazine-order-list',function(){ return view('librarian.magazine_list');});
-    Route::get('/magazine_invoice_view',function(){return view('librarian.magazine_order_view');});
+    // Route::get('/magazine_invoice_view',function(){return view('librarian.magazine_order_invoice');});
     Route::get('/magazine_invoice',function(){return view('librarian.magazine_order_invoice');});
     Route::get('/magazine_order_pending',function(){ return view('librarian.magazine_order_pending');});
     Route::get('/magazine_order_reject',function(){ return view('librarian.magazine_reject_list');});
@@ -112,8 +112,24 @@ Route::prefix('librarian')->group(function () {
 
      Route::get('/meta_update_return',[LibrarianController::class,'meta_update_return']);
 
-
-
+     Route::get('/magazine_order_view/{id}',[LibrarianController::class,'magazine_orderview']);
+     Route::get('/magazine-order-view',function(){
+         $data = Session::get('Ordermagazine');
+         if($data !==null){
+             return view('librarian.magazine_order_view')->with("data",$data);
+         }
+         
+     });
+     
+     Route::get('/magazine_invoice_view/{id}',[LibrarianController::class,'magazine_invoiceview']);
+     Route::get('/magazine-invoice-view',function(){
+         $data = Session::get('Ordermagazineinvoice');
+         if($data !==null){
+             return view('librarian.magazine_order_invoice')->with("data",$data);
+         }
+         
+     });
+     
      
 });
 });

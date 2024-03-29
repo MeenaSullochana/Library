@@ -12,10 +12,6 @@ use App\Models\Ordermagazine;
 use Illuminate\Support\Str;
 use App\Models\Specialcategories;
 use Illuminate\Support\Facades\Session;
-use App\Models\MagazineCategory;
-use App\Models\Librarian;
-
-
 class WebsitebookController extends Controller
 {
    // Import your Book model
@@ -461,7 +457,7 @@ public function checkout(){
 
 public function product_two(Request $request)
 {
-    $librarian = auth('librarian')->user();
+    $librarian = auth('librarian')->user()->first();
 
     $magazinebudget = Budget::where('type', 'magazinebudget')
     ->where(function ($query) use ($librarian) {
@@ -481,61 +477,14 @@ public function product_two(Request $request)
     }
     $magazinecartcount=count($cartdata);
     Session::put('magazinecartcount', $magazinecartcount);
-    $bud_arr = [];
-  
-        $magazinebudget->CategorieAmount1 = json_decode($magazinebudget->CategorieAmount); 
-
-    foreach ($magazinebudget->CategorieAmount1 as $val) {
-        $cartdata1 = Cart::where('librarianid', '=', $librarian->id)
-                          ->where('category', '=', $val->name)
-                          ->where('budgetid', '=', $magazinebudget->id)
-                          ->where('status', '=', '1')
-                          ->sum('totalAmount');
-    
-        $percentage = $cartdata1 ? round(($cartdata1 /$val->amount ) * 100) : 0;
-    
-        $obj = (object)[
-            "category" => $val->name,
-            "budget_price" => $val->amount,
-            "cart_price" => $cartdata1,
-            "percentage" => $percentage
-        ];
-        array_push($bud_arr, $obj);
-    }
-
-
-
-
 }else{
-    
     $magazinecartcount=0;
     Session::put('magazinecartcount', $magazinecartcount);
-    $bud_arr = [];
-    $magazinebudget1 = MagazineCategory::where('status', '=', '1')
-    ->orderBy('created_at', 'ASC')
-    ->get();
-
-    foreach ($magazinebudget1 as $val) {
-        $obj = (object)[
-            "category" => $val->name,
-            "budget_price" =>0,
-            "cart_price" => 0,
-            "percentage" => 0,
-        ];
-        array_push($bud_arr, $obj);
-    }
 }
-if(Session::has('bud_arr')) {
-    Session::forget('bud_arr');
-}
-
-Session::put('bud_arr', $bud_arr);
-
-
         $magazines = Magazine::paginate(12);
    
    
-    return view('product-two', compact('magazines'));
+    return view('product-two')->with('magazines', $magazines);
 }
 
 public function product_two_category(Request $request)
@@ -763,7 +712,7 @@ $shopemagazine->quantity = $cart->quantity;
    
 }
 public function cart_magazine(){
-    $librarian = auth('librarian')->user();
+    $librarian = auth('librarian')->user()->first();
    
     $magazinebudget = Budget::where('type', 'magazinebudget')
     ->where(function ($query) use ($librarian) {
@@ -780,7 +729,7 @@ public function cart_magazine(){
     
         
     $cartdata = Cart::where('librarianid', '=', $librarian->id)
-    ->where('budgetid', '=', $magazinebudget->id)->where('status', '=', '1')
+    ->where('budgetid', '=', $magazinebudget->id)
     ->get();
     $bud_arr = [];
     if($magazinebudget !=null){
@@ -805,7 +754,7 @@ public function cart_magazine(){
     }
 }
     $cartdatacount = Cart::where('librarianid', '=', $librarian->id)
-    ->where('budgetid', '=', $magazinebudget->id)->where('status', '=', '1')
+    ->where('budgetid', '=', $magazinebudget->id)
     ->sum('totalAmount');
   
     if(Session::has('magazinecartcount')) {
@@ -823,7 +772,7 @@ return view('cart-magazine', compact('bud_arr','cartdata','cartdatacount'));
 }
 
 public function add_to_cart(Request $req) {
-    $librarian = auth('librarian')->user();
+    $librarian = auth('librarian')->user()->first();
 
     $magazinebudget = Budget::where('type', 'magazinebudget')
     ->where(function ($query) use ($librarian) {
@@ -881,35 +830,6 @@ public function add_to_cart(Request $req) {
         ->get();
         $magazinecartcount=count($cartdata);
         Session::put('magazinecartcount', $magazinecartcount);
-
-        $bud_arr = [];
-  
-        $magazinebudget->CategorieAmount1 = json_decode($magazinebudget->CategorieAmount); 
-
-    foreach ($magazinebudget->CategorieAmount1 as $val) {
-        $cartdata2 = Cart::where('librarianid', '=', $librarian->id)
-                          ->where('category', '=', $val->name)
-                          ->where('budgetid', '=', $magazinebudget->id)
-                          ->where('status', '=', '1')
-                          ->sum('totalAmount');
-    
-        $percentage = $cartdata2 ? round(($cartdata2 /$val->amount ) * 100) : 0;
-    
-        $obj = (object)[
-            "category" => $val->name,
-            "budget_price" => $val->amount,
-            "cart_price" => $cartdata1,
-            "percentage" => $percentage
-        ];
-        array_push($bud_arr, $obj);
-    }
-    if(Session::has('bud_arr')) {
-        Session::forget('bud_arr');
-    }
-    
-    Session::put('bud_arr', $bud_arr);
-
-
         $data= [
             'success' => 'Product add successfully',
             'magazinecartcount'=>$magazinecartcount,
@@ -917,19 +837,19 @@ public function add_to_cart(Request $req) {
         return response()->json($data);   
     } else {
       
-        // $Cartdata->quantity += 1;
-        // $Cartdata->totalAmount = $Cartdata->amount * $Cartdata->quantity;
-        // $Cartdata->save();
-        // if(Session::has('magazinecartcount')) {
-        //     Session::forget('magazinecartcount');
-        // }
-        // $cartdata = Cart::where('librarianid', '=', $librarian->id)
-        //  ->where('budgetid', '=', $magazinebudget->id)
-        // ->get();
-        // $magazinecartcount=count($cartdata);
-        // Session::put('magazinecartcount', $magazinecartcount);
+        $Cartdata->quantity += 1;
+        $Cartdata->totalAmount = $Cartdata->amount * $Cartdata->quantity;
+        $Cartdata->save();
+        if(Session::has('magazinecartcount')) {
+            Session::forget('magazinecartcount');
+        }
+        $cartdata = Cart::where('librarianid', '=', $librarian->id)
+         ->where('budgetid', '=', $magazinebudget->id)
+        ->get();
+        $magazinecartcount=count($cartdata);
+        Session::put('magazinecartcount', $magazinecartcount);
         $data= [
-            'error' => 'This magazine already added in your cart',
+            'success' => 'Product add successfully',
                  ];
         return response()->json($data);   
     }
@@ -947,7 +867,7 @@ public function add_to_cart(Request $req) {
 }
 }
 public function delete_to_cart(Request $req) {
-    $librarian = auth('librarian')->user();
+    $librarian = auth('librarian')->user()->first();
     $magazinebudget = Budget::where('type', 'magazinebudget')
     ->where(function ($query) use ($librarian) {
         $query->whereNotIn('purchaseid', [$librarian->id])
@@ -970,33 +890,31 @@ public function delete_to_cart(Request $req) {
         Session::forget('magazinecartcount');
     }
    
-   
-    if( $Cartdata->delete()){
-        $cartdata = Cart::where('librarianid', '=', $librarian->id)
-        ->where('budgetid', '=', $magazinebudget->id)
-        ->get();
-        
-        $magazinecartcount=count($cartdata);
-        Session::put('magazinecartcount', $magazinecartcount);
-        
-        $cartdatacount = Cart::where('librarianid', '=', $librarian->id)
-        ->where('budgetid', '=', $magazinebudget->id)
-        ->sum('totalAmount');
-        $data= [
-            'success' => 'Product Removed successfully',
-            'magazinecartcount'=>$magazinecartcount,
-            'cartdatacount'=>$cartdatacount,
-                 ];
-        return response()->json($data); 
-    }
+    $Cartdata->delete();
 
-     
+    $cartdata = Cart::where('librarianid', '=', $librarian->id)
+    ->where('budgetid', '=', $magazinebudget->id)
+    ->get();
+    
+    $magazinecartcount=count($cartdata);
+
+    Session::put('magazinecartcount', $magazinecartcount);
+    
+    $cartdatacount = Cart::where('librarianid', '=', $librarian->id)
+    ->where('budgetid', '=', $magazinebudget->id)
+    ->sum('totalAmount');
+    $data= [
+        'success' => 'Product Removed successfully',
+        'magazinecartcount'=>$magazinecartcount,
+        'cartdatacount'=>$cartdatacount,
+             ];
+    return response()->json($data);   
 
 }
 
 public function updateQuantity(Request $request) {
     $cartItem = Cart::find($request->id);
-    $librarian = auth('librarian')->user();
+    $librarian = auth('librarian')->user()->first();
     $magazinebudget = Budget::where('type', 'magazinebudget')
     ->where(function ($query) use ($librarian) {
         $query->whereNotIn('purchaseid', [$librarian->id])
@@ -1047,7 +965,7 @@ public function updateQuantity(Request $request) {
 
 
 public function update_cart(Request $req) {
-    $librarian = auth('librarian')->user();
+    $librarian = auth('librarian')->user()->first();
     $magazinebudget = Budget::where('type', 'magazinebudget')
     ->where(function ($query) use ($librarian) {
         $query->whereNotIn('purchaseid', [$librarian->id])
@@ -1149,9 +1067,9 @@ public function update_cart(Request $req) {
 }
 }
 
-public function magazineCheckout(Request $req) {
+public function magazineCheckout() {
   
-    $librarian = auth('librarian')->user();
+    $librarian = auth('librarian')->user()->first();
     $magazinebudget = Budget::where('type', 'magazinebudget')
     ->where(function ($query) use ($librarian) {
         $query->whereNotIn('purchaseid', [$librarian->id])
@@ -1177,45 +1095,8 @@ public function magazineCheckout(Request $req) {
       ->where(DB::raw('CAST(annual_cost_after_discount AS UNSIGNED)'), '!=', '0')
       ->where('category', '=', $val->name)
       ->get();
-    
+   
       if($magazinedata->isNotEmpty()){
-        $cartdatarecord = Cart::where('librarianid', '=', $librarian->id)
-        ->where('category', '=',$val->name)
-        ->where('budgetid', '=', $magazinebudget->id)
-        ->where('status', '=', '1')
-        ->get();
-        // dd( $magazinedata);
-        if($cartdatarecord->isNotEmpty()){
-            $firstArray = collect($magazinedata);
-            $secondArray = collect($cartdatarecord);
-            
-            $firstNames = $firstArray->pluck('id')->toArray();
-            $secondNames = $secondArray->pluck('magazineid')->toArray();
-       
-            $uniqueNames = collect($firstNames)->filter(function ($name) use ($secondNames) {
-                return !in_array($name, $secondNames);
-            })->toArray();
-          
-            if(count($uniqueNames) >0){
-            $balanceamount = 0;
-            $count = 0;
-            $bud_arr = array();
-            $data = [
-                'error' => 'You still have ₹' . $categoryamount . ' pending in the ' . $val->name . ' category. Please purchase books to utilize this amount.'
-            ];
-            return response()->json($data);
-        }else{
-            $balanceamount =  $balanceamount +  $categoryamount;
-            $count =  $count + 1;
-            $obj = (object)[
-                "category" => $val->name,
-                "budget_price" => $val->amount,
-                "balance_price" =>  $categoryamount,
-               
-            ];
-            array_push($bud_arr, $obj);
-          }
-        }else{
         $balanceamount = 0;
         $count = 0;
         $bud_arr = array();
@@ -1223,7 +1104,7 @@ public function magazineCheckout(Request $req) {
             'error' => 'You still have ₹' . $categoryamount . ' pending in the ' . $val->name . ' category. Please purchase books to utilize this amount.'
         ];
         return response()->json($data);
-    }
+        
       }else{
         $balanceamount =  $balanceamount +  $categoryamount;
         $count =  $count + 1;
@@ -1246,7 +1127,6 @@ public function magazineCheckout(Request $req) {
     $cartdatas = Cart::where('librarianid', '=', $librarian->id)
                          ->where('budgetid', '=', $magazinebudget->id)
                          ->where('status', '=', '1')->get();
-          $finalquantity=(count($cartdatas));               
   $magazineorder=[];
  foreach($cartdatas as $val){
     $magazinesrec = Magazine::find($val->magazineid);
@@ -1273,40 +1153,11 @@ public function magazineCheckout(Request $req) {
          $Ordermagazine->totalBudget =$magazinebudget->totalAmount;
          $Ordermagazine->totalPurchased =$magazinebudget->totalAmount - $balanceamount;
          $Ordermagazine->totalBal =$balanceamount;
-         $Ordermagazine->quantity =$finalquantity;
+       
          $randomCode = str_pad(random_int(0, 99999999), 12, '0', STR_PAD_LEFT);
          $Ordermagazine->orderid= $randomCode;
          $librariandata=[];
-         $validator = Validator::make($req->all(),[
-            'door_no'=>'required',
-            'street'=>'required',
-            'place'=>'required',
-            'Village'=>'required',
-            'taluk'=>'required',
-            'post'=>'required',
-            'pincode'=>'required',
-            'landmark'=>'required',
-            'state'=>'required',
-            'district'=>'required|string',
-        ]);
-        if($validator->fails()){
-            $data= [
-                'error' => $validator->errors()->first(),
-                     ];
-            return response()->json($data);  
-           
-        }
-        $librarian= new Librarian();
-        $librarian->door_no = $req->door_no;
-        $librarian->street = $req->street;
-        $librarian->place = $req->place;
-        $librarian->Village = $req->Village;
-        $librarian->taluk = $req->taluk;
-        $librarian->landmark = $req->landmark;
-        $librarian->post = $req->post;
-        $librarian->pincode = $req->pincode;
-        $librarian->district = $req->district;
-        if($librarian->save()){
+
           if($Ordermagazine->save()){
             if($magazinebudget->purchaseid == null){
                 $librariandata=[];
@@ -1315,11 +1166,11 @@ public function magazineCheckout(Request $req) {
                          $magazinebudget->save();
             }
             array_push($librariandata,$librarian->id);
-            $array = json_decode($magazinebudget->purchaseid, true);
-             $merged = array_merge($librariandata, $array);
+         $array = json_decode($magazinebudget->purchaseid, true);
+         $merged = array_merge($librariandata, $array);
     
-               $magazinebudget->purchaseid = $merged;
-               $magazinebudget->save();
+         $magazinebudget->purchaseid = $merged;
+         $magazinebudget->save();
          if(Session::has('magazinecartcount')) {
             Session::forget('magazinecartcount');
         }
@@ -1334,8 +1185,8 @@ public function magazineCheckout(Request $req) {
                 'success' => 'Magazine Purchased Successfully.'
             ];
             return response()->json($data);
-     }
-    }
+          }
+       
 
 
 }
@@ -1354,3 +1205,7 @@ public function magazineCheckout(Request $req) {
 
 
 }
+
+
+
+
