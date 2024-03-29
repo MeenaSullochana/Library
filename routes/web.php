@@ -29,3 +29,5 @@ Route::get('/invoice-pdf',function(){return view('invoice-view');});
 Route::get('/policy',function(){return view('policy');});
 
 
+
+Route::get('/payment',function(){return view('payment.payment');});

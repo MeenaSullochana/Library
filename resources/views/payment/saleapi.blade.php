@@ -1,72 +1,23 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head><title>Sale API</title>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Sale API</title>
 <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="{{ asset('payment/style.css') }}">
 <script type="text/javascript">
-    function showhide(payment_type) {
-        if ( payment_type == "wt" || payment_type == "") {
-            document.getElementById("Name").style.display = 'none';
-            document.getElementById("CardNo").style.display = 'none';
-            document.getElementById("CardExpiry").style.display = 'none';
-            document.getElementById("CVV").style.display = 'none';
-
-            document.getElementById("Name").style.display = 'none';  
-            document.getElementById("FirstName").style.display = 'none';
-            document.getElementById("LastName").style.display = 'none';
-
-            document.getElementById("Address").style.display = 'none';
-            document.getElementById("Street").style.display = 'none';
-
-            document.getElementById("City").style.display = 'none';
-            document.getElementById("ZIP").style.display = 'none';
-            document.getElementById("State").style.display = 'none';
-
-            document.getElementById("Address").style.display = 'none';
-          
-            document.getElementById("bankCodetr").style.display = 'none';
-         
-        }else if (payment_type == "nb"){
-
-            document.getElementById("CardNo").style.display = 'none';
-            document.getElementById("CardExpiry").style.display = 'none';
-            document.getElementById("CVV").style.display = 'none';
-          	 
-            document.getElementById("Name").style.display = 'table-row';
-            document.getElementById("FirstName").style.display = 'table-row';
-            document.getElementById("LastName").style.display = 'table-row';
-
-            document.getElementById("Address").style.display = 'table-row';
-            document.getElementById("Street").style.display = 'table-row';
-
-     	    document.getElementById("City").style.display = 'table-row';
-            document.getElementById("ZIP").style.display = 'table-row';
-            document.getElementById("State").style.display = 'table-row';
-
-            document.getElementById("Address").style.display = 'table-row';
-
-            document.getElementById("bankCodetr").style.display = 'table-row';
-
-    	}else {
-        	document.getElementById("CardNo").style.display = 'table-row';
-            document.getElementById("CardExpiry").style.display = 'table-row';
-            document.getElementById("CVV").style.display = 'table-row';
-    		
-    		document.getElementById("Name").style.display = 'none';
-            document.getElementById("FirstName").style.display = 'none';
-            document.getElementById("LastName").style.display = 'none';
-
-            document.getElementById("Address").style.display = 'none';
-            document.getElementById("Street").style.display = 'none';
-
-            document.getElementById("City").style.display = 'none';
-            document.getElementById("ZIP").style.display = 'none';
-            document.getElementById("State").style.display = 'none';
-            
-    		document.getElementById("bankCodetr").style.display = 'none';
-    	}
+function showhide(payment_type) {
+    if (payment_type == "wt" || payment_type == "") {
+        $("#Name, #CardNo, #CardExpiry, #CVV, #FirstName, #LastName, #Address, #Street, #City, #ZIP, #State, #bankCodetr").css('display', 'none');
+    } else if (payment_type == "nb") {
+        $("#CardNo, #CardExpiry, #CVV").css('display', 'none');
+        $("#Name, #FirstName, #LastName, #Address, #Street, #City, #ZIP, #State, #bankCodetr").css('display', 'table-row');
+    } else {
+        $("#CardNo, #CardExpiry, #CVV").css('display', 'table-row');
+        $("#Name, #FirstName, #LastName, #Address, #Street, #City, #ZIP, #State, #bankCodetr").css('display', 'none');
     }
+}
 </script>
 <script>
     window.onload = function() {
@@ -97,7 +48,7 @@
         </tr>
         <tr>
             <td><strong><em>Currency Code: *</em></strong></td>
-            <td><input class="textbox"type="text"  name="Currency" id="Currency" value=""  size="40" maxlength="40"/></td>
+            <td><input class="textbox" type="text"  name="Currency" id="Currency" value=""  size="40" maxlength="40"/></td>
         </tr>
         <tr>
             <td><strong><em>Txn Type: *</em></strong></td>
@@ -109,7 +60,7 @@
         </tr>
         <tr>
             <td><strong><em>CardHolder Email: </em></strong></td>
-            <td><input class="textbox"type="text"  name="Email" id="Email" value="" size="40" maxlength="40"/></td>
+            <td><input class="textbox" type="text"  name="Email" id="Email" value="" size="40" maxlength="40"/></td>
         </tr>
         <tr>
             <td><strong><em>CardHolder Phone: </em></strong></td>
@@ -176,18 +127,19 @@
         
 		<tr><td colspan="2"></td></tr>
         <tr id="CardNo" >
-        <td><strong><em>Card Number: * </em></strong></td>
-        <font color="red"></font> </td><td>
-        <input class="textbox"type="text"  name="CardNumber" id="CardNumber" value="" ><td>
+            <td><strong><em>Card Number: * </em></strong></td>
+            <font color="red"></font> </td><td>
+            <input class="textbox" type="text"  name="CardNumber" id="CardNumber" value="" ><td>
 
-        <tr id="CardExpiry">
-        <td><strong><em>Expiry Date: (MMYYYY): * </em></strong></td>
-        <font color="red"></font> </td><td>
-        <input class="textbox"type="text"  name="ExpiryDate" id="ExpiryDate" value="" ><td></tr>
+            <tr id="CardExpiry">
+            <td><strong><em>Expiry Date: (MMYYYY): * </em></strong></td>
+            <font color="red"></font> </td><td>
+            <input class="textbox" type="text"  name="ExpiryDate" id="ExpiryDate" value="" ><td>
+        </tr>
 
         <tr id="CVV">
             <td><strong><em>CVV2/CVD2 Number: * </em></strong></td>
-            <td><input class="textbox"type="password"  name="CardSecurityCode" id="CardSecurityCode" value="" ></td>
+            <td><input class="textbox" type="password"  name="CardSecurityCode" id="CardSecurityCode" value="" ></td>
         </tr>
  
         <tr id="bankCodetr">

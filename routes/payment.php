@@ -9,8 +9,16 @@ use App\Http\Controllers\Librarian\notificationController;
 use App\Http\Controllers\WebsitebookController;
 use App\Http\Controllers\Payment\SaleController;
 use App\Http\Controllers\Payment\ResponseSaleController;
+
+
+
 Route::get('/salesapi',function(){return view('payment.saleapi');});
+
+Route::get('/payment-gateway',function(){return view('payment.payment');});
+Route::get('/payment-responce/success',function(){return view('payment.success');});
+Route::get('/payment-responce/failure',function(){return view('payment.failure');});
 
 Route::post('/process-sale', [SaleController::class, 'processSale']);
 Route::post('/sale/response', [ResponseSaleController::class,'processPaymentResponse']);
 // Route::get('/test',function(){return view('payment.test');});
+

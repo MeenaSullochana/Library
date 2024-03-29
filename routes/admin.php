@@ -113,6 +113,7 @@ Route::get('/state_list',function(){ return view('admin.state_list');});
 Route::get('/book_price_manage',function(){ return view('admin.book_price_manage');});
 Route::get('/member_active',function(){ return view('admin.member_active');});
 Route::get('/member_create',function(){ return view('admin.member_create');});
+Route::get('/member_dup_update',function(){ return view('admin.member_edit_dup');});
 Route::get('/member_inactive',function(){ return view('admin.member_inactive');});
 Route::get('/member_list',function(){ return view('admin.member_list');});
 
@@ -126,6 +127,7 @@ Route::get('/procur_reject_view',function(){ return view('admin.procur_reject_vi
 Route::get('/magazine_add',function(){ return view('admin.magazine_add');});
 Route::post('/magazine/import', [MagazineController::class,'importFile']);
 Route::get('/magazine_add_new',function(){ return view('admin.magazine_add_new');});
+Route::get('/magazine_update',function(){ return view('admin.magazine_update');});
 Route::get('/magazine_list',[MagazineController::class,'list']);
 Route::get('/magazine_list_dummy',function(){ return view('admin.magazine_list_dummy');});
 Route::get('/magazine_view',function(){ return view('admin.magazine_view');});
