@@ -95,7 +95,7 @@
                     <div class="col-xl-5 col-md-6">
                         <div class="card bg-primary">
                             <div class="card-header border-0">
-                                <h4 class="heading mb-0 text-white">Overview Of Sales </h4>
+                                <h4 class="heading mb-0 text-white">Overview of Sales </h4>
                             </div>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">

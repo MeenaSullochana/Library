@@ -1519,8 +1519,7 @@ $bookdescription = $data->bookdescription1;
                         <h4>Sample Book Details</h4>
                     </div>
                     <div class="col-md-10">
-                        <P class="fs-4"> Please Mention the summary / Sample Book Details (Upload epub or pdf files
-                            only)</a>
+                        <P class="fs-4"> Please ensure that a minimum of 25 pages or 25% of the total pages is uploaded (Upload epub or pdf files only)</a>
                         </P>
                         <div class="col-lg-12">
                             <div class="basic-form">

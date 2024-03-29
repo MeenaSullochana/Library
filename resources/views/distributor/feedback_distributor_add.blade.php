@@ -73,13 +73,13 @@
                         @csrf
                             <div class="modal-body">
                             <div class="form-group mb-2 ps-3">
-                            <label class="form-label">Subject:</label>
+                            <label class="form-label">Subject<span class="text-danger">*</span></label>
                              <textarea type="text" class="form-control" name="subject" value=""
-                           placeholder="Subject" rows="3" autocomplete="off" required="">{{ old('subject') }}</textarea>
+                           placeholder="Enter your subject" rows="3" autocomplete="off" required="">{{ old('subject') }}</textarea>
                             </div>
                                 <div class="form-group">
-                                    <label class="form-label">Description:</label>
-                                    <textarea class="form-control" name="description" value="" placeholder="Your description"  required
+                                    <label class="form-label">Description<span class="text-danger">*</span></label>
+                                    <textarea class="form-control" name="description" value="" placeholder="Enter your description"  required
                                         rows="10">{{ old('description') }}</textarea>
                                 </div>
                             </div>

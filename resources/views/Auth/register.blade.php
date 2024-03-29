@@ -11,33 +11,147 @@
     <?php
          include "plugin/css.php";
       ?>
+      {{-- <style>
+         input::placeholder {
+            text-transform: capitalize;
+         }
+      </style> --}}
       <style>
-   .validation-errors {
-    position: fixed;
-    top: 250px;
-    right: 20px;
-    background-color: #ffcccc;
-    border: 1px solid #ff0000;
-    border-radius: 5px;
-    padding: 10px;
-    max-width: 500px;
-    max-height: 200px; /* Set a fixed height */
-    overflow-y: auto; /* Add vertical scrollbar */
-    z-index: 1000; /* Ensure it appears above other content */
-}
+         .validation-errors {
+          position: fixed;
+          top: 250px;
+          right: 20px;
+          background-color: #ffcccc;
+          border: 1px solid #ff0000;
+          border-radius: 5px;
+          padding: 10px;
+          max-width: 500px;
+          max-height: 200px; /* Set a fixed height */
+          overflow-y: auto; /* Add vertical scrollbar */
+          z-index: 1000; /* Ensure it appears above other content */
+      }
+      
+      .validation-errors ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+      }
+      
+      .validation-errors ul li {
+          color: #ff0000;
+          margin-bottom: 5px;
+      }
+      
+      </style>
+      <style>
+         h5 {
+            color: #ffffff;
+            font-weight: 400;
+            background: linear-gradient(58deg, #1e631e, #c8dac8);
+            width: auto;
+            font-size: 20px;
+            line-height: 1;
+            margin: 10px 10px 30px 0px;
+            padding: 14px;
+            border-left: 10px solid #ffc10799;
+            box-shadow: 4px 2px 15px 0px rgb(199 199 199);
+         }
+      
+         span.mt-055 {
+            font-size: 14px;
+            font-weight: 900;
+         }
+      
+         span.mt-056 {
+            font-size: 11px;
+            font-weight: 200;
+         }
+         .toggle-password {
+            float: right;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-top: -25px;
+         }
+         /* Style to make form semi-transparent when loading bar is shown */
+         #reg_publisher_and_distributor_form.loading2 {
+                     opacity: 0.5;
+               }
+               .card.card-padding {
+            padding: 3rem;
+         }
+         /* Style for loading bar */
+         .loading-bar {
+            display: none; /* Initially hide the loading bar */
+            position: fixed;
+            top: 50%; /* Position from the top */
+            left: 50%; /* Position from the left */
+            transform: translate(-50%, -50%); /* Center the loading bar both horizontally and vertically */
+            width: 200px; /* Adjust the width as needed */
+            height: 40px; /* Adjust the height as needed */
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 5px; /* Add border radius for rounded corners */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999; /* Ensure loading bar is above other elements */
+         }
+      
+         /* Style for loading spinner */
+         .spinner-border {
+            width: 1.5rem; /* Adjust the width of the spinner */
+            height: 1.5rem; /* Adjust the height of the spinner */
+            color: #007bff; /* Set the color of the spinner */
+         }
+         button#nav-profile-tab {
+            border-color: white !important;
+         }
+         .nav-tabs {
+    --bs-nav-tabs-border-color: none !important;
+   }
+         /* Style to make form semi-transparent when loading bar is shown */
+         #form_publisher.loading {
+                     opacity: 0.5;
+               }
+                  /* Style to make form semi-transparent when loading bar is shown */
+                  #form_distriputor.loading1 {
+                     opacity: 0.5;
+               }
+                     /* Extra small devices (phones, 600px and down) */
+         @media only screen and (max-width: 600px) {
+            .card.card-padding {
+               padding: 7px;
+            }
+            .custom-control.custom-checkbox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row-reverse;
+            padding: 7px;
+            border: 0.5px solid #bfbfbf7a;
+         }
+         .form-check {
+            padding-left: 30px;
+         }
+         .tpmobile-menu {
+            background-color: white;
+         }
+         }
 
-.validation-errors ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
+         /* Small devices (portrait tablets and large phones, 600px and up) */
+         @media only screen and (min-width: 600px) {
+            
+         }
 
-.validation-errors ul li {
-    color: #ff0000;
-    margin-bottom: 5px;
-}
+         /* Medium devices (landscape tablets, 768px and up) */
+         @media only screen and (min-width: 768px) {
+            
+         }
 
-</style>
+         /* Large devices (laptops/desktops, 992px and up) */
+         @media only screen and (min-width: 992px) {
+            
+         }
+      </style>
 </head>
 
 <body>
@@ -81,10 +195,10 @@
         </div>
     </div>
 @endif
-               <div class="card p-5">
+               <div class="card card-padding">
                   <nav>
                      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
-                     @if($user == "Publisher" || $user == "publisher")
+                        @if($user == "Publisher" || $user == "publisher")
                         <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab"
                            data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
                            aria-selected="false">Book Publisher - <span class="mt-056"> புத்தக
@@ -93,12 +207,16 @@
                         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
                            data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
                            aria-selected="false">Book Distributor - <span class="mt-056"> புத்தக
-                        விற்பனையாளர்</span></button>
+                        விற்பனையாளர்</span></button> --}}
+                        <h4 class="fw-bold">Book Distributor - <span class="mt-055"> புத்தக
+                           விற்பனையாளர்</span></h4>
                         @else
-                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
+                        {{-- <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
                            data-bs-target="#nav-profile1" type="button" role="tab" aria-controls="nav-profile"
-                           aria-selected="false">Book Publisher And Distributor - <span class="mt-056">புத்தக
-                        பதிப்பாளர் மற்றும் விற்பனையாளர்</span></button>
+                           aria-selected="false">Book Publisher Cum Distributor - <span class="mt-056">புத்தக
+                        பதிப்பாளர் மற்றும் விற்பனையாளர்</span></button> --}}
+                        <h4 class="fw-bold">Book Publisher Cum Distributor - <span class="mt-055"> புத்தக
+                           பதிப்பாளர் மற்றும் விற்பனையாளர்</span></h4>
                         @endif
                      </div>
                   </nav>
@@ -123,7 +241,7 @@
                                  class="mt-056">பதிப்பகத்தின் பெயர்</span> <span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control @error('publication_name') is-invalid @enderror" id="inputEmail4"
-                                 name="publication_name" placeholder="Enter publication name"
+                                 name="publication_name" placeholder="Enter the publication name"
                                  required value="{{ old('publication_name') }}"/>
                                  @error('publication_name')
                                  <span class="invalid-feedback" role="alert">
@@ -132,9 +250,7 @@
                              @enderror
                            </div>
                            <div class="row pt-2 pb-2 bo    rder-0">
-                                <div class="card-header">
                                     <h4 class="fw-bold">Login Details  - <span class="mt-055">உள்நுழைவு விவரங்கள்</span></h4>
-                                </div>
 
 
                            <div class="col-md-6 mt-3">
@@ -149,7 +265,7 @@
                               <label for="inputPassword4" class="form-label">Password <span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
-                                 placeholder=" Enter password" minlength="8" maxlength="8" required >
+                                 placeholder=" Enter your password" minlength="8" maxlength="8" required >
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                  @error('password')
                                  <span class="invalid-feedback" role="alert">
@@ -166,9 +282,7 @@
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                            </div>
                         </div>
-                            <div class="card-header">
                                 <h4 class="fw-bold">Publisher Details - <span class="mt-055">பதிப்பக உரிமையாளரின் விவரங்கள்</span></h4>
-                            </div>
                            <div class="col-md-6">
                               <label for="inputEmail4" class="form-label">First Name - <span class="mt-056">முதல்
                               பெயர் </span><span class="text-danger maditory">*</span></label></label>
@@ -203,7 +317,7 @@
                                  class="mt-056">பதிப்பகத்தின் அலுவலக முகவரி</span><span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="text"  value="{{ old('pub_address') }}" class="form-control" id="pub_address" name="pub_address"
-                                 placeholder="Enter your address" required>
+                                 placeholder="Enter the publication address." required>
                            </div>
                            <div class="col-md-6">
                               <label for="inputState" class="form-label">Country - <span
@@ -255,7 +369,7 @@
                               குறியீடு</span><span class="text-danger maditory">*</span></label></label>
                               <input type="number" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="6" maxlength="6" id="pub_pin_code"
-                                 name="pub_pin_code" placeholder="Enter pincode" required>
+                                 name="pub_pin_code" placeholder="Enter your pincode" required>
                            </div>
                            <h4 class="fw-bold">Contact Person Details - <span class="mt-055">தொடர்பு கொள்ள வேண்டிய நபரின் விவரங்கள்</span> </h4>
                            <small>Same as above - (மேற்கூறியவாறு)
@@ -275,7 +389,7 @@
                                  class="mt-056">தொடர்பு நபர் பெயர்</span><span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="text" value="{{ old('contact_person_name') }}" class="form-control" id="contact_person_name"
-                                 name="contact_person_name" placeholder="Enter contact person name" required>
+                                 name="contact_person_name" placeholder="Enter contact person's name" required>
                            </div>
                            <div class=" col-md-6">
                               <label for="inputAddress" class="form-label">Email Id - <span
@@ -299,7 +413,7 @@
                                  class="mt-056">பதிப்பகத்தின் அலுவலக முகவரி</span><span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="text" value="{{ old('con_publication_address') }}" class="form-control" id="con_publication_address"
-                                 name="con_publication_address" placeholder="Enter your address" required>
+                                 name="con_publication_address" placeholder="Enter the publication address." required>
                            </div>
                            <div class="col-md-6">
                               <label for="inputState" class="form-label">Country - <span
@@ -314,7 +428,7 @@
                                   @endforeach
                               </select>
                            </div>
-                           <div class="col-md-3">
+                           <div class="col-md-6">
                               <label for="inputState" class="form-label">State - <span
                                  class="mt-056">மாநிலம்</span><span
                                  class="text-danger maditory">*</span></label></label>
@@ -345,12 +459,12 @@
                               <input type="text" value="{{ old('con_city') }}" class="form-control" id="con_city" name="con_city"
                                  placeholder="Enter your city" required>
                            </div>
-                           <div class="col-md-3">
+                           <div class="col-md-6">
                               <label for="inputZip" class="form-label">Pincode - <span class="mt-056">அஞ்சல்
                               குறியீடு</span><span class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="6" maxlength="6" id="con_pin_code" name="con_pin_code"
-                                 placeholder="Enter pincode" required>
+                                 placeholder="Enter your pincode" required>
                            </div>
 
                            <h4 class="fw-bold">Other Details -<span class="mt-055"> பிற விவரங்கள் </span></h4>
@@ -361,7 +475,7 @@
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" value="{{ old('publication_shop_established_year') }}" minlength="4" maxlength="4" id="inputAddress"
                                  name="publication_shop_established_year"
-                                 placeholder="Enter year of establishment" required>
+                                 placeholder="Enter the year of establishment" required>
                            </div>
                            <div class="col-md-6">
                               <label for="inputAddress" class="form-label">Number of Books Published so far -
@@ -369,14 +483,14 @@
                                  class="text-danger maditory">*</span></label></label>
                               <input type="number" value="{{ old('number_of_books_published_so_for') }}" class="form-control" id="inputAddress"
                                  name="number_of_books_published_so_for"
-                                 placeholder="Enter number of books published so for" required>
+                                 placeholder="Enter the number of books published so far" required>
                            </div>
                            <div class="col-md-6">
                               <label for="inputAddress" class="form-label">Number of Books Published in the Last 3
                               Years -<span class="mt-056"> கடைசி மூன்று வருடங்களில் பதிப்பகத்தில் வெளியிடப்பட்ட  நூல்களின் எண்ணிக்கை</span><span class="text-danger maditory">*</span></label></label>
                               <input type="number" value="{{ old('number_of_books_published_latest_year') }}" class="form-control" id="inputAddress"
                                  name="number_of_books_published_latest_year"
-                                 placeholder="Enter number of books published in the last 3 years" required>
+                                 placeholder="Enter the number of books published in the last 3 years" required>
                            </div>
                            <h4 class="mt-4 fw-bold">Best Seller Titles in Your Publication - <span class="mt-055">நன்கு விற்பனையாகும் நூல்கள் </span></h4>
                            <div class="col-md-12">
@@ -397,11 +511,11 @@
                                              <tr>
                                                 <td><input type="text"
                                                    name="publications_shope_book_title[]"
-                                                   placeholder="Enter title*"
+                                                   placeholder="Enter the title*"
                                                     class="form-control name_list" required /></td>
                                                 <td><input type="text"
                                                    name="publications_shope_book_author[]"
-                                                   placeholder="Enter author*"
+                                                   placeholder="Enter the author*"
                                                   class="form-control name_list" required /></td>
                                                 <td><button type="button" name="add" id="add"
                                                    class="btn btn-success" onclick="">+</button></td>
@@ -454,16 +568,16 @@
                                              </tr>
                                              <tr>
                                                 <td><input type="text" id="trans_title1" name="trans_title[]"
-                                                   placeholder="Enter title*"
+                                                   placeholder="Enter the title *"
                                                    class="form-control name_list"  /></td>
                                                 <td><input type="text" id="trans_author1" name="trans_author[]"
-                                                   placeholder="Enter author*"
+                                                   placeholder="Enter the author *"
                                                    class="form-control name_list"  /></td>
                                                 <td><input type="text" id="trans_from1" name="trans_from[]"
-                                                   placeholder="Enter language from*"
+                                                   placeholder="Enter the language from *"
                                                    class="form-control name_list"  /></td>
                                                 <td><input type="text" id="trans_to1" name="trans_to[]"
-                                                   placeholder="Enter language to * "
+                                                   placeholder="Enter the language to * "
                                                    class="form-control name_list"  /></td>
                                                 <td><button type="button" name="translated1"
                                                    id="translated_pub"
@@ -548,7 +662,7 @@
                                        <div class="table-responsive">
                                           <table class="table table-bordered" id="trans_book_pub_asr">
                                              <tr>
-                                                <th> Award Name - <span class="mt-056"></span><span
+                                                <th> Award Name  <span class="mt-056"></span><span
                                                       class="text-danger maditory">*</span>
                                                 </th>
                                                 <th> Book Title  <span class="mt-056"></span><span
@@ -558,10 +672,10 @@
                                              </tr>
                                              <tr>
                                                 <td><input type="text" id="pub_state_awarded" name="trs_state_awarded[]"
-                                                   placeholder="Enter award name*"
+                                                   placeholder="Enter the award name*"
                                                    class="form-control name_list"/></td>
                                                 <td><input type="text" id="pub_central" name="trs_central_awarded[]"
-                                                   placeholder="Enter title*"
+                                                   placeholder="Enter the title*"
                                                    class="form-control name_list"/></td>
                                                 <td><button type="button" name="trs_central_awarded"
                                                    id="translated_pub_asr"
@@ -575,8 +689,8 @@
                            </div>
 
                            </hr>
-                           <div class="col-md-3 form-group">
-                              <label for="text">Category Of Books Published - <span
+                           <div class="col-xl-3 col-md-6 col-sm-12 col-12 form-group">
+                              <label for="text">Category of Books Published - <span
                                  class="mt-056">பதிப்பிக்கப்பட்ட நூல்களின் வகை</span><span
                                  class="text-danger maditory">*</span></label></label>
                               <div class="custom-control custom-checkbox">
@@ -601,7 +715,7 @@
                                  Books - <span class="mt-056">குழந்தைகள் நூல்கள்</span></label>
                               </div>
                            </div>
-                           <div class="col-md-4 form-group">
+                           <div class="col-xl-4 col-md-12 col-sm-12 col-12 form-group">
                               <label for="text">Specialized Category Books - <span class="mt-056">தங்களின்
                               பதிப்பகத்தின் குறிப்பிடத்தகுந்த பிரிவு</span><span
                                  class="text-danger maditory">*</span></label></label>
@@ -683,7 +797,7 @@
                                  </div>
                               </div> --}}
                            </div>
-                           <div class="col-md-5 form-group">
+                           <div class="col-xl-5 col-md-12 col-sm-12 col-12 form-group">
                               <label for="text">Primary Language of Publication - <span
                                  class="mt-056">வெளியீட்டின் முதன்மை மொழி</span><span
                                  class="text-danger maditory">*</span></label></label>
@@ -708,10 +822,10 @@
                                  <label class="custom-control-label" for="customCheckbox3">Other Indian
                                  Languages -<span class="mt-056"> மற்ற இந்திய மொழிகள்</span></label>
                               </div>
-                              <div class="col-md-12 other_indian_lang">
+                              <div class="col-md-12 other_indian_lang mt-1 mb-1">
                                  <input type="text" class="form-control" id="other_indian_lang"
                                     name="other_indian_language"
-                                    placeholder="Enter other indian languages">
+                                    placeholder="Enter other Indian languages">
                               </div>
 
                               <div class="custom-control custom-checkbox">
@@ -721,7 +835,7 @@
                                  <label class="custom-control-label" for="customCheckbox3">Other Foreign
                                  Languages - <span class="mt-056">மற்ற வெளிநாட்டு மொழிகள்</span></label>
                               </div>
-                              <div class="col-md-12 mt-1 other_foreign_lang">
+                              <div class="col-md-12 mt-1 other_foreign_lang mt-1 mb-1">
                                  <input type="text" class="form-control" id="other_foreign_lang"
                                     name="other_foreign_language"
                                     placeholder="Enter other foreign languages">
@@ -894,7 +1008,7 @@
                                   <label for="latest_book_categories1" class="form-label">Latest Book Catalogue - <span
                                           class="mt-056">அண்மை புத்தக விலைப்பட்டியல்</span><span
                                           class="text-danger maditory">*</span></label>
-                                  <input class="form-control" id="latest_book_categories1" type="file" name="latest_book_categories"
+                                  <input class="form-control" id="latest_book_categories1" type="file" name="latest_book_categories"accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                       required>
                                   <span class="text-success"><a href="{{ asset('Excel/Book catalogue _Sample Excel Format.xlsx') }}" download><small>Download Sample
                                               Excel Format</small></a></span>
@@ -990,25 +1104,24 @@
                                                 <td><input type="text"
                                                    id="name_of_the_subsidiary_publication"
                                                    name="name_of_the_subsidiary_publication[]"
-                                                   placeholder="Enter name of the subsidiary publication "
+                                                   placeholder="Enter the name of the subsidiary publication "
                                                    class="form-control name_list" /></td>
                                                 <td><input type="text"
                                                    id="content_of_the_subsidiary_publication"
                                                    name="name_of_the_subsidiary_publisher[]"
-                                                   placeholder="Enter name of the subsidiary publisher"
+                                                   placeholder="Enter the name of the subsidiary publisher"
                                                    class="form-control name_list" /></td>
                                                 <td><input type="number"
                                                    id="content_of_the_subsidiary_publication_stack"
                                                    name="stack_holder_percentage[]"
-                                                   placeholder="Enter stock holder percentage"
+                                                   placeholder="Enter the stock holder percentage"
                                                    class="form-control name_list" /></td>
                                                 <td> <input class="form-control"
                                                    id="content_of_the_subsidiary_publication_file"
                                                    name="subsidiary_doc[]"
-                                                   placeholder="Enter document" type="file" multiple
+                                                   placeholder="Enter the document" type="file" accept="application/pdf,application/vnd.ms-excel" multiple
                                                    >
-                                                   <span class="text-danger"><small>Doc, PDF other
-                                                   format</small></span>
+                                                   <span class="text-danger"><small> Please Ensure All File Are PDF Format Only</small></span>
                                                 </td>
                                                 <td><button type="button" name="sub_pub_add"
                                                    id="sub_pub_add" class="btn btn-success">+</button>
@@ -1030,8 +1143,8 @@
                               <input class="form-check-input" type="checkbox" id="check2" name="declaration-two"
                                  value="yes" required>
                               <label class="form-check-label">Acknowledge that I will submit five copies each book for review and selection purposes.
-Archiving purpose: To comply with the delivery of books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.
-Review purpose:  send two copies for review of books in Chennai for review. Address to be sent: Anna Centenary Library, Chennai.</label>
+                                 Archiving purpose: To comply with the delivery of books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.
+                                 Review purpose:  send two copies for review of books in Chennai for review. Address to be sent: Anna Centenary Library, Chennai.</label>
                            </div>
                            <div class="form-check">
                               <input class="form-check-input" type="checkbox" id="check3" name="declaration-three"
@@ -1043,9 +1156,9 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  value="yes" required>
                               <label class="form-check-label">I acknowledge that a payment of an application fee is required for each book submission. This fee is necessary to ensure that submissions are taken seriously and to cover the costs associated with evaluating the submissions.</label>
                            </div>
-                           <div class="col-12">
+                           <div class="col-12 text-end">
                               <button type="submit" name="reg_publisher" class="btn btn-primary"
-                                 id="submitBtnPublisher">Next</button>
+                                 id="submitBtnPublisher">Submit</button>
                            </div>
                         </form>
                         <div id="loadingBar" class="loading-bar" style="display: none;">
@@ -1068,15 +1181,15 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                            name="usertype" hidden value="distributor"
                            required />
 
-                           <h4 class="fw-bold">Distribution Details - <span class="mt-055">புத்தக விற்பனையாளர்</span></h4>
+                           <h4 class="fw-bold">Distribution Details  <span class="mt-055"></span></h4>
                            </hr>
                            <div class="col-md-6">
-                              <label for="inputEmail4" class="form-label">Book Distribution Company Name - <span
+                              <label for="inputEmail4" class="form-label">Book Distribution Company Name  <span
                                  class="mt-056"></span><span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" id="book_disttion_company_name"
                                  name="book_dis_company_name"
-                                 placeholder="Enter book distribution company name" required>
+                                 placeholder="Enter the name of the book distribution company" required>
                            </div>
                            <h4 class="fw-bold">Login Details - <span class="mt-055">உள்நுழைவு விவரங்கள்</span><span class="mt-055"> </span></h4>
                             </hr>
@@ -1097,7 +1210,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputPassword4" class="form-label">Password <span
                                  class="text-danger maditory">*</span></label></label>
                                  <input type="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror" id="dis_password" name="password"
-                                 placeholder=" Enter password" minlength="8" maxlength="8" required >
+                                 placeholder=" Enter your password" minlength="8" maxlength="8" required >
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                  @error('password')
                                  <span class="invalid-feedback" role="alert">
@@ -1151,7 +1264,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  class="mt-056">பதிப்பகத்தின் அலுவலக முகவரி</span><span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" id="distn_address" name="distn_address"
-                                 placeholder="Enter your address" required>
+                                 placeholder="Enter the distributor's address" required>
                            </div>
                            <div class="col-md-6">
                               <label for="inputState" class="form-label">Country - <span
@@ -1196,7 +1309,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputZip" class="form-label">Pincode - <span class="mt-056">அஞ்சல்
                               குறியீடு</span><span class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
-                                 class="test_css" minlength="6" maxlength="6" id="distn_pincode" name="distn_pincode"placeholder="Enter pincode"
+                                 class="test_css" minlength="6" maxlength="6" id="distn_pincode" name="distn_pincode"placeholder="Enter your pincode"
                                  required>
                            </div>
 
@@ -1212,7 +1325,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  class="mt-056">தொடர்பு நபர் பெயர்</span><span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" id="con_contact_person_name"
-                                 name="contact_person_name" placeholder="Enter contact person name" required>
+                                 name="contact_person_name" placeholder="Enter contact person's name" required>
                            </div>
                            <div class=" col-md-6">
                               <label for="inputAddress" class="form-label">Email Id - <span
@@ -1235,7 +1348,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  class="mt-056">பதிப்பகத்தின் அலுவலக முகவரி</span><span
                                  class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" id="cont_per_address"
-                                 name="cont_per_address" placeholder="Enter your address" required>
+                                 name="cont_per_address" placeholder="Enter the distributor's address" required>
                            </div>
                            <div class="col-md-6">
                               <label for="inputState" class="form-label">Country - <span class="mt-056">
@@ -1268,7 +1381,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                   @endforeach
                               </select>
                            </div>
-                           <div class="col-md-3">
+                           <div class="col-md-6">
                               <label for="inputCity" class="form-label">City - <span class="mt-056">
                               நகரம்</span><span class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" id="cont_per_city" name="cont_per_city"
@@ -1276,12 +1389,12 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                            </div>
 
 
-                           <div class="col-md-3">
+                           <div class="col-md-6">
                               <label for="inputZip" class="form-label">Pincode - <span class="mt-056">அஞ்சல்
                               குறியீடு</span><span class="text-danger maditory">*</span></label></label>
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="6" maxlength="6" id="cont_per_pincode"
-                                 name="cont_per_pincode"placeholder="Enter pincode" required>
+                                 name="cont_per_pincode"placeholder="Enter your pincode" required>
                            </div>
 
                            <h4 class="fw-bold">Other Details -<span class="mt-055"> பிற விவரங்கள் </span></h4>
@@ -1295,7 +1408,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="4" maxlength="4" id="yr_of_establishment"
                                  name="yr_of_establishment"
-                                 placeholder="Enter year of establishment" required>
+                                 placeholder="Enter the year of establishment" required>
                               </div>
                            <div class="col-md-6 ">
                               <label for="inputavailable" class="form-label">Number of Titles Available in Your Shop
@@ -1303,7 +1416,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               எண்ணிக்கை</span><span class="text-danger maditory">*</span></label></label>
                               <input type="number" class="form-control" id="number_of_files_available_in_shop"
                                  name="number_of_files_available_in_shop"
-                                 placeholder="Enter number of titles available in your shop" required>
+                                 placeholder="Enter the number of titles available in your shop" required>
                            </div>
                            <h4 class="fw-bold">Language Details - <span class="mt-055">மொழி விவரங்கள்</span></h4>
                            </hr>
@@ -1343,7 +1456,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               </div>
                               <div class="col-md-12 mt-1 mb-1 other_indian_lang2">
                                  <input type="text" class="form-control" id="other_indian_lang2"
-                                    name="otherIndian" placeholder="Enter other india languages">
+                                    name="otherIndian" placeholder="Enter other Indian languages">
                               </div>
                               <div class="custom-control custom-checkbox">
                                  <input type="checkbox" id="other_forign_lag2" value="otherForeign"
@@ -1377,15 +1490,15 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                                 <th>Add</th>
                                              </tr>
                                              <tr>
-                                                <td><input type="text" name="publisher_name[]"
-                                                   placeholder="Enter publisher name*"
+                                                <td data-title="Publisher Name"><input type="text" name="publisher_name[]"
+                                                   placeholder="Enter  the publisher name*"
                                                    class="form-control name_list" required /></td>
-                                                <td><input type="text" name="publisher_place[]"
-                                                   placeholder="Enter place*"
+                                                <td data-title="Place"><input type="text" name="publisher_place[]"
+                                                   placeholder="Enter the place*"
                                                    class="form-control name_list" required /></td>
-                                                <td><input type="file" name="authorization_letter[]"
-                                                    class="form-control name_list" required /></td>
-                                                <td><button type="button" name="distribution_book"
+                                                <td data-title="Authorization Letter From Publisher"><input type="file" name="authorization_letter[]"
+                                                    class="form-control name_list" accept="application/pdf,application/vnd.ms-excel" required /></td>
+                                                <td data-title="Add"><button type="button" name="distribution_book"
                                                    id="distribution_book"
                                                    class="btn btn-success">+</button></td>
                                              </tr>
@@ -1413,7 +1526,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                     class="mt-056">அண்மை புத்தக விலைப்பட்டியல்</span><span
                                     class="text-danger maditory">*</span></label></label>
                                  <input class="form-control" id="latest_book_categories2" type="file"
-                                    name="latest_book_categories" required>
+                                    name="latest_book_categories" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" required>
                                  <span class="text-success"><a href="{{ asset('Excel/Book catalogue _Sample Excel Format.xlsx') }}" download><small>Download Sample Excel Format</small></a></span>
                               </div>
                            </div>
@@ -1421,10 +1534,12 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                            </hr>
                            <div class="col-md-6  form-group ">
                               <label for="inputState" class="form-label" for="for">
-                              Nature of Your Publication Ownership - <span class="mt-056">உங்கள் வெளியீட்டு உரிமையின் தன்மை
-                            </span>
+                              Nature of Your Publication Ownership 
+                              {{-- <span class="mt-056">உங்கள் வெளியீட்டு உரிமையின் தன்மை
+                            </span> --}}
                               <span class="text-danger maditory">*</span>
-                              </label>
+                              </label><br>
+                              <small class="text-danger">Please Ensure All File Are PDF Format Only</small>
                               <select name="dis_ownership" class="wide form-control" id="dis_ownership" required>
 
                                  <option value="" selected>Select Anyone</option>
@@ -1509,10 +1624,9 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                                 <td> <input class="form-control"
                                                    id="file_of_the_subsidiary_distributor"
                                                    name="subsidiary_name_distributor_file[]"
-                                                   placeholder="Enter Document" type="file" multiple
+                                                   placeholder="Enter Document" type="file" accept="application/pdf,application/vnd.ms-excel" multiple
                                                  >
-                                                   <span class="text-danger"><small>Doc, PDF other
-                                                   format</small></span>
+                                                   <span class="text-danger"><small>Please Ensure All File Are PDF Format Only</small></span>
                                                 </td>
                                                 <td><button type="button" name="sub_dis_add_newdis"
                                                    id="sub_dis_add_newdis"
@@ -1548,9 +1662,9 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  value="yes" required>
                               <label class="form-check-label">I acknowledge that a payment of an application fee is required for each book submission. This fee is necessary to ensure that submissions are taken seriously and to cover the costs associated with evaluating the submissions.</label>
                            </div>
-                           <div class="col-12">
+                           <div class="col-12 text-end">
                               <button type="submit" name="book_distributor" class="btn btn-primary"
-                                 id="submitbtn_book_distributor">Next</button>
+                                 id="submitbtn_book_distributor">Submit</button>
                            </div>
                         </form>
                         <div id="loadingBar1" class="loading-bar" style="display: none;">
@@ -1574,12 +1688,12 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                            <h4 class="fw-bold">Publication Details - <span class="mt-055">பதிப்பு விவரம்</span></h4>
                            </hr>
                            <div class="col-md-6">
-                              <label for="inputEmail4" class="form-label"> Publisher Name / Distributor Name - <span
+                              <label for="inputEmail4" class="form-label"> Book Publisher Cum Distributor - <span
                                  class="mt-056">பதிப்பாளரின் பெயர் / விற்பனையாளரின் பெயர் </span><span
                                  class="text-danger maditory">*</span></label>
                               <input type="text" class="form-control" id="publication_name_dist_name"
                                  name="publication_name_dist_name"
-                                 placeholder="Enter publisher name / distributor name" required>
+                                 placeholder="Enter the book publisher cum distributor" required>
                            </div>
                            <h4 class="fw-bold">Login Details - <span class="mt-055">உள்நுழைவு விவரங்கள்</span> <span class="mt-055"> </span></h4>
                            </hr>
@@ -1600,7 +1714,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               <label for="inputPassword4" class="form-label">Password <span
                                  class="text-danger maditory">*</span></label></label>
                                  <input type="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror" id="pub_dis_password" name="password"
-                                 placeholder=" Enter password" minlength="8" maxlength="8"  required >
+                                 placeholder=" Enter your password" minlength="8" maxlength="8"  required >
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                  @error('password')
                                  <span class="invalid-feedback" role="alert">
@@ -1617,7 +1731,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  name="conform_password" placeholder="Enter your confirm password"  minlength="8" maxlength="8" required>
                                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                            </div>
-                           <h4 class="fw-bold">Book Publisher and Distributor Details - <span class="mt-055"> புத்தக பதிப்பாளர்
+                           <h4 class="fw-bold">Book Publisher Cum Distributor Details - <span class="mt-055"> புத்தக பதிப்பாளர்
                               மற்றும் விற்பனையாளர் விவரங்கள்</span>
                            </h4>
                            </hr>
@@ -1704,7 +1818,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               குறியீடு</span><span class="text-danger maditory">*</span></label>
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="6" maxlength="6" id="dst_publication_pincode"
-                                 name="publication_pincode"placeholder="Enter pincode" required>
+                                 name="publication_pincode"placeholder="Enter your pincode" required>
                            </div>
 
                            <h4 class="fw-bold">Contact Person Details - <span class="mt-055">தொடர்பு கொள்ள வேண்டிய நபரின் விவரங்கள்</span></h4>
@@ -1719,7 +1833,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  class="mt-056">தொடர்பு நபர் பெயர்</span><span
                                  class="text-danger maditory">*</span></label>
                               <input type="text" class="form-control" id="publication_contact_person_name"
-                                 name="publication_contact_person_name" placeholder="Enter contact person Name"
+                                 name="publication_contact_person_name" placeholder="Enter contact person's name"
                                  required>
                            </div>
                            <div class=" col-md-6">
@@ -1756,7 +1870,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                @endforeach
                               </select>
                            </div>
-                           <div class="col-md-3">
+                           <div class="col-md-6">
                               <label for="inputState" class="form-label">State - <span
                                  class="mt-056">மாநிலம்</span><span
                                  class="text-danger maditory">*</span></label>
@@ -1788,12 +1902,12 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  name="publication_contact_person_city" placeholder="Enter your city" required>
                            </div>
 
-                           <div class="col-md-3">
+                           <div class="col-md-6">
                               <label for="inputZip" class="form-label">Pincode - <span class="mt-056">அஞ்சல்
                               குறியீடு</span><span class="text-danger maditory">*</span></label>
                               <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="6" maxlength="6" id="publication_contact_person_pincode"
-                                 name="publication_contact_person_pincode"placeholder="Enter pincode" required>
+                                 name="publication_contact_person_pincode"placeholder="Enter your pincode" required>
                            </div>
 
                            <h4 class="fw-bold">Other Details -<span class="mt-055"> பிற விவரங்கள் </span></h4>
@@ -1806,7 +1920,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  <input type="text" class="form-control" oninput="numberOnly(this.id);"
                                  class="test_css" minlength="4" maxlength="4" id="year_of_establishment"
                                  name="year_of_establishment"
-                                 placeholder="Enter year of establishment" required>
+                                 placeholder="Enter the year of establishment" required>
                            </div>
                            <div class="col-md-6">
                               <label for="inputAddress" class="form-label">Number of Books Published so
@@ -1814,14 +1928,14 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  class="text-danger maditory">*</span></label>
                               <input type="number" class="form-control" id="number_of_books_published_so_for"
                                  name="number_of_books_published_so_for"
-                                 placeholder="Enter number of books published so for" required>
+                                 placeholder="Enter the number of books published so for" required>
                            </div>
                            <div class="col-md-6">
                               <label for="inputAddress" class="form-label">Number of Books Published in the last 3
                               years - <span class="mt-056">கடைசி மூன்று வருடங்களில்  பதிப்பகத்தில் வெளியிடப்பட்ட நூல்களின் எண்ணிக்கை</span><span class="text-danger maditory">*</span></label>
                               <input type="number" class="form-control" id="number_of_books_published_latest_year"
                                  name="number_of_books_published_latest_year"
-                                 placeholder="Enter number of books published in the last 3 years" required>
+                                 placeholder="Enter the number of books published in the last 3 years" required>
                            </div>
 
                            <div class="col-md-6 ">
@@ -1829,7 +1943,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                               - <span class="mt-056">உங்கள் கடையில் கிடைக்கும் தலைப்புகளின் எண்ணிக்கை</span><span class="text-danger maditory">*</span></label>
                               <input type="number" class="form-control" id="number_of_files_available_your_shop"
                                  name="number_of_files_available_your_shop"
-                                 placeholder="Enter number of titles available in your shop" required>
+                                 placeholder="Enter the number of titles available in your shop" required>
                            </div>
                            <h4 class="fw-bold">Name of Publishers in your Distribution other then your Publication - <span
                               class="mt-055">உங்கள் விற்பனையாளர் உள்ள பதிப்பாளர் பெயர் மற்றொன்று உங்கள்
@@ -1860,14 +1974,14 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                              </tr>
                                              <tr>
                                                 <td><input type="text" name="publisher_name[]"
-                                                   placeholder="Enter publisher name"
+                                                   placeholder="Enter the publisher name *"
                                                    class="form-control name_list" required /></td>
                                                 <td><input type="text" name="publisher_place[]"
-                                                   placeholder="Enter place"
+                                                   placeholder="Enter the place *"
                                                    class="form-control name_list" required /></td>
-                                                   <td><input type="file" name="authorization_letter[]"
+                                                   <td><input type="file" accept="application/pdf,application/vnd.ms-excel" name="authorization_letter[]"
                                                     class="form-control name_list" required /></td>
-                                                <td><button type="button" name="distribution2"
+                                                <td><button type="button" name="distribution2" 
                                                    id="publisher_distribution_add"
                                                    class="btn btn-success">+</button></td>
                                              </tr>
@@ -1897,10 +2011,10 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                              </tr>
                                              <tr>
                                                 <td><input type="text" name="publication_title[]"
-                                                   placeholder="Enter title"
+                                                   placeholder="Enter the title *"
                                                    class="form-control name_list" required /></td>
                                                 <td><input type="text" name="publication_author[]"
-                                                   placeholder="Enter author"
+                                                   placeholder="Enter the author *"
                                                    class="form-control name_list" required /></td>
                                                 <td><button type="button"
                                                    name="publisher_distribution_add_btn"
@@ -1953,22 +2067,23 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                                    மொழியிலிருந்து</span><span
                                                       class="text-danger maditory">*</span>
                                                 </th>
-                                                <th>Language To - <span class="mt-056">எந்த மொழிக்கு</span>*
+                                                <th>Language To - <span class="mt-056">எந்த மொழிக்கு</span><span
+                                                   class="text-danger maditory">*</span>
                                                 </th>
                                                 <th>Add</th>
                                              </tr>
                                              <tr>
                                                 <td><input type="text" id="trans_title2" name="trans_title[]"
-                                                   placeholder="Enter title"
+                                                   placeholder="Enter the title *"
                                                    class="form-control name_list"/></td>
                                                 <td><input type="text" id="trans_author2" name="trans_author[]"
-                                                   placeholder="Enter author"
+                                                   placeholder="Enter the author *"
                                                    class="form-control name_list"/></td>
                                                 <td><input type="text" id="trans_from2" name="trans_from[]"
-                                                   placeholder="Enter language from"
+                                                   placeholder="Enter the language from *"
                                                    class="form-control name_list"/></td>
                                                 <td><input type="text"id="trans_to2" name="trans_to[]"
-                                                   placeholder="Enter language to  "
+                                                   placeholder="Enter the language to  * "
                                                    class="form-control name_list"/></td>
                                                 <td><button type="button" name="translated1_lby"
                                                    id="translated_pub_dis_lby"
@@ -2012,7 +2127,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                           <div class="table-responsive">
                                               <table class="table table-bordered" id="trans_book_pub_dis_asrmy">
                                                   <tr>
-                                                      <th> Award Name - <span class="mt-056"></span><span
+                                                      <th> Award Name  <span class="mt-056"></span><span
                                                               class="text-danger maditory">*</span>
                                                       </th>
                                                       <th> Book Title <span class="mt-056"></span><span
@@ -2022,10 +2137,10 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                                   </tr>
                                                   <tr>
                                                       <td><input type="text" name="trs_state_awarded_dis_pub[]" id="pub_test"
-                                                              placeholder="Enter award name*"
+                                                              placeholder="Enter the award name*"
                                                               class="form-control name_list" /></td>
                                                       <td><input type="text" name="trs_central_awarded_dis_pub[]" id="pub_testone"
-                                                              placeholder="Enter title*"
+                                                              placeholder="Enter the title*"
                                                               class="form-control name_list" /></td>
                                                       <td><button type="button" name="trs_central_awarded"
                                                               id="translated_pub_dis_asrmy"
@@ -2039,7 +2154,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                           </div>
 
                            </hr>
-                           <div class="col-md-3 form-group">
+                           <div class="col-xl-3 col-md-6 col-sm-12 col-12 form-group">
                               <label for="text">Category of Books Published - <span
                                  class="mt-056">பதிப்பிக்கப்பட்ட
                               நூல்களின் வகை</span><span class="text-danger maditory">*</span></label>
@@ -2065,7 +2180,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  Books - <span class="mt-056">குழந்தைகள் நூல்கள்</span></label>
                               </div>
                            </div>
-                           <div class="col-md-4 form-group">
+                           <div class="col-xl-4 col-md-12 col-sm-12 col-12 form-group">
                               <label for="text">Specialized Category Books - <span class="mt-056">தங்களின்
                               பதிப்பகத்தின் குறிப்பிடத்தகுந்த பிரிவு</span><span
                                  class="text-danger maditory">*</span></label>
@@ -2147,7 +2262,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  </div>
                               </div> --}}
                            </div>
-                           <div class="col-md-5 form-group">
+                           <div class="col-xl-5 col-md-12 col-sm-12 col-12 form-group">
                               <label for="text">Primary Language of Publication - <span class="mt-056">
                               வெளியீட்டின் முதன்மை மொழி</span><span
                                  class="text-danger maditory">*</span></label>
@@ -2197,7 +2312,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                   <label for="latest_book_categories3" class="form-label">Latest Book Catalogue - <span
                                           class="mt-056">அண்மை புத்தக விலைப்பட்டியல்</span><span
                                           class="text-danger maditory">*</span></label>
-                                  <input class="form-control" id="latest_book_categories3" type="file" name="latest_book_categories"
+                                  <input class="form-control" id="latest_book_categories3" type="file" name="latest_book_categories" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                                       required>
                                   <span class="text-success"><a href="{{ asset('Excel/Book catalogue _Sample Excel Format.xlsx') }}" download><small>Download Sample
                                               Excel Format</small></a></span>
@@ -2205,32 +2320,35 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                           </div>
                            <h4 class="fw-bold">Nature of Your Publication Ownership</h4>
                            </hr>
-                           <div class="col-md-6  form-group ">
-                              <label for="inputState" class="form-label" for="for">
-                              Nature of Your Publication Ownership - <span class="mt-056">உங்கள் வெளியீட்டு உரிமையின் தன்மை
-                            </span>
-                              <span class="text-danger maditory">*</span>
-                              </label>
-                              <select name="pub_dis_ownership" class="wide form-control" id="pub_dis_ownership" required>
-
-                                 <option value="" selected>Select Anyone</option>
-
-                                 <option value="Publication">Public Limited</option>
-                                 <option value="Private">Private Limited</option>
-                                 <option value="limited">Limited Liability Partnership(LLP)</option>
-                                 <option value="Partnership">Partnership Firm</option>
-                                 <option value="oneperson">Proprietorship</option>
-                                 {{-- <option value="society">Society-Trust</option> --}}
-                                 <option value="trust">Private Trust</option>
-                                 <option value="society">Private Society</option>
-                                 <option value="institutional">Government Institutional Publication</option>
-                                 <option value="trust-foundation">Government Trust/Foundation Publication</option>
-                                 <option value="government-society">Government Society Publication</option>
-                              </select>
-                           </div>
-                           <div class="col-md-6" id="id_proof_data">
-                              <div class="pub_dis_user_file_input"></div>
-
+                           <div class="row">
+                              <div class="col-md-6  form-group ">
+                                 <label for="inputState" class="form-label" for="for">
+                                 Nature of Your Publication Ownership - <span class="mt-056">உங்கள் வெளியீட்டு உரிமையின் தன்மை
+                               </span><br>
+                               <small class="text-danger">Please Ensure All File Are PDF Format Only</small>
+                                 <span class="text-danger maditory">*</span>
+                                 </label>
+                                 <select name="pub_dis_ownership" class="wide form-control" id="pub_dis_ownership" required>
+   
+                                    <option value="" selected>Select Anyone</option>
+   
+                                    <option value="Publication">Public Limited</option>
+                                    <option value="Private">Private Limited</option>
+                                    <option value="limited">Limited Liability Partnership(LLP)</option>
+                                    <option value="Partnership">Partnership Firm</option>
+                                    <option value="oneperson">Proprietorship</option>
+                                    {{-- <option value="society">Society-Trust</option> --}}
+                                    <option value="trust">Private Trust</option>
+                                    <option value="society">Private Society</option>
+                                    <option value="institutional">Government Institutional Publication</option>
+                                    <option value="trust-foundation">Government Trust/Foundation Publication</option>
+                                    <option value="government-society">Government Society Publication</option>
+                                 </select>
+                              </div>
+                              <div class="col-md-6" id="id_proof_data">
+                                 <div class="pub_dis_user_file_input"></div>
+   
+                              </div>
                            </div>
 
                            </hr>
@@ -2265,40 +2383,41 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                              id="tbl_subsidiary_publishcation_no">
                                              <tr>
                                                 <th> Name of the subsidiary book publisher and
-                                                   distributor*
+                                                   distributor <span
+                                                   class="text-danger maditory"> *</span>
                                                 </th>
                                                 <th> Name of the subsidiary book publication and
-                                                   distribution*
+                                                   distribution<span
+                                                   class="text-danger maditory"> *</span>
                                                 </th>
                                                 <th>Stock holder percentage<span
-                                                   class="text-danger maditory">*</span></th>
-                                                <th>Document<span class="text-danger maditory">*</span></th>
+                                                   class="text-danger maditory"> *</span></th>
+                                                <th>Document<span class="text-danger maditory"> *</span></th>
                                                 <th>Add</th>
 
                                              </tr>
                                              <tr>
                                                 <td><input type="text"
                                                    name="subsidiary_publisher_distributor[]"
-                                                   placeholder="Enter name of the subsidiary book publisher and distributor"
+                                                   placeholder="Enter the name of the subsidiary book publisher and distributor"
                                                    class="form-control name_list"
                                                    id="subsidiary_publisher_distributor" /></td>
                                                 <td><input type="text"
                                                    name="subsidiary_publication_distribution[]"
-                                                   placeholder="Enter name of the subsidiary book publication and distribution"
+                                                   placeholder="Enter the name of the subsidiary book publication and distribution"
                                                    class="form-control name_list"
                                                    id="subsidiary_publication_distribution" /></td>
                                                 <td><input type="number"
                                                    id="subsidiary_stackpercentage"
                                                    name="subsidiary_stackpercentage[]"
-                                                   placeholder="Enter stock holder percentage"
+                                                   placeholder="Enter the stock holder percentage"
                                                    class="form-control name_list" /></td>
                                                 <td> <input class="form-control"
                                                    id="subsidiary_publication_distribution_file"
                                                    name="subsidiary_publication_distribution_file[]"
-                                                   placeholder="Enter document" type="file" multiple
+                                                   placeholder="Enter the document" type="file" accept="application/pdf,application/vnd.ms-excel" multiple
                                                    >
-                                                   <span class="text-danger"><small>Doc, PDF other
-                                                   format</small></span>
+                                                   <span class="text-danger"><small>Please Ensure All File Are PDF Format Only</small></span>
                                                 </td>
                                                 <td><button type="button" name="sub_pub_name_op"
                                                    id="sub_pub_name_op"
@@ -2334,7 +2453,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  value="yes" required>
                               <label class="form-check-label">I acknowledge that a payment of an application fee is required for each book submission. This fee is necessary to ensure that submissions are taken seriously and to cover the costs associated with evaluating the submissions.</label>
                            </div>
-                           <div class="col-12">
+                           <div class="col-12 text-end ">
                               <button type="submit" name="reg_publisher_and_distributor" class="btn btn-primary"
                                  id="reg_publisher_and_distributor">Submit</button>
                            </div>
@@ -2396,7 +2515,6 @@ toastr.success("{{ Session::get('success') }}",{timeout:15000});
 toastr.error("{{ Session::get('error') }}",{timeout:15000});
 
 </script>
-
 
 @endif
 </html>

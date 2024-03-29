@@ -12,7 +12,15 @@
     <?php
          include "plugin/css.php";
       ?>
-
+<style>
+    .category__item {
+    min-height: 230px;
+    text-align: center;
+    background-color: var(--tp-common-white);
+    border-radius: 10px;
+    padding: 30px 10px 25px 10px;
+}
+</style>
 </head>
 
 <body>
@@ -109,7 +117,29 @@
                            </div> -->
                             </div>
                             <div class="tpshop__widget mb-30 pb-25">
-                                <h4 class="tpshop__widget-title mb-20">FILTER BY PRICE</h4>
+                                <h4 class="tpshop__widget-title">Product English Categories</h4>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6">
+                                    <label class="form-check-label" for="flexCheckDefault6">
+                                      Biography (05)
+                                    </label>
+                                 </div>
+                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7">
+                                    <label class="form-check-label" for="flexCheckDefault7">
+                                      Non-fiction (04)
+                                    </label>
+                                 </div>
+                                 <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8">
+                                    <label class="form-check-label" for="flexCheckDefault8">
+                                      Children's literature (08)
+                                    </label>
+                                 </div>
+
+                            </div>
+                            <div class="tpshop__widget mb-30 pb-25">
+                                {{-- <h4 class="tpshop__widget-title mb-20">FILTER BY PRICE</h4>
                                 <div class="productsidebar">
                                     <div class="productsidebar__head">
                                     </div>
@@ -118,9 +148,48 @@
                                         <div class="price-filter mt-10"><input type="text" id="amount">
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="productsidebar__btn mt-15 mb-15">
                                     <a href="#" id="filterButton">FILTER</a>
+                                </div>
+                            </div>
+                            <div class="tpshop__widget mb-30 pb-25">
+                                <h4 class="tpshop__widget-title">FILTER BY AUTHOR</h4>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault18">
+                                    <label class="form-check-label" for="flexCheckDefault18">
+                                        Sanjeev Joshi
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault19">
+                                    <label class="form-check-label" for="flexCheckDefault19">
+                                        Sanjeev Joshi
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault20">
+                                    <label class="form-check-label" for="flexCheckDefault20">
+                                        Sanjeev Joshi
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault21">
+                                    <label class="form-check-label" for="flexCheckDefault21">
+                                        Sanjeev Joshi
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault22">
+                                    <label class="form-check-label" for="flexCheckDefault22">
+                                        Sanjeev Joshi
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault23">
+                                    <label class="form-check-label" for="flexCheckDefault23">
+                                        PSanjeev Joshi
+                                    </label>
                                 </div>
                             </div>
                             <!-- <div class="tpshop__widget mb-30 pb-25">
@@ -279,88 +348,120 @@
                             <div class="tpshop__banner mb-30" style="background-size: 100%;"
                                 data-background="https://img.lovepik.com/background/20211022/large/lovepik-a-book-that-blossomed-in-the-dark-background-image_500602193.jpg">
                                 <div class="tpshop__content text-center">
-                                    <span>The Salad</span>
-                                    <h4 class="tpshop__content-title mb-20">Fresh & Natural <br>Healthy Food Special
-                                        Offer</h4>
-                                    <p>Do not miss the current offers of us!</p>
+                                    
+                                    <h4 class="text-white">
+                                        அகர முதல எழுத்தெல்லாம் ஆதி<br>
+                                        பகவன் முதற்றே உலகு</h4>
+                                        <p><b>குறள் விளக்கம் :</b><br>
+                                             எழுத்துக்கள் எல்லாம் அகரத்தை அடிப்படையாக<br> கொண்டிருக்கின்றன. அதுபோல உலகம் கடவுளை<br> அடிப்படையாக கொண்டிருக்கிறது.</p>
                                 </div>
                             </div>
-                            <div class="product__filter-content mb-40">
-                                <div class="row align-items-center">
-                                    <div class="col-sm-4">
-                                        <div class="product__item-count">
-                                            <span>Showing 1 - 18 of 40 Products</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div
-                                            class="tpproductnav tpnavbar product-filter-nav d-flex align-items-center justify-content-center">
-                                            <nav>
-                                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                    <button class="nav-link active" id="nav-all-tab"
-                                                        data-bs-toggle="tab" data-bs-target="#nav-all" type="button"
-                                                        role="tab" aria-controls="nav-all" aria-selected="false">
-                                                        <i>
-                                                            <svg width="22" height="16" viewBox="0 0 22 16" fill="none"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M2 10C3.10457 10 4 9.10457 4 8C4 6.89543 3.10457 6 2 6C0.89543 6 0 6.89543 0 8C0 9.10457 0.89543 10 2 10Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M2 16C3.10457 16 4 15.1046 4 14C4 12.8954 3.10457 12 2 12C0.89543 12 0 12.8954 0 14C0 15.1046 0.89543 16 2 16Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M8 4C9.10457 4 10 3.10457 10 2C10 0.89543 9.10457 0 8 0C6.89543 0 6 0.89543 6 2C6 3.10457 6.89543 4 8 4Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M8 16C9.10457 16 10 15.1046 10 14C10 12.8954 9.10457 12 8 12C6.89543 12 6 12.8954 6 14C6 15.1046 6.89543 16 8 16Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M14 4C15.1046 4 16 3.10457 16 2C16 0.89543 15.1046 0 14 0C12.8954 0 12 0.89543 12 2C12 3.10457 12.8954 4 14 4Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M14 10C15.1046 10 16 9.10457 16 8C16 6.89543 15.1046 6 14 6C12.8954 6 12 6.89543 12 8C12 9.10457 12.8954 10 14 10Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M14 16C15.1046 16 16 15.1046 16 14C16 12.8954 15.1046 12 14 12C12.8954 12 12 12.8954 12 14C12 15.1046 12.8954 16 14 16Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M20 4C21.1046 4 22 3.10457 22 2C22 0.89543 21.1046 0 20 0C18.8954 0 18 0.89543 18 2C18 3.10457 18.8954 4 20 4Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M20 10C21.1046 10 22 9.10457 22 8C22 6.89543 21.1046 6 20 6C18.8954 6 18 6.89543 18 8C18 9.10457 18.8954 10 20 10Z"
-                                                                    fill="currentColor" />
-                                                                <path
-                                                                    d="M20 16C21.1046 16 22 15.1046 22 14C22 12.8954 21.1046 12 20 12C18.8954 12 18 12.8954 18 14C18 15.1046 18.8954 16 20 16Z"
-                                                                    fill="currentColor" />
-                                                            </svg>
-                                                        </i>
-                                                    </button>
-                                                </div>
-                                            </nav>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="col-sm-4">
-                                        <div class="product__navtabs d-flex justify-content-end align-items-center">
-                                            <div class="tp-shop-selector">
-                                                <select style="display: none;">
-                                                    <option>Default sorting</option>
-                                                    <option>Show 14</option>
-                                                    <option>Show 08</option>
-                                                    <option>Show 20</option>
-                                                </select>
-
+       
+                            <div class="tpshop__category">
+                                <div class="swiper-container inner-category-active">
+                                   <div class="swiper-wrapper">
+                                    @foreach($categori as $val)
+                                      <div class="swiper-slide">
+                                         <div class="category__item mb-30">
+                                            <div class="category__thumb fix mb-15">
+                                               <a href="#"><img src="{{ asset('admin/categorieImage/' . $val->categorieImage) }}" alt="category-thumb"></a>
                                             </div>
-                                        </div>
-                                    </div> --}}
+                                            <div class="category__content">
+                                               <h5 class="category__title"><a href="#">{{$val->name}}</a></h5>
+                                            </div>
+                                         </div>
+                                      </div>
+                                      @endforeach
+                                      {{-- @foreach($categori1 as $val)
+                                      <div class="swiper-slide">
+                                         <div class="category__item mb-30">
+                                            <div class="category__thumb fix mb-15">
+                                               <a href="shop-details-3.html"><img src="https://static.vecteezy.com/system/resources/previews/004/540/871/original/vintage-slogan-typography-books-and-coffee-for-t-shirt-design-vector.jpg" alt="category-thumb"></a>
+                                            </div>
+                                            <div class="category__content">
+                                               <h5 class="category__title"><a href="shop-details-3.html">{{$val->name}}</a></h5>
+                                            </div>
+                                         </div>
+                                      </div>
+                                      @endforeach --}}
+                                   </div>
                                 </div>
-                            </div>
+                             </div>
+                            <div class="product__filter-content mb-30">
+                                <div class="row align-items-center">
+                                   <div class="col-sm-4">
+                                      <div class="product__item-count">
+                                         <span>Showing 1 - 18 of 40 Products</span>
+                                      </div>
+                                   </div>
+                                   <div class="col-sm-4">
+                                      <div class="tpproductnav tpnavbar product-filter-nav d-flex align-items-center justify-content-center">
+                                         <nav>
+                                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                               <button class="nav-link" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="false">
+                                                  <i>
+                                                     <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z" fill="currentColor"/>
+                                                        <path d="M2 10C3.10457 10 4 9.10457 4 8C4 6.89543 3.10457 6 2 6C0.89543 6 0 6.89543 0 8C0 9.10457 0.89543 10 2 10Z" fill="currentColor"/>
+                                                        <path d="M2 16C3.10457 16 4 15.1046 4 14C4 12.8954 3.10457 12 2 12C0.89543 12 0 12.8954 0 14C0 15.1046 0.89543 16 2 16Z" fill="currentColor"/>
+                                                        <path d="M8 4C9.10457 4 10 3.10457 10 2C10 0.89543 9.10457 0 8 0C6.89543 0 6 0.89543 6 2C6 3.10457 6.89543 4 8 4Z" fill="currentColor"/>
+                                                        <path d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z" fill="currentColor"/>
+                                                        <path d="M8 16C9.10457 16 10 15.1046 10 14C10 12.8954 9.10457 12 8 12C6.89543 12 6 12.8954 6 14C6 15.1046 6.89543 16 8 16Z" fill="currentColor"/>
+                                                        <path d="M14 4C15.1046 4 16 3.10457 16 2C16 0.89543 15.1046 0 14 0C12.8954 0 12 0.89543 12 2C12 3.10457 12.8954 4 14 4Z" fill="currentColor"/>
+                                                        <path d="M14 10C15.1046 10 16 9.10457 16 8C16 6.89543 15.1046 6 14 6C12.8954 6 12 6.89543 12 8C12 9.10457 12.8954 10 14 10Z" fill="currentColor"/>
+                                                        <path d="M14 16C15.1046 16 16 15.1046 16 14C16 12.8954 15.1046 12 14 12C12.8954 12 12 12.8954 12 14C12 15.1046 12.8954 16 14 16Z" fill="currentColor"/>
+                                                        <path d="M20 4C21.1046 4 22 3.10457 22 2C22 0.89543 21.1046 0 20 0C18.8954 0 18 0.89543 18 2C18 3.10457 18.8954 4 20 4Z" fill="currentColor"/>
+                                                        <path d="M20 10C21.1046 10 22 9.10457 22 8C22 6.89543 21.1046 6 20 6C18.8954 6 18 6.89543 18 8C18 9.10457 18.8954 10 20 10Z" fill="currentColor"/>
+                                                        <path d="M20 16C21.1046 16 22 15.1046 22 14C22 12.8954 21.1046 12 20 12C18.8954 12 18 12.8954 18 14C18 15.1046 18.8954 16 20 16Z" fill="currentColor"/>
+                                                        </svg>
+                                                  </i>
+                                               </button>
+                                               <button class="nav-link active" id="nav-popular-tab" data-bs-toggle="tab" data-bs-target="#nav-popular" type="button" role="tab" aria-controls="nav-popular" aria-selected="true">
+                                                  <i>
+                                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z" fill="currentColor"/>
+                                                        <path d="M2 10C3.10457 10 4 9.10457 4 8C4 6.89543 3.10457 6 2 6C0.89543 6 0 6.89543 0 8C0 9.10457 0.89543 10 2 10Z" fill="currentColor"/>
+                                                        <path d="M2 16C3.10457 16 4 15.1046 4 14C4 12.8954 3.10457 12 2 12C0.89543 12 0 12.8954 0 14C0 15.1046 0.89543 16 2 16Z" fill="currentColor"/>
+                                                        <path d="M8 4C9.10457 4 10 3.10457 10 2C10 0.89543 9.10457 0 8 0C6.89543 0 6 0.89543 6 2C6 3.10457 6.89543 4 8 4Z" fill="currentColor"/>
+                                                        <path d="M8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z" fill="currentColor"/>
+                                                        <path d="M8 16C9.10457 16 10 15.1046 10 14C10 12.8954 9.10457 12 8 12C6.89543 12 6 12.8954 6 14C6 15.1046 6.89543 16 8 16Z" fill="currentColor"/>
+                                                        <path d="M14 4C15.1046 4 16 3.10457 16 2C16 0.89543 15.1046 0 14 0C12.8954 0 12 0.89543 12 2C12 3.10457 12.8954 4 14 4Z" fill="currentColor"/>
+                                                        <path d="M14 10C15.1046 10 16 9.10457 16 8C16 6.89543 15.1046 6 14 6C12.8954 6 12 6.89543 12 8C12 9.10457 12.8954 10 14 10Z" fill="currentColor"/>
+                                                        <path d="M14 16C15.1046 16 16 15.1046 16 14C16 12.8954 15.1046 12 14 12C12.8954 12 12 12.8954 12 14C12 15.1046 12.8954 16 14 16Z" fill="currentColor"/>
+                                                        </svg>
+                                                  </i>
+                                               </button>
+                                               <button class="nav-link" id="nav-product-tab" data-bs-toggle="tab" data-bs-target="#nav-product" type="button" role="tab" aria-controls="nav-product" aria-selected="false">
+                                                  <i>
+                                                     <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M2 4C3.10457 4 4 3.10457 4 2C4 0.89543 3.10457 0 2 0C0.89543 0 0 0.89543 0 2C0 3.10457 0.89543 4 2 4Z" fill="currentColor"/>
+                                                        <path d="M2 10C3.10457 10 4 9.10457 4 8C4 6.89543 3.10457 6 2 6C0.89543 6 0 6.89543 0 8C0 9.10457 0.89543 10 2 10Z" fill="currentColor"/>
+                                                        <path d="M2 16C3.10457 16 4 15.1046 4 14C4 12.8954 3.10457 12 2 12C0.89543 12 0 12.8954 0 14C0 15.1046 0.89543 16 2 16Z" fill="currentColor"/>
+                                                        <path d="M20 2C20 2.552 19.553 3 19 3H7C6.448 3 6 2.552 6 2C6 1.448 6.448 1 7 1H19C19.553 1 20 1.447 20 2Z" fill="currentColor"/>
+                                                        <path d="M20 8C20 8.552 19.553 9 19 9H7C6.448 9 6 8.552 6 8C6 7.448 6.448 7 7 7H19C19.553 7 20 7.447 20 8Z" fill="currentColor"/>
+                                                        <path d="M20 14C20 14.552 19.553 15 19 15H7C6.448 15 6 14.552 6 14C6 13.447 6.448 13 7 13H19C19.553 13 20 13.447 20 14Z" fill="currentColor"/>
+                                                     </svg>
+                                                  </i>
+                                               </button>
+                                            </div>
+                                         </nav>
+                                      </div>
+                                   </div>
+                                   <div class="col-sm-4">
+                                    <div class="product__navtabs d-flex justify-content-end align-items-center">
+                                        <div class="tp-shop-selector">
+                                            <select class="form-control">
+                                                <option>Default sorting</option>
+                                                <option>Show 12</option>
+                                                <option>Show 24</option>
+                                                <option>Show 48</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                   </div>
+                                </div>
+                             </div>
+                            
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="nav-all" role="tabpanel"
                                     aria-labelledby="nav-all-tab">
