@@ -78,7 +78,7 @@
         <div class="breadcrumb__area grey-bg pt-5 pb-5">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-10">
+                    <div class="col-lg-12">
                         <div class="tp-breadcrumb__content">
                             <div class="tp-breadcrumb__list">
                                 <span class="tp-breadcrumb__active"><a href="/"> Home </a></span>
@@ -86,11 +86,6 @@
                                 <a href="/librarian/index">Dashborad</a></span>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-2 text-right">
-                        <button type="button" class="close btn-danger" aria-label="Close" onclick="showNavbar()">
-                            <span aria-hidden="true">Show Budget<i class="fa fa-rupee"></i></span>
-                        </button>
                     </div>
                 </div>
             </div>
@@ -121,10 +116,13 @@
                         <div class="tpshop__leftbar">
                             <div class="tpshop__widget mb-30 pb-25">
                                 <h4 class="tpshop__widget-title">Product Tamil Categories</h4>
-                                @foreach($categories as $key => $val)
+                                @foreach($categories as $val)
                                 <div class="form-check">
-                                    <input class="form-check-input category-checkbox" type="checkbox" value="" data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}" data-key="{{ $key }}">
-                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}"> {{ $val->name }}</label>
+                                    <input class="form-check-input category-checkbox" type="checkbox" value=""
+                                        data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}">
+                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}">
+                                        {{ $val->name }}
+                                    </label>
                                 </div>
                                 @endforeach
                             </div>
@@ -168,7 +166,8 @@
                                         {{$val->name}}
                                     </label>
                                 </div>
-                             @endforeach
+                                @endforeach
+                       
                             </div>
                         </div>
 
@@ -176,33 +175,6 @@
                     <div class="col-xl-10 col-lg-12 col-md-12">
                         <div class="tpshop__top ml-60">
                             <div class="tpshop__category">
-
-                                <nav id="myNavbar" class="navbar fixed-bottom navbar-light bg-light myNavbar11">
-                                    <div class="container">
-                                        <button type="button" class="close btn-danger" aria-label="Close" onclick="closeNavbar()">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <div class="swiper budget ">
-                                            <div class="swiper-wrapper budeget">
-                                                @php
-                                                $bud_arr = Session::get('bud_arr');
-                                                @endphp
-                                             @foreach($bud_arr as $val)
-                                              <div class="swiper-slide">
-                                                <div class="p-0 m-0" style="width:auto">
-                                                    <div style="width:50px" class="total-amount w-100 p-0 m-0"><i class="fa fa-rupee"></i>Total Amount:{{$val->budget_price}}</div>
-                                                    <div class="pie animate no-round" style="--p:{{$val->percentage}};--c:rgb(80, 180, 14);">{{$val->percentage}}%</div>
-                                                    <p class="p-0 m-0">{{ implode(' ', array_slice(explode(' ', $val->category), 0, 2)) }}</p>
-                                                    <div style="width:50px" class="pur-cmount w-100 p-0 m-0"><i class="fa fa-rupee"></i>Purchased Amount:{{$val->cart_price}}</div>
-                                                </div>
-                                              </div>
-                                               @endforeach
-                                            </div>
-                                            <div class="swiper-pagination"></div>
-                                          </div>
-                                    </div>
-                                </nav>
-                                
                                 <div class="swiper-container inner-category-active">
                                     <div class="swiper-wrapper">
                                         @foreach($categories as $val)
@@ -251,7 +223,7 @@
                                             class="tpproductnav tpnavbar product-filter-nav d-flex align-items-center justify-content-center">
                                             <nav>
                                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                                    <button class="nav-link" id="nav-all-tab"
+                                                    <button class="nav-link active" id="nav-all-tab"
                                                         data-bs-toggle="tab" data-bs-target="#nav-all" type="button"
                                                         role="tab" aria-controls="nav-all" aria-selected="true">
                                                         <i>
@@ -332,7 +304,7 @@
                                                             </svg>
                                                         </i>
                                                     </button>
-                                                    <button class="nav-link active" id="nav-product-tab" data-bs-toggle="tab"
+                                                    <button class="nav-link" id="nav-product-tab" data-bs-toggle="tab"
                                                         data-bs-target="#nav-product" type="button" role="tab"
                                                         aria-controls="nav-product" aria-selected="false">
                                                         <i>
@@ -379,7 +351,7 @@
                                 </div>
                             </div>
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade fade " id="nav-all" role="tabpanel"
+                                <div class="tab-pane fade fade show active" id="nav-all" role="tabpanel"
                                     aria-labelledby="nav-all-tab">
                                     <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">
                                     
@@ -483,7 +455,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="tab-pane fade show active whight-product" id="nav-product" role="tabpanel"
+                                <div class="tab-pane fade whight-product" id="nav-product" role="tabpanel"
                                     aria-labelledby="nav-product-tab">
                                 
                                     @foreach($magazines as $val)
@@ -585,22 +557,6 @@
  </body>
 
 
- </body>
- <script>
-    $(document).ready(function(){
-        $('.category-checkbox').change(function(){
-            var clickedKey = $(this).data('key');
-            if ($(this).is(':checked')) {
-                $('.category-checkbox').not(this).each(function(){
-                    if ($(this).data('key') !== clickedKey) {
-                        $(this).prop('checked', false);
-                    }
-                });
-            }
-        });
-    });
-</script>
- 
 <script>
 $(document).ready(function() {
     $(document).on('click', '#filterButton', function() {
@@ -737,44 +693,7 @@ $(document).ready(function(){
             success: function(response) {
                 if(response.magazinecartcount){
                     $('#magazinecartcount').text(response.magazinecartcount);
-                    $(".myNavbar11").load(location.href + " .myNavbar11 > *", function() {
-    var script = document.createElement('script');
-    script.textContent = `
-        var swiper = new Swiper(".budget", {
-            loop: true,
-            slidesPerView: 7,
-            spaceBetween: 20,
-            autoplay: {
-                delay: 3500,
-                disableOnInteraction: true,
-            },
-            breakpoints: {
-                '1400': {
-                    slidesPerView: 7,
-                },
-                '1200': {
-                    slidesPerView: 6,
-                },
-                '992': {
-                    slidesPerView: 5,
-                },
-                '768': {
-                    slidesPerView: 4,
-                },
-                '576': {
-                    slidesPerView: 3,
-                },
-                '0': {
-                    slidesPerView: 2,
-                },
-            },
-        });
-    `;
-   
-    document.head.appendChild(script);
-});
 
-                    
                 }
                 if(response.success){
                     toastr.success(response.success, { timeout: 2000 });
@@ -811,45 +730,6 @@ $(document).ready(function(){
             success: function(response) {
                 if(response.magazinecartcount){
                     $('#magazinecartcount').text(response.magazinecartcount);
-                    $(".myNavbar11").load(location.href + " .myNavbar11 > *", function() {
- 
-    var script = document.createElement('script');
-
-    script.textContent = `
-        var swiper = new Swiper(".budget", {
-            loop: true,
-            slidesPerView: 7,
-            spaceBetween: 20,
-            autoplay: {
-                delay: 3500,
-                disableOnInteraction: true,
-            },
-            breakpoints: {
-                '1400': {
-                    slidesPerView: 7,
-                },
-                '1200': {
-                    slidesPerView: 6,
-                },
-                '992': {
-                    slidesPerView: 5,
-                },
-                '768': {
-                    slidesPerView: 4,
-                },
-                '576': {
-                    slidesPerView: 3,
-                },
-                '0': {
-                    slidesPerView: 2,
-                },
-            },
-        });
-    `;
-  
-    document.head.appendChild(script);
-});
-
 
                 }
 
@@ -887,45 +767,6 @@ $(document).ready(function(){
             success: function(response) {
                 if(response.magazinecartcount){
                     $('#magazinecartcount').text(response.magazinecartcount);
-                    $(".myNavbar11").load(location.href + " .myNavbar11 > *", function() {
-
-    var script = document.createElement('script');
- 
-    script.textContent = `
-        var swiper = new Swiper(".budget", {
-            loop: true,
-            slidesPerView: 7,
-            spaceBetween: 20,
-            autoplay: {
-                delay: 3500,
-                disableOnInteraction: true,
-            },
-            breakpoints: {
-                '1400': {
-                    slidesPerView: 7,
-                },
-                '1200': {
-                    slidesPerView: 6,
-                },
-                '992': {
-                    slidesPerView: 5,
-                },
-                '768': {
-                    slidesPerView: 4,
-                },
-                '576': {
-                    slidesPerView: 3,
-                },
-                '0': {
-                    slidesPerView: 2,
-                },
-            },
-        });
-    `;
-  
-    document.head.appendChild(script);
-});
-
 
                 }
 
@@ -947,126 +788,6 @@ $(document).ready(function(){
     });
 });
 </script>
-<script>
-    
-    function closeNavbar() {
-        var navbar = document.getElementById("myNavbar");
-        navbar.style.display = "none";
-    }
 
-    function showNavbar() {
-        var navbar = document.getElementById("myNavbar");
-        navbar.style.display = "block";
-    }
-</script>
-<script>
-    var swiper = new Swiper(".budget", {
-        loop: true,
-		slidesPerView: 7,
-		spaceBetween: 20,
-		autoplay: {
-			delay: 3500,
-			disableOnInteraction: true,
-		},
-		breakpoints: {
-			'1400': {
-				slidesPerView: 7,
-			},
-			'1200': {
-				slidesPerView: 6,
-			},
-			'992': {
-				slidesPerView: 5,
-			},
-			'768': {
-				slidesPerView: 4,
-			},
-			'576': {
-				slidesPerView: 3,
-			},
-			'0': {
-				slidesPerView: 2,
-			},
-		},
-    });
-  </script>
-<style>
-.tpproduct__thumb {
-    padding: 20px 20px;
-    overflow: hidden;
-    border-radius: 10px;
-    min-height: 270px;
-    max-height: 270px;
-}
-
-.tplist__product-img {
-    height: 200px;
-    width: 100px;
-}
-
-.tplist__product-img-one img {
-    height: 200px;
-    width: 100px;
-}
-
-.tplist__product-img-two img {
-    height: 200px;
-    width: 100px;
-}
-@property --p{
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 0;
-}
-
-.pie {
-  --p:20;
-  --b:10px;
-  --c:darkred;
-  --w:70px;
-  
-  width:var(--w);
-  aspect-ratio:1;
-  position:relative;
-  display:inline-grid;
-  margin:5px;
-  place-content:center;
-  font-size:16px;
-  font-weight:bold;
-  font-family:sans-serif;
-}
-.pie:before,
-.pie:after {
-  content:"";
-  position:absolute;
-  border-radius:50%;
-}
-.pie:before {
-  inset:0;
-  background:
-    radial-gradient(farthest-side,var(--c) 98%,#0000) top/var(--b) var(--b) no-repeat,
-    conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
-  -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
-          mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
-}
-.pie:after {
-  inset:calc(50% - var(--b)/2);
-  background:var(--c);
-  transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
-}
-.animate {
-  animation:p 1s .5s both;
-}
-.no-round:before {
-  background-size:0 0,auto;
-}
-.no-round:after {
-  content:none;
-}
-@keyframes p {
-  from{--p:0}
-}
-
-</style>
 
 </html>

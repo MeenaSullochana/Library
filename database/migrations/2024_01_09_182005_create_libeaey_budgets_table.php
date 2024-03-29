@@ -20,6 +20,7 @@ return new class extends Migration
             $table->String('description');
             $table->String('totalAmount');
             $table->String('type');
+            $table->longtext('purchaseid');
             $table->json('CategorieAmount');
             $table->timestamps();
         });

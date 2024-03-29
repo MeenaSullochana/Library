@@ -97,7 +97,7 @@ class ApplicationController extends Controller
         
         public function applicationview($id){
             $events=events::where('id', '=', $id)->first();
-           $publisher=auth('publisher_distributor')->user()->first();
+           $publisher=auth('publisher_distributor')->user();
            $event=ApplicationApply::where('apply_id', '=',$publisher->id)->where('event_id', '=', $id)->first();
            $events->record1 = $publisher;
            $events->record = $event;

@@ -13,17 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('carts', function (Blueprint $table) {
+        Schema::create('ordermagazines', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->String('title');
-            $table->String('image');
             $table->String('librarianid');
-            $table->String('magazineid');
             $table->String('budgetid');
-            $table->String('amount');  
+            $table->json('balanceAmount');  
+            $table->json('magazineProduct');
+            $table->String('libraryType');
+            $table->String('totalBudget');
+            $table->String('totalPurchased');
+            $table->String('totalBal');
+            $table->String('orderid');
             $table->String('quantity');
-            $table->String('totalAmount');
-            $table->string('category'); 
             $table->enum('status',['1','0'])->default('1');
             $table->timestamps();
         });
@@ -36,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('carts');
+        Schema::dropIfExists('ordermagazines');
     }
 };

@@ -33,7 +33,7 @@ class PublisherDistributorController extends Controller
             return response()->json($data);  
            
         }
-        $pubdist=auth('publisher_distributor')->user()->first();
+        $pubdist=auth('publisher_distributor')->user();
         if((Hash::check($req->currentPassword,$pubdist->password))){
            if($req->newPassword == $req->confirmPassword){
              $pubdist->password=Hash::make($req->newPassword);
@@ -59,7 +59,7 @@ class PublisherDistributorController extends Controller
     }
         public function pubdistprofileview(){
          
-            $data=auth('publisher_distributor')->user()->first();
+            $data=auth('publisher_distributor')->user();
            
             $data->topTitles1= json_decode($data->topTitles);
             $data->topTranslatedBooks1= json_decode($data->topTranslatedBooks);
@@ -74,7 +74,7 @@ class PublisherDistributorController extends Controller
              } 
              public function pubdistprofileedit(){
          
-                $data=auth('publisher_distributor')->user()->first();
+                $data=auth('publisher_distributor')->user();
                
                 $data->topTitles1= json_decode($data->topTitles);
                 $data->topTranslatedBooks1= json_decode($data->topTranslatedBooks);

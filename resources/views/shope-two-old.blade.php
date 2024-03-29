@@ -145,14 +145,14 @@
                                                 <div class="product__details-cart">
                                                     <div
                                                         class="product__details-quantity d-flex align-items-center mb-15">
-                                                        <!-- <b>Qty:</b>
+                                                        <b>Qty:</b>
                                                         <div class="product__details-count mr-10">
                                                             <span class="cart-minus"><i
                                                                     class="far fa-minus"></i></span>
                                                             <input class="tp-cart-input" type="text"
                                                                 value="{{$data->quantity}}" id="quantity_{{$data->id}}">
                                                             <span class="cart-plus"><i class="far fa-plus"></i></span>
-                                                        </div> -->
+                                                        </div>
                                                         <div class="product__details-btn">
                                                         <button class="tp-btn-2 mb-5 Add-to-cart" data-id="{{$data->id}}">Add to cart</button>
                                                         </div>
@@ -550,37 +550,41 @@ $(document).ready(function(){
 
 
 <script>
-$(document).ready(function(){
-    $('.Add-to-cart').click(function(){
-        var id = $(this).data('id');
+$(document).ready(function() {
+    $('.Add-to-cart').click(function() {
+        var productId = $(this).data('id');
+        var quantity = $('#quantity_' + productId).val();
+        console.log(quantity);
+        console.log(productId);
+        updateCart(productId, quantity);
+    });
+
+    function updateCart(productId, quantity) {
         $.ajax({
-            url: '/add-to-cart', 
-            method: 'POST', 
+            type: "POST",
+            url: "updatecart", 
             data: {
-             '_token': '{{ csrf_token() }}',
-            'id': id
-               },
+                '_token': '{{ csrf_token() }}',
+                'id': productId,
+                'quantity': quantity
+            },
             success: function(response) {
-                if(response.magazinecartcount){
+                if (response.success) {
+                    if(response.magazinecartcount){
                     $('#magazinecartcount').text(response.magazinecartcount);
 
                 }
-                if(response.success){
-                    toastr.success(response.success, { timeout: 2000 });
-
-                }
-                else{
+                } else {
                     toastr.error(response.error, { timeout: 2000 });
 
                 }
-               
             },
             error: function(xhr, status, error) {
               
-                console.error('AJAX request failed:', status, error);
             }
         });
-    });
+    }
+    
 });
 </script>
 </body>

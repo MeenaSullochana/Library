@@ -18,8 +18,8 @@
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement - Magazine Add</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
-    <?php include 'admin/plugin/plugin_css.php'; ?>
+    <link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
+    <?php include 'librarian/plugin/plugin_css.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
@@ -60,12 +60,12 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Quote</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="javascript:history.back()">
+                            <a class="btn btn-primary  btn-sm" href="/librarian/magazine-order-list">
                                 <i class="fas fa-chevron-left"></i> Back </a>
                         </div>
                     </div>
                 </div>
-                <div class="row mb-4 d-flex bg-white p-3">
+                <!-- <div class="row mb-4 d-flex bg-white p-3">
                     <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
                         <label class="form-label">Print Option</label>
                     </div>
@@ -78,39 +78,50 @@
                         <button type="button" class="btn  btn-warning"><span class="btn-icon-start text-warning"><i class="fa fa-download color-warning"></i>
                         </span>Download</button>    
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-lg-12">
 
                         <div class="card mt-3">
-                            <div class="card-header"> Quote <strong>24/01/2024</strong> <span class="float-end">
+                            <div class="card-header"> Quote <strong>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</strong> <span class="float-end">
                                     <strong>Status:</strong> Pending</span> </div>
                             <div class="card-body">
                                 <div class="row mb-5">
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                         <h6>From:</h6>
-                                        <div> <strong>Library name</strong> </div>
-                                        <div>Madalinskiego 8</div>
-                                        <div>71-101 Szczecin, Poland</div>
-                                        <div>Email: info@webz.com.pl</div>
-                                        <div>Phone: +48 444 666 3333</div>
+                                        <div> <strong>{{auth('librarian')->user()->libraryName}}</strong> </div>
+                                        <div>{{auth('librarian')->user()->librarianName}}</div>
+                                        <div>{{auth('librarian')->user()->door_no}},
+                                        {{auth('librarian')->user()->street}}
+                                        {{auth('librarian')->user()->place}}
+                                        {{auth('librarian')->user()->Village}}
+                                        {{auth('librarian')->user()->post}}
+                                        {{auth('librarian')->user()->taluk}}
+                                        {{auth('librarian')->user()->district}}
+                                        {{auth('librarian')->user()->pincode}}
+                                        {{auth('librarian')->user()->landmark}}
+                                    </div>
+                                        <!-- <div>Email: info@webz.com.pl</div> -->
+                                        <div>Phone:{{auth('librarian')->user()->phoneNumber}}</div>
                                     </div>
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                        <h6>To:</h6>
-                                        <div> <strong>Publisher</strong> </div>
-                                        <div>Attn: Daniel Marek</div>
-                                        <div>43-190 Mikolow, Poland</div>
-                                        <div>Email: marek@daniel.com</div>
-                                        <div>Phone: +48 123 456 789</div>
-                                    </div>
+    <h6>To:</h6>
+    <div> <strong>Anna Centenary Library</strong> </div>
+    <div>Attn: Admin</div>
+    <div>Gandhi Mandapam Rd, Surya Nagar,</div>
+    <div>Kotturpuram, Chennai,</div>
+    <div>Tamil Nadu 600085</div>
+    <div>Email: clbrnaclchn.dopl@tn.gov.in</div>
+    <div>Phone: 044 2220 1011</div>
+</div>
                                     <div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-lg-end">
                                         <div class="row align-items-center">
 											<div class="col-sm-9"> 
 												<div class="brand-logo mb-2 inovice-logo">
                                                     <img src="https://bookprocurement.tamilnadupubliclibraries.org/assets/img/logo/logo.png" alt="" srcset="" style="width: 150px">
 												</div>
-                                               <p class="p-0 m-0"><span class="fw-bold">Date:</span>12/12/2019</p>
-                                               <p class="p-0 m-0"><span class="fw-bold">Quote No:</span>9000989988</p>
+                                               <p class="p-0 m-0"><span class="fw-bold">Date:</span>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</p>
+                                               <p class="p-0 m-0"><span class="fw-bold">Library Id:</span>{{auth('librarian')->user()->librarianId}}</p>
                                             </div>
                                             <div class="col-sm-3 mt-3"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/933px-TamilNadu_Logo.svg.png" alt="" srcset="" style="width: 70px"> </div>
                                         </div>
@@ -121,46 +132,25 @@
                                         <thead>
                                             <tr>
                                                 <th class="center">S/no</th>
-                                                <th>Magazine Book id</th>
-                                                <th>Magazine Name </th>
-                                                <th class="right">Unit Cost</th>
+                                                <!-- <th>Magazine Book id</th> -->
+                                                <th>Magazine Title </th>
+                                                <th>Category </th>
+                                                <th class="right">Cost</th>
                                                 <th class="center">Qty</th>
                                                 <th class="right">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        @foreach($data->magazineProduct as $val)
                                             <tr>
-                                                <td class="center">1</td>
-                                                <td class="left strong">MAG0001</td>
-                                                <td class="left">Archoden</td>
-                                                <td class="right"><i class="fa fa-rupee"></i> 999,00</td>
-                                                <td class="center">1</td>
-                                                <td class="right"><i class="fa fa-rupee"></i> 999,00</td>
+                                                <td class="center">{{$loop->index + 1}}</td>
+                                                <td class="left strong">{{$val->title}}1</td>
+                                                <td class="left">{{$val->category}}</td>
+                                                <td class="right"><i class="fa fa-rupee"></i> {{$val->magazine_price}}</td>
+                                                <td class="center">{{$val->quantity}}</td>
+                                                <td class="right"><i class="fa fa-rupee"></i> {{$val->magazine_price}}</td>
                                             </tr>
-                                            <tr>
-                                                <td class="center">2</td>
-                                                <td class="left">MAG0002</td>
-                                                <td class="left">Augment</td>
-                                                <td class="right"><i class="fa fa-rupee"></i> 150,00</td>
-                                                <td class="center">20</td>
-                                                <td class="right"><i class="fa fa-rupee"></i> 3.000,00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="center">3</td>
-                                                <td class="left">MAG0003</td>
-                                                <td class="left">Barrons</td>
-                                                <td class="right"><i class="fa fa-rupee"></i> 499,00</td>
-                                                <td class="center">1</td>
-                                                <td class="right"><i class="fa fa-rupee"></i> 499,00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="center">4</td>
-                                                <td class="left">MAG0003</td>
-                                                <td class="left">Blueprint Chronicle</td>
-                                                <td class="right"><i class="fa fa-rupee"></i> 3.999,00</td>
-                                                <td class="center">1</td>
-                                                <td class="right"><i class="fa fa-rupee"></i> 3.999,00</td>
-                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -169,7 +159,7 @@
                                     <div class="col-lg-4 col-sm-5 ms-auto table-margin">
                                         <table class="table table-clear">
                                             <tbody>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td class="left"><strong class="text-dark">Subtotal</strong></td>
                                                     <td class="right"><i class="fa fa-rupee"></i> 8.497,00</td>
                                                 </tr>
@@ -180,10 +170,10 @@
                                                 <tr>
                                                     <td class="left"><strong class="text-dark">GST (0%)</strong></td>
                                                     <td class="right"><i class="fa fa-rupee"></i> 679,76</td>
-                                                </tr>
+                                                </tr> -->
                                                 <tr>
                                                     <td class="left"><strong class="text-dark">Total</strong></td>
-                                                    <td class="right"><strong class="text-dark"><i class="fa fa-rupee"></i> 7.477,36</strong><br>
+                                                    <td class="right"><strong class="text-dark"><i class="fa fa-rupee"></i> {{$data->totalPurchased}}</strong><br>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -202,7 +192,7 @@
     <!--************
                 Footer start
             *************-->
-    @include ('publisher.footer')
+    @include ('librarian.footer')
     <!--************
                 Footer end
             *************-->

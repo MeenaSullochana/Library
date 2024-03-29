@@ -20,6 +20,10 @@ use App\Models\Publisher;
  use Illuminate\Support\Facades\Notification;
 use App\Notifications\Member1detailNotification;
 use DB;
+use App\Models\Ordermagazine;
+use App\Models\Magazine;
+
+
 class LibrarianController extends Controller
 {
         
@@ -382,5 +386,45 @@ public function librarianreturnmessage(Request $req){
  }
  
   }
+
+  public function magazine_orderview($id){
+    $Ordermagazine=Ordermagazine::find($id);
+    $magazineProduct =        json_decode($Ordermagazine->magazineProduct);
+
+      $datas=[];
+     foreach($magazineProduct  as $val){
+      $magazinesrec = Magazine::find($val->magazineid);
+      $val->image=$magazinesrec->front_img;
+      $val->language=$magazinesrec->language;
+        array_push($datas,$val);
+
+     }
+     $Ordermagazine->magazineProduct = $datas;
+ 
+    \Session::put('Ordermagazine', $Ordermagazine);
+    return redirect('librarian/magazine-order-view');    
+
+  }
+
+  public function magazine_invoiceview($id){
+    $Ordermagazineinvoice=Ordermagazine::find($id);
+    $magazineProduct =        json_decode($Ordermagazineinvoice->magazineProduct);
+
+      $datas=[];
+     foreach($magazineProduct  as $val){
+      $magazinesrec = Magazine::find($val->magazineid);
+      $val->image=$magazinesrec->front_img;
+      $val->language=$magazinesrec->language;
+        array_push($datas,$val);
+
+     }
+     $Ordermagazineinvoice->magazineProduct = $datas;
+ 
+    \Session::put('Ordermagazineinvoice', $Ordermagazineinvoice);
+    return redirect('librarian/magazine-invoice-view');    
+
+  }
+  
+
     }
     
