@@ -18,17 +18,43 @@
 <link href="/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
 <link href="/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet">
 <link href="/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.4/nouislider.min.css">
 <link href="/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" rel="stylesheet">
 <link href="/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!-- tagify-css -->
 <link href="/vendor/tagify/dist/tagify.css" rel="stylesheet">
 
 <!-- Style css -->
 <link href="{{asset('reviewer/css/style.css')}}" rel="stylesheet">
+<style>
+   .validation-errors {
+    position: fixed;
+    top: 250px;
+    right: 20px;
+    background-color: #ffcccc;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 500px;
+    max-height: 200px; /* Set a fixed height */
+    overflow-y: auto; /* Add vertical scrollbar */
+    z-index: 1000; /* Ensure it appears above other content */
+}
 
+.validation-errors ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.validation-errors ul li {
+    color: #ff0000;
+    margin-bottom: 5px;
+}
+
+</style>
 
 </head>
 
@@ -47,11 +73,22 @@
                                 dir="ltr">
                                 <div class="login-form style-2">
                                     <div class="card-body">
+ @if (Session::has('validation_error'))
+    <div class="validation-errors">
+        <div class="error-list">
+            <ul>
+                @foreach (Session::get('validation_error')->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
                                     <div class="logo-header">
                                         <a href="" class="logo"><img src="/assets/img/logo/logo.png" alt="" class="light-logo"></a>
                                         <a href="" class="logo"><img src="/assets/img/logo/logo.png" alt="" class="dark-logo"></a>
                                     </div>
-
+                                  
                                         <nav>
                                             <div class="nav nav-tabs border-bottom-0" id="nav-tab" role="tablist">
                                                 <div class="tab-content w-100" id="nav-tabContent">
@@ -192,9 +229,16 @@
 	<script src="{{asset('reviewer/js/deznav-init.js')}}"></script>
 	<script src="{{asset('reviewer/js/demo.js')}}"></script>
 	<script src="{{asset('reviewer/js/styleSwitcher.js')}}"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>
-
+<script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.validation-errors').fadeOut('slow');
+            }, 15000); 
+        });
+    </script>
 @if (Session::has('success'))
 
 <script>

@@ -219,7 +219,7 @@ class LoginController extends Controller
                 if(Session::has('error')){
                     Session::forget('error');
                 }
-                return back()->withInput()->with('error',"Please select your usertype ");
+                return redirect()->back();
             }
             if($request->type == "publisher"){
                 if (\Auth::guard('publisher')->attempt($credentials)){

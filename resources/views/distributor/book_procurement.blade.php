@@ -127,7 +127,7 @@
                                                         <span class="text-left">{{ $val->subtitle }}</span>
                                                     </div>
                                                 </td>
-                                                <td style="white-space:normal;" data-label="Author">Author</td>
+                                                <td style="white-space:normal;" data-label="Author"> {{$val->author_name}}</td>
                                                 <td style="white-space:normal;" data-label="ISBN">{{ $val->isbn }}</td>
                                                 <!-- <td>
                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-id="{{ $val->id }}" data-bs-target="#exampleModalCenter" id="procurement">Send Procurement</button>

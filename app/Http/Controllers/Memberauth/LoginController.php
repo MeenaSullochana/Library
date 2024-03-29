@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Throwable;
@@ -53,8 +54,20 @@ class LoginController extends Controller
     public function usercheck($user,$redirect_route,$guard){
        
             if($user->status == 1){
+                if(Session::has('validation_error')){
+                    Session::forget('validation_error');
+                }
+                if(Session::has('error')){
+                    Session::forget('error');
+                }
              return redirect($redirect_route)->with('success',"Logged in successfully");
             }else{
+                if(Session::has('validation_error')){
+                    Session::forget('validation_error');
+                }
+                if(Session::has('error')){
+                    Session::forget('error');
+                }
              \Auth::guard($guard)->logout();
              return back()->withInput()->with('error',"Your account was inactive");
             }
@@ -67,10 +80,23 @@ class LoginController extends Controller
                     "email"=>"required",
                     "password"=>"required|min:8",
                     "usertype"=>"required"
+                   ],[
+                    'user_name.required'=> 'The user name is required.',
+                    'password.required'=> 'The password is required.',
+                    'password.min'=> 'The password must be at least 8 characters.',
+                    'type.required'=> 'User type is required.',
                    ]);
-        if($validator->fails()){
-         return redirect()->back()->withInput()->withErrors($validator->errors());
-         }
+                   if($validator->fails()){
+                    $errors = $validator->errors();
+                    if(Session::has('validation_error')){
+                        Session::forget('validation_error');
+                    }
+                    if(Session::has('error')){
+                        Session::forget('error');
+                    }
+                    Session::put('validation_error',$errors);
+                    return redirect()->back();
+                   }
 
          $u=Validator::make($request->all(),[
             "email"=>"email",
@@ -91,7 +117,14 @@ class LoginController extends Controller
            $credentials = [$user => $request->email, 'password' => $request->password];
          
         } else{
-            return back()->withInput($request->only('email', 'remember'))->with('error',"Please select your usertype ");
+            if(Session::has('validation_error')){
+                Session::forget('validation_error');
+            }
+            if(Session::has('error')){
+                Session::forget('error');
+            }
+            Session::put('error','Please select user type');
+            return redirect()->back();
         }
             if($request->usertype == "reviewer"){
                 if (\Auth::guard('reviewer')->attempt($credentials)){
@@ -108,6 +141,12 @@ class LoginController extends Controller
                 $redirect_route = '/librarian/index';
                 $guard = 'librarian';
                 return $this->usercheck($login_user,$redirect_route,$guard);  
+                }
+                if(Session::has('validation_error')){
+                    Session::forget('validation_error');
+                }
+                if(Session::has('error')){
+                    Session::forget('error');
                 }
                 return back()->withInput($request->only('email', 'remember'))->with('error',"Invalid Credentials");
             }
