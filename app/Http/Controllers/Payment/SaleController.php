@@ -77,6 +77,6 @@ class SaleController extends Controller
         /* Encrypt data with AES */
         $EncData = $utility->encrypt($dataToPostToPG, $EncKey);
         // Pass necessary data to Blade view
-        return view('payment.sale', compact('EncData', 'data', 'gatewayURL','amount','user'));
+        return view('payment.sale', compact('EncData', 'data', 'gatewayURL'));
     }
 }

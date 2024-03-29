@@ -72,3 +72,35 @@ Request:[27-03-2024 13:44:14]["SecureHash||eba774855a32bed1506754a7289c5b4d564e9
 
 Response:[27-03-2024 13:45:14]{"Amount":"100","AuthCode":"004714","AuthStatus":"Y","BankId":"000004","CAVV":"jK2HDrZhBenBCBF0RllRA5cAAAA=","CardNum":"412151XXXXXX8726","Currency":"356","ENROLLED":"Y","Email":"subhimeena5499@gmail.com","MCC":"5111","MaskedCardNumber":"412151XXXXXX8726","MerchantId":"101000000000781","Message":"Transaction Successful","PassCode":"SVPL4257","PaymentOption":"dc","Phone":"8438444444","ResponseCode":"00","RetRefNo":"408713200808","TerminalId":"10100781","TxnRefNo":"MeenaC","UCAP":"05","UDF01":"publisher","UDF02":"id","UDF03":"name","UDF04":"amount","payOpt":"dc","pgTxnId":"240873838285"}
 
+Request:[27-03-2024 15:21:53]["SecureHash||e0046016c87ab71e790a243e6f378e0e78e46f753aef5e14de4556b8e7ac41e4","Amount||0","BankId||000004","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnType||Pay","Version||1","_token||qBIPikVC23XJ17xGsLRleFHtPBH3QMidb8YGyvNS","payOpt||cc"]
+
+Request:[27-03-2024 15:22:04]["SecureHash||8d09c2a42ed0e04d871050ca6f1d7b1ceec35690bccad47f304d4a20d363fffd","Amount||0","BankId||000004","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnType||Pay","Version||1","_token||qBIPikVC23XJ17xGsLRleFHtPBH3QMidb8YGyvNS"]
+
+Request:[27-03-2024 15:24:09]["SecureHash||8d09c2a42ed0e04d871050ca6f1d7b1ceec35690bccad47f304d4a20d363fffd","Amount||0","BankId||000004","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnType||Pay","Version||1","_token||qBIPikVC23XJ17xGsLRleFHtPBH3QMidb8YGyvNS"]
+
+Request:[27-03-2024 15:24:55]["SecureHash||8d09c2a42ed0e04d871050ca6f1d7b1ceec35690bccad47f304d4a20d363fffd","Amount||0","BankId||000004","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnType||Pay","Version||1","_token||qBIPikVC23XJ17xGsLRleFHtPBH3QMidb8YGyvNS"]
+
+Request:[27-03-2024 15:25:15]["SecureHash||67bf3dd03be47e2a9580bf84b2984e6b9e186c5597d3dbed3f848e2a02ce8a73","Amount||77700","BankId||000004","Currency||356","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnRefNo||6698689","TxnType||Pay","Version||1","_token||qBIPikVC23XJ17xGsLRleFHtPBH3QMidb8YGyvNS","payOpt||wt"]
+
+Request:[28-03-2024 13:44:39]["SecureHash||2158e03a2f10ba80660bc84be9e8ffe0fab5853ebb7b6fac15bd345a2a6d204d","Amount||2300","BankId||000004","Currency||356","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnRefNo||sda","TxnType||Pay","Version||1","_token||hqwmN3tw6sRNczS965CUPgML6h5ieuBT0HTg7CPf"]
+
+Request:[28-03-2024 13:50:23]["SecureHash||5bcb1201d141f60f6ced451b471ea00fe1196b27f014a93db757d6715a54c229","Amount||1200","BankId||000004","Currency||456","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnRefNo||erer","TxnType||Pay","Version||1","_token||rSUHe55oshIar42xFNxR5oRZ8kcCXfLllWFPavL5"]
+
+Response:[28-03-2024 13:50:25]{"Amount":"1200","BankId":"000004","Currency":"456","MCC":"5111","MerchantId":"101000000000781","Message":"Currency not supported","PassCode":"SVPL4257","ResponseCode":"CNF","TerminalId":"10100781","TxnRefNo":"erer","pgTxnId":"null"}
+
+Request:[28-03-2024 13:51:07]["SecureHash||1678b3f72a14859f44da8f4fa2196b1e784966ba7469dc99480b8805172edb64","Amount||13300","BankId||000004","Currency||356","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnRefNo||6698689","TxnType||Pay","Version||1","_token||91AEAZTkm6M0OmkgKTtCsvs9qKWmmmRgPYMzxrEB"]
+
+Request:[28-03-2024 14:59:58]["SecureHash||4721445c38b6958eabb020fe03a6cf5c118caa9bce2bd367287ca413c7489bab","Amount||23300","BankId||000004","CardNumber||1234566789","CardSecurityCode||1233","Currency||356","ExpiryDate||1222212","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnRefNo||123","TxnType||Pay","Version||1","_token||91AEAZTkm6M0OmkgKTtCsvs9qKWmmmRgPYMzxrEB","payOpt||cc"]
+
+Request:[28-03-2024 15:00:12]["SecureHash||ec8511927fb11d8d1c63778b2fbd6dedcde57f721e2582496ce454a94a17aa16","Amount||23300","BankId||000004","CardNumber||1234566789","CardSecurityCode||1233","Currency||356","ExpiryDate||1222212","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnRefNo||123","TxnType||Pay","Version||1","_token||91AEAZTkm6M0OmkgKTtCsvs9qKWmmmRgPYMzxrEB","payOpt||wt"]
+
+Request:[28-03-2024 15:00:20]["SecureHash||de860dab2b59b908b2a6871af92591b2a71d6f22e0988c5682bdf095942bf7ab","Amount||23300","BankId||000004","CardNumber||1234566789","CardSecurityCode||1233","Currency||356","ExpiryDate||1222212","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnRefNo||fe34","TxnType||Pay","Version||1","_token||91AEAZTkm6M0OmkgKTtCsvs9qKWmmmRgPYMzxrEB","payOpt||wt"]
+
+Request:[28-03-2024 16:50:54]["SecureHash||634eac31cfb66d95ce1b5ec84b1efbdb7a6e812b4583520fe03491fa4d5c639d","Amount||2300","BankId||000004","Currency||356","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnRefNo||112","TxnType||Pay","Version||1","_token||orjAn9p0v5rlDkkdSi2zxDLEY8Lq6MJ5q4SEJh4s"]
+
+Response:[28-03-2024 16:51:07]{"Amount":"2300","BankId":"000004","Currency":"356","MCC":"5111","MerchantId":"101000000000781","Message":"Validation Error-Duplicate Order Id Received","PassCode":"SVPL4257","PaymentOption":"wt","ResponseCode":"DOI","TerminalId":"10100781","TxnRefNo":"112","payOpt":"wt","pgTxnId":"240883838893"}
+
+Request:[29-03-2024 01:06:06]["SecureHash||3c860db8ba31cd81be14bec82adce36ccc815648b29d1e72a74092eac60cc9e0","Amount||12100","BankId||000004","Currency||356","MCC||5111","MerchantId||101000000000781","PassCode||SVPL4257","ReturnURL||http:\/\/127.0.0.1:8000\/sale\/response","TerminalId||10100781","TxnRefNo||3434","TxnType||Pay","Version||1","_token||xrd9fh4K3FaDhVVZAIT6cqvAjrQAtRvC5IVqVRDX"]
+
+Response:[29-03-2024 01:06:28]{"Amount":"12100","BankId":"000004","Currency":"356","MCC":"5111","MerchantId":"101000000000781","Message":"Invalid bankid and itemcode combination","PassCode":"SVPL4257","PaymentOption":"wt","ResponseCode":"TRAVE0003","TerminalId":"10100781","TxnRefNo":"3434","payOpt":"wt","pgTxnId":"240893839058"}
+

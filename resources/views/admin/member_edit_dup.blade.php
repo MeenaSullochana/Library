@@ -60,7 +60,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Create Member</b>
+                                <b>update Member</b>
                             </h3>
                             <div>
                                 <a class="btn btn-primary  btn-sm" href="/admin/member_list">

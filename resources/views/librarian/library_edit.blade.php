@@ -94,7 +94,7 @@
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-sm-6 mb-3">
-                                                        <label class="form-label">Library Type<span
+                                                        <label class="form-label">Type of Library<span
                                                           class="text-danger maditory">*</span></label>
                                                         <select name="library_type" id="libraryType" class="form-select bg-white" Required>
                                                         <option value="{{$data->libraryType}}">{{$data->libraryType}}</option>
@@ -111,8 +111,12 @@
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Library Name<span
                                                        class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter library name" value="{{$data->libraryName}}" id="libraryName" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter the library name" value="{{$data->libraryName}}" id="libraryName" Required>
                                           </div>
+                                          <div class="col-sm-6 mb-3">
+                                            <label class="form-label"> Library Code <span class="text-danger maditory">*</span></label>
+                                            <input type="text" class="form-control" name="library_code" placeholder="Enter Library Code" id="library_code" readonly>
+                                        </div>
                                           <div class="col-sm-6 mb-3">
                                                      <label class="form-label">Subject<span
                                                                 class="text-danger maditory">*</span></label>
@@ -160,15 +164,50 @@
 
                                                     </div>
                                                     <div class="col-sm-6 mb-3">
-                                                        <label class="form-label">City<span
-                                                         class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter city" value="{{$data->city}}" id="city" Required>
+                                                        <label class="form-label">City<span class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control" placeholder="Enter the City" id="city" Required>
                                                     </div>
+
                                                     <div class="col-sm-6 mb-3">
-                                                        <label class="form-label">Village<span
-                                                          class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter village" value="{{$data->Village}}" id="Village" Required>
+                                                        <label class="form-label">Village<span class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control" placeholder="Enter the Village" id="village" Required>
                                                     </div>
+
+                                                    <div class="col-sm-6 mb-3">
+                                                        <label class="form-label">Taluk<span class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control" placeholder="Enter the Taluk" id="taluk" Required>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mb-3">
+                                                        <label class="form-label">Door No<span class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control" name="door_no" placeholder="Enter the Door No" id="Village" Required>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mb-3">
+                                                        <label class="form-label">Street Name<span class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control" name="street_name" placeholder="Enter the Street Name" id="street_name" Required>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mb-3">
+                                                        <label class="form-label">Place<span class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control" name="place" placeholder="Enter the Place" id="place" Required>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mb-3">
+                                                        <label class="form-label">Landmark <span class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control" name="landmark" placeholder="Enter the Landmark" id="landmark" Required>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mb-3">
+                                                        <label class="form-label">Post <span class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control" name="post" placeholder="Enter the Post" id="post" Required>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mb-3">
+                                                        <label class="form-label">Pin Code <span class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control" name="pin_code" placeholder="Enter the Pin code" id="pin_code" Required>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -180,7 +219,7 @@
                                                     <label class="form-label">Librarian Name<span
                                                             class="text-danger maditory">*</span></label>
                                                     <input type="text" class="form-control"
-                                                        placeholder="Enter librarian name" id="librarianName" value="{{$data->librarianName}}"
+                                                        placeholder="Enter the librarian name" id="librarianName" value="{{$data->librarianName}}"
                                                         required="">
                                                 </div>
                                                 <div class="col-sm-6 mb-3">
@@ -203,14 +242,14 @@
                                                     <label class="form-label">Librarian Designation<span
                                                             class="text-danger maditory">*</span></label>
                                                     <input type="text" class="form-control"
-                                                        placeholder="Enter librarian designation" value="{{$data->librarianDesignation}}"
+                                                        placeholder="Enter the librarian designation" value="{{$data->librarianDesignation}}"
                                                         id="librarianDesignation" required="">
                                                 </div>
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Phone number<span
                                                             class="text-danger maditory">*</span></label>
                                                     <input type="number" class="form-control"
-                                                        placeholder="Enter phone number" id="mobileNumber"  value="{{$data->phoneNumber}}" required="">
+                                                        placeholder="Enter the phone number" id="mobileNumber"  value="{{$data->phoneNumber}}" required="">
                                                 </div>
 
                                             </div>
@@ -221,7 +260,7 @@
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Email<span
                                                             class="text-danger maditory">*</span></label>
-                                                    <input type="email" class="form-control" placeholder="Enter email" value="{{$data->email}}"
+                                                    <input type="email" class="form-control" placeholder="Enter the email" value="{{$data->email}}"
                                                         id="email" required="">
                                                 </div>
                                             </div>
@@ -229,14 +268,14 @@
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">New Password<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter new password" id="newpassword" >
+                                                        <input type="password" class="form-control" placeholder="Enter the new password" id="newpassword" >
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Confirm Password<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter confirm password" id="confirmpassword"  >
+                                                        <input type="password" class="form-control" placeholder="Enter the confirm password" id="confirmpassword"  >
                                                     </div>
                                                 </div>
                                         </div>
