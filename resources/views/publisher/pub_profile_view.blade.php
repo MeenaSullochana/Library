@@ -24,7 +24,15 @@
         include "publisher/plugin/plugin_css.php";
     ?>
 <style>
-    
+    .table thead th {
+  border-bottom: 0.0625rem solid #E6E6E6;
+    border-bottom-color: rgb(230, 230, 230);
+  text-transform: full-size-kana !important;
+  font-size: 1rem;
+  white-space: nowrap;
+  font-weight: 500;
+  border-color: #E6E6E6 !important;
+}
 </style>
 </head>
 
@@ -721,7 +729,7 @@
                     <div class="col-md-12">
                         <div class="profile card">
                             <div class="card-header">
-                                <h4 class="text-primary">Awarded Titles in The Publication</h4>
+                                <h4 class="text-primary">Awarded Titles in the Publication</h4>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">

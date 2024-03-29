@@ -1301,7 +1301,7 @@
 		<div class="deznav">
             <div class="deznav-scroll">
 				<ul class="metismenu" id="menu">
-					<li class="menu-title"> DISTIBUTOR</li>
+					<li class="menu-title"> DISTRIBUTOR</li>
 
 					<li><a href="/distributor/index" class="" aria-expanded="false">
                             <div class="menu-icon">

@@ -144,7 +144,7 @@
 										<thead>
 											<tr>
 												<th></th>
-												<th>#</th>
+												<th>S.No</th>
 												<th>Images</th>
 												<th>Titile</th>
 												<th>Author</th>

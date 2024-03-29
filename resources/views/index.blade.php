@@ -100,6 +100,9 @@ a.joinnow:hover {
 .tpproduct__thumb img{
     width: auto !important;
 }
+.tpmobile-menu {
+    background-color: white !important;
+}
 </style>
 <body>
 
@@ -281,6 +284,7 @@ a.joinnow:hover {
                 </div>
             </div>
         </section>
+
         <!-- choose-area-end -->
 
         @php

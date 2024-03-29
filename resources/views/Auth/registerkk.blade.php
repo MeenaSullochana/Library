@@ -11,6 +11,7 @@
     <title>Book Fair</title>
     <?php include "./plugin/plugin_css.php"; ?>
     {{-- <link href="../css/style.css" rel="stylesheet"> --}}
+    
 </head>
 
 <body>

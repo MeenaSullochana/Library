@@ -75,7 +75,7 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="row task">
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-3 col-xxl-4 col-sm-6">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-primary count">8</h2>
@@ -84,7 +84,7 @@
 											<p>Quote Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-3 col-xxl-4 col-sm-6">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-purple count">7</h2>
@@ -93,7 +93,7 @@
 											<p>Quote Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-3 col-xxl-4 col-sm-6">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-warning count">13</h2>
@@ -102,7 +102,7 @@
 											<p>Quote Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-3 col-xxl-4 col-sm-6">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-danger count">11</h2>
@@ -111,7 +111,7 @@
 											<p>Quote Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-3 col-xxl-4 col-sm-6">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-success count">21</h2>

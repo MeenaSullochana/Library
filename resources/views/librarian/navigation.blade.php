@@ -52,7 +52,7 @@
 								</a></span>
 							</div> -->
 							<ul class="navbar-nav">
-								<li class="nav-item dropdown notification_dropdown">
+								{{-- <li class="nav-item dropdown notification_dropdown">
 									<a class="nav-link bell dz-theme-mode" href="javascript:void(0);">
 										<svg id="icon-light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
 											<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -68,7 +68,7 @@
 										</g>
 										</svg>	
 									</a>
-								</li>
+								</li> --}}
 								<li class="nav-item dropdown notification_dropdown notify">
                                 <a class="nav-link notification" href="javascript:void(0);" role="button"
                                         data-bs-toggle="dropdown">

@@ -85,33 +85,89 @@
 				<!-- Total Leval For Buy item -->
 				<section class="cart-item-leval text-center">
 					<div class="container">
-						<h3 class="text-secondary text-start p-2">Purches Category Leval</h3>
-						<div class="d-flex align-items-center">
-						<div class="item">
-							<p>Children</p>
-							<div class="pie animate no-round" style="--p:20"> 20%</div>
+						<div class="main-bg">
+							<h3 class="main-bg text-white ">Purches Category Leval</h3>
 						</div>
-						<div class="item">
-							<p>Children</p>
-							<div class="pie" style="--p:40;--c:darkblue;--b:10px"> 40%</div>
+						<div class="row">
+							<div class="col-xl-3 col-xxl-4 col-sm-6">
+								<div class="card">
+									<div class="card-header">
+										<h4 class="card-title text-center">Children</h4>
+									</div>
+									<div class="card-body">
+										<div class="item">
+											<div class="pie no-round" style="--p:60;--c:purple;--b:15px"> 60%</div>
+										</div>            
+									</div>
+									<div class="card-footer">
+										<div class="d-flex justify-content-lg-between ">
+											<h4><i class="fa fa-inr" aria-hidden="true"></i> 876</h4>
+											<h4><i class="fa fa-inr" aria-hidden="true"></i> 9854</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-3 col-xxl-4 col-sm-6">
+								<div class="card">
+									<div class="card-header">
+										<h4 class="card-title text-center">Children</h4>
+									</div>
+									<div class="card-body">
+										<div class="item">
+											<div class="pie no-round" style="--p:60;--c:purple;--b:15px"> 60%</div>
+										</div>            
+									</div>
+									<div class="card-footer">
+										<div class="d-flex justify-content-lg-between ">
+											<h4><i class="fa fa-inr" aria-hidden="true"></i> 876</h4>
+											<h4><i class="fa fa-inr" aria-hidden="true"></i> 9854</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-3 col-xxl-4 col-sm-6">
+								<div class="card">
+									<div class="card-header">
+										<h4 class="card-title text-center">Children</h4>
+									</div>
+									<div class="card-body">
+										<div class="item">
+											<div class="pie no-round" style="--p:60;--c:purple;--b:15px"> 60%</div>
+										</div>            
+									</div>
+									<div class="card-footer">
+										<div class="d-flex justify-content-lg-between ">
+											<h4><i class="fa fa-inr" aria-hidden="true"></i> 876</h4>
+											<h4><i class="fa fa-inr" aria-hidden="true"></i> 9854</h4>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
-						<div class="item">
-							<p>Children</p>
-							<div class="pie no-round" style="--p:60;--c:purple;--b:15px"> 60%</div>
-						</div>
-						<div class="item">
-							<p>Children</p>
-							<div class="pie animate no-round" style="--p:80;--c:orange;"> 80%</div>
-						</div>
-						<div class="item">
-							<p>Children</p>
-							<div class="pie animate no-round" style="--p:60;--c:red;"> 60%</div>
-						</div>
-						<div class="item">
-							<p>Children</p>
-							<div class="pie animate" style="--p:90;--c:lightgreen"> 90%</div>
-						</div>
-						</div>
+						
+						{{-- <div class="d-flex align-items-center">
+						
+							<div class="item">
+								<p>Children</p>
+								<div class="pie" style="--p:40;--c:darkblue;--b:10px"> 40%</div>
+							</div>
+							<div class="item">
+								<p>Children</p>
+								<div class="pie no-round" style="--p:60;--c:purple;--b:15px"> 60%</div>
+							</div>
+							<div class="item">
+								<p>Children</p>
+								<div class="pie animate no-round" style="--p:80;--c:orange;"> 80%</div>
+							</div>
+							<div class="item">
+								<p>Children</p>
+								<div class="pie animate no-round" style="--p:60;--c:red;"> 60%</div>
+							</div>
+							<div class="item">
+								<p>Children</p>
+								<div class="pie animate" style="--p:90;--c:lightgreen"> 90%</div>
+							</div>
+						</div> --}}
 					</div>
 				</section>
 				<!--End Total Leval For Buy item -->
@@ -121,7 +177,7 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="row task">
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-6 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-primary count">8</h2>
@@ -130,7 +186,7 @@
 											<p>Order Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-6 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-purple count">7</h2>
@@ -139,7 +195,7 @@
 											<p>Order Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-6 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-warning count">13</h2>
@@ -148,7 +204,7 @@
 											<p>Order Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-6 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-danger count">11</h2>
@@ -157,7 +213,7 @@
 											<p>Order Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-6 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-success count">21</h2>
@@ -166,7 +222,7 @@
 											<p>Order Books</p>
 										</div>
 									</div>
-									<div class="col-xl-2 col-sm-4 col-6">
+									<div class="col-xl-2 col-md-6 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
 												<h2 class="text-danger count">16</h2>
@@ -181,7 +237,7 @@
 					</div>
 					<div class="col-xl-12">
 						<div class="card">
-							<div class="card-body p-0">
+							<div class="card-body p-3">
 								<div class="table-responsive active-projects task-table">
 									<div class="tbl-caption">
 										<h4 class="heading mb-0">Quote Book List</h4>
@@ -307,7 +363,7 @@
       --p: 20;
       --b: 22px;
       --c: darkred;
-      --w: 150px;
+      --w: 90px;
 
       width: var(--w);
       aspect-ratio: 1;
@@ -330,8 +386,7 @@
    .pie:before {
       inset: 0;
       background:
-         radial-gradient(farthest-side, var(--c) 98%, #0000) top/var(--b) var(--b) no-repeat,
-         conic-gradient(var(--c) calc(var(--p)*1%), #0000 0);
+	  radial-gradient(farthest-side, var(--c) 98%, #0000) top / var(--b) var(--b) no-repeat, conic-gradient(var(--c) calc(var(--p)* 1%), #00000042 0);
       -webkit-mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
       mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
    }
@@ -356,12 +411,15 @@
 
    @keyframes p {
       from {
-         --p: 0
+         --p: 0;
       }
    }
 
-   body {
+   /* body {
       background: #f2f2f2;
-   }
+   } */
+   h3.main-bg.text-white {
+    background-color: #030355;
+	}
 </style>
 </html>
