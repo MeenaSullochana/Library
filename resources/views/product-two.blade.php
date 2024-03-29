@@ -79,13 +79,10 @@
                         <div class="tpshop__leftbar">
                             <div class="tpshop__widget mb-30 pb-25">
                                 <h4 class="tpshop__widget-title">Product Tamil Categories</h4>
-                                @foreach($categories as $val)
+                                @foreach($categories as $key => $val)
                                 <div class="form-check">
-                                    <input class="form-check-input category-checkbox" type="checkbox" value=""
-                                        data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}">
-                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}">
-                                        {{ $val->name }}
-                                    </label>
+                                    <input class="form-check-input category-checkbox" type="checkbox" value="" data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}" data-key="{{ $key }}">
+                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}"> {{ $val->name }}</label>
                                 </div>
                                 @endforeach
                             </div>
@@ -597,6 +594,20 @@
     ?>
 
  </body>
+ <script>
+    $(document).ready(function(){
+        $('.category-checkbox').change(function(){
+            var clickedKey = $(this).data('key');
+            if ($(this).is(':checked')) {
+                $('.category-checkbox').not(this).each(function(){
+                    if ($(this).data('key') !== clickedKey) {
+                        $(this).prop('checked', false);
+                    }
+                });
+            }
+        });
+    });
+</script>
  <!--
 <script>
 $(document).ready(function() {
