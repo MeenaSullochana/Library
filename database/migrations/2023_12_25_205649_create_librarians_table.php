@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use function Ramsey\Uuid\v1;
+
 return new class extends Migration
 {
     /**
@@ -19,7 +21,13 @@ return new class extends Migration
             $table->string('libraryName'); 
             $table->string('state'); 
             $table->string('district'); 
-            $table->string('city'); 
+            $table->string('street'); 
+            $table->string('place'); 
+            $table->string('taluk'); 
+            $table->string('post'); 
+            $table->string('pincode'); 
+            $table->string('door_no'); 
+            $table->string('landmark'); 
             $table->string('Village');
             $table->string('librarianName');    
             $table->string('librarianDesignation'); 
@@ -29,7 +37,9 @@ return new class extends Migration
             $table->string('metaChecker'); 
             $table->string('role');
             $table->string('librarianId');
+            $table->string('allow_status');
             $table->json('subject');
+
             $table->enum('status',['1','0'])->default('1');
             $table->timestamps();
         });

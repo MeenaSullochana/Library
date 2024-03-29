@@ -19,7 +19,13 @@ class Librarian extends Authenticatable
         'libraryName',
         'state',
         'district',
-        'city',
+        'street',
+        'place',
+        'taluk',
+        'post',
+        'pincode',
+        'landmark',
+        'door_no',
         'Village',
         'librarianName',
         'librarianDesignation',
@@ -27,6 +33,7 @@ class Librarian extends Authenticatable
         'email',
         'password',
         'status',
-        'librarianId'
+        'librarianId',
+        'allow_status'
     ];
 }
