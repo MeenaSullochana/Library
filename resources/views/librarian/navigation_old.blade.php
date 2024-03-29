@@ -537,8 +537,8 @@
             <div class="header-content">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
-						<div class="header-left">
-							
+					<div class="header-left">
+						<h4 class="ms-5"><b>{{auth('librarian')->user()->libraryType}}</b></h4>
 						</div>
                         <div class="header-right d-flex align-items-center">
 							<div class="input-group search-area">

@@ -66,54 +66,70 @@
                     <div class="col-xl-12">
                         <div class="row">
                             @if(auth('librarian')->user()->metaChecker =="no")
-                            <div class="col-xl-3 col-sm-6">
+                            <div class="col-xl-4 col-sm-6">
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-lg bg-success-light rounded">
                                                 <i class="fa-solid fa-briefcase text-success"></i>
                                             </div>
+                                           
+                                            @php
+                                                $ordermagazines = DB::table('ordermagazines')
+                                                ->where('librarianid','=',auth('librarian')->user()->id)
+                                               ->count();
+                                               @endphp
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-success count">0</h3>
+                                                <h3 class="text-success count">{{$ordermagazines}}</h3>
                                                 <span>Total Orders</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-sm-6">
+                            <div class="col-xl-4 col-sm-6">
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-lg bg-primary-light rounded">
                                                 <i class="fa-solid fa-cart-shopping text-primary"></i>
+                                                @php
+                                           $magazines = DB::table('magazines')
+                                               ->get();
 
+                                            @endphp
                                             </div>
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-primary count">0</h3>
-                                                <span>Total Books</span>
+                                                <h3 class="text-primary count">{{count( $magazines)}}</h3>
+                                                <span>Total Magazine</span>
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-sm-6">
+                            <div class="col-xl-4 col-sm-6">
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-lg bg-warning-light rounded">
                                                 <i class="fa-solid fa-users text-warning"></i>
                                             </div>
+                                            @php
+                                                $carts = DB::table('carts')
+                                                ->where('librarianid','=',auth('librarian')->user()->id)
+                                                ->where('status','=','1')
+                                                ->count();
+                                               @endphp
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-warning count">0</h3>
-                                                <span>Total Users</span>
+                                                <h3 class="text-warning count">{{ $carts}}</h3>
+                                                <span>Total Cart Magazine</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-sm-6">
+                            <!-- <div class="col-xl-3 col-sm-6">
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
@@ -127,7 +143,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             @endif
 
                             <div class="col-xl-6 col-md-6">
@@ -302,7 +318,7 @@
                                 </div>
                             </div>
                             @if(auth('librarian')->user()->metaChecker =="no")
-                            <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card p-3">
                                     <div class="card-header border-0">
                                         <h4 class="heading mb-0">New Book</h4>
@@ -326,11 +342,7 @@
                                                                 <div>
                                                                     <h6><a href="javascript:void(0)">Diary of a Wimpy
                                                                             Kid: No Brainer</a></h6>
-                                                                    <!-- <i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star"></i> -->
+                                                                   
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -344,11 +356,7 @@
                                                                 <div>
                                                                     <h6><a href="javascript:void(0)">Be Useful: Seven
                                                                             Tools for Life</a></h6>
-                                                                    <!-- <i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star"></i> -->
+                                                                  
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -362,11 +370,7 @@
                                                                 <div>
                                                                     <h6><a href="javascript:void(0)">The Secret: Jack
                                                                             Reacher, Book 28</a></h6>
-                                                                    <!-- <i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star"></i> -->
+                                                                  
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -380,11 +384,7 @@
                                                                 <div>
                                                                     <h6><a href="javascript:void(0)">Kill the
                                                                             Lawyers</a></h6>
-                                                                    <!-- <i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star"></i> -->
+                                                             
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -398,11 +398,7 @@
                                                                 <div>
                                                                     <h6><a href="javascript:void(0)">A Curse for True
                                                                             Love</a></h6>
-                                                                    <!-- <i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star"></i> -->
+                                                                  
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -413,9 +409,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-xl-6">
+                             <!-- <div class="col-xl-6">
                                 <div class="card">
                                     <div class="card-header border-0">
                                         <h4 class="heading mb-0">Top rating books</h4>
@@ -439,11 +435,7 @@
                                                                 <div>
                                                                     <h6><a href="javascript:void(0)">Remember Love:
                                                                             Words for Tender Times</a></h6>
-                                                                    <!-- <i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star"></i> -->
+                                                                   
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -457,12 +449,7 @@
                                                                     class="avatar avatar-sm" alt="">
                                                                 <div>
                                                                     <h6><a href="javascript:void(0)">The Way Forward</a>
-                                                                    </h6>
-                                                                    <!-- <i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star"></i> -->
+                                                                  
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -477,11 +464,7 @@
                                                                 <div>
                                                                     <h6><a href="javascript:void(0)">Prequel: An
                                                                             American Fight Against Fascism</a></h6>
-                                                                    <!-- <i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star"></i>
-																	<i class="bi bi-star"></i> -->
+                                                                   
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -496,11 +479,7 @@
                                                                 <div>
                                                                     <h6><a href="javascript:void(0)">The Secret: Jack
                                                                             Reacher, Book 28</a></h6>
-                                                                    <!-- <i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star"></i>
-																	<i class="bi bi-star"></i> -->
+                                                                  
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -515,11 +494,7 @@
                                                                 <div>
                                                                     <h6><a href="javascript:void(0)">The Unmaking of
                                                                             June Farrow: A Novel</a></h6>
-                                                                    <!-- <i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star-fill"></i>
-																	<i class="bi bi-star"></i> -->
+                                                                  
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -531,7 +506,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             @endif
                         </div>
                     </div>
