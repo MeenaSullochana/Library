@@ -86,7 +86,7 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
                                                         <label for="slug">Book Paper Finishing Name  <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{$data->name}}" Required>
+                                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter the Book Paper Finishing Name" value="{{$data->name}}" Required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4" id="adding">

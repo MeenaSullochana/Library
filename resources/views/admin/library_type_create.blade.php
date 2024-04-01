@@ -86,14 +86,14 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
                                                         <label for="slug">Library Name <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" Required>
+                                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter the Library Name" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4" id="adding">
                                                     <label for="slug">Status <span class="text-danger">*</span></label>
                                                     <div class="dropdown bootstrap-select default-select form-control wide form-control-sm">
-                                                        <select id="status" name="status" class="default-select form-control wide form-control-sm" Required>
-                                                            <option value=""> </option>
+                                                        <select id="status" name="status" class="default-select form-control wide form-control-sm" required>
+                                                            <option value="">Choose any one </option>
                                                             <option value="1">Active </option>
                                                             <option value="0">Inactive</option>
                                                         </select>

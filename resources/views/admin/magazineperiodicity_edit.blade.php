@@ -86,7 +86,7 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
                                                         <label for="slug">Magazine Periodicity Name  <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="name" name="name" value="{{$data->name}}" placeholder="Enter Category Name" Required>
+                                                        <input type="text" class="form-control" id="name" name="name" value="{{$data->name}}" placeholder="Enter the Magazine Periodicity Name" Required>
                                                     </div>
                                                 </div>
                                                

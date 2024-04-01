@@ -387,7 +387,7 @@
      e.preventDefault();
      var bookid = $(this).data('id');
      $('#hiddenInput').val(bookid);
-   $('#exampleModalCenter').modal('show');
+   $('#exampleModalCenter').modal('show')
 })
  </script>
  <script>

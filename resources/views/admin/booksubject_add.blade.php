@@ -65,8 +65,10 @@
                             <div class="card mb-4">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <h3 class="mb-0 bc-title"><b> Book Subject Create</b> </h3>
-                                        <a class="btn btn-primary btn-sm" href="booksubject_list"><i class="fa-solid fa-list">Subject List</i></a>
+                                        <h3 class="mb-0 "><b> Book Subject Create</b> </h3>
+                                        <a class="btn btn-primary btn-sm" href="booksubject_list">
+                                            <i class="fa fa-angle-double-left" aria-hidden="true"></i> Subject List</a>
+                                            {{-- <i class="fa-solid fa-list">Subject List</i></a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -85,14 +87,14 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
                                                         <label for="slug">Book Subject Name  <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" Required>
+                                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter the Book Subject Name" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4" id="adding">
                                                     <label for="slug">Status  <span class="text-danger">*</span></label>
                                                     <div class="dropdown bootstrap-select default-select form-control wide form-control-sm">
-                                                        <select id="status" name="status" class="default-select form-control wide form-control-sm" Required>
-                                                            <option value=""> </option>
+                                                        <select id="status" name="status" class="default-select form-control wide form-control-sm" required>
+                                                            <option value="">Choose any one </option>
                                                             <option value="1">Active </option>
                                                             <option value="0">Inactive</option>
                                                         </select>

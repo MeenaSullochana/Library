@@ -83,7 +83,7 @@
                             <p><b>Adherence to Selection Process</b> Selection is based on evaluations from the Selection Committee, subject experts, librarians, and users, using a consolidated point marking system.</p>
                             <p><b>Delivery Commitments</b> Ensure timely delivery of required copies to designated libraries once selected for procurement.</p>
                             <p><b>Ethical Standards</b> Maintain high ethical standards; strictly prohibit and penalize copyright infringement, false representation, and low-quality publications to preserve the integrity and quality of library collections.</p>
-                            <p><b>Central Facility for Sending purcharsed  Books</b> It is mandatory to send selected books to the “central facility” in Chennai, from where the official delivery partner distributes the books  to various libraries across Tamil Nadu.
+                            <p><b>Central Facility for Sending purchased  Books</b> It is mandatory to send selected books to the “central facility” in Chennai, from where the official delivery partner distributes the books  to various libraries across Tamil Nadu.
                             </p>
                             <p><b>Duration of availability for Chosen Books for purchase</b> Chosen books will be available for purchase for two years. If not selected within this period, books will be removed from the list in chronological order and archived.</p>
                             <p><b>Policy and Government Order Review</b> Regularly review the Transparent Book Procurement Policy and government orders for updates and detailed information to stay informed and aligned.

@@ -18,6 +18,11 @@
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href= "{{ asset('admin/images/fevi.svg') }}">
     <?php include 'admin/plugin/plugin_css.php'; ?>
+    <style>
+    img.rounded-circle.img-fluid {
+        height: 30px;
+    }
+    </style>
 </head>
 
 <body>
@@ -52,7 +57,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>List Of Categories</b>
+                                <b>List of Categories</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="categories_add">
                                 <i class="fas fa-plus"></i> Add Category</a>
@@ -67,7 +72,8 @@
                                 aria-labelledby="home-tab-1">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-responsive-md" id="refresh">
+                                        {{-- <table class="table table-responsive-md" id="refresh"> --}}
+                                        <table class="table table-responsive-md" id="example3">
                                             <thead>
                                                 <tr>
                                                     <th style="width:50px;">
