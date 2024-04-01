@@ -134,8 +134,6 @@ Route::get('/magazineview',function(){
     $data = \Session::get('magazine');
     if($data !==null){
         return view('admin.magazine_view')->with("data",$data);
-    }else{
-        return back();
     }
 
 });
@@ -951,5 +949,25 @@ Route::get('/magazinebudgetview',function(){
   
   });
  
+  Route::get('/magazine_order_view/{id}',[MagazineController::class,'magazine_orderview']);
+  Route::get('/magazine-order-view',function(){
+      $data = Session::get('Ordermagazine');
+      if($data !==null){
+          return view('admin.magazine_order_view')->with("data",$data);
+      }
+      
+  });
+  
+  Route::get('/magazine_invoice_view/{id}',[MagazineController::class,'magazine_invoiceview']);
+  Route::get('/magazine-invoice-view',function(){
+      $data = Session::get('Ordermagazineinvoice');
+      if($data !==null){
+          return view('admin.magazine_order_invoice')->with("data",$data);
+      }
+      
+  });
+  
+
+
     });
 });

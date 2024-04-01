@@ -17,6 +17,7 @@ class Ordermagazine extends Model
         'balanceAmount',
         'magazineProduct',
         'libraryType', 
+        'libraryid',
         'totalBudget',
         'totalPurchased',
         'totalBal',

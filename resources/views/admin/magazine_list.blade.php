@@ -59,23 +59,27 @@
                         <h2 class="accordion-header p-0 m-0 bg-white" id="headingOne">
                             <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <div class="cpa">
-                                    <i class="fa-sharp fa-solid fa-filter me-2"></i>Filter
-                                </div>
+                              
+                                <h3 class="mb-0 bc-title">
+                                <b>Magazine List</b>
+                            </h3>
                             </button>
                         </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        <!-- <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
-                                            <label class="form-label">User</label>
-                                            <select name="" id=""
-                                                class="form-select bg-white p-2 border border-1 mb-3">
-                                                <option value="tamil">Publisher</option>
-                                                <option value="English">Distributor</option>
-                                                <option value="English">Publisher cum Distributor</option>
+                                            <label class="form-label">Category</label>
+                                            <select name="" id="" class="form-select bg-white p-2 border border-1 mb-3">
+                                                <option value="">All Category</option>
+                                                @php
+                                             $categori = DB::table('magazine_categories')->orderBy('created_at','ASC')->get();
+                                             @endphp
+                                             @foreach($categori as $val)
+                                             <option value="{{$val->name}}">{{$val->name}}</option>
+                                             @endforeach
                                             </select>
                                         </div>
                                         <div class="col-xl-3 col-sm-6">
@@ -109,14 +113,13 @@
                                             <div>
                                                 <button class="btn btn-primary me-2" title="Click here to Search"
                                                     type="button"><i class="fa fa-filter me-1"></i>Filter</button>
-                                                <button class="btn btn-danger light" title="Click here to remove filter"
-                                                    type="button">Remove Filter</button>
+                                               
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -133,14 +136,26 @@
                         <hr>
                         <div class="row mb-4 d-flex">
                             <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
-                                <label class="form-label">Select Range</label>
-                                <select name="" id=""
-                                    class="form-select bg-white p-2 border border-1">
-                                    <option value="500">100</option>
-                                    <option value="1000">1000</option>
-                                </select>
+                                <label class="form-label">Select Category</label>
+                                <select name="category_filter" id="category_filter" class="form-select bg-white p-2 border border-1 mb-3">
+                                                <option value="">All Category</option>
+                                                @php
+                                             $categori = DB::table('magazine_categories')->orderBy('created_at','ASC')->get();
+                                             @endphp
+                                             @foreach($categori as $val)
+                                             <option value="{{$val->name}}">{{$val->name}}</option>
+                                             @endforeach
+                                            </select>
                             </div>
-                            <div class="col-xl-9 col-sm-6 mt-4 text-end">
+                            <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                                <label class="form-label">Select language</label>
+                                <select name="language_filter" id="language_filter" class="form-select bg-white p-2 border border-1 mb-3">
+                                    <option value="">All Record</option>
+                                    <option value="Tamil">Tamil</option>
+                                    <option value="English">English</option>
+                                    </select>
+                            </div>
+                            <div class="col-xl-6 col-sm-6 mt-4 text-end">
                                 <button type="button" class="btn btn-primary"><span
                                         class="btn-icon-start text-primary"><i class="fa fa-file-pdf-o"></i>
                                     </span>PDF</button>
@@ -237,7 +252,7 @@
     <!--************
                 Footer start
             *************-->
-    @include ('publisher.footer')
+    @include ('admin.footer')
     <!--************
                 Footer end
             *************-->
@@ -256,8 +271,48 @@
             Main wrapper end
         *************-->
     <?php
-    include 'publisher/plugin/plugin_js.php';
+    include 'admin/plugin/plugin_js.php';
     ?>
 </body>
+<script>
+ $(document).ready(function() {
+    // Initialize DataTable
+    var table = $('#example3').DataTable();
+
+    // Function to handle category filter
+    function filterCategory(category) {
+        if (category === "") {
+            table.column(3).search("").draw();
+        } else {
+            table.column(3).search(category).draw();
+        }
+    }
+
+    // Call filterCategory function on change event of the select element
+    $('#category_filter').on('change', function() {
+        var category = $(this).val();
+        filterCategory(category);
+    });
+
+    // Function to handle language filter
+    function filterLanguage(language) {
+        if (language === "") {
+            // If language filter is empty, reset table to show all records
+            table.column(2).search(language).draw();
+        } else {
+            // Apply language filter (assuming Language is in column index 2)
+            table.column(2).search(language).draw();
+        }
+    }
+
+    // Call filterLanguage function on change event of the language filter
+    $('#language_filter').on('change', function() {
+        var language = $(this).val();
+        filterLanguage(language);
+    });
+});
+
+</script>
+
 
 </html>

@@ -179,8 +179,8 @@
                                                     </ul>
                                                 </div>
                                                 <div class="product__details-payment text-center">
-                                                    <img src="https://cdn.shopify.com/s/files/1/0280/8365/0642/files/Add_a_heading_480x480.png"
-                                                        alt="">
+                                                    <!-- <img src="https://cdn.shopify.com/s/files/1/0280/8365/0642/files/Add_a_heading_480x480.png"
+                                                        alt=""> -->
                                                     <button class="btn btn-primary">
                                                         <span class="btn-primary" data-bs-toggle="modal"
                                                             data-bs-target="#modalId"><i class="fa fa-book"></i> Read Sample PDF</span></button>
@@ -203,8 +203,8 @@
                                                                         aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <iframe
-                                                                        src="http://docs.google.com/gview?url=http://www.pdf995.com/samples/pdf.pdf&embedded=true"
+                                                                    <iframe 
+                                                                        src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
                                                                         style="width:100%; height:1000px;"
                                                                         frameborder="0"></iframe>
 
@@ -280,7 +280,7 @@
                                                 </p> -->
                                             </div>
                                             <div class="tpdescription__product-thumb">
-                                                <img src="https://everyday-reading.com/wp-content/uploads/2015/01/Bestof2014-1.jpg" alt="">
+                                                <img src="{{ asset('Magazine/front/' . $data->front_img) }}" alt="">
                                             </div>
                                         </div>
                                         <!-- <div class="tpdescription__video">

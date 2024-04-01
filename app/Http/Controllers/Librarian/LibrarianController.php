@@ -601,6 +601,15 @@ public function librarianreturnmessage(Request $req){
     return redirect('librarian/magazine-invoice-view');    
 
   }
+  public function magazineview($id){
+    $magazineview = Magazine::find($id);
+
+ 
+    \Session::put('magazineview', $magazineview);
+    return redirect('librarian/magazine-view');    
+
+  }
+
   
 
     }
