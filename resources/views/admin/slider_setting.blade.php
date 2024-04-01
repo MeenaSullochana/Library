@@ -78,25 +78,25 @@
                                     <div class="col-md-8">
                                         <div class="mb-3">
                                             <label for="slug"> Thirukkural First Line  <span class="text-danger">*</span></label>
-                                            <textarea type="text" class="form-control" id="thirukkuralFirstLine" name="thirukkuralFirstLine" placeholder="Enter Thirukkural" rows="2" required></textarea>
+                                            <textarea type="text" class="form-control" id="thirukkuralFirstLine" name="thirukkuralFirstLine" placeholder="Enter the Thirukkural" rows="2" required></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="mb-3">
                                             <label for="slug"> Thirukkural Second Line  <span class="text-danger">*</span></label>
-                                            <textarea type="text" class="form-control" id="thirukkuralSecondLine" name="thirukkuralSecondLine" placeholder="Enter Thirukkural" rows="2" required></textarea>
+                                            <textarea type="text" class="form-control" id="thirukkuralSecondLine" name="thirukkuralSecondLine" placeholder="Enter the Thirukkural" rows="2" required></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="mb-3">
                                             <label for="slug"> Shot Description   <span class="text-danger">*</span></label>
-                                            <textarea type="text" class="form-control" id="shotDescription" name="shotDescription" placeholder="Enter Shot Description" rows="5" required></textarea>
+                                            <textarea type="text" class="form-control" id="shotDescription" name="shotDescription" placeholder="Enter the Shot Description" rows="5" required></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="mb-3">
                                             <label for="slug"> Long Description   <span class="text-danger">*</span></label>
-                                            <textarea type="text" class="form-control" id="longDescription" name="longDescription" placeholder="Enter Long Description" rows="8" required></textarea>
+                                            <textarea type="text" class="form-control" id="longDescription" name="longDescription" placeholder="Enter the Long Description" rows="8" required></textarea>
                                         </div>
                                     </div>
                                     <div class="col-md-8" id="adding">

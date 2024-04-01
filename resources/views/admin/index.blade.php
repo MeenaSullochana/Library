@@ -31,6 +31,11 @@
     <!-- Style css -->
     <link href= "{{asset('admin/css/style.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        a.canvasjs-chart-credit {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -3509,16 +3514,17 @@
     <div id="reviewerListChart" style="height: 370px; width: 100%;"></div>
 </div>
                             <!-- publisher -->
-                            <div class="col-xl-12 col-xxl-12">
+                            <div class="col-xl-12 col-xxl-12 mt-5">
                                 <div class="card">
-                                    <div class="card-body p-0">
+                                    <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
                                             <div class="tbl-caption">
                                                 <h4 class="heading mb-0">Publisher</h4>
                                             </div>
-                                            <table id="projects-tbl" class="table">
+                                            <table id="example3" class="table">
                                                 <thead>
                                                     <tr>
+                                                        <th>S.No</th>
                                                         <th>Publication Name</th>
                                                         <th>Name</th>
                                                         <th>User Type</th>
@@ -3533,7 +3539,7 @@
                                                 @foreach($allpub as $val)
                                                     <tr>
 
-                                                    
+                                                        <td>  <strong>{{$loop->index +1}}</strong></td>
                                                     <td>{{$val->publicationName}} </td>
 
                                                         <td>{{$val->firstName}} {{$val->lastName}}</td>
@@ -3578,16 +3584,16 @@
                             <!-- Distributor -->
                             <div class="col-xl-12 col-xxl-12">
                                 <div class="card">
-                                    <div class="card-body p-0">
+                                    <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
                                             <div class="tbl-caption">
                                                 <h4 class="heading mb-0">Distributor</h4>
                                             </div>
-                                            <table id="projects-tbl" class="table">
+                                            <table id="example3" class="table">
                                                 <thead>
 
                                                     <tr>
-
+                                                        <th>S.No</th>
                                                         <th>Distribution Name</th>
                                                         <th>Name</th>
 
@@ -3603,7 +3609,8 @@
                                                 <tbody>
                                                 @foreach($alldist as $val)
                                                 <tr>
-                                                <td>{{$val->distributionName}} </td>
+                                                        <td>  <strong>{{$loop->index +1}}</strong></td>
+                                                        <td>{{$val->distributionName}} </td>
 
                                                         <td>{{$val->firstName}} {{$val->lastName}}</td>
                                                         <td>{{$val->usertype}}</td>
@@ -3646,14 +3653,16 @@
                             <!-- Publisher And Distributor -->
                             <div class="col-xl-12 col-xxl-12">
                                 <div class="card">
-                                    <div class="card-body p-0">
+                                    <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
                                             <div class="tbl-caption">
                                                 <h4 class="heading mb-0">Publisher And Distributor</h4>
                                             </div>
-                                            <table id="projects-tbl" class="table">
+                                            <table id="example3" class="table">
+                                            {{-- <table id="projects-tbl" class="table"> --}}
                                                 <thead>
                                                     <tr>
+                                                        <th>S.No</th>
                                                         <th> Publication / Distribution Name </th>
                                                         <th>Name</th>
                                                         <th>User Type</th>
@@ -3668,6 +3677,7 @@
                                                 <tbody>
                                                 @foreach($allpubdist as $val)
                                                 <tr>
+                                                    <td>  <strong>{{$loop->index +1}}</strong></td>
                                                     <td> {{$val->publicationDistributionName}} </td>
                                                         <td>{{$val->firstName}} {{$val->lastName}}</td>
                                                         <td>{{$val->usertype}}</td>

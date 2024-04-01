@@ -12,6 +12,7 @@
     <?php
     include 'plugin/css.php';
     ?>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
    /* @property --p {
       syntax: '<number>';
@@ -130,15 +131,8 @@
         </div>
         <!-- breadcrumb-area-end -->
 
-
-
-
         <section class="budget-chat-data pb-80">
             <div class="container">
-            <!-- "category" => $val->name,
-              "budget_price" => $val->amount,
-              "cart_price" => $cartdata,
-              "percentage" => $percentage -->
                        <div class="row">
                        @if($bud_arr  != null)
                        @foreach ($bud_arr as $val) 
@@ -157,9 +151,9 @@
 									</div>
 									<div class="card-footer">
 										<div class="d-flex justify-content-lg-between ">
-                                           <p class="text-center">Remaining Amount <small> ₹{{ $val->budget_price  - $val->cart_price}}</small></p>
+                                           <p class="text-center">Remaining Amount <small> <i class="fa fa-rupee"></i> {{ $val->budget_price  - $val->cart_price}}</small></p>
 											<!-- <h6><i class="fa fa-inr" aria-hidden="true"></i>  876</h6> -->
-                                            <p class="text-center">Purchased Amount <small> ₹ {{$val->cart_price}}</small></p>
+                                            <p class="text-center">Purchased Amount <small> <i class="fa fa-rupee"></i> {{$val->cart_price}}</small></p>
 											<!-- <h4><i class="fa fa-inr" aria-hidden="true"></i> ₹ 9854</h4> -->
 										</div>
 									</div>
@@ -173,8 +167,7 @@
            </div>
         </section>
         <!-- cart area -->
-        <section class="cart-area pb-80">
-            <div class="container">
+        <section class="container card cart-area pb-80 bg-gray-500">
                 <div class="row">
                     <div class="col-12">
                     <h4> All Selected Magazine List </h4>
@@ -186,7 +179,7 @@
                                     <thead>
                                         <tr>
                                             <th class="product-thumbnail">Images</th>
-                                            <th class="cart-product-name">Courses</th>
+                                            <th class="cart-product-name">Magazine Title</th>
                                             <th class="cart-product-name">Subject</th>
                                             <th class="product-price">Unit Price</th>
                                             <th class="product-quantity">Quantity</th>
@@ -241,13 +234,18 @@
                                 <div class="col-12">
                                     <div class="coupon-all">
                                         <div class="coupon2">
-                                            <!-- <button class="tp-btn tp-color-btn banner-animation" name="update_cart"
-                                                type="submit">Update cart</button> -->
+                                           <a href="/cartpdfview"> <button class="btn btn-info" name="update_cart" type="submit"><i class="fa fa-file-pdf"></i> Generate PDF</button> 
+                                            <button class="btn btn-dark" name="update_cart" type="submit"><i class="fa fa-file-excel"></i> Download Excel</button> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row justify-content-end">
+                                <div class="col-md-7">
+                                    <p class="p-0 m-0">Total Budget Allocated Amount: <i class="fa fa-rupee"></i><b>500</b></p>
+                                    <p class="p-0 m-0">Selected Amount: <i class="fa fa-rupee"></i><b>500</b></p>
+                                    <p class="p-0 m-0">Remaining  Amount: <i class="fa fa-rupee"></i><b>500</b></p>
+                                </div>
                                 <div class="col-md-5 ">
                                     <div class="cart-page-total">
                                         <h2>Cart totals</h2>
@@ -263,7 +261,6 @@
                     
                     </div>
                 </div>
-            </div>
         </section>
         <!-- cart area end-->
 

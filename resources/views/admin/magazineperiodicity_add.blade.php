@@ -86,7 +86,7 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
                                                         <label for="slug">Magazine Periodicity Name  <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Category Name" Required>
+                                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter the Magazine Periodicity Name" Required>
                                                     </div>
                                                 </div>
                                                
@@ -94,7 +94,7 @@
                                                     <label for="slug">Status  <span class="text-danger">*</span></label>
                                                     <div class="dropdown bootstrap-select default-select form-control wide form-control-sm">
                                                         <select id="status" name="status" class="default-select form-control wide form-control-sm" Required>
-                                                            <option value=""> </option>
+                                                            <option value="">Choose any one </option>
                                                             <option value="1">Active </option>
                                                             <option value="0">Inactive</option>
                                                         </select>

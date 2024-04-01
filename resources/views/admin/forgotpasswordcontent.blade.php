@@ -97,7 +97,7 @@
 
                                                     <div class="mb-3">
                                                         <label for="slug">Headline Title  <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Headline Title" id="hidelins">
+                                                        <input type="text" class="form-control" placeholder="Enter the Headline Title" id="hidelins">
                                                     </div>
 
                                                     <div class="table-responsive">
@@ -108,7 +108,7 @@
                                                                 <th>Add</th>
                                                             </tr>
                                                             <tr>
-                                                                <td><input type="text" name="subject[]" placeholder="Enter Description Content" class="form-control name_list" /></td>
+                                                                <td><input type="text" name="subject[]" placeholder="Enter the Description Content" class="form-control name_list" /></td>
                                                                 <td><button type="button" name="awarded_titles" class="btn btn-success add_row">+</button></td>
                                                             </tr>
                                                         </table>

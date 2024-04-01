@@ -86,7 +86,7 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-3">
                                                         <label for="slug">Category Name  <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="{{$data->name}}" Required>
+                                                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter the Category Name" value="{{$data->name}}" Required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4" id="adding">
@@ -116,7 +116,7 @@
                                                                     <div class="author-media">
                                                                         <img src="{{ asset('admin/categorieImage/' . $data->categorieImage) }}" alt="" id="output" >
                                                                         <div class="upload-link" title="" data-toggle="tooltip" data-placement="right" data-original-title="update">
-                                                                            <input type="file" class="update-flie" id="profileImage" onchange="loadFile(event)" Required>
+                                                                            <input type="file" class="update-flie" id="profileImage"  accept="image/png, image/jpg, image/jpeg" onchange="loadFile(event)" Required>
                                                                             <i class="fa fa-camera"></i>
                                                                         </div>
                                                                     </div>

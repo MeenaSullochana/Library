@@ -108,7 +108,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
                                                             <div class="form-group">
                                                                 <label for="title">App Name <span class="text-danger">*</span></label>
                                                                 <input type="text" name="title" class="form-control"
-                                                                    id="title" placeholder="Enter Website Title"
+                                                                    id="title" placeholder="Enter the Website Title"
                                                                     value="Book fair">
                                                             </div>
                                                         </div>
@@ -117,7 +117,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
                                                                 <label for="home_page_title">Home Page Title  <span class="text-danger">*</span></label>
                                                                 <input type="text" name="home_page_title"
                                                                     class="form-control" id="home_page_title"
-                                                                    placeholder="Enter Home Page Title"
+                                                                    placeholder="Enter the Home Page Title"
                                                                     value="Home page title">
                                                             </div>
                                                         </div>
@@ -480,7 +480,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
                                                                         <textarea name="meta_description"
                                                                             id="meta_description" class="form-control"
                                                                             rows="5"
-                                                                            placeholder="Enter Site Meta Description">  Multipurpose eCommerce  Shopping Platform Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over .</textarea>
+                                                                            placeholder="Enter the Site Meta Description">  Multipurpose eCommerce  Shopping Platform Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over .</textarea>
                                                                     </div>
                                                                  
                                                                    <div class="card mb-4 mt-3">
@@ -513,7 +513,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
                                                                     <label>Google Analytics<span class="text-danger">*</span></label>
                                                                     <textarea name="google_analytics"
                                                                         class="form-control" id=""
-                                                                        placeholder="Google Analytics"></textarea>
+                                                                        placeholder="Enter the Google Analytics"></textarea>
                                                                 </div>
                                                                 <div class="mt-3 d-flex justify-content-end">
                                                                     <button type="button" class="btn btn-primary">Submit</button>
@@ -533,14 +533,14 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
         <label for="footer_content"> About Content <span class="text-danger">*</span></label>
         <textarea type="text" name="footer_about"
             class="form-control" id="footer_about"
-            placeholder=" About Content" rows="3" value="{{$homefooter->about}}"
+            placeholder="Enter the About Content" rows="3" value="{{$homefooter->about}}"
             >{{$homefooter->about}}</textarea>
     </div>
     <div class="form-group mt-3">
         <label for="footer_address"> Address <span class="text-danger">*</span></label>
         <textarea type="text" name="footer_address"
             class="form-control" id="footer_address"
-            placeholder=" Address" rows="3"
+            placeholder="Enter the Address" rows="3"
             value="{{$homefooter->address}}">{{$homefooter->address}}</textarea>
     </div>
 
@@ -549,7 +549,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
             <span class="text-danger">*</span></label>
         <input type="text" name="footer_phone"
             class="form-control" id="footer_phone"
-            placeholder=" Phone Number" value="{{$homefooter->phoneNumber}}"
+            placeholder="Enter the Phone Number" value="{{$homefooter->phoneNumber}}"
            >
     </div>
     <div class="form-group mt-3">
@@ -557,7 +557,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
             <span class="text-danger">*</span></label>
         <input type="text" name="footer_Fax"
             class="form-control" id="footer_Fax"
-            placeholder=" Fax Number"  value="{{$homefooter->faxNumber}}"
+            placeholder="Enter the Fax Number"  value="{{$homefooter->faxNumber}}"
             >
     </div>
     
@@ -566,7 +566,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
         <label for="footer_email"> Email <span class="text-danger">*</span></label>
         <input type="email" name="footer_email"
             class="form-control" id="footer_email"
-            placeholder="Enter Email"  value="{{$homefooter->email}}"
+            placeholder="Enter the Email"  value="{{$homefooter->email}}"
             >
     </div>
 
@@ -648,7 +648,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
         <label for="copy_right">Copyright<span class="text-danger">*</span></label>
         <textarea name="footer_copyright" id="footer_copyright"
             class="form-control" rows="3"
-            placeholder="Enter Copyright"  value="{{$homefooter->copyright}}">{{$homefooter->copyright}}</textarea>
+            placeholder="Enter the Copyright"  value="{{$homefooter->copyright}}">{{$homefooter->copyright}}</textarea>
     </div>
 
     <div class="mt-3 d-flex justify-content-end">
@@ -669,7 +669,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
         <label for="copy_right">News feed<span class="text-danger">*</span></label>
         <textarea name="newsFeed" id="newsFeed"
             class="form-control" rows="5"
-            placeholder="Enter News feed" value="{{$news_feeds->newsFeed}}">{{$news_feeds->newsFeed}}</textarea>
+            placeholder="Enter the News feed" value="{{$news_feeds->newsFeed}}">{{$news_feeds->newsFeed}}</textarea>
     </div>
 
     <div class="mt-3 d-flex justify-content-end">
@@ -769,8 +769,8 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
                 e.preventDefault();
                 if(table.find('tr').length < max_rows){
                     var newRow = '<tr>' +
-                        '<td><input type="text" name="subject[]" placeholder="Enter Social Name" class="form-control name_list" /></td>' +
-                        '<td><input type="text" name="subject[]" placeholder="Enter https://www.facebook.com/" class="form-control name_list" /></td>' +
+                        '<td><input type="text" name="subject[]" placeholder="Enter the Social Name" class="form-control name_list" /></td>' +
+                        '<td><input type="text" name="subject[]" placeholder="Enter the https://www.facebook.com/" class="form-control name_list" /></td>' +
                         '<td><button type="button" class="btn btn-danger remove_row">-</button></td>' +
                         '</tr>';
                     table.append(newRow); // Add row

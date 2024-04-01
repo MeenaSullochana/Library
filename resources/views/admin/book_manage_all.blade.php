@@ -123,79 +123,83 @@
                               </div>
                            </div>
                         </div>
-                        <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
-                           <table id="empoloyees-tbl3" class="table dataTable no-footer" role="grid"
-                              aria-describedby="empoloyees-tbl3_info">
-                              <thead>
-                                 <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="empoloyees-tbl3"
-                                       rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column descending" style="width: 25.375px;">
-                                       <div class="form-check custom-checkbox ms-0">
-                                          <input type="checkbox" class="form-check-input checkAllInput"
-                                             id="checkAll2" required="">
-                                          <label class="form-check-label" for="checkAll2"></label>
-                                       </div>
-                                    </th>
-                                    <th>Book No</th>
-                                    <th>Books</th>
-                                    <th>Price</th>
-                                    <th>ISBN(10/13)</th>
-                                    <th>User Type</th>
-                                    <th>Action</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                              @foreach($data as $val)
-                                 <tr role="row" class="odd">
-                                    <td class="sorting_1">
-                                       <div class="form-check custom-checkbox">
-                                          <input type="checkbox" class="form-check-input"
-                                             id="customCheckBox100" required="">
-                                          <label class="form-check-label" for="customCheckBox100"></label>
-                                       </div>
-                                    </td>
-                                    <td><span>{{$val->product_code}}</span></td>
-                                    <td>
-                                       <div class="products">
-                                          <div>
-                                             <h6><a class="text-left" href="book_manage_view.php">{{$val->book_title}}</a></h6>
-                                             <span class="text-left">{{$val->subtitle}}</span>
+                        <div class="card">
+                           <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
+                              <table id="empoloyees-tbl3" class="table dataTable no-footer" role="grid"
+                                 aria-describedby="empoloyees-tbl3_info">
+                                 <thead>
+                                    <tr role="row">
+                                       <th class="sorting_asc" tabindex="0" aria-controls="empoloyees-tbl3"
+                                          rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column descending" style="width: 25.375px;">
+                                          <div class="form-check custom-checkbox ms-0">
+                                             <input type="checkbox" class="form-check-input checkAllInput"
+                                                id="checkAll2" required="">
+                                             <label class="form-check-label" for="checkAll2"></label>
                                           </div>
-                                       </div>
-                                    </td>
-                                    <td><a href="javascript:void(0)" class="text-primary">{{$val->price}}</a></td>
-                                    <td>
-                                       <span>{{$val->isbn}} </span>
-                                    </td>
-                                    @if($val->user_type == "publisher_distributor")
-                                    <td>
-                                       <span>publisher cum distributor</span>
-                                    </td>
-                                   @else
-                                   <td>
-                                       <span>{{$val->user_type}}</span>
-                                    </td>
-                                   @endif
-                                    <!-- <td>
-                                       <span>0</span>
-                                    </td> -->
-                                    <td data-label="controlq">
-                                       <div class="d-flex mt-p0">
-                                          <a href="/admin/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
-                                          <i class="fa fa-eye"></i>
-                                          </a>
-                                          {{-- <a href="book_manage_edit.php" class="btn btn-warning shadow btn-xs sharp me-1">
-                                          <i class="fa fa-edit"></i>
-                                          </a> --}}
-                                          {{-- <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
-                                          <i class="fa fa-trash"></i>
-                                          </a> --}}
-                                       </div>
-                                    </td>
-                                 </tr>
-                                 @endforeach
-                              </tbody>
-                           </table>
+                                       </th>
+                                       <th>S.No</th>
+                                       <th>Book No</th>
+                                       <th>Books</th>
+                                       <th>Price</th>
+                                       <th>ISBN(10/13)</th>
+                                       <th>User Type</th>
+                                       <th>Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                 @foreach($data as $val)
+                                    <tr role="row" class="odd">
+                                       <td class="sorting_1">
+                                          <div class="form-check custom-checkbox">
+                                             <input type="checkbox" class="form-check-input"
+                                                id="customCheckBox100" required="">
+                                             <label class="form-check-label" for="customCheckBox100"></label>
+                                          </div>
+                                       </td>
+                                       <td>  <strong>{{$loop->index +1}}</strong></td>
+                                       <td><span>{{$val->product_code}}</span></td>
+                                       <td>
+                                          <div class="products">
+                                             <div>
+                                                <h6><a class="text-left" href="book_manage_view.php">{{$val->book_title}}</a></h6>
+                                                <span class="text-left">{{$val->subtitle}}</span>
+                                             </div>
+                                          </div>
+                                       </td>
+                                       <td><a href="javascript:void(0)" class="text-primary">{{$val->price}}</a></td>
+                                       <td>
+                                          <span>{{$val->isbn}} </span>
+                                       </td>
+                                       @if($val->user_type == "publisher_distributor")
+                                       <td>
+                                          <span>publisher cum distributor</span>
+                                       </td>
+                                      @else
+                                      <td>
+                                          <span>{{$val->user_type}}</span>
+                                       </td>
+                                      @endif
+                                       <!-- <td>
+                                          <span>0</span>
+                                       </td> -->
+                                       <td data-label="controlq">
+                                          <div class="d-flex mt-p0">
+                                             <a href="/admin/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                             <i class="fa fa-eye"></i>
+                                             </a>
+                                             {{-- <a href="book_manage_edit.php" class="btn btn-warning shadow btn-xs sharp me-1">
+                                             <i class="fa fa-edit"></i>
+                                             </a> --}}
+                                             {{-- <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
+                                             <i class="fa fa-trash"></i>
+                                             </a> --}}
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    @endforeach
+                                 </tbody>
+                              </table>
+                           </div>
                         </div>
                      </div>
                   </div>

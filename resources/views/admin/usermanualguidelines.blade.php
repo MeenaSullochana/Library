@@ -104,7 +104,7 @@
                                                                 <th>Add</th>
                                                             </tr>
                                                             <tr>
-                                                                <td><input type="text" name="subject[]" placeholder="Enter Description Content" class="form-control name_list" /></td>
+                                                                <td><input type="text" name="subject[]" placeholder="Enter the Description Content" class="form-control name_list" /></td>
                                                                 <td><button type="button" name="awarded_titles" class="btn btn-success add_row">+</button></td>
                                                             </tr>
                                                         </table>
@@ -165,7 +165,7 @@ $(document).ready(function(){
         e.preventDefault();
         if(table.find('tr').length < max_rows){
             var newRow = '<tr>' +
-                '<td><input type="text" name="subject[]" placeholder="Enter Description Content" class="form-control name_list" /></td>' +
+                '<td><input type="text" name="subject[]" placeholder="Enter the Description Content" class="form-control name_list" /></td>' +
                 '<td><button type="button" class="btn btn-danger remove_row">-</button></td>' +
                 '</tr>';
             table.append(newRow); // Add row

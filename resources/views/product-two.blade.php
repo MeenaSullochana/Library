@@ -43,9 +43,9 @@
 .tpproduct__hover-text{
     z-index: 1;
 }
-
-
-
+.tpproduct__content {
+    min-height: 130px;
+}
 </style>
 </head>
 
