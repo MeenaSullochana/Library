@@ -21,7 +21,8 @@ use App\Models\Publisher;
  use App\Models\Mailurl;
  use Illuminate\Support\Facades\Auth;
 
- 
+ use App\Models\Ordermagazine;
+
  use Illuminate\Support\Facades\Notification;
 use App\Notifications\Member1detailNotification;
 class MagazineController extends Controller
@@ -84,5 +85,53 @@ public function list(){
         return redirect()->back()->with('errorlist', 'An error occurred while listing magazine details.');
     }
 }
+
+public function magazine_orderview($id){
+    $Ordermagazine=Ordermagazine::find($id);
+    $magazineProduct =        json_decode($Ordermagazine->magazineProduct);
+
+      $datas=[];
+     foreach($magazineProduct  as $val){
+      $magazinesrec = Magazine::find($val->magazineid);
+      $val->image=$magazinesrec->front_img;
+      $val->language=$magazinesrec->language;
+        array_push($datas,$val);
+
+     }
+     $Ordermagazine->magazineProduct = $datas;
+ 
+    \Session::put('Ordermagazine', $Ordermagazine);
+    return redirect('admin/magazine-order-view');    
+
+  }
+
+  public function magazine_invoiceview($id){
+    $Ordermagazineinvoice=Ordermagazine::find($id);
+    $magazineProduct =        json_decode($Ordermagazineinvoice->magazineProduct);
+
+      $datas=[];
+     foreach($magazineProduct  as $val){
+      $magazinesrec = Magazine::find($val->magazineid);
+      $val->image=$magazinesrec->front_img;
+      $val->language=$magazinesrec->language;
+        array_push($datas,$val);
+
+     }
+     $Ordermagazineinvoice->magazineProduct = $datas;
+ 
+    \Session::put('Ordermagazineinvoice', $Ordermagazineinvoice);
+    return redirect('admin/magazine-invoice-view');    
+
+  }
+  public function magazine_view($id){
+    $magazine = Magazine::find($id);
+
+ 
+    \Session::put('magazine', $magazine);
+    return redirect('admin/magazineview');    
+
+  }
+
+
 
 }

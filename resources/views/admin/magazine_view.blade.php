@@ -316,7 +316,7 @@
     <!--**********************************
                 Footer start
             ***********************************-->
-    @include ('publisher.footer')
+    @include ('admin.footer')
     <!--**********************************
                 Footer end
             ***********************************-->
@@ -335,7 +335,7 @@
             Main wrapper end
         ***********************************-->
     <?php
-    include 'publisher/plugin/plugin_js.php';
+    include 'admin/plugin/plugin_js.php';
     ?>
     <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
     aria-labelledby="exampleModalToggleLabel" tabindex="-1">

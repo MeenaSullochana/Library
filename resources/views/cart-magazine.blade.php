@@ -146,6 +146,8 @@
 								<div class="card">
 									<div class="card-header">
 										<p style="font-size:14px;" class="card-title text-center">{{$val->category}}</p>
+                                        <p style="font-size:14px;" class="card-title text-center">Total Amount <small> ₹{{$val->budget_price}}</small></p>
+
 									</div>
 									<div class="card-body text-center">
 									<div class="item">
@@ -155,9 +157,9 @@
 									</div>
 									<div class="card-footer">
 										<div class="d-flex justify-content-lg-between ">
-                                           <p class="text-center">Total Amount <small> ₹{{$val->budget_price}}</small></p>
+                                           <p class="text-center">Remaining Amount <small> ₹{{ $val->budget_price  - $val->cart_price}}</small></p>
 											<!-- <h6><i class="fa fa-inr" aria-hidden="true"></i>  876</h6> -->
-                                            <p class="text-center">Purchase Amount <small> ₹ {{$val->cart_price}}</small></p>
+                                            <p class="text-center">Purchased Amount <small> ₹ {{$val->cart_price}}</small></p>
 											<!-- <h4><i class="fa fa-inr" aria-hidden="true"></i> ₹ 9854</h4> -->
 										</div>
 									</div>
@@ -204,7 +206,7 @@
                                        <tr id="row_{{ $val->id }}">
                                             <td class="product-thumbnail" >
                                                 <a href="#">
-                                                    <img src="{{ asset('Magazine/front/' . $val->front_img) }}" alt="">
+                                                    <img style="width:75px;hight:75px;" src="{{ asset('Magazine/front/' . $val->image) }}" alt="">
                                                 </a>
                                             </td>
                                             <td class="product-name">
@@ -331,14 +333,14 @@
                    </div>
                    <div class="col-lg-6">
                       <div class="tpform__input mb-20">
-                        <label for="">PIN Code <span class="text-danger">*</span></label>
-                         <input type="number" placeholder="Enter the PIN Code"  id="district" value="{{auth('librarian')->user()->pincode}}" required>
+                        <label for="">Pincode <span class="text-danger">*</span></label>
+                         <input type="number" placeholder="Enter the Pincode"  id="pincode" value="{{auth('librarian')->user()->pincode}}" required>
                       </div>
                    </div>
                    <div class="col-lg-6">
                       <div class="tpform__input mb-20">
                         <label for="">Landmark  <span class="text-danger">*</span></label>
-                         <input type="text" placeholder="Enter the Landmark" value=" {{auth('librarian')->user()->landmark}}" required>
+                         <input type="text" placeholder="Enter the Landmark" id="landmark"  value=" {{auth('librarian')->user()->landmark}}" required>
                       </div>
                    </div>
                 </div>
@@ -364,7 +366,8 @@
 
 $(document).ready(function() {
     $('#Checkoutid').on('click', function () {
-         
+        $('#exampleModal').modal('hide');
+      
         var data={
                   'door_no':$('#door_no').val(),
                  'street':$('#street').val(),

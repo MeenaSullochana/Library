@@ -130,9 +130,9 @@
                             </div>
                             <div class="tpshop__widget mb-30 pb-25">
                                 <h4 class="tpshop__widget-title">Product English Categories</h4>
-                                @foreach($categories1 as $val)
+                                @foreach($categories1 as $key => $val)
                                 <div class="form-check">
-                                    <input class="form-check-input category-checkbox" type="checkbox" value=""
+                                    <input class="form-check-input category-checkbox" type="checkbox" value=""  data-key="{{ $key }}"
                                         data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}">
                                     <label class="form-check-label" for="flexCheckDefault{{ $val->name }}">
                                         {{ $val->name }}
@@ -191,9 +191,12 @@
                                               <div class="swiper-slide">
                                                 <div class="p-0 m-0" style="width:auto">
                                                     <div style="width:50px" class="total-amount w-100 p-0 m-0"><i class="fa fa-rupee"></i>Total Amount:{{$val->budget_price}}</div>
+                                                    <div style="width:50px" class="pur-cmount w-100 p-0 m-0"><i class="fa fa-rupee"></i>Remaining Amount:{{$val->budget_price  - $val->cart_price}}</div>
+
                                                     <div class="pie animate no-round" style="--p:{{$val->percentage}};--c:rgb(80, 180, 14);">{{$val->percentage}}%</div>
                                                     <p class="p-0 m-0">{{ implode(' ', array_slice(explode(' ', $val->category), 0, 2)) }}</p>
                                                     <div style="width:50px" class="pur-cmount w-100 p-0 m-0"><i class="fa fa-rupee"></i>Purchased Amount:{{$val->cart_price}}</div>
+
                                                 </div>
                                               </div>
                                                @endforeach
@@ -600,7 +603,20 @@
         });
     });
 </script>
- 
+<script>
+    $(document).ready(function(){
+        $('.category-checkbox1').change(function(){
+            var clickedKey = $(this).data('key');
+            if ($(this).is(':checked')) {
+                $('.category-checkbox1').not(this).each(function(){
+                    if ($(this).data('key') !== clickedKey) {
+                        $(this).prop('checked', false);
+                    }
+                });
+            }
+        });
+    });
+</script>
 <script>
 $(document).ready(function() {
     $(document).on('click', '#filterButton', function() {
@@ -627,6 +643,8 @@ $(document).ready(function() {
                 'selectedValue':selectedValue,
             },
             success: function(response) {
+                $('#nav-tab').load(location.href + " #nav-tab");
+
                 $('.basic-pagination').html('');
                 $('#nav-tabContent').html(response); 
                 handlePaginationAndFiltering();
@@ -683,6 +701,8 @@ $(document).ready(function() {
                     
                 },
                 success: function(response) {
+                    $('#nav-tab').load(location.href + " #nav-tab");
+
                     $('.basic-pagination').html('');
                     $('#nav-tabContent').html(response);
                     handlePaginationAndFiltering(); 
@@ -735,6 +755,15 @@ $(document).ready(function(){
                'id': id
                },
             success: function(response) {
+
+                if(response.success){
+                    toastr.success(response.success, { timeout: 2000 });
+
+                }
+                else{
+                    toastr.error(response.error, { timeout: 2000 });
+
+                }
                 if(response.magazinecartcount){
                     $('#magazinecartcount').text(response.magazinecartcount);
                     $(".myNavbar11").load(location.href + " .myNavbar11 > *", function() {
@@ -776,14 +805,7 @@ $(document).ready(function(){
 
                     
                 }
-                if(response.success){
-                    toastr.success(response.success, { timeout: 2000 });
-
-                }
-                else{
-                    toastr.error(response.error, { timeout: 2000 });
-
-                }
+         
                
             },
             error: function(xhr, status, error) {
@@ -809,6 +831,14 @@ $(document).ready(function(){
             'id': id
                },
             success: function(response) {
+                if(response.success){
+                    toastr.success(response.success, { timeout: 2000 });
+
+                }
+                else{
+                    toastr.error(response.error, { timeout: 2000 });
+
+                }
                 if(response.magazinecartcount){
                     $('#magazinecartcount').text(response.magazinecartcount);
                     $(".myNavbar11").load(location.href + " .myNavbar11 > *", function() {
@@ -853,14 +883,7 @@ $(document).ready(function(){
 
                 }
 
-                if(response.success){
-                    toastr.success(response.success, { timeout: 2000 });
-
-                }
-                else{
-                    toastr.error(response.error, { timeout: 2000 });
-
-                }
+         
                
             },
             error: function(xhr, status, error) {
@@ -885,6 +908,14 @@ $(document).ready(function(){
                  'id': id
                    },
             success: function(response) {
+                if(response.success){
+                    toastr.success(response.success, { timeout: 2000 });
+
+                }
+                else{
+                    toastr.error(response.error, { timeout: 2000 });
+
+                }
                 if(response.magazinecartcount){
                     $('#magazinecartcount').text(response.magazinecartcount);
                     $(".myNavbar11").load(location.href + " .myNavbar11 > *", function() {
@@ -929,14 +960,7 @@ $(document).ready(function(){
 
                 }
 
-                if(response.success){
-                    toastr.success(response.success, { timeout: 2000 });
-
-                }
-                else{
-                    toastr.error(response.error, { timeout: 2000 });
-
-                }
+          
                
             },
             error: function(xhr, status, error) {
@@ -990,83 +1014,6 @@ $(document).ready(function(){
 		},
     });
   </script>
-<style>
-.tpproduct__thumb {
-    padding: 20px 20px;
-    overflow: hidden;
-    border-radius: 10px;
-    min-height: 270px;
-    max-height: 270px;
-}
 
-.tplist__product-img {
-    height: 200px;
-    width: 100px;
-}
-
-.tplist__product-img-one img {
-    height: 200px;
-    width: 100px;
-}
-
-.tplist__product-img-two img {
-    height: 200px;
-    width: 100px;
-}
-@property --p{
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 0;
-}
-
-.pie {
-  --p:20;
-  --b:10px;
-  --c:darkred;
-  --w:70px;
-  
-  width:var(--w);
-  aspect-ratio:1;
-  position:relative;
-  display:inline-grid;
-  margin:5px;
-  place-content:center;
-  font-size:16px;
-  font-weight:bold;
-  font-family:sans-serif;
-}
-.pie:before,
-.pie:after {
-  content:"";
-  position:absolute;
-  border-radius:50%;
-}
-.pie:before {
-  inset:0;
-  background:
-    radial-gradient(farthest-side,var(--c) 98%,#0000) top/var(--b) var(--b) no-repeat,
-    conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
-  -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
-          mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
-}
-.pie:after {
-  inset:calc(50% - var(--b)/2);
-  background:var(--c);
-  transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
-}
-.animate {
-  animation:p 1s .5s both;
-}
-.no-round:before {
-  background-size:0 0,auto;
-}
-.no-round:after {
-  content:none;
-}
-@keyframes p {
-  from{--p:0}
-}
-
-</style>
 
 </html>

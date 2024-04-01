@@ -130,6 +130,15 @@ Route::prefix('librarian')->group(function () {
          
      });
      
+     Route::get('/magazine_view/{id}',[LibrarianController::class,'magazineview']);
+     Route::get('/magazine-view',function(){
+         $data = Session::get('magazineview');
+         if($data !==null){
+             return view('librarian.magazine_view')->with("data",$data);
+         }
+         
+     });
+
      
 });
 });

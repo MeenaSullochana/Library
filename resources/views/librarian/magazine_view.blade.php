@@ -225,8 +225,8 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <h4>Read PDF</h4>
-                                    orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s
+                                    <!-- orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                                    Ipsum has been the industry's standard dummy text ever since the 1500s -->
                                 </div>
                                 <div class="col-md-4">
                                     <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Read PDF</a>
@@ -335,7 +335,7 @@
             Main wrapper end
         ***********************************-->
     <?php
-    include 'publisher/plugin/plugin_js.php';
+    include 'librarian/plugin/plugin_js.php';
     ?>
     <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
     aria-labelledby="exampleModalToggleLabel" tabindex="-1">

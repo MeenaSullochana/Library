@@ -535,7 +535,7 @@ Session::put('bud_arr', $bud_arr);
 
         $magazines = Magazine::orderBy('sNo', 'Asc')->paginate(12);
    
-   
+      
     return view('product-two', compact('magazines'));
 }
 
@@ -562,9 +562,10 @@ public function megazine_categories(Request $req)
 
 
 
-
+     
         $checkedIds = $req->input('checkedIds', []);
         $checkedIds1 = $req->input('checkedIds1', []);
+       
         $Magazine = Magazine::query()
         ->where(function ($query) use ($checkedIds, $checkedIds1) {
             if (!empty($checkedIds) && !empty($checkedIds1)) {
@@ -587,7 +588,7 @@ public function megazine_categories(Request $req)
 
 
     $html = '';
-    $html = '<div class="tab-pane fade fade show active" id="nav-all" role="tabpanel"
+    $html = '<div class="tab-pane fade fade" id="nav-all" role="tabpanel"
     aria-labelledby="nav-all-tab">';
     $html .= ' <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">';
     
@@ -675,7 +676,7 @@ public function megazine_categories(Request $req)
     $html .= '</div>';
     $html .= '</div>';
     
-    $html .= '<div class="tab-pane fade whight-product" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">';
+    $html .= '<div class="tab-pane fade show active whight-product" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">';
     
     foreach ($Magazine as $val) {
         $html .= '<div class="row">
@@ -822,7 +823,7 @@ $cartdata=null;
 $bud_arr=null;
 $cartdatacount=0;
 
-return $cartdata;
+
 return view('cart-magazine', compact('bud_arr','cartdata','cartdatacount'));
 }
 
@@ -1277,6 +1278,7 @@ public function magazineCheckout(Request $req) {
          $Ordermagazine->totalBudget =$magazinebudget->totalAmount;
          $Ordermagazine->totalPurchased =$magazinebudget->totalAmount - $balanceamount;
          $Ordermagazine->totalBal =$balanceamount;
+         $Ordermagazine->libraryid = $librarian->librarianId;
          $Ordermagazine->quantity =$finalquantity;
          $randomCode = str_pad(random_int(0, 99999999), 12, '0', STR_PAD_LEFT);
          $Ordermagazine->orderid= $randomCode;
@@ -1290,7 +1292,7 @@ public function magazineCheckout(Request $req) {
             'post'=>'required',
             'pincode'=>'required',
             'landmark'=>'required',
-            'state'=>'required',
+           
             'district'=>'required|string',
         ]);
         if($validator->fails()){

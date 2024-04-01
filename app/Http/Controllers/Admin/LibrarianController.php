@@ -18,7 +18,8 @@ use App\Models\PublisherDistributor;
 use App\Models\Publisher;
  use Illuminate\Support\Str;
  use App\Models\Mailurl;
-
+ use App\Models\Ordermagazine;
+ use App\Models\Magazine;
  
  use Illuminate\Support\Facades\Notification;
 use App\Notifications\Member1detailNotification;
@@ -473,5 +474,10 @@ public function importFile(Request $request)
         return redirect()->back()->with('errorlib', 'An error occurred while importing.');
     }
 }
+
+
+
+
+
 
 }

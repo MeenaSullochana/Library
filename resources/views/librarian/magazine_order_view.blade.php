@@ -182,7 +182,7 @@
                                                         <div class="dropdown-menu dropdown-menu-end border py-0"
                                                             style="">
                                                             <div class="py-2">
-                                                                <a class="dropdown-item" href="magazine_view"><i class="fa fa-eye p-2"></i>View</a>
+                                                                <a class="dropdown-item" href="/librarian/magazine_view/{{$val->magazineid}}"><i class="fa fa-eye p-2"></i>View</a>
                                                                 <!-- <a class="dropdown-item" href="magazine_view"><i class="fa fa-file-invoice p-2"></i>Show invoice</a> -->
                                                         </div>
                                                     </div>
