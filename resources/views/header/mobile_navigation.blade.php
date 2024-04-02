@@ -71,21 +71,7 @@
             </div>
         </div>
         <div class="tpsideinfo__account-link">
-        @if (auth('publisher')->user())
-    <a href="/publisher/index"><i class="icon-user icons"></i> Dashboard</a>
-@elseif (auth('distributor')->user())
-    <a href="/distributor/index"><i class="icon-user icons"></i> Dashboard</a>
-@elseif (auth('admin')->user())
-    <a href="/admin/index"><i class="icon-user icons"></i> Dashboard</a>
-@elseif (auth('publisher_distributor')->user())
-    <a href="/publisher_distributor/index"><i class="icon-user icons"></i> Dashboard</a>
-@elseif (auth('librarian')->user())
-    <a href="/librarian/index"><i class="icon-user icons"></i> Dashboard</a>
-@elseif (auth('reviewer')->user())
-    <a href="/reviewer/index"><i class="icon-user icons"></i> Dashboard</a>
-@else
-    <a href="/login"><i class="icon-user icons"></i> Login</a>
-@endif
+ 
 
         </div>
         <div class="tpsideinfo__wishlist-link">
