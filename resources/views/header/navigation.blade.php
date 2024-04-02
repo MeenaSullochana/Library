@@ -30,7 +30,9 @@
                                 <!-- <li class="#">
                                     <a href="#">Library Catalogue</a>
                                  </li> -->
-                                <li class="has-dropdown">
+                                 @if(auth('librarian')->user())
+                                 @else
+                                 <li class="has-dropdown">
                                     <a href="#">Login</a>
                                     <ul class="sub-menu">
                                         <!-- <li><a href="#">Section</a></li>
@@ -44,6 +46,8 @@
                                         <li><a href="/member/login">User Login</a></li>
                                     </ul>
                                 </li>
+                                 @endif
+                             
 
                                 <!--<li class="#">-->
                                 <!--   <a href="#">Section</a>-->
