@@ -39,7 +39,8 @@ return new class extends Migration
             $table->string('librarianId');
             $table->string('allow_status');
             $table->json('subject');
-
+            $table->string('checkstatus');
+            
             $table->enum('status',['1','0'])->default('1');
             $table->timestamps();
         });

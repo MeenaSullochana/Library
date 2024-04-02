@@ -16,7 +16,11 @@ use App\Models\MagazineCategory;
 use App\Models\Librarian;
 use Illuminate\Support\Facades\Validator;
 use Throwable;
-
+use TCPDF; 
+use PDF;
+use App\Models\Publisher;
+use Illuminate\Support\Facades\View;
+use Maatwebsite\Excel\Facades\Excel;
 class WebsitebookController extends Controller
 {
    // Import your Book model
@@ -500,6 +504,7 @@ public function product_two(Request $request)
             "budget_price" => $val->amount,
             "cart_price" => $cartdata1,
             "percentage" => $percentage
+            
         ];
         array_push($bud_arr, $obj);
     }
@@ -765,6 +770,7 @@ $shopemagazine->quantity = $cart->quantity;
    
 }
 public function cart_magazine(){
+
     $librarian = auth('librarian')->user();
  
     $magazinebudget = Budget::where('type', 'magazinebudget')
@@ -779,12 +785,22 @@ public function cart_magazine(){
 
     // return  $librarian;
     if($magazinebudget !=null){
-    
-        
-    $cartdata = Cart::where('librarianid', '=', $librarian->id)
-    ->where('budgetid', '=', $magazinebudget->id)->where('status', '=', '1')
-    ->get();
-   
+        $cartdata=[];
+        $maga= json_decode($magazinebudget->CategorieAmount); 
+        $cartdata22 = Cart::where('librarianid', '=', $librarian->id)
+        ->where('budgetid', '=', $magazinebudget->id)->where('status', '=', '1')
+        ->get();
+        foreach ($maga as $val) {
+            foreach ($cartdata22 as $val1) {
+                if( $val->name == $val1->category){
+                    array_push($cartdata, $val1);
+                }
+          
+            }
+     
+        }
+ 
+
     $bud_arr = [];
     if($magazinebudget !=null){
         $magazinebudget->CategorieAmount1 = json_decode($magazinebudget->CategorieAmount); 
@@ -799,11 +815,12 @@ public function cart_magazine(){
         $percentage = $cartdata1 ? round(($cartdata1 /$val->amount ) * 100) : 0;
     
         $obj = (object)[
-            "category" => $val->name,
-            "budget_price" => $val->amount,
-            "cart_price" => $cartdata1,
-            "percentage" => $percentage
+            "category" => is_numeric($val->name) ? round($val->name) : $val->name,
+            "budget_price" => is_numeric($val->amount) ? round($val->amount) : $val->amount,
+            "cart_price" => is_numeric($cartdata1) ? round($cartdata1) : $cartdata1,
+            "percentage" => is_numeric($percentage) ? round($percentage) : $percentage
         ];
+        
         array_push($bud_arr, $obj);
     }
 }
@@ -816,15 +833,17 @@ public function cart_magazine(){
     }
     $magazinecartcount=count($cartdata);
     Session::put('magazinecartcount', $magazinecartcount);
+    $totalbudgetcount =$magazinebudget->totalAmount;
+    return view('cart-magazine', compact('bud_arr','cartdata','cartdatacount','totalbudgetcount'));
+}else{
+    $cartdata=null;
+    $bud_arr=null;
+    $cartdatacount=0;
+    $totalbudgetcount=0;
     
-    return view('cart-magazine', compact('bud_arr','cartdata','cartdatacount'));
+    return view('cart-magazine', compact('bud_arr','cartdata','cartdatacount','totalbudgetcount'));
 }
-$cartdata=null;
-$bud_arr=null;
-$cartdatacount=0;
 
-
-return view('cart-magazine', compact('bud_arr','cartdata','cartdatacount'));
 }
 
 public function add_to_cart(Request $req) {
@@ -991,6 +1010,7 @@ public function delete_to_cart(Request $req) {
             'success' => 'Product Removed successfully',
             'magazinecartcount'=>$magazinecartcount,
             'cartdatacount'=>$cartdatacount,
+            'budgetcount'   =>       $magazinebudget->totalAmount,
                  ];
         return response()->json($data); 
     }
@@ -1284,7 +1304,7 @@ public function magazineCheckout(Request $req) {
          $Ordermagazine->orderid= $randomCode;
          $librariandata=[];
          $validator = Validator::make($req->all(),[
-            'door_no'=>'required',
+          
             'street'=>'required',
             'place'=>'required',
             'Village'=>'required',
@@ -1294,6 +1314,9 @@ public function magazineCheckout(Request $req) {
             'landmark'=>'required',
            
             'district'=>'required|string',
+            'readersForum'=>'required',
+
+            
         ]);
         if($validator->fails()){
             $data= [
@@ -1302,6 +1325,13 @@ public function magazineCheckout(Request $req) {
             return response()->json($data);  
            
         }
+        
+    if($req->readersForum == 'undefined'){
+        $data= [
+            'error' => 'ReadersForum filed is required',
+                 ];
+        return response()->json($data);
+    }
         $librarian=Librarian::find(auth('librarian')->user()->id);
         $librarian->door_no = $req->door_no;
         $librarian->street = $req->street;
@@ -1313,6 +1343,12 @@ public function magazineCheckout(Request $req) {
         $librarian->pincode = $req->pincode;
         $librarian->district = $req->district;
         if($librarian->save()){
+          
+            $image = $req->file('readersForum');
+            $imagename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('reviewer/readersForum', $imagename);
+           
+            $Ordermagazine->readersForum = $imagename;
           if($Ordermagazine->save()){
             foreach($cartdatas as $val){
                 $magazinesrec = Magazine::find($val->magazineid);
@@ -1362,7 +1398,126 @@ public function magazineCheckout(Request $req) {
 }
    
 }
+public function cartpdfview() {
+  
+            $librarian = auth('librarian')->user();
+            $magazinebudget = Budget::where('type', 'magazinebudget')
+           ->where(function ($query) use ($librarian) {
+            $query->whereNotIn('purchaseid', [$librarian->id])
+         ->whereJsonDoesntContain('purchaseid', $librarian->id);
+          })
+        ->where('libraryType', $librarian->libraryType)
+        ->orderBy('created_at', 'ASC')
+        ->first();
+                                                        
+     if($magazinebudget){
+        $cartdata=[];
+        $maga= json_decode($magazinebudget->CategorieAmount); 
+        $cartdata22 = Cart::where('librarianid', '=', $librarian->id)
+        ->where('budgetid', '=', $magazinebudget->id)->where('status', '=', '1')
+        ->get();
+        foreach ($maga as $val) {
+            foreach ($cartdata22 as $val1) {
+                if( $val->name == $val1->category){
+                    array_push($cartdata, $val1);
+                }
+          
+            }
+     
+        }
+     
 
+     $pdfContent = View::make('cartpdfview', ['cartdata' => $cartdata])->render();
+     if (empty($pdfContent)) {
+        throw new \Exception("PDF content is empty.");
+          }
+                                                         
+          $pdf = PDF::loadHTML($pdfContent);
+          $pdf->getDomPDF()->getOptions()->set('fontDir', public_path('fonts/')); // Replace 'public_path('fonts/')' with the directory where your font files are stored.
+          $pdf->getDomPDF()->getOptions()->set('defaultFont', 'Latha'); // Replace 'Latha' with the name of the Tamil font you're using.
+          
+          $pdf->render();
+          
+      
+          return $pdf->download('downloaded_pdf.pdf');
+                                                         
+       return response()->json([
+       'pdfData' => base64_encode($pdfData),
+       'filename' => 'cartmagazine.pdf' ,
+       'success' => 'Psf Downloaded Successfully'
+      ]);
+     }else{                                         
+  return response()->json([
+  'error' => 'No Budget Allacated.',
+      ]);
+    }
+                    
+                                                           
 
-
+    }
+                                                         
+                                                  
+                                                       
+ public function report_downl_cart(Request $request)
+  {
+                                                   
+                                                    
+    $librarian = auth('librarian')->user();
+    $magazinebudget = Budget::where('type', 'magazinebudget')
+   ->where(function ($query) use ($librarian) {
+    $query->whereNotIn('purchaseid', [$librarian->id])
+ ->whereJsonDoesntContain('purchaseid', $librarian->id);
+  })
+->where('libraryType', $librarian->libraryType)
+->orderBy('created_at', 'ASC')
+->first();
+                                                
+if($magazinebudget){
+$cartdata=[];
+$maga= json_decode($magazinebudget->CategorieAmount); 
+$cartdata22 = Cart::where('librarianid', '=', $librarian->id)
+->where('budgetid', '=', $magazinebudget->id)->where('status', '=', '1')
+->get();
+foreach ($maga as $val) {
+    foreach ($cartdata22 as $val1) {
+        if( $val->name == $val1->category){
+            array_push($cartdata, $val1);
+        }
+  
+    }
+ 
+    $excelData = [
+        ['S.No', 'Magazine Titlee', 'Category', 'Quantity', 'Amount']
+      ];
+                                                          
+      $index = 0; 
+      foreach ($cartdata as $val) {
+          $index++; 
+          $excelData[] = [
+              $index =$index +1, 
+              $val->title,
+              $val->category,
+              $val->quantity,
+              $val->totalAmount,
+          ]; 
+      }
+      
+        return response()->json([
+            'excelData' => $excelData,
+            'success' => 'Excel Downloaded Successfully'
+        ]);
 }
+}else{
+          return response()->json([
+           'error' => 'No Budget Allacated.',
+         ]);
+      
+                                                               
+  
+        }
+    }                                 
+
+                                                     
+                                                      
+ 
+ }
