@@ -121,6 +121,8 @@
                             <div class="tp-breadcrumb__list">
                                 <span class="tp-breadcrumb__active"><a href="/">Home</a></span>
                                 <span class="dvdr">/</span>
+                                <a href="/librarian/index">Dashborad</a></span>
+                                <span class="dvdr">/</span>
                                 <a href="/product-two"><span>Website Home</span></a>
 
                             </div>
@@ -136,13 +138,16 @@
                        <div class="row">
                        @if($bud_arr  != null)
                        @foreach ($bud_arr as $val) 
+                      
 							<div class="col-xl-3 col-xxl-4 col-sm-6 mt-3">
+                            <a  href="/product-two">
 								<div class="card">
 									<div class="card-header">
 										<p style="font-size:14px;" class="card-title text-center">{{$val->category}}</p>
                                         <p style="font-size:14px;" class="card-title text-center">Total Amount <small> ₹{{$val->budget_price}}</small></p>
 
 									</div>
+                                    
 									<div class="card-body text-center">
 									<div class="item">
                                     <div class="pie no-round" style="--p:{{ $val->percentage }};--c:#6a0000;--b:15px">{{ $val->percentage }}%</div>
@@ -158,7 +163,9 @@
 										</div>
 									</div>
 								</div>
+                                </a>
 							</div>
+
                             @endforeach
 @endif
                 
@@ -188,7 +195,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @if($cartdata === null || $cartdata->isEmpty())
+                                    @if($cartdata === null )
                                             <tr>
                                      <td colspan="7">No records found</td>
                                          </tr>
@@ -234,17 +241,17 @@
                                 <div class="col-12">
                                     <div class="coupon-all">
                                         <div class="coupon2">
-                                           <a href="/cartpdfview"> <button class="btn btn-info" name="update_cart" type="submit"><i class="fa fa-file-pdf"></i> Generate PDF</button> 
-                                            <button class="btn btn-dark" name="update_cart" type="submit"><i class="fa fa-file-excel"></i> Download Excel</button> 
+                                         <a href="/cartpdfview">   <button class="btn btn-info""  type="submit"><i class="fa fa-file-pdf"></i> Generate PDF</button> </a>
+                                        <button class="btn btn-dark" id="exceldata" type="submit"><i class="fa fa-file-excel"></i> Download Excel</button> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row justify-content-end">
-                                <div class="col-md-7">
-                                    <p class="p-0 m-0">Total Budget Allocated Amount: <i class="fa fa-rupee"></i><b>500</b></p>
-                                    <p class="p-0 m-0">Selected Amount: <i class="fa fa-rupee"></i><b>500</b></p>
-                                    <p class="p-0 m-0">Remaining  Amount: <i class="fa fa-rupee"></i><b>500</b></p>
+                                <div class="col-md-7" id="amountdata">
+                                    <p class="p-0 m-0" id="TotalBudget">Total Budget Allocated Amount: <i class="fa fa-rupee"></i><b>{{$totalbudgetcount}}</b></p>
+                                    <p class="p-0 m-0" id="SelectedAmount">Selected Amount: <i class="fa fa-rupee"></i><b>{{$cartdatacount}}</b></p>
+                                    <p class="p-0 m-0" id="RemainingAmount">Remaining  Amount: <i class="fa fa-rupee"></i><b>{{$totalbudgetcount - $cartdatacount}}</b></p>
                                 </div>
                                 <div class="col-md-5 ">
                                     <div class="cart-page-total">
@@ -279,8 +286,8 @@
                 <div class="row gx-7">
                    <div class="col-lg-6">
                       <div class="tpform__input mb-20">
-                        <label for="">Door Number <span class="text-danger">*</span></label>
-                         <input type="text" placeholder="Enter the Door Number" id="door_no" value="{{auth('librarian')->user()->door_no}}" required>
+                        <label for="">Door Number <span class="text-danger"></span></label>
+                         <input type="text" placeholder="Enter the Door Number" id="door_no" value="{{auth('librarian')->user()->door_no}}" >
                       </div>
                    </div>
                    <div class="col-lg-6">
@@ -340,6 +347,16 @@
                          <input type="text" placeholder="Enter the Landmark" id="landmark"  value=" {{auth('librarian')->user()->landmark}}" required>
                       </div>
                    </div>
+                   <div class="col-lg-12">
+
+    <div class="tpform__input mb-20">
+    <label for="file">Readers Forum (Proof [ attachment])</label>
+
+        <p>☑ Approved by Readers Forum: The magazine list has been carefully selected with input from our dedicated readers' forum. </p>
+        <input type="file" id="readersForum" accept=".pdf,.doc,.docx,.txt" required>
+    </div>
+
+</div>
                 </div>
            
         </div>
@@ -359,55 +376,66 @@
     <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 
 
-<script>
+    <script>
+    $(document).ready(function() {
+        $('#Checkoutid').on('click', function () {
+          
+            $('#exampleModal').modal('hide');
+            var door_no=$('#door_no').val();
+            var street=$('#street').val();
+            var place=$('#place').val();
+            var Village=$('#Village').val();
+            var landmark=$('#landmark').val();
+            var taluk=$('#taluk').val();
+            var post=$('#post').val();
+            var pincode=$('#pincode').val();
+            var district=$('#district').val();
+            var readersForum = $('#readersForum')[0].files;
+            let fd = new FormData();
+            fd.append('door_no',door_no);
+            fd.append('street',street);
+            fd.append('place',place);
+            fd.append('Village',Village);
+            fd.append('landmark',landmark);
+            fd.append('taluk',taluk);
+            fd.append('post',post);
+            fd.append('pincode',pincode);
+            fd.append('district',district);
+            fd.append('readersForum',readersForum[0]);
 
-$(document).ready(function() {
-    $('#Checkoutid').on('click', function () {
-        $('#exampleModal').modal('hide');
-      
-        var data={
-                  'door_no':$('#door_no').val(),
-                 'street':$('#street').val(),
-                  'place':$('#place').val(),
-                 'Village':$('#Village').val(),
-                 'landmark':$('#landmark').val(),
-                 'taluk':$('#taluk').val(),
-                 'post':$('#post').val(),
-                 'pincode':$('#pincode').val(),
-                 'state':$('#state').val(),
-                 'district':$('#district').val(),
-         }
-         $.ajaxSetup({
-                headers:{
-                    'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-        $.ajax({
-            url: '/magazineCheckout',
-            method: 'GET',
-            data: data,
-            success: function (response) {
-                if (response.success) {
-                  
 
-                   toastr.success(response.success, { timeout: 2000 });
-                   setTimeout(function() {
-                        window.location.href = "/cart-magazine"
-                    }, 3000);
-
-                   
-                } else {
-                    toastr.error(response.error, { timeout: 2000 });
+            $.ajax({
+                url: '/magazineCheckout',
+                method: 'post',
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if(response.success) {
+                        toastr.success(response.success, { timeout: 2000 });
+                        setTimeout(function() {
+                            window.location.href = "/cart-magazine"
+                        }, 3000);
+                    } else {
+                        toastr.error(response.error, { timeout: 2000 });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    toastr.error('An error occurred while processing your request.', { timeout: 2000 });
                 }
-            },
-            error: function (xhr, status, error) {
-                console.log('Error:', error);
-              
-            }
+            });
         });
     });
-});
 </script>
+
+
+    
 <script>
 
 $(document).ready(function() {
@@ -425,7 +453,14 @@ $(document).ready(function() {
                    toastr.success(response.success, { timeout: 2000 });
                    $('#magazinecartcount').text(response.magazinecartcount != 0 ? response.magazinecartcount : '0');
                    $('#cartdatacount').text(response.cartdatacount != 0 ? response.cartdatacount : '0');
+                   var totalBudgetParagraph = $('<p>').addClass('p-0 m-0').attr('id', 'TotalBudget').html('Total Budget Allocated Amount: <i class="fa fa-rupee"></i><b>' + response.budgetcount + '</b>');
 
+
+var selectedAmountParagraph = $('<p>').addClass('p-0 m-0').attr('id', 'SelectedAmount').html('Selected Amount: <i class="fa fa-rupee"></i><b>' + response.cartdatacount + '</b>');
+
+
+var remainingAmountParagraph = $('<p>').addClass('p-0 m-0').attr('id', 'RemainingAmount').html('Remaining  Amount: <i class="fa fa-rupee"></i><b>' + (response.budgetcount - response.cartdatacount) + '</b>');
+$('#amountdata').empty().append(totalBudgetParagraph, selectedAmountParagraph, remainingAmountParagraph);
                    
                 } else {
                     toastr.error('Failed to delete item', { timeout: 2000 });
@@ -488,6 +523,69 @@ $(document).ready(function() {
 </script>
 
 
+<script>
+    $(document).ready(function() {
+        $("#exceldata").click(function() {
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+            var documentType = $("#type").val();
+
+            var data = {
+                fromDate: fromDate,
+                toDate: toDate,
+                documentType: documentType
+            };
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+          
+                $.ajax({
+                    type: "get",
+                    url: "/report_downl_cart",
+                  
+                    success: function(response) {
+                      
+
+                        if (response.excelData) {
+                            toastr.success(response.success,{timeout:45000});
+
+                            downloadExcel(response.excelData);
+                        } else {
+                            toastr.error(response.error,{timeout:45000});
+
+                           
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                      
+                        console.error(error);
+                    }
+                });
+          
+        });
+    });
+
+    function downloadExcel(data) {
+        var csvContent = "data:text/csv;charset=utf-8,";
+
+        data.forEach(function(rowArray) {
+            var row = rowArray.join(",");
+            csvContent += row + "\r\n";
+        });
+
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "publishers.csv");
+        document.body.appendChild(link);
+
+        link.click();
+    }
+</script>
 </body>
 
 </html>

@@ -34,6 +34,7 @@ class Librarian extends Authenticatable
         'password',
         'status',
         'librarianId',
-        'allow_status'
+        'allow_status',
+        'checkstatus'
     ];
 }

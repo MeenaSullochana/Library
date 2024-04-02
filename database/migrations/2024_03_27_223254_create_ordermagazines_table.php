@@ -26,6 +26,9 @@ return new class extends Migration
             $table->String('orderid');
             $table->String('quantity');
             $table->String('libraryid');
+            $table->String('readersForeum');
+
+            
             $table->enum('status',['1','0'])->default('1');
             $table->timestamps();
         });

@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+    <meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <title>Publisher Report</title>
-
+    <style>
+    body {
+        font-family: 'Latha', sans-serif; /* Use a font that supports Tamil characters */
+    }
+</style>
     <style>
         /* Prevent word breaks */
         @media print {
@@ -78,39 +84,27 @@
             <thead>
             <tr>
                 <th>S.No</th>
-                <th>Publication Name</th>
-                <th>Publisher Name</th>
-                <th>Email</th>
-                <th>Mobile Number</th>
-                <th>Publication Address</th>
-                <th>Country</th>
-                <th>State</th>
-                <th>District</th>
-                <th>City</th>
-                <th>Postal Code</th>
+                <th>Magazine Title</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>Amount</th>
             </tr>
             </thead>
             <tbody>
-            @for ($i=0;$i<10;$i++)
+            @foreach($cartdata as $val)
                 <tr>
-                    <td>{{ $i }}</td>
-                    <td>Selvarani {{ $i }}</td>
-                    <td>Selvarani Publication</td>
-                    <td>Selvaranichitra@gmail.com</td>
-                    <td>9787694247</td>
-                    <td>Chennai,Kilpakkam</td>
-                    <td>India</td>
-                    <td>Tamil Nadu</td>
-                    <td>Chennai</td>
-                    <td>Chennai</td>
-                    <td>600026</td>
+                    <td>{{ $loop->index +1 }}</td>
+                    <td>{{$val->title}}</td>
+                    <td>{{$val->category}}</td>
+                    <td>{{$val->quantity}}</td>
+                    <td>{{$val->totalAmount}}</td>
                 </tr>
-            @endfor
+            @endforeach
             </tbody>
         </table>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -120,18 +114,18 @@
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.print.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.colVis.min.js"></script> -->
     
     <script type="text/javascript">
         $(document).ready(function(){
             generatePDF();
 
-            $('#exporttable').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
-            });
+            // $('#exporttable').DataTable({
+            // dom: 'Bfrtip',
+            // buttons: [
+            //         'copy', 'csv', 'excel', 'pdf', 'print'
+            //     ]
+            // });
         });
 
         function generatePDF() {

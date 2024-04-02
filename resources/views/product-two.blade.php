@@ -591,32 +591,16 @@
  </body>
  <script>
     $(document).ready(function(){
-        $('.category-checkbox').change(function(){
+        $('.category-checkbox, .category-checkbox1').change(function(){
             var clickedKey = $(this).data('key');
             if ($(this).is(':checked')) {
-                $('.category-checkbox').not(this).each(function(){
-                    if ($(this).data('key') !== clickedKey) {
-                        $(this).prop('checked', false);
-                    }
-                });
+                $('.category-checkbox, .category-checkbox1').not(this).prop('checked', false);
             }
         });
     });
 </script>
-<script>
-    $(document).ready(function(){
-        $('.category-checkbox1').change(function(){
-            var clickedKey = $(this).data('key');
-            if ($(this).is(':checked')) {
-                $('.category-checkbox1').not(this).each(function(){
-                    if ($(this).data('key') !== clickedKey) {
-                        $(this).prop('checked', false);
-                    }
-                });
-            }
-        });
-    });
-</script>
+
+
 <script>
 $(document).ready(function() {
     $(document).on('click', '#filterButton', function() {

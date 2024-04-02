@@ -565,31 +565,31 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTitleId">Change Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
                 <div class="modal-body">
                     <form class="needs-validation" novalidate method="POST" >
                      <div class="mb-3">
                         <label for="formGroupExampleInput" class="form-label">Current Password</label>
-                        <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Enter the Current Password" required>
+                        <input type="password" class="form-control" name="currentPassword" id="currentPassword" placeholder="Enter the Current Password" required>
                         <div class="invalid-feedback">Please Enter Current Password</div>
                       </div>
                       <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">New Password</label>
-                        <input type="password" class="form-control" name="current_password" id="new_password" placeholder="Enter the New Password" required>
+                        <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Enter the New Password" required>
                         <div class="invalid-feedback">Please Enter New Password</div>
                       </div>
                       <div class="mb-3">
                         <label for="formGroupExampleInput2" class="form-label">Confirm Passowrd</label>
-                        <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Enter the confirm Password" required>
+                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Enter the confirm Password" required>
                         <div class="invalid-feedback">Please Enter Confirm Password</div>
                       </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
-                    </button>
-                    <button type="submit" name="submit" class="btn btn-primary">Save</button>
+                    </button> -->
+                    <button type="submit" id="submitButton" name="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
         </form>
@@ -668,9 +668,10 @@
         text-align: center;
     }
 </style>
+
+
 <script>
     $(document).ready(function(){
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
             (function () {
             'use strict'
 
@@ -689,7 +690,48 @@
                     form.classList.add('was-validated')
                 }, false)
                 })
-            })()
-        $('#modalId').modal('show');
+            })
+            @if (auth('librarian')->user()->checkstatus == Null)
+                $('#modalId').modal('show');
+@endif
+            
     });
 </script>
+
+<script>
+
+       $(document).on('click','#submitButton',function(e){
+          e.preventDefault();
+          var data={
+             'currentPassword':$('#currentPassword').val(),
+             'newPassword':$('#newPassword').val(),
+             'confirmPassword':$('#confirmPassword').val(),
+          }
+          $.ajaxSetup({
+             headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+             }
+          });
+          $.ajax({
+             type:"post",
+             url:"/librarian/changepassword",
+             data:data,
+             dataType:"json",
+             success: function(response) {
+                if(response.success){
+                    toastr.success(response.success,{timeout:25000});
+                    document.getElementById('currentPassword').value = '';
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('confirmPassword').value = '';
+                    $('#modalId').modal('hide');
+
+                }else{
+                    toastr.error(response.error,{timeout:25000});
+                }
+
+            }
+          })
+
+       })
+
+      </script>

@@ -22,6 +22,7 @@ use App\Notifications\Member1detailNotification;
 use DB;
 use App\Models\Ordermagazine;
 use App\Models\Magazine;
+use App\Models\Budget;
 
 
 class LibrarianController extends Controller
@@ -177,10 +178,14 @@ public function meta_reject(){
         return response()->json($data);  
        
     }
-    $Librarian=auth('librarian')->user()->first();
+    $Librarian=auth('librarian')->user();
+
     if((Hash::check($req->currentPassword,$Librarian->password))){
        if($req->newPassword == $req->confirmPassword){
          $Librarian->password=Hash::make($req->newPassword);
+         $Librarian->checkstatus='1';
+
+         
          $Librarian->save();
          $data= [
             'success' => 'Passdword Change  Successfully',
@@ -566,9 +571,12 @@ public function librarianreturnmessage(Request $req){
 
   public function magazine_orderview($id){
     $Ordermagazine=Ordermagazine::find($id);
-    $magazineProduct =        json_decode($Ordermagazine->magazineProduct);
-
+    $magazineProduct =json_decode($Ordermagazine->magazineProduct);
+    $magazinebudget = Budget::where('id', $Ordermagazine->budgetid)
+    ->first();
+   return  $magazinebudget1=decode($magazinebudget->CategorieAmount);
       $datas=[];
+      foreach($magazinebudget1  as $val1){
      foreach($magazineProduct  as $val){
       $magazinesrec = Magazine::find($val->magazineid);
       $val->image=$magazinesrec->front_img;
@@ -576,8 +584,12 @@ public function librarianreturnmessage(Request $req){
         array_push($datas,$val);
 
      }
-     $Ordermagazine->magazineProduct = $datas;
+    }
+    //  $Ordermagazine->magazineProduct = $datas;
  
+    return  $magazinebudget;
+
+
     \Session::put('Ordermagazine', $Ordermagazine);
     return redirect('librarian/magazine-order-view');    
 

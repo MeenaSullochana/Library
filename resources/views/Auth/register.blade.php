@@ -1148,7 +1148,7 @@
                            </div>
                            <div class="form-check">
                               <input class="form-check-input" type="checkbox" id="check3" name="declaration-three"
-                                 value="yes" required>
+                                 value="yes" required> 
                               <label class="form-check-label">Acknowledge that I will send the purchased books to the central facility in Chennai, from where the delivery partner distributes the books to various libraries across Tamil Nadu.</label>
                            </div>
                            <div class="form-check">
