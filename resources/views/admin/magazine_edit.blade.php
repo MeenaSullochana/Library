@@ -15,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
 
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Book Add</title>
+    <title>Government of Tamil Nadu - Book Procurement - Book Edit</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Add Magazine</b>
+                                <b>Edit Magazine</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href=" {{ url('admin/magazine_list') }}">
                                 <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Magazine </a>
@@ -71,16 +71,13 @@
                     <div class="card mb-4">
                         <div class="card-body">
                             <div class="">
-                                <h3 class="mb-0 bc-title">
-                                    <b>Edit Magazine Form</b>
-                                </h3>
-                                <form action="" method="post">
+                                <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data">
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
                                                 <h4>Language</h4>
                                             </div>
-                                            <div class="col-md-10">
+                                            {{-- <div class="col-md-10">
                                                 <div class="col-lg-12">
                                                     <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
                                                     <div class="basic-form">
@@ -136,7 +133,45 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
+                                             <div class="col-md-10">
+                                                <div class="col-lg-12">
+                                                    <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                    <div class="basic-form">
+
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">Select Subject <span
+                                                                    class="text-danger">*</span></label>
+                                                            <select class="default-select wide form-control"
+                                                                id="select-lang" name="" required>
+                                                                <option value="">Select One</option>
+                                                                <option value="tamil">Tamil</option>
+                                                                <option value="english">English</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername"> Category <span
+                                                                    class="text-danger">*</span></label>
+                                                                    <select class="default-select wide form-control" id="tamil-category" name="" required>
+                                                                        <option value="">Select One</option>
+                                                                        <option value="குழந்தைகள்">குழந்தைகள்</option>
+                                                                        <option value="போட்டித்தேர்வு">போட்டித்தேர்வு</option>
+                                                                        <option value="பொருளாதாரம்">பொருளாதாரம்</option>
+                                                                        <option value="பொழுதுபோக்கு">பொழுதுபோக்கு</option>
+                                                                        <option value="பொது">பொது</option>
+                                                                        <option value="உடல்நலம்">உடல்நலம்</option>
+                                                                        <option value="இலக்கியம்">இலக்கியம்</option>
+                                                                        <option value="சமயம்">சமயம்</option>
+                                                                        <option value="அறிவியல் & தொழில்நுட்பம்">அறிவியல் & தொழில்நுட்பம்</option>
+                                                                        <option value="விளையாட்டு">விளையாட்டு</option>
+                                                                        <option value="பெண்கள்">பெண்கள்</option>
+                                                                    </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> 
 
                                         </div>
                                     </section>
@@ -167,7 +202,7 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Periodi City</h4>
+                                                <h4>Periodicity</h4>
                                             </div>
                                             <div class="col-md-10">
                                                 <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
@@ -175,10 +210,10 @@
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Periodi City <span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Periodicity <span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" id=""
-                                                                    name="" placeholder="Enter the Periodi City" required>
+                                                                    name="" placeholder="Enter the Periodicity" required>
 
                                                             </div>
                                                         </div>
@@ -188,7 +223,7 @@
 
                                         </div>
                                     </section>
-                                    <section class="bg-light-new">
+                                    {{-- <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
                                                 <h4>Frequency</h4>
@@ -221,7 +256,7 @@
                                             </div>
 
                                         </div>
-                                    </section>
+                                    </section> --}}
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -246,7 +281,7 @@
 
                                         </div>
                                     </section>
-                                    <section class="bg-light-new">
+                                    {{-- <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
                                                 <h4>Annual Subscription</h4>
@@ -269,7 +304,7 @@
                                             </div>
 
                                         </div>
-                                    </section>
+                                    </section> --}}
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -321,7 +356,7 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Annual Subscription After Discount</h4>
+                                                <h4>Annual Cost After Discount</h4>
                                             </div>
                                             <div class="col-md-10">
                                                 <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
@@ -329,9 +364,9 @@
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Annual Subscription After Discount <span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Annual Cost After Discount <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="" name="" placeholder="Enter the Annual Subscription After Discount" required>
+                                                                <input type="number" class="form-control" id="" name="" placeholder="Enter the Annual Cost After Discount" required>
 
                                                             </div>
                                                         </div>
@@ -344,7 +379,7 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Total Subscription Before Discount</h4>
+                                                <h4>Total Cost Before Discount</h4>
                                             </div>
                                             <div class="col-md-10">
                                                 <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
@@ -352,9 +387,9 @@
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Total Subscription Before Discount <span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Total Cost Before Discount <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="" name="" placeholder="Enter the Total Subscription Before Discount" required>
+                                                                <input type="number" class="form-control" id="" name="" placeholder="Enter the Total Cost Before Discount" required>
 
                                                             </div>
                                                         </div>
@@ -364,7 +399,7 @@
 
                                         </div>
                                     </section>
-                                    <section class="bg-light-new">
+                                    {{-- <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
                                                 <h4>Total Subscription After Discount</h4>
@@ -386,7 +421,7 @@
                                             </div>
 
                                         </div>
-                                    </section>
+                                    </section> 
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -409,7 +444,7 @@
                                             </div>
 
                                         </div>
-                                    </section>
+                                    </section>--}}
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -462,7 +497,7 @@
                                         </div>
                                     </section>
 
-                                    <section class="bg-light-new">
+                                    {{-- <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
                                                 <h4>Type of Library</h4>
@@ -488,7 +523,7 @@
                                             </div>
 
                                         </div>
-                                    </section>
+                                    </section> --}}
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -627,7 +662,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6">
+                                                    {{-- <div class="col-lg-6">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black"
@@ -640,8 +675,8 @@
                                                                     </select>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
+                                                    </div> --}}
+                                                    {{-- <div class="col-lg-6">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black"
@@ -694,7 +729,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
 
                                                     <div class="col-lg-12">
                                                         <div class="basic-form">
@@ -725,9 +760,9 @@
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Official Address<span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Official Address</label>
                                                             <div class="input-group">
-                                                                <textarea type="number" class="form-control" id="" name="" rows="3" placeholder="Enter the Official Address" required></textarea>
+                                                                <textarea type="number" class="form-control" id="" name="" rows="3" placeholder="Enter the Official Address" ></textarea>
 
                                                             </div>
                                                         </div>
@@ -750,9 +785,9 @@
                                                             <div class="basic-form">
                                                                 <div class="mb-3">
                                                                     <label class="text-label form-label text-black"
-                                                                        for="validationCustomUsername">IFSC Code <span class="text-danger">*</span></label>
+                                                                        for="validationCustomUsername">IFSC Code </label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="" name="" placeholder="Enter the IFSC Code" required>
+                                                                        <input type="text" class="form-control" id="" name="" placeholder="Enter the IFSC Code" >
 
                                                                     </div>
                                                                 </div>
@@ -763,9 +798,9 @@
                                                                 <div class="mb-3">
                                                                     <label class="text-label form-label text-black"
                                                                         for="validationCustomUsername">
-                                                                        Bank Account Number <span class="text-danger">*</span></label>
+                                                                        Bank Account Number </label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="" name="" placeholder="Enter the Bank Account Number" required>
+                                                                        <input type="text" class="form-control" id="" name="" placeholder="Enter the Bank Account Number" >
 
                                                                     </div>
                                                                 </div>
@@ -777,9 +812,9 @@
                                                                 <div class="mb-3">
                                                                     <label class="text-label form-label text-black"
                                                                         for="validationCustomUsername">
-                                                                        Bank Name <span class="text-danger">*</span></label>
+                                                                        Bank Name </label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="" name="" placeholder="Enter the Bank Name" required>
+                                                                        <input type="text" class="form-control" id="" name="" placeholder="Enter the Bank Name" >
 
                                                                     </div>
                                                                 </div>
@@ -790,9 +825,9 @@
                                                                 <div class="mb-3">
                                                                     <label class="text-label form-label text-black"
                                                                         for="validationCustomUsername">
-                                                                       Account Holder Name <span class="text-danger">*</span></label>
+                                                                       Account Holder Name </label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="" name="" placeholder="Enter the Account Holder Name" required>
+                                                                        <input type="text" class="form-control" id="" name="" placeholder="Enter the Account Holder Name" >
 
                                                                     </div>
                                                                 </div>
@@ -980,8 +1015,71 @@
                     $('.english-category').css('display','block');
                 }
             });
+            
+            //Front Image upload
+            var front_image = function(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('.front_image_preview').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $(".front_img").on('change', function(){
+                front_image(this);
+            });
+
+            //Back Image upload
+            var back_image = function(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('.back_image_preview').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $(".back_img").on('change', function(){
+                back_image(this);
+            });
+
+            //Full Image upload
+            var full_image = function(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('.full_image_preview').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $(".full_img").on('change', function(){
+                full_image(this);
+            });
         });
     </script>
+    <script>
+		(function () {
+		  'use strict'
+
+		  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		  var forms = document.querySelectorAll('.needs-validation')
+
+		  // Loop over them and prevent submission
+		  Array.prototype.slice.call(forms)
+			.forEach(function (form) {
+			  form.addEventListener('submit', function (event) {
+				if (!form.checkValidity()) {
+				  event.preventDefault()
+				  event.stopPropagation()
+				}
+
+				form.classList.add('was-validated')
+			  }, false)
+			})
+		})()
+	</script>
 
 </body>
 
