@@ -4,8 +4,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+    <meta charset="UTF-16">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
@@ -168,3 +168,29 @@
     </script>
 </body>
 </html>
+<style>  
+    table {  
+        font-family: arial, sans-serif;  
+        border-collapse: collapse;  
+        width: 100%;  
+    }  
+
+    td, th {  
+        border: 1px solid #dddddd;  
+        text-align: left;  
+        padding: 8px;  
+    }  
+
+    tr:nth-child(even) {  
+        background-color: #dddddd;  
+    } 
+    form > h2{
+       color: #0094ff;
+    } 
+    form > p:first-child{
+        font-size: large;
+    }
+    .createPDF{
+        font-size: 14px;
+    }
+</style>

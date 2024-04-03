@@ -199,12 +199,14 @@
                   <nav>
                      <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
                         @if($user == "Publisher" || $user == "publisher")
-                        <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab"
+                        {{-- <button class="nav-link " id="nav-home-tab" data-bs-toggle="tab"
                            data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
                            aria-selected="false">Book Publisher - <span class="mt-056"> புத்தக
-                        பதிப்பாளர்</span></button>
+                        பதிப்பாளர்</span></button> --}}
+                        <h4 class="fw-bold">Book Publisher - <span class="mt-055"> புத்தக
+                           பதிப்பாளர்</span></h4>
                         @elseif($user == "Distributor" || $user == "distributor")
-                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
+                        {{--<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
                            data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
                            aria-selected="false">Book Distributor - <span class="mt-056"> புத்தக
                         விற்பனையாளர்</span></button> --}}

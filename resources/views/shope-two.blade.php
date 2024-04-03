@@ -262,8 +262,8 @@
                                                     <li>Category: {{$data->category}}</li>
                                                     <li>Language: {{$data->language}}</li>
                                                     <li>Periodicity: {{$data->periodicity}}</li>
-                                                    <li>Peice: {{$data->annual_cost_after_discount}}</li>
-                                                    <li>Rni: {{$data->rni_details}}</li>
+                                                    <li>Price: ₹ {{$data->annual_cost_after_discount}}</li>
+                                                    <li>RNI: {{$data->rni_details}} </li>
                                                     <li>Total Pages: {{$data->total_pages}}</li>
                                                     <li>Total Multicolour Pages: {{$data->total_multicolour_pages}}</li>
                                                     <li>Total Monocolour Pages: {{$data->total_monocolour_pages}}</li>

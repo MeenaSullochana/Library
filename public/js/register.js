@@ -1834,7 +1834,7 @@ if (arr.length !== 0) {
       var value = $(this).val();
       if(value == 'Proprietorship'){
          //  $('#ownership_doc').css('display','block');
-          $('.dis_user_file_input').append('<div id="dis_proprietorship_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file"  accept="application/pdf,application/vnd.ms-excel" name="udayam" placeholder="Enter Udayam*" class="form-control name_list"required/><label for="formFileSm" class="form-label">GST Certificate </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" placeholder="Enter GST*" class="form-control name_list" /></div>');
+          $('.dis_user_file_input').append('<div id="dis_proprietorship_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file"  accept="application/pdf,application/vnd.ms-excel" name="udayam" placeholder="Enter the Udayam*" class="form-control name_list"required/><label for="formFileSm" class="form-label">GST Certificate </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" placeholder="Enter the GST*" class="form-control name_list" /></div>');
 
           $("#dis_partnership_input").remove();
           $("#dis_private_input").remove();
@@ -3070,7 +3070,7 @@ $('#member_name_new_id_dis_pub').click(function () {
       pubtrsfivecounter++;
       $('#tbl_pub_member_no_dis_pub').
          append('<tr id="row' + sp +
-            '"><td><input type="text" name="member_id_new_up_dis_pub[]" placeholder="Enter member name*" class="form-control name_list" required/></td><td><input type="text" name="member_name_new_up[]" placeholder="Enter member id*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+            '"><td><input type="text" name="member_id_new_up_dis_pub[]" placeholder="Enter the member name*" class="form-control name_list" required/></td><td><input type="text" name="member_name_new_up[]" placeholder="Enter the member id*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
             sp + '" class="btn btn-danger btn_remove_best_five">X</button></td></tr>');
    } else {
       $('#member_name_new_id_dis_pub').prop('disabled', true);
@@ -3108,7 +3108,7 @@ $('input[type=radio][name=member_in_publ_dis_yes]').on('change', function () {
             sra++;
             $('#tbl_subsidiary_publ_dis_name_bg_no').
                append('<tr id="row' + sra +
-                  '" class="removecl"><td><input type="text" name="member_in_publ_dis_name[]" placeholder="Publishers Association Name*" class="form-control name_list" required/></td><td><input type="text" name="member_in_publ_dis_id []" placeholder="Publishers Association id*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+                  '" class="removecl"><td><input type="text" name="member_in_publ_dis_name[]" placeholder="Enter the Publishers Association Name*" class="form-control name_list" required/></td><td><input type="text" name="member_in_publ_dis_id []" placeholder="Enter the Publishers Association id*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
                   sra + '" class="btn btn-danger btn_remove_publ_dis">X</button></td></tr>');
 
          });
@@ -3235,7 +3235,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
                sra++;
                $('#tbl_subsidiary_pub_name_bg_no_old_lby').
                   append('<tr id="row' + sra +
-                     '" class="removecl"><td><input type="text" name="member_in_publishers_name_old[]" placeholder="Publishers Association Name*" class="form-control name_list" required/></td><td><input type="text" name="member_in_publishers_id_old[]" placeholder="Publishers Association id*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+                     '" class="removecl"><td><input type="text" name="member_in_publishers_name_old[]" placeholder="Enter the Publishers Association Name*" class="form-control name_list" required/></td><td><input type="text" name="member_in_publishers_id_old[]" placeholder="Enter the Publishers Association id*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
                      sra + '" class="btn btn-danger btn_remove_old_lby">X</button></td></tr>');
 
             });
@@ -3265,7 +3265,7 @@ $(document).on('click', '.btn_remove_best_five_my', function () {
       var value = $(this).val();
       if(value == 'Proprietorship'){
          //  $('#ownership_doc').css('display','block');
-          $('.pub_dis_user_file_input').append('<div id="pub_dis_proprietorship_input"<label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="udayam" placeholder="Enter Udayam*" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" placeholder="Enter GST*" class="form-control name_list"/></div>');
+          $('.pub_dis_user_file_input').append('<div id="pub_dis_proprietorship_input"<label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="udayam" placeholder="Enter the Udayam*" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" placeholder="Enter the GST*" class="form-control name_list"/></div>');
 
           $("#pub_dis_partnership_input").remove();
           $("#pub_dis_private_input").remove();

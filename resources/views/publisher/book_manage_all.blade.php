@@ -229,7 +229,7 @@
                                         </td> --}}
                                         <td data-label="Title">
                                             <h6><a class="text-left" href="/publisher/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
-                                            <span>{{$val->$val->subtitle}}</span>
+                                            <span>{{$val->subtitle}}</span>
                                         </td>
                                         <td data-label="Auther">
                                         <span>{{$val->author_name}}</span>
