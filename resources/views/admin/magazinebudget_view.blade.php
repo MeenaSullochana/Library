@@ -113,7 +113,7 @@
 																		<img class="me-3 rounded" width="70" height="70" alt="image" src="{{asset("admin/AdminImage/".auth('admin')->user()->adminImage)}}">
 																		<div class="media-body me-2">
 																			<h5 class="text-primary mb-0 mt-1">{{auth('admin')->user()->name}}</h5>
-																			<p class="mb-0">{{ \Carbon\Carbon::parse($data->created_at)->format('Y-m-d') }}</p>
+																			<p class="mb-0">{{ \Carbon\Carbon::parse($data->created_at)->format('d-m-Y') }}</p>
 																		</div>
 																	</div>
 																	<div class="clearfix mb-3">
@@ -123,7 +123,7 @@
 																<hr>
 																<div class="media mb-2 mt-3">
 																	<div class="media-body"><span class="pull-end">{{ \Carbon\Carbon::parse($data->created_at)->format('h:i A') }}</span>
-																		<h5 class="my-1 text-primary">Subject Content Here....</h5>
+																		<h5 class="my-1 text-primary">Subject</h5>
 																		<p class="read-content-email">
 																			To: {{$data->subject}}</p>
 																	</div>
@@ -134,7 +134,15 @@
 																		<h3 class="text-gray">Total Amount</h3>
 																		<p class="fw-bold">Rs {{$data->totalAmount}}</p>
 																	</div>
-																	<h3 class="text-gray">Categorie Amount</h3>
+																	<h5 class="mb-2"><b>Description</b></h5>
+							<p style="text-indent: 34px;" class="mb-2">
+                            <?php echo $desc; ?>
+							</p>
+							<h5 class="pt-3">By Order</h5>
+							<p style="text-indent: 34px;">
+								For Director of Public Libraries
+							<hr>
+																	<h3 class="text-gray">Category Amount</h3>
 																	<section class="cart-item-leval text-center">
 																		<div class="container">
 																			<div class="row align-items-center">
@@ -173,12 +181,7 @@
 																			</div>
 																		</div>
 																	</section>
-																	<p class="mb-2"><strong>Description</strong>
-																	<p class="mb-2">{{$data->description}}
-																	</p>
-																	<h5 class="pt-3">Kind Regards</h5>
-																	<p>Mr {{auth('admin')->user()->name}}</p>
-																	<hr>
+																
 																</div>
 															</div>
 														</div>

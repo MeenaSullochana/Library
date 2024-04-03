@@ -67,8 +67,17 @@ class BudgetController extends Controller
     }
     public function magazinebudget_view($id){
         $budget = Budget::find($id);
+        $lines = explode(';', $budget->description);
+
+        // Prepare the text for display in a list format
+        $formattedText = '<ul style="font-family: Arial, sans-serif;">';
+        foreach ($lines as $line) {
+            $formattedText .= '<li>' . trim($line) . '</li>'; // Trim whitespace from each line
+        }
+        $formattedText .= '</ul>';
          $budget->CategorieAmount1= json_decode($budget->CategorieAmount); 
           \Session::put('budget', $budget);
+          \Session::put('desc', $formattedText);
          return redirect('admin/magazinebudgetview');
      }
 

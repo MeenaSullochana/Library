@@ -929,12 +929,12 @@ Route::get('/magazinebudget_view/{id}',[BudgetController::class,'magazinebudget_
 
 
 Route::get('/magazinebudgetview',function(){
-
     $data = Session::get('budget');
-     if($data !==null){
- 
-         return view('admin.magazinebudget_view')->with("data",$data);
-     }
+    $desc = Session::get('desc');
+    if($data !==null){
+        return view('admin.magazinebudget_view',compact("data","desc"));
+    }
+  
  
  });
  Route::get('/book_manage/{id}',[BookController::class,'book_manage']);
