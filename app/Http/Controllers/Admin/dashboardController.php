@@ -194,9 +194,10 @@ foreach ($categoryCountsPerCategory as $category => &$countsPerMonth) {
    $allpubdistcount=count($allpubdist);
    $activepubdistcount=count($activepubdist);
    $inactivepubdistcount=count($inactivepubdist);
+
    return view('admin.index',compact('allpub','activepub','inactivepub','allpubcount','activepubcount','inactivepubcount',
    'alldist','activedist','inactivedist', 'alldistcount','activedistcount','inactivedistcount',
-   'allpubdist','activepubdist','inactivepubdist','categoryCountsPerCategory', 'allpubdistcount','activepubdistcount','inactivepubdistcount',)
+   'allpubdist','activepubdist','inactivepubdist','categoryCountsPerCategory', 'allpubdistcount','activepubdistcount','inactivepubdistcount')
    );
 }
 }

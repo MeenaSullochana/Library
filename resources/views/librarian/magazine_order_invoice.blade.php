@@ -83,15 +83,19 @@
                     <div class="col-lg-12">
 
                         <div class="card mt-3">
-                            <div class="card-header"> Quote <strong>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</strong> <span class="float-end">
+                            <div class="card-header"> Magazine Order Swlected List <strong>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</strong> <span class="float-end">
                                     <strong>Status:</strong> Pending</span> </div>
                             <div class="card-body">
                                 <div class="row mb-5">
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                         <h6>From:</h6>
-                                        <div> <strong>{{auth('librarian')->user()->libraryName}}</strong> </div>
-                                        <div>{{auth('librarian')->user()->librarianName}}</div>
-                                        <div>{{auth('librarian')->user()->door_no}},
+                                        <div> <strong>{{auth('librarian')->user()->libraryType}}</strong> </div>
+                                        <div>{{auth('librarian')->user()->libraryName}}</div>
+                                        <div>
+                                            @if(auth('librarian')->user()->door_no != null)
+                                            {{auth('librarian')->user()->door_no}},
+                                            @endif
+                                       
                                         {{auth('librarian')->user()->street}}
                                         {{auth('librarian')->user()->place}}
                                         {{auth('librarian')->user()->Village}}
@@ -106,8 +110,8 @@
                                     </div>
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
     <h6>To:</h6>
-    <div> <strong>Anna Centenary Library</strong> </div>
-    <div>Attn: Admin</div>
+    <div> <strong>Directorate of Public Libraries</strong> </div>
+
     <div>Gandhi Mandapam Rd, Surya Nagar,</div>
     <div>Kotturpuram, Chennai,</div>
     <div>Tamil Nadu 600085</div>

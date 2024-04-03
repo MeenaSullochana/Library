@@ -203,10 +203,16 @@
                                                                         aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
+                                                                    @if($data->sample_pdf == null)
                                                                     <iframe 
+                                                                        src=""
+                                                                        style="width:100%; height:1000px;"
+                                                                        frameborder="0"></iframe>
+                                                                        @else
                                                                         src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
                                                                         style="width:100%; height:1000px;"
                                                                         frameborder="0"></iframe>
+                                                                        @endif
 
                                                                 </div>
                                                                 <div class="modal-footer">

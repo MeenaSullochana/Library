@@ -89,8 +89,9 @@ Route::prefix('librarian')->group(function () {
     Route::get('/order_scheme_read/{id}',[QuoteController::class,'orderschemeread']);
     Route::get('/orderschemeread',function(){
         $data = Session::get('budget');
+        $desc = Session::get('desc');
         if($data !==null){
-            return view('librarian.order_scheme_read')->with("data",$data);
+            return view('librarian.order_scheme_read',compact("data","desc"));
         }
         
     });
@@ -138,7 +139,5 @@ Route::prefix('librarian')->group(function () {
          }
          
      });
-
-     
 });
 });

@@ -2030,11 +2030,22 @@
                                         <li><a href="magazine_order_reject">Rejected Order List</a></li>
                                     </ul>
                             </li>
+
                             
                             <li><a class="has-arrow" href="#" aria-expanded="false">Magazines</a>
                                 <ul aria-expanded="false">
                                     <li><a href="magazine_order_list">Magazine Order List </a></li>
                                 </ul>
+
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Subscription
+                                <span class="badge badge-danger badge-xs ms-1">NEW</span></a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="magazine_order_subscritpion">Order List </a></li>
+                                        <li><a href="magazine_order_pending">Pending Order List</a></li>
+                                        <li><a href="manage_completed_order_list">Completed Order List</a></li>
+                                        <li><a href="magazine_order_reject">Rejected Order List</a></li>
+                                    </ul>
+
                             </li>
                         </ul>
                     </li>

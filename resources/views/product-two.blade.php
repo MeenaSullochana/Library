@@ -386,7 +386,7 @@
                                     aria-labelledby="nav-all-tab">
                                     <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">
                                     
-                                    @foreach($magazines as $val)
+                                    @foreach($magazines  as $val)
                                         <div class="col">
                                             <div class="tpproduct p-relative mb-20">
                                                 <div class="tpproduct__thumb p-relative text-center">
@@ -438,7 +438,7 @@
                                     aria-labelledby="nav-popular-tab">
                                     <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">
                                
-                                    @foreach($magazines as $val) 
+                                    @foreach($magazines  as $val) 
                                         <div class="col">
                                             <div class="tpproduct p-relative mb-20">
                                                 <div class="tpproduct__thumb p-relative text-center">
@@ -489,7 +489,7 @@
                                 <div class="tab-pane fade show active whight-product" id="nav-product" role="tabpanel"
                                     aria-labelledby="nav-product-tab">
                                 
-                                    @foreach($magazines as $val)
+                                    @foreach($magazines  as $val)
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="tplist__product d-flex align-items-center justify-content-between mb-20">
@@ -538,35 +538,8 @@
 </ul>
 </nav>
         </div>
-
                             </div>
-                            <!-- <div class="basic-pagination text-center mt-35">
-    <nav>
-        <ul>
-
-            @if ($magazines->onFirstPage())
-                <li><span class="disabled"><i class="icon-chevron-left"></i></span></li>
-            @else
-                <li><a href="{{ $magazines->previousPageUrl() }}"><i class="icon-chevron-left"></i></a></li>
-            @endif
-
-            @for ($i = max(1, $magazines->currentPage() - $magazines->onEachSide); $i <= min($magazines->lastPage(), $magazines->currentPage() + $magazines->onEachSide); $i++)
-                @if ($magazines->currentPage() == $i)
-                    <li><span class="current">{{ $i }}</span></li>
-                @else
-                    <li><a href="{{ $magazines->url($i) }}">{{ $i }}</a></li>
-                @endif
-            @endfor
-
-            @if ($magazines->hasMorePages())
-                <li><a href="{{ $magazines->nextPageUrl() }}"><i class="icon-chevron-right"></i></a></li>
-            @else
-                <li><span class="disabled"><i class="icon-chevron-right"></i></span></li>
-            @endif
-
-        </ul>
-    </nav>
-</div> -->
+  
 
 
                         </div>

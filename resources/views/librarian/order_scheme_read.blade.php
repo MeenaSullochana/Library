@@ -56,8 +56,9 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Order Scheme</b>
+                                <b>Order Scheme :{{ $data->libraryType }}<b>
                             </h3>
+                            
                             <a class="btn btn-primary  btn-sm" href="index">
                                 <i class="fas fa-home"></i> Home</a>
      </nav> 
@@ -75,7 +76,7 @@
                                         <h5 class="text-primary mb-0 mt-1">
                                             {{ $data->admindata->name }}</h5>
                                         <p class="mb-0">
-                                            {{ \Carbon\Carbon::parse($data->created_at)->format('Y-m-d') }}
+                                            {{ \Carbon\Carbon::parse($data->created_at)->format('d-m-Y') }}
                                         </p>
                                     </div>
                                 </div>
@@ -87,10 +88,9 @@
 							<div class="media mb-2 mt-3">
 								<div class="media-body ms-3"><span
 										class="pull-end">{{ \Carbon\Carbon::parse($data->created_at)->format('h:i A') }}</span>
-									<h5 class="my-1 text-primary">Subject Content
-										Here....</h5>
+									<h5 class="my-1 text-primary">Subject</h5>
 									<p class="read-content-email">
-										To : {{ $data->subject }}</p>
+									{{ $data->subject }}</p>
 								</div>
 							</div>
 							<div class="card ms-2 p-3">
@@ -102,11 +102,11 @@
 							
 							<h5 class="mb-2"><b>Description</b></h5>
 							<p style="text-indent: 34px;" class="mb-2">
-								{{ $data->description }}
+                            <?php echo $desc; ?>
 							</p>
-							<h5 class="pt-3">Kind Regards</h5>
-							<p style="text-indent: 34px;">Mr
-								{{ $data->admindata->name }}</p>
+							<h5 class="pt-3">By Order</h5>
+							<p style="text-indent: 34px;">
+								For Director of Public Libraries
 							<hr>
                         </div>
                     </div>
