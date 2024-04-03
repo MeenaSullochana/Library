@@ -61,7 +61,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Users order</b>
+                                <b>Librarian order</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="javascript:history.back()">
                                 <i class="fas fa-chevron-left"></i> Back </a>
@@ -70,15 +70,15 @@
                 </div>
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item card">
-                        <h2 class="accordion-header p-0 m-0 bg-white" id="headingOne">
+                        <!-- <h2 class="accordion-header p-0 m-0 bg-white" id="headingOne">
                             <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 <div class="cpa">
 									<i class="fa-sharp fa-solid fa-filter me-2"></i>Order Filter
 								</div>
                             </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        </h2> -->
+                        <!-- <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="card-body">
@@ -133,7 +133,7 @@
 									</div>
 								</div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -143,21 +143,25 @@
                         <div class="card">
                             <div class="card-body p-3">
                                 <div class="d-flex justify-content-between align-items-end">
-                                    <h6>Export Option</h6>
+                                    <h6>Librarian order</h6>
                                     <button type="button" class="btn btn-primary"><span
                                         class="btn-icon-start text-primary"><i class="fa fa-plus"></i>
                                     </span>Add order</button>
                                 </div>
                                 <hr>
-                                <div class="row mb-4 d-flex">
-                                    <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
-                                        <label class="form-label">Select Range</label>
-                                        <select name="" id="" class="form-select bg-white p-2 border border-1">
-                                            <option value="500">100</option>
-                                            <option value="1000">1000</option>
-                                        </select>
-                                    </div> 
-                                    <div class="col-xl-9 col-sm-6 mt-4 text-end">
+                                <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                                <label class="form-label">Select Library Types</label>
+                                <select name="LibraryTypes_filter" id="LibraryTypes_filter" class="form-select bg-white p-2 border border-1 mb-3">
+                                                <option value="">All Library Type</option>
+                                                @php
+                                             $categori = DB::table('library_types')->get();
+                                             @endphp
+                                             @foreach($categori as $val)
+                                             <option value="{{$val->name}}">{{$val->name}}</option>
+                                             @endforeach
+                                            </select>
+                            </div>
+                                    <!-- <div class="col-xl-6 col-sm-6 mt-4 text-end">
                                         <button type="button" class="btn  btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><span
                                             class="btn-icon-start text-warning"><i class="fa fa-trash-o color-warning"></i>
                                         </span>Delete</button> 
@@ -173,7 +177,7 @@
                                         </span>Download</button>  
                                         
                                         
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <hr>
                                 @php
@@ -296,7 +300,34 @@
     <?php
     include 'admin/plugin/plugin_js.php';
     ?>
+
+<script>
+ $(document).ready(function() {
+    // Initialize DataTable
+    var table = $('#example3').DataTable();
+
+    // Function to handle category filter
+    function filterCategory(libraryType) {
+        if (libraryType === "") {
+            table.column(2).search("").draw();
+        } else {
+            table.column(2).search(libraryType).draw();
+        }
+    }
+
+    // Call filterCategory function on change event of the select element
+    $('#LibraryTypes_filter').on('change', function() {
+        var libraryType = $(this).val();
+        filterCategory(libraryType);
+    });
+
+
+});
+
+</script>
 </body>
+
+
 <!-- Modal -->
 <style>
     .modal-confirm {

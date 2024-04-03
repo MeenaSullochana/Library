@@ -386,7 +386,7 @@
                                     aria-labelledby="nav-all-tab">
                                     <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">
                                     
-                                    @foreach($paginatedItems  as $val)
+                                    @foreach($magazines  as $val)
                                         <div class="col">
                                             <div class="tpproduct p-relative mb-20">
                                                 <div class="tpproduct__thumb p-relative text-center">
@@ -438,7 +438,7 @@
                                     aria-labelledby="nav-popular-tab">
                                     <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item">
                                
-                                    @foreach($paginatedItems  as $val) 
+                                    @foreach($magazines  as $val) 
                                         <div class="col">
                                             <div class="tpproduct p-relative mb-20">
                                                 <div class="tpproduct__thumb p-relative text-center">
@@ -489,7 +489,7 @@
                                 <div class="tab-pane fade show active whight-product" id="nav-product" role="tabpanel"
                                     aria-labelledby="nav-product-tab">
                                 
-                                    @foreach($paginatedItems  as $val)
+                                    @foreach($magazines  as $val)
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="tplist__product d-flex align-items-center justify-content-between mb-20">
@@ -529,25 +529,15 @@
                                     </div>
                                     @endforeach
                                 </div>
-<div class="basic-pagination text-center mt-35">
-@if ($pagination['last_page'] > 1)
-    <ul class="pagination">
-        <li class="{{ $pagination['current_page'] == 1 ? 'disabled' : '' }}">
-            <a href="{{ $pagination['prev_page_url'] }}">Previous</a>
-        </li>
-        @for ($i = 1; $i <= $pagination['last_page']; $i++)
-            <li class="{{ $pagination['current_page'] == $i ? 'active' : '' }}">
-            <a href="{{ url('product-two/?page=' . $i) }}">{{ $i }}</a>
-
-            </li>
-        @endfor
-        <li class="{{ $pagination['current_page'] == $pagination['last_page'] ? 'disabled' : '' }}">
-            <a href="{{ $pagination['next_page_url'] }}">Next</a>
-        </li>
-    </ul>
-@endif
-</div>
-
+                                <div class="basic-pagination text-center mt-35">
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item disabled">
+            {{$magazines->links()}}
+</li>
+</ul>
+</nav>
+        </div>
                             </div>
   
 

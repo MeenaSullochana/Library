@@ -574,20 +574,23 @@ public function librarianreturnmessage(Request $req){
     $magazineProduct =json_decode($Ordermagazine->magazineProduct);
     $magazinebudget = Budget::where('id', $Ordermagazine->budgetid)
     ->first();
-   return  $magazinebudget1=decode($magazinebudget->CategorieAmount);
-      $datas=[];
+    $magazinebudget1 = json_decode($magazinebudget->CategorieAmount);
+    $datas=[];
       foreach($magazinebudget1  as $val1){
      foreach($magazineProduct  as $val){
       $magazinesrec = Magazine::find($val->magazineid);
-      $val->image=$magazinesrec->front_img;
-      $val->language=$magazinesrec->language;
-        array_push($datas,$val);
+      if($val1->name == $magazinesrec->category){
+        $val->image=$magazinesrec->front_img;
+        $val->language=$magazinesrec->language;
+          array_push($datas,$val);
+      }
+     
 
      }
     }
-    //  $Ordermagazine->magazineProduct = $datas;
+     $Ordermagazine->magazineProduct = $datas;
  
-    return  $magazinebudget;
+ 
 
 
     \Session::put('Ordermagazine', $Ordermagazine);
@@ -596,18 +599,27 @@ public function librarianreturnmessage(Request $req){
   }
 
   public function magazine_invoiceview($id){
-    $Ordermagazineinvoice=Ordermagazine::find($id);
-    $magazineProduct =        json_decode($Ordermagazineinvoice->magazineProduct);
 
-      $datas=[];
+    $Ordermagazineinvoice=Ordermagazine::find($id);
+    $magazineProduct =json_decode($Ordermagazineinvoice->magazineProduct);
+    $magazinebudget = Budget::where('id', $Ordermagazineinvoice->budgetid)
+    ->first();
+    $magazinebudget1 = json_decode($magazinebudget->CategorieAmount);
+    $datas=[];
+      foreach($magazinebudget1  as $val1){
      foreach($magazineProduct  as $val){
       $magazinesrec = Magazine::find($val->magazineid);
-      $val->image=$magazinesrec->front_img;
-      $val->language=$magazinesrec->language;
-        array_push($datas,$val);
+      if($val1->name == $magazinesrec->category){
+        $val->image=$magazinesrec->front_img;
+        $val->language=$magazinesrec->language;
+          array_push($datas,$val);
+      }
+     
 
      }
+    }
      $Ordermagazineinvoice->magazineProduct = $datas;
+ 
  
     \Session::put('Ordermagazineinvoice', $Ordermagazineinvoice);
     return redirect('librarian/magazine-invoice-view');    
