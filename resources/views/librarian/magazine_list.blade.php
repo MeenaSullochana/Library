@@ -164,7 +164,7 @@
                                         
                                     </div>
                                 </div> -->
-                                <hr>
+                                {{-- <hr> --}}
                                 @php
                                     $id = auth('librarian')->user()->id;
                                       $records = DB::table('ordermagazines')
@@ -193,7 +193,7 @@
                                                 <th>Purchase Amount</th>
                                                 <th>Order Status</th>
                                                 <th>Order Date</th>
-                                                <th></th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody id="customers">
