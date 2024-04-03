@@ -19,6 +19,9 @@ use App\Models\PublisherDistributor;
 use App\Models\Publisher;
  use Illuminate\Support\Str;
  use App\Models\Mailurl;
+ use App\Models\Budget;
+
+ 
  use Illuminate\Support\Facades\Auth;
 
  use App\Models\Ordermagazine;
@@ -87,18 +90,26 @@ public function list(){
 }
 
 public function magazine_orderview($id){
-    $Ordermagazine=Ordermagazine::find($id);
-    $magazineProduct =        json_decode($Ordermagazine->magazineProduct);
-
-      $datas=[];
-     foreach($magazineProduct  as $val){
-      $magazinesrec = Magazine::find($val->magazineid);
+  $Ordermagazine=Ordermagazine::find($id);
+  $magazineProduct =json_decode($Ordermagazine->magazineProduct);
+  $magazinebudget = Budget::where('id', $Ordermagazine->budgetid)
+  ->first();
+  $magazinebudget1 = json_decode($magazinebudget->CategorieAmount);
+  $datas=[];
+    foreach($magazinebudget1  as $val1){
+   foreach($magazineProduct  as $val){
+    $magazinesrec = Magazine::find($val->magazineid);
+    if($val1->name == $magazinesrec->category){
       $val->image=$magazinesrec->front_img;
       $val->language=$magazinesrec->language;
         array_push($datas,$val);
+    }
+   
 
-     }
-     $Ordermagazine->magazineProduct = $datas;
+   }
+  }
+   $Ordermagazine->magazineProduct = $datas;
+
  
     \Session::put('Ordermagazine', $Ordermagazine);
     return redirect('admin/magazine-order-view');    
@@ -107,18 +118,24 @@ public function magazine_orderview($id){
 
   public function magazine_invoiceview($id){
     $Ordermagazineinvoice=Ordermagazine::find($id);
-    $magazineProduct =        json_decode($Ordermagazineinvoice->magazineProduct);
-
-      $datas=[];
+    $magazineProduct =json_decode($Ordermagazineinvoice->magazineProduct);
+    $magazinebudget = Budget::where('id', $Ordermagazineinvoice->budgetid)
+    ->first();
+    $magazinebudget1 = json_decode($magazinebudget->CategorieAmount);
+    $datas=[];
+      foreach($magazinebudget1  as $val1){
      foreach($magazineProduct  as $val){
       $magazinesrec = Magazine::find($val->magazineid);
-      $val->image=$magazinesrec->front_img;
-      $val->language=$magazinesrec->language;
-        array_push($datas,$val);
+      if($val1->name == $magazinesrec->category){
+        $val->image=$magazinesrec->front_img;
+        $val->language=$magazinesrec->language;
+          array_push($datas,$val);
+      }
+     
 
      }
+    }
      $Ordermagazineinvoice->magazineProduct = $datas;
- 
     \Session::put('Ordermagazineinvoice', $Ordermagazineinvoice);
     return redirect('admin/magazine-invoice-view');    
 

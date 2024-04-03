@@ -578,8 +578,8 @@ public function product_two(Request $request)
                           ->where('status', '=', '1')
                           ->sum('totalAmount');
     
-        $percentage = $cartdata1 ? round(($cartdata1 /$val->amount ) * 100) : 0;
-    
+                          $percentage = $val->amount !== 0 ? round(($cartdata1 / max(1, $val->amount)) * 100) : 0;
+        
         $obj = (object)[
             "category" => $val->name,
             "budget_price" => $val->amount,
@@ -589,9 +589,6 @@ public function product_two(Request $request)
         ];
         array_push($bud_arr, $obj);
     }
-
-
-
 
 }else{
     
@@ -957,7 +954,11 @@ public function add_to_cart(Request $req) {
            }
         }
         $cartdata2 =$cartdata1 + $magazinedata->annual_cost_after_discount;
-    
+
+
+
+$balAmt = $totalcost - $cartdata1;
+
       if($totalcost >=$cartdata2){
         $Cartdata = Cart::where('librarianid', '=', $librarian->id)
         ->where('magazineid', '=', $req->id)
@@ -1041,7 +1042,7 @@ public function add_to_cart(Request $req) {
     }
 }else{
     $data= [
-        'error' => 'Purchase Amount Exceeds Budget',
+        'error' =>  'Your balance amount is ' . $balAmt . '. You have selected the magazine more than your balance. Please select magazines whose cost is under ' . $balAmt . '.',
              ];
     return response()->json($data); 
 }
@@ -1308,7 +1309,7 @@ public function magazineCheckout(Request $req) {
             $count = 0;
             $bud_arr = array();
             $data = [
-                'error' => 'You still have ₹' . $categoryamount . ' pending in the ' . $val->name . ' category. Please purchase books to utilize this amount.'
+                'error' => $val->name . ' பிரிவில் ₹' . $categoryamount .  ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
             ];
             return response()->json($data);
         }else{
@@ -1327,8 +1328,9 @@ public function magazineCheckout(Request $req) {
         $count = 0;
         $bud_arr = array();
         $data = [
-            'error' => 'You still have ₹' . $categoryamount . ' pending in the ' . $val->name . ' category. Please purchase books to utilize this amount.'
+            'error' => $val->name . ' பிரிவில் ₹' . $categoryamount .  ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
         ];
+        
         return response()->json($data);
     }
       }else{
@@ -1574,7 +1576,7 @@ foreach ($maga as $val) {
                                                           
       $index = 0; 
       foreach ($cartdata as $val) {
-          $index++; 
+        
           $excelData[] = [
               $index =$index +1, 
               $val->title,
