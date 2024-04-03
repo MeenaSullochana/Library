@@ -688,8 +688,8 @@ public function megazine_categories(Request $req)
             </div>
             <div class="tpproduct__content">
                 <span class="tpproduct__content-weight">
-                    <a href="shop-details-3.html">'.$val->category.'</a>,
-                    <a href="shop-details-3.html">'.$val->language.'</a>
+                    <a href="#">'.$val->category.'</a>,
+                    <a href="#">'.$val->language.'</a>
                 </span>
                 <h4 class="tpproduct__title">
                     <a href="/shope-magazine/' . $val->id . '"> Magazine Title: '.$val->title.' </a>
@@ -732,8 +732,8 @@ public function megazine_categories(Request $req)
                         </div>
                         <div class="tpproduct__content">
                             <span class="tpproduct__content-weight">
-                                <a href="shop-details-3.html">' . $val->category . '</a>,
-                                <a href="shop-details-3.html">' . $val->language . '</a>
+                                <a href="#">' . $val->category . '</a>,
+                                <a href="#">' . $val->language . '</a>
                             </span>
                             <h4 class="tpproduct__title">
                                 <a href="/shope-magazine/' . $val->id . '">Magazine Title: ' . $val->title . '</a>
