@@ -237,7 +237,7 @@
                                                         <div class="dropdown-menu dropdown-menu-end border py-0"
                                                             style="">
                                                             <div class="py-2">
-                                                                <a class="dropdown-item" href="/librarian/magazine_order_view/{{$val->id}}"><i class="fa fa-eye p-2"></i>View Orde</a>
+                                                                <a class="dropdown-item" href="/librarian/magazine_order_view/{{$val->id}}"><i class="fa fa-eye p-2"></i>View Order</a>
                                                                 <a class="dropdown-item" href="/librarian/magazine_invoice_view/{{$val->id}}"><i class="fa fa-pencil p-2"></i> View Order Invoice</a>
                                                                 <!-- <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" href="magazine_delete"><i class="fa fa-trash p-2"></i>Delete</a></div> -->
                                                         </div>

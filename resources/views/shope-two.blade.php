@@ -81,28 +81,17 @@
                                                     <div class="tab-pane fade show active w-img" id="nav-home"
                                                         role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                                                         <img src="{{ asset('Magazine/front/' . $data->front_img) }}"
-                                                            alt="No Image">
-                                                        <div class="tpproduct__info bage">
-                                                            <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                                        </div>
+                                                            alt="front Image">
                                                     </div>
                                                     <div class="tab-pane fade w-img" id="nav-profile" role="tabpanel"
                                                         aria-labelledby="nav-profile-tab" tabindex="0">
                                                         <img src="{{ asset('Magazine/back/' . $data->back_img) }}"
-                                                            alt="No Image">
-                                                        <div class="tpproduct__info bage">
-                                                            <span
-                                                                class="tpproduct__info-discount bage__discount">-90%</span>
-                                                            <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                                        </div>
+                                                            alt="back Image">
                                                     </div>
                                                     <div class="tab-pane fade w-img" id="nav-contact" role="tabpanel"
                                                         aria-labelledby="nav-contact-tab" tabindex="0">
                                                         <img src="{{ asset('Magazine/full/' . $data->full_img) }}"
-                                                            alt="No Image">
-                                                        <div class="tpproduct__info bage">
-                                                            <span class="tpproduct__info-hot bage__hot">HOT</span>
-                                                        </div>
+                                                            alt="full Image">
                                                     </div>
                                                 </div>
                                                 <nav>
@@ -113,21 +102,21 @@
                                                             type="button" role="tab" aria-controls="nav-home"
                                                             aria-selected="true">
                                                             <img src="{{ asset('Magazine/front/' . $data->front_img) }}"
-                                                                alt="No Image">
+                                                                alt="front Image">
                                                         </button>
                                                         <button class="nav-link" id="nav-profile-tab"
                                                             data-bs-toggle="tab" data-bs-target="#nav-profile"
                                                             type="button" role="tab" aria-controls="nav-profile"
                                                             aria-selected="false">
                                                             <img src="{{ asset('Magazine/back/' . $data->back_img) }}"
-                                                                alt="No Image">
+                                                                alt="back Image">
                                                         </button>
                                                         <button class="nav-link" id="nav-contact-tab"
                                                             data-bs-toggle="tab" data-bs-target="#nav-contact"
                                                             type="button" role="tab" aria-controls="nav-contact"
                                                             aria-selected="false">
                                                             <img src="{{ asset('Magazine/full/' . $data->full_img) }}"
-                                                                alt="No Image">
+                                                                alt="full Image">
                                                         </button>
                                                     </div>
                                                 </nav>
@@ -138,8 +127,8 @@
                                                 <div class="product__details-price-box">
                                                     <h5 class="product__details-price">₹ {{$data->annual_cost_after_discount}}</h5>
                                                     <ul class="product__details-info-list">
-                                                    <li> Magazine Title: {{$data->title}}</li>
-                                                              <li>Language: {{$data->language}}</li>
+                                                    <li> Magazine Title : {{$data->title}}</li>
+                                                              <li>Language : {{$data->language}}</li>
                                                     </ul>
                                                 </div>
                                                 <div class="product__details-cart">
@@ -174,8 +163,8 @@
                                                 <div class="product__details-stock mb-25">
                                                     <ul>
                                                        
-                                                        <li>Category: <span>{{$data->category}}</span></li>
-                                                        <li>Periodicity: <span>{{$data->periodicity}}</span></li>
+                                                        <li>Category : <span>{{$data->category}}</span></li>
+                                                        <li>Periodicity : <span>{{$data->periodicity}}</span></li>
                                                     </ul>
                                                 </div>
                                                 <div class="product__details-payment text-center">
@@ -204,15 +193,20 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     @if($data->sample_pdf == null)
-                                                                    <iframe 
-                                                                        src=""
+                                                                    <iframe
+                                                                    src=""
                                                                         style="width:100%; height:1000px;"
                                                                         frameborder="0"></iframe>
-                                                                        @else
-                                                                        src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
+                                                                    @else
+                                                                    <iframe
+                                                                    src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
                                                                         style="width:100%; height:1000px;"
                                                                         frameborder="0"></iframe>
-                                                                        @endif
+                                                                    @endif
+                                                                    <iframe
+                                                                    src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
+                                                                        style="width:100%; height:1000px;"
+                                                                        frameborder="0"></iframe>
 
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -261,33 +255,71 @@
                                         </div> -->
                                         <div
                                             class="tpdescription__product-wrapper mt-30 mb-30 d-flex justify-content-between align-items-center">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    
                                             <div class="tpdescription__product-info">
                                                 <h5 class="tpdescription__product-title">PRODUCT DETAILS</h5>
                                                 <ul class="tpdescription__product-info">
-                                                    <li>Magazine Title: {{$data->title}}</li>
-                                                    <li>Category: {{$data->category}}</li>
-                                                    <li>Language: {{$data->language}}</li>
-                                                    <li>Periodicity: {{$data->periodicity}}</li>
-                                                    <li>Price: ₹ {{$data->annual_cost_after_discount}}</li>
-                                                    <li>RNI: {{$data->rni_details}} </li>
-                                                    <li>Total Pages: {{$data->total_pages}}</li>
-                                                    <li>Total Multicolour Pages: {{$data->total_multicolour_pages}}</li>
-                                                    <li>Total Monocolour Pages: {{$data->total_monocolour_pages}}</li>
-                                                    <li>Paper Quality: {{$data->paper_quality}}</li>
-                                                    <li>Magazine Size: {{$data->magazine_size}}</li>
-
-
-                                                    
-                                                    
+                                                    <div class="row">
+                                                        <div class="col-md-6">Magazine Title</div>
+                                                        <div class="col-md-6">: {{$data->title}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">Category</div>
+                                                        <div class="col-md-6">: {{$data->category}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">Language</div>
+                                                        <div class="col-md-6">: {{$data->language}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">Periodicity</div>
+                                                        <div class="col-md-6">: {{$data->periodicity}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">Price</div>
+                                                        <div class="col-md-6">: ₹ {{$data->annual_cost_after_discount}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">RNI</div>
+                                                        <div class="col-md-6">: {{$data->rni_details}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">Total Pages</div>
+                                                        <div class="col-md-6">: {{$data->total_pages}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">Total Multicolour Pages</div>
+                                                        <div class="col-md-6">: {{$data->total_multicolour_pages}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">Total Monocolour Pages</div>
+                                                        <div class="col-md-6">: {{$data->total_monocolour_pages}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">Paper Quality</div>
+                                                        <div class="col-md-6">: {{$data->paper_quality}}</div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">Magazine Size</div>
+                                                        <div class="col-md-6">: {{$data->magazine_size}}</div>
+                                                    </div>
                                                 </ul>
                                                 <!-- <p>Lemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
                                                     <br> fugit, sed quia consequuntur magni dolores eos qui ratione
                                                     voluptatem <br> sequi nesciunt.
                                                 </p> -->
                                             </div>
-                                            <div class="tpdescription__product-thumb">
-                                                <img src="{{ asset('Magazine/front/' . $data->front_img) }}" alt="">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="tpdescription__product-thumb">
+                                                        <img src="{{ asset('Magazine/front/' . $data->front_img) }}" alt="Image Not Found">
+        
+                                                    </div>
+                                                </div>
                                             </div>
+                                           
                                         </div>
                                         <!-- <div class="tpdescription__video">
                                             <h5 class="tpdescription__product-title">PRODUCT DETAILS</h5>
@@ -384,6 +416,7 @@
                     </div>
                     <div class="col-lg-2 col-md-12">
                         <div class="tpsidebar pb-30">
+                            <h4 class="tpsidebar__title mb-15">Recent Products</h4>
                         @php
                      $magazines = DB::table('magazines')
                    ->where('id', '!=', $data->id)
@@ -394,16 +427,12 @@
                     @endphp
 
                         @foreach( $magazines as $val)
-                            <div class="tpsidebar__product">
-                                <h4 class="tpsidebar__title mb-15">Recent Products</h4>
+                            <div class="tpsidebar__product mt-3">
                                 <div class="tpsidebar__product-item">
                                     <div class="tpsidebar__product-thumb p-relative">
                                     <a href="/shope-magazine/{{$val->id}}">
                                         <img src="{{ asset('Magazine/front/' . $val->front_img) }}"
                                             alt="No Image">
-                                        <div class="tpsidebar__info bage">
-                                            <!-- <span class="tpproduct__info-hot bage__hot">HOT</span> -->
-                                        </div>
                                     </div>
                                     <div class="tpsidebar__product-content">
                                         <span class="tpproduct__product-category">
@@ -412,7 +441,7 @@
                                     
                                         </span>
                                         <h4 class="tpsidebar__product-title">
-                                            <a href="/shope-magazine/{{$val->id}}">Magazine Title: {{$val->title}}</a>
+                                            <a href="/shope-magazine/{{$val->id}}">Magazine Title : {{$val->title}}</a>
                                         </h4>
                                         <div class="tpproduct__price">
                                         <span>₹{{$val->annual_cost_after_discount}}</span>
@@ -449,7 +478,7 @@
                            ->orderBy('created_at', 'Asc')
                             ->get();
                        @endphp
-                        @foreach( $magazine as $val)
+                       @foreach( $magazine as $val)
                             <div class="swiper-slide">
                                 <div class="tpproduct p-relative">
                                     <div class="tpproduct__thumb p-relative text-center">
@@ -459,34 +488,30 @@
                                         <a class="tpproduct__thumb-img" href="/shope-magazine/{{$val->id}}"><img
                                                 src="{{ asset('Magazine/back/' . $val->back_img) }}"
                                                 alt="No Image"></a>
-                                        <div class="tpproduct__info bage">
-                                            <!-- <span class="tpproduct__info-discount bage__discount">-50%</span>
-                                            <span class="tpproduct__info-hot bage__hot">HOT</span> -->
-                                        </div>
                                         <div class="tpproduct__shopping">
-                                            <a class="tpproduct__shopping-wishlist" href="wishlist.html"><i
-                                                    class="icon-heart icons"></i></a>
+                                            {{-- <a class="tpproduct__shopping-wishlist" href="#"><i
+                                                    class="icon-heart icons"></i></a> --}}
                                             <a class="tpproduct__shopping-wishlist" href="/shope-magazine/{{$val->id}}"><i
                                                     class="icon-layers"></i></a>
-                                            <!-- <a class="tpproduct__shopping-cart" href="#"><i
-                                                    class="icon-eye"></i></a> -->
+                                             <a class="tpproduct__shopping-cart" href="/shope-magazine/{{$val->id}}"><i
+                                                    class="icon-eye"></i></a> 
                                         </div>
                                     </div>
                                     <div class="tpproduct__content">
                                         <span class="tpproduct__content-weight">
-                                        <a href="shop-details-3.html">{{$val->category}}</a>,
-                                       <a href="shop-details-3.html">{{$val->language}}</a>
+                                        <a href="#">{{$val->category}}</a>,
+                                       <a href="#">{{$val->language}}</a>
                                         </span>
                                         
                                         <h4 class="tpproduct__title">
-                                            <a href="shop-details-top-.html">Magazine Title: {{$val->title}}</a>
+                                            <a href="#">Magazine Title: {{$val->title}}</a>
                                         </h4>
-                                        <div class="tpproduct__price">
+                                        <div class="tpproduct__price d-flex justify-content-between">
                                             <span>₹{{$val->annual_cost_after_discount}}</span>
-                                            <!-- <del>₹19.00</del> -->
+                                            <button class="tp-btn-2 Add-to-cart1" data-id1="{{$val->id}}"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
                                         </div>
                                     </div>
-                                    <div class="tpproduct__hover-text">
+                                    {{-- <div class="tpproduct__hover-text">
                                         <div class="tpproduct__hover-btn d-flex justify-content-center mb-10">
                                         <button class="tp-btn-2 Add-to-cart1" data-id1="{{$val->id}}">Add to cart</button>
 
@@ -499,7 +524,7 @@
                                             <li>Periodicity: {{$val->periodicity}}</li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                          @endforeach

@@ -931,6 +931,9 @@ Route::get('/magazinebudget_add',function(){ return view('admin.magazinebudget_a
 Route::get('/magazinebudget_list',function(){ return view('admin.magazinebudget_list');});
 Route::get('/magazinebudget_view/{id}',[BudgetController::class,'magazinebudget_view']);
 
+ //  report
+ Route::get('librarian_password_report',function(){ return view('admin.librarian_password_report');});
+ Route::get('librarian_password_report_view',function(){ return view('admin.librarian_password_report_view');});
 
 Route::get('/magazinebudgetview',function(){
     $data = Session::get('budget');
