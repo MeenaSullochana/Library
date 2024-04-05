@@ -2239,6 +2239,7 @@
                             <li><a href="report_download_payment">Payment Report Download</a></li>
                             <li><a href="report_download_reviwer">Reviewer Report Download</a></li>
                             <li><a href="report_download_pub_revi">Publisher & Reviewer Report Download</a></li>
+                            <li><a href="librarian_password_report">Librarian Change Password Report</a></li>
                         </ul>
                     </li>
                     <!-- <li><a href="#" class="" aria-expanded="false">

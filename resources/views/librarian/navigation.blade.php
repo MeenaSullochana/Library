@@ -32,7 +32,11 @@
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
 					<div class="header-left">
-						<h4 class="ms-5"><b>{{auth('librarian')->user()->libraryName}} - {{auth('librarian')->user()->libraryType}}</b></h4>
+						<h4 class="ms-5 header-leftone"><b>{{auth('librarian')->user()->libraryName}} - {{auth('librarian')->user()->libraryType}}</b></h4>
+						{{-- <h4 class=" header-lefttwo"><b>{{auth('librarian')->user ()->libraryName}} - {{auth('librarian')->user()->libraryType, 10}}</b></h4> --}}
+						<h4 class="ms-3 header-lefttwo">
+							<b>{{ Illuminate\Support\Str::limit(auth('librarian')->user()->libraryName, 11) }} - {{ Illuminate\Support\Str::limit(auth('librarian')->user()->libraryType, 11) }}</b>
+						</h4>
 						</div>
                         <div class="header-right d-flex align-items-center">
 							<!-- <div class="input-group search-area">
@@ -394,6 +398,7 @@
                           
                         </ul>
                     </li>
+					
 			</div>
         </div>
 		
@@ -423,6 +428,22 @@
 			border-radius: 50%;
 			background: red;
 			color: white;
+			}
+			@media only screen and (max-width: 600px) {
+				.header-leftone{
+					display: none;
+				}
+				.header-lefttwo{
+					display: block;
+				}
+			}
+			@media only screen and (min-width: 768px) {
+				.header-lefttwo{
+					display: none;
+				}
+				.header-leftone{
+					display: block;
+				}
 			}
         </style>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

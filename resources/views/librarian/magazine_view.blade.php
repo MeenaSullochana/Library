@@ -62,7 +62,7 @@
                             <h3 class="mb-0 bc-title">
                                 <b>View Magazine</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href=" {{ url('librarian/magazine_list') }}">
+                            <a class="btn btn-primary  btn-sm" href=" {{ url('librarian/magazine-order-view') }}">
                                 <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Magazine </a>
                         </div>
                     </div>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="card p-1">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
                                 <ol class="carousel-indicators">
                                     <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active"
@@ -156,7 +156,7 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="magazine-title h3 fw-bold w-100 mt-4 mb-4">{{$data->title}}</div>
@@ -165,27 +165,27 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <div class="col-6 fw-bolder p-2">Frequency:</div>
-                                        <div class="col-6">{{$data->periodicity}}</div>
-                                           <div class="col-6 fw-bolder p-2">Language :</div>
-                                        <div class="col-6">{{$data->language}}</div>
+                                        <div class="col-6 fw-bolder p-2">Frequency</div>
+                                        <div class="col-6">: {{$data->periodicity}}</div>
+                                           <div class="col-6 fw-bolder p-2">Language</div>
+                                        <div class="col-6"> : {{$data->language}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Category :</div>
-                                        <div class="col-6">{{$data->category}}</div>
-                                        <div class="col-6 fw-bolder p-2">Single Issue Rate:</div>
-                                        <div class="col-6">{{$data->single_issue_rate}}</div>
+                                        <div class="col-6 fw-bolder p-2">Category</div>
+                                        <div class="col-6"> : {{$data->category}}</div>
+                                        <div class="col-6 fw-bolder p-2">Single Issue Rate</div>
+                                        <div class="col-6"> : {{$data->single_issue_rate}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Annual Subscription:</div>
-                                        <div class="col-6">{{$data->annual_subscription}}</div>
+                                        <div class="col-6 fw-bolder p-2">Annual Subscription</div>
+                                        <div class="col-6"> : {{$data->annual_subscription}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Discount %:</div>
-                                        <div class="col-6">{{$data->discount}}</div>
+                                        <div class="col-6 fw-bolder p-2">Discount %</div>
+                                        <div class="col-6"> : {{$data->discount}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Single Issue After Discount :</div>
-                                        <div class="col-6">{{$data->single_issue_after_discount}}</div>
+                                        <div class="col-6 fw-bolder p-2">Single Issue After Discount </div>
+                                        <div class="col-6"> : {{$data->single_issue_after_discount}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Annual Subscription After Discount :</div>
-                                        <div class="col-6">{{$data->annual_cost_after_discount}}</div>
+                                        <div class="col-6 fw-bolder p-2">Annual Subscription After Discount </div>
+                                        <div class="col-6"> : {{$data->annual_cost_after_discount}}</div>
 
                                        
 
@@ -196,26 +196,26 @@
                                         <!-- <div class="col-6 fw-bolder p-2">Difference in Amount :</div>
                                         <div class="col-6">90</div> -->
 
-                                        <div class="col-6 fw-bolder p-2">RNI Details :</div>
-                                        <div class="col-6">{{$data->rni_details}}</div>
+                                        <div class="col-6 fw-bolder p-2">RNI Details </div>
+                                        <div class="col-6"> : {{$data->rni_details}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Paper Quality :</div>
-                                        <div class="col-6">{{$data->paper_quality}}</div>
+                                        <div class="col-6 fw-bolder p-2">Paper Quality </div>
+                                        <div class="col-6"> : {{$data->paper_quality}}</div>
 
                                         <!-- <div class="col-6 fw-bolder p-2">Type of Library :</div>
                                         <div class="col-6">90</div> -->
 
-                                        <div class="col-6 fw-bolder p-2">Total Number of Pages :</div>
-                                        <div class="col-6">{{$data->total_pages}}</div>
+                                        <div class="col-6 fw-bolder p-2">Total Number of Pages</div>
+                                        <div class="col-6"> : {{$data->total_pages}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Number of Multicolour pages :</div>
-                                        <div class="col-6">{{$data->total_multicolour_pages}}</div>
+                                        <div class="col-6 fw-bolder p-2">Number of Multicolour pages </div>
+                                        <div class="col-6"> : {{$data->total_multicolour_pages}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Number of Monocolour Pages :</div>
-                                        <div class="col-6">{{$data->total_monocolour_pages}}</div>
+                                        <div class="col-6 fw-bolder p-2">Number of Monocolour Pages </div>
+                                        <div class="col-6"> : {{$data->total_monocolour_pages}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Size of the Magazine :</div>
-                                        <div class="col-6">{{$data->magazine_size}}</div>
+                                        <div class="col-6 fw-bolder p-2">Size of the Magazine</div>
+                                        <div class="col-6"> : {{$data->magazine_size}}</div>
 
                                         
                                     </div>
@@ -236,9 +236,9 @@
                     </div>
                 </div>
                 <div class="row card p-1">
-                    <p class="h3 p-3 bg-main text-white">Contact Person Details with Address</p>
+                    <p class="h3 p-2 bg-main text-white">Contact Person Details with Address</p>
                     <hr>
-                    <div class="col-md-12">
+                    <div class="col-md-12 mb-3">
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">Contact Person Name:</div>
                             <div class="col-6">{{$data->contact_person}}</div>
@@ -276,11 +276,11 @@
                             <div class="col-6">{{$data->address}} </div>
                         </div>
                     </div>
-                    <p class="h2 bg-main text-white">Official Address</p>
+                    <p class="h2 p-2 bg-main text-white">Official Address</p>
                     <hr>
                     <div class="row">
-                        <div class="col-12">
-                        {{$data->address}}
+                        <div class="col-12 mb-3">
+                            {{$data->address}}
                         </div>
                     </div>
 

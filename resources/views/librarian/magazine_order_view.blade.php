@@ -103,7 +103,7 @@
                                         </span>Download</button>    
                                     </div>
                                 </div> -->
-                                <hr>
+                                {{-- <hr> --}}
                                 <div class="table-responsive">
                                     <table class="table table-sm mb-0 table-striped student-tbl" id="example3">
                                         <thead>
@@ -114,7 +114,7 @@
                                                         <label class="form-check-label" for="checkAll"></label>
                                                     </div>
                                                 </th> -->
-                                                <th>S.Noe</th>
+                                                <th>S.No</th>
                                                 <th>Magazine Title</th>
                                                 <th>language</th>
                                                 <th>Category</th>
@@ -182,7 +182,7 @@
                                                         <div class="dropdown-menu dropdown-menu-end border py-0"
                                                             style="">
                                                             <div class="py-2">
-                                                                <a class="dropdown-item" href="/librarian/magazine_view/{{$val->magazineid}}"><i class="fa fa-eye p-2"></i>View</a>
+                                                            <a class="dropdown-item" href="/librarian/magazine_view/{{$val->magazineid}}"><i class="fa fa-eye p-2"></i>View</a>
                                                                 <!-- <a class="dropdown-item" href="magazine_view"><i class="fa fa-file-invoice p-2"></i>Show invoice</a> -->
                                                         </div>
                                                     </div>
