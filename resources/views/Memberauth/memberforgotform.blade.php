@@ -22,7 +22,33 @@
 https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css
 " rel="stylesheet"> -->
 <link href="{{asset('reviewer/css/style.css')}}" rel="stylesheet">
+<style>
+   .validation-errors {
+    position: fixed;
+    top: 250px;
+    right: 20px;
+    background-color: #ffcccc;
+    border: 1px solid #ff0000;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 500px;
+    max-height: 200px; /* Set a fixed height */
+    overflow-y: auto; /* Add vertical scrollbar */
+    z-index: 1000; /* Ensure it appears above other content */
+}
 
+.validation-errors ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.validation-errors ul li {
+    color: #ff0000;
+    margin-bottom: 5px;
+}
+
+</style>
 <?php
         include "reviewer/plugin/plugin_css.php";
     ?>
@@ -33,10 +59,9 @@ https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.min.css
         <!-- Content -->
         <div class="browse-job login-style3">
             <!-- Coming Soon -->
-            <div class="bg-img-fix overflow-hidden"
-                style="background:#fff url('{{asset("reviewer/images/background/bg6.jpg")}}'); height: 100vh;">
+            <div class="bg-img-fix overflow-hidden" style="background:#fff url('http://127.0.0.1:8000/reviewer/images/background/bg6.png'); height: 100vh;">
                 <div class="row gx-0">
-                    <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12 vh-100 bg-white ">
+                <div class="mx-auto col-xl-4 col-lg-5 col-md-6 col-sm-12 vh-100 bg-white ">
                         <div id="mCSB_1" class="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
                             style="max-height: 653px;" tabindex="0">
                             <div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;"
@@ -203,13 +228,13 @@ include "reviewer/plugin/plugin_js.php";
 <style>
     .logo-header {
         display: flex;
-        justify-content: center; 
-        margin-bottom: 20px; 
+        justify-content: center;
+        margin-bottom: 20px;
     }
 
     .logo img {
-        max-width: 100%; 
-        height: auto; 
+        max-width: 100%;
+        height: auto;
     }
 </style>
 

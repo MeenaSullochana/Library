@@ -97,7 +97,7 @@
                                                 <div class="icon-box icon-box-lg bg-primary-light rounded">
                                                     <i class="fa-solid fa-cart-shopping text-primary"></i>
                                                     @php
-                                                        $magazines = DB::table('magazines')->get();
+                                                        $magazines = DB::table('magazines')->where('status', '=', '1')->get();
 
                                                     @endphp
                                                 </div>
@@ -584,6 +584,11 @@
                         <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Enter the confirm Password" required>
                         <div class="invalid-feedback">Please Enter Confirm Password</div>
                       </div>
+                      <div class="mb-3">
+                        <label for="formGroupExampleInput2" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter the email" required>
+                        <div class="invalid-feedback">Please Enter Confirm Password</div>
+                      </div>
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -706,6 +711,9 @@
              'currentPassword':$('#currentPassword').val(),
              'newPassword':$('#newPassword').val(),
              'confirmPassword':$('#confirmPassword').val(),
+             'email':$('#email').val(),
+
+             
           }
           $.ajaxSetup({
              headers:{
@@ -714,7 +722,7 @@
           });
           $.ajax({
              type:"post",
-             url:"/librarian/changepassword",
+             url:"/librarian/changepasswordnew",
              data:data,
              dataType:"json",
              success: function(response) {
@@ -723,6 +731,9 @@
                     document.getElementById('currentPassword').value = '';
                     document.getElementById('newPassword').value = '';
                     document.getElementById('confirmPassword').value = '';
+                    document.getElementById('email').value = '';
+
+                    
                     $('#modalId').modal('hide');
 
                 }else{

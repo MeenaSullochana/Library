@@ -15,6 +15,12 @@
         font-family: 'Latha', sans-serif; /* Use a font that supports Tamil characters */
     }
 </style>
+<style>
+    body {
+        font-family: Arial, sans-serif; /* Fallback font */
+        font-family: 'Noto Sans Tamil', Arial, sans-serif; /* Specify the font supporting Tamil characters */
+    }
+</style>
     <style>
         /* Prevent word breaks */
         @media print {
@@ -72,36 +78,48 @@
         <h3 class="text-center">Directorate of Public Libraries</h3>
         <h5 class="text-center">Transparent Book Procurement Portal</h5>
         <div class="d-flex justify-content-evenly">
-            <p>Date : 10/03/2024</p>
-            <h6>Publisher Report</h6>
+            <!-- <p>Date : 10/03/2024</p> -->
+            <h6>Magazine Report</h6>
         </div>
         <div class="card text-center">
             <div class="card-body">
-                <h5 class="card-title fw-bolder">Transparent Book Procurement Portal - 05/05/2024 To 15/05/2024</h5>
+                <h5 class="card-title fw-bolder">Transparent Book Procurement Portal </h5>
             </div>
         </div>
         <table class="mt-3 table-responsive border-1 rounded-1 table-hover table-bordered w-100" id='exporttable'>
-            <thead>
+    <thead>
+        <tr>
+            <th>S.No</th>
+            <th>Magazine Title</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @php
+            $totalAmount = 0;
+        @endphp
+        @foreach($cartdata as $val)
+            @php
+                $totalAmount += $val->totalAmount;
+            @endphp
             <tr>
-                <th>S.No</th>
-                <th>Magazine Title</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th>Amount</th>
+                <td>{{ $loop->index +1 }}</td>
+                <td>{{ $val->title }}</td>
+                <td>{{ $val->category }}</td>
+                <td>{{ $val->quantity }}</td>
+                <td>{{ $val->totalAmount }}</td>
             </tr>
-            </thead>
-            <tbody>
-            @foreach($cartdata as $val)
-                <tr>
-                    <td>{{ $loop->index +1 }}</td>
-                    <td>{{$val->title}}</td>
-                    <td>{{$val->category}}</td>
-                    <td>{{$val->quantity}}</td>
-                    <td>{{$val->totalAmount}}</td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+        @endforeach
+        <tr>
+    <td colspan="4" style="text-align: right; font-weight: bold;">Total:</td>
+    <td style="font-weight: bold;">{{ $totalAmount }}</td>
+</tr>
+
+    </tbody>
+</table>
+
     </div>
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
