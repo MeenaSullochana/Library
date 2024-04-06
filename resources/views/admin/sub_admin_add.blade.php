@@ -91,7 +91,7 @@
                                                 <img src="{{ old('subadminImage','images/user.jpg') }}" alt="" id="output">
                                                 <div class="upload-link" title="" data-toggle="tooltip"
                                                     data-placement="right" data-original-title="update" >
-                                                    <input type="file" name="subadminImage"  class="update-flie" onchange="loadFile(event)" required>
+                                                    <input type="file" accept="image/png, image/jpg, image/jpeg" name="subadminImage"  class="update-flie" onchange="loadFile(event)" required>
 
                                                     <i class="fa fa-camera"></i>
                                                 </div>
@@ -165,6 +165,7 @@
                                             <div class="col-sm-12 m-b30">
                                               <label for="inputState" class="form-label">District  <span class="text-danger">*</span></label></label>
                                                 <select id="pub_district" class="form-select bg-white" name="district"  required>
+                                                    <option name="$data->district" value="" >Choose any one</option>
                                                 <option name="" value="{{ old('district') }}">{{ old('district') }}</option>
                                                 @foreach($district as $val)
                                                 <option name="{{$val->name}}" >{{$val->name}}</option>

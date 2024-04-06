@@ -80,13 +80,13 @@
                                                             <label class="form-check-label" for="checkAll"></label>
                                                         </div>
                                                     </th>
-                                                    <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 136.641px;">S.No</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 215.156px;"> Name</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 215.156px;">Phone</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 215.156px;">District Name</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 54.625px;">Status</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 103.766px;">Change Status</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 75.0781px;">Control</th>
+                                                    <th>S.No</th>
+                                                    <th>Name</th>
+                                                    <th>Phone</th>
+                                                    <th>District Name</th>
+                                                    <th>Status</th>
+                                                    <th>Change Status</th>
+                                                    <th>Control</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -103,7 +103,7 @@
                                                         <div class="d-flex align-items-center">
                                                                 <img src="{{asset("sub_admin/SubAdminImage/".$val->subadminImage)}}"
                                                                         class="avatar" alt=""> 
-                                                            <span class="w-space-no"> {{$val->name}}</span>
+                                                            <span class="w-space-no ms-2"> {{$val->name}}</span>
                                                         </div>
                                                     </td>
                                                     <td>+91 {{$val->mobileNumber}}</td>

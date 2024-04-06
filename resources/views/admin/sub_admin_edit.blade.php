@@ -92,7 +92,7 @@
                                                 <img src="{{asset("sub_admin/SubAdminImage/".$data->subadminImage)}}" alt="" id="output">
                                                 <div class="upload-link" title="" data-toggle="tooltip"
                                                     data-placement="right" data-original-title="update" required>
-                                                    <input type="file" id="subadminImage"  value="{{asset("sub_admin/SubAdminImage/".$data->subadminImage)}}" class="update-flie" onchange="loadFile(event)">
+                                                    <input type="file" accept="image/png, image/jpg, image/jpeg" id="subadminImage"  value="{{asset("sub_admin/SubAdminImage/".$data->subadminImage)}}" class="update-flie" onchange="loadFile(event)">
                                                     <i class="fa fa-camera"></i>
                                                 </div>
                                             </div>
@@ -164,6 +164,7 @@
                                             <div class="col-sm-12 m-b30">
                                               <label for="inputState" class="form-label">District  <span class="text-danger">*</span></label></label>
                                              <select id="pub_district" class="form-select" id="district"  required  disabled="true">
+                                                <option name="$data->district" value="" >Choose any one</option>
                                              <option name="$data->district" value="{{$data->district}}" >{{$data->district}}</option>
 
                                              </select>

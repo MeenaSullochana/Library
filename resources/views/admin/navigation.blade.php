@@ -1988,10 +1988,10 @@
                             <span class="nav-text">Management Budget</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/admin/budget">Make BookBudget</a></li>
-                            <li><a href="/admin/budgetlist">BookBudget List</a></li>
-                            <li><a href="/admin/magazinebudget_add">Make MagazineBudget</a></li>
-                            <li><a href="/admin/magazinebudget_list">MagazineBudget List</a></li>
+                            <li><a href="/admin/budget">Make Book Budget</a></li>
+                            <li><a href="/admin/budgetlist">Book Budget List</a></li>
+                            <li><a href="/admin/magazinebudget_add">Make Magazine Budget</a></li>
+                            <li><a href="/admin/magazinebudget_list">Magazine Budget List</a></li>
                         </ul> 
                     </li>
                     <li>
@@ -2051,7 +2051,7 @@
                     </li>
                         <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-truck"></i>
-                            <span class="nav-text">Delivery Managemnt</span>
+                            <span class="nav-text">Delivery Management</span>
                         </a>
                         <ul aria-expanded="false">
                             {{-- <li><a href="aplication_fair_list">Fair List</a></li> --}}
@@ -2232,8 +2232,8 @@
                         <ul aria-expanded="false">
                             {{-- <li><a href="report_download">Book Fair Report Download</a></li> --}}
                             <li><a href="report_download_publisher">Publisher Report Download</a></li>
-                            <li><a href="/admin/report_download_distributor">distributo Report Download</a></li>
-                            <li><a href="report_download_pub_dist">Publisher Cum distributo Report Download</a></li>
+                            <li><a href="/admin/report_download_distributor">Distributor Report Download</a></li>
+                            <li><a href="report_download_pub_dist">Publisher Cum Distributor Report Download</a></li>
 
                             <li><a href="report_download_order">Order Management Download</a></li>
                             <li><a href="report_download_payment">Payment Report Download</a></li>
