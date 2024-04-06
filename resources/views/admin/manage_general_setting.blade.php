@@ -166,11 +166,11 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
                                                                                                   <br>
                                                                                                <img class="admin-img" id="websitelogo" src="/assets/img/logo/logo.png" alt="No Image Found">
                                                                                                     <br>
-                                                                                              <span class="mt-1">Image Size Should Be 270 x 340.</span>
-                                                                                                     </div>
+                                                                                              {{-- <span class="mt-1">Image Size Should Be 270 x 340.</span>--}}
+                                                                                                     </div> 
 
                                                                                             <div class="mb-3 file col-md-6 mx-auto">
-                                                                                             <input class="form-control" type="file" id="formFile22" onchange="loadFile(event)">
+                                                                                             <input class="form-control" type="file" accept="image/png, image/jpg, image/jpeg" id="formFile22" onchange="loadFile(event)">
                                                                                               </div>
                         
                         
@@ -248,11 +248,11 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
                                                                                                   <br>
                                                                                                <img class="admin-img" id="websitefavicon" src="images\avatar\11.png" alt="No Image Found">
                                                                                                     <br>
-                                                                                              <span class="mt-1">Image Size Should Be 270 x 340.</span>
-                                                                                                     </div>
+                                                                                              {{-- <span class="mt-1">Image Size Should Be 270 x 340.</span>--}}
+                                                                                                     </div> 
 
                                                                                             <div class="mb-3 file col-md-6 mx-auto">
-                                                                                             <input class="form-control" type="file" id="formFile33" onchange="loadFile(event)">
+                                                                                             <input class="form-control" type="file" accept="image/png, image/jpg, image/jpeg" id="formFile33" onchange="loadFile(event)">
                                                                                               </div>
                         
                         
@@ -333,7 +333,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
                                                                                                 data-toggle="tooltip"
                                                                                                 data-placement="right"
                                                                                                 data-original-title="update">
-                                                                                                <input type="file"
+                                                                                                <input type="file" accept="image/png, image/jpg, image/jpeg"
                                                                                                     class="update-flie">
                                                                                                 <i
                                                                                                     class="fa fa-camera"></i>
@@ -415,7 +415,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
                                                                                                 data-toggle="tooltip"
                                                                                                 data-placement="right"
                                                                                                 data-original-title="update">
-                                                                                                <input type="file"
+                                                                                                <input type="file" accept="image/png, image/jpg, image/jpeg"
                                                                                                     class="update-flie">
                                                                                                 <i
                                                                                                     class="fa fa-camera"></i>
@@ -704,7 +704,7 @@ https://cdn.jsdelivr.net/npm/chosen-js@1.8.7/chosen.min.css
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="mb-3 file">
-                                                                        <input class="form-control" type="file"
+                                                                        <input class="form-control" accept="image/png, image/jpg, image/jpeg" type="file"
                                                                             id="formFile">
                                                                     </div>
                                                                 </div>

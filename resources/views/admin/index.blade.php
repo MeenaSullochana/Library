@@ -3521,7 +3521,7 @@
                                             <div class="tbl-caption">
                                                 <h4 class="heading mb-0">Publisher</h4>
                                             </div>
-                                            <table id="example3" class="table">
+                                            <table id="example3" class="table" style="min-width: 100px">
                                                 <thead>
                                                     <tr>
                                                         <th>S.No</th>
@@ -3540,11 +3540,11 @@
                                                     <tr>
 
                                                         <td>  <strong>{{$loop->index +1}}</strong></td>
-                                                    <td>{{$val->publicationName}} </td>
+                                                    <td style="white-space:normal;">{{$val->publicationName}} </td>
 
-                                                        <td>{{$val->firstName}} {{$val->lastName}}</td>
-                                                        <td>{{$val->usertype}}</td>
-                                                        <td class="pe-0">
+                                                        <td style="white-space:normal;">{{$val->firstName}} {{$val->lastName}}</td>
+                                                        <td style="white-space:normal;">{{$val->usertype}}</td>
+                                                        <td style="white-space:normal;" class="pe-0">
                                                             <span
                                                                 class="badge badge-danger light border-0">{{$val->District}}</span>
                                                         </td>
@@ -3555,17 +3555,17 @@
                                                              ->count();
                                                            $displayCount = $records ?? 0; 
                                                               @endphp
-                                                        <td>{{ $displayCount }}</td>
+                                                        <td style="white-space:normal;">{{ $displayCount }}</td>
 
-                                                        <td class="text-success">
+                                                        <td style="white-space:normal;" class="text-success">
                                                         {{$val->created_at->format('d-m-Y')}}
                                                         </td>
                                                         @if($val->status == "1")
-                                                        <td> <span class="badge bg-success text-white">Active</span></td>
+                                                        <td style="white-space:normal;"> <span class="badge bg-success text-white">Active</span></td>
                                                         @else
-                                                        <td> <span class="badge bg-danger text-white">Inactive</span></td>
+                                                        <td style="white-space:normal;"> <span class="badge bg-danger text-white">Inactive</span></td>
                                                         @endif
-                                                        <td>
+                                                        <td style="white-space:normal;">
                                                             <a href="/admin/pub_profile/{{$val->id}}"
                                                                 class="btn btn-success shadow btn-xs sharp me-1">
                                                                 <i class="fa fa-eye"></i>
@@ -3589,7 +3589,7 @@
                                             <div class="tbl-caption">
                                                 <h4 class="heading mb-0">Distributor</h4>
                                             </div>
-                                            <table id="example3" class="table">
+                                            <table id="example3" class="table" style="min-width: 100px">
                                                 <thead>
 
                                                     <tr>
@@ -3609,12 +3609,12 @@
                                                 <tbody>
                                                 @foreach($alldist as $val)
                                                 <tr>
-                                                        <td>  <strong>{{$loop->index +1}}</strong></td>
-                                                        <td>{{$val->distributionName}} </td>
+                                                        <td style="white-space:normal;">  <strong>{{$loop->index +1}}</strong></td>
+                                                        <td style="white-space:normal;">{{$val->distributionName}} </td>
 
-                                                        <td>{{$val->firstName}} {{$val->lastName}}</td>
-                                                        <td>{{$val->usertype}}</td>
-                                                        <td class="pe-0">
+                                                        <td style="white-space:normal;">{{$val->firstName}} {{$val->lastName}}</td>
+                                                        <td style="white-space:normal;">{{$val->usertype}}</td>
+                                                        <td style="white-space:normal;" class="pe-0">
                                                             <span
                                                                 class="badge badge-danger light border-0">{{$val->District}}</span>
                                                         </td>
@@ -3625,16 +3625,16 @@
                                                              ->count();
                                                            $displayCount = $records ?? 0; 
                                                               @endphp
-                                                        <td>{{ $displayCount }}</td>
-                                                        <td class="text-success">
+                                                        <td style="white-space:normal;">{{ $displayCount }}</td>
+                                                        <td style="white-space:normal;" class="text-success">
                                                         {{$val->created_at->format('d-m-Y')}}
                                                         </td>
                                                         @if($val->status == "1")
-                                                        <td> <span class="badge bg-success text-white">Active</span></td>
+                                                        <td style="white-space:normal;"> <span class="badge bg-success text-white">Active</span></td>
                                                         @else
-                                                        <td> <span class="badge bg-danger text-white">Inactive</span></td>
+                                                        <td style="white-space:normal;"> <span class="badge bg-danger text-white">Inactive</span></td>
                                                         @endif
-                                                        <td>
+                                                        <td style="white-space:normal;">
                                                             <a href="/admin/dist_profile/{{$val->id}}"
                                                                 class="btn btn-success shadow btn-xs sharp me-1">
                                                                 <i class="fa fa-eye"></i>
@@ -3658,7 +3658,7 @@
                                             <div class="tbl-caption">
                                                 <h4 class="heading mb-0">Publisher And Distributor</h4>
                                             </div>
-                                            <table id="example3" class="table">
+                                            <table id="example3" class="table" style="min-width: 100px">
                                             {{-- <table id="projects-tbl" class="table"> --}}
                                                 <thead>
                                                     <tr>
@@ -3677,11 +3677,11 @@
                                                 <tbody>
                                                 @foreach($allpubdist as $val)
                                                 <tr>
-                                                    <td>  <strong>{{$loop->index +1}}</strong></td>
-                                                    <td> {{$val->publicationDistributionName}} </td>
-                                                        <td>{{$val->firstName}} {{$val->lastName}}</td>
-                                                        <td>{{$val->usertype}}</td>
-                                                        <td class="pe-0">
+                                                    <td style="white-space:normal;">  <strong>{{$loop->index +1}}</strong></td>
+                                                    <td style="white-space:normal;"> {{$val->publicationDistributionName}} </td>
+                                                        <td style="white-space:normal;">{{$val->firstName}} {{$val->lastName}}</td>
+                                                        <td style="white-space:normal;">{{$val->usertype}}</td>
+                                                        <td style="white-space:normal;" class="pe-0">
                                                             <span
                                                                 class="badge badge-danger light border-0">{{$val->District}}</span>
                                                         </td>
@@ -3692,16 +3692,16 @@
                                                              ->count();
                                                            $displayCount = $records ?? 0; 
                                                               @endphp
-                                                        <td>{{ $displayCount }}</td>
-                                                        <td class="text-success">
+                                                        <td style="white-space:normal;">{{ $displayCount }}</td>
+                                                        <td style="white-space:normal;" class="text-success">
                                                         {{$val->created_at->format('d-m-Y')}}
                                                         </td>
                                                         @if($val->status == "1")
-                                                        <td> <span class="badge bg-success text-white">Active</span></td>
+                                                        <td style="white-space:normal;"> <span class="badge bg-success text-white">Active</span></td>
                                                         @else
-                                                        <td> <span class="badge bg-danger text-white">Inactive</span></td>
+                                                        <td style="white-space:normal;"> <span class="badge bg-danger text-white">Inactive</span></td>
                                                         @endif
-                                                        <td>
+                                                        <td style="white-space:normal;">
                                                             <a href="/admin/publisherdisprofile/{{$val->id}}"
                                                                 class="btn btn-success shadow btn-xs sharp me-1">
                                                                 <i class="fa fa-eye"></i>

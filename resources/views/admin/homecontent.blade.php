@@ -97,7 +97,7 @@
 
                                                     <div class="mb-3">
                                                         <label for="slug">Headline Title  <span class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter the Hideline Title" id="hidelins">
+                                                        <input type="text" class="form-control" placeholder="Enter the Headline Title" id="hidelins">
                                                     </div>
 
                                                     <div class="table-responsive">

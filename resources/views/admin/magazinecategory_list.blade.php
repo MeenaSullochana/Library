@@ -70,7 +70,7 @@
                                 aria-labelledby="home-tab-1">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-responsive-md" id="refresh">
+                                        <table class="table table-responsive-md" id="example3">
                                             <thead>
                                                 <tr>
                                                     <th style="width:50px;">
