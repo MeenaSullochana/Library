@@ -148,6 +148,101 @@ $librarian->subject1=json_decode($librarian->subject);
     return redirect('/admin/librarydata')->with('librarian',$librarian); 
 
    }
+
+   public function librarybasic_edit(Request $req){
+    $librarian= Librarian::find($req->id);
+   
+   $librarian->subject1= json_decode($librarian->subject); 
+   \Session::put('librarian', $librarian);
+    return redirect('/admin/librarybasicedit'); 
+
+   }
+   
+   public function librarianeditnew(Request $req){
+   
+
+    if(empty($req->newpassword) && empty($req->confirmpassword)) {
+   
+             $librarian=Librarian::find($req->id);
+            if ($librarian->email == $req->email) {
+                $librarian->email = $req->email;
+            } else {
+                $existinglibrarian = Librarian::where('email', $req->email)->first();
+            
+                if ($existinglibrarian == null) {
+                    $librarian->email = $req->email;
+                } else {
+                    $data = [
+                        'error' => 'Email is already taken',
+                    ];
+                    return response()->json($data);
+                }
+            }
+            $librarian->phoneNumber = $req->phoneNumber; 
+             $librarian->save();
+         
+             $data= [
+                'success' => 'librarian Update Successfully',
+                     ];
+            return response()->json($data);
+        
+     }elseif(!empty($req->newpassword) && empty($req->confirmpassword) ){
+      $data= [
+        'error' => 'please enter confirmPassword',
+             ];
+         return response()->json($data);
+   
+     }elseif(empty($req->newpassword) && !empty($req->confirmpassword) ){
+      $data= [
+        'error' => 'please enter newpassword ',
+             ];
+         return response()->json($data);
+     }else{
+
+      if($req->newpassword == $req->confirmpassword){
+        if (strlen($req->newpassword ) == 8 && strlen($req->confirmpassword) == 8) {
+            $librarian=Librarian::find($req->id);
+            if ($librarian->email == $req->email) {
+                $librarian->email = $req->email;
+            } else {
+                $existinglibrarian = Librarian::where('email', $req->email)->first();
+            
+                if ($existinglibrarian == null) {
+                    $librarian->email = $req->email;
+                } else {
+                    $data = [
+                        'error' => 'Email is already taken',
+                    ];
+                    return response()->json($data);
+                }
+            }
+            $librarian->phoneNumber = $req->phoneNumber; 
+            $librarian->password=Hash::make($req->newpassword);
+             $librarian->save();
+           
+             $data= [
+                'success' => 'librarian update Successfully',
+                     ];
+            return response()->json($data);
+        
+       
+      }else{
+        $data= [
+          'error' => 'Password must be at least 8 characters long',
+               ];
+           return response()->json($data);
+            }
+     }else{
+      $data= [
+        'error' => 'Password and confirmPassword is mishmatch',
+             ];
+         return response()->json($data);
+    }
+
+
+   }
+   
+    }
    public function librarianedit(Request $req){
     $validator = Validator::make($req->all(),[
         'libraryType'=>'required|string',

@@ -975,7 +975,19 @@ Route::get('/magazinebudgetview',function(){
       
   });
   
+  Route::get('/library_basic_edit/{id}',[LibrarianController::class,'librarybasic_edit']);
+  Route::get('/librarybasicedit',function(){
+     $data = Session::get('librarian');
+     if($data !==null){
+         return view('admin.library_basic_edit')->with("data",$data);
+     }
+ 
+  });
+  Route::post('/librarianeditnew',[LibrarianController::class,'librarianeditnew']);
 
+  Route::get('/report_downl_login ',[SettingController::class,'report_downl_login']);
+
+  Route::get('/report_downl_notlogin ',[SettingController::class,'report_downl_notlogin']);
 
     });
 });

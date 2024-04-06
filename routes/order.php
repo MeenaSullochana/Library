@@ -41,6 +41,7 @@ Route::middleware(['librarian'])->group(function () {
      Route::post('/magazineCheckout',[WebsitebookController::class, 'magazineCheckout']);
      Route::get('/cartpdfview',[WebsitebookController::class, 'cartpdfview']);
      Route::get('/report_downl_cart',[WebsitebookController::class, 'report_downl_cart']);
+     Route::post('/budgetcategurystatus',[WebsitebookController::class, 'budgetcategurystatus']);
 
      
     });

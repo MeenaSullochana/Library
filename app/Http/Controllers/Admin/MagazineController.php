@@ -81,7 +81,7 @@ public function importFile(Request $request){
 
 public function list(){
     try{
-      $magazines = Magazine::get();
+      $magazines = Magazine::where('status', '=', '1')->get();
  
       return view('admin.magazine_list',compact('magazines'));
     }catch(\Throwable $e){

@@ -36,6 +36,7 @@ use App\Models\Publisher;
 use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\PublisherDistributor;
+use App\Models\Librarian;
 
 
 class SettingController extends Controller
@@ -991,6 +992,70 @@ public function reviewerbatchadd(Request $req){
                                                     ], 500);
                                                 }
                                                 
-                                           }
-                                    
-                                }
+  }
+   
+  
+
+  public function report_downl_login()
+  {
+      $librarian = Librarian::where('status', '=', '1')
+                              ->where('checkstatus', '=', '1')
+                              ->get();
+      
+      $librariandata = [];
+      $serialNumber = 1;
+      foreach ($librarian as $val1) {
+          $librariandata[] = [
+              'S.No' => $serialNumber++,
+              'Library Type' => $val1->libraryType,
+              'Library id' => $val1->librarianId,
+              'Library Name' => $val1->libraryName,
+              'District' => $val1->district,
+          ];
+      }
+  
+      $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+      $csvContent .= "S.No,Library Type,Library id,Library Name,District\n"; // Assuming these are column headers
+      foreach ($librariandata as $data) {
+          $csvContent .= '"' . implode('","', $data) . "\"\n";
+      }
+  
+      $headers = [
+          'Content-Type' => 'text/csv; charset=utf-8',
+          'Content-Disposition' => 'attachment; filename="librarian_report.csv"',
+      ];
+  
+      return response()->make($csvContent, 200, $headers);
+  }
+  public function report_downl_notlogin()
+  {
+      $librarian = Librarian::where('status', '=', '1')
+                              ->where('checkstatus', '=', Null)
+                              ->get();
+      
+      $librariandata = [];
+      $serialNumber = 1;
+      foreach ($librarian as $val1) {
+          $librariandata[] = [
+              'S.No' => $serialNumber++,
+              'Library Type' => $val1->libraryType,
+              'Library id' => $val1->librarianId,
+              'Library Name' => $val1->libraryName,
+              'District' => $val1->district,
+          ];
+      }
+  
+      $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+      $csvContent .= "S.No,Library Type,Library id,Library Name,District\n"; // Assuming these are column headers
+      foreach ($librariandata as $data) {
+          $csvContent .= '"' . implode('","', $data) . "\"\n";
+      }
+  
+      $headers = [
+          'Content-Type' => 'text/csv; charset=utf-8',
+          'Content-Disposition' => 'attachment; filename="librarian_report.csv"',
+      ];
+  
+      return response()->make($csvContent, 200, $headers);
+  }
+  }

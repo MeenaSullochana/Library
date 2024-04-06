@@ -158,6 +158,50 @@
                                                             </div>
                                                         </form>
                                                     </div>
+                                                    <div class="tab-pane fade" id="nav-forget" role="tabpanel"
+                                                        aria-labelledby="nav-forget-tab">
+                                                        <form class="dz-form">
+                                                            <h3 class="form-title m-t0">Forget Password ?</h3>
+                                                            <div class="dz-separator-outer m-b5">
+                                                                <div class="dz-separator bg-primary style-liner"></div>
+                                                            </div>
+                                                            <p>Enter your e-mail address below to reset your password.
+                                                            </p>
+                                                            <div class="row">
+                                                                <div class="col-xl-4 col-xxl-6 col-6">
+                                                                    <div
+                                                                        class="form-check custom-checkbox mb-3 checkbox-primary">
+                                                                        <input type="radio" class="form-check-input"
+                                                                             value="reviewer" id="usertype"  name="usertype">
+                                                                        <label class="form-check-label"
+                                                                            for="customRadioBox1" >Reviewer</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-4 col-xxl-6 col-6">
+                                                                    <div
+                                                                        class="form-check custom-checkbox mb-3 checkbox-secondary">
+                                                                        <input type="radio" class="form-check-input"
+                                                                            id="customRadioBox2" value="librarian" name="usertype">
+                                                                        <label class="form-check-label"
+                                                                            for="customRadioBox2">Librarian</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group mb-4">
+                                                                <input name="email" required="" class="form-control"
+                                                                    placeholder="Email Address" id="emails" type="text" required>
+                                                            </div>
+                                                            <div class="form-group clearfix text-left">
+                                                                <button class=" active btn btn-primary"
+                                                                    id="nav-personal-tab" data-bs-toggle="tab"
+                                                                    data-bs-target="#nav-personal" type="button"
+                                                                    role="tab" aria-controls="nav-personal"
+                                                                    aria-selected="true">Back</button>
+                                                                <button
+                                                                    class="btn btn-primary float-end" id="submit">Submit</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </nav>

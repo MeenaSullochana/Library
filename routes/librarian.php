@@ -85,6 +85,7 @@ Route::prefix('librarian')->group(function () {
         
     });
     Route::post('/changepassword',[LibrarianController::class,'librarianchangepassword']);
+    Route::post('/changepasswordnew',[LibrarianController::class,'librarianchangepasswordnew']);
 
     Route::get('/order_scheme_read/{id}',[QuoteController::class,'orderschemeread']);
     Route::get('/orderschemeread',function(){

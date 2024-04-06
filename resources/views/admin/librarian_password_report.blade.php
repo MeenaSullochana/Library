@@ -73,37 +73,22 @@
 
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-xl-4 mb-3">
-                                            <div class="example">
-                                                <p class="mb-1">From Date <span class="text-danger">*</span></p>
-                                                <input class="form-control input-daterange-datepicker" type="date"
-                                                    id="fromDate">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4 mb-3">
-                                            <div class="example">
-                                                <p class="mb-1">To Date <span class="text-danger">*</span></p>
-                                                <input type="date" class="form-control input-daterange-timepicker"
-                                                    id="toDate">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4 mb-3">
-                                                     <label class="form-label">Document Type<span
-                                                                class="text-danger maditory">*</span></label>
-                                                        <select name="type" class="form-select bg-white" id="type" Required>
-                                                           <option value="">Select type</option>
-                                                           <option value="Pdf">Pdf </option>
-                                                           <option value="Excel">Excel</option>
-                                                            </select>
-                                                    </div>
-                                                    <div class="col-xl-10 mt-3 text-center">
-                                                      <button class="btn btn-primary" id="submitBtn">
-                                                        <span><i class="fa-solid fa-file-excel"></i> Export Report download</span>
-                                                      </button>
-                                                    </div>
+                                <div class="row">
+    <div class="col-xl-10 mt-3 text-right">
+        <a href="/admin/report_downl_login">
+            <button class="btn btn-primary">
+                <span><i class="fa-solid fa-file-excel"></i> Export Login Librarian</span>
+            </button>
+        </a>
+ 
+        <a href="/admin/report_downl_notlogin">
+            <button class="btn btn-primary">
+                <span><i class="fa-solid fa-file-excel"></i> Export Not Login Librarian</span>
+            </button>
+        </a>
+    </div>
+</div>
 
-                                    </div>
                                 </div>
                             </div>
                         </div>

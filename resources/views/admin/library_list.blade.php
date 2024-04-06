@@ -223,7 +223,7 @@
                                                                     class="btn btn-primary shadow btn-xs sharp me-1">
                                                                     <i class="fa fa-eye"></i>
                                                                 </a>
-                                                                <a href="/admin/libraryedit/{{$val->id}}" class="btn btn-danger shadow btn-xs sharp">
+                                                                <a href="/admin/library_basic_edit/{{$val->id}}" class="btn btn-danger shadow btn-xs sharp">
                                                                     <i class="fa fa-pencil"></i>
                                                                 </a>
                                                             </div>

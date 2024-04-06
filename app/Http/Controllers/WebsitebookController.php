@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Dompdf\Dompdf;
+use Dompdf\Options;
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Budget;
@@ -14,6 +17,7 @@ use Illuminate\Support\Str;
 use App\Models\Specialcategories;
 use Illuminate\Support\Facades\Session;
 use App\Models\MagazineCategory;
+use App\Models\existMagazine;
 use App\Models\Librarian;
 use Illuminate\Support\Facades\Validator;
 use Throwable;
@@ -617,7 +621,7 @@ public function product_two(Request $request)
     Session::put('bud_arr', $bud_arr);
 
 
-        $magazines = Magazine::orderBy('sNo', 'Asc')->paginate(12);
+        $magazines = Magazine::where('status', '=', '1')->orderBy('sNo', 'Asc')->paginate(12);
    
       
     return view('product-two', compact('magazines'));
@@ -666,7 +670,7 @@ public function megazine_categories(Request $req)
                     $query->orWhereIn('periodicity', $checkedIds1);
                 }
             }
-        })->orderBy('sNo', 'Asc')
+        })->where('status', '=', '1')->orderBy('sNo', 'Asc')
         ->paginate($req->selectedValue);
   
 
@@ -1271,6 +1275,7 @@ public function magazineCheckout(Request $req) {
 
     if($magazinebudget){
         $magazinebudgetdata = json_decode($magazinebudget->CategorieAmount); 
+     
         $bud_arr=[];
         $balanceamount=0;
         $count = 0;
@@ -1285,15 +1290,19 @@ public function magazineCheckout(Request $req) {
       ->where(DB::raw('CAST(annual_cost_after_discount AS UNSIGNED)'), '!=', '0')
       ->where('category', '=', $val->name)
       ->get();
-    
+ 
+      $existMagazine=existMagazine::where('librarianid', '=', $librarian->id)
+      ->where('category', '=',$val->name)
+      ->where('budgetid', '=', $magazinebudget->id)->first();
       if($magazinedata->isNotEmpty()){
+        
         $cartdatarecord = Cart::where('librarianid', '=', $librarian->id)
         ->where('category', '=',$val->name)
         ->where('budgetid', '=', $magazinebudget->id)
         ->where('status', '=', '1')
         ->get();
-        // dd( $magazinedata);
-        if($cartdatarecord->isNotEmpty()){
+     
+     if($cartdatarecord->isNotEmpty()){
             $firstArray = collect($magazinedata);
             $secondArray = collect($cartdatarecord);
             
@@ -1304,14 +1313,51 @@ public function magazineCheckout(Request $req) {
                 return !in_array($name, $secondNames);
             })->toArray();
           
-            if(count($uniqueNames) >0){
-            $balanceamount = 0;
-            $count = 0;
-            $bud_arr = array();
-            $data = [
-                'error' => $val->name . ' பிரிவில் ₹' . $categoryamount .  ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
-            ];
-            return response()->json($data);
+       if(count($uniqueNames) >0){
+         
+            if($existMagazine == null){
+                $balanceamount = 0;
+                $count = 0;
+                $bud_arr = array();
+                $data = [
+                   'status'=>'2',
+                   'budgetid'=>$magazinebudget->id,
+                   'category'=>$val->name,
+                   'amount'=>$categoryamount,
+                   'message' => 'நீங்கள் ' . $val->name . ' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $categoryamount . ' உள்ளது. நீங்கள் இந்த தொகையை திரும்ப ஒப்பளிப்பு செய்கிறீர்களா?',
+                   'error' => $val->name . ' பிரிவில் ₹' . $categoryamount .  ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
+                ];
+                return response()->json($data);
+            }else{
+              
+              
+                if($existMagazine ->status == 0){
+                    $balanceamount = 0;
+                    $count = 0;
+                    $bud_arr = array();
+                    $data = [
+                       'status'=>'2',
+                       'budgetid'=>$magazinebudget->id,
+                       'category'=>$val->name,
+                       'amount'=>$categoryamount,
+                       'message' => 'நீங்கள் ' . $val->name . ' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $categoryamount . ' உள்ளது. நீங்கள் இந்த தொகையை திரும்ப ஒப்பளிப்பு செய்கிறீர்களா?',
+                       'error' => $val->name . ' பிரிவில் ₹' . $categoryamount .  ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
+                    ];
+                    return response()->json($data);
+                }else{
+                 
+                    $balanceamount =  $balanceamount +  $categoryamount;
+                    $count =  $count + 1;
+                    $obj = (object)[
+                        "category" => $val->name,
+                        "budget_price" => $val->amount,
+                        "balance_price" =>  $categoryamount,
+                       
+                    ];
+                    array_push($bud_arr, $obj);
+              
+                }
+            } 
         }else{
             $balanceamount =  $balanceamount +  $categoryamount;
             $count =  $count + 1;
@@ -1323,15 +1369,51 @@ public function magazineCheckout(Request $req) {
             ];
             array_push($bud_arr, $obj);
           }
+    }else{
+   
+        if($existMagazine == null){
+            $balanceamount = 0;
+            $count = 0;
+            $bud_arr = array();
+            $data = [
+               'status'=>'2',
+               'budgetid'=>$magazinebudget->id,
+               'category'=>$val->name,
+               'amount'=>$categoryamount,
+               'message' => 'நீங்கள் ' . $val->name . ' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $categoryamount . ' உள்ளது. நீங்கள் இந்த தொகையை திரும்ப ஒப்பளிப்பு செய்கிறீர்களா?',
+               'error' => $val->name . ' பிரிவில் ₹' . $categoryamount .  ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
+            ];
+            return response()->json($data);
         }else{
-        $balanceamount = 0;
-        $count = 0;
-        $bud_arr = array();
-        $data = [
-            'error' => $val->name . ' பிரிவில் ₹' . $categoryamount .  ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
-        ];
-        
-        return response()->json($data);
+          
+          
+            if($existMagazine ->status == 0){
+                $balanceamount = 0;
+            $count = 0;
+            $bud_arr = array();
+            $data = [
+               'status'=>'2',
+               'budgetid'=>$magazinebudget->id,
+               'category'=>$val->name,
+               'amount'=>$categoryamount,
+               'message' => 'நீங்கள் ' . $val->name . ' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $categoryamount . ' உள்ளது. நீங்கள் இந்த தொகையை திரும்ப ஒப்பளிப்பு செய்கிறீர்களா?',
+               'error' => $val->name . ' பிரிவில் ₹' . $categoryamount .  ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
+            ];
+            return response()->json($data);
+            }else{
+             
+                $balanceamount =  $balanceamount +  $categoryamount;
+                $count =  $count + 1;
+                $obj = (object)[
+                    "category" => $val->name,
+                    "budget_price" => $val->amount,
+                    "balance_price" =>  $categoryamount,
+                   
+                ];
+                array_push($bud_arr, $obj);
+          
+            }
+        }
     }
       }else{
         $balanceamount =  $balanceamount +  $categoryamount;
@@ -1346,18 +1428,19 @@ public function magazineCheckout(Request $req) {
       }
     // Ordermagazine
 
-   
-     
     }
-    if($count == count($magazinebudgetdata) ){
+
+
+
+ if($count == count($magazinebudgetdata) ){
 
     
     $cartdatas = Cart::where('librarianid', '=', $librarian->id)
                          ->where('budgetid', '=', $magazinebudget->id)
                          ->where('status', '=', '1')->get();
           $finalquantity=(count($cartdatas));               
-  $magazineorder=[];
- foreach($cartdatas as $val){
+        $magazineorder=[];
+       foreach($cartdatas as $val){
     $magazinesrec = Magazine::find($val->magazineid);
     $obj = (object)[
         "category" => $magazinesrec->category,
@@ -1366,13 +1449,17 @@ public function magazineCheckout(Request $req) {
         "quantity" =>  $val->quantity,
         "magazineid" =>  $val->magazineid,
        
-    ];
-    // $val->status='0';
-    // $val->save();
-    array_push($magazineorder, $obj);
- }
-
-
+           ];
+         // $val->status='0';
+         // $val->save();
+             array_push($magazineorder, $obj);
+          }
+  
+          if($req->specialcat != 0){
+    
+          
+    
+ 
          $Ordermagazine= new Ordermagazine();
          $Ordermagazine->librarianid =$librarian->id;
          $Ordermagazine->budgetid =$magazinebudget->id;
@@ -1467,8 +1554,15 @@ public function magazineCheckout(Request $req) {
             ];
             return response()->json($data);
      }
-    }
 
+     
+    }
+          }else{
+            $data = [
+                'spccat' => '1',
+            ];
+            return response()->json($data);
+          }
 
 }
 
@@ -1510,26 +1604,17 @@ public function cartpdfview() {
      
         }
      
-
-     $pdfContent = View::make('cartpdfview', ['cartdata' => $cartdata])->render();
-     if (empty($pdfContent)) {
-        throw new \Exception("PDF content is empty.");
-          }
-                                                         
-          $pdf = PDF::loadHTML($pdfContent);
-          $pdf->getDomPDF()->getOptions()->set('fontDir', public_path('fonts/')); // Replace 'public_path('fonts/')' with the directory where your font files are stored.
-          $pdf->getDomPDF()->getOptions()->set('defaultFont', 'Latha'); // Replace 'Latha' with the name of the Tamil font you're using.
-          
-          $pdf->render();
-          
       
-          return $pdf->download('downloaded_pdf.pdf');
-                                                         
-       return response()->json([
-       'pdfData' => base64_encode($pdfData),
-       'filename' => 'cartmagazine.pdf' ,
-       'success' => 'Psf Downloaded Successfully'
-      ]);
+
+   $pdfContent = View::make('cartpdfview', ['cartdata' => $cartdata])->render();
+   $filename = 'downloaded_view.html';
+
+        return response($pdfContent)
+            ->header('Content-Type', 'text/html')
+            ->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+  
+                                     
+   
      }else{                                         
   return response()->json([
   'error' => 'No Budget Allacated.',
@@ -1542,66 +1627,120 @@ public function cartpdfview() {
                                                          
                                                   
                                                        
- public function report_downl_cart(Request $request)
-  {
-                                                   
-                                                    
-    $librarian = auth('librarian')->user();
-    $magazinebudget = Budget::where('type', 'magazinebudget')
-   ->where(function ($query) use ($librarian) {
-    $query->whereNotIn('purchaseid', [$librarian->id])
- ->whereJsonDoesntContain('purchaseid', $librarian->id);
-  })
-->where('libraryType', $librarian->libraryType)
-->orderBy('created_at', 'ASC')
-->first();
-                                                
-if($magazinebudget){
-$cartdata=[];
-$maga= json_decode($magazinebudget->CategorieAmount); 
-$cartdata22 = Cart::where('librarianid', '=', $librarian->id)
-->where('budgetid', '=', $magazinebudget->id)->where('status', '=', '1')
-->get();
-foreach ($maga as $val) {
-    foreach ($cartdata22 as $val1) {
-        if( $val->name == $val1->category){
-            array_push($cartdata, $val1);
+    public function report_downl_cart(Request $request)
+    {
+        $librarian = Auth::guard('librarian')->user();
+        $magazinebudget = Budget::where('type', 'magazinebudget')
+            ->where(function ($query) use ($librarian) {
+                $query->whereNotIn('purchaseid', [$librarian->id])
+                    ->whereJsonDoesntContain('purchaseid', $librarian->id);
+            })
+            ->where('libraryType', $librarian->libraryType)
+            ->orderBy('created_at', 'ASC')
+            ->first();
+    
+        if (!$magazinebudget) {
+            return response()->json([
+                'error' => 'No Budget Allocated.',
+            ]);
         }
-  
+    
+        $cartdata = [];
+        $totalAmount = 0; 
+        $maga = json_decode($magazinebudget->CategorieAmount);
+        $cartdata22 = Cart::where('librarianid', $librarian->id)
+            ->where('budgetid', $magazinebudget->id)
+            ->where('status', '1')
+            ->get();
+    
+        foreach ($maga as $val) {
+            foreach ($cartdata22 as $val1) {
+                if ($val->name == $val1->category) {
+                    $cartdata[] = [
+                        'Magazine Title' => $val1->title,
+                        'Category' => $val1->category,
+                        'Quantity' => $val1->quantity,
+                        'Amount' => $val1->totalAmount,
+                    ];
+                    $totalAmount += $val1->totalAmount; 
+                }
+            }
+        }
+    
+        // Add row for total amount
+        $cartdata[] = [
+            'Magazine Title' => 'Total Amount:',
+            'Category' => '',
+            'Quantity' => '',
+            'Amount' => $totalAmount,
+        ];
+    
+        if (empty($cartdata)) {
+            return response()->json([
+                'error' => 'No data available for Excel download.',
+            ]);
+        }
+    
+        $csvContent = "\xEF\xBB\xBF"; 
+        $csvContent .= "Magazine Title,Category,Quantity,Amount\n";
+        foreach ($cartdata as $data) {
+            $csvContent .= '"' . implode('","', $data) . "\"\n";
+        }
+    
+        $headers = [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="magazine_report.csv"',
+        ];
+    
+        return response()->make($csvContent, 200, $headers);
     }
- 
-    $excelData = [
-        ['S.No', 'Magazine Titlee', 'Category', 'Quantity', 'Amount']
-      ];
-                                                          
-      $index = 0; 
-      foreach ($cartdata as $val) {
-        
-          $excelData[] = [
-              $index =$index +1, 
-              $val->title,
-              $val->category,
-              $val->quantity,
-              $val->totalAmount,
-          ]; 
-      }
-      
-        return response()->json([
-            'excelData' => $excelData,
-            'success' => 'Excel Downloaded Successfully'
-        ]);
-}
-}else{
-          return response()->json([
-           'error' => 'No Budget Allacated.',
-         ]);
-      
-                                                               
-  
-        }
-    }                                 
+    
+                              
+    public function budgetcategurystatus(Request $req)
+    {
+        $librarian = Auth::guard('librarian')->user();
+             $existMagazin =existMagazine::where('budgetid','=',$req->budget)->where('librarianid','=',$librarian->id)
+             ->where('category','=',$req->category)->first();
+             if($existMagazin == null){
+                $existMagazine= new existMagazine();
+                $existMagazine->librarianid =$librarian->id;
+                $existMagazine->budgetid =$req->budget;   
+                $existMagazine->category =$req->category;     
+                $existMagazine->status =$req->status;                                                           
+                $existMagazine->save();  
+            
+             
+                if( $existMagazine->status == '1'){
+                    $data = [
+                           
+                        'success' => 'நீங்கள் ' . $req->category . ' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $req->amount2 . 'திரும்ப ஒப்பளிப்பு செய்யப்பட்டது',
+                    ];
+                       return response()->json($data);
+                }else{
+                    return response()->json([
+                        'error' => $req->messageValue,
+                    ]);  
+                }
+             }else{
+                $existMagazin->librarianid =$librarian->id;
+                $existMagazin->budgetid =$req->budget;   
+                $existMagazin->category =$req->category;     
+                $existMagazin->status =$req->status;   
+                $existMagazin->save();     
 
-                                                     
-                                                      
- 
+                if( $existMagazin->status == '1'){
+                    $data = [
+                           
+                        'success' => 'நீங்கள் ' . $req->category . ' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $req->amount2 . 'திரும்ப ஒப்பளிப்பு செய்யப்பட்டது',
+                    ];
+                       return response()->json($data);
+                }else{
+                    return response()->json([
+                        'error' => $req->messageValue,
+                    ]);  
+                }
+             }
+           
+         
+    }
  }

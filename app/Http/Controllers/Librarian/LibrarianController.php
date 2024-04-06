@@ -162,7 +162,52 @@ public function meta_reject(){
     return view('librarian/meta_reject')->with('book',$book); 
    }
 
+   public function librarianchangepasswordnew(Request $req){
+    
+    $validator = Validator::make($req->all(),[
+        'currentPassword'=>'required|string',
+        'newPassword'=>'required|string',
+        'confirmPassword'=>'required',
+        'email'=>'required',
 
+    ]);
+    if($validator->fails()){
+        $data= [
+            'error' => $validator->errors()->first(),
+                 ];
+        return response()->json($data);  
+       
+    }
+    $Librarian=auth('librarian')->user();
+
+    if((Hash::check($req->currentPassword,$Librarian->password))){
+       if($req->newPassword == $req->confirmPassword){
+         $Librarian->password=Hash::make($req->newPassword);
+         $Librarian->checkstatus='1';
+         $Librarian->email=$req->email;
+
+         
+         $Librarian->save();
+         $data= [
+            'success' => 'Passdword Change  Successfully',
+                 ];
+        return response()->json($data);  
+       
+        }else{
+            $data= [
+                'error' => 'newPassword and confirmPassword is mishmatch',
+                     ];
+            return response()->json($data);  
+        }
+    }else{
+        $data= [
+            'error' => 'Current password is incorrect',
+                 ];
+        return response()->json($data);  
+       
+    }
+
+}
 
    public function librarianchangepassword(Request $req){
     
