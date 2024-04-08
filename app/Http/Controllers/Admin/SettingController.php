@@ -998,8 +998,10 @@ public function reviewerbatchadd(Request $req){
 
   public function report_downl_login()
   {
-      $librarian = Librarian::where('status', '=', '1')
+    $librarian = Librarian::where('status', '=', '1')
                               ->where('checkstatus', '=', '1')
+                              ->where('allow_status', '=', '1')
+
                               ->get();
       
       $librariandata = [];
@@ -1007,15 +1009,28 @@ public function reviewerbatchadd(Request $req){
       foreach ($librarian as $val1) {
           $librariandata[] = [
               'S.No' => $serialNumber++,
-              'Library Type' => $val1->libraryType,
-              'Library id' => $val1->librarianId,
+              'Library Code' => $val1->librarianId,
               'Library Name' => $val1->libraryName,
+              'Type Of Library' => $val1->libraryType,
               'District' => $val1->district,
+              'Dooe Number' => $val1->door_no,
+              'Strwwt Name' => $val1->street,
+              'Place' => $val1->place,
+              'Village' => $val1->Village,
+              'Taluk' => $val1->taluk,
+              'Landmark' => $val1->landmark,
+              'Post' => $val1->post,
+              'Pin Code' => $val1->pincode,
+              'Name' => $val1->librarianName,
+              'Designation' => $val1->librarianDesignation,
+              'Email' => $val1->email,
+              'Contact Number' => $val1->phoneNumber,
+
           ];
       }
   
       $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
-      $csvContent .= "S.No,Library Type,Library id,Library Name,District\n"; // Assuming these are column headers
+      $csvContent .= "S.No,Library Code,Library Name,Type Of Library,District,Dooe Number,Strwwt Name,Place,Village,Taluk,Landmark,Post,Pin Code,Name,Designation,Email,Contact Number\n"; 
       foreach ($librariandata as $data) {
           $csvContent .= '"' . implode('","', $data) . "\"\n";
       }
@@ -1031,31 +1046,47 @@ public function reviewerbatchadd(Request $req){
   {
       $librarian = Librarian::where('status', '=', '1')
                               ->where('checkstatus', '=', Null)
+                              ->where('allow_status', '=', '1')
                               ->get();
       
-      $librariandata = [];
-      $serialNumber = 1;
-      foreach ($librarian as $val1) {
-          $librariandata[] = [
-              'S.No' => $serialNumber++,
-              'Library Type' => $val1->libraryType,
-              'Library id' => $val1->librarianId,
-              'Library Name' => $val1->libraryName,
-              'District' => $val1->district,
-          ];
-      }
-  
-      $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
-      $csvContent .= "S.No,Library Type,Library id,Library Name,District\n"; // Assuming these are column headers
-      foreach ($librariandata as $data) {
-          $csvContent .= '"' . implode('","', $data) . "\"\n";
-      }
-  
-      $headers = [
-          'Content-Type' => 'text/csv; charset=utf-8',
-          'Content-Disposition' => 'attachment; filename="librarian_report.csv"',
-      ];
-  
-      return response()->make($csvContent, 200, $headers);
+        
+                              $librariandata = [];
+                              $serialNumber = 1;
+                              foreach ($librarian as $val1) {
+                                  $librariandata[] = [
+                                      'S.No' => $serialNumber++,
+                                      'Library Code' => $val1->librarianId,
+                                      'Library Name' => $val1->libraryName,
+                                      'Type Of Library' => $val1->libraryType,
+                                      'District' => $val1->district,
+                                      'Dooe Number' => $val1->door_no,
+                                      'Strwwt Name' => $val1->street,
+                                      'Place' => $val1->place,
+                                      'Village' => $val1->Village,
+                                      'Taluk' => $val1->taluk,
+                                      'Landmark' => $val1->landmark,
+                                      'Post' => $val1->post,
+                                      'Pin Code' => $val1->pincode,
+                                      'Name' => $val1->librarianName,
+                                      'Designation' => $val1->librarianDesignation,
+                                      'Email' => $val1->email,
+                                      'Contact Number' => $val1->phoneNumber,
+                        
+                                  ];
+                              }
+                          
+                              $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+                              $csvContent .= "S.No,Library Code,Library Name,Type Of Library,District,Dooe Number,Strwwt Name,Place,Village,Taluk,Landmark,Post,Pin Code,Name,Designation,Email,Contact Number\n"; 
+
+                              foreach ($librariandata as $data) {
+                                  $csvContent .= '"' . implode('","', $data) . "\"\n";
+                              }
+                          
+                              $headers = [
+                                  'Content-Type' => 'text/csv; charset=utf-8',
+                                  'Content-Disposition' => 'attachment; filename="librarian_report.csv"',
+                              ];
+                          
+                              return response()->make($csvContent, 200, $headers);
   }
   }

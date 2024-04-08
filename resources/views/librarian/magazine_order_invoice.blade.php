@@ -21,44 +21,44 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
     <?php include 'librarian/plugin/plugin_css.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+  
 </head>
 
 <body>
 
-    <!--*******
+    <!--***
             Preloader start
-        ********-->
+        ****-->
     <div id="preloader">
         <div class="text-center">
             <img src="images/goverment_loader.gif" alt="" width="25%">
         </div>
     </div>
-    <!--*******
+    <!--***
             Preloader end
-        ********-->
+        ****-->
 
-    <!--************
+    <!--****
             Main wrapper start
-        *************-->
+        *****-->
     <div id="main-wrapper">
-        <!--************
+        <!--****
                 Nav header start
-            *************-->
+            *****-->
         @include ('librarian.navigation')
-        <!--************
+        <!--****
                 Sidebar end
-            *************-->
-        <!--************
+            *****-->
+        <!--****
                 Content body start
-            *************-->
+            *****-->
         <div class="content-body">
-            <div class="container-fluid">
+            <div class="container">
                 <div class="card mb-4 mb-4">
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Quote</b>
+                                <b>Periodicals recommendation list 2024-25</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="/librarian/magazine-order-list">
                                 <i class="fas fa-chevron-left"></i> Back </a>
@@ -83,11 +83,21 @@
                     <div class="col-lg-12">
 
                         <div class="card mt-3">
-                            <div class="card-header"> Magazine Order Swlected List <strong>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</strong> <span class="float-end">
-                                    <strong>Status:</strong> Pending</span> </div>
-                            <div class="card-body">
+                            <div class="card-header">                                     
+                                <strong>Status : <span class="text-bold"> Pending</span></strong> 
+                                <strong>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</strong> <span class="float-end">
+
+                                <button type="button" class="btn btn-primary" onclick="generatePDF()"><span class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
+
+                                <!-- <button type="button" class="btn  btn-info"><span class="btn-icon-start text-info"><i class="fas fa-file-excel"></i>
+                                    </span>Excel</button> -->
+                                {{-- <span class="badge bg-primary"><i class="fa fa-print"></i></span>
+                                <span class="badge bg-primary"><i class="bi bi-file-earmark-excel-fill"></i></span> --}}
+                                </strong> 
+                            </div>
+                            <div class="card-body" id="print-pdf">
                                 <div class="row mb-5">
-                                    <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                                <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                         <h6>From:</h6>
                                         <div> <strong>{{auth('librarian')->user()->libraryType}}</strong> </div>
                                         <div>{{auth('librarian')->user()->libraryName}}</div>
@@ -108,26 +118,28 @@
                                         <!-- <div>Email: info@webz.com.pl</div> -->
                                         <div>Phone:{{auth('librarian')->user()->phoneNumber}}</div>
                                     </div>
+                                  
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
-    <h6>To:</h6>
-    <div> <strong>Directorate of Public Libraries</strong> </div>
+                                    <h6>To:</h6>
+                                    <div> <strong>Directorate of Public Libraries</strong> </div>
 
-    <div>Gandhi Mandapam Rd, Surya Nagar,</div>
-    <div>Kotturpuram, Chennai,</div>
-    <div>Tamil Nadu 600085</div>
-    <div>Email: clbrnaclchn.dopl@tn.gov.in</div>
-    <div>Phone: 044 2220 1011</div>
-</div>
-                                    <div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-lg-end">
+                                    <div>737/1, Anna Salai,</div>
+                                    <div>Chennai- 600 002,</div>
+                                    <div>Tamil Nadu, India.</div>
+                                    <div>Telephone: 044-28524263</div>
+                                    <div> Fax: 044-28412087</div>
+                                    <div> Email : dplchn@tn.gov.in</div>
+                                </div>
+                                    <div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12">
                                         <div class="row align-items-center">
-											<div class="col-sm-9"> 
-												<div class="brand-logo mb-2 inovice-logo">
-                                                    <img src="https://bookprocurement.tamilnadupubliclibraries.org/assets/img/logo/logo.png" alt="" srcset="" style="width: 150px">
+											<div class="col-sm-12"> 
+												<div class="brand-logo mb-2 inovice-logo text-center">
+                                                    <img src="https://bookprocurement.tamilnadupubliclibraries.org/assets/img/logo/logo.png" alt="" srcset="" style="width: 50%">
 												</div>
-                                               <p class="p-0 m-0"><span class="fw-bold">Date:</span>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</p>
-                                               <p class="p-0 m-0"><span class="fw-bold">Library Id:</span>{{auth('librarian')->user()->librarianId}}</p>
+                                               <p class="p-0 m-0 text-center"><span class="fw-bold">Date</span> : {{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</p>
+                                               <p class="p-0 m-0 text-center"><span class="fw-bold">Library Id</span> : {{auth('librarian')->user()->librarianId}}</p>
                                             </div>
-                                            <div class="col-sm-3 mt-3"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/933px-TamilNadu_Logo.svg.png" alt="" srcset="" style="width: 70px"> </div>
+                                            {{-- <div class="col-sm-3 mt-3"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/933px-TamilNadu_Logo.svg.png" alt="" srcset="" style="width: 70px"> </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -135,24 +147,24 @@
                                     <table class="table table-border">
                                         <thead>
                                             <tr>
-                                                <th class="center">S/no</th>
+                                                <th class="center">S.No</th>
                                                 <!-- <th>Magazine Book id</th> -->
                                                 <th>Magazine Title </th>
                                                 <th>Category </th>
-                                                <th class="right">Cost</th>
-                                                <th class="center">Qty</th>
-                                                <th class="right">Total</th>
+                                                <th>Cost</th>
+                                                <th>Qty</th>
+                                                <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($data->magazineProduct as $val)
                                             <tr>
                                                 <td class="center">{{$loop->index + 1}}</td>
-                                                <td class="left strong">{{$val->title}}1</td>
+                                                <td class="left strong">{{$val->title}}</td>
                                                 <td class="left">{{$val->category}}</td>
-                                                <td class="right"><i class="fa fa-rupee"></i> {{$val->magazine_price}}</td>
+                                                <td class="right"><i class="fa fa-inr"></i> {{$val->magazine_price}}</td>
                                                 <td class="center">{{$val->quantity}}</td>
-                                                <td class="right"><i class="fa fa-rupee"></i> {{$val->magazine_price}}</td>
+                                                <td class="right"><i class="fa fa-inr"></i> {{$val->magazine_price}}</td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -176,8 +188,8 @@
                                                     <td class="right"><i class="fa fa-rupee"></i> 679,76</td>
                                                 </tr> -->
                                                 <tr>
-                                                    <td class="left"><strong class="text-dark">Total</strong></td>
-                                                    <td class="right"><strong class="text-dark"><i class="fa fa-rupee"></i> {{$data->totalPurchased}}</strong><br>
+                                                    <td class="left"><strong class="text-dark">Total : </strong></td>
+                                                    <td class="right"><strong class="text-dark"><i class="fa fa-inr"></i> {{$data->totalPurchased}}</strong><br>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -190,33 +202,47 @@
             </div>
         </div>
     </div>
-    <!--************
+    <!--****
                 Content body end
-            *************-->
-    <!--************
+            *****-->
+    <!--****
                 Footer start
-            *************-->
+            *****-->
     @include ('librarian.footer')
-    <!--************
+    <!--****
                 Footer end
-            *************-->
+            *****-->
 
-    <!--************
+    <!--****
             Support ticket button start
-            *************-->
+            *****-->
 
-    <!--************
+    <!--****
             Support ticket button end
-            *************-->
+            *****-->
 
 
     </div>
-    <!--************
+    <!--****
             Main wrapper end
-        *************-->
+        *****-->
         <?php
         include "librarian/plugin/plugin_js.php";
     ?>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+ 
+
 </body>
 
+
+
+
+
 </html>
+                                  
+                                  
+                                  
+                                  
+                                 

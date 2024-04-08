@@ -148,7 +148,40 @@ public function magazine_orderview($id){
     return redirect('admin/magazineview');    
 
   }
-
-
-
+  public function magazine_order_list(){
+    $orders = Ordermagazine::where('status', '=', '1')->get();
+    $magazineCounts = [];
+    
+    foreach ($orders as $order) {
+        $magazineProducts = json_decode($order->magazineProduct, true);
+    
+        foreach ($magazineProducts as $magazineProduct) {
+            $magazineId = $magazineProduct['magazineid'];
+    
+            if (!isset($magazineCounts[$magazineId])) {
+                $magazineCounts[$magazineId] = [
+                    'id' => $magazineId,
+                    'count' => 0
+                ];
+            }
+    
+            $magazineCounts[$magazineId]['count']++;
+        }
+    }
+    
+    $magazineCounts = array_values($magazineCounts);
+    
+    $magazinedata = [];
+    foreach ($magazineCounts as $val) {
+        // Assuming you have a Magazine model
+        $magazine = Magazine::find($val['id']);
+    
+        if ($magazine) {
+            $magazine->count = $val['count'];
+            $magazinedata[] = $magazine;
+        }
+    }
+    
+    return $magazinedata;
+  }    
 }
