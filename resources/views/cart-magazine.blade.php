@@ -277,7 +277,7 @@
                                     <!-- <li>Subtotal <span>₹250.00</span></li> -->
                                     <li>Total <span id="cartdatacount">₹{{ $cartdatacount }}</span></li>
                                 </ul>
-                                <button class="tp-btn tp-color-btn banner-animation" id="Checkoutid">Proceed to
+                                <button class="tp-btn tp-color-btn banner-animation" id="Checkoutid1">Proceed to
                                     Checkout</button>
 
                             </div>
@@ -316,7 +316,7 @@
                                                         class="fa fa-rupee"></i><b>{{ $totalbudgetcount - $cartdatacount
                                                         }}</b></p>
                                             </div>
-                                            <form action="" method="post">
+                                            <form>
                                                 <input type="checkbox" name="vehicle1" value="Bike" required>
                                                 <label for="vehicle1" class="p-0 fs-7"> Accept terms and
                                                     conditions</label><br>

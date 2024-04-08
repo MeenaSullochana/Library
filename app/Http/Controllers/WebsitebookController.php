@@ -621,7 +621,7 @@ public function product_two(Request $request)
     Session::put('bud_arr', $bud_arr);
 
 
-        $magazines = Magazine::where('status', '=', '1')->orderBy('sNo', 'Asc')->paginate(12);
+        $magazines = Magazine::where('status', '=', '1')->orderBy('sNo', 'Asc')->paginate(96);
    
       
     return view('product-two', compact('magazines'));

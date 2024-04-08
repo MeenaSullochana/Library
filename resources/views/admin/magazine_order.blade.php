@@ -141,7 +141,7 @@
                     
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-body p-3">
+                         <div class="card-body p-3">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <h6>Librarian order</h6>
                                     <button type="button" class="btn btn-primary"><span
@@ -149,7 +149,8 @@
                                     </span>Add order</button>
                                 </div>
                                 <hr>
-                                <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                                <div class="row mb-4 d-flex">
+                               <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
                                 <label class="form-label">Select Library Types</label>
                                 <select name="LibraryTypes_filter" id="LibraryTypes_filter" class="form-select bg-white p-2 border border-1 mb-3">
                                                 <option value="">All Library Type</option>
@@ -160,25 +161,22 @@
                                              <option value="{{$val->name}}">{{$val->name}}</option>
                                              @endforeach
                                             </select>
+                               </div>
+                            <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                                <label class="form-label">Select District</label>
+                                <select name="district_filter" id="district_filter" class="form-select bg-white p-2 border border-1 mb-3">
+                                                <option value="">All District</option>
+                                                @php
+                                                                    $districts = DB::table('districts')->where('status', '=', 1)->get();
+                                                                @endphp
+                                             @foreach($districts as $val)
+                                             <option value="{{$val->name}}">{{$val->name}}</option>
+                                             @endforeach
+                                            </select>
                             </div>
-                                    <!-- <div class="col-xl-6 col-sm-6 mt-4 text-end">
-                                        <button type="button" class="btn  btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><span
-                                            class="btn-icon-start text-warning"><i class="fa fa-trash-o color-warning"></i>
-                                        </span>Delete</button> 
-
-                                        <button type="button" class="btn btn-primary"><span
-                                            class="btn-icon-start text-primary"><i class="fa fa-file-pdf-o"></i>
-                                        </span>PDF</button>
-                                        <button type="button" class="btn  btn-info"><span
-                                            class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i>
-                                        </span>Excel</button>
-                                        <button type="button" class="btn  btn-warning"><span
-                                            class="btn-icon-start text-warning"><i class="fa fa-download color-warning"></i>
-                                        </span>Download</button>  
-                                        
-                                        
-                                    </div> -->
-                                </div>
+                            
+                             
+                         </div>
                                 <hr>
                                 @php
                                   
@@ -194,37 +192,38 @@
                                     <table class="table table-sm mb-0 table-striped student-tbl" id="example3">
                                         <thead>
                                             <tr>
-                                                <!-- <th class=" pe-3">
-                                                    <div class="form-check custom-checkbox mx-2">
-                                                        <input type="checkbox" class="form-check-input" id="checkAll">
-                                                        <label class="form-check-label" for="checkAll"></label>
-                                                    </div>
-                                                </th> -->
+                                         
                                                 <th>S.No</th>
                                                 <th>Library Id</th>
                                                 <th>Library Type</th>
+                                                <th>Library Name</th>
+
+                                                <th>District</th>
+                                                
                                                 <th>Order Id</th>
                                                 <th>Qty</th>
                                                 <th>Total Amount</th>
                                                 <th>Purchase Amount</th>
                                                 <th>Order Status</th>
                                                 <th>Order Date</th>
+                                                <th>Readers Forum</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody id="customers">
                                        @foreach($records as $val)
-
+                                       @php
+                                  
+                                  $librarians = DB::table('librarians')
+                                       ->where('librarianId', '=', $val->libraryid)
+                                     ->first();
+                                        @endphp
                                             <tr class="btn-reveal-trigger">
-                                                <!-- <td class="py-2">
-                                                    <div class="form-check custom-checkbox mx-2">
-                                                        <input type="checkbox" class="form-check-input" id="checkbox1">
-                                                        <label class="form-check-label" for="checkbox1"></label>
-                                                    </div>
-                                                </td> -->
                                                 <td class="py-2">{{$loop->index + 1}}</td>
                                                 <td class="py-2">{{$val->libraryid}}</td>
                                                 <td class="py-2">{{$val->libraryType}}</td>
+                                                 <td class="py-2">{{ $librarians->libraryName ?? '' }}</td>
+                                                <td class="py-2">{{ $librarians->district ?? '' }}</td>
                                                 <td class="py-2">{{$val->orderid}}</td>
                                                 <td class="py-2">{{$val->quantity}}</td>
                                                 <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalBudget}}</td>
@@ -232,6 +231,11 @@
                                                 <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalPurchased}}</td>
                                                 <td class="py-2"> <span class="badge bg-primary">Pending</span></td>
                                                 <td class="py-2"> {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}</td>
+                                                <td class="py-2"> 
+                                                <button type="button" class="btn btn-primary" data-id="{{ asset('reviewer/readersForum/' . $val->readersForum) }}" data-bs-toggle="modal" data-bs-target="#modalId">VIew ReadersForum Report</button>
+
+                                            </td>
+
                                                 <td class="py-2 text-end">
                                                     <div class="dropdown"><button
                                                             class="btn btn-primary tp-btn-light sharp" type="button"
@@ -255,7 +259,7 @@
                                                         <div class="dropdown-menu dropdown-menu-end border py-0"
                                                             style="">
                                                             <div class="py-2">
-                                                                <a class="dropdown-item" href="/admin/magazine_order_view/{{$val->id}}"><i class="fa fa-eye p-2"></i>View Orde</a>
+                                                                <a class="dropdown-item" href="/admin/magazine_order_view/{{$val->id}}"><i class="fa fa-eye p-2"></i>View Order</a>
                                                                 <a class="dropdown-item" href="/admin/magazine_invoice_view/{{$val->id}}"><i class="fa fa-pencil p-2"></i> View Order Invoice</a>
                                                                 <!-- <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" href="magazine_delete"><i class="fa fa-trash p-2"></i>Delete</a></div> -->
                                                         </div>
@@ -294,6 +298,31 @@
 
 
     </div>
+
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa fa-chevron-left"></i>Back to</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: space-between;">
+                <div>
+                    <a id="prev" href="#prev" class="arrow">Previous</a>
+                    <a id="next" href="#next" class="arrow">Next</a>
+                </div>
+                <div>
+                    <!-- Add any buttons you need in the footer -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <!--************
             Main wrapper end
         *************-->
@@ -301,8 +330,62 @@
     include 'admin/plugin/plugin_js.php';
     ?>
 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
 <script>
- $(document).ready(function() {
+    // Function to load content into the modal body
+    function loadContent(content) {
+        document.getElementById('modalBody').innerHTML = content;
+    }
+
+    // Function to load content based on data-id
+    function loadFile(dataId) {
+        // Extract file extension from the data-id attribute
+        var fileExtension = dataId.split('.').pop().toLowerCase();
+
+        // Load content based on file extension
+        switch (fileExtension) {
+            case 'pdf':
+                loadContent('<embed src="' + dataId + '" type="application/pdf" width="100%" height="600px" />');
+                break;
+            case 'jpg':
+            case 'jpeg':
+            case 'png':
+            case 'gif':
+                loadContent('<img src="' + dataId + '" alt="Image" style="max-width: 100%; max-height: 600px;">');
+                break;
+            case 'html':
+                fetch(dataId)
+                    .then(response => response.text())
+                    .then(html => {
+                        loadContent(html);
+                    })
+                    .catch(error => console.error('Error loading HTML:', error));
+                break;
+            // Add more cases for other file types if needed
+            default:
+                loadContent('<p>File type not supported</p>');
+                break;
+        }
+    }
+
+    // Listen for the modal show event
+    $('#modalId').on('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = $(event.relatedTarget);
+
+        // Extract data-id attribute from the button
+        var dataId = button.data('id');
+
+        // Load content based on the data-id
+        loadFile(dataId);
+    });
+</script>
+
+
+
+<script>
+$(document).ready(function() {
     // Initialize DataTable
     var table = $('#example3').DataTable();
 
@@ -321,10 +404,23 @@
         filterCategory(libraryType);
     });
 
+    // Function to handle district filter
+    function filterDistrict(district) {
+        if (district === "") {
+            table.column(4).search(district).draw();
+        } else {
+            table.column(4).search(district).draw();
+        }
+    }
 
+    // Call filterDistrict function on change event of the select element
+    $('#district_filter').on('change', function() {
+        var district = $(this).val();
+        filterDistrict(district);
+    });
 });
-
 </script>
+
 </body>
 
 

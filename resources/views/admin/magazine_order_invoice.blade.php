@@ -147,7 +147,7 @@
                                         @foreach($data->magazineProduct as $val)
                                             <tr>
                                                 <td class="center">{{$loop->index + 1}}</td>
-                                                <td class="left strong">{{$val->title}}1</td>
+                                                <td class="left strong">{{$val->title}}</td>
                                                 <td class="left">{{$val->category}}</td>
                                                 <td class="right"><i class="fa fa-rupee"></i> {{$val->magazine_price}}</td>
                                                 <td class="center">{{$val->quantity}}</td>

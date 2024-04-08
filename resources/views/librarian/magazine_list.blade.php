@@ -212,7 +212,7 @@
                                                 <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalBudget}}</td>
 
                                                 <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalPurchased}}</td>
-                                                <td class="py-2"> <span class="badge bg-primary">Pending</span></td>
+                                                <td class="py-2"> <span class="badge bg-primary">Submitted</span></td>
                                                 <td class="py-2"> {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}</td>
                                                 <td class="py-2 text-end">
                                                     <div class="dropdown"><button

@@ -146,9 +146,6 @@ Route::get('/magazine_order_pending',function(){ return view('admin.magazine_ord
 Route::get('/magazine_order_reject',function(){ return view('admin.magazine_reject_list');});
 Route::get('/magazine_order_complete',function(){ return view('admin.magazine_complete_list');});
 
-// Magazine Order 
-
-Route::get('/magazine_order_list',function(){ return view('admin.magazine_order_list');});
 
 //magazine Subscritpion
 Route::get('/magazine_order_subscritpion',function(){ return view('admin.magazine_subscription');});
@@ -988,6 +985,9 @@ Route::get('/magazinebudgetview',function(){
   Route::get('/report_downl_login ',[SettingController::class,'report_downl_login']);
 
   Route::get('/report_downl_notlogin ',[SettingController::class,'report_downl_notlogin']);
+// Magazine Order 
+
+Route::get('/magazine_order_list',[MagazineController::class,'magazine_order_list']);
 
     });
 });
