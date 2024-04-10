@@ -56,7 +56,7 @@
                                 <b>Publisher/Distributor Reject List</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="/admin/publisher_and_dis_list">
-                                <i class="fas fa-plus"></i> List Of pub & dist </a>
+                                <i class="fas fa-plus"></i> List of pub & dist </a>
                         </div>
                     </div>
                 </div>

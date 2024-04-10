@@ -96,35 +96,60 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="col-sm-12">
-                                                <label class="form-label"> <b class="text-primary">Name  :</b>  {{$data->name}}</label>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <label class="form-label"><b class="text-primary">User Name  :</b>   {{$data->userName}}</label>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <label class="form-label"><b class="text-primary">Designation  :</b>   {{$data->designation}}</label>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <label class="form-label"><b class="text-primary">Email  : </b>  {{$data->email}}</label>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <label class="form-label"><b class="text-primary">Phone  : </b>  +91{{$data->mobileNumber}}</label>
+                                            <div class="row">
+                                                <div class="col-md-5 col-5">
+                                                    <b style="font-size: 15px;"class="text-primary ">Name</b>
+                                                </div>
+                                                <div class="col-md-7 col-7">
+                                                    <p style="font-size: 15px;"class="text-dark">: {{$data->name}}</p>
+                                                </div>
+                                                <div class="col-md-5 col-5">
+                                                    <b style="font-size: 15px;"class="text-primary ">User Name</b>
+                                                </div>
+                                                <div class="col-md-7 col-7">
+                                                    <p style="font-size: 15px;"class="text-dark">: {{$data->userName}}</p>
+                                                </div>
+                                                <div class="col-md-5 col-5">
+                                                    <b style="font-size: 15px;"class="text-primary ">Designation</b>
+                                                </div>
+                                                <div class="col-md-7 col-7">
+                                                    <p style="font-size: 15px;"class="text-dark">: {{$data->designation}}</p>
+                                                </div>
+                                                <div class="col-md-5 col-5">
+                                                    <b style="font-size: 15px;"class="text-primary ">Email</b>
+                                                </div>
+                                                <div class="col-md-7 col-7">
+                                                    <p style="font-size: 15px;"class="text-dark">: {{$data->email}}</p>
+                                                </div>
+                                                <div class="col-md-5 col-5">
+                                                    <b style="font-size: 15px;"class="text-primary ">Phone</b>
+                                                </div>
+                                                <div class="col-md-7 col-7">
+                                                    <p style="font-size: 15px;"class="text-dark">: +91{{$data->mobileNumber}}</p>
+                                                </div>
                                             </div>
 
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="col-sm-12">
-                                                <label class="form-label"><b class="text-primary">Address  : </b>  {{$data->address}}</label>
-                                            </div>
-                                            <!-- <div class="col-sm-12">
-                                                <label class="form-label">City</label>
-                                            </div> -->
-                                            <div class="col-sm-12">
-                                                <label class="form-label"><b class="text-primary">District :</b>    {{$data->district}}</label>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <label class="form-label"><b class="text-primary">Postal Code  :</b>   {{$data->postalCode}}</label>
+                                            <div class="row">
+                                                <div class="col-md-5 col-5 ">
+                                                    <b style="font-size: 15px;"class="text-primary ">Address</b>
+                                                </div>
+                                                <div class="col-md-7 col-7 ">
+                                                    <p style="font-size: 15px;"class="text-dark">:  {{$data->address}}</p>
+                                                </div>
+                                                <div class="col-md-5 col-5 ">
+                                                    <b style="font-size: 15px;"class="text-primary ">District</b>
+                                                </div>
+                                                <div class="col-md-7 col-7 ">
+                                                    <p style="font-size: 15px;"class="text-dark">:  {{$data->district}}</p>
+                                                </div>
+                                                <div class="col-md-5 col-5 ">
+                                                    <b style="font-size: 15px;"class="text-primary ">Postal Code</b>
+                                                </div>
+                                                <div class="col-md-7 col-7 ">
+                                                    <p style="font-size: 15px;"class="text-dark">:  {{$data->postalCode}}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

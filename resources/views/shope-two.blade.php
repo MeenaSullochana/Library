@@ -45,7 +45,7 @@
                             <div class="tp-breadcrumb__list">
                                 <span class="tp-breadcrumb__active"><a href="/">Home</a></span>
                                 <span class="dvdr">/</span>
-                                <span class="tp-breadcrumb__active"><a href="/librarian/index">Dashborad</a></span>
+                                <span class="tp-breadcrumb__active"><a href="/librarian/index">Dashboard</a></span>
                                 <span class="dvdr">/</span>
                                 <a href="/product-two"><span>Website Home</span></a>
                             </div>

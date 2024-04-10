@@ -56,7 +56,7 @@
                                 <b>Distributor Reject List</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="/admin/distributor_list">
-                                <i class="fas fa-plus"></i> List Of Distributor </a>
+                                <i class="fas fa-plus"></i> List of Distributor </a>
                         </div>
                     </div>
                 </div>
