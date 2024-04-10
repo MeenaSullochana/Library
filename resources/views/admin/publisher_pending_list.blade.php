@@ -57,7 +57,7 @@
                                     <b>Publisher Pending List</b>
                                 </h3>
                                 <a class="btn btn-primary  btn-sm" href="/admin/publisher_list">
-                                    <i class="fas fa-plus"></i> List Of Publisher </a>
+                                    <i class="fas fa-plus"></i> List of Publisher </a>
                             </div>
                         </div>
                     </div>

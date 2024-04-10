@@ -55,7 +55,7 @@
                                 <b>Publisher List</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="/admin/index">
-                                <i class="fas fa-chevron-left"></i> Dashborad </a>
+                                <i class="fas fa-chevron-left"></i> Dashboard </a>
                         </div>
                     </div>
                 </div>

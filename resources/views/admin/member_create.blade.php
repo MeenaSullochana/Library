@@ -64,9 +64,9 @@
                             </h3>
                             <div>
                                 <a class="btn btn-primary  btn-sm" href="/admin/member_list">
-                                    <i class="fas fa-chevron-left"></i> List Of Reviewer </a>
+                                    <i class="fas fa-chevron-left"></i> List of Reviewer </a>
                                     <a class="btn btn-primary  btn-sm" href="/admin/library_list">
-                                        <i class="fas fa-chevron-left"></i> List Of Library  </a>
+                                        <i class="fas fa-chevron-left"></i> List of Library  </a>
                             </div>
 
                         </div>
@@ -129,30 +129,29 @@
                                                         <div class="col-sm-12 mb-3" id="basic6" style="display: block;">
                                                             <label class="form-label">Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Name" id="name" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter the Name" id="name" required>
                                                         </div>
                                                         
                                                        
                                                         <div class="col-sm-12 mb-3" id="basic8" style="display: none;">
                                                             <label class="form-label">Librarian Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Librarian Name" id="Librarian_Name" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter the Librarian Name" id="Librarian_Name" Required>
                                                         </div>
 
                                                         {{-- New Field --}}
                                                         <div class="col-sm-12 mb-3" id="basic8">
                                                             <label class="form-label">Library Code<span class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" name="library_code" placeholder="Enter Library Code" id="library_code" Required>
+                                                            <input type="text" class="form-control" name="library_code" placeholder="Enter the Library Code" id="library_code" Required>
                                                         </div>
                                                     
                                                         <div class="col-sm-12 mb-3" id="basic1" style="display: block;">
                                                             <label class="form-label">Subject<span
                                                               class="text-danger maditory">*</span></label>
-                                                            <!-- <input type="text" class="form-control" placeholder="Enter Subject" id="subject" Required> -->
+                                                            <!-- <input type="text" class="form-control" placeholder="Enter the Subject" id="subject" Required> -->
                                                             <select class="form-select bg-white" id="subject"
                                                         name="subject" required>
-                                                        <option value="">Select One<span
-                                 class="text-danger maditory">*</span></option>
+                                                        <option value="">Select One</option>
                                                         @php
                                                           $categori = DB::table('book_subject')->where('status','=','1')->get();
                                                           @endphp
@@ -165,7 +164,7 @@
 <div class="col-sm-12 mb-3"  id="basic5" style="display: none;">
                                                             <label class="form-label">Membership Id<span
                                                                 class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Membership Id" id="membershipId" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter the Membership Id" id="membershipId" Required>
                                                         </div>
                                                        
                                                     </div>
@@ -173,19 +172,18 @@
                                                         <div class="col-sm-12 mb-3" id="basic2" style="display: block;">
                                                             <label class="form-label">Designation<span
                                                               class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter designation" id="designation" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter the Designation" id="designation" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3" id="basic3" style="display: block;">
                                                             <label class="form-label">Organisation Details <span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Organisation Details" id="organisationDetails"Required>
+                                                            <input type="text" class="form-control" placeholder="Enter the Organisation Details" id="organisationDetails"Required>
                                                         </div>
 <div class="col-sm-12 mb-3" id="basic4" style="display: none;">
                                                         <label class="form-label">Library Type<span
                                  class="text-danger maditory">*</span></label>
                                                         <select name="library_type" id="libraryType" class="form-select" Required>
-                                                        <option value="">Select One<span
-                                 class="text-danger maditory">*</span></option>
+                                                        <option value="">Select One</option>
                                                         @php
                                                           $categori = DB::table('library_types')->where('status','=','1')->get();
                                                           @endphp
@@ -198,7 +196,7 @@
                                                     <div class="col-sm-12 mb-3" id="basic7" style="display: none;">
                                                             <label class="form-label">Library Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Library Name" id="libraryName" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter the Library Name" id="libraryName" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3" id="basic10" style="display: none;">
                                                             <label class="form-label">Book Categories<span
@@ -206,8 +204,7 @@
                                                             <!-- <input type="text" class="form-control" placeholder="Enter Subject" id="subject" Required> -->
                                                             <select class="form-select" id="Category"
                                                         name="Category" required>
-                                                        <option value="">Select One<span
-                                 class="text-danger maditory">*</span></option>
+                                                        <option value="">Select One</option>
                                                         @php
                                                           $categori = DB::table('special_categories')->where('status','=','1')->get();
                                                           @endphp
@@ -220,12 +217,12 @@
                                                         <div class="col-sm-12 mb-3" id="basic11" style="display: none;">
                                                             <label class="form-label">Public Reviewer Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Public Reviewer Name" id="publicreviewername" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter the Public Reviewer Name" id="publicreviewername" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Phone Number<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <input type="number" class="form-control" placeholder="Enter  Phone Number" id="phoneNumber" Required>
+                                                            <input type="number" class="form-control" placeholder="Enter Your Phone Number" id="phoneNumber" Required>
                                                         </div>
 
                                                     </div>
@@ -240,7 +237,7 @@
                                                                     <div class="author-media">
                                                                         <img src="images/user.jpg" alt="" id="output" >
                                                                         <div class="upload-link" title="" data-toggle="tooltip" data-placement="right" data-original-title="update">
-                                                                            <input type="file" class="update-flie" id="profileImage" onchange="loadFile(event)" Required>
+                                                                            <input type="file" accept="image/png, image/jpg, image/jpeg" class="update-flie" id="profileImage" onchange="loadFile(event)" Required>
                                                                             <i class="fa fa-camera"></i>
                                                                         </div>
                                                                     </div>
@@ -266,24 +263,24 @@
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Bank Name<span
                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Bank Name"  id= "bankName" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter Your Bank Name"  id= "bankName" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Account Number<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Account Number" id="accountNumber" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter Your Account Number" id="accountNumber" Required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Branch<span
                                                                 class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Branch" id="branch" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter Your Branch" id="branch" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">IFSC Number<span
                                                                class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter IFSC Number" id="ifscNumber" Required>
+                                                            <input type="text" class="form-control" placeholder="Enter Your IFSC Number" id="ifscNumber" Required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -294,14 +291,14 @@
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Email<span
                                                          class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Email" id="email" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter Your Email" id="email" Required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Password<span
                                                           class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter Password" id="password" Required>
+                                                        <input type="password" class="form-control" placeholder="Enter Your Password" id="password" Required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -327,8 +324,7 @@
                                                         <label class="form-label">Library Type<span
                                                           class="text-danger maditory">*</span></label>
                                                         <select name="library_type" id="libraryType1" class="form-select bg-white" Required>
-                                                        <option value="">Select One<span
-                                                          class="text-danger maditory">*</span></option>
+                                                        <option value="">Select One</option>
                                                             @php
                                                                 $categori = DB::table('library_types')->where('status','=','1')->get();
                                                             @endphp
@@ -340,12 +336,12 @@
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Library Name<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Library Name" id="libraryName1" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter the Library Name" id="libraryName1" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label"> Library Code <span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="library_code" placeholder="Enter Library Code" id="library_code" Required>
+                                                        <input type="text" class="form-control" name="library_code" placeholder="Enter the Library Code" id="library_code" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
@@ -390,47 +386,47 @@
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">City<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter City" id="city" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter Your City" id="city" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Village<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Village" id="village" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter Your Village" id="village" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Taluk<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Taluk" id="taluk" Required>
+                                                        <input type="text" class="form-control" placeholder="Enter Your Taluk" id="taluk" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Door No<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="door_no" placeholder="Enter Door No" id="Village" Required>
+                                                        <input type="text" class="form-control" name="door_no" placeholder="Enter Your Door No" id="Village" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Street Name<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="street_name" placeholder="Enter Street Name" id="street_name" Required>
+                                                        <input type="text" class="form-control" name="street_name" placeholder="Enter Your Street Name" id="street_name" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Place<span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="place" placeholder="Enter Place" id="place" Required>
+                                                        <input type="text" class="form-control" name="place" placeholder="Enter Your Place" id="place" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Landmark <span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="landmark" placeholder="Enter Landmark" id="landmark" Required>
+                                                        <input type="text" class="form-control" name="landmark" placeholder="Enter Your Landmark" id="landmark" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Post <span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="post" placeholder="Enter Post" id="post" Required>
+                                                        <input type="text" class="form-control" name="post" placeholder="Enter Your Post" id="post" Required>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Pin Code <span class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" name="pin_code" placeholder="Enter Pin code" id="pin_code" Required>
+                                                        <input type="number" class="form-control" name="pin_code" placeholder="Enter Your Pincode" id="pin_code" Required>
                                                     </div>
 
                                                 </div>
@@ -442,7 +438,7 @@
                                             <div class="col-md-6">
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Librarian Name<span class="text-danger maditory">*</span></label>
-                                                    <input type="text" class="form-control" placeholder="Enter Librarian Name" id="librarianName1" Required>
+                                                    <input type="text" class="form-control" placeholder="Enter the Librarian Name" id="librarianName1" Required>
                                                 </div>
                                                 <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Are You Meta Checker<span class="text-danger maditory">*</span></label>
@@ -457,11 +453,11 @@
                                             <div class="col-md-6">
                                             <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Librarian Designation<span class="text-danger maditory">*</span></label>
-                                                    <input type="text" class="form-control" placeholder="Enter Librarian Designation" id="librarianDesignation" Required>
+                                                    <input type="text" class="form-control" placeholder="Enter Your Librarian Designation" id="librarianDesignation" Required>
                                                 </div>
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Phone Number<span class="text-danger maditory">*</span></label>
-                                                    <input type="number" class="form-control" placeholder="Enter Phone Number" id="mobileNumber" Required>
+                                                    <input type="number" class="form-control" placeholder="Enter Your Phone Number" id="mobileNumber" Required>
                                                 </div>
 
                                             </div>
@@ -471,13 +467,13 @@
                                             <div class="col-md-6">
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Email<span class="text-danger maditory">*</span></label>
-                                                    <input type="email" class="form-control" placeholder="Enter Email" id="email1" Required>
+                                                    <input type="email" class="form-control" placeholder="Enter Your Email" id="email1" Required>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Password<span class="text-danger maditory">*</span></label>
-                                                    <input type="password" class="form-control" placeholder="Enter Password" id="password1" Required>
+                                                    <input type="password" class="form-control" placeholder="Enter Your Password" id="password1" Required>
                                                 </div>
                                             </div>
                                         </div>

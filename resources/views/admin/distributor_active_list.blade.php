@@ -56,7 +56,7 @@
                                 <b>Distriputer Active List</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="/admin/distributor_list">
-                                <i class="fas fa-plus"></i> List Of Distriputer </a>
+                                <i class="fas fa-plus"></i> List of Distriputer </a>
                         </div>
                     </div>
                 </div>

@@ -63,9 +63,9 @@
                             </h3>
                             <div>
                                 <a class="btn btn-primary  btn-sm" href="/admin/member_list">
-                                    <i class="fas fa-chevron-left"></i> List Of Reviewer </a>
+                                    <i class="fas fa-chevron-left"></i> List of Reviewer </a>
                                     <a class="btn btn-primary  btn-sm" href="/admin/library_list">
-                                        <i class="fas fa-chevron-left"></i> List Of Library  </a>
+                                        <i class="fas fa-chevron-left"></i> List of Library  </a>
                             </div>
 
                         </div>
