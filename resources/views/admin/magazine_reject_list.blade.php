@@ -21,6 +21,9 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php include 'admin/plugin/plugin_css.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Option 1: Include in HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 
 </head>
 
@@ -58,7 +61,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Users Order Reject List</b>
+                                <b>Librarian Cancel order</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="javascript:history.back()">
                                 <i class="fas fa-chevron-left"></i> Back </a>
@@ -67,15 +70,15 @@
                 </div>
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item card">
-                        <h2 class="accordion-header p-0 m-0 bg-white" id="headingOne">
+                        <!-- <h2 class="accordion-header p-0 m-0 bg-white" id="headingOne">
                             <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 <div class="cpa">
 									<i class="fa-sharp fa-solid fa-filter me-2"></i>Order Filter
 								</div>
                             </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                        </h2> -->
+                        <!-- <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
                             data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="card-body">
@@ -130,7 +133,7 @@
 									</div>
 								</div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
 
                 </div>
@@ -138,74 +141,111 @@
                     
                     <div class="col-lg-12">
                         <div class="card">
-                            <div class="card-body p-3">
+                         <div class="card-body p-3">
                                 <div class="d-flex justify-content-between align-items-end">
-                                    <h6>Export Option</h6>
-                                    <button type="button" class="btn btn-primary"><span
+                                    <h6>Librarian Cancel order</h6>
+                                    <!-- <button type="button" class="btn btn-primary"><span
                                         class="btn-icon-start text-primary"><i class="fa fa-plus"></i>
-                                    </span>Add order</button>
+                                    </span>Add order</button> -->
                                 </div>
                                 <hr>
                                 <div class="row mb-4 d-flex">
-                                    <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
-                                        <label class="form-label">Select Range</label>
-                                        <select name="" id="" class="form-select bg-white p-2 border border-1">
-                                            <option value="500">100</option>
-                                            <option value="1000">1000</option>
-                                        </select>
-                                    </div> 
-                                    <div class="col-xl-9 col-sm-6 mt-4 text-end">
-                                        <button type="button" class="btn  btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><span
-                                            class="btn-icon-start text-warning"><i class="fa fa-trash-o color-warning"></i>
-                                        </span>Delete</button> 
-
-                                        <button type="button" class="btn btn-primary"><span
-                                            class="btn-icon-start text-primary"><i class="fa fa-file-pdf-o"></i>
-                                        </span>PDF</button>
-                                        <button type="button" class="btn  btn-info"><span
-                                            class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i>
-                                        </span>Excel</button>
-                                        <button type="button" class="btn  btn-warning"><span
-                                            class="btn-icon-start text-warning"><i class="fa fa-download color-warning"></i>
-                                        </span>Download</button>  
+                               <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                                <label class="form-label">Select Library Types</label>
+                                <select name="LibraryTypes_filter" id="LibraryTypes_filter" class="form-select bg-white p-2 border border-1 mb-3">
+                                                <option value="">All Library Type</option>
+                                                @php
+                                             $categori = DB::table('library_types')->get();
+                                             @endphp
+                                             @foreach($categori as $val)
+                                             <option value="{{$val->name}}">{{$val->name}}</option>
+                                             @endforeach
+                                            </select>
+                               </div>
+                            <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                                <label class="form-label">Select District</label>
+                                <select name="district_filter" id="district_filter" class="form-select bg-white p-2 border border-1 mb-3">
+                                                <option value="">All District</option>
+                                                @php
+                                                                    $districts = DB::table('districts')->where('status', '=', 1)->get();
+                                                                @endphp
+                                             @foreach($districts as $val)
+                                             <option value="{{$val->name}}">{{$val->name}}</option>
+                                             @endforeach
+                                            </select>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 mt-4 text-end">
+                                
+                            <a href="/admin/report_downl_order">
+            <button class="btn btn-primary">
+                <span><i class="fa-solid fa-file-excel"></i> Export Magazine Order</span>
+            </button>
+        </a>
+                                    
                                         
                                         
                                     </div>
-                                </div>
+                             
+                         </div>
                                 <hr>
+                                @php
+                                  
+                                      $records = DB::table('ordermagazines')
+                                          ->where('status', '=', '2')
+                                         ->orderBy('created_at', 'asc')
+                                         ->get();
+                                      
+                                @endphp
+
+
                                 <div class="table-responsive">
                                     <table class="table table-sm mb-0 table-striped student-tbl" id="example3">
                                         <thead>
                                             <tr>
-                                                <th class=" pe-3">
-                                                    <div class="form-check custom-checkbox mx-2">
-                                                        <input type="checkbox" class="form-check-input" id="checkAll">
-                                                        <label class="form-check-label" for="checkAll"></label>
-                                                    </div>
-                                                </th>
+                                         
+                                                <th>S.No</th>
+                                                <th>Library Id</th>
+                                                <th>Library Type</th>
+                                                <th>Library Name</th>
+
+                                                <th>District</th>
+                                                
                                                 <th>Order Id</th>
                                                 <th>Qty</th>
-                                                <th>Amount</th>
+                                                <th>Total Amount</th>
+                                                <th>Purchase Amount</th>
                                                 <th>Order Status</th>
-                                                <th class=" ps-5" style="min-width: 200px;">Library Name</th>
                                                 <th>Order Date</th>
+                                                <th>Readers Forum</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody id="customers">
+                                       @foreach($records as $val)
+                                       @php
+                                  
+                                  $librarians = DB::table('librarians')
+                                       ->where('librarianId', '=', $val->libraryid)
+                                     ->first();
+                                        @endphp
                                             <tr class="btn-reveal-trigger">
-                                                <td class="py-2">
-                                                    <div class="form-check custom-checkbox mx-2">
-                                                        <input type="checkbox" class="form-check-input" id="checkbox1">
-                                                        <label class="form-check-label" for="checkbox1"></label>
-                                                    </div>
-                                                </td>
-                                                <td class="py-2">INVOI90009879</td>
-                                                <td class="py-2">898</td>
-                                                <td class="py-2"><i class="fa fa-rupee"></i> 898</td>
-                                                <td class="py-2"> <span class="badge bg-danger">Reject</span></td>
-                                                <td class="py-2 ps-5">ACL Library</td>
-                                                <td class="py-2">30/03/2018</td>
+                                                <td class="py-2">{{$loop->index + 1}}</td>
+                                                <td class="py-2">{{$val->libraryid}}</td>
+                                                <td class="py-2">{{$val->libraryType}}</td>
+                                                 <td class="py-2">{{ $librarians->libraryName ?? '' }}</td>
+                                                <td class="py-2">{{ $librarians->district ?? '' }}</td>
+                                                <td class="py-2">{{$val->orderid}}</td>
+                                                <td class="py-2">{{$val->quantity}}</td>
+                                                <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalBudget}}</td>
+
+                                                <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalPurchased}}</td>
+                                                <td class="py-2"> <span class="badge bg-primary">Cancelled</span></td>
+                                                <td class="py-2"> {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}</td>
+                                                <td class="py-2"> 
+                                                <button type="button" class="btn btn-primary" data-id="{{ asset('reviewer/readersForum/' . $val->readersForum) }}" data-bs-toggle="modal" data-bs-target="#modalId">VIew ReadersForum Report</button>
+
+                                            </td>
+
                                                 <td class="py-2 text-end">
                                                     <div class="dropdown"><button
                                                             class="btn btn-primary tp-btn-light sharp" type="button"
@@ -214,23 +254,29 @@
                                                                     xmlns:xlink="http://www.w3.org/1999/xlink"
                                                                     width="18px" height="18px" viewBox="0 0 24 24"
                                                                     version="1.1">
-                                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                        <circle fill="#000000" cx="5" cy="12" r="2"></circle>
-                                                                        <circle fill="#000000" cx="12" cy="12" r="2"></circle>
-                                                                        <circle fill="#000000" cx="19" cy="12" r="2"></circle>
+                                                                    <g stroke="none" stroke-width="1" fill="none"
+                                                                        fill-rule="evenodd">
+                                                                        <rect x="0" y="0" width="24"
+                                                                            height="24"></rect>
+                                                                        <circle fill="#000000" cx="5"
+                                                                            cy="12" r="2"></circle>
+                                                                        <circle fill="#000000" cx="12"
+                                                                            cy="12" r="2"></circle>
+                                                                        <circle fill="#000000" cx="19"
+                                                                            cy="12" r="2"></circle>
                                                                     </g>
                                                                 </svg></span></button>
                                                         <div class="dropdown-menu dropdown-menu-end border py-0"
                                                             style="">
                                                             <div class="py-2">
-                                                                <a class="dropdown-item" href="magazine_invoice_view"><i class="fa fa-eye p-2"></i>View</a>
-                                                                <a class="dropdown-item" href="magazine_invoice_view"><i class="fa fa-pencil p-2"></i> View Order</a>
-                                                                <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" href="magazine_delete"><i class="fa fa-trash p-2"></i>Delete</a></div>
+                                                                <a class="dropdown-item" href="/admin/magazine_order_view/{{$val->id}}"><i class="fa fa-eye p-2"></i>View Order</a>
+                                                                <a class="dropdown-item" href="/admin/magazine_invoice_view/{{$val->id}}"><i class="fa fa-pencil p-2"></i> View Order Invoice</a>
+                                                                <!-- <a class="dropdown-item text-danger delete-status" data-id="{{$val->id}}" ><i class="fa fa-trash p-2"></i>Delete</a></div> -->
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -247,7 +293,7 @@
     <!--************
                 Footer start
             *************-->
-    @include ('publisher.footer')
+    @include ('admin.footer')
     <!--************
                 Footer end
             *************-->
@@ -262,13 +308,193 @@
 
 
     </div>
+
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa fa-chevron-left"></i>Back to</button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+            </div>
+            <div class="modal-footer" style="display: flex; justify-content: space-between;">
+                <div>
+                    <a id="prev" href="#prev" class="arrow">Previous</a>
+                    <a id="next" href="#next" class="arrow">Next</a>
+                </div>
+                <div>
+                    <!-- Add any buttons you need in the footer -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="fa fa-exclamation"></i>
+                </div>
+                <h4 class="modal-title">Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hiddenId">
+                <p>Do you really want to delete these records? This process cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="subdel" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
     <!--************
             Main wrapper end
         *************-->
     <?php
-    include 'publisher/plugin/plugin_js.php';
+    include 'admin/plugin/plugin_js.php';
     ?>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#example3').on('click', '.delete-status', function() {
+        var dataId = $(this).data('id');
+        $('#hiddenId').val(dataId);
+        $('#exampleModal').modal('show');
+        console.log(dataId);
+    });
+});
+</script>
+
+<script>
+    // Function to load content into the modal body
+    function loadContent(content) {
+        document.getElementById('modalBody').innerHTML = content;
+    }
+
+    // Function to load content based on data-id
+    function loadFile(dataId) {
+        // Extract file extension from the data-id attribute
+        var fileExtension = dataId.split('.').pop().toLowerCase();
+
+        // Load content based on file extension
+        switch (fileExtension) {
+            case 'pdf':
+                loadContent('<embed src="' + dataId + '" type="application/pdf" width="100%" height="600px" />');
+                break;
+            case 'jpg':
+            case 'jpeg':
+            case 'png':
+            case 'gif':
+                loadContent('<img src="' + dataId + '" alt="Image" style="max-width: 100%; max-height: 600px;">');
+                break;
+            case 'html':
+                fetch(dataId)
+                    .then(response => response.text())
+                    .then(html => {
+                        loadContent(html);
+                    })
+                    .catch(error => console.error('Error loading HTML:', error));
+                break;
+            // Add more cases for other file types if needed
+            default:
+                loadContent('<p>File type not supported</p>');
+                break;
+        }
+    }
+
+    // Listen for the modal show event
+    $('#modalId').on('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = $(event.relatedTarget);
+
+        // Extract data-id attribute from the button
+        var dataId = button.data('id');
+
+        // Load content based on the data-id
+        loadFile(dataId);
+    });
+</script>
+
+
+
+<script>
+$(document).ready(function() {
+    // Initialize DataTable
+    var table = $('#example3').DataTable();
+
+    // Function to handle category filter
+    function filterCategory(libraryType) {
+        if (libraryType === "") {
+            table.column(2).search("").draw();
+        } else {
+            table.column(2).search(libraryType).draw();
+        }
+    }
+
+    // Call filterCategory function on change event of the select element
+    $('#LibraryTypes_filter').on('change', function() {
+        var libraryType = $(this).val();
+        filterCategory(libraryType);
+    });
+
+    // Function to handle district filter
+    function filterDistrict(district) {
+        if (district === "") {
+            table.column(4).search(district).draw();
+        } else {
+            table.column(4).search(district).draw();
+        }
+    }
+
+    // Call filterDistrict function on change event of the select element
+    $('#district_filter').on('change', function() {
+        var district = $(this).val();
+        filterDistrict(district);
+    });
+});
+</script>
+
+<script>
+    $('#subdel').on('click', function () {
+        var id = $('#hiddenId').val();
+        $('#exampleModal').modal('hide');
+
+        $.ajax({
+                type: 'POST',
+                url: '/admin/order_delete',
+                data: { '_token': '{{ csrf_token() }}','id': id },
+                success: function(response) {
+                    if (response.success) {
+                        toastr.success(response.success, { timeout: 2000 });
+                        setTimeout(function() {
+                            window.location.href = "/admin/magazine_order"
+                        }, 3000);
+
+                    } else {
+                        toastr.error(response.error, { timeout: 2000 });
+                    }
+                },
+                error: function(error) {
+                    toastr.error('Error occurred', { timeout: 2000 });
+                }
+            });
+        });
+    
+</script>
+
 </body>
+
+
 <!-- Modal -->
 <style>
     .modal-confirm {
@@ -356,24 +582,6 @@
 }
 
 </style>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="icon-box">
-                <i class="fa fa-exclamation"></i>
-            </div>
-            <h4 class="modal-title">Are you sure?</h4>
-          </div>
-          <div class="modal-body">
-            <p>Do you really want to delete these records? This process cannot be undone.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-          </div>
-        </div>
-      </div>
-  </div>
+
 
 </html>

@@ -200,9 +200,9 @@
                                                 <span class="badge bg-success text-white">Active</span>
                                             </td>
                                             <td data-label="control">
-                                                <a href="magazine_view" class="btn btn-warning shadow btn-xs sharp me-1"><i
+                                            <a href="magazine_view/{{$magazine->id}}" class="btn btn-warning shadow btn-xs sharp me-1"><i
                                                         class="fa fa-eye "></i></a>
-                                                <a href="magazine_edit" class="btn btn-primary shadow btn-xs sharp me-1"><i
+                                                <a href="magazine_edit/{{$magazine->id}}" class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                         class="fa fa-pencil"></i></a>
                                                 <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
                                                     <i class="fa fa-trash"></i>

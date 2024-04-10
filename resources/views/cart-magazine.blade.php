@@ -314,7 +314,7 @@
                                                         class="fa fa-rupee"></i><b>{{ $cartdatacount }}</b></p>
                                                 <p class="mb-2 mt-2" id="RemainingAmount">Remaining Amount: <i
                                                         class="fa fa-rupee"></i><b>{{ $totalbudgetcount - $cartdatacount
-                                                        }}</b></p>
+                                                        }}</b></p> 
                                             </div>
                                             <form>
                                                 <input type="checkbox" name="vehicle1" value="Bike" required>

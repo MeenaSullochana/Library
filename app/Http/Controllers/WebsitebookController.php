@@ -622,9 +622,10 @@ public function product_two(Request $request)
 
 
         $magazines = Magazine::where('status', '=', '1')->orderBy('sNo', 'Asc')->paginate(96);
-   
-      
-    return view('product-two', compact('magazines'));
+        $min = Magazine::where('status', '=', '1')->orderBy('sNo', 'Asc')->min('annual_cost_after_discount');
+     $max = Magazine::where('status', '=', '1')->orderBy('sNo', 'Asc')->min('annual_cost_after_discount');
+
+        return view('product-test', compact('magazines','min','max'));
 }
 
 public function product_two_category(Request $request)
@@ -895,8 +896,8 @@ public function cart_magazine(){
                           ->where('status', '=', '1')
                           ->sum('totalAmount');
     
-        $percentage = $cartdata1 ? round(($cartdata1 /$val->amount ) * 100) : 0;
-    
+                          $percentage = $val->amount !== 0 ? round(($cartdata1 / max(1, $val->amount)) * 100) : 0;
+
         $obj = (object)[
             "category" => is_numeric($val->name) ? round($val->name) : $val->name,
             "budget_price" => is_numeric($val->amount) ? round($val->amount) : $val->amount,
@@ -1003,8 +1004,8 @@ $balAmt = $totalcost - $cartdata1;
                           ->where('budgetid', '=', $magazinebudget->id)
                           ->where('status', '=', '1')
                           ->sum('totalAmount');
-    
-        $percentage = $cartdata2 ? round(($cartdata2 /$val->amount ) * 100) : 0;
+                          $percentage = $val->amount !== 0 ? round(($cartdata2 / max(1, $val->amount)) * 100) : 0;
+                       
     
         $obj = (object)[
             "category" => $val->name,

@@ -139,6 +139,10 @@
                                                             style="width: 0px;">Librarian Name</th>
                                                             <th class="sorting" tabindex="0" aria-controls="user-tbl"
                                                             rowspan="1" colspan="1"
+                                                            aria-label="Authority Person Name: activate to sort column ascending"
+                                                            style="width: 0px;">District</th>
+                                                            <th class="sorting" tabindex="0" aria-controls="user-tbl"
+                                                            rowspan="1" colspan="1"
                                                             aria-label=" Status: activate to sort column ascending"
                                                             style="width: 0px;">Update Status</th>
                                                         <th class="sorting" tabindex="0" aria-controls="user-tbl"
@@ -195,6 +199,13 @@
                                                             <div class="products">
                                                                 <div>
                                                                     <span>{{$val->librarianName}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="products">
+                                                                <div>
+                                                                    <span>{{$val->district}}</span>
                                                                 </div>
                                                             </div>
                                                         </td>

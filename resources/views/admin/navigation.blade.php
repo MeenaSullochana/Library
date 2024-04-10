@@ -2027,7 +2027,7 @@
                                         <li><a href="magazine_order">Order List </a></li>
                                         <li><a href="magazine_order_pending">Pending Order List</a></li>
                                         <li><a href="manage_completed_order_list">Completed Order List</a></li>
-                                        <li><a href="magazine_order_reject">Rejected Order List</a></li>
+                                        <li><a href="magazine_order_reject">Cancelled Order List</a></li>
                                     </ul>
                             </li>
 
@@ -2087,7 +2087,7 @@
                             <li><a href="manage_order_list">Order List </a></li>
                             <li><a href="manage_pending_order_list">Pending Order List</a></li>
                             <li><a href="manage_completed_order_list">Completed Order List</a></li>
-                            <li><a href="manage_rejected_order_list">Rejected Order List</a></li>
+                            <li><a href="manage_rejected_order_list">Cancelled Order List</a></li>
                         </ul>
                     </li> --}}
                     <li>
@@ -2240,6 +2240,9 @@
                             <li><a href="report_download_reviwer">Reviewer Report Download</a></li>
                             <li><a href="report_download_pub_revi">Publisher & Reviewer Report Download</a></li>
                             <li><a href="librarian_password_report">Librarian Change Password Report</a></li>
+                            <li><a href="report_download_oedermagazine">Report Download Oedermagazine</a></li> 
+
+                            
                         </ul>
                     </li>
                     <!-- <li><a href="#" class="" aria-expanded="false">

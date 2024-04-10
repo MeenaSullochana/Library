@@ -85,8 +85,8 @@
                                                         for="validationCustomUsername">ISBN-10/ISBN-13<span
                                                             class="text-danger">*</span></label>
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" id="isbn"
-                                                            name="isbn" placeholder="Enter the ISBN-10/ISBN-13.."   onkeyup="checkBookISBN()"
+                                                        <input type="text" class="form-control" id="isbn"
+                                                            name="isbn" placeholder="Enter ISBN-10/ISBN-13.."   onkeyup="checkBookISBN()"
                                                             required>
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
@@ -121,19 +121,19 @@
                                 <input type="radio" id="lang2" name="language" class="custom-control-input" value="English" required>
                                 <label class="custom-control-label" for="lang2">English</label>
                             </div>
-                            <div class="custom-control custom-radio newother">
+                            <div class="custom-control custom-radio">
                                 <input type="radio" id="book_primary_language_new" name="language" class="custom-control-input" value="Other_Indian" required>
                                 <label class="custom-control-label" for="book_primary_language_new">Other Indian Languages (please specify)</label>
                             </div>
                             <div class="col-md-12 book_primary_lang mb-2">
-                                <input type="text" class="form-control" id="other1" name="Other_Indian" placeholder="Enter the Other Indian Languages (please specify)">
+                                <input type="text" class="form-control" id="other1" name="Other_Indian" placeholder="Enter Other Indian Languages (please specify)">
                             </div>
-                            <div class="custom-control custom-radio newother">
+                            <div class="custom-control custom-radio">
                                 <input type="radio" id="book_primary_language_new_forein" name="language" class="custom-control-input" value="Other_Foreign" required>
                                 <label class="custom-control-label" for="book_primary_language_new_forein">Other Foreign Languages (please specify)</label>
                             </div>
                             <div class="col-md-12 book_primary_lang_forein mb-2">
-                                <input type="text" class="form-control" id="other2" name="Other_Foreign" placeholder="Enter the Other Foreign Languages (please specify)">
+                                <input type="text" class="form-control" id="other2" name="Other_Foreign" placeholder="Enter Other Foreign Languages (please specify)">
                             </div>
                         </div>
 
@@ -167,7 +167,7 @@
                                             <div class="input-group transparent-append">
                                                 <!-- <span class="input-group-text"> <i class="fa fa-lock"></i> </span> -->
                                                 <input type="text" name="subtitle" id="subtitle"
-                                                    class="form-control" placeholder="Enter the Subtitle..">
+                                                    class="form-control" placeholder="Enter Subtitle..">
                                                 <!-- <span class="input-group-text show-pass">
                                                             <i class="fa fa-eye-slash"></i>
                                                             <i class="fa fa-eye"></i>
@@ -241,7 +241,7 @@
 
                                                             <input type="text" class="form-control"
                                                                 id="primaryauthor" name="primaryauthor[]"
-                                                                placeholder="Enter the Primary Author or Contributo.."
+                                                                placeholder="Enter Primary Author or Contributo.."
                                                                 required>
                                                             <div class="invalid-feedback">
                                                                 Book Title cannot be edited agter your book has been
@@ -261,7 +261,7 @@
 
                                                             <input type="text" class="form-control"
                                                                 id="primaryauthor" name="primaryauthor[]"
-                                                                placeholder="Enter the Secondary Author..">
+                                                                placeholder="Enter Secondary Author..">
                                                             <div class="invalid-feedback">
                                                                 Book Title cannot be edited agter your book has been
                                                                 published.
@@ -280,7 +280,7 @@
 
                                                             <input type="text" class="form-control"
                                                                 id="primaryauthor" name="primaryauthor[]"
-                                                                placeholder="Enter the Tertiary Author..">
+                                                                placeholder="Enter Tertiary Author..">
                                                             <div class="invalid-feedback">
                                                                 Book Title cannot be edited agter your book has been
                                                                 published.
@@ -332,7 +332,7 @@
 
                                                             <input type="text" class="form-control"
                                                                 id="trans_author" name="trans_author[]"
-                                                                placeholder="Enter the Translator One..">
+                                                                placeholder="Enter Translator One..">
                                                             <div class="invalid-feedback">
                                                                 Book Title cannot be edited agter your book has been
                                                                 published.
@@ -351,7 +351,7 @@
 
                                                             <input type="text" class="form-control"
                                                                 id="trans_author" name="trans_author[]"
-                                                                placeholder="Enter the Translator Two..">
+                                                                placeholder="Enter Translator Two..">
                                                             <div class="invalid-feedback">
                                                                 Book Title cannot be edited agter your book has been
                                                                 published.
@@ -370,7 +370,7 @@
 
                                                             <input type="text" class="form-control"
                                                                 id="trans_author" name="trans_author[]"
-                                                                placeholder="Enter the Translator Three..">
+                                                                placeholder="Enter Translator Three..">
                                                             <div class="invalid-feedback">
                                                                 Book Title cannot be edited agter your book has been
                                                                 published.
@@ -391,7 +391,7 @@
 
                                                             <input type="text" class="form-control"
                                                                 id="trans_from" name="trans_from[]"
-                                                                placeholder="Enter the Translated to.">
+                                                                placeholder="Translated to.">
                                                             <div class="invalid-feedback">
                                                                 Book title cannot be edited after your book has been published.
                                                             </div>
@@ -408,7 +408,7 @@
 
                                                             <input type="text" class="form-control"
                                                                 id="trans_from" name="trans_from[]"
-                                                                placeholder="Enter the Translated to.">
+                                                                placeholder="Translated to.">
                                                             <div class="invalid-feedback">
                                                                 Book Title cannot be edited agter your book has been
                                                                 published.
@@ -471,16 +471,16 @@
                                                             <tbody id="inputContainerseries">
                                                                 <tr>
                                                                     <td><input type="text" name="series_title[]"
-                                                                            placeholder="Enter the Series Title"
+                                                                            placeholder="Series Title"
                                                                             class="form-control" >
                                                                         </td>
                                                                     <td>
                                                                         {{-- <small> <b class="text-danger">Note : </b>Sample Entry 2/10 total</small> --}}
                                                                         <input type="text" name="series_number[]"
-                                                                            placeholder="Enter the Current Series Number"
+                                                                            placeholder="Current Series Number"
                                                                             class="form-control" ></td>
                                                                     <td><input type="text" name="isbn_number[]"
-                                                                            placeholder="Enter the Total Number of Series"
+                                                                            placeholder="Total Number of Series"
                                                                             class="form-control" ></td>
 
                                                                     {{-- <td><button type="button" class="btn btn-success"
@@ -527,13 +527,13 @@
                                                             <tbody id="inputContainer">
                                                                 <tr>
                                                                     <td><input type="text" name="volume_title[]"
-                                                                            placeholder="Enter the Volume Title"
+                                                                            placeholder="Volume Title"
                                                                             class="form-control" >
                                                                     <td><input type="text" name="volume_number[]"
-                                                                            placeholder="Enter the Current Volume Number"
+                                                                            placeholder="Current  Volume Number"
                                                                             class="form-control" ></td></td>
                                                                     <td><input type="text" name="isbn_number1[]"
-                                                                            placeholder="Enter the Total Number of Volume"
+                                                                            placeholder="Total Number of Volume"
                                                                             class="form-control" ></td>
 
                                                                     {{-- <td><button type="button" class="btn btn-success"
@@ -702,10 +702,10 @@
                                         </div>
                                         <div class="mb-3">
                                             <label class="text-label form-label text-black"
-                                            for="validationCustomUsername"> Year of Publication <span class="text-danger">*</span>
+                                            for="validationCustomUsername"> Year Of Publication <span class="text-danger">*</span>
                                                 </label>
                                             <div class="input-group transparent-append">
-                                                <input type="text" name="yearOfPublication" id="yearOfPublication" class="form-control" placeholder="Enter the Year of Publication.." pattern="\d{4}" title="Please enter exactly 4 numbers" maxlength="4" required>
+                                                <input type="text" name="yearOfPublication" id="yearOfPublication" class="form-control" placeholder="Enter Year Of Publication.." pattern="\d{4}" title="Please enter exactly 4 numbers" maxlength="4" required>
                                             </div>
                                         </div>
                                                 <div class="mb-3">
@@ -716,7 +716,7 @@
                                                         <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
 
                                                         <input type="text" class="form-control" id="place"
-                                                            name="place" placeholder="Enter the place of publication.." required>
+                                                            name="place" placeholder="Enter place of publication.." required>
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
                                                             published.
@@ -1011,7 +1011,7 @@
                                                     <div class="input-group">
                                                         <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
                                                         <input type="number" class="form-control" id="width" step="0.01"
-                                                            name="width" placeholder="Enter the Width.." required>
+                                                            name="width" placeholder="Enter width.." required>
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
                                                             published.
@@ -1028,7 +1028,7 @@
                                                     <div class="input-group">
                                                         <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
                                                         <input type="number" class="form-control" id="weight" step="0.01"
-                                                            name="weight" placeholder="Enter the Weight.." required>
+                                                            name="weight" placeholder="Enter weight.." required>
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
                                                             published.
@@ -1150,7 +1150,7 @@
                                                         <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
 
                                                         <input type="number" class="form-control" id="pages"
-                                                            name="pages" placeholder="Enter the Total Number of Pages.."
+                                                            name="pages" placeholder="Enter Total Number of Pages.."
                                                             required>
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
@@ -1170,7 +1170,7 @@
                                                         <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
                                                         <input type="number" class="form-control" id="multicolor"
                                                             name="multicolor"
-                                                            placeholder="Enter the Number of Multicolor Pages.." required>
+                                                            placeholder="Enter Number of Multicolor Pages.." required>
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
                                                             published.
@@ -1208,7 +1208,7 @@
 
                                                         <input type="number" class="form-control" id="monocolor"
                                                             name="monocolor"
-                                                            placeholder="Enter the Number of Mono Color Pages.." required>
+                                                            placeholder="Enter Number of Mono Color Pages.." required>
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
                                                             published.
@@ -1305,7 +1305,7 @@
                                                         <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
 
                                                         <input type="text" class="form-control" id="price"
-                                                            name="price" placeholder="Enter the Price.." required>
+                                                            name="price" placeholder="Enter Price.." required>
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
                                                             published.
@@ -1322,7 +1322,7 @@
             <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
 
             <input type="number" class="form-control" id="discount"
-                name="discount" placeholder="Enter the Discount.." required>
+                name="discount" placeholder="Enter discount.." required>
             <div class="invalid-feedback">
                 Book Title cannot be edited agter your book has been
                 published.
@@ -1338,9 +1338,9 @@
         <div class="input-group">
             <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
             <input type="number" class="form-control" id="discountedprice1"
-                name="discountedprice1" placeholder="Enter the Discounted Price.." hidden>
+                name="discountedprice1" placeholder="Enter Discounted Price.." hidden>
             <input type="number" class="form-control" id="discountedprice"
-                name="discountedprice" placeholder="Enter the Discounted Price.." disabled>
+                name="discountedprice" placeholder="Enter Discounted Price.." disabled>
             <div class="invalid-feedback">
                 Book Title cannot be edited agter your book has been
                 published.
@@ -1357,7 +1357,7 @@
                                                         <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
 
                                                         <textarea type="text" class="form-control" id="description" name="description" rows="3"
-                                                            placeholder="Enter the Description.." required></textarea>
+                                                            placeholder="Enter Description.." required></textarea>
 
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
@@ -1575,7 +1575,7 @@
 
                                                         <input type="text" class="form-control"
                                                             id="author_name" name="author_name"
-                                                            placeholder="Enter the Author Name.." required>
+                                                            placeholder="Enter Author Name.." required>
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
                                                             published.
@@ -2807,11 +2807,6 @@ span.tox-statusbar__branding {
 input#other_img {
     width: 100%;
 }
-@media screen and (max-width: 600px) {
-        .custom-control.custom-radio.newother {
-            display: flex;
-        }
-        }
 
     /* image uplode end */
 </style>
