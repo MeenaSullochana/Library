@@ -349,8 +349,26 @@
                     aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <iframe src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}" style="width:100%; height:1000px;" frameborder="0"></iframe>
 
+
+            @if($data->sample_pdf == null)
+                                                                    <iframe
+                                                                    src=""
+                                                                        style="width:100%; height:1000px;"
+                                                                        frameborder="0"></iframe>
+                                                                    @else
+                                                                     @if(file_exists(public_path('Magazine/pdf/' . $data->sample_pdf)))
+                                                                     
+                                                                            <iframe src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
+                                                                                    style="width:100%; height:1000px;" frameborder="0"></iframe>
+                                                                     @else
+                                                                                <iframe
+                                                                                src=""
+                                                                                    style="width:100%; height:1000px;"
+                                                                                    frameborder="0"></iframe>
+                                                                     @endif
+                                                                  
+                                                                    @endif
 
             </div>
             <div class="modal-footer">

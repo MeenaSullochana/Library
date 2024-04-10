@@ -174,7 +174,17 @@
                                              @endforeach
                                             </select>
                             </div>
-                            
+                            <div class="col-xl-3 col-sm-6 mt-4 text-end">
+                                
+                            <a href="/admin/report_downl_order">
+            <button class="btn btn-primary">
+                <span><i class="fa-solid fa-file-excel"></i> Export Magazine Order</span>
+            </button>
+        </a>
+                                    
+                                        
+                                        
+                                    </div>
                              
                          </div>
                                 <hr>
@@ -261,7 +271,7 @@
                                                             <div class="py-2">
                                                                 <a class="dropdown-item" href="/admin/magazine_order_view/{{$val->id}}"><i class="fa fa-eye p-2"></i>View Order</a>
                                                                 <a class="dropdown-item" href="/admin/magazine_invoice_view/{{$val->id}}"><i class="fa fa-pencil p-2"></i> View Order Invoice</a>
-                                                                <!-- <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" href="magazine_delete"><i class="fa fa-trash p-2"></i>Delete</a></div> -->
+                                                                <a class="dropdown-item text-danger delete-status" data-id="{{$val->id}}" ><i class="fa fa-trash p-2"></i>Delete</a></div>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -309,7 +319,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalBody">
-                <!-- Content will be dynamically loaded here -->
             </div>
             <div class="modal-footer" style="display: flex; justify-content: space-between;">
                 <div>
@@ -323,6 +332,30 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="fa fa-exclamation"></i>
+                </div>
+                <h4 class="modal-title">Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="hiddenId">
+                <p>Do you really want to delete these records? This process cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="subdel" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
     <!--************
             Main wrapper end
         *************-->
@@ -331,6 +364,16 @@
     ?>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#example3').on('click', '.delete-status', function() {
+        var dataId = $(this).data('id');
+        $('#hiddenId').val(dataId);
+        $('#exampleModal').modal('show');
+        console.log(dataId);
+    });
+});
+</script>
 
 <script>
     // Function to load content into the modal body
@@ -419,6 +462,34 @@ $(document).ready(function() {
         filterDistrict(district);
     });
 });
+</script>
+
+<script>
+    $('#subdel').on('click', function () {
+        var id = $('#hiddenId').val();
+        $('#exampleModal').modal('hide');
+
+        $.ajax({
+                type: 'POST',
+                url: '/admin/order_delete',
+                data: { '_token': '{{ csrf_token() }}','id': id },
+                success: function(response) {
+                    if (response.success) {
+                        toastr.success(response.success, { timeout: 2000 });
+                        setTimeout(function() {
+                            window.location.href = "/admin/magazine_order"
+                        }, 3000);
+
+                    } else {
+                        toastr.error(response.error, { timeout: 2000 });
+                    }
+                },
+                error: function(error) {
+                    toastr.error('Error occurred', { timeout: 2000 });
+                }
+            });
+        });
+    
 </script>
 
 </body>
@@ -511,24 +582,6 @@ $(document).ready(function() {
 }
 
 </style>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-confirm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="icon-box">
-                <i class="fa fa-exclamation"></i>
-            </div>
-            <h4 class="modal-title">Are you sure?</h4>
-          </div>
-          <div class="modal-body">
-            <p>Do you really want to delete these records? This process cannot be undone.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-          </div>
-        </div>
-      </div>
-  </div>
+
 
 </html>

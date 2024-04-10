@@ -7,6 +7,8 @@ use App\Http\Controllers\Librarian\QuoteController;
 use App\Http\Controllers\Librarian\FeedbackController;
 use App\Http\Controllers\Librarian\notificationController;
 use App\Http\Controllers\WebsitebookController;
+use App\Http\Controllers\ProductController;
+
 
 Route::middleware(['librarian'])->group(function () {
     Route::get('/product', [WebsitebookController::class, 'websitebook']);
@@ -20,8 +22,8 @@ Route::middleware(['librarian'])->group(function () {
     // Route::get('/checkout',function(){ return view('checkout');});
     Route::get('/cart',[WebsitebookController::class, 'bookcart']);
     Route::get('/shope/{id}', [WebsitebookController::class, 'bookview']);
-    Route::get('/product-two', [WebsitebookController::class, 'product_two']);
-   Route::get('/product-two-category/{cat?}', [WebsitebookController::class, 'product_two_category']);
+    // Route::get('/product-two', [WebsitebookController::class, 'product_two']);
+//    Route::get('/product-two-category/{cat?}', [WebsitebookController::class, 'product_two_category']);
     Route::get('/megazine_categories', [WebsitebookController::class, 'megazine_categories']);
     Route::get('/shope-magazine/{id}', [WebsitebookController::class, 'shope_magazine']);
     Route::get('/shopemagazine',function(){
@@ -43,5 +45,6 @@ Route::middleware(['librarian'])->group(function () {
      Route::get('/report_downl_cart',[WebsitebookController::class, 'report_downl_cart']);
      Route::post('/budgetcategurystatus',[WebsitebookController::class, 'budgetcategurystatus']);
 
-     
+     Route::get('/product-two',[ProductController::class,'product_two']);
+Route::get('/tesproduct/filter', [ProductController::class, 'filter']);
     });

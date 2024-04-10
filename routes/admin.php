@@ -138,7 +138,17 @@ Route::get('/magazineview',function(){
     }
 
 });
-Route::get('/magazine_edit',function(){ return view('admin.magazine_edit');});
+// Route::get('/magazine_edit',function(){ return view('admin.magazine_edit');});
+Route::get('/magazine_edit/{id}',[MagazineController::class,'magazineedit']);
+Route::get('/magazineupdate',function(){
+    $data = Session::get('magazine');
+    if($data !==null){
+        return view('admin.magazine_edit')->with("data",$data);
+    }
+
+});
+Route::post('/magazine/update/{id}',[MagazineController::class,'magazineupdate']);
+Route::post('/getlanguage', [MagazineController::class, 'getcategory']);
 Route::get('/magazine_order',function(){ return view('admin.magazine_order');});
 Route::get('/magazine_invoice_view',function(){return view('admin.magazine_order_view');});
 Route::get('/magazine_invoice',function(){return view('admin.magazine_order_invoice');});
@@ -988,6 +998,12 @@ Route::get('/magazinebudgetview',function(){
 // Magazine Order 
 
 Route::get('/magazine_order_list',[MagazineController::class,'magazine_order_list']);
+
+Route::get('/report_downl_order ',[SettingController::class,'report_downl_order']);
+Route::get('report_download_oedermagazine',function(){ return view('admin.report_download_oedermagazine');});
+Route::POST('/magazineorder_down',[SettingController::class,'magazineorder_down']);
+Route::POST('/order_delete',[MagazineController::class,'order_delete']);
+
 
     });
 });
