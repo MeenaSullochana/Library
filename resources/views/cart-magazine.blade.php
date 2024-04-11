@@ -510,7 +510,11 @@
             </div>
         </div>
     </div>
-
+    <div id="loader" style="display: none;">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
     <div class="modal fade" id="myModal2" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -750,7 +754,8 @@
     <script>
         $(document).ready(function() {
             $('#Checkout111id').on('click', function() {
-
+                $('#loader').show();
+            $('#pageContent').hide();
                 // $('#exampleModal').modal('hide'); 
                 var door_no = $('#door_no').val();
                 var street = $('#street').val();
@@ -787,40 +792,41 @@
                 });
 
                 $.ajax({
-                    url: '/magazineCheckout',
-                    method: 'post',
-                    data: fd,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success(response.success, {
-                                timeout: 2000
-                            });
-                            setTimeout(function() {
-                                window.location.href = "/cart-magazine"
-                            }, 3000);
-
-                        } else {
-                            toastr.error(response.error, {
-                                timeout: 2000
-                            });
-
-                        }
-
-
-
-                    },
-                    error: function(xhr, status, error) {
-                        console.error(error);
-                        toastr.error('An error occurred while processing your request.', {
+                url: '/magazineCheckout',
+                method: 'post',
+                data: fd,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        toastr.success(response.success, {
                             timeout: 2000
                         });
+                        setTimeout(function() {
+                            window.location.href = "/cart-magazine";
+                        }, 3000);
+                    } else {
+                        toastr.error(response.error, {
+                            timeout: 2000
+                        });
+                        // Hide loader and display page
+                        $('#loader').hide();
+                        $('#pageContent').show();
                     }
-                });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    toastr.error('An error occurred while processing your request.', {
+                        timeout: 2000
+                    });
+                    // Hide loader and display page
+                    $('#loader').hide();
+                    $('#pageContent').show();
+                }
             });
         });
-    </script>
+    });
+</script>
     <script>
         $(document).ready(function() {
             $('#Checkoutid').on('click', function() {

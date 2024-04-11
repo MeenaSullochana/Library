@@ -2496,7 +2496,53 @@ function customAlert(title, message) {
         }
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $("#submitbutton").click(function(event) {        
+            const selectedFormat = document.querySelector('input[name="sample_file"]:checked').value;
+            if (selectedFormat === 'Epub') {
+                const epubFileInput = document.getElementById('sample_epub');
+                if (!epubFileInput.files.length || !isEpubFile(epubFileInput.files[0])) {
+                    toastr.error('Please upload a valid EPUB file.');
+                    event.preventDefault();
+                    return false;
+                }
+                if (epubFileInput.files[0].size > 5 * 1024 * 1024) {
+                    toastr.error('File size exceeds the limit (5MB). Please upload a smaller file.');
+                    event.preventDefault();
+                    return false;
+                }
+            } else if (selectedFormat === 'Pdf') {
+                const pdfFileInput = document.getElementById('sample_pdf');
+                if (!pdfFileInput.files.length || !isPdfFile(pdfFileInput.files[0])) {
+                    toastr.error('Please upload a valid PDF file.');
+                    event.preventDefault();
+                    return false;
+                }
+                if (pdfFileInput.files[0].size > 5 * 1024 * 1024) {
+                    toastr.error('File size exceeds the limit (5MB). Please upload a smaller file.');
+                    event.preventDefault();
+                    return false;
+                }
+            } else {
+                toastr.error('Please select either EPUB or PDF format.');
+                event.preventDefault();
+                return false;
+            }
 
+            return true;
+        });
+
+        function isEpubFile(file) {
+            return file && file.type === 'application/epub+zip';
+        }
+
+        function isPdfFile(file) {
+            return file && file.type === 'application/pdf';
+        }
+    });
+</script>
+<!--  
 <script>
     $(document).ready(function () {
         $("#submitbutton").click(function (event) {
@@ -2540,7 +2586,7 @@ function customAlert(title, message) {
             return file && file.type === 'application/pdf';
         }
     });
-</script>
+</script> -->
 
 
  <script>

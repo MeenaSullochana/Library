@@ -31,12 +31,12 @@
             <div class="header-content">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse justify-content-between">
-					<div class="header-left">
-						<h4 class="ms-5 header-leftone"><b>{{auth('librarian')->user()->libraryName}} - {{auth('librarian')->user()->libraryType}}</b></h4>
-						{{-- <h4 class=" header-lefttwo"><b>{{auth('librarian')->user ()->libraryName}} - {{auth('librarian')->user()->libraryType, 10}}</b></h4> --}}
-						<h4 class="ms-3 header-lefttwo">
-							<b>{{ Illuminate\Support\Str::limit(auth('librarian')->user()->libraryName, 11) }} - {{ Illuminate\Support\Str::limit(auth('librarian')->user()->libraryType, 11) }}</b>
-						</h4>
+						<div class="header-left">
+							<h4 class="ms-5 header-leftone"><b>{{auth('librarian')->user()->libraryName}} - {{auth('librarian')->user()->libraryType}}</b></h4>
+							{{-- <h4 class=" header-lefttwo"><b>{{auth('librarian')->user ()->libraryName}} - {{auth('librarian')->user()->libraryType, 10}}</b></h4> --}}
+							<h4 class="ms-3 header-lefttwo">
+								<b>{{ Illuminate\Support\Str::limit(auth('librarian')->user()->libraryName, 11) }} - {{ Illuminate\Support\Str::limit(auth('librarian')->user()->libraryType, 11) }}</b>
+							</h4>
 						</div>
                         <div class="header-right d-flex align-items-center">
 							<!-- <div class="input-group search-area">
@@ -296,6 +296,7 @@
                         </a>
                     </li>
 					@if(auth('librarian')->user()->metaChecker =="no")
+					@if(auth('librarian')->user()->allow_status == "1")
 					<!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 							<i class="bi bi-book"></i>	
 							<span class="nav-text">Books Management</span>
@@ -305,6 +306,7 @@
 							<li><a href="/librarian/book_return_list">Return Book list</a></li>
 						</ul>
 					</li> -->
+				
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 							<i class="bi bi-blockquote-left"></i>
 							<span class="nav-text">Quote Management</span>
@@ -345,13 +347,16 @@
                                 </a>
                                     <ul aria-expanded="false">
                                         <li><a href="/librarian/magazine-order-list">Order List </a></li>
+										<li><a href="/librarian/magazine_order_reject">Cancelled Order List</a></li> 
+
 										<!-- <li><a href="/librarian/magazine_order_pending">Pending Order List</a></li>
-                                        <li><a href="/librarian/manage_completed_order_list">Completed Order List</a></li>-->
-                                        <li><a href="/librarian/magazine_order_reject">Cancelled Order List</a></li> 
+                                        <li><a href="/librarian/manage_completed_order_list">Completed Order List</a></li>
+                                        <li><a href="/librarian/magazine_order_reject">Rejected Order List</a></li> -->
                                     </ul>
                             </li>
                         </ul>
                     </li>
+					@endif
 					@endif
 					@if(auth('librarian')->user()->metaChecker =="yes")
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
@@ -398,7 +403,6 @@
                           
                         </ul>
                     </li>
-					
 			</div>
         </div>
 		

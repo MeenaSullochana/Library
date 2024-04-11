@@ -1887,29 +1887,7 @@ function customAlert(title, message) {
         });
     });
 </script>
-<!-- <script>
-    $(document).ready(function () {
-        $("#submitbutton").click(function () {
-            var description = document.getElementById('author_name').value;
-            console.log(description);
-            if (description) {
-                validateForm();
-            }
-        });
-    });
 
-    function validateForm() {
-        if (!$('#front').val()) {
-            toastr.error('Please upload front images.');
-        } else if (!$('#back_img').val()) {
-            toastr.error('Please upload back images.');
-        } else if (!$('#full_img').val()) {
-            toastr.error('Please upload full images.');
-        } else {
-            $('#imageForm').submit();
-        }
-    }
-</script> -->
 <script>
     $(document).ready(function () {
         $("#submitbutton").click(function (event) {
@@ -1981,21 +1959,7 @@ $(document).ready(function () {
     });
 
 </script>
-<!-- <script>
-    $(document).ready(function () {
-        $("#submitbutton").click(function (event) {
-            var description = document.getElementById('width').value;
 
-
-            if (!description) {
-                toastr.error('Please enter Width.');
-                event.preventDefault();
-            }
-
-        });
-    });
-
-</script> -->
 
 <script>
     $(document).ready(function () {
@@ -2172,23 +2136,7 @@ $(document).ready(function () {
                     }, false)
                 })
         })()
-        // add Language
-
-        // $("#rowLanguage").click(function() {
-        //     newRowAdd =
-        //         '<div id="row"> <div class="input-group m-3">' +
-        //         '<div class="input-group-prepend">' +
-        //         '<button class="btn btn-danger" id="DeleteRow" type="button">' +
-        //         '<i class="bi bi-trash"></i> Delete</button> </div>' +
-        //         '<input type="text" class="form-control m-input"> </div> </div>';
-
-        //     $('#newrowLanguage').append(newRowAdd);
-        // });
-        // $("body").on("click", "#DeleteRow", function() {
-        //     $(this).parents("#row").remove();
-        // })
-
-        // add series
+  
 
         $("#rowAdder").click(function() {
             newRowAdd =
@@ -2206,10 +2154,7 @@ $(document).ready(function () {
     </script>
 
     <script>
-        // <!-- Contributors -->
-        //     var max_group = 5;
-        // var add_group = $('.add_group');
-        // var group_wrapper = $('.group_wrapper');
+   
 
 
         var max_field = 10;
@@ -2226,20 +2171,7 @@ $(document).ready(function () {
         var x = 1;
         var y = 1;
 
-        // $(add_group).click(function(){
-        //     if( y < max_group){
-        //         y++;
-        //         $(group_wrapper).append(html_group);
-        //     }
-
-        // });
-
-
-        // $(group_wrapper).on('click', '.remove_group', function(e){
-        //     e.preventDefault();
-        //     $(this).closest('group_wrapper').parent('table').remove();
-        //     y--;
-        // });
+      
 
 
         $(add_button_fisrt).click(function() {
@@ -2260,29 +2192,7 @@ $(document).ready(function () {
 
 
 
-        //     var max_field1 = 10;
-        //     var add_button = $('.add_button');
-        //     var wrapper1 = $('.field_wrapper_new');
-        //     var html_fields1 = '' +
-        //         '<tr class="item">' +
-        //         '<td> <div class="form-group mb-0"> <input type="text" class="form-control" id="trans_author" name="trans_author[]" placeholder="Translater Author Or Contributor	"> </div> </td> ' +
-
-        //         '<td> <a href="javascript:void(0);" class="remove_button_high btn btn-sm btn-danger"><i class="fa fa-minus"></i></a> </td>' +
-        //         '</tr>';
-
-        //     var x = 1;
-        //     var y = 1;
-
-
-
-        //     $(add_button).click(function() {
-        //         if (x < max_field1) {
-        //             x++;
-        //             $(this).closest(wrapper1).append(html_fields1);
-        //         }
-        //     });
-
-        //
+       
         var max_field1 = 10;
         var add_button_high = $('.add_button_high');
         var wrapper_high = $('.field_wrapper_new_high');
@@ -2321,6 +2231,7 @@ $(document).ready(function () {
             placeholder: 'Select an option'
         });
     </script>
+    
     <script>
         // front
         $(document).ready(function() {
@@ -2443,8 +2354,53 @@ $(document).ready(function () {
         }
     });
 </script>
-
 <script>
+    $(document).ready(function() {
+        $("#submitbutton").click(function(event) {        
+            const selectedFormat = document.querySelector('input[name="sample_file"]:checked').value;
+            if (selectedFormat === 'Epub') {
+                const epubFileInput = document.getElementById('sample_epub');
+                if (!epubFileInput.files.length || !isEpubFile(epubFileInput.files[0])) {
+                    toastr.error('Please upload a valid EPUB file.');
+                    event.preventDefault();
+                    return false;
+                }
+                if (epubFileInput.files[0].size > 5 * 1024 * 1024) {
+                    toastr.error('File size exceeds the limit (5MB). Please upload a smaller file.');
+                    event.preventDefault();
+                    return false;
+                }
+            } else if (selectedFormat === 'Pdf') {
+                const pdfFileInput = document.getElementById('sample_pdf');
+                if (!pdfFileInput.files.length || !isPdfFile(pdfFileInput.files[0])) {
+                    toastr.error('Please upload a valid PDF file.');
+                    event.preventDefault();
+                    return false;
+                }
+                if (pdfFileInput.files[0].size > 5 * 1024 * 1024) {
+                    toastr.error('File size exceeds the limit (5MB). Please upload a smaller file.');
+                    event.preventDefault();
+                    return false;
+                }
+            } else {
+                toastr.error('Please select either EPUB or PDF format.');
+                event.preventDefault();
+                return false;
+            }
+
+            return true;
+        });
+
+        function isEpubFile(file) {
+            return file && file.type === 'application/epub+zip';
+        }
+
+        function isPdfFile(file) {
+            return file && file.type === 'application/pdf';
+        }
+    });
+</script>
+<!-- <script>
     $(document).ready(function () {
         $("#submitbutton").click(function (event) {
 
@@ -2487,7 +2443,7 @@ $(document).ready(function () {
             return file && file.type === 'application/pdf';
         }
     });
-</script>
+</script> -->
 
 
  <script>

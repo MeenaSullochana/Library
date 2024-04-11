@@ -46,6 +46,15 @@ class RegisterController extends Controller
         $this->middleware('guest:publisher')->except('logout');
     }
 
+    public function index(){
+        if(Session::has('validation_error')){
+            Session::forget('validation_error');
+        }
+        if(Session::has('error')){
+            Session::forget('error');
+        }
+        return view('newindex');
+    }
     public function showRegistrationForm(Request $request)
     {
         if ($request->isMethod('GET')) {
@@ -1110,6 +1119,12 @@ class RegisterController extends Controller
                 $otps->dateTime= Carbon::now();
                 $otps->save();
            } 
+           if(Session::has('validation_error')){
+            Session::forget('validation_error');
+        }
+        if(Session::has('error')){
+            Session::forget('error');
+        }
            Session::put('publisher',$publisher);
         //    return view('mailconfirm',compact('publisher'));
            return redirect('/mailconfirmation'); 
@@ -2040,6 +2055,12 @@ public function emailCheck(Request $request){
             $otps->dateTime= Carbon::now();
             $otps->save();
        } 
+       if(Session::has('validation_error')){
+        Session::forget('validation_error');
+    }
+    if(Session::has('error')){
+        Session::forget('error');
+    }
        Session::put('publisher',$publisher);
     //    return view('mailconfirm',compact('publisher'));
        return redirect('/mailconfirmation'); 
@@ -2073,7 +2094,6 @@ public function disemailCheck(Request $request){
     public function pub_dis_create(Request $request)
     {
        
-// return $request;
         $validator = Validator::make($request->all(), [
             'usertype'                                              => ['required'],
             'publication_name_dist_name'                            => ['required', 'string', 'max:255'],
@@ -3260,8 +3280,16 @@ public function disemailCheck(Request $request){
             $otps->userId= $publisher->id;
             $otps->dateTime= Carbon::now();
             $otps->save();
+            
        } 
+       if(Session::has('validation_error')){
+        Session::forget('validation_error');
+    }
+    if(Session::has('error')){
+        Session::forget('error');
+    }
        Session::put('publisher',$publisher);
+       
     //    return view('mailconfirm',compact('publisher'));
        return redirect('/mailconfirmation'); 
 
