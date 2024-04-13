@@ -98,7 +98,33 @@
                             <div class="card-body" id="print-pdf">
                                 <div class="row mb-5">
                                 <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                                @if(auth('librarian')->user()->allow_status ==0)
+
+                                @php
+                                $librarian = DB::table('librarians')->where('id','=',$data->librarianid)->first();
+                                
+                                @endphp
                                         <h6>From:</h6>
+                                        <div> <strong>{{$librarian->libraryType}}</strong> </div>
+                                        <div>{{$librarian->libraryName}}</div>
+                                        <div>
+                                            @if($librarian->door_no != null)
+                                            {{$librarian->door_no}},
+                                            @endif
+                                        {{$librarian->street}}
+                                        {{$librarian->place}}
+                                        {{$librarian->Village}}
+                                        {{$librarian->post}}
+                                        {{$librarian->taluk}}
+                                        {{$librarian->district}}
+                                        {{$librarian->pincode}}
+                                        {{$librarian->landmark}}
+                                    </div>
+                                        <!-- <div>Email: info@webz.com.pl</div> -->
+                                        <div>Phone:{{$librarian->phoneNumber}}</div>
+                                    </div>
+                                  @else
+                                  <h6>From:</h6>
                                         <div> <strong>{{auth('librarian')->user()->libraryType}}</strong> </div>
                                         <div>{{auth('librarian')->user()->libraryName}}</div>
                                         <div>
@@ -118,7 +144,8 @@
                                         <!-- <div>Email: info@webz.com.pl</div> -->
                                         <div>Phone:{{auth('librarian')->user()->phoneNumber}}</div>
                                     </div>
-                                  
+
+                                  @endif
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                     <h6>To:</h6>
                                     <div> <strong>Directorate of Public Libraries</strong> </div>
@@ -137,7 +164,13 @@
                                                     <img src="https://bookprocurement.tamilnadupubliclibraries.org/assets/img/logo/logo.png" alt="" srcset="" style="width: 50%">
 												</div>
                                                <p class="p-0 m-0 text-center"><span class="fw-bold">Date</span> : {{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</p>
+                                               @if(auth('librarian')->user()->allow_status ==0)
+
+                                               <p class="p-0 m-0 text-center"><span class="fw-bold">Library Id</span> : {{$librarian->librarianId}}</p>
+                                               @else
                                                <p class="p-0 m-0 text-center"><span class="fw-bold">Library Id</span> : {{auth('librarian')->user()->librarianId}}</p>
+
+                                               @endif
                                             </div>
                                             {{-- <div class="col-sm-3 mt-3"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/933px-TamilNadu_Logo.svg.png" alt="" srcset="" style="width: 70px"> </div> --}}
                                         </div>

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Throwable;
 use Carbon\Carbon;
 use App\Models\Subadmin;
+use Illuminate\Support\Collection;
 use App\Models\Ticket;
 use App\Models\Distributor;
 use msztorc\LaravelEnv\Env;
@@ -1113,7 +1114,7 @@ public function reviewerbatchadd(Request $req){
               'Type of Library' => $val1->libraryType,
               'Library Name' => $Magazine->libraryName,
               'District' => $Magazine->district,
-
+              'Contact Number' => $Magazine->phoneNumber,
               'OrderId' => $val1->orderid,
 
               'Quantity' => $val1->quantity,
@@ -1129,7 +1130,7 @@ public function reviewerbatchadd(Request $req){
       }
   
       $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
-      $csvContent .= "S.No,Library Id,Type Of Library,Library Name,District,OrderId,Quantity,Total Amount,Purchased Amount,Balance Amount,Order Status,Order Date,Percentage of Utilization(%)\n"; 
+      $csvContent .= "S.No,Library Id,Type Of Library,Library Name,District,Contact Number,OrderId,Quantity,Total Amount,Purchased Amount,Balance Amount,Order Status,Order Date,Percentage of Utilization(%)\n"; 
       foreach ($librariandata as $data) {
           $csvContent .= '"' . implode('","', $data) . "\"\n";
       }
@@ -1305,7 +1306,7 @@ public function reviewerbatchadd(Request $req){
     ];
     $finaldata[] = [
         'Total Amount' => '',
-        'S.No' => '',
+      
         'Language' =>'',
         'Category' => '',
         'Title of the Magazine' =>'',
@@ -1327,7 +1328,7 @@ public function reviewerbatchadd(Request $req){
         'Contact Person'=>'',
         'Phone'=>'',
         'Email'=>'Total Amount:',
-        'Address'=>rountd($totalAmount),
+        'Address'=>round($totalAmount),
        
     ];
 //  return $finaldata;
@@ -1347,4 +1348,158 @@ public function reviewerbatchadd(Request $req){
 
   }   
   
+
+  public function report_downl_not_order()
+  {
+        $maga= Ordermagazine::where('status', '=', '1')
+            ->orderBy('created_at', 'asc')
+            ->get();
+             
+              $Librarian = Librarian::where('status', '=', '1')
+             ->where('allow_status', '=', '1')
+             ->orderBy('created_at', 'asc')
+             ->get();
+             return  $count =count($Librarian);
+
+
+            $firstArray = collect($maga);
+              $secondArray = collect($Librarian);
+             
+              $secondNames = $firstArray->pluck('librarianid')->toArray(); 
+              $firstNames= $secondArray->pluck('id')->toArray();
+          
+            $uniqueNames = collect($firstNames)->filter(function ($name) use ($secondNames) {
+                 return !in_array($name, $secondNames);
+             })->toArray();
+            
+      $librariandata = [];
+      $serialNumber = 1;
+      $count = 0;
+      foreach ($uniqueNames as $val1) {
+       $Librarian =Librarian::find($val1);
+          $librariandata[] = [
+              'S.No' => $serialNumber++,
+              'Library Code' => $Librarian->librarianId,
+              'Type of Library' => $Librarian->libraryType,
+              'Library Name' => $Librarian->libraryName,
+              'Librarian Name' => $Librarian->libraryName,
+              'Contact Number' => $Librarian->phoneNumber,
+              'District' => $Librarian->district,
+             
+                
+          ];
+          $count=$count + 1;
+      }
+      $librariandata[] = [
+        'Total Amount' => '',
+        'Library Code' => '',
+        'Type of Library' => '',
+        'Library Name' => '',
+        'Librarian Name' => '',
+        'Contact Number' => 'Total Amount:',
+        'District' => $count,
+       
+       
+          
+    ];
+  
+      $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+      $csvContent .= "S.No,Library Id,Type Of Library,Library Name,Librarian Name,Contact Number,District\n"; 
+      foreach ($librariandata as $data) {
+          $csvContent .= '"' . implode('","', $data) . "\"\n";
+      }
+  
+      $headers = [
+          'Content-Type' => 'text/csv; charset=utf-8',
+          'Content-Disposition' => 'attachment; filename="non-orderers_report.csv"',
+      ];
+  
+      return response()->make($csvContent, 200, $headers);
   }
+
+
+ 
+  public function recordr()
+  {
+    return   $maga = Ordermagazine::whereIn('librarianId', function ($query) {
+        $query->select('librarianId')
+            ->from('ordermagazines')
+            ->where('status', '=', '1')
+            ->groupBy('librarianId')
+            ->havingRaw('COUNT(*) > 1');
+    })
+    ->orderBy('created_at', 'asc')
+    ->get();
+
+               $data=[];
+            foreach ($maga as $val) {
+           $maga1 = json_decode($val->magazineProduct);
+                $count=0;
+                foreach ($maga1 as $val1) {
+                    $price = (float) $val1->magazine_price;
+                    $quantity = (float) $val1->quantity;
+                    
+                  
+                    $count += $price * $quantity;
+
+                }
+                return [floatval($count),floatval($val->totalPurchased)];
+
+                if(floatval($count) != floatval($val->totalPurchased)){
+                    return "hi";
+                    $obj = (object)[
+                        "library id" => $val->librarianid,
+                        "order id" => $val->orderid,
+                        "type of library" => $val->libraryType,
+                        "purchase amount" => $val->totalPurchased,
+                        "quantity amount" => $count
+
+                    ];
+                   array_push($data,$obj);
+                }
+            }
+            return $data;
+
+
+
+  }
+  
+
+
+  public function magazineorder_down_NON(Request $request){
+  
+      $orders = Ordermagazine::where('status', '=', '1')->get();
+      $magazineCounts = [];
+   
+   foreach ($orders as $order) {
+     return  $magazineProducts = json_decode($order->balanceAmount, true);
+   
+       foreach ($magazineProducts as $magazineProduct) {
+        
+   
+        //    if ( $magazineProduct->budget_price   ) {
+        //        $magazineCounts[$magazineId] = [
+             
+        //        ];
+        //    }
+   
+       
+       }
+   }
+   
+   return  $magazineCounts = array_values($magazineCounts);
+
+//    return $magazine = Magazine::where('status', '=', '1')->get('id');
+//     foreach ($magazine as $val) {
+//         foreach ($magazineCounts as $val1) {
+        //    if($val->id   == $val1-> id)
+           
+
+       }
+ 
+
+}
+
+
+
+  

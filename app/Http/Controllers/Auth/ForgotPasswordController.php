@@ -334,9 +334,18 @@ class ForgotPasswordController extends Controller
             $record = Publisher::where('id', '=',$req->id)->first();
             $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
             $otps=  Otp::where('userId','=',$req->id)->first();
-            $otps->otp=$randomCode;
-            $otps->dateTime= Carbon::now();
-            $otps->save();
+            if($otps){
+                $otps->otp=$randomCode;
+                $otps->dateTime= Carbon::now();
+                $otps->save();
+            }else{
+                $otps= new Otp();
+                $otps->otp=$randomCode;
+                $otps->userId= $req->id;
+                $otps->dateTime= Carbon::now();
+                $otps->save();
+            }
+       
             Notification::route('mail',  $record->email)->notify(new UserCreatedNotification( $record, $record->email,$randomCode));
             $data= [
                 'success' =>'Otp Resend Successfully',
@@ -349,9 +358,17 @@ class ForgotPasswordController extends Controller
 
             $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
             $otps=  Otp::where('userId','=',$req->id)->first();
-            $otps->otp=$randomCode;
-            $otps->dateTime= Carbon::now();
-            $otps->save();
+            if($otps){
+                $otps->otp=$randomCode;
+                $otps->dateTime= Carbon::now();
+                $otps->save();
+            }else{
+                $otps= new Otp();
+                $otps->otp=$randomCode;
+                $otps->userId= $req->id;
+                $otps->dateTime= Carbon::now();
+                $otps->save();
+            }
             Notification::route('mail',  $record->email)->notify(new UserCreatedNotification( $record, $record->email,$randomCode));
             $data= [
                 'success' =>'Otp Resend Successfully',
@@ -365,9 +382,17 @@ class ForgotPasswordController extends Controller
                  $record->usertype=$record->role;
                 $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
                 $otps=  Otp::where('userId','=',$req->id)->first();
-                $otps->otp=$randomCode;
-                $otps->dateTime= Carbon::now();
-                $otps->save();
+                if($otps){
+                    $otps->otp=$randomCode;
+                    $otps->dateTime= Carbon::now();
+                    $otps->save();
+                }else{
+                    $otps= new Otp();
+                    $otps->otp=$randomCode;
+                    $otps->userId= $req->id;
+                    $otps->dateTime= Carbon::now();
+                    $otps->save();
+                }
                 Notification::route('mail',  $record->email)->notify(new UserCreatedNotification( $record, $record->email,$randomCode));
                 $data= [
                     'success' =>'Otp Resend Successfully',
@@ -379,9 +404,17 @@ class ForgotPasswordController extends Controller
                 $record = PublisherDistributor::where('id', '=',$req->id)->first();
                 $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
                 $otps=  Otp::where('userId','=',$req->id)->first();
-                $otps->otp=$randomCode;
-                $otps->dateTime= Carbon::now();
-                $otps->save();
+                if($otps){
+                    $otps->otp=$randomCode;
+                    $otps->dateTime= Carbon::now();
+                    $otps->save();
+                }else{
+                    $otps= new Otp();
+                    $otps->otp=$randomCode;
+                    $otps->userId= $req->id;
+                    $otps->dateTime= Carbon::now();
+                    $otps->save();
+                }
                 Notification::route('mail',  $record->email)->notify(new UserCreatedNotification( $record, $record->email,$randomCode));
                 $data= [
                     'success' =>'Otp Resend Successfully',
@@ -410,9 +443,17 @@ class ForgotPasswordController extends Controller
             $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
             Notification::route('mail',  $publisher->email)->notify(new UserCreatedNotification($publisher, $publisher->password,$randomCode));
             $otps=  Otp::where('userId','=',$req->id)->first();
-            $otps->otp=$randomCode;
-            $otps->dateTime= Carbon::now();
-            $otps->save();
+            if($otps){
+                $otps->otp=$randomCode;
+                $otps->dateTime= Carbon::now();
+                $otps->save();
+            }else{
+                $otps= new Otp();
+                $otps->otp=$randomCode;
+                $otps->userId= $req->id;
+                $otps->dateTime= Carbon::now();
+                $otps->save();
+            }
             $data= [
                 'success' =>'Mail Change Successfully PLease Enter Otp',
                 'email'=>$publisher->email
@@ -437,9 +478,17 @@ class ForgotPasswordController extends Controller
             $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
             Notification::route('mail',  $publisher->email)->notify(new UserCreatedNotification($publisher, $publisher->password,$randomCode));
             $otps=  Otp::where('userId','=',$req->id)->first();
+            if($otps){
                 $otps->otp=$randomCode;
                 $otps->dateTime= Carbon::now();
                 $otps->save();
+            }else{
+                $otps= new Otp();
+                $otps->otp=$randomCode;
+                $otps->userId= $req->id;
+                $otps->dateTime= Carbon::now();
+                $otps->save();
+            }
                 $data= [
                     'success' =>'Mail Change Successfully PLease Enter Otp',
                     'email'=>$publisher->email
@@ -468,9 +517,17 @@ class ForgotPasswordController extends Controller
                 $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
                 Notification::route('mail',  $publisher->email)->notify(new UserCreatedNotification($publisher, $publisher->password,$randomCode));
                 $otps=  Otp::where('userId','=',$req->id)->first();
+                if($otps){
                     $otps->otp=$randomCode;
                     $otps->dateTime= Carbon::now();
                     $otps->save();
+                }else{
+                    $otps= new Otp();
+                    $otps->otp=$randomCode;
+                    $otps->userId= $req->id;
+                    $otps->dateTime= Carbon::now();
+                    $otps->save();
+                }
                     $data= [
                         'success' =>'Mail Change Successfully PLease Enter Otp',
                         'email'=>$publisher->email
@@ -495,9 +552,17 @@ class ForgotPasswordController extends Controller
                 $publisher->save();
                 Notification::route('mail',  $publisher->email)->notify(new UserCreatedNotification($publisher, $publisher->password,$randomCode));
                 $otps=  Otp::where('userId','=',$req->id)->first();
-                $otps->otp=$randomCode;
-                $otps->dateTime= Carbon::now();
-                $otps->save();
+                if($otps){
+                    $otps->otp=$randomCode;
+                    $otps->dateTime= Carbon::now();
+                    $otps->save();
+                }else{
+                    $otps= new Otp();
+                    $otps->otp=$randomCode;
+                    $otps->userId= $req->id;
+                    $otps->dateTime= Carbon::now();
+                    $otps->save();
+                }
                 $data= [
                     'success' =>'Mail Change Successfully PLease Enter Otp',
                     'email'=>$publisher->email

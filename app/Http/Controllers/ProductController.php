@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Magazine;
+use App\Models\MagazineCategory;
+
+
 use Illuminate\Http\Request;
 use App\Models\Budget;
 use App\Models\Specialcategories;

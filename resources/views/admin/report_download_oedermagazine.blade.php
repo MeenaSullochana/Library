@@ -73,60 +73,67 @@
 
                             </div>
                             <div class="card-body">
-                            <form class="needs-validation" novalidate method="POST" action="/admin/magazineorder_down" enctype="multipart/form-data">
-    @csrf  
-    <div class="row">
-        <div class="col-xl-3 mb-3">
-            <label class="form-label">Language Type<span class="text-danger mandatory"></span></label>
-            <select class="form-select bg-white" name="language" id="language">
-                <option value="">Select type</option>
-                <option value="Tamil">Tamil</option>
-                <option value="English">English</option>
-            </select>
-        </div>
-        <div class="col-xl-3 mb-3">
-            <label class="form-label">Category Type<span class="text-danger mandatory"></span></label>
-            <select class="form-select bg-white" name="category" id="category">
-                <option value="">All Category</option>
-                @php
-                $categories = DB::table('magazine_categories')->orderBy('created_at','ASC')->get();
-                @endphp
-                @foreach($categories as $val)
-                <option value="{{$val->name}}">{{$val->name}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-xl-3 mb-3">
-            <label class="form-label">Type of Library<span class="text-danger mandatory"></span></label>
-            <select class="form-select bg-white" name="librarytype" id="librarytype">
-                <option value="">All Library Type</option>
-                @php
-                $categories = DB::table('library_types')->get();
-                @endphp
-                @foreach($categories as $val)
-                <option value="{{$val->name}}">{{$val->name}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-xl-3 mb-3">
-            <label class="form-label">Type of District<span class="text-danger mandatory"></span></label>
-            <select class="form-select bg-white" name="district" id="district">
-                <option value="">All District</option>
-                @php
-                $districts = DB::table('districts')->where('status', '=', 1)->get();
-                @endphp
-                @foreach($districts as $val)
-                <option value="{{$val->name}}">{{$val->name}}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-xl-10 mt-3 text-center">
-            <button class="btn btn-primary" id="submitBtn">
-                <span><i class="fa-solid fa-file-excel"></i> Export Report download</span>
-            </button>
-        </div>
-    </div>
-</form>
+                                <form class="needs-validation" novalidate method="POST"
+                                    action="/admin/magazineorder_down" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-xl-3 mb-3">
+                                            <label class="form-label">Language Type<span
+                                                    class="text-danger mandatory"></span></label>
+                                            <select class="form-select bg-white" name="language" id="language">
+                                                <option value="">Select type</option>
+                                                <option value="Tamil">Tamil</option>
+                                                <option value="English">English</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xl-3 mb-3">
+                                            <label class="form-label">Category Type<span
+                                                    class="text-danger mandatory"></span></label>
+                                            <select class="form-select bg-white" name="category" id="category">
+                                                <option value="">All Category</option>
+                                                @php
+                                                $categories =
+                                                DB::table('magazine_categories')->orderBy('created_at','ASC')->get();
+                                                @endphp
+                                                @foreach($categories as $val)
+                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-xl-3 mb-3">
+                                            <label class="form-label">Type of Library<span
+                                                    class="text-danger mandatory"></span></label>
+                                            <select class="form-select bg-white" name="librarytype" id="librarytype">
+                                                <option value="">All Library Type</option>
+                                                @php
+                                                $categories = DB::table('library_types')->get();
+                                                @endphp
+                                                @foreach($categories as $val)
+                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-xl-3 mb-3">
+                                            <label class="form-label">Type of District<span
+                                                    class="text-danger mandatory"></span></label>
+                                            <select class="form-select bg-white" name="district" id="district">
+                                                <option value="">All District</option>
+                                                @php
+                                                $districts = DB::table('districts')->where('status', '=', 1)->get();
+                                                @endphp
+                                                @foreach($districts as $val)
+                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-xl-10 mt-3 text-center">
+                                            <button class="btn btn-primary" id="submitBtn">
+                                                <span><i class="fa-solid fa-file-excel"></i> Export Report
+                                                    download</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
 
                             </div>
                         </div>

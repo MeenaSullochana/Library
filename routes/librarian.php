@@ -140,6 +140,26 @@ Route::prefix('librarian')->group(function () {
          }
          
      });
-     
+
+     Route::get('/library_active_list',function(){ return view('librarian.library_active_list');});
+     Route::get('/library_list',function(){ return view('librarian.library_list');});
+     Route::get('/library_unactive_list',function(){ return view('librarian.library_unactive_list');});
+
+     Route::get('/magazine_order',function(){ return view('librarian.magazine_order');});
+
+     Route::get('/magazine_cancel_list',function(){ return view('librarian.magazine_cancel_list');});
+
+    //  //
+    Route::get('/librarianview/{id}',[LibrarianController::class,'librarianview']);
+
+
+    Route::get('/librarian-view',function(){
+        $data = Session::get('Librarian');
+        if($data !==null){
+            return view('librarian.library_view')->with("data",$data);
+        }
+        
+    });
+    
 });
 });

@@ -68,7 +68,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="row">
-                            @if (auth('librarian')->user()->metaChecker == 'no')
+                            @if (auth('librarian')->user()->metaChecker == 'no'  &&  auth('librarian')->user()->allow_status ==1)
                                 <div class="col-xl-4 col-sm-6">
                                     <div class="card box-hover">
                                         <div class="card-body">
@@ -79,6 +79,7 @@
 
                                                 @php
                                                     $ordermagazines = DB::table('ordermagazines')
+                                                    ->where('status', '=','1')
                                                         ->where('librarianid', '=', auth('librarian')->user()->id)
                                                         ->count();
                                                 @endphp
@@ -126,6 +127,28 @@
                                                 <div class="total-projects ms-3">
                                                     <h3 class="text-warning count">{{ $carts }}</h3>
                                                     <span>Total Cart Magazine</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-sm-6">
+                                    <div class="card box-hover">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center">
+                                                <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                    <i class="fa-solid fa-briefcase text-success"></i>
+                                                </div>
+
+                                                @php
+                                                    $ordermagazines = DB::table('ordermagazines')
+                                                    ->where('status', '=','2')
+                                                        ->where('librarianid', '=', auth('librarian')->user()->id)
+                                                        ->count();
+                                                @endphp
+                                                <div class="total-projects ms-3">
+                                                    <h3 class="text-success count">{{ $ordermagazines }}</h3>
+                                                    <span>Total Cancel Orders</span>
                                                 </div>
                                             </div>
                                         </div>
