@@ -547,6 +547,8 @@
 <script>
 $(document).ready(function(){
     $('.Add-to-cart1').click(function(){
+        $('.Add-to-cart1').prop('disabled', true);
+
         var id = $(this).data('id1');
         $.ajax({
             url: '/add-to-cart', 
@@ -561,10 +563,14 @@ $(document).ready(function(){
 
                 }
                 if(response.success){
+                    $('.Add-to-cart1').prop('disabled', false);
+
                     toastr.success(response.success, { timeout: 2000 });
 
                 }
                 else{
+                    $('.Add-to-cart1').prop('disabled', false);
+
                     toastr.error(response.error, { timeout: 2000 });
 
                 }
@@ -583,6 +589,8 @@ $(document).ready(function(){
 <script>
 $(document).ready(function(){
     $('.Add-to-cart').click(function(){
+        $('.Add-to-cart').prop('disabled', true);
+
         var id = $(this).data('id');
         $.ajax({
             url: '/add-to-cart', 
@@ -597,10 +605,14 @@ $(document).ready(function(){
 
                 }
                 if(response.success){
+                    $('.Add-to-cart').prop('disabled', false);
+
                     toastr.success(response.success, { timeout: 2000 });
 
                 }
                 else{
+                    $('.Add-to-cart').prop('disabled', false);
+
                     toastr.error(response.error, { timeout: 2000 });
 
                 }

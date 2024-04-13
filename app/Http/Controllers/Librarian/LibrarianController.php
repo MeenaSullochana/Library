@@ -645,7 +645,7 @@ public function librarianreturnmessage(Request $req){
 
   public function magazine_invoiceview($id){
 
-    $Ordermagazineinvoice=Ordermagazine::find($id);
+     $Ordermagazineinvoice=Ordermagazine::find($id);
     $magazineProduct =json_decode($Ordermagazineinvoice->magazineProduct);
     $magazinebudget = Budget::where('id', $Ordermagazineinvoice->budgetid)
     ->first();
@@ -678,7 +678,14 @@ public function librarianreturnmessage(Request $req){
     return redirect('librarian/magazine-view');    
 
   }
+  public function librarianview($id){
+    $Librarian = Librarian::find($id);
 
+ 
+    \Session::put('Librarian', $Librarian);
+    return redirect('librarian/librarian-view');    
+
+  }
   
 
     }

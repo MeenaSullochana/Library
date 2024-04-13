@@ -755,6 +755,9 @@ Session::put('bud_arr', $bud_arr);
     $(document).ready(function() {
 
         $(document).on('click', '.Add-to-cart1', function() {
+           
+            $('.Add-to-cart1').prop('disabled', true);
+
 
             var id = $(this).data('id1');
             $.ajax({
@@ -767,11 +770,15 @@ Session::put('bud_arr', $bud_arr);
                 success: function(response) {
 
                     if (response.success) {
+                        $('.Add-to-cart1').prop('disabled', false);
+
                         toastr.success(response.success, {
                             timeout: 2000
                         });
 
                     } else {
+                        $('.Add-to-cart1').prop('disabled', false);
+
                         toastr.error(response.error, {
                             timeout: 2000
                         });
@@ -835,6 +842,7 @@ Session::put('bud_arr', $bud_arr);
 
 
         $(document).on('click', '.Add-to-cart2', function() {
+            $('.Add-to-cart2').prop('disabled', true);
 
             var id = $(this).data('id2');
             $.ajax({
@@ -846,11 +854,15 @@ Session::put('bud_arr', $bud_arr);
                 },
                 success: function(response) {
                     if (response.success) {
+                        $('.Add-to-cart2').prop('disabled', false);
+
                         toastr.success(response.success, {
                             timeout: 2000
                         });
 
                     } else {
+                        $('.Add-to-cart2').prop('disabled', false);
+
                         toastr.error(response.error, {
                             timeout: 2000
                         });
@@ -916,6 +928,7 @@ Session::put('bud_arr', $bud_arr);
     $(document).ready(function() {
 
         $(document).on('click', '.Add-to-cart3', function() {
+            $('.Add-to-cart3').prop('disabled', true);
 
             var id = $(this).data('id3');
             $.ajax({
@@ -927,11 +940,15 @@ Session::put('bud_arr', $bud_arr);
                 },
                 success: function(response) {
                     if (response.success) {
+                        $('.Add-to-cart3').prop('disabled', false);
+
                         toastr.success(response.success, {
                             timeout: 2000
                         });
 
                     } else {
+                        $('.Add-to-cart3').prop('disabled', false);
+
                         toastr.error(response.error, {
                             timeout: 2000
                         });

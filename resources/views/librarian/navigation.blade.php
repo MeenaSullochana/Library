@@ -295,8 +295,45 @@
                             <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
-					@if(auth('librarian')->user()->metaChecker =="no")
-					@if(auth('librarian')->user()->allow_status == "1")
+					@if(auth('librarian')->user()->metaChecker =="no" && auth('librarian')->user()->allow_status ==0)
+
+					<li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span class="nav-text">Library Management </span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
+                            <li><a href="/librarian/library_list">List Library </a></li>
+                            <li><a href="/librarian/library_active_list">Active Library </a></li>
+                            <li><a href="/librarian/library_unactive_list">Inactive Library </a></li>
+                        </ul>
+                    </li>
+
+					<li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-bag"></i>
+                            <span class="nav-text">Order Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                    
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Order
+                                </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="/librarian/magazine_order">Order List </a></li>
+                                        <!-- <li><a href="magazine_order_pending">Pending Order List</a></li>
+                                        <li><a href="manage_completed_order_list">Completed Order List</a></li> -->
+                                        <li><a href="/librarian/magazine_cancel_list">Cancelled Order List</a></li>
+                                    </ul>
+                            </li>
+
+                            
+                           
+                            
+                        </ul>
+                    </li>
+                    @endif
+					@if(auth('librarian')->user()->metaChecker =="no" && auth('librarian')->user()->allow_status ==1)
 					<!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 							<i class="bi bi-book"></i>	
 							<span class="nav-text">Books Management</span>
@@ -357,7 +394,7 @@
                         </ul>
                     </li>
 					@endif
-					@endif
+					
 					@if(auth('librarian')->user()->metaChecker =="yes")
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<i class="bi bi-card-checklist"></i>

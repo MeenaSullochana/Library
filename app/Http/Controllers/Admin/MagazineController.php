@@ -151,8 +151,50 @@ public function magazine_orderview($id){
     return redirect('admin/magazineview');    
 
   }
-  public function magazine_order_list(){
-    $orders = Ordermagazine::where('status', '=', '1')->get();
+  public function magazine_order_list(Request $request){
+    if($request->librarytype !=null &&  $request->district ==null  ){
+       
+      $orders = Ordermagazine::where('libraryType', '=', $request->librarytype)->where('status', '=', '1')->get();
+
+
+     }else if( $request->district  !=null && $request->librarytype ==null){
+
+        
+        $orders1 = Ordermagazine::where('status', '=', '1')->get();
+        $orders=[];
+  
+        foreach ($orders1 as $val) {
+
+            $Librarian=Librarian::where('id', '=', $val->librarianid)->where('district', '=', $request->district)->get();
+           if( $Librarian !=null){
+            array_push($Librarian,$orders);
+           }
+            
+        }
+
+     }
+    else if($request->librarytype !=null && $request->district !=null ){
+
+       
+        $orders1 = Ordermagazine::where('status', '=', '1')->get();
+        $orders=[];
+  
+        foreach ($orders1 as $val) {
+
+            $Librarian=Librarian::where('id', '=', $val->librarianid)->where('district', '=', $request->district)->get();
+           if( $Librarian->isNotEmpty()){
+            array_push($orders,$val);
+           }
+            
+        }
+
+     }else{
+      
+        $orders = Ordermagazine::where('status', '=', '1')->get();
+
+     }
+      
+    
     $magazineCounts = [];
     
     foreach ($orders as $order) {
@@ -173,19 +215,48 @@ public function magazine_orderview($id){
     }
     
     $magazineCounts = array_values($magazineCounts);
-    
+  
     $magazinedata = [];
     foreach ($magazineCounts as $val) {
-        // Assuming you have a Magazine model
+         if($request->category !=null &&  $request->language ==null ){
+            $magazine = Magazine::where('id', '=', $val['id'])->where('category', '=', $request->category)->first();
+
+         }
+       else if($request->category ==null &&  $request->language !=null){
+        $magazine = Magazine::where('id', '=', $val['id'])->where('language', '=', $request->language)->first();
+
+       }
+      else if($request->category !=null &&  $request->language !=null){
+        $magazine = Magazine::where('id', '=', $val['id'])->where('category', '=', $request->category)->where('language', '=', $request->language)->first();
+
+       }else{
         $magazine = Magazine::find($val['id']);
-    
+
+       }
         if ($magazine) {
             $magazine->count = $val['count'];
             $magazinedata[] = $magazine;
         }
     }
-    
-    return $magazinedata;
+    $magazinebudget = MagazineCategory::orderBy('created_at', 'asc')->get();
+    $totalAmount=0;
+    $datas=[];
+      foreach($magazinebudget  as $val1){
+     foreach($magazinedata  as $val){
+      if($val1->name == $val->category){
+        $val->librarytype = $request->librarytype ?? "";
+        $val->district = $request->district ?? "";
+        $totalAmount =$totalAmount + $val->count * $val->annual_cost_after_discount ;
+
+          array_push($datas,$val);
+      }
+     
+  
+     }
+    }
+    return view('admin/magazine_order_list', compact('datas','totalAmount'));
+
+
   }   
   public function magazineedit($id){
     $magazine = Magazine::find($id);

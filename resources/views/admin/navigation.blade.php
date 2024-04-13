@@ -2022,7 +2022,7 @@
                                     </ul>
                             </li>
                             <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Order
-                                <span class="badge badge-danger badge-xs ms-1">NEW</span></a>
+                                </a>
                                     <ul aria-expanded="false">
                                         <li><a href="magazine_order">Order List </a></li>
                                         <li><a href="magazine_order_pending">Pending Order List</a></li>
@@ -2036,9 +2036,9 @@
                                 <ul aria-expanded="false">
                                     <li><a href="magazine_order_list">Magazine Order List </a></li>
                                 </ul>
-
+                            </li>
                             <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Subscription
-                                <span class="badge badge-danger badge-xs ms-1">NEW</span></a>
+                                </a>
                                     <ul aria-expanded="false">
                                         <li><a href="magazine_order_subscritpion">Order List </a></li>
                                         <li><a href="magazine_order_pending">Pending Order List</a></li>

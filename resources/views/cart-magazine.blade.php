@@ -277,8 +277,8 @@
                                     <!-- <li>Subtotal <span>₹250.00</span></li> -->
                                     <li>Total <span id="cartdatacount">₹{{ $cartdatacount }}</span></li>
                                 </ul>
-                                <button class="tp-btn tp-color-btn banner-animation" id="Checkoutid1">Proceed to
-                                    Checkout</button>
+                                <!-- <button class="tp-btn tp-color-btn banner-animation" id="Checkoutid1">Proceed to
+                                    Checkout</button> -->
 
                             </div>
                         </div>
@@ -301,31 +301,31 @@
                                                 <p class="mb-2 mt-2">Subtotal (1 item):<span><b> <i
                                                                 class="fa fa-inr"></i> 14,999.00 </b></span></p>
                                             </div> --}}
-                                            <div class="" id="amountdata">
+                                            <div class="" id="amountdata1">
                                                 <a href="/procurement-policy" style="font-size: 20px !important;"><i
                                                         class="fa fa-check-circle text-success"
                                                         aria-hidden="true"></i><span class="text-success"> Procurment
                                                         Policy</span></a>
                                                 {{-- <p class="mb-2 mt-2">Subtotal (1 item):<span><b> <i
                                                                 class="fa fa-inr"></i> 14,999.00 </b></span></p> --}}
-                                                <p class="mb-2 mt-2" id="TotalBudget">Total Budget Allocated Amount: <i
+                                                <p class="mb-2 mt-2" id="TotalBudget1">Total Budget Allocated Amount: <i
                                                         class="fa fa-rupee"></i><b>{{ $totalbudgetcount }}</b></p>
-                                                <p class="mb-2 mt-2" id="SelectedAmount">Selected Amount: <i
+                                                <p class="mb-2 mt-2" id="SelectedAmoun1">Selected Amount: <i
                                                         class="fa fa-rupee"></i><b>{{ $cartdatacount }}</b></p>
-                                                <p class="mb-2 mt-2" id="RemainingAmount">Remaining Amount: <i
+                                                <p class="mb-2 mt-2" id="RemainingAmount1">Remaining Amount: <i
                                                         class="fa fa-rupee"></i><b>{{ $totalbudgetcount - $cartdatacount
                                                         }}</b></p> 
                                             </div>
-                                            <form>
-                                                <input type="checkbox" name="vehicle1" value="Bike" required>
+                                            <!-- <form> -->
+                                                <!-- <input type="checkbox" name="vehicle1" value="Bike" required>
                                                 <label for="vehicle1" class="p-0 fs-7"> Accept terms and
-                                                    conditions</label><br>
+                                                    conditions</label><br> -->
                                                 {{-- <button class="tp-btn tp-color-btn banner-animation mt-3"
                                                     id="Checkoutid">Proceed to Buy</button> --}}
                                                 <button class="btn btn-danger text-white mt-3" type="submit"
                                                 id="Checkoutid"> Proceed to Buy</button>
 
-                                            </form>
+                                            <!-- </form> -->
                                             <div class="accordion mt-3" id="accordionExample">
                                                 <div class="accordion-item">
                                                     <h2 class="accordion-header" id="headingOne">
@@ -754,8 +754,7 @@
     <script>
         $(document).ready(function() {
             $('#Checkout111id').on('click', function() {
-                $('#loader').show();
-            $('#pageContent').hide();
+                $('#Checkout111id').prop('disabled',true);
                 // $('#exampleModal').modal('hide'); 
                 var door_no = $('#door_no').val();
                 var street = $('#street').val();
@@ -792,41 +791,44 @@
                 });
 
                 $.ajax({
-                url: '/magazineCheckout',
-                method: 'post',
-                data: fd,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.success) {
-                        toastr.success(response.success, {
+                    url: '/magazineCheckout',
+                    method: 'post',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.success, {
+                                timeout: 2000
+                            });
+                            setTimeout(function() {
+                                window.location.href = "/cart-magazine"
+                            }, 3000);
+
+                        } else {
+                            $('#Checkout111id').prop('disabled',false);
+
+                            toastr.error(response.error, {
+                                timeout: 2000
+                            });
+
+                        }
+
+
+
+                    },
+                    error: function(xhr, status, error) {
+                        $('#Checkout111id').prop('disabled',false);
+
+                        console.error(error);
+                        toastr.error('An error occurred while processing your request.', {
                             timeout: 2000
                         });
-                        setTimeout(function() {
-                            window.location.href = "/cart-magazine";
-                        }, 3000);
-                    } else {
-                        toastr.error(response.error, {
-                            timeout: 2000
-                        });
-                        // Hide loader and display page
-                        $('#loader').hide();
-                        $('#pageContent').show();
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                    toastr.error('An error occurred while processing your request.', {
-                        timeout: 2000
-                    });
-                    // Hide loader and display page
-                    $('#loader').hide();
-                    $('#pageContent').show();
-                }
+                });
             });
         });
-    });
-</script>
+    </script>
     <script>
         $(document).ready(function() {
             $('#Checkoutid').on('click', function() {
@@ -1014,6 +1016,24 @@
                             $('#amountdata').empty().append(totalBudgetParagraph,
                                 selectedAmountParagraph, remainingAmountParagraph);
 
+                                var totalBudgetParagraph1 = $('<p>').addClass('p-0 m-0').attr('id',
+                                'TotalBudget1').html(
+                                'Total Budget Allocated Amount: <i class="fa fa-rupee"></i><b>' +
+                                response.budgetcount + '</b>');
+
+
+                            var selectedAmountParagraph1 = $('<p>').addClass('p-0 m-0').attr(
+                                'id', 'SelectedAmount1').html(
+                                'Selected Amount: <i class="fa fa-rupee"></i><b>' + response
+                                .cartdatacount + '</b>');
+
+
+                            var remainingAmountParagraph1 = $('<p>').addClass('p-0 m-0').attr(
+                                'id', 'RemainingAmount1').html(
+                                'Remaining  Amount: <i class="fa fa-rupee"></i><b>' + (
+                                    response.budgetcount - response.cartdatacount) + '</b>');
+                            $('#amountdata1').empty().append(totalBudgetParagraph1,
+                                selectedAmountParagraph1, remainingAmountParagraph1);
                         } else {
                             toastr.error('Failed to delete item', {
                                 timeout: 2000

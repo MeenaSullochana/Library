@@ -1004,6 +1004,11 @@ Route::get('report_download_oedermagazine',function(){ return view('admin.report
 Route::POST('/magazineorder_down',[SettingController::class,'magazineorder_down']);
 Route::POST('/order_delete',[MagazineController::class,'order_delete']);
 
+Route::get('/report_downl_not_order ',[SettingController::class,'report_downl_not_order']);
+
+Route::get('/recordr ',[SettingController::class,'recordr']);
+
+Route::get('/magazineorder_down_NON ',[SettingController::class,'magazineorder_down_NON']);
 
     });
 });
