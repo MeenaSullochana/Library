@@ -62,7 +62,7 @@
                                 <b>Library View</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="/admin/library_list">
-                                <i class="fas fa-plus"></i> List Of Library</a>
+                                <i class="fas fa-plus"></i> List of Library</a>
                         </div>
                     </div>
                 </div>
@@ -70,60 +70,67 @@
                     <section class="col-md-12">
                         <div class="row">
                             <div class="col-sm-12 col-md-4">
-                                <div class="card">
-                                    <div class="card-header">
+								<div class="bg-white">
+									<div class="card-header">
                                         <div class="card-header-menu">
                                             <i class="fa fa-bars"></i>
                                         </div>
                                         <div class="card-header-headshot"></div>
                                     </div>
-                                    <div class="card-content ">
+									<div class="card-content ">
                                         <div class="card-content-member">
                                             <h4 class="m-t-0">Library Name</h4>
                                             <p class="m-0"><i class="pe-7s-map-marker"></i>{{$data->libraryName}} </p>
                                         </div>
-                                            <h3 class="text-center pt-4">Library Details</h3>
-                                        <div class="row pb-5 ">
-                                            <div class="col-md-6 text-end fw-bold">Library Name : </div>
-                                            <div class="col-md-6">{{$data->libraryName}}</div>
-
-                                            <div class="col-md-6 text-end fw-bold">Library Type : </div>
-                                            <div class="col-md-6">{{$data->libraryType}}</div>
-
-											<!-- <div class="col-md-6 text-end fw-bold">Library Type : </div>
-                                            <div class="col-md-6">{{$data->libraryType}}</div> -->
-
-<div class="col-md-6 text-end fw-bold">Subject : </div>
-											<div class="col-md-6">
-												@if($data->subject1 != null)
-													@foreach($data->subject1 as $val)
-                                                      {{$val}}
-                                                     
-												@endforeach
-												@endif
-												
-
-
-											</div>
-
-											<div class="col-md-6 text-end fw-bold"> State  : </div>
-                                            <div class="col-md-6">{{$data->state}}</div>
-
-											<div class="col-md-6 text-end fw-bold"> District  : </div>
-                                            <div class="col-md-6">{{$data->district}}</div>
-
-											<div class="col-md-6 text-end fw-bold"> City  : </div>
-                                            <div class="col-md-6">{{$data->city}}</div>
-
-                                            <div class="col-md-6 text-end fw-bold">Village : </div>
-                                            <div class="col-md-6">{{$data->Village}}</div>
-
-
-                                        </div>
-
                                     </div>
-
-                                </div>
+									<div class="card-body">
+										<h4 class="card-title mb-4">Library Details</h4>
+										<div class="table-responsive">
+											<table class="table mb-0">
+												<tbody>
+													<tr>
+													   <th scope="row">Library Name</th>
+													   <td><span>: {{$data->libraryName}}</span></td>
+													</tr>
+													<tr>
+														<th scope="row">Library Type</th>
+														<td>: {{$data->libraryType}}</td>
+													</tr>
+													<!-- <div class="col-md-6 text-end fw-bold">Library Type : </div>
+                                            <div class="col-md-6">{{$data->libraryType}}</div> -->
+													<tr>
+														<th scope="row">Subject</th>
+														<td>: @if($data->subject1 != null)
+															@foreach($data->subject1 as $val)
+															  {{$val}}
+															 
+														@endforeach
+														@endif
+													 </td>
+													</tr>
+													<tr>
+														<th scope="row">State</th>
+														<td>: {{$data->state}} </td>
+													</tr>
+													<tr>
+														<th scope="row">District</th>
+														<td>: {{$data->district}}</td>
+													</tr>
+													<tr>
+														<th scope="row">City</th>
+														<td>: {{$data->city}} </td>
+													</tr>
+													<tr>
+														<th scope="row">Village</th>
+														<td>: {{$data->Village}}</td>
+													</tr>
+		
+													
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
                             </div>
                             <div class="col-sm-12 col-md-8">
                                 <div class="review-block">
@@ -133,7 +140,7 @@
                                             <div class="review-block-name"><a href="#">	Librarian Id  </a></div>
                                         </div>
                                         <div class="col-sm-9 mt-2">
-                                            <div class="">{{$data->librarianId}}</div>
+                                            <div class="">: {{$data->librarianId}}</div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -141,7 +148,7 @@
                                             <div class="review-block-name"><a href="#">Librarian Name </a></div>
                                         </div>
                                         <div class="col-sm-9 mt-2">
-                                            <div class="">{{$data->librarianName}}</div>
+                                            <div class="">: {{$data->librarianName}}</div>
                                         </div>
                                     </div>
 
@@ -150,7 +157,7 @@
                                             <div class="review-block-name"><a href="#">	Librarian Designation </a></div>
                                         </div>
                                         <div class="col-sm-9 mt-2">
-                                            <div class="">{{$data->librarianDesignation}}</div>
+                                            <div class="">: {{$data->librarianDesignation}}</div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -158,7 +165,7 @@
                                             <div class="review-block-name"><a href="#">Email Id </a></div>
                                         </div>
                                         <div class="col-sm-9 mt-2">
-                                            <div class="">{{$data->email}}</div>
+                                            <div class="">: {{$data->email}}</div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -166,7 +173,7 @@
                                             <div class="review-block-name"><a href="#">Contact Number  </a></div>
                                         </div>
                                         <div class="col-sm-9 mt-2">
-                                            <div class="">{{$data->phoneNumber}}</div>
+                                            <div class="">: {{$data->phoneNumber}}</div>
                                         </div>
                                     </div>
 									<!-- <div class="row">
