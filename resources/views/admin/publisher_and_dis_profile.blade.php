@@ -144,12 +144,14 @@
 
                                         <h5 class="text-primary d-inline">Latest Book Catalogue</h5>
                                             <div class="row mt-4 sp4" id="lightgallery">
-                                                <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
-                                                    data-src="{{asset("publisher_and_distributor/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                        <h3  class="btn btn-primary light btn-xs mb-1">  {{$data->bookCatalogue}} </h3>
-
-                                                </a>
+                                                <div class="col-md-12">
+                                                    <a href="{{asset("publisher_and_distributor/images/proof/BookCatalogue/".$data->bookCatalogue)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
+                                                        data-src="{{asset("publisher_and_distributor/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
+                                                        class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
+                                                            <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  {{$data->bookCatalogue}} </h3>
+    
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -206,100 +208,100 @@
                                                  @if($data->gstProof != null)
                                                 <a href="{{asset("publisher_and_distributor/images/proof/gst/".$data->gstProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/gst/".$data->gstProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/gst/".$data->gstProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">GST Certificate</h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> GST Certificate</h3>
                                                 </a>
                                                 @endif
                                               
                                                  @if($data->panOrTanProof != null)
-                                                      <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/pan_tan/".$data->panOrTanProof)}}"
+                                                      <a href="{{asset("publisher_and_distributor/images/proof/pan_tan/".$data->panOrTanProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/pan_tan/".$data->panOrTanProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/pan_tan/".$data->panOrTanProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  PAN / TAN  </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  PAN / TAN  </h3>
                                                 </a>
                                                 @endif
                                                  @if($data->udyamProof != null)
                                                     <a href="{{asset("publisher_and_distributor/images/proof/udayam/".$data->udyamProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/udayam/".$data->udyamProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/udayam/".$data->udyamProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> Udyam Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Udyam Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->certificationIncorporationProof != null)
                                                       <a href="{{asset("publisher_and_distributor/images/proof/certification_incon/".$data->certificationIncorporationProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> Certificate of Incorporation </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Certificate of Incorporation </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->certificationRegistrationProof != null)
                                                       <a href="{{asset("publisher_and_distributor/images/proof/cgReg/".$data->certificationRegistrationProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Certificate of Registration </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Certificate of Registration </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->partnershipDeedProof != null)
                                                        <a href="{{asset("publisher_and_distributor/images/proof/pan_deed/".$data->partnershipDeedProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Partnership Deed  </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Partnership Deed  </h3>
                                                 </a>
                                                 @endif
                                                   @if($data->moaProof != null)
                                                         <a href="{{asset("publisher_and_distributor/images/proof/moa/".$data->moaProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/moa/".$data->moaProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/moa/".$data->moaProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> MOA </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> MOA </h3>
                                                 </a>
                                                 @endif
                                                   @if($data->llpProof != null)
                                                         <a href="{{asset("publisher_and_distributor/images/proof/llp_agre/".$data->llpProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/llp_agre/".$data->llpProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/llp_agre/".$data->llpProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  LLP Agreement </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  LLP Agreement </h3>
                                                 </a>
                                                 @endif
                                                     @if($data->aoaProof != null)
                                                         <a href="{{asset("publisher_and_distributor/images/proof/aoa/".$data->aoaProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/aoa/".$data->aoaProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/aoa/".$data->aoaProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  AOA </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  AOA </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->privateTrustProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/privatetrust/".$data->privateTrustProof)}}"
+                                                        <a href="{{asset("publisher_and_distributor/images/proof/privatetrust/".$data->privateTrustProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/privatetrust/".$data->privateTrustProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/privatetrust/".$data->privateTrustProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Private Trust Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Private Trust Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->privateSocietyProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/privatesociety/".$data->privateSocietyProof)}}"
+                                                        <a href="{{asset("publisher_and_distributor/images/proof/privatesociety/".$data->privateSocietyProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/privatesociety/".$data->privateSocietyProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/privatesociety/".$data->privateSocietyProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Private Society Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Private Society Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->institutionProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/institution/".$data->institutionProof)}}"
+                                                        <a href="{{asset("publisher_and_distributor/images/proof/institution/".$data->institutionProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/institution/".$data->institutionProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/institution/".$data->institutionProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">Government Institutional Publication Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Government Institutional Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->trustFoundationProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
+                                                        <a href="{{asset("publisher_and_distributor/images/proof/trustfoundation/".$data->trustFoundationProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">Government Trust/Foundation Publication Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Government Trust/Foundation Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->societyProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/society/".$data->societyProof)}}"
+                                                        <a href="{{asset("publisher_and_distributor/images/proof/society/".$data->societyProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/society/".$data->societyProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/society/".$data->societyProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> Government Society Publication Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Government Society Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                             </div>
@@ -319,244 +321,237 @@
                                     <div class="custom-tab-1">
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item"><a href="#info" data-bs-toggle="tab"
-                                                    class="nav-link ">Info</a>
+                                                    class="nav-link active show ">Info</a>
                                             </li>
                                             <li class="nav-item"><a href="#other_Info" data-bs-toggle="tab"
-                                                    class="nav-link active show">Other Info</a>
+                                                    class="nav-link">Other Info</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-                                            <div id="info" class="tab-pane fade">
+                                            <div id="info" class="tab-pane fade active show">
                                                 <div class="profile-personal-info">
                                                     <h4 class="text-primary mb-4 pt-4 border-bottom-1 pb-3">User
                                                         Information</h4>
                                                         <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Users Name <span
-                                                                    class="pull-end">:</span>
+                                                            <h5 class="f-w-500">User Name 
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>Name</span>
+                                                            <span>: Name</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">First Name <span
-                                                                    class="pull-end">:</span>
+                                                            <h5 class="f-w-500">First Name 
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->firstName}} </span>
+                                                            <span>: {{$data->firstName}} </span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Last Name <span
-                                                                    class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">Last Name </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->lastName}}</span>
+                                                            <span>: {{$data->lastName}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Email ID <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Email ID 
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->email}}</span>
+                                                            <span>: {{$data->email}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Contact Number <span
-                                                                    class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">Contact Number</h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->mobileNumber}}</span>
+                                                            <span>: {{$data->mobileNumber}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Address <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Address 
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->publicationDistributionAddress}}</span>
+                                                            <span>: {{$data->publicationDistributionAddress}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">City <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">City 
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->city}}</span>
+                                                            <span>: {{$data->city}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">District <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">District
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->District}}</span>
+                                                            <span>: {{$data->District}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">State <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">State 
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->state}}</span>
+                                                            <span>: {{$data->state}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Pin Code <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Pin Code
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->postalCode}}</span>
+                                                            <span>: {{$data->postalCode}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Country<span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Country
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->country}}</span>
+                                                            <span>: {{$data->country}}</span>
                                                         </div>
                                                     </div>
                                                     <h4 class="text-primary mb-4">Contact Person Information</h4>
                                                     <hr>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500"> Name<span class="pull-end">:</span>
+                                                            <h5 class="f-w-500"> Name
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactName}}</span>
+                                                            <span>: {{$data->contactName}}</span>
                                                         </div>
                                                     </div>
 
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Email ID <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Email ID 
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactEmail}}</span>
+                                                            <span>: {{$data->contactEmail}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Contact Number <span
-                                                                    class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">Contact Number</h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactMobileNumber}}</span>
+                                                            <span>: {{$data->contactMobileNumber}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Address <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Address
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactAddress}}</span>
+                                                            <span>: {{$data->contactAddress}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">City <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">City 
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactCity}}</span>
+                                                            <span>: {{$data->contactCity}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">District <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">District
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactDistrict}}</span>
+                                                            <span>: {{$data->contactDistrict}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">State <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">State 
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactState}}</span>
+                                                            <span>: {{$data->contactState}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Pin Code <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Pin Code 
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactPostalCode}}</span>
+                                                            <span>: {{$data->contactPostalCode}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Country<span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Country
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactCountry}}</span>
+                                                            <span>: {{$data->contactCountry}}</span>
                                                         </div>
                                                     </div>
                                                     <h4 class="text-primary mb-4">Publications Other Info</h4>
                                                     <hr>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
-                                                            <h5 class="f-w-500">Year of Establishment<span
-                                                                    class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">Year of Establishment</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
-                                                            <span>{{$data->yearOfEstablishment}}</span>
+                                                            <span>: {{$data->yearOfEstablishment}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
-                                                            <h5 class="f-w-500">Number of Books Published So For<span
-                                                                    class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">Number of Books Published So For</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
-                                                            <span>{{$data->bookCountSoFar}}</span>
+                                                            <span>: {{$data->bookCountSoFar}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
                                                             <h5 class="f-w-500">Number of Books Published in the last 3
-                                                                years<span class="pull-end">:</span></h5>
+                                                                years</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
-                                                            <span>{{$data->bookCountLast3}}</span>
+                                                            <span>: {{$data->bookCountLast3}}</span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
                                                             <h5 class="f-w-500">Number of Title Available in your
-                                                                shop<span class="pull-end">:</span></h5>
+                                                                shop</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
-                                                            <span>{{$data->noOfBooksAvailable}}</span>
+                                                            <span>: {{$data->noOfBooksAvailable}}</span>
                                                         </div>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            <div id="other_Info" class="tab-pane fade active show">
+                                            <div id="other_Info" class="tab-pane fade">
                                                 <div class="profile-about-me">
                                                     <div class="pt-4 border-bottom-1 pb-3">
                                                         <h4 class="text-primary">Member in Publishers Association</h4>
@@ -718,7 +713,7 @@
                                     <thead>
                                         <tr role="row">
                                             <th style="white-space:normal;">Publisher Name</th>
-                                            <th style="white-space:normal;"</th>
+                                            <th style="white-space:normal;">Publisher Place</th>
 
                                                 <th style="white-space:normal;">Authorization Letter From Publisher</th>
                                         </tr>
@@ -734,7 +729,7 @@
                                                          <a href="{{asset("publisher_and_distributor/images/proof/authorization/".$val->authorization_letter)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/authorization/".$val->authorization_letter)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/authorization/".$val->authorization_letter)}}"
                                                     class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">Authorization  Letter</h3>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Authorization  Letter</h3>
                                                 </a>
                                         </tr>
 
@@ -816,8 +811,8 @@
                                             <td style="white-space:normal;">
                                             <a href="{{asset("publisher_and_distributor/images/proof/sub_doc/".$val->subsidiary_doc)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/sub_doc/".$val->subsidiary_doc)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/sub_doc/".$val->subsidiary_doc)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  {{$val->subsidiary_doc}} </h3>
+                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  {{$val->subsidiary_doc}} </h3>
                                                 </a>
                                                 </td>
                                         </tr>

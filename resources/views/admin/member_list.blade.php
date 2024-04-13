@@ -94,38 +94,14 @@
                                                         <label class="form-check-label" for="dataall"></label>
                                                     </div>
                                                 </th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="ERoll No: activate to sort column ascending"
-                                                    style="width: 97.5156px;">Roll No</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Profile: activate to sort column ascending"
-                                                    style="width: 145.219px;">Profile</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Email: activate to sort column ascending"
-                                                    style="width: 109.984px;">Email</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Phone No: activate to sort column ascending"
-                                                    style="width: 126.609px;">Phone No</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Role Type: activate to sort column ascending"
-                                                    style="width: 65.3594px;">Reviewer Type</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Status: activate to sort column ascending"
-                                                    style="width: 72.7031px;"> Active Status</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Status: activate to sort column ascending"
-                                                    style="width: 72.7031px;"> Status</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Action: activate to sort column ascending"
-                                                    style="width: 87.4688px;"> Action</th>
+                                                <th>Roll No</th>
+                                                <th>Profile</th>
+                                                <th>Email</th>
+                                                <th>Phone No</th>
+                                                <th>Reviewer Type</th>
+                                                <th> Active Status</th>
+                                                <th> Status</th>
+                                                <th> Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -197,7 +173,7 @@
                                                             @endif
 
                                                     <td class="sorting_1">
-                                                        <div class="form-check form-switch id="load">
+                                                        <div class="form-check form-switch" id="load">
                                                             <input class="form-check-input toggle-class" type="checkbox"
                                                                 data-id="{{ $val->id }}" name="featured_status"
                                                                 data-isprm="1" data-onstyle="success"

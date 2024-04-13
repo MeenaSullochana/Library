@@ -1034,7 +1034,7 @@
                            <div class="col-md-6  form-group ">
                               <label for="inputState" class="form-label" for="for">
                               Nature of Your Publication Ownership<br>
-                              <small class="text-danger">Please Ensure All File Are PDF Format Only</small>
+                              <small class="text-danger">Please upload the file in PDF format and ensure that it is below 5 MB</small>
                               <span class="text-danger maditory">*</span>
                               </label>
                               <select name="pub_ownership" class="wide form-control" id="pub_ownership" required>
@@ -1123,7 +1123,7 @@
                                                    name="subsidiary_doc[]"
                                                    placeholder="Enter the document" type="file" accept="application/pdf,application/vnd.ms-excel" multiple
                                                    >
-                                                   <span class="text-danger"><small> Please Ensure All File Are PDF Format Only</small></span>
+                                                   <span class="text-danger"><small style="font-size: 12px;"> Please upload the file in PDF format and ensure that it is below 5 MB</small></span>
                                                 </td>
                                                 <td><button type="button" name="sub_pub_add"
                                                    id="sub_pub_add" class="btn btn-success">+</button>
@@ -1541,7 +1541,7 @@
                             </span> --}}
                               <span class="text-danger maditory">*</span>
                               </label><br>
-                              <small class="text-danger">Please Ensure All File Are PDF Format Only</small>
+                              <small class="text-danger">Please upload the file in PDF format and ensure that it is below 5 MB</small>
                               <select name="dis_ownership" class="wide form-control" id="dis_ownership" required>
 
                                  <option value="" selected>Select Anyone</option>
@@ -1596,10 +1596,10 @@
                                           <table class="table table-bordered"
                                              id="subsidiary_subsidiary_distributor_no_tbl">
                                              <tr>
-                                                <th>Name of the subsidiary distributor*</th>
-                                                <th>Name of the subsidiary distribution*</th>
-                                                <th>Stock holder percentage<span class="text-danger maditory">*</span></th>
-                                                <th>Document<span class="text-danger maditory">*</span></th>
+                                                <th>Name of the subsidiary distributor <span class="text-danger maditory">*</span></th>
+                                                <th>Name of the subsidiary distribution <span class="text-danger maditory">*</span></th>
+                                                <th>Stock holder percentage <span class="text-danger maditory">*</span></th>
+                                                <th>Document <span class="text-danger maditory">*</span></th>
                                                 <th>Add</th>
                                                 <!-- <th><button type="button" name="sub_pub_add"
                                                    id="sub_pub_add" class="btn btn-success">+</button>
@@ -1609,26 +1609,26 @@
                                                 <td><input type="text"
                                                    id="name_of_the_subsidiary_distributor"
                                                    name="substidiary_name_account_transaction_content_distributor[]"
-                                                   placeholder="Enter name of the subsidiary distributor "
+                                                   placeholder="Enter the name of the subsidiary distributor "
                                                    class="form-control name_list" /></td>
                                                 <td>
                                                    <input type="text"
                                                       id="content_of_the_subsidiary_account_transaction"
                                                       name="substidiary_name_account_transaction_content_distribution[]"
-                                                      placeholder="Enter name of the subsidiary distribution"
+                                                      placeholder="Enter the name of the subsidiary distribution"
                                                       class="form-control name_list" />
                                                 </td>
                                                 <td><input type="number"
                                                    id="content_of_the_subsidiary_distributor"
                                                    name="subsidiary_name_distributor_content[]"
-                                                   placeholder="Enter stock holder percentage"
+                                                   placeholder="Enter the stock holder percentage"
                                                    class="form-control name_list" /></td>
                                                 <td> <input class="form-control"
                                                    id="file_of_the_subsidiary_distributor"
                                                    name="subsidiary_name_distributor_file[]"
-                                                   placeholder="Enter Document" type="file" accept="application/pdf,application/vnd.ms-excel" multiple
+                                                   placeholder="Enter the document" type="file" accept="application/pdf,application/vnd.ms-excel" multiple
                                                  >
-                                                   <span class="text-danger"><small>Please Ensure All File Are PDF Format Only</small></span>
+                                                   <span class="text-danger"><small style="font-size: 12px;">Please upload the file in PDF format and ensure that it is below 5 MB</small></span>
                                                 </td>
                                                 <td><button type="button" name="sub_dis_add_newdis"
                                                    id="sub_dis_add_newdis"
@@ -2325,7 +2325,7 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                  <label for="inputState" class="form-label" for="for">
                                  Nature of Your Publication Ownership - <span class="mt-056">உங்கள் வெளியீட்டு உரிமையின் தன்மை
                                </span><br>
-                               <small class="text-danger">Please Ensure All File Are PDF Format Only</small>
+                               <small class="text-danger">Please upload the file in PDF format and ensure that it is below 5 MB</small>
                                  <span class="text-danger maditory">*</span>
                                  </label>
                                  <select name="pub_dis_ownership" class="wide form-control" id="pub_dis_ownership" required>
@@ -2415,9 +2415,9 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
                                                 <td> <input class="form-control"
                                                    id="subsidiary_publication_distribution_file"
                                                    name="subsidiary_publication_distribution_file[]"
-                                                   placeholder="Enter the document" type="file" accept="application/pdf,application/vnd.ms-excel" multiple
+                                                   placeholder="Enter the document" type="file" accept="application/pdf,application/vnd.ms-excel"
                                                    >
-                                                   <span class="text-danger"><small>Please Ensure All File Are PDF Format Only</small></span>
+                                                   <span class="text-danger"><small style="font-size: 12px;">Please upload the file in PDF format and ensure that it is below 5 MB</small></span>
                                                 </td>
                                                 <td><button type="button" name="sub_pub_name_op"
                                                    id="sub_pub_name_op"
@@ -2481,6 +2481,25 @@ Review purpose:  send two copies for review of books in Chennai for review. Addr
 
             <script src="js/register.js"></script>
             <script>
+            $(document).on('change', "input[type='file']", function(){
+               var selectedFile = this.files[0]; // Get the selected file
+               var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+
+               if (selectedFile.size > maxSize) {
+                  toastr.error("Sorry, the file exceeds the maximum size limit of 5 MB",{timeout:15000});
+                  // alert('Sorry, the file exceeds the maximum size of 5 MB!');
+                  // Clear the file input
+                  $(this).val("");
+               } else {
+                  // File size is within limit, continue processing
+                  toastr.success("File size is within the limit.",{timeout:15000});
+                  // alert('File size is within the limit.');
+                  console.log("File selected: ", selectedFile.name);
+               }
+            });
+               
+            </script>
+            <script>
                 // password
                 $(".toggle-password").click(function() {
                 // alert('good');
@@ -2515,6 +2534,8 @@ toastr.success("{{ Session::get('success') }}",{timeout:15000});
 toastr.error("{{ Session::get('error') }}",{timeout:15000});
 
 </script>
+
+
 
 @endif
 </html>

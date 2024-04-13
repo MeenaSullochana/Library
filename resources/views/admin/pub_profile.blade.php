@@ -146,11 +146,13 @@
                                         <div class="profile-interest">
                                             <div class="row mt-4 sp4" id="lightgallery">
                                                 <p>Latest Book Catalogue</p>
-                                                <a href="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}" data-exthumbimage="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
-                                                    data-src="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  {{$data->bookCatalogue}} </h3>
-                                                </a>
+                                                <div class="col-md-12">
+                                                    <a href="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}" data-exthumbimage="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
+                                                        data-src="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
+                                                        class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
+                                                        <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  {{$data->bookCatalogue}} </h3>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -206,15 +208,15 @@
                                                  @if($data->gstProof != null)
                                                 <a href="{{asset("publisher/images/proof/gst/".$data->gstProof)}}" data-exthumbimage="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
                                                     data-src="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">GST Certificate</h3>
+                                                    class="mb-1 col-lg-6 col-xl-6 col-sm-6 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  GST Certificate</h3>
                                                 </a>
                                                 @endif
                                                  @if($data->panOrTanProof != null)
                                                       <a href="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}" data-exthumbimage="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}"
                                                     data-src="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  PAN / TAN  </h3>
+                                                    class="mb-1 col-lg-6 col-xl-6 col-sm-6 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  PAN / TAN  </h3>
                                                 </a>
                                                 @endif
                                             
@@ -222,85 +224,85 @@
                                                  @if($data->udyamProof != null)
                                                     <a href="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}" data-exthumbimage="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}"
                                                     data-src="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> Udyam Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Udyam Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->certificationIncorporationProof != null)
                                                       <a href="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}" data-exthumbimage="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
                                                     data-src="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> Certificate of Incorporation </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Certificate of Incorporation </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->certificationRegistrationProof != null)
                                                       <a href="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}" data-exthumbimage="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
                                                     data-src="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3  class="btn btn-primary light btn-xs mb-1">  Certificate of Registration </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->partnershipDeedProof != null)
                                                        <a href="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}" data-exthumbimage="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
                                                     data-src="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Partnership Deed  </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Partnership Deed  </h3>
                                                 </a>
                                                 @endif
                                                   @if($data->moaProof != null)
                                                         <a href="{{asset("publisher/images/proof/moa/".$data->moaProof)}}" data-exthumbimage="{{asset("publisher/images/proof/moa/".$data->moaProof)}}"
                                                     data-src="{{asset("publisher/images/proof/moa/".$data->moaProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> MOA </h3>
+                                                    class="mb-1 col-lg-6 col-xl-6 col-sm-6 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> MOA </h3>
                                                 </a>
                                                 @endif
                                                   @if($data->llpProof != null)
                                                         <a href="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}" data-exthumbimage="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}"
                                                     data-src="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1">  LLP Agreement </h3>
                                                 </a>
                                                 @endif
                                                     @if($data->aoaProof != null)
                                                         <a href="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}" data-exthumbimage="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}"
                                                     data-src="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  AOA </h3>
+                                                    class="mb-1 col-lg-6 col-xl-6 col-sm-6 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  AOA </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->privateTrustProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
+                                                        <a href="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}" data-exthumbimage="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
                                                     data-src="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Private Trust Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Private Trust Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->privateSocietyProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
+                                                        <a href="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}" data-exthumbimage="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
                                                     data-src="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Private Society Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Private Society Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->institutionProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
+                                                        <a href="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}" data-exthumbimage="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
                                                     data-src="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">Government Institutional Publication Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Government Institutional Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->trustFoundationProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
+                                                        <a href="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}" data-exthumbimage="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
                                                     data-src="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">Government Trust/Foundation Publication Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Government Trust/Foundation Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->societyProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
+                                                        <a href="{{asset("publisher/images/proof/society/".$data->societyProof)}}" data-exthumbimage="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
                                                     data-src="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> Government Society Publication Registration Certificate </h3>
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Government Society Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                             </div>
@@ -317,14 +319,14 @@
                                     <div class="custom-tab-1">
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item"><a href="#info" data-bs-toggle="tab"
-                                                    class="nav-link">Info</a>
+                                                    class="nav-link active show">Info</a>
                                             </li>
                                             <li class="nav-item"><a href="#other_Info" data-bs-toggle="tab"
-                                                    class="nav-link active show">Other Info</a>
+                                                    class="nav-link">Other Info</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-                                            <div id="info" class="tab-pane fade">
+                                            <div id="info" class="tab-pane fade active show">
                                                 <div class="profile-personal-info">
                                                     <h4 class="text-primary mb-4 pt-4 border-bottom-1 pb-3">User
                                                         Information</h4>
@@ -534,7 +536,7 @@
 
                                                 </div>
                                             </div>
-                                            <div id="other_Info" class="tab-pane fade active show">
+                                            <div id="other_Info" class="tab-pane fade">
                                                 <!--<div class="profile-about-me">-->
                                                 <!--    <div class="pt-4 border-bottom-1 pb-3">-->
                                                 <!--        <h4 class="text-primary">Member in Publishers Association</h4>-->
@@ -764,10 +766,10 @@
                                             <td style="white-space:normal;">{{$val->subsidiary_publisher_name}} </td>
                                             <td style="white-space:normal;">{{$val->stack_holder_percentage}}</td>
                                             <td style="white-space:normal;">
-                                            <a href="#" data-exthumbimage="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}"
+                                            <a href="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}" data-exthumbimage="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}"
                                                     data-src="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  {{$val->subsidiary_doc}} </h3>
+                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  {{$val->subsidiary_doc}} </h3>
 
                                                 </a>
                                                 </td>

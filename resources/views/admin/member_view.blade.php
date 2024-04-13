@@ -87,26 +87,26 @@
                             </div>
                             <div class="card-body pt-0">
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-12">
                                     @if($data->profileImage != null)
-                                        <div class="avatar-md profile-user-wid mb-4">
+                                        <div class="avatar-md profile-user-wid mb-0">
                                             <img src="{{ asset('reviewer/ProfileImage/'.$data->profileImage) }}" alt="" class="img-thumbnail rounded-circle">
                                         </div>
                                         @else
-                                        <div class="avatar-md profile-user-wid mb-4">
+                                        <div class="avatar-md profile-user-wid mb-0">
                                             <img src='{{ asset("images/default.png") }}' alt="" class="img-thumbnail rounded-circle">
                                         </div>
                                         @endif
-                                        <h5 class="font-size-12">Reviewer Name:</h5>
-                                        <h5 class="font-size-15 text-truncate"> {{$data->name}}
-                                        </h5>
+                                        <h5 style="margin-left: 76px; margin-top: -24px;" class="font-size-12">Reviewer Name 
+                                        <span class="font-size-15 text-truncate">: {{$data->name}}
+                                        </span></h5>
                                     </div>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-12">
                                         <div class="pt-4">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <h5 class="font-size-12">Join Date :</h5>
-                                                    <p class="text-muted mb-0"> {{ $data->created_at->format('Y-m-d') }} </p>
+                                                    <h5 class="font-size-12 mt-0">Join Date 
+                                                    <span class="text-muted mb-0">: {{ $data->created_at->format('Y-m-d') }} </span></h5>
                                                 </div>
                                             </div>
                                             <!-- <div class="mt-4">
@@ -128,10 +128,10 @@
 
 
                                             <tr>
-                                                <th scope="row">Reviwer type:</th>
+                                                <th scope="row">Reviwer Type</th>
 
                                                 @if ($data->reviewerType == 'internal')
-                                                <td><span class="badge bg-primary">Librarian</span></td>
+                                                <td>: <span class="badge bg-primary"> Librarian</span></td>
 
                                                             
                                                             @elseif ($data->reviewerType == 'external')
@@ -144,65 +144,65 @@
 
                                             </tr>
                                             <tr>
-                                               <th scope="row">Reviwer Id:</th>
-                                               <td><span>{{$data->reviewerId}}</span></td>
+                                               <th scope="row">Reviwer Id</th>
+                                               <td><span>: {{$data->reviewerId}}</span></td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Name:</th>
-                                                <td>{{$data->name}}</td>
+                                                <th scope="row">Name</th>
+                                                <td>: {{$data->name}}</td>
                                             </tr>
                                             @if($data->reviewerType == "external")
                                             <tr>
-                                                <th scope="row">Designation:</th>
-                                                <td> {{$data->designation}} </td>
+                                                <th scope="row">Designation</th>
+                                                <td>: {{$data->designation}} </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Organisation Details:</th>
-                                                <td> {{$data->organisationDetails}} </td>
+                                                <th scope="row">Organisation Details</th>
+                                                <td>: {{$data->organisationDetails}} </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Subject:</th>
-                                                <td> {{$data->subject}}</td>
+                                                <th scope="row">Subject</th>
+                                                <td>: {{$data->subject}}</td>
                                             </tr>
                                             @endif
 
                                             @if($data->reviewerType == "internal")
                                             <tr>
-                                                <th scope="row">Library Type:</th>
-                                                <td> {{$data->libraryType}} </td>
+                                                <th scope="row">Library Type</th>
+                                                <td> : {{$data->libraryType}} </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Library Name:</th>
-                                                <td> {{$data->libraryName}} </td>
+                                                <th scope="row">Library Name</th>
+                                                <td> : {{$data->libraryName}} </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">District:</th>
-                                                <td> {{$data->district}}</td>
+                                                <th scope="row">District</th>
+                                                <td> : {{$data->district}}</td>
                                             </tr>
                                           
                                             @endif
                                             @if($data->reviewerType == "public")
                                             <tr>
-                                                <th scope="row">District:</th>
-                                                <td> {{$data->district}} </td>
+                                                <th scope="row">District</th>
+                                                <td> : {{$data->district}} </td>
                                             </tr>
 
                                             <tr>
-                                                <th scope="row">Category:</th>
-                                                <td> {{$data->Category}}</td>
+                                                <th scope="row">Category</th>
+                                                <td> : {{$data->Category}}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Membership Id:</th>
-                                                <td> {{$data->membershipId}}</td>
+                                                <th scope="row">Membership Id</th>
+                                                <td> : {{$data->membershipId}}</td>
                                             </tr>
                                             @endif
                                             <tr>
-                                                <th scope="row">Email:</th>
-                                                <td> {{$data->email}} </td>
+                                                <th scope="row">Email</th>
+                                                <td> : {{$data->email}} </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Phone number:</th>
-                                                <td>{{$data->phoneNumber}} </td>
+                                                <th scope="row">Phone number</th>
+                                                <td>: {{$data->phoneNumber}} </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -256,9 +256,9 @@
                                             <table class="table table-striped mb-0">
                                                 <tbody>
                                                 <tr>
-                                                <th scope="row">Reviwer type:</th>
+                                                <th scope="row">Reviwer type</th>
                                                 @if ($data->reviewerType == 'internal')
-                                                <td><span class="badge bg-primary">Librarian</span></td>
+                                                <td>: <span class="badge bg-primary">Librarian</span></td>
 
                                                             
                                                             @elseif ($data->reviewerType == 'external')
@@ -270,12 +270,12 @@
                                                             @endif
                                             </tr>
                                             <tr>
-                                               <th scope="row">Reviwer Id:</th>
-                                               <td><span>{{$data->reviewerId}}</span></td>
+                                               <th scope="row">Reviwer Id</th>
+                                               <td><span>: {{$data->reviewerId}}</span></td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Name:</th>
-                                                <td>{{$data->name}}</td>
+                                                <th scope="row">Name</th>
+                                                <td>: {{$data->name}}</td>
                                             </tr>
                                             <!-- <tr>
                                                 <th scope="row">Designation:</th>
@@ -290,12 +290,12 @@
                                                 <td> {{$data->subject}}</td>
                                             </tr> -->
                                             <tr>
-                                                <th scope="row">Email:</th>
-                                                <td> {{$data->email}} </td>
+                                                <th scope="row">Email</th>
+                                                <td>:  {{$data->email}} </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Phone number:</th>
-                                                <td>{{$data->phoneNumber}} </td>
+                                                <th scope="row">Phone number</th>
+                                                <td>: {{$data->phoneNumber}} </td>
                                             </tr>
                                                 </tbody>
                                             </table>
@@ -351,7 +351,7 @@
                                                 </div> -->
 
                                             </div>
-                                            <table class="table table-bordered dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <table id="example3" class="table table-bordered dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                 <thead>
                                                     <tr>
                                                         <th>Sr. No</th>
@@ -396,14 +396,7 @@
 
                                                 </tbody>
                                             </table>
-                                            <div class="col-md-12 text-center mt-3">
-                                                <div class="d-flex justify-content-start">
-                                                    Showing to
-                                                    of 0 entries
-                                                </div>
-                                                <div class="d-flex justify-content-end">
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>

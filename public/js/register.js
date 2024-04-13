@@ -823,7 +823,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
                w++;
                $('#subsidiary_publishcation_no_tbl').
                   append('<tr id="row' + w +
-                     '" class="removecl"><td><input type="text" name="name_of_the_subsidiary_publication[]" placeholder="Enter name of the subsidiary publication *" class="form-control name_list" required/></td><td><input type="text" name="name_of_the_subsidiary_publisher[]" placeholder="Enter name of the subsidiary publisher*" class="form-control name_list" required/></td><td><input type="number" id="content_of_the_subsidiary_publication" name="stack_holder_percentage[]" placeholder="Enter Stock Holder Percentage" class="form-control name_list" required/></td> <td> <input class="form-control" id="content_of_the_subsidiary_publication" name="subsidiary_doc[]" placeholder="Enter Document"type="file" accept="application/pdf,application/vnd.ms-excel" multiple required> <span class="text-danger"><small> Please Ensure All File Are PDF Format Only</small></span> </td><td><button type="button" name="remove" id="' +
+                     '" class="removecl"><td><input type="text" name="name_of_the_subsidiary_publication[]" placeholder="Enter the name of the subsidiary publication *" class="form-control name_list" required/></td><td><input type="text" name="name_of_the_subsidiary_publisher[]" placeholder="Enter the name of the subsidiary publisher*" class="form-control name_list" required/></td><td><input type="number" id="content_of_the_subsidiary_publication" name="stack_holder_percentage[]" placeholder="Enter the stock holder percentage" class="form-control name_list" required/></td> <td> <input class="form-control" id="content_of_the_subsidiary_publication" name="subsidiary_doc[]" placeholder="Enter the document" type="file" accept="application/pdf,application/vnd.ms-excel" multiple required> <span class="text-danger"><small style="font-size: 12px;">Please upload the file in PDF format and ensure that it is below 5 MB</small></span> </td><td><button type="button" name="remove" id="' +
                      w + '" class="btn btn-danger btn_remove">X</button></td></tr>');
 
             });
@@ -2645,10 +2645,10 @@ $(document).ready(function () {
 
             $('.subsidiary_pub_name_new').css('display', 'block');
             $('#sub_dis_add_newdis').click(function () {
-               w++;
+               H++;
                $('#subsidiary_subsidiary_distributor_no_tbl').
                   append('<tr id="row' + H +
-                     '" class="removecl"><td><input type="text" name="substidiary_name_account_transaction_content_distributor[]" placeholder="Enter the name of the subsidiary distributor*" class="form-control name_list" required/></td><td><input type="text" name="substidiary_name_account_transaction_content_distribution[]" placeholder="Enter the name of the subsidiary distribution*" class="form-control name_list" required/></td> <td><input type="number" id="content_of_the_subsidiary_distributor" name="subsidiary_name_distributor_content[]" placeholder="Enter the stock holder percentage" class="form-control name_list" required/></td> <td> <input class="form-control" id="file_of_the_subsidiary_distributor" name="subsidiary_name_distributor_file[]" placeholder="Enter the document "type="file" multiple required> <span class="text-danger"><small>Doc, PDF other format</small></span> </td><td><button type="button" name="remove" id="' +
+                     '" class="removecl"><td><input type="text" name="substidiary_name_account_transaction_content_distributor[]" placeholder="Enter the name of the subsidiary distributor*" class="form-control name_list" required/></td><td><input type="text" name="substidiary_name_account_transaction_content_distribution[]" placeholder="Enter the name of the subsidiary distribution*" class="form-control name_list" required/></td> <td><input type="number" id="content_of_the_subsidiary_distributor" name="subsidiary_name_distributor_content[]" placeholder="Enter the stock holder percentage" class="form-control name_list" required/></td> <td> <input class="form-control" id="file_of_the_subsidiary_distributor" name="subsidiary_name_distributor_file[]" placeholder="Enter the document "type="file" multiple required> <span class="text-danger"><small style="font-size: 12px;">Please upload the file in PDF format and ensure that it is below 5 MB</small></span> </td><td><button type="button" name="remove" id="' +
                      H + '" class="btn btn-danger btn_remove">X</button></td></tr>');
 
             });
@@ -2777,10 +2777,14 @@ $('input[type=radio][name=member_in_publishers_yes_old_lby]').on('change', funct
             break;
         case 'No':
             // Hide the element and clear some form fields
+            // alert('good');
             sra = 0;
             $('#member_in_publishers_new_old_lby').css('display', 'none');
             $('#member_in_publishers_yes_old_lby').prop('required', false);
+            $('.name_list').prop('required', false);
+            $('#trans_book_pub_dis_lby').remove();
             $('.removecl').remove();
+
             break;
     }
 });
@@ -2794,7 +2798,7 @@ $('input[type=radio][name=member_in_publishers_yes_old_lby]').on('change', funct
       if (trs_pub_sit < 10) {
          $('#trans_book_pub_dis_lby').
             append('<tr id="row' + i +
-               '"><td><input type="text" name="trans_title[]" placeholder="Enter the title*" class="form-control name_list" required/></td><td><input type="text" name="trans_author[]" placeholder="Enter the author*" class="form-control name_list" required/></td><td><input type="text" name="trans_from[]" placeholder="Enter the language from*" class="form-control name_list" required/></td><td><input type="text" name="trans_to[]" placeholder="Enter the language to*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+               '"><td><input type="text" name="trans_title[]" placeholder="Enter the title*" class="form-control name_list" id="trans_title2" required/></td><td><input type="text" name="trans_author[]" placeholder="Enter the author*" class="form-control name_list" id="trans_author2" required/></td><td><input type="text" name="trans_from[]" placeholder="Enter the language from*" class="form-control name_list" id="trans_from2" required/></td><td><input type="text" name="trans_to[]" placeholder="Enter the language to*" class="form-control name_list" id="trans_to2" required/></td><td><button type="button" name="remove" id="' +
                i + '" class="btn btn-danger btn_remove_pub_dst_five">X</button></td></tr>');
       } else {
          $('#translated_pub_dis').prop('disabled', true);
@@ -2958,7 +2962,7 @@ $('input[type=radio][name=member_in_publishers_yes_old_lby]').on('change', funct
                g++;
                $('#tbl_subsidiary_publishcation_no').
                   append('<tr id="row' + g +
-                     '" class="removecl"><td><input type="text" name="subsidiary_publisher_distributor[]" placeholder="Enter the name of the subsidiary book publisher and distributor*" class="form-control name_list" required/></td><td><input type="text" name="subsidiary_publication_distribution[]" placeholder="Enter the name of the subsidiary book publication and distribution*" class="form-control name_list" required/></td><td><input type="number" id="content_of_the_subsidiary_publication" name="subsidiary_stackpercentage[]" placeholder="Enter the stock holder percentage" class="form-control name_list" required/></td> <td> <input class="form-control" id="content_of_the_subsidiary_publication" name="subsidiary_publication_distribution_file[]" placeholder="Enter the document" type="file" multiple required> <span class="text-danger"><small>Doc, PDF other format</small></span> </td><td><button type="button" name="remove" id="' +
+                     '" class="removecl"><td><input type="text" name="subsidiary_publisher_distributor[]" placeholder="Enter the name of the subsidiary book publisher and distributor*" class="form-control name_list" required/></td><td><input type="text" name="subsidiary_publication_distribution[]" placeholder="Enter the name of the subsidiary book publication and distribution*" class="form-control name_list" required/></td><td><input type="number" id="content_of_the_subsidiary_publication" name="subsidiary_stackpercentage[]" placeholder="Enter the stock holder percentage" class="form-control name_list" required/></td> <td> <input class="form-control" id="content_of_the_subsidiary_publication" name="subsidiary_publication_distribution_file[]" placeholder="Enter the document" type="file" multiple required> <span class="text-danger"><small style="font-size: 12px;">Please upload the file in PDF format and ensure that it is below 5 MB</small></span> </td><td><button type="button" name="remove" id="' +
                      g + '" class="btn btn-danger btn_remove">X</button></td></tr>');
 
             });
