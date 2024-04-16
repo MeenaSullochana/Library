@@ -155,6 +155,8 @@
                                     <span class="visually-hidden">Next</span>
                                 </button>
                             </div>
+                            
+                            
                         </div>
                         <div class="col-md-6">
                             <div class="row">
@@ -165,27 +167,27 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="row">
-                                        <div class="col-6 fw-bolder p-2">Frequency:</div>
-                                        <div class="col-6">{{$data->periodicity}}</div>
-                                           <div class="col-6 fw-bolder p-2">Language :</div>
-                                        <div class="col-6">{{$data->language}}</div>
+                                        <div class="col-6 fw-bolder p-2">Frequency</div>
+                                        <div class="col-6">: {{$data->periodicity}}</div>
+                                           <div class="col-6 fw-bolder p-2">Language</div>
+                                        <div class="col-6">: {{$data->language}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Category :</div>
-                                        <div class="col-6">{{$data->category}}</div>
-                                        <div class="col-6 fw-bolder p-2">Single Issue Rate:</div>
-                                        <div class="col-6">{{$data->single_issue_rate}}</div>
+                                        <div class="col-6 fw-bolder p-2">Category </div>
+                                        <div class="col-6">: {{$data->category}}</div>
+                                        <div class="col-6 fw-bolder p-2">Single Issue Rate</div>
+                                        <div class="col-6">: {{$data->single_issue_rate}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Annual Subscription:</div>
-                                        <div class="col-6">{{$data->annual_subscription}}</div>
+                                        <div class="col-6 fw-bolder p-2">Annual Subscription</div>
+                                        <div class="col-6">: {{$data->annual_subscription}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Discount %:</div>
-                                        <div class="col-6">{{$data->discount}}</div>
+                                        <div class="col-6 fw-bolder p-2">Discount %</div>
+                                        <div class="col-6">: {{$data->discount}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Single Issue After Discount :</div>
-                                        <div class="col-6">{{$data->single_issue_after_discount}}</div>
+                                        <div class="col-6 fw-bolder p-2">Single Issue After Discount </div>
+                                        <div class="col-6">: {{$data->single_issue_after_discount}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Annual Subscription After Discount :</div>
-                                        <div class="col-6">{{$data->annual_cost_after_discount}}</div>
+                                        <div class="col-6 fw-bolder p-2">Annual Subscription After Discount </div>
+                                        <div class="col-6">: {{$data->annual_cost_after_discount}}</div>
 
                                        
 
@@ -196,40 +198,39 @@
                                         <!-- <div class="col-6 fw-bolder p-2">Difference in Amount :</div>
                                         <div class="col-6">90</div> -->
 
-                                        <div class="col-6 fw-bolder p-2">RNI Details :</div>
-                                        <div class="col-6">{{$data->rni_details}}</div>
+                                        <div class="col-6 fw-bolder p-2">RNI Details </div>
+                                        <div class="col-6">: {{$data->rni_details}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Paper Quality :</div>
-                                        <div class="col-6">{{$data->paper_quality}}</div>
+                                        <div class="col-6 fw-bolder p-2">Paper Quality </div>
+                                        <div class="col-6">: {{$data->paper_quality}}</div>
 
                                         <!-- <div class="col-6 fw-bolder p-2">Type of Library :</div>
                                         <div class="col-6">90</div> -->
 
-                                        <div class="col-6 fw-bolder p-2">Total Number of Pages :</div>
-                                        <div class="col-6">{{$data->total_pages}}</div>
+                                        <div class="col-6 fw-bolder p-2">Total Number of Pages </div>
+                                        <div class="col-6">: {{$data->total_pages}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Number of Multicolour pages :</div>
-                                        <div class="col-6">{{$data->total_multicolour_pages}}</div>
+                                        <div class="col-6 fw-bolder p-2">Number of Multicolour pages </div>
+                                        <div class="col-6">: {{$data->total_multicolour_pages}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Number of Monocolour Pages :</div>
-                                        <div class="col-6">{{$data->total_monocolour_pages}}</div>
+                                        <div class="col-6 fw-bolder p-2">Number of Monocolour Pages </div>
+                                        <div class="col-6">: {{$data->total_monocolour_pages}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Size of the Magazine :</div>
-                                        <div class="col-6">{{$data->magazine_size}}</div>
+                                        <div class="col-6 fw-bolder p-2">Size of the Magazine </div>
+                                        <div class="col-6">: {{$data->magazine_size}}</div>
 
                                         
                                     </div>
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <h4>Read PDF</h4>
-                                    orem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industry's standard dummy text ever since the 1500s
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <h4>Read Sample PDF</h4>
+                                    
                                 </div>
-                                <div class="col-md-4">
-                                    <a class="btn btn-primary" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Read PDF</a>
+                                <div class="col-md-12 mb-3">
+                                    <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle" role="button">Read PDF</a>
                                 </div>
                             </div>
                         </div>
@@ -240,16 +241,16 @@
                     <hr>
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-6 fw-bolder p-2">Contact Person Name:</div>
-                            <div class="col-6">{{$data->contact_person}}</div>
+                            <div class="col-6 fw-bolder p-2">Contact Person Name</div>
+                            <div class="col-6">: {{$data->contact_person}}</div>
                         </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">Email Id </div>
-                            <div class="col-6">{{$data->email}}</div>
+                            <div class="col-6">: {{$data->email}}</div>
                         </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">Contact Number </div>
-                            <div class="col-6">{{$data->phone}} </div>
+                            <div class="col-6">: {{$data->phone}} </div>
                         </div>
                         <!-- <div class="row">
                             <div class="col-6 fw-bolder p-2">Country </div>
@@ -273,7 +274,7 @@
                         </div> -->
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">Contact Person Address </div>
-                            <div class="col-6">{{$data->address}} </div>
+                            <div class="col-6">: {{$data->address}} </div>
                         </div>
                     </div>
                     <p class="h2 bg-main text-white">Official Address</p>
@@ -284,26 +285,26 @@
                         </div>
                     </div>
 
-                    <p class="h2 bg-main text-white">Bank Account Details</p>
+                    <p class="h2 bg-main text-white mt-3">Bank Account Details</p>
                     <hr>
                     <div class="row">
                         <div class="col-6 fw-bolder p-2">IFSC Code </div>
-                        <div class="col-6"> </div>
+                        <div class="col-6">: </div>
                     </div>
 
                     <div class="row">
                         <div class="col-6 fw-bolder p-2">Bank Account Number </div>
-                        <div class="col-6"> </div>
+                        <div class="col-6">: </div>
                     </div>
 
                     <div class="row">
                         <div class="col-6 fw-bolder p-2">Bank Name </div>
-                        <div class="col-6"> </div>
+                        <div class="col-6">: </div>
                     </div>
 
                     <div class="row">
                         <div class="col-6 fw-bolder p-2">Account Holder Name </div>
-                        <div class="col-6"> </div>
+                        <div class="col-6">: </div>
                     </div>
                 </div>
             </div>

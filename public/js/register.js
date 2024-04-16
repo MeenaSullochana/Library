@@ -2777,14 +2777,14 @@ $('input[type=radio][name=member_in_publishers_yes_old_lby]').on('change', funct
             break;
         case 'No':
             // Hide the element and clear some form fields
-            // alert('good');
             sra = 0;
             $('#member_in_publishers_new_old_lby').css('display', 'none');
             $('#member_in_publishers_yes_old_lby').prop('required', false);
-            $('.name_list').prop('required', false);
-            $('#trans_book_pub_dis_lby').remove();
+            $('#trans_title2').prop('required', false);
+            $('#trans_author2').prop('required', false);
+            $('#trans_from2').prop('required', false);
+            $('#trans_to2').prop('required', false);
             $('.removecl').remove();
-
             break;
     }
 });
@@ -2816,7 +2816,6 @@ $('input[type=radio][name=member_in_publishers_yes_old_lby]').on('change', funct
       }
       trs_pub_sit--;
    });
-
    /*******************************************
    // Best 10 Titles In Your Publications
    ********************************************/

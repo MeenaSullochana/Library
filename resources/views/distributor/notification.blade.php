@@ -151,7 +151,7 @@
                                                                 </div>
                                                             </div>
                                                         @empty
-                                                            <p>No notifications found.</p>
+                                                            <p class="text-center mt-5">No notifications found.</p>
                                                         @endforelse
                                                     </div>
                                                 </div>

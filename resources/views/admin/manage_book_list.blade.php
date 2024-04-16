@@ -159,34 +159,13 @@
                                                     </div>
 
                                                 </th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="ERoll No: activate to sort column ascending"
-                                                    style="width: 97.5156px;"> S.No</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Books: activate to sort column ascending"
-                                                    style="width: 145.219px;">Books</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Review Rating: activate to sort column ascending"
-                                                    style="width: 109.984px;">Book Cost</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Ranking: activate to sort column ascending"
-                                                    style="width: 126.609px;">User Type</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Status: activate to sort column ascending"
-                                                    style="width: 65.3594px;">Status</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Change Status: activate to sort column ascending"
-                                                    style="width: 72.7031px;"> Change Status</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
-                                                    rowspan="1" colspan="1"
-                                                    aria-label="Action: activate to sort column ascending"
-                                                    style="width: 87.4688px;"> Action</th>
+                                                <th> S.No</th>
+                                                <th>Books</th>
+                                                <th>Book Cost</th>
+                                                <th>User Type</th>
+                                                <th>Status</th>
+                                                <th> Change Status</th>
+                                                <th> Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -648,5 +627,11 @@ body {
 
 .active-projects tbody tr td:last-child {
     text-align: center;
+}
+a#example3_previous {
+    width: 100%;
+}
+a#example3_next {
+    width: 100%;
 }
 </style>

@@ -85,7 +85,7 @@
                                                         for="validationCustomUsername">ISBN-10/ISBN-13<span
                                                             class="text-danger">*</span></label>
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" id="isbn"
+                                                        <input type="text" class="form-control" id="isbn"
                                                             name="isbn" placeholder="Enter the ISBN-10/ISBN-13.."   onkeyup="checkBookISBN()"
                                                             required>
                                                         <div class="invalid-feedback">
@@ -121,14 +121,14 @@
                                 <input type="radio" id="lang2" name="language" class="custom-control-input" value="English" required>
                                 <label class="custom-control-label" for="lang2">English</label>
                             </div>
-                            <div class="custom-control custom-radio newother">
+                            <div class="custom-control custom-radio">
                                 <input type="radio" id="book_primary_language_new" name="language" class="custom-control-input" value="Other_Indian" required>
                                 <label class="custom-control-label" for="book_primary_language_new">Other Indian Languages (please specify)</label>
                             </div>
                             <div class="col-md-12 book_primary_lang mb-2">
                                 <input type="text" class="form-control" id="other1" name="Other_Indian" placeholder="Enter the Other Indian Languages (please specify)">
                             </div>
-                            <div class="custom-control custom-radio newother">
+                            <div class="custom-control custom-radio">
                                 <input type="radio" id="book_primary_language_new_forein" name="language" class="custom-control-input" value="Other_Foreign" required>
                                 <label class="custom-control-label" for="book_primary_language_new_forein">Other Foreign Languages (please specify)</label>
                             </div>
@@ -241,7 +241,7 @@
 
                                                             <input type="text" class="form-control"
                                                                 id="primaryauthor" name="primaryauthor[]"
-                                                                placeholder="Enter the Primary Author or Contributor.."
+                                                                placeholder="Enter the Primary Author or Contributo.."
                                                                 required>
                                                             <div class="invalid-feedback">
                                                                 Book Title cannot be edited agter your book has been
@@ -471,7 +471,7 @@
                                                             <tbody id="inputContainerseries">
                                                                 <tr>
                                                                     <td><input type="text" name="series_title[]"
-                                                                            placeholder="Series Title"
+                                                                            placeholder="Enter the Series Title"
                                                                             class="form-control" >
                                                                         </td>
                                                                     <td>
@@ -479,7 +479,7 @@
                                                                         <input type="text" name="series_number[]"
                                                                             placeholder="Enter the Current Series Number"
                                                                             class="form-control" ></td>
-                                                                    <td><input type="number" name="isbn_number[]"
+                                                                    <td><input type="text" name="isbn_number[]"
                                                                             placeholder="Enter the Total Number of Series"
                                                                             class="form-control" ></td>
 
@@ -532,7 +532,7 @@
                                                                     <td><input type="text" name="volume_number[]"
                                                                             placeholder="Enter the Current  Volume Number"
                                                                             class="form-control" ></td></td>
-                                                                    <td><input type="number" name="isbn_number1[]"
+                                                                    <td><input type="text" name="isbn_number1[]"
                                                                             placeholder="Enter the Total Number of Volume"
                                                                             class="form-control" ></td>
 
@@ -705,7 +705,7 @@
                                             for="validationCustomUsername"> Year of Publication <span class="text-danger">*</span>
                                                 </label>
                                             <div class="input-group transparent-append">
-                                                <input type="number" name="yearOfPublication" id="yearOfPublication" class="form-control" placeholder="Enter the Year of Publication.." pattern="\d{4}" title="Please enter exactly 4 numbers" maxlength="4" required>
+                                                <input type="text" name="yearOfPublication" id="yearOfPublication" class="form-control" placeholder="Enter the Year of Publication.." pattern="\d{4}" title="Please enter exactly 4 numbers" maxlength="4" required>
                                             </div>
                                         </div>
                                                 <div class="mb-3">
@@ -928,7 +928,7 @@
                                         <h4>Dimension</h4>
                                         <hr>
                                         <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                                 <div class="mb-3">
                                                     <label class="text-label form-label text-black"
                                                         for="validationCustomUsername"> Size <span
@@ -956,7 +956,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <div class="mb-3">
                                                     <label class="text-label form-label text-black"
                                                         for="validationCustomUsername"> Length x Breadth(in Centimeters) <span
@@ -1002,7 +1002,7 @@
                                                     </div>
                                                 </div> -->
                                             <!-- </div> -->
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <div class="mb-3">
                                                     <label class="text-label form-label text-black"
                                                         for="validationCustomUsername">Width(in Centimeters) <span
@@ -1019,7 +1019,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-3">
                                                 <div class="mb-3">
                                                     <label class="text-label form-label text-black"
                                                         for="validationCustomUsername">Weight(in grams) <span
@@ -1750,7 +1750,7 @@
                                 <h4>Sample Book Details</h4>
                             </div>
                             <div class="col-md-10">
-                                <P class="fs-4"> Please ensure that a minimum of 25 pages or 25% of the total pages is uploaded (Upload epub or pdf files only)</a>
+                                <P class="fs-4">  Please ensure that a minimum of 25 pages or 25% of the total pages is uploaded / Sample Book Details (Upload epub or pdf files only)</a>
                                 </P>
                                 <div class="col-lg-12">
                                     <div class="basic-form">
@@ -2529,52 +2529,6 @@ function customAlert(title, message) {
   }
 
     </script>
-   <script>
-    $(document).ready(function() {
-        $("#submitbutton").click(function(event) {        
-            const selectedFormat = document.querySelector('input[name="sample_file"]:checked').value;
-            if (selectedFormat === 'Epub') {
-                const epubFileInput = document.getElementById('sample_epub');
-                if (!epubFileInput.files.length || !isEpubFile(epubFileInput.files[0])) {
-                    toastr.error('Please upload a valid EPUB file.');
-                    event.preventDefault();
-                    return false;
-                }
-                if (epubFileInput.files[0].size > 5 * 1024 * 1024) {
-                    toastr.error('File size exceeds the limit (5MB). Please upload a smaller file.');
-                    event.preventDefault();
-                    return false;
-                }
-            } else if (selectedFormat === 'Pdf') {
-                const pdfFileInput = document.getElementById('sample_pdf');
-                if (!pdfFileInput.files.length || !isPdfFile(pdfFileInput.files[0])) {
-                    toastr.error('Please upload a valid PDF file.');
-                    event.preventDefault();
-                    return false;
-                }
-                if (pdfFileInput.files[0].size > 5 * 1024 * 1024) {
-                    toastr.error('File size exceeds the limit (5MB). Please upload a smaller file.');
-                    event.preventDefault();
-                    return false;
-                }
-            } else {
-                toastr.error('Please select either EPUB or PDF format.');
-                event.preventDefault();
-                return false;
-            }
-
-            return true;
-        });
-
-        function isEpubFile(file) {
-            return file && file.type === 'application/epub+zip';
-        }
-
-        function isPdfFile(file) {
-            return file && file.type === 'application/pdf';
-        }
-    });
-</script> 
 <!-- <script>
     $(document).ready(function () {
         $("#submitbutton").click(function (event) {
@@ -2619,7 +2573,52 @@ function customAlert(title, message) {
         }
     });
 </script> -->
+<script>
+    $(document).ready(function() {
+        $("#submitbutton").click(function(event) {        
+            const selectedFormat = document.querySelector('input[name="sample_file"]:checked').value;
+            if (selectedFormat === 'Epub') {
+                const epubFileInput = document.getElementById('sample_epub');
+                if (!epubFileInput.files.length || !isEpubFile(epubFileInput.files[0])) {
+                    toastr.error('Please upload a valid EPUB file.');
+                    event.preventDefault();
+                    return false;
+                }
+                if (epubFileInput.files[0].size > 5 * 1024 * 1024) {
+                    toastr.error('File size exceeds the limit (5MB). Please upload a smaller file.');
+                    event.preventDefault();
+                    return false;
+                }
+            } else if (selectedFormat === 'Pdf') {
+                const pdfFileInput = document.getElementById('sample_pdf');
+                if (!pdfFileInput.files.length || !isPdfFile(pdfFileInput.files[0])) {
+                    toastr.error('Please upload a valid PDF file.');
+                    event.preventDefault();
+                    return false;
+                }
+                if (pdfFileInput.files[0].size > 5 * 1024 * 1024) {
+                    toastr.error('File size exceeds the limit (5MB). Please upload a smaller file.');
+                    event.preventDefault();
+                    return false;
+                }
+            } else {
+                toastr.error('Please select either EPUB or PDF format.');
+                event.preventDefault();
+                return false;
+            }
 
+            return true;
+        });
+
+        function isEpubFile(file) {
+            return file && file.type === 'application/epub+zip';
+        }
+
+        function isPdfFile(file) {
+            return file && file.type === 'application/pdf';
+        }
+    });
+</script>
 
  <script>
     function checkBookISBN() {
@@ -2709,11 +2708,7 @@ function numberOnly(id) {
     section.bg-light-new {
         background-color: #d7dadd80;
     }
-    @media screen and (max-width: 600px) {
-        .custom-control.custom-radio.newother {
-            display: flex;
-        }
-        }
+
     #image-container {
         display: flex;
         flex-wrap: wrap;

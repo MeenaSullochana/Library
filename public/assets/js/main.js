@@ -376,22 +376,22 @@
 		},
 		breakpoints: {
 			'1400': {
-				slidesPerView: 9,
-			},
-			'1200': {
 				slidesPerView: 6,
 			},
-			'992': {
-				slidesPerView: 5,
-			},
-			'768': {
+			'1200': {
 				slidesPerView: 4,
 			},
-			'576': {
+			'992': {
+				slidesPerView: 4,
+			},
+			'768': {
 				slidesPerView: 3,
 			},
+			'576': {
+				slidesPerView: 1,
+			},
 			'0': {
-				slidesPerView: 2,
+				slidesPerView: 1,
 			},
 		},
 	});

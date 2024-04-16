@@ -55,8 +55,18 @@
         ***********************************-->
         <div class="content-body">
             <div class="container-fluid">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h3 class="mb-0 bc-title">
+                                <b>Create Budget</b>
+                            </h3>
+
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="row p-3 bg-white rounded-2 mb-3">
+                    {{-- <div class="row p-3 bg-white rounded-2 mb-3">
                         <div class="col-md-12 d-flex justify-content-between">
                             <div class="item">
                                 <h3>Create Budget</h3>
@@ -66,7 +76,7 @@
                                             class="fa fa-backward" aria-hidden="true"></i> Back</button></a> -->
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-12">
                         <div class="card mb-0 h-auto">
                             <div class="card-body py-0">
@@ -90,30 +100,38 @@
                                             <form id="formId">
                                                 @csrf
                                                 <div class="mt-3 " id="compose-content">
-                                                    <div class="compose-content">
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Library Type<span
-                                                                    class="text-danger maditory">*</span></label>
-                                                            <select name="library" id="libraryType"
-                                                                class="form-control">
-                                                                <option value="">Select One</option>
-                                                                @php
-                                                            $library_types =
-                                                            DB::table('library_types')->where('status', '=',
-                                                            1)->get();
-                                                            @endphp
-
-                                                            @foreach($library_types as $val)
-                                                                <option value="{{$val->name}}"> {{$val->name}}</option>
-                                                                    @endforeach
-                                                            </select>
+                                                    <div class="compose-content p-3">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Library Type<span
+                                                                            class="text-danger maditory">*</span></label>
+                                                                    <select name="library" id="libraryType"
+                                                                        class="form-control">
+                                                                        <option value="">Select One</option>
+                                                                        @php
+                                                                    $library_types =
+                                                                    DB::table('library_types')->where('status', '=',
+                                                                    1)->get();
+                                                                    @endphp
+        
+                                                                    @foreach($library_types as $val)
+                                                                        <option value="{{$val->name}}"> {{$val->name}}</option>
+                                                                            @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Subject<span
+                                                                            class="text-danger maditory">*</span></label>
+                                                                    <input type="text" class="form-control bg-transparent"
+                                                                        id="subject" placeholder=" Subject:">
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="mb-3">
-                                                            <label class="form-label">Subject<span
-                                                                    class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control bg-transparent"
-                                                                id="subject" placeholder=" Subject:">
-                                                        </div>
+                                                        
+                                                       
                                                         <div class="mb-3">
                                                             <label class="form-label">Description<span
                                                                     class="text-danger maditory">*</span></label>
@@ -123,13 +141,18 @@
                                                                 placeholder="Enter description ..."></textarea>
                                                         </div>
 
-                                                        <h5 class="my-3"><i class="fa fa-paperclip me-2"></i> Budget
-                                                            Category</h5>
+                                                        <h3 class="my-3"><i class="fa fa-paperclip me-2"></i> Budget
+                                                            Category</h3>
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <p>Total Amount<span class="text-danger maditory">*</p>
-                                                                Rs.<input type="number" class="form-control"
-                                                                    id="totalAmount">
+                                                                {{-- Rs.<input type="number" class="form-control"
+                                                                    id="totalAmount"> --}}
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-inr"></i></span>
+                                                                        <input type="number" class="form-control"
+                                                                        id="totalAmount" aria-describedby="basic-addon1">
+                                                                      </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -140,13 +163,18 @@
                                                             @endphp
 
                                                             @foreach($categories as $val)
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-6">
                                                                 <p>{{ $val->name }}<span
                                                                         class="text-danger maditory">*</span></p>
-                                                                Rs.<input type="number"
+                                                                <div class="input-group mb-3">
+                                                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-inr"></i></span>
+                                                                    <input type="number" class="form-control" data-name="{{ $val->name }}"
+                                                                    name="category[{{ $val->name }}]" aria-describedby="basic-addon1">
+                                                                </div>
+                                                                {{-- Rs.<input type="number"
                                                                     class="form-control category-input"
                                                                     data-name="{{ $val->name }}"
-                                                                    name="category[{{ $val->name }}]">
+                                                                    name="category[{{ $val->name }}]"> --}}
                                                             </div>
                                                             @endforeach
                                                         </div>

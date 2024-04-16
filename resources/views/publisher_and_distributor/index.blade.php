@@ -95,7 +95,7 @@
                     <div class="col-xl-5 col-md-6">
                         <div class="card bg-primary">
                             <div class="card-header border-0">
-                                <h4 class="heading mb-0 text-white">Overview Of Sales </h4>
+                                <h4 class="heading mb-0 text-white">Overview of Sales </h4>
                             </div>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
@@ -678,6 +678,17 @@
     .scroll-view {
     height: 190px;
     overflow: scroll;
-}
+    }
+    @media only screen and (max-width: 61.9375rem){
+    .sales-bx {
+        min-width: 115px !important;
+    }
+    }
+    @media only screen and (max-width: 74.9375rem){
+    .sales-bx {
+        padding: 10px 31px !important;
+        min-width: 135px !important;
+    }
+    }
 </style>
 </html>

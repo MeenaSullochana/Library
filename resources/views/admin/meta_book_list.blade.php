@@ -95,7 +95,7 @@
                         <div class="input-group mb-3">
                                  <div class="card-header-form">
 
-                                       <select name="sortColumn" id="books-sort" class="form-control select-picker pr-2 d-tc" autocomplete="off" tabindex="-98">
+                                       <select name="sortColumn" id="books-sort" class="form-control select-picker pr-2 d-tc ms-4" autocomplete="off" tabindex="-98">
                                        <option value="All"> <i class="fa fa-filter" aria-hidden="true"></i>All Record</option>
 
                                           @php
