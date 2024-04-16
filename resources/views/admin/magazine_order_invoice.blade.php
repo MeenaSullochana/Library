@@ -83,14 +83,19 @@
                     <div class="col-lg-12">
 
                         <div class="card mt-3">
-                            <div class="card-header"> Magazine Oeder Selected List <strong>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</strong> <span class="float-end">
-                                    <strong>Status:</strong> Pending</span> </div>
-                            <div class="card-body">
+                            <div class="card-header"> 
+                            <strong>Status : <span class="text-bold"> Pending</span></strong> 
+                                <strong>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</strong> <span class="float-end">
+
+                                <button type="button" class="btn btn-primary" id="print_invoice" onclick="generatePdf()"><span class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
+
+                                </div>
+                            <div class="card-body" id="print-pdf">
                                 <div class="row mb-5">
                                 @php
                                              $library = DB::table('librarians')->where('id','=',$data->librarianid)->first();
                                              @endphp
-                                    <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                                    <div class="mt-8 col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                         <h6>Library Address:</h6>
                                         <div> <strong>{{$library->libraryType}}</strong> </div>
                                      
@@ -118,10 +123,18 @@
                                         <div>Phone: +48 123 456 789</div>
                                     </div> --> 
                                     <div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-lg-end">
-                                        <div class="row align-items-center">
+                                    <div class="row justify-content-end">
+
 											<div class="col-sm-9"> 
+                                                 <?php
+                                               $imgUrl = "https://bookprocurement.tamilnadupubliclibraries.org/assets/img/logo/logo.png";
+                                               $imgData = file_get_contents($imgUrl);
+                                               $base64Image = base64_encode($imgData);
+                                              ?>
+
+                                             
 												<div class="brand-logo mb-2 inovice-logo">
-                                                    <img src="https://bookprocurement.tamilnadupubliclibraries.org/assets/img/logo/logo.png" alt="" srcset="" style="width: 150px">
+                                                    <img  src="data:image/png;base64,<?php echo $base64Image; ?>" alt="" srcset="" style="width: 150px">
 												</div>
                                                <p class="p-0 m-0"><span class="fw-bold">Date:</span>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</p>
                                                <p class="p-0 m-0"><span class="fw-bold">Library Id:</span>{{$data->libraryid}}</p>
@@ -217,5 +230,12 @@
     include 'admin/plugin/plugin_js.php';
     ?>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
+<script>
+    function generatePdf() {
+        let htmlElement = document.getElementById('print-pdf');
+        html2pdf().from(htmlElement).save('Magazine_invoice.pdf');
+    }
+</script>
 </html>

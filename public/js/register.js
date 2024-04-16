@@ -213,7 +213,7 @@ $('#pub_email_id').keyup(function(){
                sramy++;
                $('#trans_book_pub_asr').
                   append('<tr id="row' + sramy +
-                  '"><td><input type="text" name="trs_state_awarded[]" placeholder="Enter the award name*" class="form-control name_list" required/></td><td><input type="text" name="trs_central_awarded[]" placeholder="Enter the title *" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+                  '"  class="removecl"><td><input type="text" name="trs_state_awarded[]" placeholder="Enter the award name*" class="form-control name_list" required/></td><td><input type="text" name="trs_central_awarded[]" placeholder="Enter the title *" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
                   sramy + '" class="btn btn-danger btn_remove_best_five_my">X</button></td></tr>');
    
             });
@@ -710,6 +710,12 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
             sra = 0;
             $('#member_in_publishers_new_old').css('display', 'none');
             $('#member_in_publishers_yes_old').prop('required', false);
+            $('#trans_title1').prop('required', false);
+            $('#trans_author1').prop('required', false);
+            $('#trans_from1').prop('required', false);
+            $('#trans_to1').prop('required', false);
+            $('#translated_pub').prop('disabled', false);
+            trs_pub_sit1 = 0
             $('.removecl').remove();
             break;
     }
@@ -724,7 +730,7 @@ $('input[type=radio][name=member_in_publishers_yes_old]').on('change', function 
          // console.log("inside",trs_pub_sit1);
          $('#trans_book_pub').
             append('<tr id="row' + i +
-               '"><td><input type="text" name="trans_title[]" placeholder="Enter the title*" class="form-control name_list" required/></td><td><input type="text" name="trans_author[]" placeholder="Enter the author*" class="form-control name_list" required/></td><td><input type="text" name="trans_from[]" placeholder="Enter the language from*" class="form-control name_list" required/></td><td><input type="text" name="trans_to[]" placeholder="Enter the language to*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+               '"  class="removecl"><td><input type="text" name="trans_title[]" placeholder="Enter the title*" class="form-control name_list" required/></td><td><input type="text" name="trans_author[]" placeholder="Enter the author*" class="form-control name_list" required/></td><td><input type="text" name="trans_from[]" placeholder="Enter the language from*" class="form-control name_list" required/></td><td><input type="text" name="trans_to[]" placeholder="Enter the language to*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
                i + '" class="btn btn-danger btn_remove_pub_dst_five">X</button></td></tr>');
       } else {
         
@@ -2784,6 +2790,7 @@ $('input[type=radio][name=member_in_publishers_yes_old_lby]').on('change', funct
             $('#trans_author2').prop('required', false);
             $('#trans_from2').prop('required', false);
             $('#trans_to2').prop('required', false);
+            trs_pub_sit = 0;
             $('.removecl').remove();
             break;
     }
@@ -2795,10 +2802,10 @@ $('input[type=radio][name=member_in_publishers_yes_old_lby]').on('change', funct
       // alert('good');
       i++;
       trs_pub_sit++;
-      if (trs_pub_sit < 10) {
+      if (trs_pub_sit < 5) {
          $('#trans_book_pub_dis_lby').
             append('<tr id="row' + i +
-               '"><td><input type="text" name="trans_title[]" placeholder="Enter the title*" class="form-control name_list" id="trans_title2" required/></td><td><input type="text" name="trans_author[]" placeholder="Enter the author*" class="form-control name_list" id="trans_author2" required/></td><td><input type="text" name="trans_from[]" placeholder="Enter the language from*" class="form-control name_list" id="trans_from2" required/></td><td><input type="text" name="trans_to[]" placeholder="Enter the language to*" class="form-control name_list" id="trans_to2" required/></td><td><button type="button" name="remove" id="' +
+               '" class="removecl"><td><input type="text" name="trans_title[]" placeholder="Enter the title*" class="form-control name_list" id="trans_title2" required/></td><td><input type="text" name="trans_author[]" placeholder="Enter the author*" class="form-control name_list" id="trans_author2" required/></td><td><input type="text" name="trans_from[]" placeholder="Enter the language from*" class="form-control name_list" id="trans_from2" required/></td><td><input type="text" name="trans_to[]" placeholder="Enter the language to*" class="form-control name_list" id="trans_to2" required/></td><td><button type="button" name="remove" id="' +
                i + '" class="btn btn-danger btn_remove_pub_dst_five">X</button></td></tr>');
       } else {
          $('#translated_pub_dis').prop('disabled', true);
@@ -3191,7 +3198,7 @@ $('input[type=radio][name=member_in_publishers_yes_old_asrmy]').on('change', fun
             sramy++;
             $('#trans_book_pub_dis_asrmy').
                append('<tr id="row' + sramy +
-               '"><td><input type="text" name="trs_state_awarded_dis_pub[]" placeholder="Enter the award name*" class="form-control name_list" required/></td><td><input type="text" name="trs_central_awarded_dis_pub[]" placeholder="Enter the title *" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+               '"  class="removecl"><td><input type="text" name="trs_state_awarded_dis_pub[]" placeholder="Enter the award name*" class="form-control name_list" required/></td><td><input type="text" name="trs_central_awarded_dis_pub[]" placeholder="Enter the title *" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
                sramy + '" class="btn btn-danger btn_remove_best_five_my">X</button></td></tr>');
 
          });

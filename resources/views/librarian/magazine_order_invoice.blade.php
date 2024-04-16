@@ -15,20 +15,14 @@
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
 
-    <!-- PAGE TITLE HERE -->
+    <meta charset="UTF-8">
+
     <title>Government of Tamil Nadu - Book Procurement - Magazine Add</title>
-    <!-- FAVICONS ICON -->
+
     <link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
     <?php include 'librarian/plugin/plugin_css.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <style>
-        /* Specify Tamil font family */
-        body {
-            font-family: 'Noto Sans Tamil', sans-serif;
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil&display=swap" rel="stylesheet">
-    <!-- Include necessary scripts -->
+
 </head>
 
 <body>
@@ -167,9 +161,16 @@
                                     <div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12">
                                         <div class="row align-items-center">
 											<div class="col-sm-12"> 
-												<div class="brand-logo mb-2 inovice-logo text-center">
-                                                    <img src="https://bookprocurement.tamilnadupubliclibraries.org/assets/img/logo/logo.png" alt="" srcset="" style="width: 50%">
-												</div>
+                                            <?php
+                                               $imgUrl = "https://bookprocurement.tamilnadupubliclibraries.org/assets/img/logo/logo.png";
+                                               $imgData = file_get_contents($imgUrl);
+                                               $base64Image = base64_encode($imgData);
+                                              ?>
+
+                                              <div class="brand-logo mb-2 inovice-logo text-center">
+                                               <img src="data:image/png;base64,<?php echo $base64Image; ?>" alt="" style="width: 50%">
+                                                </div>
+
                                                <p class="p-0 m-0 text-center"><span class="fw-bold">Date</span> : {{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</p>
                                                @if(auth('librarian')->user()->allow_status ==0)
 
@@ -273,7 +274,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.js"></script>
-    <script>
+    <!-- <script>
         window.jsPDF = window.jspdf.jsPDF;
 
         function generatePdf() {
@@ -281,7 +282,6 @@
             var htmlElement = document.getElementById('print-pdf');
             const opt = {
                     callback: function (jsPdf) {
-                        // Save the PDF with a specified name
                         jsPdf.save("Test.pdf");
                     },
                     margin: [10, 10, 10, 10],
@@ -302,13 +302,20 @@
         $("#print-pdf").print();
     });
 })
-    </script>
+    </script> -->
   
 
 </body>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
+<script>
+    function generatePdf() {
+        let htmlElement = document.getElementById('print-pdf');
+        html2pdf().from(htmlElement).save('Magazine_invoice.pdf');
+    }
+</script>
 
 
 </html>
