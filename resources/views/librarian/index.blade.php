@@ -67,94 +67,334 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-12">
+
+
                         <div class="row">
-                            @if (auth('librarian')->user()->metaChecker == 'no'  &&  auth('librarian')->user()->allow_status ==1)
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="card box-hover">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center">
-                                                <div class="icon-box icon-box-lg bg-success-light rounded">
-                                                    <i class="fa-solid fa-briefcase text-success"></i>
-                                                </div>
+                            @if (auth('librarian')->user()->metaChecker == 'no' &&
+                            auth('librarian')->user()->allow_status ==0)
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
 
+                                            @php
+                                            $orders1 = DB::table('ordermagazines')->where('status', '=', '1')->get();
+                                            $orders = [];
+
+                                            foreach ($orders1 as $val) {
+                                            $Librarian = DB::table('librarians')->where('id', '=', $val->librarianid)
+                                            ->where('district', '=', auth('librarian')->user()->district)
+                                            ->get();
+
+                                            if ($Librarian->isNotEmpty()) {
+                                            array_push($orders, $val);
+                                            }
+                                            }
+
+                                            $orders2 = count($orders);
+                                            @endphp
+
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $orders2 }}</h3>
+                                                <span>Total Orders</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $ordersdata = DB::table('ordermagazines')->where('status', '=', '2')->get();
+                                            $orders4 = [];
+
+                                            foreach ($ordersdata as $val) {
+                                            $Librariandata = DB::table('librarians')->where('id', '=', $val->librarianid)
+                                            ->where('district', '=', auth('librarian')->user()->district)
+                                            ->get();
+
+                                            if ($Librariandata->isNotEmpty()) {
+                                            array_push($orders4, $val);
+                                            }
+                                            }
+
+                                            $orders3 = count($orders4);
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $orders3 }}</h3>
+                                                <span>Total Cancel Orders</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
                                                 @php
-                                                    $ordermagazines = DB::table('ordermagazines')
-                                                    ->where('status', '=','1')
-                                                        ->where('librarianid', '=', auth('librarian')->user()->id)
-                                                        ->count();
+                                                $magazines = DB::table('magazines')->where('status', '=', '1')->get();
+
                                                 @endphp
-                                                <div class="total-projects ms-3">
-                                                    <h3 class="text-success count">{{ $ordermagazines }}</h3>
-                                                    <span>Total Orders</span>
+                                            </div>
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-primary count">{{ count($magazines) }}</h3>
+                                                <span>Total Magazine</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4>Library</h4>
+                            <div class="row">
+                                <div class="col-xl-4 col-sm-4">
+                                    <div class="card">
+                                        <div class="card-body depostit-card">
+                                            @php
+
+                                            $librarian = DB::table('librarians')->where('district', '=',
+                                            auth('librarian')->user()->district)->where('allow_status','=','1')->count();
+                                          
+                                            $librarianactive = DB::table('librarians')->where('district', '=',
+                                            auth('librarian')->user()->district)->where('status','=','1')->where('allow_status','=','1')->count();
+                                           
+                                            $librarianinactive = DB::table('librarians')->where('district', '=',
+                                            auth('librarian')->user()->district)->where('status','=','0')->where('allow_status','=','1')->count();
+                                            @endphp
+                                            <div class="depostit-card-media d-flex justify-content-between style-1">
+                                                <div>
+                                                    <h6>Number of Library</h6>
+                                                    <h3>{{$librarian}}</h3>
+                                                </div>
+                                                <div class="icon-box bg-secondary">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <g clip-path="url(#clip0_3_566)">
+                                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                fill="#222B40" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                fill="#222B40" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                fill="#222B40" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_3_566">
+                                                                <rect width="24" height="24" fill="white" />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="progress-box mt-0">
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="mb-0">Status </p>
+                                                    <p class="mb-0">{{$librarian}}</p>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-secondary"
+                                                        style="width:100%; height:5px; border-radius:4px;"
+                                                        role="progressbar"></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="card box-hover">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center">
-                                                <div class="icon-box icon-box-lg bg-primary-light rounded">
-                                                    <i class="fa-solid fa-cart-shopping text-primary"></i>
-                                                    @php
-                                                        $magazines = DB::table('magazines')->where('status', '=', '1')->get();
-
-                                                    @endphp
+                                <div class="col-xl-4 col-sm-4">
+                                    <div class="card">
+                                        <div class="card-body depostit-card">
+                                            <div class="depostit-card-media d-flex justify-content-between style-1">
+                                                <div>
+                                                    <h6>Active Library</h6>
+                                                    <h3>{{$librarianactive}}</h3>
                                                 </div>
-                                                <div class="total-projects ms-3">
-                                                    <h3 class="text-primary count">{{ count($magazines) }}</h3>
-                                                    <span>Total Magazine</span>
-
+                                                <div class="icon-box bg-secondary">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <g clip-path="url(#clip0_3_566)">
+                                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                fill="#222B40" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                fill="#222B40" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                fill="#222B40" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_3_566">
+                                                                <rect width="24" height="24" fill="white" />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="progress-box mt-0">
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="mb-0">Status</p>
+                                                    <p class="mb-0">{{$librarian}}</p>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-secondary"
+                                                        style="width:{{ $librarianactive != 0 ? ($librarianactive / $librarian * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                        role="progressbar"></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="card box-hover">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center">
-                                                <div class="icon-box icon-box-lg bg-warning-light rounded">
-                                                    <i class="fa-solid fa-users text-warning"></i>
+                                <div class="col-xl-4 col-sm-4">
+                                    <div class="card">
+                                        <div class="card-body depostit-card">
+                                            <div class="depostit-card-media d-flex justify-content-between style-1">
+                                                <div>
+                                                    <h6>Inactive Librarian</h6>
+                                                    <h3>{{$librarianinactive}}</h3>
                                                 </div>
+                                                <div class="icon-box bg-secondary">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <g clip-path="url(#clip0_3_566)">
+                                                            <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                fill="#222B40" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                fill="#222B40" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                fill="#222B40" />
+                                                        </g>
+                                                        <defs>
+                                                            <clipPath id="clip0_3_566">
+                                                                <rect width="24" height="24" fill="white" />
+                                                            </clipPath>
+                                                        </defs>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                            <div class="progress-box mt-0">
+                                                <div class="d-flex justify-content-between">
+                                                    <p class="mb-0">Status</p>
+                                                    <p class="mb-0">{{$librarian}}</p>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-secondary"
+                                                        style="width:{{ $librarianinactive != 0 ? ($librarianinactive / $librarian * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                        role="progressbar"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @endif
+
+                            @if (auth('librarian')->user()->metaChecker == 'no' &&
+                            auth('librarian')->user()->allow_status ==1)
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $ordermagazines = DB::table('ordermagazines')
+                                            ->where('status', '=','1')
+                                            ->where('librarianid', '=', auth('librarian')->user()->id)
+                                            ->count();
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $ordermagazines }}</h3>
+                                                <span>Total Orders</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
                                                 @php
-                                                    $carts = DB::table('carts')
-                                                        ->where('librarianid', '=', auth('librarian')->user()->id)
-                                                        ->where('status', '=', '1')
-                                                        ->count();
-                                                @endphp
-                                                <div class="total-projects ms-3">
-                                                    <h3 class="text-warning count">{{ $carts }}</h3>
-                                                    <span>Total Cart Magazine</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-sm-6">
-                                    <div class="card box-hover">
-                                        <div class="card-body">
-                                            <div class="d-flex align-items-center">
-                                                <div class="icon-box icon-box-lg bg-success-light rounded">
-                                                    <i class="fa-solid fa-briefcase text-success"></i>
-                                                </div>
+                                                $magazines = DB::table('magazines')->where('status', '=', '1')->get();
 
-                                                @php
-                                                    $ordermagazines = DB::table('ordermagazines')
-                                                    ->where('status', '=','2')
-                                                        ->where('librarianid', '=', auth('librarian')->user()->id)
-                                                        ->count();
                                                 @endphp
-                                                <div class="total-projects ms-3">
-                                                    <h3 class="text-success count">{{ $ordermagazines }}</h3>
-                                                    <span>Total Cancel Orders</span>
-                                                </div>
+                                            </div>
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-primary count">{{ count($magazines) }}</h3>
+                                                <span>Total Magazine</span>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-xl-3 col-sm-6">
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-warning-light rounded">
+                                                <i class="fa-solid fa-users text-warning"></i>
+                                            </div>
+                                            @php
+                                            $carts = DB::table('carts')
+                                            ->where('librarianid', '=', auth('librarian')->user()->id)
+                                            ->where('status', '=', '1')
+                                            ->count();
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-warning count">{{ $carts }}</h3>
+                                                <span>Total Cart Magazine</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $ordermagazines = DB::table('ordermagazines')
+                                            ->where('status', '=','2')
+                                            ->where('librarianid', '=', auth('librarian')->user()->id)
+                                            ->count();
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $ordermagazines }}</h3>
+                                                <span>Total Cancel Orders</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-xl-3 col-sm-6">
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
@@ -174,120 +414,112 @@
                             <div class="col-xl-6 col-md-6">
                                 <div class="row">
                                     @if (auth('librarian')->user()->metaChecker == 'yes')
-                                        <div class="col-xl-6 col-sm-6">
-                                            <div class="card">
-                                                <div
-                                                    class="card-body d-flex justify-content-between align-items-center">
-                                                    <div class="d-flex">
-                                                        <div class="icon-box icon-box-md bg-danger-light me-1">
-                                                            <i class="fa fa-book ms-2 text-primary"
-                                                                aria-hidden="true"></i>
-                                                        </div>
-                                                        @php
-                                                            $id = auth('librarian')->user()->id;
-                                                            $books = DB::table('books')
-                                                                ->where('book_reviewer_id', '=', $id)
-                                                                ->count();
-                                                        @endphp
-                                                        <div class="ms-2">
-                                                            <h4>{{ $books }}</h4>
-                                                            <p class="mb-0">Total Meta Books</p>
-                                                        </div>
+                                    <div class="col-xl-6 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <div class="icon-box icon-box-md bg-danger-light me-1">
+                                                        <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                                     </div>
-                                                    <a href="javascript:void(0)"><i
-                                                            class="fa-solid fa-chevron-right text-danger"></i></a>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $books = DB::table('books')
+                                                    ->where('book_reviewer_id', '=', $id)
+                                                    ->count();
+                                                    @endphp
+                                                    <div class="ms-2">
+                                                        <h4>{{ $books }}</h4>
+                                                        <p class="mb-0">Total Meta Books</p>
+                                                    </div>
                                                 </div>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fa-solid fa-chevron-right text-danger"></i></a>
                                             </div>
                                         </div>
-                                        <div class="col-xl-6 col-sm-6">
-                                            <div class="card">
-                                                <div
-                                                    class="card-body d-flex justify-content-between align-items-center">
-                                                    <div class="d-flex">
-                                                        <div class="icon-box icon-box-md bg-primary-light me-1">
-                                                            <i class="fa fa-book ms-2 text-primary"
-                                                                aria-hidden="true"></i>
-                                                        </div>
-                                                        @php
-                                                            $id = auth('librarian')->user()->id;
-                                                            $books1 = DB::table('books')
-                                                                ->where('book_reviewer_id', $id)
-                                                                ->where(function ($query) {
-                                                                    $query
-                                                                        ->whereNull('book_status')
-                                                                        ->orWhere('book_status', 2)
-                                                                        ->orWhere('book_status', 3);
-                                                                })
-                                                                ->count();
-                                                        @endphp
-                                                        <div class="ms-2">
-                                                            <h4>{{ $books1 }}</h4>
-                                                            <p class="mb-0">Pending Meta Books</p>
-                                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <div class="icon-box icon-box-md bg-primary-light me-1">
+                                                        <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                                     </div>
-                                                    <a href="javascript:void(0)"><i
-                                                            class="fa-solid fa-chevron-right text-primary"></i></a>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $books1 = DB::table('books')
+                                                    ->where('book_reviewer_id', $id)
+                                                    ->where(function ($query) {
+                                                    $query
+                                                    ->whereNull('book_status')
+                                                    ->orWhere('book_status', 2)
+                                                    ->orWhere('book_status', 3);
+                                                    })
+                                                    ->count();
+                                                    @endphp
+                                                    <div class="ms-2">
+                                                        <h4>{{ $books1 }}</h4>
+                                                        <p class="mb-0">Pending Meta Books</p>
+                                                    </div>
                                                 </div>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fa-solid fa-chevron-right text-primary"></i></a>
                                             </div>
                                         </div>
+                                    </div>
                                     @endif
                                 </div>
                             </div>
                             <div class="col-xl-6 col-md-6">
                                 <div class="row">
                                     @if (auth('librarian')->user()->metaChecker == 'yes')
-                                        <div class="col-xl-6 col-sm-6">
-                                            <div class="card">
-                                                <div
-                                                    class="card-body d-flex justify-content-between align-items-center">
-                                                    <div class="d-flex">
-                                                        <div class="icon-box icon-box-md bg-info-light me-1">
-                                                            <i class="fa fa-book ms-2 text-primary"
-                                                                aria-hidden="true"></i>
-                                                        </div>
-                                                        @php
-                                                            $id = auth('librarian')->user()->id;
-                                                            $books3 = DB::table('books')
-                                                                ->where('book_reviewer_id', '=', $id)
-                                                                ->where('book_status', '=', 1)
-                                                                ->count();
-                                                        @endphp
-                                                        <div class="ms-2">
-                                                            <h4>{{ $books3 }}</h4>
-                                                            <p class="mb-0">Completed Books</p>
-                                                        </div>
+                                    <div class="col-xl-6 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <div class="icon-box icon-box-md bg-info-light me-1">
+                                                        <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                                     </div>
-                                                    <a href="javascript:void(0)"><i
-                                                            class="fa-solid fa-chevron-right text-info"></i></a>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $books3 = DB::table('books')
+                                                    ->where('book_reviewer_id', '=', $id)
+                                                    ->where('book_status', '=', 1)
+                                                    ->count();
+                                                    @endphp
+                                                    <div class="ms-2">
+                                                        <h4>{{ $books3 }}</h4>
+                                                        <p class="mb-0">Completed Books</p>
+                                                    </div>
                                                 </div>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fa-solid fa-chevron-right text-info"></i></a>
                                             </div>
                                         </div>
-                                        <div class="col-xl-6 col-sm-6">
-                                            <div class="card">
-                                                <div
-                                                    class="card-body d-flex justify-content-between align-items-center">
-                                                    <div class="d-flex">
-                                                        <div class="icon-box icon-box-md bg-info-light me-1">
-                                                            <i class="fa fa-book ms-2 text-primary"
-                                                                aria-hidden="true"></i>
-                                                        </div>
-                                                        @php
-                                                            $id = auth('librarian')->user()->id;
-                                                            $books2 = DB::table('books')
-                                                                ->where('book_reviewer_id', '=', $id)
-                                                                ->where('book_status', '=', 0)
-                                                                ->count();
-                                                        @endphp
-                                                        <div class="ms-2">
-                                                            <h4>{{ $books2 }}</h4>
-                                                            <p class="mb-0">Rejected Books</p>
-                                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <div class="icon-box icon-box-md bg-info-light me-1">
+                                                        <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                                     </div>
-                                                    <a href="javascript:void(0)"><i
-                                                            class="fa-solid fa-chevron-right text-info"></i></a>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $books2 = DB::table('books')
+                                                    ->where('book_reviewer_id', '=', $id)
+                                                    ->where('book_status', '=', 0)
+                                                    ->count();
+                                                    @endphp
+                                                    <div class="ms-2">
+                                                        <h4>{{ $books2 }}</h4>
+                                                        <p class="mb-0">Rejected Books</p>
+                                                    </div>
                                                 </div>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fa-solid fa-chevron-right text-info"></i></a>
                                             </div>
                                         </div>
+                                    </div>
                                     @endif
                                 </div>
                             </div>
@@ -295,72 +527,71 @@
                             <div class="col-xl-12">
                                 <div class="card">
                                     @if (auth('librarian')->user()->metaChecker == 'yes')
-                                        <div class="card-body p-0">
-                                            <div class="table-responsive active-projects">
-                                                <div class="tbl-caption">
-                                                    <h4 class="heading mb-0">Meta Check Book List</h4>
-                                                </div>
-                                                <table id="projects-tbl" class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Book Name</th>
-                                                            <th>Price</th>
-                                                            <th>Status</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @php
-                                                            $id = auth('librarian')->user()->id;
-                                                            $record = DB::table('books')
-                                                                ->where('book_reviewer_id', '=', $id)
-                                                                ->get();
-                                                        @endphp
-                                                        @foreach ($record as $val)
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <img src="{{ asset('Books/front/' . $val->front_img) }}"
-                                                                            class="avatar avatar-md rounded-circle"
-                                                                            alt="">
-                                                                        <p class="mb-0 ms-2">{{ $val->book_title }}
-                                                                        </p>
-
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    {{ $val->price }}
-                                                                </td>
-                                                                @if ($val->book_status == 1)
-                                                                    <td>
-                                                                        <span
-                                                                            class="badge badge-success light border-0">Success</span>
-                                                                    </td>
-                                                                @elseif($val->book_status == null)
-                                                                    <td>
-                                                                        <span
-                                                                            class="badge badge-warning light border-0">Pending</span>
-                                                                    </td>
-                                                                @else
-                                                                    <td>
-                                                                        <span
-                                                                            class="badge badge-danger light border-0">Reject</span>
-
-                                                                    </td>
-                                                                @endif
-
-                                                            </tr>
-                                                        @endforeach
-
-                                                    </tbody>
-                                                </table>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive active-projects">
+                                            <div class="tbl-caption">
+                                                <h4 class="heading mb-0">Meta Check Book List</h4>
                                             </div>
+                                            <table id="projects-tbl" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Book Name</th>
+                                                        <th>Price</th>
+                                                        <th>Status</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $record = DB::table('books')
+                                                    ->where('book_reviewer_id', '=', $id)
+                                                    ->get();
+                                                    @endphp
+                                                    @foreach ($record as $val)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <img src="{{ asset('Books/front/' . $val->front_img) }}"
+                                                                    class="avatar avatar-md rounded-circle" alt="">
+                                                                <p class="mb-0 ms-2">{{ $val->book_title }}
+                                                                </p>
+
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            {{ $val->price }}
+                                                        </td>
+                                                        @if ($val->book_status == 1)
+                                                        <td>
+                                                            <span
+                                                                class="badge badge-success light border-0">Success</span>
+                                                        </td>
+                                                        @elseif($val->book_status == null)
+                                                        <td>
+                                                            <span
+                                                                class="badge badge-warning light border-0">Pending</span>
+                                                        </td>
+                                                        @else
+                                                        <td>
+                                                            <span
+                                                                class="badge badge-danger light border-0">Reject</span>
+
+                                                        </td>
+                                                        @endif
+
+                                                    </tr>
+                                                    @endforeach
+
+                                                </tbody>
+                                            </table>
                                         </div>
+                                    </div>
                                     @endif
                                 </div>
                             </div>
                             @if (auth('librarian')->user()->metaChecker == 'no')
-                                <!-- <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card p-3">
                                     <div class="card-header border-0">
                                         <h4 class="heading mb-0">New Book</h4>
@@ -453,7 +684,7 @@
                                 </div>
                             </div> -->
 
-                                <!-- <div class="col-xl-6">
+                            <!-- <div class="col-xl-6">
                                 <div class="card">
                                     <div class="card-header border-0">
                                         <h4 class="heading mb-0">Top rating books</h4>
@@ -579,11 +810,11 @@
 
 
     </div>
-   
+
     <!-- Modal Body -->
     <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-        role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -591,27 +822,31 @@
                     <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
                 <div class="modal-body">
-                    <form class="needs-validation" novalidate method="POST" >
-                     <div class="mb-3">
-                        <label for="formGroupExampleInput" class="form-label">Current Password</label>
-                        <input type="password" class="form-control" name="currentPassword" id="currentPassword" placeholder="Enter the Current Password" required>
-                        <div class="invalid-feedback">Please Enter Current Password</div>
-                      </div>
-                      <div class="mb-3">
-                        <label for="formGroupExampleInput2" class="form-label">New Password</label>
-                        <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="Enter the New Password" required>
-                        <div class="invalid-feedback">Please Enter New Password</div>
-                      </div>
-                      <div class="mb-3">
-                        <label for="formGroupExampleInput2" class="form-label">Confirm Passowrd</label>
-                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword" placeholder="Enter the confirm Password" required>
-                        <div class="invalid-feedback">Please Enter Confirm Password</div>
-                      </div>
-                      <div class="mb-3">
-                        <label for="formGroupExampleInput2" class="form-label">Email</label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter the email" required>
-                        <div class="invalid-feedback">Please Enter Confirm Password</div>
-                      </div>
+                    <form class="needs-validation" novalidate method="POST">
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput" class="form-label">Current Password</label>
+                            <input type="password" class="form-control" name="currentPassword" id="currentPassword"
+                                placeholder="Enter the Current Password" required>
+                            <div class="invalid-feedback">Please Enter Current Password</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">New Password</label>
+                            <input type="password" class="form-control" name="newPassword" id="newPassword"
+                                placeholder="Enter the New Password" required>
+                            <div class="invalid-feedback">Please Enter New Password</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Confirm Passowrd</label>
+                            <input type="password" class="form-control" name="confirmPassword" id="confirmPassword"
+                                placeholder="Enter the confirm Password" required>
+                            <div class="invalid-feedback">Please Enter Confirm Password</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formGroupExampleInput2" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" id="email"
+                                placeholder="Enter the email" required>
+                            <div class="invalid-feedback">Please Enter Confirm Password</div>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -620,7 +855,7 @@
                     <button type="submit" id="submitButton" name="submit" class="btn btn-primary">Save</button>
                 </div>
             </div>
-        </form>
+            </form>
         </div>
     </div>
 
@@ -672,100 +907,102 @@
 
 </body>
 @if (Session::has('success'))
-    <script>
-        toastr.success("{{ Session::get('success') }}", {
-            timeout: 15000
-        });
-    </script>
+<script>
+toastr.success("{{ Session::get('success') }}", {
+    timeout: 15000
+});
+</script>
 @elseif (Session::has('error'))
-    <script>
-        toastr.error("{{ Session::get('error') }}", {
-            timeout: 15000
-        });
-    </script>
+<script>
+toastr.error("{{ Session::get('error') }}", {
+    timeout: 15000
+});
+</script>
 @endif
 
 </html>
 <style>
-    .active-projects.style-1 .dt-buttons .dt-button {
-        top: -50px;
-        right: 0 !important;
-    }
+.active-projects.style-1 .dt-buttons .dt-button {
+    top: -50px;
+    right: 0 !important;
+}
 
-    .active-projects tbody tr td:last-child {
-        text-align: center;
-    }
+.active-projects tbody tr td:last-child {
+    text-align: center;
+}
 </style>
 
 
 <script>
-    $(document).ready(function(){
-            (function () {
-            'use strict'
+$(document).ready(function() {
+    (function() {
+        'use strict'
 
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.querySelectorAll('.needs-validation')
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
 
-            // Loop over them and prevent submission
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
                     if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
+                        event.preventDefault()
+                        event.stopPropagation()
                     }
 
                     form.classList.add('was-validated')
                 }, false)
-                })
             })
-            @if (auth('librarian')->user()->checkstatus == Null)
-                $('#modalId').modal('show');
-@endif
-            
-    });
+    })
+    @if(auth('librarian')-> user()-> checkstatus == Null)
+    $('#modalId').modal('show');
+    @endif
+
+});
 </script>
 
 <script>
+$(document).on('click', '#submitButton', function(e) {
+    e.preventDefault();
+    var data = {
+        'currentPassword': $('#currentPassword').val(),
+        'newPassword': $('#newPassword').val(),
+        'confirmPassword': $('#confirmPassword').val(),
+        'email': $('#email').val(),
 
-       $(document).on('click','#submitButton',function(e){
-          e.preventDefault();
-          var data={
-             'currentPassword':$('#currentPassword').val(),
-             'newPassword':$('#newPassword').val(),
-             'confirmPassword':$('#confirmPassword').val(),
-             'email':$('#email').val(),
 
-             
-          }
-          $.ajaxSetup({
-             headers:{
-                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-             }
-          });
-          $.ajax({
-             type:"post",
-             url:"/librarian/changepasswordnew",
-             data:data,
-             dataType:"json",
-             success: function(response) {
-                if(response.success){
-                    toastr.success(response.success,{timeout:25000});
-                    document.getElementById('currentPassword').value = '';
-                    document.getElementById('newPassword').value = '';
-                    document.getElementById('confirmPassword').value = '';
-                    document.getElementById('email').value = '';
+    }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: "post",
+        url: "/librarian/changepasswordnew",
+        data: data,
+        dataType: "json",
+        success: function(response) {
+            if (response.success) {
+                toastr.success(response.success, {
+                    timeout: 25000
+                });
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
+                document.getElementById('email').value = '';
 
-                    
-                    $('#modalId').modal('hide');
 
-                }else{
-                    toastr.error(response.error,{timeout:25000});
-                }
+                $('#modalId').modal('hide');
 
+            } else {
+                toastr.error(response.error, {
+                    timeout: 25000
+                });
             }
-          })
 
-       })
+        }
+    })
 
-      </script>
+})
+</script>

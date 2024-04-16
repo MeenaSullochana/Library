@@ -1010,5 +1010,9 @@ Route::get('/recordr ',[SettingController::class,'recordr']);
 
 Route::get('/magazineorder_down_NON ',[SettingController::class,'magazineorder_down_NON']);
 
+Route::get('report_download_order_districtmagazine',function(){ return view('admin.report_download_order_districtmagazine');});
+Route::post('/magazine_district_order ',[SettingController::class,'magazine_district_order']);
+
+
     });
 });

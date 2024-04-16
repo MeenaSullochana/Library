@@ -21,7 +21,14 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
     <?php include 'librarian/plugin/plugin_css.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-  
+    <style>
+        /* Specify Tamil font family */
+        body {
+            font-family: 'Noto Sans Tamil', sans-serif;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil&display=swap" rel="stylesheet">
+    <!-- Include necessary scripts -->
 </head>
 
 <body>
@@ -87,7 +94,7 @@
                                 <strong>Status : <span class="text-bold"> Pending</span></strong> 
                                 <strong>{{ \Carbon\Carbon::parse($data->created_at)->format('d-M-Y') }}</strong> <span class="float-end">
 
-                                <button type="button" class="btn btn-primary" onclick="generatePDF()"><span class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
+                                <button type="button" class="btn btn-primary" id="print_invoice" onclick="generatePdf()"><span class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
 
                                 <!-- <button type="button" class="btn  btn-info"><span class="btn-icon-start text-info"><i class="fas fa-file-excel"></i>
                                     </span>Excel</button> -->
@@ -262,10 +269,41 @@
         <?php
         include "librarian/plugin/plugin_js.php";
     ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script type="text/JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.print/1.6.0/jQuery.print.js"></script>
+    <script>
+        window.jsPDF = window.jspdf.jsPDF;
 
- 
+        function generatePdf() {
+            let jsPdf = new jsPDF('p', 'pt', 'letter');
+            var htmlElement = document.getElementById('print-pdf');
+            const opt = {
+                    callback: function (jsPdf) {
+                        // Save the PDF with a specified name
+                        jsPdf.save("Test.pdf");
+                    },
+                    margin: [10, 10, 10, 10],
+                    autoPaging: 'text',
+                    html2canvas: {
+                        allowTaint: true,
+                        dpi: 300,
+                        letterRendering: true,
+                        logging: false,
+                        scale: .8
+                    }
+                };
+
+            jsPdf.html(htmlElement, opt);
+        }
+        $(document).ready(function(){
+    $('#print_invoice').on('click',function(){
+        $("#print-pdf").print();
+    });
+})
+    </script>
+  
 
 </body>
 

@@ -41,7 +41,7 @@ class BudgetController extends Controller
         $budget->subject = $req->subject;
         $budget->description = $req->description;
         $budget->totalAmount = $req->totalAmount;
-        $budget->purchaseid = [];
+        $budget->purchaseid = "[]";
         $budget->type = $req->type;
         $budget->CategorieAmount = json_encode($req->CategorieAmount); 
         $budget->save();

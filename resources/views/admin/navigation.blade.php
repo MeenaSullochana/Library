@@ -2234,6 +2234,7 @@
                             <li><a href="report_download_publisher">Publisher Report Download</a></li>
                             <li><a href="/admin/report_download_distributor">Distributor Report Download</a></li>
                             <li><a href="report_download_pub_dist">Publisher Cum Distributor Report Download</a></li>
+                            <li><a href="report_download_order_districtmagazine">Report Download Order District Magazine</a></li> 
 
                             <li><a href="report_download_order">Order Management Download</a></li>
                             <li><a href="report_download_payment">Payment Report Download</a></li>

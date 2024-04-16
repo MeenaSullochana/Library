@@ -145,7 +145,7 @@
                                                 <tbody>
                                                     @php
                                                      $data=auth('librarian')->user()->district;
-                                                    $rev = DB::table('librarians')->where('district','=',$data)->orderBy('sNo','ASC')->get();
+                                                    $rev = DB::table('librarians')->where('district','=',$data)->where('allow_status','=','1')->orderBy('sNo','ASC')->get();
                                                     @endphp
                                                     @foreach($rev as $val)
 
