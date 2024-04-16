@@ -7,7 +7,7 @@ use App\Http\Controllers\Librarian\QuoteController;
 use App\Http\Controllers\Librarian\FeedbackController;
 use App\Http\Controllers\Librarian\notificationController;
 use App\Http\Controllers\WebsitebookController;
-
+use App\Http\Controllers\Librarian\SettingController;
 Route::middleware(['librarian'])->group(function () {
 Route::prefix('librarian')->group(function () { 
 
@@ -160,6 +160,13 @@ Route::prefix('librarian')->group(function () {
         }
         
     });
+    Route::get('/report_downl_order',[SettingController::class,'report_downl_order']);
+    Route::get('/report_downl_not_order',[SettingController::class,'report_downl_not_order']);
+    Route::get('/report_download_oedermagazine',function(){ return view('librarian.report_download_oedermagazine');});
+    Route::post('/magazineorder_down',[SettingController::class,'magazineorder_down']);
+
+    Route::get('/magazine_order_list',[SettingController::class,'magazine_order_list']);
+
     
 });
 });

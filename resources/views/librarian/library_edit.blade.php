@@ -98,13 +98,13 @@
                                                           class="text-danger maditory">*</span></label>
                                                         <select name="library_type" id="libraryType" class="form-select bg-white" Required>
                                                         <option value="{{$data->libraryType}}">{{$data->libraryType}}</option>
-                                                        @php
+                                                        <!-- @php
                                                           $categori = DB::table('library_types')->where('name','!=',$data->libraryType)->where('status','=','1')->get();
                                                           @endphp
-                                                          @foreach($categori as $val)
-                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+                                                          @foreach($categori as $val) -->
+                                                            <!-- <option value="{{$val->name}}">{{$val->name}}</option> -->
 
-                                                            @endforeach
+                                                            <!-- @endforeach -->
                                                         </select>
                                                     </div>
 
@@ -155,13 +155,13 @@
                                                         <select name="library_type" class="form-select bg-white" id="district" Required>
                                                         <option value="{{$data->district}}">{{$data->district}}</option>
 
-                                                               @php
+                                                               <!-- @php
                                                                 $districts = DB::table('districts')->where('name', '!=',$data->district)->where('status', '=', 1)->get();
                                                                 @endphp
 
                                                             @foreach($districts as $state)
                                                              <option value="{{ $state->name }}">{{ $state->name }}</option>
-                                                             @endforeach
+                                                             @endforeach -->
                                                         </select>
 
                                                     </div>

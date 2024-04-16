@@ -144,7 +144,7 @@
                                                 <tbody>
                                                     @php
                                                      $data=auth('librarian')->user()->district;
-                                                    $rev = DB::table('librarians')->where('district','=',$data)->where('status','=','1')->orderBy('sNo','ASC')->get();
+                                                    $rev = DB::table('librarians')->where('district','=',$data)->where('allow_status','=','1')->where('status','=','1')->orderBy('sNo','ASC')->get();
                                                     @endphp
                                                     @foreach($rev as $val)
 
@@ -204,7 +204,7 @@
                                                         @endif
                                                         <td>
                                                             <div class="d-flex">
-                                                                <a href="/librarian/librarianview/{{$val->id}}"
+                                                            <a href="/librarian/librarianview/{{$val->id}}"
                                                                     class="btn btn-primary shadow btn-xs sharp me-1">
                                                                     <i class="fa fa-eye"></i>
                                                                 </a>

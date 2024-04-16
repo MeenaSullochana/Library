@@ -58,7 +58,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Active Library List</b>
+                                <b>Inactive Library List</b>
                             </h3>
                            
                         </div>
@@ -144,7 +144,7 @@
                                                 <tbody>
                                                     @php
                                                      $data=auth('librarian')->user()->district;
-                                                    $rev = DB::table('librarians')->where('district','=',$data)->where('status','=','0')->orderBy('sNo','ASC')->get();
+                                                    $rev = DB::table('librarians')->where('district','=',$data)->where('allow_status','=','1')->where('status','=','0')->orderBy('sNo','ASC')->get();
                                                     @endphp
                                                     @foreach($rev as $val)
 
