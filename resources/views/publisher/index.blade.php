@@ -675,10 +675,22 @@
     <script src="{{asset('publisher/js/styleSwitcher.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
+</html>
+
 <style>
     .scroll-view {
     height: 190px;
     overflow: scroll;
-}
+    } 
+    @media only screen and (max-width: 61.9375rem){
+    .sales-bx {
+        min-width: 115px !important;
+    }
+    }
+    @media only screen and (max-width: 74.9375rem){
+    .sales-bx {
+        padding: 10px 31px !important;
+        min-width: 135px !important;
+    }
+    }
 </style>
-</html>

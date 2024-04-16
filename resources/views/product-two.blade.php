@@ -1,4 +1,4 @@
-{{-- @dd($magazines); --}}
+
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -11,116 +11,7 @@
     <?php include 'plugin/css.php'; ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {{-- @include(asset('pl')) --}}
-    <style>
-.tpproduct__thumb {
-    padding: 20px 20px;
-    overflow: hidden;
-    border-radius: 10px;
-    min-height: 270px;
-    max-height: 270px;
-}
-.category__item {
-    text-align: center;
-    background-color: var(--tp-common-white);
-    border-radius: 10px;
-    padding: 30px 10px 25px 10px;
-    min-height: 234px;
-}
-
-.tplist__product-img {
-    height: 200px;
-    width: 100px;
-}
-
-.tplist__product-img-one img {
-    height: 200px;
-    width: 100px;
-}
-
-.tplist__product-img-two img {
-    height: 200px;
-    width: 100px;
-}
-.tpproduct__hover-text{
-    z-index: 1;
-}
-.loader {
-    border: 16px solid #f3f3f3; /* Light grey */
-    border-top: 16px solid #3498db; /* Blue */
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
-    position: fixed; /* Position fixed */
-    top: 50%;
-    left: 50%;
-    margin-left: -60px; /* Negative half of width */
-    margin-top: -60px; /* Negative half of height */
-    z-index: 9999; /* Higher z-index */
-    background: rgba(20, 6, 6, 0.5); /* Semi-transparent background */
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-</style>
-
-<style>
-@property --p{
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 0;
-}
-
-.pie {
-  --p:20;
-  --b:10px;
-  --c:darkred;
-  --w:70px;
-  
-  width:var(--w);
-  aspect-ratio:1;
-  position:relative;
-  display:inline-grid;
-  margin:5px;
-  place-content:center;
-  font-size:16px;
-  font-weight:bold;
-  font-family:sans-serif;
-}
-.pie:before,
-.pie:after {
-  content:"";
-  position:absolute;
-  border-radius:50%;
-}
-.pie:before {
-  inset:0;
-  background:
-  radial-gradient(farthest-side, var(--c) 98%, #0000) top / var(--b) var(--b) no-repeat, conic-gradient(var(--c) calc(var(--p)* 1%), #0000002e 0);
-  -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
-          mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
-}
-.pie:after {
-  inset:calc(50% - var(--b)/2);
-  background:var(--c);
-  transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
-}
-.animate {
-  animation:p 1s .5s both;
-}
-.no-round:before {
-  background-size:0 0,auto;
-}
-.no-round:after {
-  content:none;
-}
-@keyframes p {
-  from{--p:0}
-}
-
-</style>
+   
 </head>
 
 <body>
@@ -147,79 +38,7 @@
     <!-- header-area-end -->
 
     <main>
-    @php
-$librarian = auth('librarian')->user();
-
-$librarian = Auth::guard('librarian')->user();
-        $magazinebudget = DB::table('libeaey_budgets')->where('type', 'magazinebudget')
-            ->where(function ($query) use ($librarian) {
-                $query->whereNotIn('purchaseid', [$librarian->id])
-                    ->whereJsonDoesntContain('purchaseid', $librarian->id);
-            })
-            ->where('libraryType', $librarian->libraryType)
-            ->orderBy('created_at', 'ASC')
-            ->first();
-
-if ($magazinebudget) {
-    $cartdata = DB::table('carts')->where('librarianid', '=', $librarian->id) 
-        ->where('budgetid', '=', $magazinebudget->id)
-        ->where('status', '=', '1')
-        ->get();
-
-    if (Session::has('magazinecartcount')) {
-        Session::forget('magazinecartcount');
-    }
-    $magazinecartcount = count($cartdata);
-    Session::put('magazinecartcount', $magazinecartcount);
-
-    $bud_arr = [];
-    $magazinebudget->CategorieAmount1 = json_decode($magazinebudget->CategorieAmount); 
-
-    foreach ($magazinebudget->CategorieAmount1 as $val) {
-        $cartdata1 = DB::table('carts')->where('librarianid', '=', $librarian->id)
-            ->where('category', '=', $val->name)
-            ->where('budgetid', '=', $magazinebudget->id)
-            ->where('status', '=', '1')
-            ->sum('totalAmount');
-
-        $percentage = $val->amount !== 0 ? round(($cartdata1 / max(1, $val->amount)) * 100) : 0;
-
-        $obj = (object)[
-            "category" => $val->name,
-            "budget_price" => $val->amount,
-            "cart_price" => $cartdata1,
-            "percentage" => $percentage
-        ];
-        array_push($bud_arr, $obj);
-    }
-} else {
-    $magazinecartcount = 0;
-    Session::put('magazinecartcount', $magazinecartcount);
-    $bud_arr = [];
-    $magazinebudget1 =  DB::table('magazine_categories')->where('status', '=', '1')
-        ->orderBy('created_at', 'ASC')
-        ->get();
-
-    foreach ($magazinebudget1 as $val) {
-        $obj = (object)[
-            "category" => $val->name,
-            "budget_price" => 0,
-            "cart_price" => 0,
-            "percentage" => 0
-        ];
-        array_push($bud_arr, $obj);
-    }
-}
-
-if (Session::has('bud_arr')) {
-    Session::forget('bud_arr');
-}
-
-Session::put('bud_arr', $bud_arr);
-@endphp
-
-
-
+        
         <!-- Your Content Use Here -->
         <!-- breadcrumb-area-start -->
         <div class="breadcrumb__area grey-bg pt-5 pb-5">
@@ -264,58 +83,75 @@ Session::put('bud_arr', $bud_arr);
         <section class="shop-area-start grey-bg pb-200">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-2 col-lg-12 col-md-12">
-                        <div class="tpshop__leftbar">
-                            <div class="tpshop__widget mb-30 pb-25">
-                                <h4 class="tpshop__widget-title">Product Tamil Categories</h4>
-                                @foreach($categories as $key => $val)
-                                <div class="form-check">
-                                    <input class="form-check-input category-checkbox" type="checkbox" value="" data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}" data-key="{{ $key }}">
-                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}"> {{ $val->name }}</label>
+                    
+                    <div class="col-xl-3 col-lg-12 col-md-12">
+                        <div class="accordion w-100" id="accordionExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                        aria-expanded="true" aria-controls="collapseOne">
+                                        <i class="fa fa-filter"></i> &nbsp; &nbsp;Filter
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="tpshop__leftbar w-100">
+                                            <div class="tpshop__widget mb-30 pb-25">
+                                                <h4 class="tpshop__widget-title">Periodicals Tamil Categories</h4>
+                                                @foreach($categories as $key => $val)
+                                                <div class="form-check">
+                                                    <input class="form-check-input category-checkbox" type="checkbox" value="" data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}" data-key="{{ $key }}">
+                                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}"> {{ $val->name }}</label>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                            <div class="tpshop__widget mb-30 pb-25">
+                                                <h4 class="tpshop__widget-title">Periodicals English Categories</h4>
+                                                @foreach($categories1 as $key => $val)
+                                                <div class="form-check">
+                                                    <input class="form-check-input category-checkbox" type="checkbox" value=""  data-key="{{ $key }}"
+                                                        data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}">
+                                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}">
+                                                        {{ $val->name }}
+                                                    </label>
+                                                </div>
+                                                @endforeach
+                                            </div>
+                                            {{-- <div class="tpshop__widget mb-30 pb-25">
+                                                <h4 class="tpshop__widget-title mb-20">FILTER BY PRICE</h4>
+                                                <label for="price-min">Min Price:<div id="minpricevalue"></div> </label>
+                                                <input type="range" name="price-min" id="price-min" value="{{$min}}" min="{{$min}}" max="{{$max}}">
+                                                <label for="price-min">Max Price:<div id="maxpricevalue"></div></label>
+                                                <input type="range" name="price-max" id="price-max" value="{{$max}}" min="{{$min}}" max="{{$max}}"> <!-- Add this line -->
+                                                <div class="productsidebar__btn mt-15 mb-15">
+                                                   <a href="#">FILTER</a>
+                                                </div>
+                                             </div> --}}
+                                            <div class="tpshop__widget mb-30 pb-25">
+                                                <h4 class="tpshop__widget-title">FILTER BY PERIODICITY</h4>
+                                                
+                                                @foreach($periodicities as $val)
+                                                <div class="form-check">
+                                                    <input class="form-check-input category-checkbox1" type="checkbox" value=""   
+                                                      data-id11="{{ $val->name }}" id="flexCheckDefault11{{ $val->name }}">
+                                                    <label class="form-check-label" for="flexCheckDefault11{{ $val->name }}">
+                                                        {{$val->name}}
+                                                    </label>
+                                                </div>
+                                             @endforeach
+                
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                @endforeach
-                            </div>
-                            <div class="tpshop__widget mb-30 pb-25">
-                                <h4 class="tpshop__widget-title">Product English Categories</h4>
-                                @foreach($categories1 as $key => $val)
-                                <div class="form-check">
-                                    <input class="form-check-input category-checkbox" type="checkbox" value=""  data-key="{{ $key }}"
-                                        data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}">
-                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}">
-                                        {{ $val->name }}
-                                    </label>
-                                </div>
-                                @endforeach
-                            </div>
-                            <div class="tpshop__widget mb-30 pb-25">
-                                <h4 class="tpshop__widget-title mb-20">FILTER BY PRICE</h4>
-                                <label for="price-min">Min Price:<div id="minpricevalue"></div> </label>
-                                <input type="range" name="price-min" id="price-min" value="{{$min}}" min="{{$min}}" max="{{$max}}">
-                                <label for="price-min">Max Price:<div id="maxpricevalue"></div></label>
-                                <input type="range" name="price-max" id="price-max" value="{{$max}}" min="{{$min}}" max="{{$max}}"> <!-- Add this line -->
-                                <div class="productsidebar__btn mt-15 mb-15">
-                                   <a href="#">FILTER</a>
-                                </div>
-                             </div>
-                            <div class="tpshop__widget mb-30 pb-25">
-                                <h4 class="tpshop__widget-title">FILTER BY PERIODICITIE</h4>
-                                
-                                @foreach($periodicities as $val)
-                                <div class="form-check">
-                                    <input class="form-check-input category-checkbox1" type="checkbox" value="{{ $val->name }}"   
-                                      data-id11="{{ $val->name }}" id="flexCheckDefault11{{ $val->name }}">
-                                    <label class="form-check-label" for="flexCheckDefault11{{ $val->name }}">
-                                        {{$val->name}}
-                                    </label>
-                                </div>
-                             @endforeach
-
                             </div>
                         </div>
+                        
 
                     </div>
-                    <div class="col-xl-10 col-lg-12 col-md-12">
-                        <div class="tpshop__top ml-60">
+                    <div class="col-xl-9 col-lg-12 col-md-12">
+                        <div class="tpshop__top">
                             <div class="tpshop__category">
                                 
                             <nav id="myNavbar" class="navbar fixed-bottom navbar-light bg-light myNavbar11">
@@ -333,11 +169,8 @@ Session::put('bud_arr', $bud_arr);
                                                     <div class="swiper-slide">
                                                         <div class="p-0 m-0" style="width:auto">
                                                             <div style="width:50px" class="total-amount w-100 p-0 m-0">
-                                                                <i class="fa fa-rupee"></i>Total
-                                                                Amount:{{ $val->budget_price }}</div>
-                                                            <div style="width:50px" class="pur-cmount w-100 p-0 m-0"><i
-                                                                    class="fa fa-rupee"></i>Remaining
-                                                                Amount:{{ $val->budget_price - $val->cart_price }}
+                                                                Total Amount: <i class="fa fa-rupee"></i> {{ $val->budget_price }}</div>
+                                                            <div style="width:50px" class="pur-cmount w-100 p-0 m-0">Remaining Amount: <i class="fa fa-rupee"></i>{{ $val->budget_price - $val->cart_price }}
                                                             </div>
 
                                                             <div class="pie animate no-round"
@@ -346,9 +179,7 @@ Session::put('bud_arr', $bud_arr);
                                                             <p class="p-0 m-0">
                                                                 {{ implode(' ', array_slice(explode(' ', $val->category), 0, 2)) }}
                                                             </p>
-                                                            <div style="width:50px" class="pur-cmount w-100 p-0 m-0">
-                                                                <i class="fa fa-rupee"></i>Purchased
-                                                                Amount:{{ $val->cart_price }}</div>
+                                                            <div style="width:50px" class="pur-cmount w-100 p-0 m-0">Purchased Amount: <i class="fa fa-rupee"></i> {{ $val->cart_price }}</div>
 
                                                         </div>
                                                     </div>
@@ -370,7 +201,7 @@ Session::put('bud_arr', $bud_arr);
                                                 </div>
                                             <div class="category__content">
                                                 <h5 class="category__title"><a
-                                                        href="shop-details-3.html">{{$val->name}}</a></h5>
+                                                        href="#">{{$val->name}}</a></h5>
                                             </div>
                                         </div>
                                     </div>
@@ -385,7 +216,7 @@ Session::put('bud_arr', $bud_arr);
                                                 </div>
                                                 <div class="category__content">
                                                     <h5 class="category__title"><a
-                                                            href="shop-details-3.html">{{$val->name}}</a></h5>
+                                                            href="#">{{$val->name}}</a></h5>
                                                 </div>
                                             </div>
                                         </div>
@@ -530,7 +361,7 @@ Session::put('bud_arr', $bud_arr);
                                    </div>
                                 </div>
                                 <div class="tab-pane fade whight-product" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
-                                   <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item" id="magazine_four">
+                                   <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item" id="magazine_four">
                                       {{-- single Board --}}
                                       @include('magazine.magazine-four');
                                       {{-- single Board --}}
@@ -561,204 +392,200 @@ Session::put('bud_arr', $bud_arr);
     ?>
     {{-- search  --}}
     <script>
-    $(document).ready(function() {
-        $('.category-checkbox, .category-checkbox1').change(function() {
-            var $group = $(this).hasClass('category-checkbox') ? $('.category-checkbox') : $('.category-checkbox1');
-            $group.not(this).prop('checked', false);
+        $(document).ready(function(e) {
+    
+                // Get the selected minimum and maximum prices
+                var minPrice = $('#price-min').val();
+                var maxPrice = $('#price-max').val();
+    
+                // Update the label text with the selected price range
+                $('#minpricevalue').text(minPrice);
+                $('#maxpricevalue').text(maxPrice);
+    
+            $('.search-panel .dropdown-menu').find('a').click(function(e) {
+                e.preventDefault();
+                var param = $(this).attr("href").replace("#", "");
+                var concept = $(this).text();
+                $('.search-panel span#search_concept').text(concept);
+                $('.input-group #search_param').val(param);
+            });
         });
-    });
-</script>
-
-<script>
-    $(document).ready(function(e) {
-
-            // Get the selected minimum and maximum prices
-            var minPrice = $('#price-min').val();
-            var maxPrice = $('#price-max').val();
-
-            // Update the label text with the selected price range
-            $('#minpricevalue').text(minPrice);
-            $('#maxpricevalue').text(maxPrice);
-
-        $('.search-panel .dropdown-menu').find('a').click(function(e) {
-            e.preventDefault();
-            var param = $(this).attr("href").replace("#", "");
-            var concept = $(this).text();
-            $('.search-panel span#search_concept').text(concept);
-            $('.input-group #search_param').val(param);
-        });
-    });
-    // Function to show loading indicator
-    function showLoader() {
-        $('#loader').show();
-    }
-
-    // Function to hide loading indicator
-    function hideLoader() {
-        $('#loader').hide();
-    }
-
-    // Function to display default content
-    function showDefaultContent() {
-        // Display default content here
-        // For example, you can show some placeholder or initial content
-        // $('#default-content').show();
-    }
-
-    // Function to hide default content
-    function hideDefaultContent() {
-        // Hide default content here
-        // For example, $('#default-content').hide();
-    }
-
-    // Ajax function for filtering products
-    function filterProducts(page, searchQuery = '',minPrice = 0, maxPrice = 0,showrecord='') {
-        // Show loading indicator
-        showLoader();
-
-        // Hide default content
-        hideDefaultContent();   
-
-        // Gather selected filter options
-        var category = [];
-        $('.category-checkbox:checked').each(function() {
-            category.push($(this).data('id'));
-        });
-
-        // Convert the array to a comma-separated string
-        var categoryString = category.join(',');
-        // Make Ajax request
-        $.ajax({
-            url: '/tesproduct/filter?page=' + page,
-            type: 'GET',
-            data: {
-                category: categoryString, // Pass the string instead of the array
-                search: searchQuery, // Pass the search query
-                minPrice: minPrice, // Pass the minimum price
-                maxPrice: maxPrice, // Pass the maximum price
-                showrecord:showrecord // Pass Show Record
-            },
-            success: function(response) {
-                console.log(response);
-                if (response.message) {
-                       return toastr.error(response.message)
-
-                }
-                    // Update each product listing div with its respective view
-                    if (response.hasOwnProperty('message')) {
-                            // No data found, display a message
-                            $('#magazine_eight').empty();
-                            $('#magazine_four').empty();
-                            $('#magazine_single').empty();
-                            $('#pagination').empty().html('<p>No data found.</p>');
-                        } else {
-                            // Data found, update the HTML content
-                            $('#magazine_eight').html(response.html.eight);
-                            $('#magazine_four').html(response.html.four);
-                            $('#magazine_single').html(response.html.single);
-                            $('#pagination').html(response.pagination);
-                        }
-
-                    // Update pagination links
-                    $('#pagination').empty();
-                    $('#pagination-two').css('display','none');
-                    $('#pagination').html(response.pagination);
-                    // Modify pagination links to remove 'filter' segment from URL
-                    // $('#pagination').find('a').each(function() {
-                    //     var href = $(this).attr('href');
-                    //     href = href.replace('/filter', ''); // Remove 'filter' segment
-                    //     $(this).attr('href', href);
-                    // });
-
+        // Function to show loading indicator
+        function showLoader() {
+            $('#loader').show();
+        }
+    
+        // Function to hide loading indicator
+        function hideLoader() {
+            $('#loader').hide();
+        }
+    
+        // Function to display default content
+        function showDefaultContent() {
+            // Display default content here
+            // For example, you can show some placeholder or initial content
+            // $('#default-content').show();
+        }
+    
+        // Function to hide default content
+        function hideDefaultContent() {
+            // Hide default content here
+            // For example, $('#default-content').hide();
+        }
+    
+        // Ajax function for filtering products
+        function filterProducts(page, searchQuery = '',minPrice = 0, maxPrice = 0,showrecord='') {
+            // Show loading indicator
+            showLoader();
+    
+            // Hide default content
+            hideDefaultContent();   
+    
+            // Gather selected filter options
+            var category = [];
+            $('.category-checkbox:checked').each(function() {
+                category.push($(this).data('id'));
+            });
+    
+            // Convert the array to a comma-separated string
+            var categoryString = category.join(',');
+            // Make Ajax request
+            $.ajax({
+                url: '/tesproduct/filter?page=' + page,
+                type: 'GET',
+                data: {
+                    category: categoryString, // Pass the string instead of the array
+                    search: searchQuery, // Pass the search query
+                    minPrice: minPrice, // Pass the minimum price
+                    maxPrice: maxPrice, // Pass the maximum price
+                    showrecord:showrecord // Pass Show Record
+                },
+                success: function(response) {
+                    console.log(response);
+                    // if (response.message) {
+                    //        return toastr.error(response.message)
+    
+                    // }
+                        // Update each product listing div with its respective view
+                        if (response.hasOwnProperty('message')) {
+                                // No data found, display a message
+                                $('#magazine_eight').empty();
+                                $('#magazine_four').empty();
+                                $('#magazine_single').empty();
+                                $('#pagination').empty().html('<p>No data found.</p>');
+                            } else {
+                                // Data found, update the HTML content
+                                $('#magazine_eight').html(response.html.eight);
+                                $('#magazine_four').html(response.html.four);
+                                $('#magazine_single').html(response.html.single);
+                                $('#pagination').html(response.pagination);
+                            }
+    
+                        // Update pagination links
+                        $('#pagination').empty();
+                        $('#pagination-two').css('display','none');
+                        $('#pagination').html(response.pagination);
+                        // Modify pagination links to remove 'filter' segment from URL
+                        // $('#pagination').find('a').each(function() {
+                        //     var href = $(this).attr('href');
+                        //     href = href.replace('/filter', ''); // Remove 'filter' segment
+                        //     $(this).attr('href', href);
+                        // });
+    
+                        // Hide loader
+                        hideLoader();
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
                     // Hide loader
                     hideLoader();
-            },
-            error: function(xhr) {
-                console.log(xhr.responseText);
-                // Hide loader
-                hideLoader();
-            },
-            complete: function() {
-               // Hide loader
-                hideLoader();
-            }
-        });
-    }
-
-        // Function to modify URL
-        function updateURL(page) {
-            var currentUrl = window.location.href;
-            if (currentUrl.includes('products/filter')) {
-                var newUrl = currentUrl.replace('products/filter', 'products');
-                history.pushState({}, null, newUrl + '?page=' + page);
-            }
+                },
+                complete: function() {
+                   // Hide loader
+                    hideLoader();
+                }
+            });
         }
     
-        // Function for handling search
-        function handleSearch() {
-            var searchQuery = $('#search').val().trim();
-            if (searchQuery === '') {
-                // If search query is empty, show all products
-                // filterProducts(1);
-                filterProducts(1,'','200','999','10'); // Reset pagination to first page when filters change
-            } else {
-                // If search query is not empty, filter products by search query
-                filterProducts(1, searchQuery,'200','999','10');
+            // Function to modify URL
+            function updateURL(page) {
+                var currentUrl = window.location.href;
+                if (currentUrl.includes('products/filter')) {
+                    var newUrl = currentUrl.replace('products/filter', 'products');
+                    history.pushState({}, null, newUrl + '?page=' + page);
+                }
             }
-        }
+        
+            // Function for handling search
+            function handleSearch() {
+                var minPrice = $('#price-min').val();
+                var maxPrice = $('#price-max').val();
+                var searchQuery = $('#search').val().trim();
+                if (searchQuery === '') {
+                    // If search query is empty, show all products
+                    // filterProducts(1);
+                    filterProducts(1,'',minPrice,maxPrice,'10'); // Reset pagination to first page when filters change
+                } else {
+                    // If search query is not empty, filter products by search query
+                    filterProducts(1, searchQuery,minPrice,maxPrice,'10');
+                }
+            }
+        
+            // Listen for changes in filter options
+            $('input[type=checkbox]').change(function() {
+                var minPrice = $('#price-min').val();
+                var maxPrice = $('#price-max').val();
+                // alert('good');
+                filterProducts(1,'',minPrice,maxPrice,'10'); // Reset pagination to first page when filters change
+            });
+        
+            // Listen for pagination link clicks
+            $(document).on('click', '#pagination a', function(event) {
+                var minPrice = $('#price-min').val();
+                var maxPrice = $('#price-max').val();
     
-        // Listen for changes in filter options
-        $('input[type=checkbox]').change(function() {
-            // alert('good');
-            filterProducts(1,'','200','999','10'); // Reset pagination to first page when filters change
-        });
+                event.preventDefault(); // Prevent default link behavior
+                var currentPage = $(this).attr('href').split('page=')[1];
+                var selectedPage = currentPage || 1; // If no page number, default to 1
+                // filterProducts(selectedPage); // Call filterProducts without preventing default
+                filterProducts(selectedPage,'',minPrice,maxPrice,'10'); // Reset pagination to first page when filters change
+            });
+        
+            // Listen for input event on search field
+            $('#search').on('input', handleSearch);
     
-        // Listen for pagination link clicks
-        $(document).on('click', '#pagination a', function(event) {
-            event.preventDefault(); // Prevent default link behavior
-            var currentPage = $(this).attr('href').split('page=')[1];
-            var selectedPage = currentPage || 1; // If no page number, default to 1
-            // filterProducts(selectedPage); // Call filterProducts without preventing default
-            filterProducts(selectedPage,'','200','999','10'); // Reset pagination to first page when filters change
-        });
+            // Add event listener for change event on the range slider
+            $('#price-min, #price-max').on('input', function() {
     
-        // Listen for input event on search field
-        $('#search').on('input', handleSearch);
-
-        // Add event listener for change event on the range slider
-        $('#price-min, #price-max').on('input', function() {
-
-            // Get the selected minimum and maximum prices
-            var minPrice = $('#price-min').val();
-            var maxPrice = $('#price-max').val();
-
-            // Update the label text with the selected price range
-            $('#minpricevalue').text(minPrice);
-            $('#maxpricevalue').text(maxPrice);
-            
-            // Call the filterProducts function with the selected minimum and maximum prices
-            filterProducts(1, '', minPrice, maxPrice);
-        });
-
-        //handle record change
-        $('#showrecord').on('change',function(){
-            
-            var recordValue = $(this).val();
-            // alert(recordValue);
-            // page, searchQuery = '',minPrice = 0, maxPrice = 0,showrecord=''
-             // Call the filterProducts function with the selected record value
-             filterProducts(1,'','100','999',recordValue);
-        });
-</script>
+                // Get the selected minimum and maximum prices
+                var minPrice = $('#price-min').val();
+                var maxPrice = $('#price-max').val();
+    
+                // Update the label text with the selected price range
+                $('#minpricevalue').text(minPrice);
+                $('#maxpricevalue').text(maxPrice);
+                
+                // Call the filterProducts function with the selected minimum and maximum prices
+                filterProducts(1, '', minPrice, maxPrice);
+            });
+    
+            //handle record change
+            $('#showrecord').on('change',function(){
+                 var minPrice = $('#price-min').val();
+                var maxPrice = $('#price-max').val();
+                var recordValue = $(this).val();
+                // alert(recordValue);
+                // page, searchQuery = '',minPrice = 0, maxPrice = 0,showrecord=''
+                 // Call the filterProducts function with the selected record value
+                 filterProducts(1,'',minPrice,maxPrice,recordValue);
+            });
+    </script>
 {{-- search  --}}
 <script>
     $(document).ready(function() {
 
         $(document).on('click', '.Add-to-cart1', function() {
-           
-            $('.Add-to-cart1').prop('disabled', true);
-
-
+            $('.Add-to-cart1').prop('disabled',true);
             var id = $(this).data('id1');
             $.ajax({
                 url: '/add-to-cart',
@@ -770,15 +597,13 @@ Session::put('bud_arr', $bud_arr);
                 success: function(response) {
 
                     if (response.success) {
-                        $('.Add-to-cart1').prop('disabled', false);
-
+                        $('.Add-to-cart1').prop('disabled',false);
                         toastr.success(response.success, {
                             timeout: 2000
                         });
 
                     } else {
-                        $('.Add-to-cart1').prop('disabled', false);
-
+                        $('.Add-to-cart1').prop('disabled',false);
                         toastr.error(response.error, {
                             timeout: 2000
                         });
@@ -830,7 +655,7 @@ Session::put('bud_arr', $bud_arr);
 
                 },
                 error: function(xhr, status, error) {
-
+                    $('.Add-to-cart1').prop('disabled',false);
                     console.error('AJAX request failed:', status, error);
                 }
             });
@@ -842,8 +667,7 @@ Session::put('bud_arr', $bud_arr);
 
 
         $(document).on('click', '.Add-to-cart2', function() {
-            $('.Add-to-cart2').prop('disabled', true);
-
+            $('.Add-to-cart2').prop('disabled',true);
             var id = $(this).data('id2');
             $.ajax({
                 url: '/add-to-cart',
@@ -854,15 +678,13 @@ Session::put('bud_arr', $bud_arr);
                 },
                 success: function(response) {
                     if (response.success) {
-                        $('.Add-to-cart2').prop('disabled', false);
-
+                        $('.Add-to-cart2').prop('disabled',false);
                         toastr.success(response.success, {
                             timeout: 2000
                         });
 
                     } else {
-                        $('.Add-to-cart2').prop('disabled', false);
-
+                        $('.Add-to-cart2').prop('disabled',false);
                         toastr.error(response.error, {
                             timeout: 2000
                         });
@@ -917,7 +739,7 @@ Session::put('bud_arr', $bud_arr);
 
                 },
                 error: function(xhr, status, error) {
-
+                    $('.Add-to-cart2').prop('disabled',false);
                     console.error('AJAX request failed:', status, error);
                 }
             });
@@ -928,8 +750,7 @@ Session::put('bud_arr', $bud_arr);
     $(document).ready(function() {
 
         $(document).on('click', '.Add-to-cart3', function() {
-            $('.Add-to-cart3').prop('disabled', true);
-
+            $('.Add-to-cart3').prop('disabled',true);
             var id = $(this).data('id3');
             $.ajax({
                 url: '/add-to-cart',
@@ -940,15 +761,13 @@ Session::put('bud_arr', $bud_arr);
                 },
                 success: function(response) {
                     if (response.success) {
-                        $('.Add-to-cart3').prop('disabled', false);
-
+                        $('.Add-to-cart3').prop('disabled',false);
                         toastr.success(response.success, {
                             timeout: 2000
                         });
 
                     } else {
-                        $('.Add-to-cart3').prop('disabled', false);
-
+                        $('.Add-to-cart3').prop('disabled',false);
                         toastr.error(response.error, {
                             timeout: 2000
                         });
@@ -1003,7 +822,7 @@ Session::put('bud_arr', $bud_arr);
 
                 },
                 error: function(xhr, status, error) {
-
+                    $('.Add-to-cart3').prop('disabled',false);
                     console.error('AJAX request failed:', status, error);
                 }
             });
@@ -1052,6 +871,126 @@ Session::put('bud_arr', $bud_arr);
         },
     });
 </script>
+<style>
+    .tplist__content {
+    padding: 25px;
+}
+    .tpproduct__thumb {
+        padding: 20px 20px;
+        overflow: hidden;
+        border-radius: 10px;
+        min-height: 270px;
+        max-height: 270px;
+    }
+    .category__item {
+        text-align: center;
+        background-color: var(--tp-common-white);
+        border-radius: 10px;
+        padding: 30px 10px 25px 10px;
+        min-height: 234px;
+    }
+    
+    .tplist__product-img {
+        height: 200px;
+        width: 100px;
+    }
+    
+    .tplist__product-img-one img {
+        height: 200px;
+        width: 100px;
+    }
+    
+    .tplist__product-img-two img {
+        height: 200px;
+        width: 100px;
+    }
+    .tpproduct__hover-text{
+        z-index: 1;
+    }
+    .loader {
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        position: fixed; /* Position fixed */
+        top: 50%;
+        left: 50%;
+        margin-left: -60px; /* Negative half of width */
+        margin-top: -60px; /* Negative half of height */
+        z-index: 9999; /* Higher z-index */
+        background: rgba(20, 6, 6, 0.5); /* Semi-transparent background */
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    </style>
+    <style>
+    @property --p{
+      syntax: '<number>';
+      inherits: true;
+      initial-value: 0;
+    }
+    
+    .pie {
+      --p:20;
+      --b:10px;
+      --c:darkred;
+      --w:70px;
+      
+      width:var(--w);
+      aspect-ratio:1;
+      position:relative;
+      display:inline-grid;
+      margin:5px;
+      place-content:center;
+      font-size:16px;
+      font-weight:bold;
+      font-family:sans-serif;
+    }
+    .pie:before,
+    .pie:after {
+      content:"";
+      position:absolute;
+      border-radius:50%;
+    }
+    .pie:before {
+      inset:0;
+      background:
+      radial-gradient(farthest-side, var(--c) 98%, #0000) top / var(--b) var(--b) no-repeat, conic-gradient(var(--c) calc(var(--p)* 1%), #0000002e 0);
+      -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+              mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+    }
+    .pie:after {
+      inset:calc(50% - var(--b)/2);
+      background:var(--c);
+      transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
+    }
+    .animate {
+      animation:p 1s .5s both;
+    }
+    .no-round:before {
+      background-size:0 0,auto;
+    }
+    .no-round:after {
+      content:none;
+    }
+    @keyframes p {
+      from{--p:0}
+    }
+    div#pagination-two {
+    width: 100%;
+    overflow: scroll;
+}
+@media only screen and (max-width: 600px) {
+    .tp-shop-selector{
+        margin-top: 10px;
+    }
+}
+    </style>
  </body>
 
 </html>
