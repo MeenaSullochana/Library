@@ -15,11 +15,11 @@
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
     <!-- PAGE TITLE HERE -->
-    <title>Book Fair </title>
+    <title>Government of Tamil Nadu - Book Procurement - View Public Feedback</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
-        include "sub_admin/plugin/plugin_css.php";
+        include "admin/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -42,7 +42,7 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        @include ('sub_admin.navigation')
+        @include ('admin.navigation')
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -53,11 +53,11 @@
             <div class="container-fluid">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <div class="d-sm-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
                                 <b>View Distributor Feedback</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="feedback_public_list.php">
+                            <a class="btn btn-primary  btn-sm" href="feedback_public_list">
                                 <i class="fa fa-chevron-left" aria-hidden="true"></i> Back </a>
                         </div>
                     </div>
@@ -73,9 +73,9 @@
                                             <div class="">
                                                 <img src="images/user1.jpg" class="rounded-circle">
                                             </div>
-                                            <a class="icon-wrapper" href="edit-profile.html">
+                                            {{-- <a class="icon-wrapper" href="edit-profile.html">
                                                 <i class="fa-solid fa-pencil"></i>
-                                            </a>
+                                            </a> --}}
                                         </div>
                                         <div class="user-details">
 
@@ -95,7 +95,7 @@
                                     <div class="card-head">
                                         <h4 class="text-start">Comment </h4>
                                         <span class="small pl-3">12/09/2023</span>
-                                        
+
                                     </div>
                                     <div class="card-body ">
                                         <p class="text-justify">
@@ -118,7 +118,7 @@
         <!--**********************************
             Footer start
         ***********************************-->
-        @include ("sub_admin.footer")
+        @include ("admin.footer")
         <!--**********************************
             Footer end
         ***********************************-->
@@ -131,9 +131,9 @@
     </div>
     <!--**********************************
         Main wrapper end
-    ***********************************--> 
+    ***********************************-->
     <?php
-        include "sub_admin/plugin/plugin_js.php";
+        include "admin/plugin/plugin_js.php";
          ?>
 </body>
 

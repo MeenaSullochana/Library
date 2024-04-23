@@ -15,7 +15,7 @@
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
     <!-- PAGE TITLE HERE -->
-    <title>Publisher Profile</title>
+    <title>Government of Tamil Nadu - Book Procurement</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
     <?php
@@ -29,7 +29,7 @@
          ********-->
     <div id="preloader">
         <div class="text-center">
-            <img src="images/goverment_loader.gif" alt="" width="25%">
+        <img src="images/goverment_loader.gif" alt="" width="25%">
         </div>
     </div>
     <!--*******
@@ -58,9 +58,9 @@
                             <div class="profile-head">
                                 <div class="photo-content">
                                 @if($data->backgroundImage == Null)
-                                    <div class="cover-photo rounded" style="background: url('{{asset("images/default.png")}}')" id="output1" ></div>
+                                    <div class="cover-photo rounded" style="background: url('{{asset("images/default.png")}}'); background-size:cover;" id="output1" ></div>
                                     @else
-                                    <div class="cover-photo rounded" style="background: url('{{asset("publisher/images/profile/".$data->backgroundImage)}}')" id="output1" ></div>
+                                    <div class="cover-photo rounded" style="background: url('{{asset("publisher/images/profile/".$data->backgroundImage)}}'); background-size:cover;" id="output1" ></div>
 
                                         @endif
                                 </div>
@@ -75,17 +75,17 @@
                                     <div class="profile-details">
                                         <div class="profile-name px-3 pt-2">
                                             <h4 class="text-primary mb-0">
-                                                Name Of The Users
+                                                Name Of Publisher
                                             </h4>
-                                            <p>{{$data->firstName}}   {{$data->lastName}}</p>
+                                            <p>{{$data->publicationName}}</p>
                                         </div>
                                         <div class="profile-email px-2 pt-2">
-                                            <h4 class="text-muted mb-0">User Email ID
+                                            <h4 class="text-muted mb-0">Email
                                             </h4>
                                             <p>{{$data->email}} </p>
                                         </div>
                                         <div class="dropdown ms-auto">
-                                            <a href="#" class="btn btn-primary light sharp" data-bs-toggle="dropdown"
+                                           {{-- <a href="#" class="btn btn-primary light sharp" data-bs-toggle="dropdown"
                                                 aria-expanded="true">
                                                 <svg xmlns="http://www.w3.org/2000/svg"
                                                     xmlns:xlink="http://www.w3.org/1999/xlink" width="18px"
@@ -97,8 +97,8 @@
                                                         <circle fill="#000000" cx="19" cy="12" r="2"></circle>
                                                     </g>
                                                 </svg>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end">
+                                            </a>--}}
+                                            {{-- <ul class="dropdown-menu dropdown-menu-end">
                                                 <li class="dropdown-item"><i
                                                         class="fa fa-user-circle text-primary me-2"></i> View profile
                                                 </li>
@@ -108,7 +108,7 @@
                                                     Add to group</li>
                                                 <li class="dropdown-item"><i class="fa fa-ban text-primary me-2"></i>
                                                     Block</li>
-                                            </ul>
+                                            </ul> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -120,25 +120,25 @@
                     <div class="col-xl-4">
 
                         <h3 class="text-primary d-inline mb-5">Required Documents</h3>
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="profile-interest">
-                                            <div class="row mt-4 sp4" id="lightgallery">
-                                                <p>Publication Proof</p>
-                                                <a href="#" data-exthumbimage="{{asset("publisher/images/proof/Publication/".$data->publicationProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/Publication/".$data->publicationProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                   
-                                                        <h3  class="btn btn-primary light btn-xs mb-1">  {{$data->publicationProof}} </h3>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!--<div class="row">-->
+                        <!--    <div class="col-xl-12">-->
+                        <!--        <div class="card">-->
+                        <!--            <div class="card-body">-->
+                        <!--                <div class="profile-interest">-->
+                        <!--                    <div class="row mt-4 sp4" id="lightgallery">-->
+                        <!--                        <p>Publication Proof</p>-->
+                        <!--                        <a href="#" data-exthumbimage="{{asset("public/publisher/images/proof/Publication/".$data->publicationProof)}}"-->
+                        <!--                            data-src="{{asset("publisher/images/proof/Publication/".$data->publicationProof)}}"-->
+                        <!--                            class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">-->
+
+                        <!--                                <h3  class="btn btn-primary light btn-xs mb-1">  {{$data->publicationProof}} </h3>-->
+                        <!--                        </a>-->
+                        <!--                    </div>-->
+                        <!--                </div>-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--</div>-->
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="card">
@@ -146,35 +146,37 @@
                                         <div class="profile-interest">
                                             <div class="row mt-4 sp4" id="lightgallery">
                                                 <p>Latest Book Catalogue</p>
-                                                <a href="#" data-exthumbimage="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
-                                                    data-src="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  {{$data->bookCatalogue}} </h3>
-                                                </a>
+                                                <div class="col-md-12">
+                                                    <a href="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}" data-exthumbimage="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
+                                                        data-src="{{asset("publisher/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
+                                                        class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
+                                                        <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  {{$data->bookCatalogue}} </h3>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-xl-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="profile-interest">
-                                            <div class="row mt-4 sp4" id="lightgallery">
-                                                <p>Membership Proof</p>
-                                                <a href="#" data-exthumbimage="{{asset("publisher/images/proof/Membership/".$data->membershipProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/Membership/".$data->membershipProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  {{$data->membershipProof}} </h3>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!--<div class="row">-->
+                        <!--    <div class="col-xl-12">-->
+                        <!--        <div class="card">-->
+                        <!--            <div class="card-body">-->
+                        <!--                <div class="profile-interest">-->
+                        <!--                    <div class="row mt-4 sp4" id="lightgallery">-->
+                        <!--                        <p>Membership Proof</p>-->
+                        <!--                        <a href="#" data-exthumbimage="{{asset("public/publisher/images/proof/Membership/".$data->membershipProof)}}"-->
+                        <!--                            data-src="{{asset("publisher/images/proof/Membership/".$data->membershipProof)}}"-->
+                        <!--                            class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">-->
+                        <!--                            <h3  class="btn btn-primary light btn-xs mb-1">  {{$data->membershipProof}} </h3>-->
+                        <!--                        </a>-->
+                        <!--                    </div>-->
+                        <!--                </div>-->
+                        <!--            </div>-->
+                        <!--        </div>-->
+                        <!--    </div>-->
+                        <!--</div>-->
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="card">
@@ -182,13 +184,127 @@
                                         <div class="profile-interest">
                                             <h5 class="text-primary d-inline">Nature of Your Publication Ownership</h5>
                                             <div class="row mt-4 sp4" id="lightgallery">
-                                                <p>Ownership Proof</p>
-                                                <a href="#" data-exthumbimage="{{asset("publisher/images/proof/Ownership/".$data->ownershipProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/Ownership/".$data->ownershipProof)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  {{$data->ownershipProof}} </h3>
-
+                                            @if($data->pubOwnership == 'Publication')
+                                                <p>Public Limited</p>
+                                                @elseif($data->pubOwnership =='Private' )
+                                                <p>Private Limited</p>
+                                                @elseif($data->pubOwnership == 'limited')
+                                                <p>Limited Liability Partnership(LLP)</p>
+                                                @elseif($data->pubOwnership == 'Partnership' )
+                                                <p>Partnership Firm</p>
+                                                @elseif($data->pubOwnership == 'oneperson' )
+                                                <p>Proprietorship</p>
+                                                @elseif($data->pubOwnership == 'trust')
+                                                <p>Private Trust</p>
+                                                @elseif($data->pubOwnership == 'society')
+                                                <p>Private Society</p>
+                                                @elseif($data->pubOwnership == 'institutional')
+                                                <p>Government Institutional Publication</p>
+                                                @elseif($data->pubOwnership == 'trust-foundation')
+                                                <p>Government Trust/Foundation Publication</p>
+                                                @elseif($data->pubOwnership == 'government-society')
+                                                <p>Government Society Publication</p>
+                                                @endif
+                                                 @if($data->gstProof != null)
+                                                <a href="{{asset("publisher/images/proof/gst/".$data->gstProof)}}" data-exthumbimage="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
+                                                    class="mb-1 col-lg-6 col-xl-6 col-sm-6 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  GST Certificate</h3>
                                                 </a>
+                                                @endif
+                                                 @if($data->panOrTanProof != null)
+                                                      <a href="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}" data-exthumbimage="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}"
+                                                    class="mb-1 col-lg-6 col-xl-6 col-sm-6 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  PAN / TAN  </h3>
+                                                </a>
+                                                @endif
+                                            
+
+                                                 @if($data->udyamProof != null)
+                                                    <a href="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}" data-exthumbimage="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Udyam Certificate </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->certificationIncorporationProof != null)
+                                                      <a href="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}" data-exthumbimage="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Certificate of Incorporation </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->certificationRegistrationProof != null)
+                                                      <a href="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}" data-exthumbimage="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3  class="btn btn-primary light btn-xs mb-1">  Certificate of Registration </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->partnershipDeedProof != null)
+                                                       <a href="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}" data-exthumbimage="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Partnership Deed  </h3>
+                                                </a>
+                                                @endif
+                                                  @if($data->moaProof != null)
+                                                        <a href="{{asset("publisher/images/proof/moa/".$data->moaProof)}}" data-exthumbimage="{{asset("publisher/images/proof/moa/".$data->moaProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/moa/".$data->moaProof)}}"
+                                                    class="mb-1 col-lg-6 col-xl-6 col-sm-6 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> MOA </h3>
+                                                </a>
+                                                @endif
+                                                  @if($data->llpProof != null)
+                                                        <a href="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}" data-exthumbimage="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1">  LLP Agreement </h3>
+                                                </a>
+                                                @endif
+                                                    @if($data->aoaProof != null)
+                                                        <a href="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}" data-exthumbimage="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}"
+                                                    class="mb-1 col-lg-6 col-xl-6 col-sm-6 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  AOA </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->privateTrustProof != null)
+                                                        <a href="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}" data-exthumbimage="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Private Trust Registration Certificate </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->privateSocietyProof != null)
+                                                        <a href="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}" data-exthumbimage="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  Private Society Registration Certificate </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->institutionProof != null)
+                                                        <a href="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}" data-exthumbimage="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Government Institutional Publication Registration Certificate </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->trustFoundationProof != null)
+                                                        <a href="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}" data-exthumbimage="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Government Trust/Foundation Publication Registration Certificate </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->societyProof != null)
+                                                        <a href="{{asset("publisher/images/proof/society/".$data->societyProof)}}" data-exthumbimage="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i> Government Society Publication Registration Certificate </h3>
+                                                </a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -203,271 +319,264 @@
                                     <div class="custom-tab-1">
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item"><a href="#info" data-bs-toggle="tab"
-                                                    class="nav-link">Info</a>
+                                                    class="nav-link active show">Info</a>
                                             </li>
                                             <li class="nav-item"><a href="#other_Info" data-bs-toggle="tab"
-                                                    class="nav-link active show">Other Info</a>
+                                                    class="nav-link">Other Info</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-                                            <div id="info" class="tab-pane fade">
+                                            <div id="info" class="tab-pane fade active show">
                                                 <div class="profile-personal-info">
-                                                    <h4 class="text-primary mb-4 pt-4 border-bottom-1 pb-3">Users
+                                                    <h4 class="text-primary mb-4 pt-4 border-bottom-1 pb-3">User
                                                         Information</h4>
-                                                    <div class="row mb-2">
+                                                    {{-- <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Users Name <span
-                                                                    class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Users Name
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>Name</span>
+                                                            <span>: <b class="ms-3">Name</b></span>
                                                         </div>
-                                                    </div>
+                                                    </div> --}}
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">First Name <span
-                                                                    class="pull-end">:</span>
+                                                            <h5 class="f-w-500">First Name
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->firstName}} </span>
+                                                            <span>: <b class="ms-3">{{$data->firstName}}</b> </span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Last Name <span
-                                                                    class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">Last Name </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->lastName}}</span>
+                                                            <span>: <b class="ms-3">{{$data->lastName}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Email ID <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Email ID
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->email}}</span>
+                                                            <span>: <b class="ms-3">{{$data->email}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Contact Number <span
-                                                                    class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">Contact Number </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->mobileNumber}}</span>
+                                                            <span>: <b class="ms-3">{{$data->mobileNumber}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Address <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Address
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->publicationAddress}}</span>
+                                                            <span>: <b class="ms-3">{{$data->publicationAddress}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">City <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">City
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->city}}</span>
+                                                            <span>: <b class="ms-3">{{$data->city}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">District <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">District
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->District}}</span>
+                                                            <span>: <b class="ms-3">{{$data->District}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">State <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">State
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->state}}</span>
+                                                            <span>: <b class="ms-3">{{$data->state}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Pin Code <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Pin Code
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->postalCode}}</span>
+                                                            <span>: <b class="ms-3">{{$data->postalCode}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Country<span class="pull-end">:</span>
-                                                            </h5>
+                                                            <h5 class="f-w-500">Country</h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->country}}</span>
+                                                            <span>: <b class="ms-3">{{$data->country}}</b></span>
                                                         </div>
                                                     </div>
                                                     <h4 class="text-primary mb-4">Contact Person Information</h4>
                                                     <hr>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500"> Name<span class="pull-end">:</span>
+                                                            <h5 class="f-w-500"> Name
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactName}}</span>
+                                                            <span>: <b class="ms-3">{{$data->contactName}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Email ID<span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Email ID
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactEmail}}</span>
+                                                            <span>: <b class="ms-3">{{$data->contactEmail}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Contact Number<span
-                                                                    class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">Contact Number</h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactMobileNumber}}</span>
+                                                            <span>: <b class="ms-3">{{$data->contactMobileNumber}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Address<span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Address
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactAddress}}</span>
+                                                            <span>: <b class="ms-3">{{$data->contactAddress}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">City<span class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">City</h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactCity}}</span>
+                                                            <span>: <b class="ms-3">{{$data->contactCity}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">District<span class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">District</h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactDistrict}}</span>
+                                                            <span>: <b class="ms-3">{{$data->contactDistrict}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">State <span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">State
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactState}}</span>
+                                                            <span>: <b class="ms-3">{{$data->contactState}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Pin Code<span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Pin Code
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactPostalCode}}</span>
+                                                            <span>: <b class="ms-3">{{$data->contactPostalCode}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
-                                                            <h5 class="f-w-500">Country<span class="pull-end">:</span>
+                                                            <h5 class="f-w-500">Country
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>{{$data->contactCountry}}</span>
+                                                            <span>: <b class="ms-3">{{$data->contactCountry}}</b></span>
                                                         </div>
                                                     </div>
                                                     <h4 class="text-primary mb-4">Publications Other Info</h4>
                                                     <hr>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
-                                                            <h5 class="f-w-500">Year of Establishment<span
-                                                                    class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">Year of Establishment</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
-                                                            <span>{{$data->yearOfEstablishment}}</span>
+                                                            <span>: <b class="ms-3">{{$data->yearOfEstablishment}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
-                                                            <h5 class="f-w-500">Number of Books Published So For<span
-                                                                    class="pull-end">:</span></h5>
+                                                            <h5 class="f-w-500">Number of Books Published So For</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
-                                                            <span>{{$data->bookCountSoFar}}</span>
+                                                            <span>: <b class="ms-3">{{$data->bookCountSoFar}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
                                                             <h5 class="f-w-500">Number of Books Published Latest
-                                                                Year<span class="pull-end">:</span></h5>
+                                                                Year</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
-                                                            <span>{{$data->bookCountLast3}}</span>
+                                                            <span>: <b class="ms-3">{{$data->bookCountLast3}}</b></span>
                                                         </div>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            <div id="other_Info" class="tab-pane fade active show">
-                                                <div class="profile-about-me">
-                                                    <div class="pt-4 border-bottom-1 pb-3">
-                                                        <h4 class="text-primary">Member in Publishers Association</h4>
-                                                        <div class="row mb-2">
-                                                            <div class="col-sm-6 col-5">
-                                                                <h5 class="f-w-500">{{$data->memberOfAssociation}}<span class="pull-end"> </span>
-                                                                </h5>
-                                                            </div>
-                                                            <hr>
-                                                            <table id="example1" class="display table"
-                                                                style="min-width: 845px">
-                                                               
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Enter Member Name</th>
-                                                                        <th>Enter Member Id</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @if($data->association1 != null)
-                                                                 @foreach($data->association1 as $val)
-                                                                    <tr>
-                                                                        <td>{{$val->association_name}} </td>
-                                                                        <td>{{$val->association_id}}</td>
-                                                                    </tr>
-                                                                    @endforeach
-                                                                    @endif
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                            <div id="other_Info" class="tab-pane fade">
+                                                <!--<div class="profile-about-me">-->
+                                                <!--    <div class="pt-4 border-bottom-1 pb-3">-->
+                                                <!--        <h4 class="text-primary">Member in Publishers Association</h4>-->
+                                                <!--        <div class="row mb-2">-->
+                                                <!--            <div class="col-sm-6 col-5">-->
+                                                <!--                <h5 class="f-w-500">{{$data->memberOfAssociation}}<span class="pull-end"> </span>-->
+                                                <!--                </h5>-->
+                                                <!--            </div>-->
+                                                <!--            <hr>-->
+                                                <!--            <table id="example1" class="display table"-->
+                                                <!--                style="min-width: 845px">-->
+
+                                                <!--                <thead>-->
+                                                <!--                    <tr>-->
+                                                <!--                        <th>Enter Member Name</th>-->
+                                                <!--                        <th>Enter Member Id</th>-->
+                                                <!--                    </tr>-->
+                                                <!--                </thead>-->
+                                                <!--                <tbody>-->
+                                                <!--                    @if($data->association1 != null)-->
+                                                <!--                 @foreach($data->association1 as $val)-->
+                                                <!--                    <tr>-->
+                                                <!--                        <td>{{$val->association_name}} </td>-->
+                                                <!--                        <td>{{$val->association_id}}</td>-->
+                                                <!--                    </tr>-->
+                                                <!--                    @endforeach-->
+                                                <!--                    @endif-->
+                                                <!--                </tbody>-->
+                                                <!--            </table>-->
+                                                <!--        </div>-->
+                                                <!--    </div>-->
+                                                <!--</div>-->
                                                 <div class="profile-skills mb-5">
                                                     <h4 class="text-primary mb-2">Primary Language of Publication</h4>
 
-                                                    @foreach($data->language as $val)
-                                                        @if($val == "Other")
+
+                                                       @foreach($data->language as $val)
+                                                        @if($val == "otherIndia")
                                                             <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">{{ $data->otherIndian }}</a>
-                                                        @elseif($val == "foreign languages")
+                                                        @elseif($val == "otherForeign")
                                                             <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">{{ $data->otherForeign }}</a>
                                                         @else
                                                             <a href="javascript:void(0);" class="btn btn-primary light btn-xs mb-1">{{ $val }}</a>
@@ -498,18 +607,18 @@
                                                 <h4 class="text-primary mb-4">Best Seller Titles in Your Publications
                                                 </h4>
                                                 <hr>
-                                                <table id="example4" class="display table" style="min-width: 845px">
+                                                <table id="example4" class="display table" style="min-width: 200px">
                                                     <thead>
                                                         <tr>
-                                                            <th>Book Title</th>
-                                                            <th>Book Author</th>
+                                                            <th style="white-space:normal;">Book Title</th>
+                                                            <th style="white-space:normal;">Book Author</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                     @foreach($data->topTitles1 as $val)
                                                      <tr>
-                                                        <td>{{$val->title}} </td>
-                                                         <td>{{$val->author}}</td>
+                                                        <td style="white-space:normal;">{{$val->title}} </td>
+                                                         <td style="white-space:normal;">{{$val->author}}</td>
                                                       </tr>
                                                      @endforeach
                                                     </tbody>
@@ -553,24 +662,35 @@
                                 <h4 class="text-primary">Best 5 Translated Books</h4>
                             </div>
                             <div class="card-body">
-                                <table id="example3" class="display table" style="min-width: 845px">
+                                <table id="myTable" class="display table" style="min-width: 200px">
                                     <thead>
                                         <tr>
-                                            <th>Book Title</th>
-                                            <th>Book Author</th>
-                                            <th>Book Lang From</th>
-                                            <th>Book To From</th>
+                                            <th style="white-space:normal;">Book Title</th>
+                                            <th style="white-space:normal;">Book Author</th>
+                                            <th style="white-space:normal;">Language From</th>
+                                            <th style="white-space:normal;">Language To</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($data->topTranslatedBooks1 as $val)
-                                     <tr>
-                                     <td>{{$val->title}} </td>
-                                      <td>{{$val->author}}</td>
-                                      <td>{{$val->lan_from}} </td>
-                                      <td>{{$val->lan_to}}</td>
-                                      </tr>
-                                   @endforeach
+                                        @if($data->topTranslatedBooks1 != null)
+                                            @forelse($data->topTranslatedBooks1 as $val)
+                                                <tr>
+                                                    <td style="white-space:normal;">{{ $val->title }}</td>
+                                                    <td style="white-space:normal;">{{ $val->author }}</td>
+                                                    <td style="white-space:normal;">{{ $val->lan_from }}</td>
+                                                    <td style="white-space:normal;">{{ $val->lan_to }}</td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td style="white-space:normal;" class="text-center" colspan="2">No data available in table</td>
+                                                </tr>
+                                            @endforelse
+                                            @else
+                                                <tr>
+                                                    <td style="white-space:normal;" class="text-center" colspan="2">No data available in table</td>
+                                                </tr>
+                                            @endif
+
                                     </tbody>
                                 </table>
                             </div>
@@ -584,67 +704,83 @@
                                 <h4 class="text-primary">Awarded Titles in The Publication</h4>
                             </div>
                             <div class="card-body">
-                                <table id="example3" class="display table" style="min-width: 845px">
+                                <table id="awarded-titles" class="display table" style="min-width: 200px">
                                     <thead>
                                         <tr>
-                                            <th>State Awarded</th>
-                                            <th>Central Awarded</th>
-                                            <th>Language Other Awarded</th>
+                                            <th style="white-space:normal;">Award Name</th>
+                                            <th style="white-space:normal;">Book Title</th>
+                                            <!--<th>Language Other Awarded</th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($data->awardTitle1 as $val)
-                                     <tr>
-                                     <td>{{$val->state}} </td>
-                                      <td>{{$val->central}}</td>
-                                      <td>{{$val->other}} </td>
-                                      </tr>
-                                   @endforeach
+                                            @if($data->awardTitle1 != null)
+                                            @foreach($data->awardTitle1 as $val)
+                                            <tr>
+                                                <td style="white-space:normal;">{{$val->award_name}} </td>
+                                                <td style="white-space:normal;">{{$val->book_title}}</td>
+
+                                            </tr>
+                                        @endforeach
+                                        @else
+                                        <tr>
+                                            <td class="text-center" colspan="2">No data available in table</td>
+                                        </tr>
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-12">
                         <div class="profile card">
                             <div class="card-header">
                                 <h4 class="text-primary mb-4">Name of the Subsidiary Publications
                                 </h4>
-                               
+
                             </div>
-                            
+
                             <div class="card-body">
-                            <h5 class="es-5">{{$data->haveSubsidiary}}</h5>
-                                <table id="example1" class="display table" style="min-width: 845px">
+                                <p>Having Subsidiary Publication</p>
+                                @if($data->haveSubsidiary == 'yes')
+                                <h5 class="es-5">Yes</h5>
+                                @else
+                                <h5 class="es-5">No</h5>
+                                @endif
+                         
+                                <table id="subsidiary-pub" class="display table" style="min-width: 200px">
                                     <thead>
                                         <tr>
-                                            <th class="fw-bold">name of the subsidiary publication</th>
-                                            <th class="fw-bold">Enter name of the subsidiary Publisher</th>
-                                            <th class="fw-bold">Stack Holder Percentage</th>
-                                            <th class="fw-bold">Document</th>
+                                            <th style="white-space:normal;" class="fw-bold">Name of the Subsidiary Publication</th>
+                                            <th style="white-space:normal;" class="fw-bold">Name of the Subsidiary Publisher</th>
+                                            <th style="white-space:normal;" class="fw-bold">Stack Holder Percentage</th>
+                                            <th style="white-space:normal;" class="fw-bold">Document</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @if($data->subsidiary1 != null)
                                     @foreach($data->subsidiary1 as $val)
                                         <tr>
-                                            <td>{{$val->subsidiary_publication_name}} </td>
-                                            <td>{{$val->subsidiary_publisher_name}} </td>
-                                            <td>{{$val->stack_holder_percentage}}</td>
-                                            <td>
-                                            <a href="#" data-exthumbimage="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}"
+                                            <td style="white-space:normal;">{{$val->subsidiary_publication_name}} </td>
+                                            <td style="white-space:normal;">{{$val->subsidiary_publisher_name}} </td>
+                                            <td style="white-space:normal;">{{$val->stack_holder_percentage}}</td>
+                                            <td style="white-space:normal;">
+                                            <a href="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}" data-exthumbimage="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}"
                                                     data-src="{{asset("publisher/images/proof/sub_doc/".$val->subsidiary_doc)}}"
-                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">  {{$val->subsidiary_doc}} </h3>
+                                                    class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download" aria-hidden="true"></i>  {{$val->subsidiary_doc}} </h3>
 
                                                 </a>
-                                                </td> 
+                                                </td>
                                         </tr>
                                         @endforeach
-                                        @endif
+                                        @else
+                                        <tr>
+                                       <td class="text-center" colspan="2">No data available in table</td>
+                                         </tr>
+                                   @endif
+
                                     </tbody>
                                 </table>
                             </div>
@@ -676,6 +812,29 @@
          <?php
         include "sub_admin/plugin/plugin_js.php";
     ?>
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                "processing": true,
+                "serverSide": true,
+
+            });
+        });
+        $(document).ready(function() {
+            $('#awarded-titles').DataTable({
+                "processing": true,
+                "serverSide": true,
+
+            });
+        });
+        $(document).ready(function() {
+            $('#subsidiary-pub').DataTable({
+                "processing": true,
+                "serverSide": true,
+
+            });
+        });
+    </script>
 </body>
 
 </html>

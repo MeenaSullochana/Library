@@ -86,7 +86,7 @@
 
                                             foreach ($orders1 as $val) {
                                             $Librarian = DB::table('librarians')->where('id', '=', $val->librarianid)
-                                            ->where('district', '=', auth('librarian')->user()->district)
+                                            ->where('dlo_id', '=', auth('librarian')->user()->librarianId)
                                             ->get();
 
                                             if ($Librarian->isNotEmpty()) {
@@ -119,7 +119,7 @@
 
                                             foreach ($ordersdata as $val) {
                                             $Librariandata = DB::table('librarians')->where('id', '=', $val->librarianid)
-                                            ->where('district', '=', auth('librarian')->user()->district)
+                                            ->where('dlo_id', '=', auth('librarian')->user()->librarianId)
                                             ->get();
 
                                             if ($Librariandata->isNotEmpty()) {
@@ -165,14 +165,11 @@
                                         <div class="card-body depostit-card">
                                             @php
 
-                                            $librarian = DB::table('librarians')->where('district', '=',
-                                            auth('librarian')->user()->district)->where('allow_status','=','1')->count();
+                                            $librarian = DB::table('librarians')->where('dlo_id', '=', auth('librarian')->user()->librarianId)->where('allow_status','=','1')->count();
                                           
-                                            $librarianactive = DB::table('librarians')->where('district', '=',
-                                            auth('librarian')->user()->district)->where('status','=','1')->where('allow_status','=','1')->count();
+                                            $librarianactive = DB::table('librarians')->where('dlo_id', '=', auth('librarian')->user()->librarianId)->where('status','=','1')->where('allow_status','=','1')->count();
                                            
-                                            $librarianinactive = DB::table('librarians')->where('district', '=',
-                                            auth('librarian')->user()->district)->where('status','=','0')->where('allow_status','=','1')->count();
+                                            $librarianinactive = DB::table('librarians')->where('dlo_id', '=', auth('librarian')->user()->librarianId)->where('status','=','0')->where('allow_status','=','1')->count();
                                             @endphp
                                             <div class="depostit-card-media d-flex justify-content-between style-1">
                                                 <div>

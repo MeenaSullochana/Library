@@ -172,7 +172,7 @@
                                                 <th>Title of the Magazine</th>
                                                 <th>Periodicity</th>
                                                 <th>Type of Library</th>
-                                                <th>District</th>
+                                                <!-- <th>District</th> -->
                                                 <th>No.of Subscription</th>
                                                 <th>Cover Price</th>
                                                 <th>Annual Subscription</th>
@@ -200,7 +200,7 @@
                                                 <td class="py-2">{{ $val1->title}}</td>
                                                 <td class="py-2">{{$val1->periodicity}}</td>
                                                 <td class="py-2">{{ $val1->librarytype }}</td>
-                                                <td class="py-2">{{$val1->district }}</td>
+                                                <!-- <td class="py-2">{{$val1->district }}</td> -->
                                                 <td class="py-2">{{ $val1->count}}</td>
                                                 <td class="py-2">{{ $val1->single_issue_rate}}</td>
                                                 <td class="py-2">{{ $val1->annual_subscription}}</td>

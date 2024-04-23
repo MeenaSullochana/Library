@@ -240,7 +240,7 @@
                                             ->where('librarianId', '=', $val->libraryid)
                                             ->first();
                                             @endphp
-                                            @if(auth('librarian')->user()->district == $librarians->district )
+                                            @if(auth('librarian')->user()->librarianId == $librarians->dlo_id )
                                             <tr class="btn-reveal-trigger">
                                                 <td class="py-2">{{$loop->index + 1}}</td>
                                                 <td class="py-2">{{$val->libraryid}}</td>

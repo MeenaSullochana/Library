@@ -330,7 +330,8 @@
 							<li><a class="has-arrow" href="#" aria-expanded="false">Magazines</a>
                                 <ul aria-expanded="false">
                                     <li><a href="/librarian/magazine_order_list">Magazine Order List </a></li>
-                                </ul>
+
+								</ul>
                             </li>
                            
                             
@@ -343,7 +344,9 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/librarian/report_download_oedermagazine">Order Magazine Download</a></li>
-                        </ul>
+							<li><a href="report_download_order_magazine">Report Download Order Magazine</a></li> 
+
+						</ul>
                     </li>
                     @endif
 					@if(auth('librarian')->user()->metaChecker =="no" && auth('librarian')->user()->allow_status ==1)

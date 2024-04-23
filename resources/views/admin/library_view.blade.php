@@ -98,7 +98,7 @@
 													</tr>
 													<!-- <div class="col-md-6 text-end fw-bold">Library Type : </div>
                                             <div class="col-md-6">{{$data->libraryType}}</div> -->
-													<tr>
+													<!-- <tr>
 														<th scope="row">Subject</th>
 														<td>: @if($data->subject1 != null)
 															@foreach($data->subject1 as $val)
@@ -107,25 +107,46 @@
 														@endforeach
 														@endif
 													 </td>
+													</tr> -->
+													<tr>
+														<th scope="row">Door No</th>
+														<td>: {{$data->door_no}} </td>
+													</tr>
+													<tr>
+														<th scope="row">Street</th>
+														<td>: {{$data->street}} </td>
+													</tr>
+													<tr>
+														<th scope="row">Village</th>
+														<td>: {{$data->Village}} </td>
+													</tr>
+													<tr>
+														<th scope="row">Post</th>
+														<td>: {{$data->post}} </td>
+													</tr>
+													<tr>
+														<th scope="row">Taluk</th>
+														<td>: {{$data->taluk}} </td>
+													</tr>
+
+													<tr>
+														<th scope="row">District</th>
+														<td>: {{$data->district}} </td>
+													</tr>	<tr>
+														<th scope="row">pincode</th>
+														<td>: {{$data->Pincode}} </td>
+													</tr>	<tr>
+														<th scope="row">Landmark</th>
+														<td>: {{$data->landmark}} </td>
 													</tr>
 													<tr>
 														<th scope="row">State</th>
 														<td>: {{$data->state}} </td>
 													</tr>
-													<tr>
-														<th scope="row">District</th>
-														<td>: {{$data->district}}</td>
-													</tr>
-													<tr>
-														<th scope="row">City</th>
-														<td>: {{$data->city}} </td>
-													</tr>
-													<tr>
-														<th scope="row">Village</th>
-														<td>: {{$data->Village}}</td>
-													</tr>
+													
 		
 													
+
 												</tbody>
 											</table>
 										</div>

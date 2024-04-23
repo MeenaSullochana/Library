@@ -16,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
 
     <!-- PAGE TITLE HERE -->
-    <title>Book Fair </title>
+    <title>Government of Tamil Nadu - Book Procurement - List of Publisher cum Distributor Feedback</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
     <?php
@@ -56,12 +56,12 @@
             <div class="container-fluid">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <div class="d-sm-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>List of Publisher and Distributor Feedback</b>
+                                <b>List of Publisher cum Distributor Feedback</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="feedback_pub_dist_view.php">
-                                <i class="fas fa-plus"></i> View Feedback </a>
+                            <!-- <a class="btn btn-primary  btn-sm" href="feedback_pub_dist_view.php">
+                                <i class="fas fa-plus"></i> View Feedback </a> -->
                         </div>
                     </div>
                 </div>
@@ -86,6 +86,10 @@
                                                     colspan="1"
                                                     aria-label="Email: activate to sort column ascending"
                                                     style="width: 153.641px;">Email</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1"
+                                                    colspan="1"
+                                                    aria-label="Mobile Number: activate to sort column ascending"
+                                                    style="width: 153.641px;">Mobile Number</th>
                                                 <th class="sorting" tabindex="0" aria-controls="example4" rowspan="1"
                                                     colspan="1"
                                                     aria-label="Create at: activate to sort column ascending"
@@ -98,31 +102,38 @@
                                         <tbody>
 
 
+                                        @foreach($data as $val)
                                             <tr role="row" class="odd">
-                                                <td class="sorting_1">1</td>
+                                                <td class="sorting_1">{{$loop->index +1}}</td>
                                                 <td>
                                                         <div class="d-flex align-items-center">
-                                                            <img src="images\avatar\1.png" class="rounded-lg me-2"
-                                                                width="24" alt="">
-                                                            <span class="w-space-no">Dr. Jackson</span>
+                                                        @if($val->image != null)
+                                                                <img src="{{ asset("publisher_and_distributor /images/profile/".$val->image) }}" class="rounded-lg me-2" width="24" alt="">
+                                                            @else
+                                                                <img src="{{ asset("images/default.png") }}" class="rounded-lg me-2" width="24" alt="">
+                                                            @endif
+
+                                                            <span class="w-space-no">Dr.{{$val->firstname}} {{$val->lastname}}</span>
                                                         </div>
                                                     </td>
-                                                <td>info@gmail.com</td>
-                                                <td><span class="badge light badge-success">23-08-23 12:27:01</span>
+                                                <td>{{$val->email}}</td>
+                                                <td>+91 {{$val->phone}}</td>
+                                                <td><span class="badge light badge-success">{{$val->created_at->format('Y-m-d')}}</span>
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
-                                                    <a href="feedback_pub_dist_view.php"
+                                                    <a href="/sub_admin/feedback_publisher_distributor/{{$val->id}}"
                                                             class="btn btn-success shadow btn-xs sharp me-1">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
-                                                        <a href="#" class="btn btn-danger shadow btn-xs sharp">
+                                                        <!-- <a href="/sub_admin/feedbackdelete/{{$val->id}}" class="btn btn-danger shadow btn-xs sharp">
                                                             <i class="fa fa-trash"></i>
-                                                        </a>
+                                                        </a> -->
                                                     </div>
                                                 </td>
 
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
 
@@ -161,5 +172,19 @@
         include "sub_admin/plugin/plugin_js.php";
          ?>
 </body>
+@if (Session::has('success'))
 
+<script>
+
+toastr.success("{{ Session::get('success') }}",{timeout:15000});
+
+</script>
+@elseif (Session::has('error'))
+<script>
+
+toastr.error("{{ Session::get('error') }}",{timeout:15000});
+
+</script>
+
+@endif
 </html>

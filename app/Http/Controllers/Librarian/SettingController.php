@@ -57,7 +57,7 @@ class SettingController extends Controller
       $serialNumber = 1;
       foreach ($maga as $val1) {
        $Magazine =Librarian::find($val1->librarianid);
-         if(auth('librarian')->user()->district  == $Magazine->district){
+         if($Magazine->dlo_id == auth('librarian')->user()->librarianId){
 
              
           $librariandata[] = [
@@ -107,7 +107,7 @@ class SettingController extends Controller
   
       foreach ($orders1 as $val) {
 
-          $Librarian=Librarian::where('id', '=', $val->librarianid)->where('district', '=', auth('librarian')->user()->district)->get();
+          $Librarian=Librarian::where('id', '=', $val->librarianid)->where('dlo_id', '=', auth('librarian')->user()->librarianId)->get();
          if( $Librarian->isNotEmpty()){
           array_push($orders,$val);
          }
@@ -123,7 +123,7 @@ class SettingController extends Controller
   
         foreach ($orders1 as $val) {
 
-            $Librarian=Librarian::where('id', '=', $val->librarianid)->where('district', '=', auth('librarian')->user()->district)->get();
+            $Librarian=Librarian::where('id', '=', $val->librarianid)->where('dlo_id', '=', auth('librarian')->user()->librarianId)->get();
            if( $Librarian->isNotEmpty()){
             array_push($orders,$val);
            }
@@ -200,7 +200,7 @@ class SettingController extends Controller
             'Title of the Magazine' => $val1->title,
             'Periodicity' => $val1->periodicity,
             'Type of Library' => $request->librarytype ?? "All",
-            'District' => $request->district ?? "All",
+            'District' =>  auth('librarian')->user()->district,
             'No.of Subscription' => $val1->count,
             'Cover Price' =>$val1->single_issue_rate,
             'Annual Subscription' =>$val1->annual_subscription,
@@ -303,7 +303,7 @@ class SettingController extends Controller
     
         foreach ($orders1 as $val) {
   
-            $Librarian=Librarian::where('id', '=', $val->librarianid)->where('district', '=', auth('librarian')->user()->district)->get();
+            $Librarian=Librarian::where('id', '=', $val->librarianid)->where('dlo_id', '=', auth('librarian')->user()->librarianId)->get();
            if( $Librarian->isNotEmpty()){
             array_push($orders,$val);
            }
@@ -319,7 +319,7 @@ class SettingController extends Controller
     
           foreach ($orders1 as $val) {
   
-              $Librarian=Librarian::where('id', '=', $val->librarianid)->where('district', '=', auth('librarian')->user()->district)->get();
+              $Librarian=Librarian::where('id', '=', $val->librarianid)->where('dlo_id', '=', auth('librarian')->user()->librarianId)->get();
              if( $Librarian->isNotEmpty()){
               array_push($orders,$val);
              }
@@ -372,6 +372,7 @@ class SettingController extends Controller
               $magazinedata[] = $magazine;
           }
       }
+    
       $magazinebudget = MagazineCategory::orderBy('created_at', 'asc')->get();
       $totalAmount =0;
       $datas=[];
@@ -379,13 +380,15 @@ class SettingController extends Controller
        foreach($magazinedata  as $val){
         if($val1->name == $val->category){
             $totalAmount =$totalAmount + $val->count * $val->annual_cost_after_discount ;
-
+            $val->librarytype=$request->librarytype;
             array_push($datas,$val);
         }
        
     
        }
       }
+
+   
     return view('librarian/magazine_order_list', compact('datas','totalAmount'));
     }
 
@@ -397,7 +400,7 @@ class SettingController extends Controller
        
               $Librarian = Librarian::where('status', '=', '1')
              ->where('allow_status', '=', '1')
-             ->where('district', '=', auth('librarian')->user()->district)
+             ->where('dlo_id', '=', auth('librarian')->user()->librarianId)
              ->orderBy('created_at', 'asc')
              ->get();
              $count =count($Librarian);
@@ -538,7 +541,159 @@ class SettingController extends Controller
 
        }
  
-
+       public function magazine_district_order(Request $request){
+        if($request->librarytype !=null){
+       
+            $orders1 = Ordermagazine::where('libraryType', '=', $request->librarytype)->where('status', '=', '1')->get();
+            $orders=[];
+        
+            foreach ($orders1 as $val) {
+      
+                $Librarian=Librarian::where('id', '=', $val->librarianid)->where('dlo_id', '=', auth('librarian')->user()->librarianId)->get();
+               if( $Librarian->isNotEmpty()){
+                array_push($orders,$val);
+               }
+                
+            }
+      
+           }
+          else if($request->librarytype ==null ){
+      
+             
+              $orders1 = Ordermagazine::where('status', '=', '1')->get();
+              $orders=[];
+        
+              foreach ($orders1 as $val) {
+      
+                  $Librarian=Librarian::where('id', '=', $val->librarianid)->where('dlo_id', '=', auth('librarian')->user()->librarianId)->get();
+                 if( $Librarian->isNotEmpty()){
+                  array_push($orders,$val);
+                 }
+                  
+              }
+      
+           }
+            
+                 
+        
+               $magazineCounts = [];
+        
+               foreach ($orders as $order) {
+                  $magazineProducts = json_decode($order->magazineProduct, true);
+               
+                   foreach ($magazineProducts as $magazineProduct) {
+                       $magazineId = $magazineProduct['magazineid'];
+               
+                       if ($magazineId == $request->title) {
+                        $magazine = Magazine::find($request->title);
+                     $Librarian =Librarian::find($order->librarianid);
+        
+                     
+                      $librarianAdressString = ($Librarian->door_no ?? "") . ' ' . $Librarian->street . ' ' . $Librarian->place . ' ' . $Librarian->Village . ' ' . $Librarian->post . ' ' . $Librarian->taluk . ' ' . $Librarian->district . ' ' . $Librarian->pincode . ' ' . $Librarian->landmark;
+                      
+                      $obj = (object)[
+                          'title' => $magazine->title,
+                          'contactperson' => $magazine->contact_person,
+                          'phone' => $magazine->phone,
+                          'email' => $magazine->email,
+                          'address' => $magazine->address,
+                          'librarytype' => $Librarian->libraryType,
+                          'libraryid' => $Librarian->librarianId,
+                          'libraryname' => $Librarian->libraryName,
+                          'district' => $Librarian->district,
+                          'librarianadress' => $librarianAdressString,
+                          'librarianName' => $Librarian->librarianName,
+                          'librarianphone' => $Librarian->phoneNumber,
+                          'librariandes' => $Librarian->librarianDesignation,
+                          'librarianadress' => $librarianAdressString,
+                      ];
+                      
+                    
+                    array_push($magazineCounts, $obj);
+                    
+               
+                      
+                }
+               }
+            }
+            //    $magazineCounts = array_values($magazineCounts);
+             
+               
+               $total = 0;
+               $finaldata = [];
+               $serialNumber = 1;
+               foreach ($magazineCounts as $val1) {
+                   $finaldata[] = [
+                       'S.No' => $serialNumber++,
+                       'Title of the Magazine' => $val1->title,
+                       'Contact Person'=> $val1->contactperson,
+                       'Phone'=> $val1->phone,
+                       'Email'=> $val1->email,
+                       'Address'=> $val1->address,
+                       'Type of Library' => $val1->librarytype,
+                       'Library Code' => $val1->libraryid,
+                       'Library Name' => $val1->libraryname,
+                       'District' => $val1->district,
+                       'Librarian Name' => $val1->librarianName,
+                       'Librarian Phone Number' => $val1->librarianphone,
+                       'Librarian Designation' => $val1->librariandes,
+                       'Library Address' => $val1->librarianadress,
+                   ];
+                   $total = $total +1;
+               }
+              
+        
+               $finaldata[] = [
+                'S.No' =>"",
+                       'Title of the Magazine' => "",
+                       'Contact Person'=> "",
+                       'Phone'=> "",
+                       'Email'=> "",
+                       'Address'=> "",
+                       'Type of Library' => "",
+                       'Library Code' => "",
+                       'Library Name' => "",
+                       'District' =>"",
+                       'Librarian Name' => "",
+                       'Librarian Phone Number' => "",
+                       'Librarian Designation' => "",
+                       'Library Address' => "",
+                  
+               ];
+               $finaldata[] = [
+                   'Total Amount' => '',
+                   'Title of the Magazine' => "",
+                   'Contact Person'=> "",
+                   'Phone'=> "",
+                   'Email'=> "",
+                   'Address'=> "",
+                   'Type of Library' => "",
+                   'Library Code' => "",
+                   'Library Name' => "",
+                   'District' =>"",
+                   'Librarian Name' => "",
+                   'Librarian Phone Number' => "",
+                   'Librarian Designation' => "",
+                   'Library Address' => $total,
+                  
+               ];
+           //  return $finaldata;
+               $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+               $csvContent .=  "S.No,Title of the Magazine,Contact Person,Phone,Email,Address,Type of Library,Library Code,Library Name,District,Librarian Name,Librarian Phone Number,Librarian Designation,Library Address\n"; 
+               foreach ($finaldata as $data) {
+                   $csvContent .= '"' . implode('","', $data) . "\"\n";
+               }
+           
+               $headers = [
+                   'Content-Type' => 'text/csv; charset=utf-8',
+                   'Content-Disposition' => 'attachment; filename="MagazineOrderReport.csv"',
+               ];
+           
+               return response()->make($csvContent, 200, $headers);
+           
+           
+             }   
+        
 }
 
 

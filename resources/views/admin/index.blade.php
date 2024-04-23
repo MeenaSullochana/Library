@@ -509,8 +509,8 @@
                                                     @php
 
                                                                    $librarian = DB::table('librarians')->count();
-                                                                   $librarianactive = DB::table('librarians')->where('status','=',1)->count();
-                                                                   $librarianinactive = DB::table('librarians')->where('status','=',0)->count();
+                                                                   $librarianactive = DB::table('librarians')->where('status','=','1')->count();
+                                                                   $librarianinactive = DB::table('librarians')->where('status','=','0')->count();
                                                                       @endphp
                                                         <div
                                                             class="depostit-card-media d-flex justify-content-between style-1">

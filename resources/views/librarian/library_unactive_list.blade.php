@@ -143,8 +143,8 @@
                                                 </thead>
                                                 <tbody>
                                                     @php
-                                                     $data=auth('librarian')->user()->district;
-                                                    $rev = DB::table('librarians')->where('district','=',$data)->where('allow_status','=','1')->where('status','=','0')->orderBy('sNo','ASC')->get();
+                                                    $data=auth('librarian')->user()->librarianId;
+                                                    $rev = DB::table('librarians')->where('futureindia','=',$data)->where('allow_status','=','1')->where('status','=','0')->orderBy('sNo','ASC')->get();
                                                     @endphp
                                                     @foreach($rev as $val)
 

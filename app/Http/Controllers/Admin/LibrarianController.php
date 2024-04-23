@@ -135,7 +135,7 @@ public function librarianstatus(Request $req){
    }
    public function librarianview(Request $req){
     $librarian= Librarian::find($req->id);
-$librarian->subject1=json_decode($librarian->subject); 
+    $librarian->subject1=json_decode($librarian->subject); 
     return redirect('/admin/librariandata')->with('librarian',$librarian); 
 
    }
