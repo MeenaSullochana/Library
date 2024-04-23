@@ -11,7 +11,9 @@ use Carbon\Carbon;
 use App\Models\Subadmin;
 use App\Models\Ticket;
 use App\Models\Distributor;
-
+use App\Notifications\ApprovedNotification;
+use App\Notifications\RejectNotification;
+use Illuminate\Support\Facades\Notification;
 
 class DistributorController extends Controller
 {
@@ -30,6 +32,7 @@ class DistributorController extends Controller
            if($req->newPassword == $req->confirmPassword){
              $publisher->password=Hash::make($req->newPassword);
              $publisher->save();
+             return $publisher;
              return back()->with('success','Passdword Change  Successfully ');
             }else{
                 return back()->with('error','newPassword and confirmPassword is mishmatch');
@@ -40,24 +43,35 @@ class DistributorController extends Controller
     
     }
     public function rejectstatus(Request $req){
-        $publisher=Distributor::find($req->id);
-            $publisher->approved_status="reject";
-             $publisher->save();
-             $data= [
-                 'success' => 'Statuas Updated Successfully',
-                      ];
-             return response()->json($data);
+        $distributor=Distributor::find($req->id);
+            $distributor->approved_status="reject";
+            if($distributor->save()){
+                $adminmail=auth('admin')->user()->email;
+                $rejmessage = $req->rejectmessage;
+                $user = $distributor->email;
+                $url = "http://127.0.0.1:8000/login";
+                Notification::route('mail',  $distributor->email)->notify(new RejectNotification($user, $url,$rejmessage,$adminmail));  
+                $data= [
+                    'success' => 'Statuas Updated Successfully',
+                         ];
+                return response()->json($data);  
+         }
          }
  
     public function approvestatus(Request $req){
        $distributor=Distributor::find($req->distributorid);
            $distributor->approved_status="approve";
            $distributor->status="1";
-            $distributor->save();
+           if($distributor->save()){
+            $user = $distributor->email;
+            $url = "http://127.0.0.1:8000/login";
+            Notification::route('mail',  $distributor->email)->notify(new ApprovedNotification($user, $url));  
             $data= [
                 'success' => 'Statuas Updated Successfully',
                      ];
-            return response()->json($data);
+            return response()->json($data);  
+                       
+           }
         }
 
 
@@ -79,8 +93,8 @@ class DistributorController extends Controller
         }
 
     public function distributorget(){
-          $distributor=Distributor::all();
-        return view('sub_admin.distributor_list')->with('distributor',$distributor);  
+         $distributor=Distributor::all();
+        return view('sub_admin/distributor_list')->with('distributor',$distributor);  
         }
 
     public function distributoractive(){
@@ -93,18 +107,18 @@ class DistributorController extends Controller
          }         
      public function distributorpending(){
        $distributor=Distributor::where('status', '=', '0')->where('approved_status', '=', 'pending')->get();
-       return view('sub_admin/distributor_pending_list')->with('distributor',$distributor);  
+       return view('admin/distributor_pending_list')->with('distributor',$distributor);  
        }                      
      public function distributorrejectlist(){
         $distributor=Distributor::where('status', '=', '0')->where('approved_status', '=', 'reject')->get();
-         return view('sub_admin/distributor_reject_list')->with('distributor',$distributor);  
+         return view('admin/distributor_reject_list')->with('distributor',$distributor);  
          }     
 
          public function distprofile($id){
             $distributor=Distributor::find($id);
            $distributor->publisher1= json_decode($distributor->publisher);
             $distributor->subsidiary1= json_decode($distributor->subsidiary);
-            // return $distributor;
+         
             return redirect('/sub_admin/distprofile')->with('distributor',$distributor); 
             
              } 

@@ -167,6 +167,8 @@ Route::prefix('librarian')->group(function () {
 
     Route::get('/magazine_order_list',[SettingController::class,'magazine_order_list']);
 
-    
+    Route::get('report_download_order_magazine',function(){ return view('librarian.report_download_order_magazine');});
+    Route::post('/magazine_district_order ',[SettingController::class,'magazine_district_order']);
+
 });
 });

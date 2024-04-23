@@ -11,7 +11,7 @@
    <meta name="csrf-token" content="{{ csrf_token() }}">
 
    <!-- PAGE TITLE HERE -->
-   <title>Distriputer Details</title>
+   <title>Government of Tamil Nadu - Book Procurement</title>
    <!-- FAVICONS ICON -->
    <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
     <?php
@@ -48,15 +48,15 @@
       <div class="content-body">
          <div class="container-fluid">
             <div class="card">
-               
+
                 <div class="card mb-4 mb-4">
                     <div class="card-body">
-                        <div class="d-sm-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Create Member</b>
+                                <b>Distriputer Active List</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="member_list.php">
-                                <i class="fas fa-plus"></i> List Of Member </a>
+                            <a class="btn btn-primary  btn-sm" href="/sub_admin/distributor_list">
+                                <i class="fas fa-plus"></i> List of Distriputer </a>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                               <th>Contact Number</th>
                               <th>District </th>
                               <th>Status </th>
-                              <th>Update Status</th>
+                              <!-- <th>Update Status</th> -->
                               <th>Date</th>
                               <th>Control</th>
                            </tr>
@@ -86,7 +86,7 @@
                               </td>
                               <td>{{$val->mobileNumber}}</td>
                               <td>{{$val->District}}</td>
-                              <td class="sorting_1">
+                              <!-- <td class="sorting_1">
                                <div class="form-check form-switch id="load">
                                      <input class="form-check-input toggle-class" type="checkbox"
                                     data-id="{{$val->id}}" name="featured_status"
@@ -98,7 +98,7 @@
                           </td>
                           @if($val->approved_status=='pending')
                           <td>
-                              <div class="col-sm-12 m-b30"> 
+                              <div class="col-sm-12 m-b30">
                                   <select  class="col-sm-12 m-b30"  name="district">
                                   <option style="color: red;">Pending</option>
                                  <option style="color: green;">Approve</option>
@@ -107,19 +107,26 @@
                                   </div>
                            </td>
                            @elseif($val->approved_status=='approve')
-                        
+
                           <td> <span class="badge bg-success text-white">Approve</span></td>
-                         
+
                             @else
                            <td> <span class="badge bg-danger text-white">Reject</span></td>
+                           @endif -->
+                           @if($val->status == 1)
+
+                           <td> <span class="badge bg-success text-white">Active</span></td>
+
+                           @else
+                           <td> <span class="badge bg-danger text-white">Inactive</span></td>
                            @endif
-                               
-                           <td><span class="badge light badge-success">{{$val->created_at->format('Y-m-d')}}</span>
+
+                           <td><span class="badge light badge-success">{{$val->created_at->format('d-m-Y')}}</span>
                               <td>
                                  <a href="/sub_admin/dist_profile/{{$val->id}}"><i class="fa fa-eye p-2"></i></a>
-                                 <i class="fa fa-pencil p-2"></i>
-                                 <i class="fa fa-trash p-2"></i>
-                                 <a href="/admin/pub_payment_list"><i class="fa fa-list-check p-2"></i></a>
+                                 <!-- <i class="fa fa-pencil p-2"></i>
+                                 <i class="fa fa-trash p-2"></i> -->
+                                 <a href="/sub_admin/book_manage/{{$val->id}}"><i class="fa fa-list-check p-2"></i></a>
                               </td>
                            </tr>
                            @endforeach
@@ -153,41 +160,7 @@
          *************-->
          <?php
         include "sub_admin/plugin/plugin_js.php";
-    ?>
+         ?>
 </body>
-<script>
-  $(function() {
-    $('.toggle-class').change(function(e) {
-        e.preventDefault(); 
-        var status = $(this).prop('checked') == true ? 1 : 0; 
-        var distributorid = $(this).data('id');
-       
-        $.ajaxSetup({
-             headers:{
-                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-             }
-          });
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: '/sub_admin/distributorstatus',
-            data: {'status': status, 'distributorid': distributorid},
-            success: function(response) {
-               if(response.success){
-                setTimeout(function() {
-                    window.location.href ="/sub_admin/distributor_active_list"
-                     }, 3000);
-                toastr.success(response.success,{timeout:45000});
-               }else{
-                toastr.error(response.error,{timeout:45000});
-                setTimeout(function() {
-                    window.location.href ="/sub_admin/distributor_active_list"
-                     }, 3000);
-               }
-                
-            }
-        });
-    })
-  })
-</script>
+
 </html>

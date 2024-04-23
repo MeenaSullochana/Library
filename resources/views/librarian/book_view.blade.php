@@ -11,19 +11,204 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow" />
     <!-- PAGE TITLE HERE -->
-    <title>Goverment of Tamil Nadu - Book Procurement</title>
+    <title>Government of Tamil Nadu - Book Procurement</title>
     <!-- FAVICONS ICON -->
 
     <link rel="stylesheet" href="{{ asset('path/to/examples.css') }}">
 
-    <link href="
-https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.css
-" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
     <?php
     include 'librarian/plugin/plugin_css.php';
     ?>
+    <style>
+    .outerBox {
+        height: 300px;
+        /* background-color: black; */
+        background-image: url('{{ asset('Books/back.jpeg') }}');
+
+        background-position: top;
+        color: white;
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    #more {
+        display: none;
+    }
+
+    /* slider */
+    .carousel-wrap {
+        margin: 10px auto;
+        padding: 0 0;
+        width: 100%;
+        position: relative;
+    }
+
+    /* fix blank or flashing items on carousel */
+    .owl-carousel .item {
+        position: relative;
+        z-index: 100;
+        -webkit-backface-visibility: hidden;
+    }
+
+    /* end fix */
+    .owl-nav>div {
+        margin-top: -26px;
+        position: absolute;
+        top: 50%;
+        color: #cdcbcd;
+    }
+
+    .owl-nav i {
+        font-size: 52px;
+    }
+
+    .owl-nav .owl-prev {
+        left: -30px;
+    }
+
+    .owl-nav .owl-next {
+        right: -30px;
+    }
+
+    .list-group-item.active {
+        background-color: #67635e !important
+    }
+
+    .active-start {
+        color: yellow;
+    }
+    </style>
+    <style>
+    /* Style for the 'previous' button */
+    #prev {
+        display: inline-block;
+        padding: 10px;
+        margin-right: 10px;
+        color: white;
+        background-color: blue;
+        /* Change to your desired color for 'previous' button */
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #prev:hover {
+        background-color: darkblue;
+        /* Change to your desired hover color for 'previous' button */
+    }
+
+    /* Style for the 'next' button */
+    #next {
+        display: inline-block;
+        padding: 10px;
+        color: white;
+        background-color: green;
+        /* Change to your desired color for 'next' button */
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #next:hover {
+        background-color: darkgreen;
+        /* Change to your desired hover color for 'next' button */
+    }
+    </style>
+    <style>
+    .carousel-indicators button.thumbnail {
+        width: 100%;
+    }
+
+    .carousel-indicators button.thumbnail:not(.active) {
+        opacity: 0.7;
+    }
+
+    .carousel-indicators {
+        position: static;
+    }
+
+    @media screen and (max-width: 745px) {
+        h4.ms-5 {
+            font-size: 10px;
+        }
+
+        img.center.newbanner {
+            width: 100%;
+        }
+    }
+
+    @media screen and (min-width: 992px) {
+        .carousel {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+    }
+
+    .product-title {
+        font-size: 20px;
+        font-family: 'Line Awesome Free';
+        font-weight: 700;
+    }
+
+    .short_desc {
+        font-family: 'Line Awesome Free';
+        font-size: 14px;
+        color: black;
+    }
+
+    /* Style 7
+           ----------------------------- */
+    .seven h1 {
+        text-align: center;
+        font-size: 17px;
+        font-weight: 300;
+        color: #222;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-weight: bold;
+        display: grid;
+        grid-template-columns: 1fr max-content 1fr;
+        grid-template-rows: 27px 0;
+        grid-gap: 20px;
+        align-items: center;
+    }
+
+    .seven h1:after,
+    .seven h1:before {
+        content: " ";
+        display: block;
+        border-bottom: 1px solid #452b90;
+        border-top: 1px solid #452b90;
+        height: 5px;
+        background-color: #f8f8f8;
+    }
+
+    .bg-main {
+        background-color: #222B40;
+    }
+
+    img.avatar.avatar-md.rounded-circle {
+        height: 75px !important;
+        width: 75px !important;
+    }
+
+    /* img {
+          background-position: top;
+          background-size: cover;
+          height: 200px;
+          width: 290px;
+          box-shadow: 0 2px 10px #000;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+        img:hover {
+          box-shadow: none;
+          transform: scale(1.1);
+        } */
+    </style>
 </head>
 
 <body>
@@ -60,7 +245,7 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                             <h3 class="mb-0 bc-title">
                                 <b>Book View</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="#">
+                            <a class="btn btn-primary  btn-sm" href="book_manage_all">
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </a>
                         </div>
                     </div>
@@ -206,37 +391,82 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                                         <div class="product-detail-content">
                                             <!--Product details-->
                                             <div class="product-info pr">
-                                                <h4 class="product-title"> {{ $data->book_title }} –
-                                                    {{ $data->edition_number }}</h4>
+                                                <h4 class="product-title"> {{ $data->book_title }}
+                                                    @if($data->volume1 !=null)
+                                                    @foreach($data->volume1 as $val)
+                                                    , {{$val->volume_number}} / {{$val->isbn_number}}
+
+                                                    , {{$val->volume_title}}
+
+                                                    @endforeach
+
+                                                    @endif
+                                                </h4>
                                                 <!-- <h5>December 2002</h5> -->
+                                                @if( $data->subtitle !=null)
+                                                <h6 class="product-title"> {{ $data->subtitle }} </h6>
+                                                @endif
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <p><span class="fs-6 fw-bold text-primary">Author :</span>
                                                             @php
-                                                            $lastKey1 = count($data->primaryauthor1) - 1;
+
+                                                            $primaryAuthors = array_filter($data->primaryauthor1,
+                                                            function($author) {
+                                                            return $author !== null;
+                                                            });
+
+                                                            $lastKey1 = count($primaryAuthors) - 1;
                                                             @endphp
                                                             @foreach ($data->primaryauthor1 as $key => $va11)
                                                             <strong>{{ $va11 }}</strong>
                                                             @if ($key < $lastKey1) , @endif @endforeach </p>
                                                     </div>
+                                                    @if($data->trans_author1 !=null)
                                                     <div class="col-md-6">
                                                         <p><span class="fs-6 fw-bold text-primary">Translate Author
-                                                                :</span>
+                                                                : </span>
                                                             @php
-                                                            $lastKey2 = count($data->trans_author1) - 1;
+
+                                                            $trans_author = array_filter($data->trans_author1,
+                                                            function($author) {
+                                                            return $author !== null;
+                                                            });
+
+                                                            $lastKey2 = count($trans_author) - 1;
                                                             @endphp
+
+
                                                             @foreach ($data->trans_author1 as $key => $val2)
                                                             <strong>{{ $val2 }}</strong>
                                                             @if ($key < $lastKey2) , @endif @endforeach </p>
                                                     </div>
+                                                    @endif
+
+                                                    <div class="col-md-6">
+                                                        <p><span class="fs-6 fw-bold text-primary">Name of Publisher
+                                                                : </span>
+
+                                                            <strong>{{ $data->nameOfPublisher }}</strong>
+
+                                                        </p>
+                                                    </div>
                                                 </div>
                                                 <hr>
+                                                @if($data->trans_from1 !=null)
+
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <p><span class="fs-6 fw-bold text-primary">Translated Languages
                                                                 :</span>
                                                             @php
-                                                            $lastKey = count($data->trans_from1) - 1;
+
+                                                            $trans_from = array_filter($data->trans_from1,
+                                                            function($author) {
+                                                            return $author !== null;
+                                                            });
+
+                                                            $lastKey = count($trans_from) - 1;
                                                             @endphp
 
                                                             @foreach ($data->trans_from1 as $key => $val)
@@ -244,6 +474,7 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                                                             @if ($key < $lastKey) , @endif @endforeach </p>
                                                     </div>
                                                 </div>
+                                                @endif
                                                 <!-- <div class="comment-review star-rating d-flex">
                                                     <ul>
                                                         <li><i class="fa fa-star"></i></li>
@@ -272,16 +503,79 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                                                         </p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <p class="p-0 m-0"><span
-                                                                class="fs-6 fw-bold text-primary">Category:</span> <span
-                                                                class="item">{{ $data->category }}</span> </p>
-                                                        <p class="p-0 m-0"><span
-                                                                class="fs-6 fw-bold text-primary">Subject:</span> <span
-                                                                class="item">{{ $data->subject }}</span> </p>
-                                                        <p class="p-0 m-0"><span class="fs-6 fw-bold text-primary">Book
-                                                                ID:</span> <span
-                                                                class="item">{{ $data->product_code }}</span>
-                                                        </p>
+                                                        <div class="row">
+                                                            <div class="col-md-5 col-5">
+                                                                <p class="p-0 m-0"><span
+                                                                        class="fs-6 fw-bold text-primary">Year
+                                                                        of Publication </span></p>
+                                                            </div>
+                                                            <div class="col-md-7 col-7">
+                                                                <p><span class="item">:
+                                                                        {{ $data->yearOfPublication }}</span> </p>
+                                                            </div>
+                                                            <div class="col-md-5 col-5">
+                                                                <p class="p-0 m-0"><span
+                                                                        class="fs-6 fw-bold text-primary">Category
+                                                                    </span></p>
+                                                            </div>
+                                                            <div class="col-md-7 col-7">
+                                                                <p> <span class="item">
+                                                                        <select class="form-select small" id="Category"
+                                                                            data-id="{{ $data->id }}" name="Category"
+                                                                            required style="font-size: 12px;">
+                                                                            <option value="{{ $data->category }}">
+                                                                                {{ $data->category }}
+                                                                            </option>
+                                                                            @php
+                                                                            $categori = DB::table('special_categories')
+                                                                            ->where('status','=','1')
+                                                                            ->where('name','!=',$data->category)
+                                                                            ->get();
+                                                                            @endphp
+                                                                            @foreach($categori as $val)
+                                                                            <option value="{{$val->name}}">
+                                                                                {{$val->name}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </span> </p>
+                                                            </div>
+                                                            <div class="col-md-5 col-5">
+                                                                <p class="p-0 m-0"><span
+                                                                        class="fs-6 fw-bold text-primary">Subject
+                                                                    </span></p>
+                                                            </div>
+                                                            <div class="col-md-7 col-7">
+                                                                <p> <span class="item">
+                                                                        <select class="form-select small" id="subject"
+                                                                            data-id="{{ $data->id }}" name="subjrct"
+                                                                            style="font-size: 12px;">
+                                                                            <option value="{{ $data->subject }}">
+                                                                                {{$data->subject }}
+
+                                                                            </option>
+                                                                            @php
+                                                                            $categori =
+                                                                            DB::table('book_subject')->where('status','=','1')->where('name','!=',$data->subject)->get();
+
+
+                                                                            @endphp
+                                                                            @foreach($categori as $val)
+                                                                            <option value="{{$val->name}}">
+                                                                                {{$val->name}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </span> </p>
+                                                            </div>
+                                                            <div class="col-md-5 col-5">
+                                                                <p class="p-0 m-0"><span
+                                                                        class="fs-6 fw-bold text-primary">Book
+                                                                        ID </span></p>
+                                                            </div>
+                                                            <div class="col-md-7 col-7">
+                                                                <p><span class="item">: {{ $data->product_code }}</span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -393,147 +687,86 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                                 </div> --}}
                             </div>
                             <div class="row mt-2">
+                                <h3 class=" h3">Product Details</h3>
                                 <div class="col-md-6">
                                     <div class="card">
                                         <div class="card-body">
-                                            <h3 class="card-title h3">Product details</h3>
-                                            <ul>
-                                                <li class="fs-5 p-1"><span class="a-list-item">
-                                                        <span class="a-text-bold d-flex justify-content-between">
-                                                            <div class="text-title text-danger">
-                                                                <b>
-                                                                    {{ $data->user_type == 'publisher' ? 'Publisher' : ($data->user_type == 'distributor' ? 'Distributor' : 'Publisher Cum Distributor') }}</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->firstName . ' ' . $data->lastName }}</span>
-                                                            </div>
 
-                                                        </span>
+                                            <div class="row">
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px"> Name of Publisher</b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span style="font-size:14px">: {{ $data->nameOfPublisher }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Language </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span style="font-size:14px">:
+                                                        @if ($data->language == 'Other_Indian')
+                                                        <span>{{ $data->other_indian }}</span>
+                                                        @elseif($data->language == 'Other_Foreign')
+                                                        <span>{{ $data->other_foreign }}</span>
+                                                        @else
+                                                        <span>{{ $data->language }}</span>
+                                                        @endif
                                                     </span>
-                                                </li>
-                                                <li class="fs-5 p-1">
-                                                    <span class="a-list-item">
-                                                        <span
-                                                            class="a-text-bold text-danger d-flex justify-content-between">
-                                                            <div class="text-title text-danger"><b>Language</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                @if ($data->language == 'Other_Indian')
-                                                                <span>{{ $data->other_indian }}</span>
-                                                                @elseif($data->language == 'Other_Foreign')
-                                                                <span>{{ $data->other_foreign }}</span>
-                                                                @else
-                                                                <span>{{ $data->language }}</span>
-                                                                @endif
-                                                            </div>
-                                                        </span>
-                                                    </li>
-                                                    <li class="fs-5 p-1">
-                                                        <span class="a-list-item">
-                                                            <span class="a-text-bold d-flex justify-content-between">
-                                                                <div class="text-title text-danger"><b>Size</b>
-                                                                    &rlm;
-                                                                    :
-                                                                    &lrm;
-                                                                </div>
-                                                                <div class="text-data text-right">
-                                                                    <span>{{ $data->size }}</span>
-                                                                </div>
-                                                            </span>
-                                                        </span>
-                                                    </li>
-                                                    <li class="fs-5 p-1">
-                                                        <span class="a-list-item">
-                                                            <span class="a-text-bold d-flex justify-content-between">
-                                                                <div class="text-title text-danger"><b>Length Breadth</b>
-                                                                    &rlm;
-                                                                    :
-                                                                    &lrm;
-                                                                </div>
-                                                                <div class="text-data text-right">
-                                                                    <span>{{ $data->length_breadth }}</span>
-                                                                </div>
-                                                            </span>
-                                                        </span>
-                                                    </span>
-                                                </li>
-                                                <li class="fs-5 p-1">
-                                                    <span class="a-list-item">
-                                                        <span class="a-text-bold  d-flex justify-content-between">
-                                                            <div class="text-title text-danger"><b>Width</b>
-                                                                &rlm;
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Length Breadth </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span style="font-size:14px">: {{ $data->length_breadth }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Size </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span style="font-size:14px">: {{ $data->size }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Width </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span style="font-size:14px">: {{ $data->width }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Weight </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span style="font-size:14px">: {{ $data->weight }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Type of Paper </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span style="font-size:14px">: {{ $data->quality }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">GSM </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span style="font-size:14px">: {{ $data->gsm }}</span>
+                                                </div>
 
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->width }}</span>
-                                                            </div>
-                                                        </span>
-                                                </li>
-                                                <li class="fs-5 p-1">
-                                                    <span class="a-list-item">
-                                                        <span class="a-text-bold  d-flex justify-content-between">
-                                                            <div class="a-text-bold text-danger"><b>Weight</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->weight }}</span>
-                                                            </div>
-                                                        </span>
-                                                </li>
-                                                <li class="fs-5 p-1">
-                                                    <span class="a-list-item">
-                                                        <span class="a-text-bold  d-flex justify-content-between">
-                                                            <div class="a-text-bold text-danger">
-                                                                <b>Type OF Paper</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->quality }}</span>
-                                                            </div>
-                                                        </span>
-                                                    </span>
-                                                </li>
-                                                <li class="fs-5 p-1"><span class="a-list-item">
-                                                        <span class="a-text-bold  d-flex justify-content-between">
-                                                            <div class="a-text-bold text-danger">
-                                                                <b>Gsm</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->gsm }}</span>
-                                                            </div>
-                                                        </span>
-                                                    </span>
-                                                </li>
-                                                <li class="fs-5 p-1"><span class="a-list-item">
-                                                        <span class="a-text-bold  d-flex justify-content-between">
-                                                            <div class="a-text-bold text-danger">
-                                                                <b>Paper Finishing </b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->paper_finishing }}</span>
-                                                            </div>
-                                                        </span>
-                                                    </span>
-                                                </li>
-                                            </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -541,85 +774,73 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                                     <div class="card">
                                         <div class="card-body">
                                             <!-- <h3 class="card-title">Book Location</h3> -->
-                                            <ul>
-                                                <li class="fs-5 p-1"><span class="a-list-item">
-                                                        <span class="a-text-bold  d-flex justify-content-between">
-                                                            <div class="a-text-bold text-danger">
-                                                                <b>Multi Color</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->multicolor }}</span>
-                                                            </div>
-                                                        </span>
-                                                </li>
-                                                <li class="fs-5 p-1"><span class="a-list-item">
-                                                        <span class="a-text-bold  d-flex justify-content-between">
-                                                            <div class="a-text-bold text-danger"><b>Mono Color</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->monocolor }}</span>
-                                                            </div>
-                                                        </span>
-                                                </li>
-                                                <li class="fs-5 p-1"><span class="a-list-item">
-                                                        <div class="a-text-bold  d-flex justify-content-between">
-                                                            <div class="a-text-bold text-danger"><b>Pages</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->pages }}</span>
-                                                            </div>
-                                                        </div>
-                                                </li>
-                                                <li class="fs-5 p-1"><span class="a-list-item">
-                                                        <div class="a-text-bold  d-flex justify-content-between">
-                                                            <div class="a-text-bold text-danger"><b>ISBN</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->isbn }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </span>
-                                                </li>
-                                                <!-- <li class="fs-5 p-1"><span class="a-list-item"> <span
-                                                                class="a-text-bold"><b>Isbn13</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </span> <span>{{ $data->isbn13 }}</span>
-                                                        </span>
-                                                    </li> -->
-                                                <li class="fs-5 p-1"><span class="a-list-item">
-                                                        <div class="a-text-bold  d-flex justify-content-between">
-                                                            <div class="a-text-bold text-danger">
-                                                                <b>Price</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </div>
-                                                            <div class="text-data text-right">
-                                                                <span>{{ $data->price }}</span>
-                                                            </div>
-                                                        </div>
-                                                    </span>
-                                                </li>
-                                            </ul>
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Edition Number </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span style="font-size:14px">: {{ $data->edition_number }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Paper Finishing </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span style="font-size:14px">: {{ $data->paper_finishing }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Multi Color </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span>: {{ $data->multicolor }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Mono Color </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span>: {{ $data->monocolor }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Pages </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span>: {{ $data->pages }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">ISBN </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span>: {{ $data->isbn }}</span>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <div class="text-title text-danger">
+                                                        <b style="font-size:14px">Price </b>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-6 mt-2">
+                                                    <span>: {{ $data->price }}</span>
+                                                </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
+                                @if($data->series1 !=null)
                                 <div class="col-md-6">
                                     <div class="accordion" id="accordionExample1">
                                         <div class="accordion-item">
@@ -635,45 +856,43 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                                                 <div class="accordion-body">
 
                                                     <h3 class="card-title">Series details</h3>
-                                                    <ul>
+                                                    <div class="row">
                                                         @foreach ($data->series1 as $val)
-                                                        <h3 class="card-title">Series: {{ $loop->index + 1 }}
-                                                        </h3>
-                                                        <li class="fs-5 p-1"><span class="a-list-item"> <span
-                                                                    class="a-text-bold"><b>Series Number</b>
-                                                                    &rlm;
-                                                                    :
-                                                                    &lrm;
-                                                                </span> <span> {{ $val->series_number }}</span>
-                                                            </span>
-                                                        </li>
-                                                        <li class="fs-5 p-1"><span class="a-list-item"> <span
-                                                                    class="a-text-bold"><b>Series Title</b>
-                                                                    &rlm;
-                                                                    :
-                                                                    &lrm;
-                                                                </span> <span> {{ $val->series_title }}</span>
-                                                            </span>
-                                                        </li>
-                                                        <li class="fs-5 p-1"><span class="a-list-item"> <span
-                                                                    class="a-text-bold"><b>ISBN Number</b>
-                                                                    &rlm;
-                                                                    :
-                                                                    &lrm;
-                                                                </span> <span> {{ $val->isbn_number }}</span>
-                                                            </span>
-                                                        </li>
+                                                        <div class="col-md-6 col-6 mt-2">
+                                                            <div class="text-title text-dark">
+                                                                <b style="font-size:14px">Series Title </b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-6 mt-2">
+                                                            <span>: {{ $val->series_title }}</span>
+                                                        </div>
+                                                        <div class="col-md-6 col-6 mt-2">
+                                                            <div class="text-title text-dark">
+                                                                <b style="font-size:14px">Current Series Number </b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-6 mt-2">
+                                                            <span>: {{ $val->series_number }}</span>
+                                                        </div>
+                                                        <div class="col-md-6 col-6 mt-2">
+                                                            <div class="text-title text-dark">
+                                                                <b style="font-size:14px">Total Number of Series </b>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 col-6 mt-2">
+                                                            <span>: {{ $val->isbn_number }}</span>
+                                                        </div>
                                                         @endforeach
-
-
-
-                                                    </ul>
+                                                    </div>
 
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                @endif
+                                @if($data->volume1 !=null)
+
                                 <div class="col-md-6">
                                     <div class="accordion" id="accordionExample2">
                                         <div class="accordion-item">
@@ -686,44 +905,41 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                                             </h2>
                                             <div id="collapseOne2" class="accordion-collapse collapse show"
                                                 aria-labelledby="headingOne2" data-bs-parent="#accordionExample2">
-                                                <h3 class="card-title">Volume details</h3>
-                                                <ul>
+                                                <h3 class="card-title mt-3">Volume details</h3>
+                                                <div class="row">
                                                     @foreach ($data->volume1 as $val)
-                                                    <h3 class="card-title">Volume: {{ $loop->index + 1 }}</h3>
-                                                    <li class="fs-5 p-1"><span class="a-list-item"> <span
-                                                                class="a-text-bold"><b>Volume Number</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </span> <span> {{ $val->volume_number }}</span>
-                                                        </span>
-                                                    </li>
-                                                    <li class="fs-5 p-1"><span class="a-list-item"> <span
-                                                                class="a-text-bold"><b>Series Title</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </span> <span> {{ $val->volume_title }}</span>
-                                                        </span>
-                                                    </li>
-                                                    <li class="fs-5 p-1"><span class="a-list-item"> <span
-                                                                class="a-text-bold"><b>ISBN Number</b>
-                                                                &rlm;
-                                                                :
-                                                                &lrm;
-                                                            </span> <span> {{ $val->isbn_number }}</span>
-                                                        </span>
-                                                    </li>
+                                                    <div class="col-md-6 col-6 mt-2">
+                                                        <div class="text-title text-dark">
+                                                            <b style="font-size:14px">Volume Title </b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-6 mt-2">
+                                                        <span>: {{ $val->volume_title }}</span>
+                                                    </div>
+                                                    <div class="col-md-6 col-6 mt-2">
+                                                        <div class="text-title text-dark">
+                                                            <b style="font-size:14px">Current Volume Number </b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-6 mt-2">
+                                                        <span>: {{ $val->volume_number }}</span>
+                                                    </div>
+                                                    <div class="col-md-6 col-6 mt-2">
+                                                        <div class="text-title text-dark">
+                                                            <b style="font-size:14px">Total Number of Volume </b>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-6 mt-2">
+                                                        <span>: {{ $val->isbn_number }}</span>
+                                                    </div>
                                                     @endforeach
-
-
-
-                                                </ul>
+                                                </div>
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                             </div>
 
                             <!-- </div> -->
@@ -803,10 +1019,10 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                     <div class="row">
                         <hr>
                         {{-- <h3>Product description</h3> --}}
-                        <div class="card-header bg-main text-white h3 p-2">Product Description</div>
+                        <div class="card-header bg-main text-white h3 p-2">Book Description</div>
                         <div class="col-12">
                             <div class="product_description">
-                                <p style="text-indent:35px">{{ strip_tags($data->productdescription) }}</p>
+                                <p style="text-indent:35px">{!! $data->productdescription !!}</p>
                             </div>
                         </div>
                     </div>
@@ -817,8 +1033,9 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                         @foreach ($data->banner_img1 as $val)
                         <div class="row container ms-3 me-3 mt-3">
 
-                            <div class="col-8 mx-auto">
-                                <img class="center" src="{{ asset('Books/banner/' . $val) }}" alt="img" style="">
+                            <div class="col-8">
+                                <img class="center newbanner w-100" src="{{ asset('Books/banner/' . $val) }}" alt="img"
+                                    style="">
                             </div>
 
 
@@ -854,7 +1071,7 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
                             <div class="d-flex mb-5">
                                 <div class="auth_details">
                                     <div class="row align-items-center">
-                                        <div class="col-md-4 text-center">
+                                        <div class="col-md-auto mt-2">
                                             @if ($data->author_img != null)
                                             <img src="{{ asset('Books/author_img/' . $data->author_img) }}"
                                                 class="avatar avatar-md rounded-circle" alt="{{ $data->author_name }}">
@@ -1129,9 +1346,9 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
 
     openModalBtn.addEventListener('click', function() {
         epubModal.style.display = 'flex';
-        var data = @json($data - > sample_file);
-        var data1 = @json($data - > sample_pdf);
-        var data2 = @json($data - > sample_epub);
+        var data = @json($data -> sample_file);
+        var data1 = @json($data -> sample_pdf);
+        var data2 = @json($data -> sample_epub);
 
         var bookSource = data2;
 
@@ -1269,7 +1486,7 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
 
     openModalBtn.addEventListener('click', function() {
         pdfModal.style.display = 'flex';
-        var data1 = @json($data - > sample_pdf); // Assuming $data->sample_pdf contains the PDF file name
+        var data1 = @json($data -> sample_pdf); // Assuming $data->sample_pdf contains the PDF file name
         var pdfUrl = "{{ asset('Books/samplepdf') }}/" + data1; // Adjust the path as necessary
 
         var pdfjsLib = window['pdfjs-dist/build/pdf'];
@@ -1335,8 +1552,84 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
     });
     </script>
 
+<script>
+    document.getElementById("Category").addEventListener("change", function(e) {
+        e.preventDefault(); // Prevent the default action of the event
 
+        var id = this.getAttribute("data-id");
+        var category = this.value;
+        
+        var data = {
+            'id': id,
+            'category': category
+        };
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "/librarian/categoryupdate",
+            data: data,
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                if (response.success) {
+                   
+                    toastr.success(response.success, { timeout: 45000 });
+                } else {
+                    toastr.error(response.error, { timeout: 45000 });
+                  
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+</script>
+<script>
+    document.getElementById("subject").addEventListener("change", function(e) {
+        e.preventDefault(); 
+
+        var id = this.getAttribute("data-id");
+        var subjrct = this.value;
+         
+        var data = {
+            'id': id,
+            'subject': subjrct
+        };
+ console.log(data);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "/librarian/subjectupdate",
+            data: data,
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                if (response.success) {
+                   
+                    toastr.success(response.success, { timeout: 45000 });
+                } else {
+                    toastr.error(response.error, { timeout: 45000 });
+                  
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+</script>
 
 
     <script>
@@ -1382,176 +1675,3 @@ https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.cs
 </body>
 
 </html>
-<style>
-.outerBox {
-    height: 300px;
-    /* background-color: black; */
-    background-image: url('{{ asset('Books/back.jpeg') }}');
-
-    background-position: top;
-    color: white;
-    font-size: 16px;
-    padding: 10px;
-}
-
-#more {
-    display: none;
-}
-
-/* slider */
-.carousel-wrap {
-    margin: 10px auto;
-    padding: 0 0;
-    width: 100%;
-    position: relative;
-}
-
-/* fix blank or flashing items on carousel */
-.owl-carousel .item {
-    position: relative;
-    z-index: 100;
-    -webkit-backface-visibility: hidden;
-}
-
-/* end fix */
-.owl-nav>div {
-    margin-top: -26px;
-    position: absolute;
-    top: 50%;
-    color: #cdcbcd;
-}
-
-.owl-nav i {
-    font-size: 52px;
-}
-
-.owl-nav .owl-prev {
-    left: -30px;
-}
-
-.owl-nav .owl-next {
-    right: -30px;
-}
-
-.list-group-item.active {
-    background-color: #67635e !important
-}
-
-.active-start {
-    color: yellow;
-}
-</style>
-<style>
-/* Style for the 'previous' button */
-#prev {
-    display: inline-block;
-    padding: 10px;
-    margin-right: 10px;
-    color: white;
-    background-color: blue;
-    /* Change to your desired color for 'previous' button */
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#prev:hover {
-    background-color: darkblue;
-    /* Change to your desired hover color for 'previous' button */
-}
-
-/* Style for the 'next' button */
-#next {
-    display: inline-block;
-    padding: 10px;
-    color: white;
-    background-color: green;
-    /* Change to your desired color for 'next' button */
-    text-decoration: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#next:hover {
-    background-color: darkgreen;
-    /* Change to your desired hover color for 'next' button */
-}
-</style>
-<style>
-.carousel-indicators button.thumbnail {
-    width: 100%;
-}
-
-.carousel-indicators button.thumbnail:not(.active) {
-    opacity: 0.7;
-}
-
-.carousel-indicators {
-    position: static;
-}
-
-@media screen and (min-width: 992px) {
-    .carousel {
-        max-width: 100%;
-        margin: 0 auto;
-    }
-}
-
-
-.product-title {
-    font-size: 20px;
-    font-family: 'Line Awesome Free';
-    font-weight: 700;
-}
-
-.short_desc {
-    font-family: 'Line Awesome Free';
-    font-size: 14px;
-    color: black;
-}
-
-/* Style 7
-   ----------------------------- */
-.seven h1 {
-    text-align: center;
-    font-size: 17px;
-    font-weight: 300;
-    color: #222;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: bold;
-    display: grid;
-    grid-template-columns: 1fr max-content 1fr;
-    grid-template-rows: 27px 0;
-    grid-gap: 20px;
-    align-items: center;
-}
-
-.seven h1:after,
-.seven h1:before {
-    content: " ";
-    display: block;
-    border-bottom: 1px solid #452b90;
-    border-top: 1px solid #452b90;
-    height: 5px;
-    background-color: #f8f8f8;
-}
-
-.bg-main {
-    background-color: #222B40;
-}
-
-/* img {
-  background-position: top;
-  background-size: cover;
-  height: 200px;
-  width: 290px;
-  box-shadow: 0 2px 10px #000;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-img:hover {
-  box-shadow: none;
-  transform: scale(1.1);
-} */
-</style>

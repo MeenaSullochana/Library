@@ -1,8 +1,13 @@
         <!--**********************************
             Nav header start
         ***********************************-->
+
+        <head>
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+            <!-- ... other head elements ... -->
+        </head>
         <div class="nav-header">
-            <a href="/sub_admin/index" class="brand-logo">
+            <a href="/" class="brand-logo">
 
                 <?xml version="1.0" encoding="UTF-8"?>
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25px"
@@ -1039,7 +1044,12 @@
                         </g>
                     </g>
                 </svg>
-                <img src="images/logo.png" width="111" height="24">
+                <!-- <svg class="brand-title" width="111" height="24" viewBox="0 0 111 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<rect class="yesh" width="49" height="22" transform="translate(0 1)" fill="white"/>
+					<path class="admin1" d="M14.296 7.172L10.894 13.752V17H8.5V13.752L5.098 7.172H7.814L9.718 11.288L11.608 7.172H14.296ZM21.3786 15.264H17.7106L17.1226 17H14.6166L18.1726 7.172H20.9446L24.5006 17H21.9666L21.3786 15.264ZM20.7626 13.416L19.5446 9.818L18.3406 13.416H20.7626ZM29.1388 17.098C28.4202 17.098 27.7762 16.9813 27.2068 16.748C26.6375 16.5147 26.1802 16.1693 25.8348 15.712C25.4988 15.2547 25.3215 14.704 25.3028 14.06H27.8508C27.8882 14.424 28.0142 14.704 28.2288 14.9C28.4435 15.0867 28.7235 15.18 29.0688 15.18C29.4235 15.18 29.7035 15.1007 29.9088 14.942C30.1142 14.774 30.2168 14.5453 30.2168 14.256C30.2168 14.0133 30.1328 13.8127 29.9648 13.654C29.8062 13.4953 29.6055 13.3647 29.3628 13.262C29.1295 13.1593 28.7935 13.0427 28.3548 12.912C27.7202 12.716 27.2022 12.52 26.8008 12.324C26.3995 12.128 26.0542 11.8387 25.7648 11.456C25.4755 11.0733 25.3308 10.574 25.3308 9.958C25.3308 9.04333 25.6622 8.32933 26.3248 7.816C26.9875 7.29333 27.8508 7.032 28.9148 7.032C29.9975 7.032 30.8702 7.29333 31.5328 7.816C32.1955 8.32933 32.5502 9.048 32.5968 9.972H30.0068C29.9882 9.65467 29.8715 9.40733 29.6568 9.23C29.4422 9.04333 29.1668 8.95 28.8308 8.95C28.5415 8.95 28.3082 9.02933 28.1308 9.188C27.9535 9.33733 27.8648 9.55667 27.8648 9.846C27.8648 10.1633 28.0142 10.4107 28.3128 10.588C28.6115 10.7653 29.0782 10.9567 29.7128 11.162C30.3475 11.3767 30.8608 11.582 31.2528 11.778C31.6542 11.974 31.9995 12.2587 32.2888 12.632C32.5782 13.0053 32.7228 13.486 32.7228 14.074C32.7228 14.634 32.5782 15.1427 32.2888 15.6C32.0088 16.0573 31.5982 16.4213 31.0568 16.692C30.5155 16.9627 29.8762 17.098 29.1388 17.098ZM42.7081 7.172V17H40.3141V12.954H36.5901V17H34.1961V7.172H36.5901V11.022H40.3141V7.172H42.7081Z" fill="#222B40"/>
+					<path class="admin2" d="M63.484 16.016H59.292L58.62 18H55.756L59.82 6.768H62.988L67.052 18H64.156L63.484 16.016ZM62.78 13.904L61.388 9.792L60.012 13.904H62.78ZM72.4969 6.768C73.6809 6.768 74.7155 7.00267 75.6009 7.472C76.4862 7.94133 77.1689 8.60267 77.6489 9.456C78.1395 10.2987 78.3849 11.2747 78.3849 12.384C78.3849 13.4827 78.1395 14.4587 77.6489 15.312C77.1689 16.1653 76.4809 16.8267 75.5849 17.296C74.6995 17.7653 73.6702 18 72.4969 18H68.2889V6.768H72.4969ZM72.3209 15.632C73.3555 15.632 74.1609 15.3493 74.7369 14.784C75.3129 14.2187 75.6009 13.4187 75.6009 12.384C75.6009 11.3493 75.3129 10.544 74.7369 9.968C74.1609 9.392 73.3555 9.104 72.3209 9.104H71.0249V15.632H72.3209ZM92.6339 6.768V18H89.8979V11.264L87.3859 18H85.1779L82.6499 11.248V18H79.9139V6.768H83.1459L86.2979 14.544L89.4179 6.768H92.6339ZM97.3374 6.768V18H94.6014V6.768H97.3374ZM109.368 18H106.632L102.056 11.072V18H99.3201V6.768H102.056L106.632 13.728V6.768H109.368V18Z" fill="white"/>
+				</svg> -->
+                <img src="/assets/img/logo/logo.png" width="111" height="24">
             </a>
             <div class="nav-control">
                 <div class="hamburger">
@@ -1059,608 +1069,6 @@
         <!--**********************************
             Nav header end
         ***********************************-->
-
-        <!--**********************************
-            Chat box start
-        ***********************************-->
-        <div class="chatbox">
-            <div class="chatbox-close"></div>
-            <div class="custom-tab-1">
-
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#notes">Notes</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#alerts">Alerts</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#chat">Chat</a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade active show" id="chat">
-                        <div class="card mb-sm-3 mb-md-0 contacts_card dz-chat-user-box">
-                            <div class="card-header chat-list-header text-center">
-                                <a href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
-                                        viewBox="0 0 24 24" version="1.1">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
-                                            <rect fill="#000000" opacity="1.0"
-                                                transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) "
-                                                x="4" y="11" width="16" height="2" rx="1" />
-                                        </g>
-                                    </svg></a>
-                                <div>
-                                    <h6 class="mb-1">Chat List</h6>
-                                    <p class="mb-0">Show All</p>
-                                </div>
-                                <a href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
-                                        viewBox="0 0 24 24" version="1.1">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect x="0" y="0" width="24" height="24" />
-                                            <circle fill="#000000" cx="5" cy="12" r="2" />
-                                            <circle fill="#000000" cx="12" cy="12" r="2" />
-                                            <circle fill="#000000" cx="19" cy="12" r="2" />
-                                        </g>
-                                    </svg></a>
-                            </div>
-                            <div class="card-body contacts_body p-0 dz-scroll  " id="DZ_W_Contacts_Body">
-                                <ul class="contacts">
-                                    <li class="name-first-letter">A</li>
-                                    <li class="active dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Archie Parker</span>
-                                                <p>Kalid is online</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon offline"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Alfie Mason</span>
-                                                <p>Taherah left 7 mins ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>AharlieKane</span>
-                                                <p>Sami is online</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon offline"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Athan Jacoby</span>
-                                                <p>Nargis left 30 mins ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="name-first-letter">B</li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon offline"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Bashid Samim</span>
-                                                <p>Rashid left 50 mins ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="dz- -user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Breddie Ronan</span>
-                                                <p>Kalid is online</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon offline"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Ceorge Carson</span>
-                                                <p>Taherah left 7 mins ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="name-first-letter">D</li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Darry Parker</span>
-                                                <p>Sami is online</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon offline"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Denry Hunter</span>
-                                                <p>Nargis left 30 mins ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="name-first-letter">J</li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon offline"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Jack Ronan</span>
-                                                <p>Rashid left 50 mins ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/1.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Jacob Tucker</span>
-                                                <p>Kalid is online</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/2.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon offline"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>James Logan</span>
-                                                <p>Taherah left 7 mins ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/3.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Joshua Weston</span>
-                                                <p>Sami is online</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="name-first-letter">O</li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/4.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon offline"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Oliver Acker</span>
-                                                <p>Nargis left 30 mins ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="dz-chat-user">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont">
-                                                <img src="images/avatar/5.jpg" class="rounded-circle user_img" alt="">
-                                                <span class="online_icon offline"></span>
-                                            </div>
-                                            <div class="user_info">
-                                                <span>Oscar Weston</span>
-                                                <p>Rashid left 50 mins ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card chat dz-chat-history-box d-none">
-                            <div class="card-header chat-list-header text-center">
-                                <a href="javascript:void(0);" class="dz-chat-history-back">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        width="18px" height="18px" viewBox="0 0 24 24" version="1.1">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <polygon points="0 0 24 0 24 24 0 24" />
-                                            <rect fill="#000000" opacity="0.3"
-                                                transform="translate(15.000000, 12.000000) scale(-1, 1) rotate(-90.000000) translate(-15.000000, -12.000000) "
-                                                x="14" y="7" width="2" height="10" rx="1" />
-                                            <path
-                                                d="M3.7071045,15.7071045 C3.3165802,16.0976288 2.68341522,16.0976288 2.29289093,15.7071045 C1.90236664,15.3165802 1.90236664,14.6834152 2.29289093,14.2928909 L8.29289093,8.29289093 C8.67146987,7.914312 9.28105631,7.90106637 9.67572234,8.26284357 L15.6757223,13.7628436 C16.0828413,14.136036 16.1103443,14.7686034 15.7371519,15.1757223 C15.3639594,15.5828413 14.7313921,15.6103443 14.3242731,15.2371519 L9.03007346,10.3841355 L3.7071045,15.7071045 Z"
-                                                fill="#000000" fill-rule="nonzero"
-                                                transform="translate(9.000001, 11.999997) scale(-1, -1) rotate(90.000000) translate(-9.000001, -11.999997) " />
-                                        </g>
-                                    </svg>
-                                </a>
-                                <div>
-                                    <h6 class="mb-1">Chat with Khelesh</h6>
-                                    <p class="mb-0 text-success">Online</p>
-                                </div>
-                                <div class="dropdown">
-                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"><svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
-                                            viewBox="0 0 24 24" version="1.1">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <rect x="0" y="0" width="24" height="24" />
-                                                <circle fill="#000000" cx="5" cy="12" r="2" />
-                                                <circle fill="#000000" cx="12" cy="12" r="2" />
-                                                <circle fill="#000000" cx="19" cy="12" r="2" />
-                                            </g>
-                                        </svg></a>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li class="dropdown-item"><i class="fa fa-user-circle text-primary me-2"></i>
-                                            View profile</li>
-                                        <li class="dropdown-item"><i class="fa fa-users text-primary me-2"></i> Add to
-                                            btn-close friends</li>
-                                        <li class="dropdown-item"><i class="fa fa-plus text-primary me-2"></i> Add to
-                                            group</li>
-                                        <li class="dropdown-item"><i class="fa fa-ban text-primary me-2"></i> Block</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-body msg_card_body dz-scroll" id="DZ_W_Contacts_Body3">
-                                <div class="d-flex justify-content-start mb-4">
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                    <div class="msg_cotainer">
-                                        Hi, how are you samim?
-                                        <span class="msg_time">8:40 AM, Today</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-end mb-4">
-                                    <div class="msg_cotainer_send">
-                                        Hi Khalid i am good tnx how about you?
-                                        <span class="msg_time_send">8:55 AM, Today</span>
-                                    </div>
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-start mb-4">
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                    <div class="msg_cotainer">
-                                        I am good too, thank you for your chat template
-                                        <span class="msg_time">9:00 AM, Today</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-end mb-4">
-                                    <div class="msg_cotainer_send">
-                                        You are welcome
-                                        <span class="msg_time_send">9:05 AM, Today</span>
-                                    </div>
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-start mb-4">
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                    <div class="msg_cotainer">
-                                        I am looking for your next templates
-                                        <span class="msg_time">9:07 AM, Today</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-end mb-4">
-                                    <div class="msg_cotainer_send">
-                                        Ok, thank you have a good day
-                                        <span class="msg_time_send">9:10 AM, Today</span>
-                                    </div>
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-start mb-4">
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                    <div class="msg_cotainer">
-                                        Bye, see you
-                                        <span class="msg_time">9:12 AM, Today</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-start mb-4">
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                    <div class="msg_cotainer">
-                                        Hi, how are you samim?
-                                        <span class="msg_time">8:40 AM, Today</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-end mb-4">
-                                    <div class="msg_cotainer_send">
-                                        Hi Khalid i am good tnx how about you?
-                                        <span class="msg_time_send">8:55 AM, Today</span>
-                                    </div>
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-start mb-4">
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                    <div class="msg_cotainer">
-                                        I am good too, thank you for your chat template
-                                        <span class="msg_time">9:00 AM, Today</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-end mb-4">
-                                    <div class="msg_cotainer_send">
-                                        You are welcome
-                                        <span class="msg_time_send">9:05 AM, Today</span>
-                                    </div>
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-start mb-4">
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                    <div class="msg_cotainer">
-                                        I am looking for your next templates
-                                        <span class="msg_time">9:07 AM, Today</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-end mb-4">
-                                    <div class="msg_cotainer_send">
-                                        Ok, thank you have a good day
-                                        <span class="msg_time_send">9:10 AM, Today</span>
-                                    </div>
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/2.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-start mb-4">
-                                    <div class="img_cont_msg">
-                                        <img src="images/avatar/1.jpg" class="rounded-circle user_img_msg" alt="">
-                                    </div>
-                                    <div class="msg_cotainer">
-                                        Bye, see you
-                                        <span class="msg_time">9:12 AM, Today</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer type_msg">
-                                <div class="input-group">
-                                    <textarea class="form-control" placeholder="Type your message..."></textarea>
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-primary"><i
-                                                class="fa fa-location-arrow"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="alerts">
-                        <div class="card mb-sm-3 mb-md-0 contacts_card">
-                            <div class="card-header chat-list-header text-center">
-                                <a href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
-                                        viewBox="0 0 24 24" version="1.1">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect x="0" y="0" width="24" height="24" />
-                                            <circle fill="#000000" cx="5" cy="12" r="2" />
-                                            <circle fill="#000000" cx="12" cy="12" r="2" />
-                                            <circle fill="#000000" cx="19" cy="12" r="2" />
-                                        </g>
-                                    </svg></a>
-                                <div>
-                                    <h6 class="mb-1">Notications</h6>
-                                    <p class="mb-0">Show All</p>
-                                </div>
-                                <a href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
-                                        viewBox="0 0 24 24" version="1.1">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect x="0" y="0" width="24" height="24" />
-                                            <path
-                                                d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
-                                                fill="#000000" fill-rule="nonzero" opacity="1" />
-                                            <path
-                                                d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
-                                                fill="#000000" fill-rule="nonzero" />
-                                        </g>
-                                    </svg></a>
-                            </div>
-                            <div class="card-body contacts_body p-0 dz-scroll" id="DZ_W_Contacts_Body1">
-                                <ul class="contacts">
-                                    <li class="name-first-letter">SEVER STATUS</li>
-                                    <li class="active">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont primary">KK</div>
-                                            <div class="user_info">
-                                                <span>David Nester Birthday</span>
-                                                <p class="text-primary">Today</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="name-first-letter">SOCIAL</li>
-                                    <li>
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont success">RU</div>
-                                            <div class="user_info">
-                                                <span>Perfection Simplified</span>
-                                                <p>Jame Smith commented on your status</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="name-first-letter">SEVER STATUS</li>
-                                    <li>
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont primary">AU</div>
-                                            <div class="user_info">
-                                                <span>AharlieKane</span>
-                                                <p>Sami is online</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex bd-highlight">
-                                            <div class="img_cont info">MO</div>
-                                            <div class="user_info">
-                                                <span>Athan Jacoby</span>
-                                                <p>Nargis left 30 mins ago</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-footer"></div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="notes">
-                        <div class="card mb-sm-3 mb-md-0 note_card">
-                            <div class="card-header chat-list-header text-center">
-                                <a href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
-                                        viewBox="0 0 24 24" version="1.1">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect fill="#000000" x="4" y="11" width="16" height="2" rx="1" />
-                                            <rect fill="#000000" opacity="1.0"
-                                                transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) "
-                                                x="4" y="11" width="16" height="2" rx="1" />
-                                        </g>
-                                    </svg></a>
-                                <div>
-                                    <h6 class="mb-1">Notes</h6>
-                                    <p class="mb-0">Add New Nots</p>
-                                </div>
-                                <a href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg"
-                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px"
-                                        viewBox="0 0 24 24" version="1.1">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <rect x="0" y="0" width="24" height="24" />
-                                            <path
-                                                d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"
-                                                fill="#000000" fill-rule="nonzero" opacity="1" />
-                                            <path
-                                                d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"
-                                                fill="#000000" fill-rule="nonzero" />
-                                        </g>
-                                    </svg></a>
-                            </div>
-                            <div class="card-body contacts_body p-0 dz-scroll" id="DZ_W_Contacts_Body2">
-                                <ul class="contacts">
-                                    <li class="active">
-                                        <div class="d-flex bd-highlight">
-                                            <div class="user_info">
-                                                <span>New order placed..</span>
-                                                <p>10 Aug 2020</p>
-                                            </div>
-                                            <div class="ms-auto">
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-primary btn-xs sharp me-1"><i
-                                                        class="fas fa-pencil-alt"></i></a>
-                                                <a href="javascript:void(0);" class="btn btn-danger btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex bd-highlight">
-                                            <div class="user_info">
-                                                <span>Youtube, a video-sharing website..</span>
-                                                <p>10 Aug 2020</p>
-                                            </div>
-                                            <div class="ms-auto">
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-primary btn-xs sharp me-1"><i
-                                                        class="fas fa-pencil-alt"></i></a>
-                                                <a href="javascript:void(0);" class="btn btn-danger btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex bd-highlight">
-                                            <div class="user_info">
-                                                <span>john just buy your product..</span>
-                                                <p>10 Aug 2020</p>
-                                            </div>
-                                            <div class="ms-auto">
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-primary btn-xs sharp me-1"><i
-                                                        class="fas fa-pencil-alt"></i></a>
-                                                <a href="javascript:void(0);" class="btn btn-danger btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="d-flex bd-highlight">
-                                            <div class="user_info">
-                                                <span>Athan Jacoby</span>
-                                                <p>10 Aug 2020</p>
-                                            </div>
-                                            <div class="ms-auto">
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-primary btn-xs sharp me-1"><i
-                                                        class="fas fa-pencil-alt"></i></a>
-                                                <a href="javascript:void(0);" class="btn btn-danger btn-xs sharp"><i
-                                                        class="fa fa-trash"></i></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--**********************************
-            Chat box End
-        ***********************************-->
-
         <!--**********************************
             Header start
         ***********************************-->
@@ -1672,7 +1080,7 @@
 
                         </div>
                         <div class="header-right d-flex align-items-center">
-                            <div class="input-group search-area">
+                            <!-- <div class="input-group search-area">
                                 <input type="text" class="form-control" placeholder="Search here...">
                                 <span class="input-group-text"><a href="javascript:void(0)">
                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -1692,10 +1100,10 @@
                                             </defs>
                                         </svg>
                                     </a></span>
-                            </div>
+                            </div> -->
                             <ul class="navbar-nav">
-                                <li class="nav-item dropdown notification_dropdown">
-                                    <a class="nav-link bell dz-theme-mode" href="javascript:void(0);">
+                                <li class="nav-item dropdown notification_dropdown ">
+                                    <a class="nav-link bell dz-theme-mode " href="javascript:void(0);">
                                         <svg id="icon-light" xmlns="http://www.w3.org/2000/svg"
                                             xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
                                             viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
@@ -1721,154 +1129,28 @@
                                         </svg>
                                     </a>
                                 </li>
-                                <li class="nav-item dropdown notification_dropdown">
-                                    <a class="nav-link" href="javascript:void(0);" role="button"
+                                <li class="nav-item dropdown notification_dropdown notify">
+                                    <a class="nav-link notification" href="javascript:void(0);" role="button"
                                         data-bs-toggle="dropdown">
-                                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M17.5 12H19C19.8284 12 20.5 12.6716 20.5 13.5C20.5 14.3284 19.8284 15 19 15H6C5.17157 15 4.5 14.3284 4.5 13.5C4.5 12.6716 5.17157 12 6 12H7.5L8.05827 6.97553C8.30975 4.71226 10.2228 3 12.5 3C14.7772 3 16.6903 4.71226 16.9417 6.97553L17.5 12Z"
-                                                fill="#222B40" />
-                                            <path opacity="0.3"
-                                                d="M14.5 18C14.5 16.8954 13.6046 16 12.5 16C11.3954 16 10.5 16.8954 10.5 18C10.5 19.1046 11.3954 20 12.5 20C13.6046 20 14.5 19.1046 14.5 18Z"
-                                                fill="#222B40" />
-                                        </svg>
+                                        <span><svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M17.5 12H19C19.8284 12 20.5 12.6716 20.5 13.5C20.5 14.3284 19.8284 15 19 15H6C5.17157 15 4.5 14.3284 4.5 13.5C4.5 12.6716 5.17157 12 6 12H7.5L8.05827 6.97553C8.30975 4.71226 10.2228 3 12.5 3C14.7772 3 16.6903 4.71226 16.9417 6.97553L17.5 12Z"
+                                                    fill="#222B40" />
+                                                <path opacity="0.3"
+                                                    d="M14.5 18C14.5 16.8954 13.6046 16 12.5 16C11.3954 16 10.5 16.8954 10.5 18C10.5 19.1046 11.3954 20 12.5 20C13.6046 20 14.5 19.1046 14.5 18Z"
+                                                    fill="#222B40" />
+                                            </svg></span>
+                                        <span class="badge bg-danger" id="count"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <div id="DZ_W_Notification1" class="widget-media dz-scroll p-2"
                                             style="height:380px;">
-                                            <ul class="timeline">
+                                            <ul class="timeline" name="record">
                                                 <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2">
-                                                            <img alt="image" width="50" src="images/avatar/1.jpg">
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2 media-info">
-                                                            KG
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Resport created successfully</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2 media-success">
-                                                            <i class="fa fa-home"></i>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2">
-                                                            <img alt="image" width="50" src="images/avatar/1.jpg">
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2 media-danger">
-                                                            KG
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Resport created successfully</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2 media-primary">
-                                                            <i class="fa fa-home"></i>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2">
-                                                            <img alt="image" width="50" src="images/avatar/1.jpg">
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2 media-info">
-                                                            KG
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Resport created successfully</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2 media-success">
-                                                            <i class="fa fa-home"></i>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2">
-                                                            <img alt="image" width="50" src="images/avatar/1.jpg">
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2 media-danger">
-                                                            KG
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Resport created successfully</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-panel">
-                                                        <div class="media me-2 media-primary">
-                                                            <i class="fa fa-home"></i>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                            <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                        </div>
-                                                    </div>
+
+                                                    <h6 class="mb-0">No Notification Found</h6>
+
                                                 </li>
                                             </ul>
                                         </div>
@@ -1876,7 +1158,7 @@
                                                 class="ti-arrow-end"></i></a>
                                     </div>
                                 </li>
-                                <li class="nav-item dropdown notification_dropdown">
+                                <!-- <li class="nav-item dropdown notification_dropdown">
                                     <a class="nav-link bell-link" href="javascript:void(0);">
                                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -1896,8 +1178,8 @@
                                             </defs>
                                         </svg>
                                     </a>
-                                </li>
-                                <li class="nav-item dropdown notification_dropdown">
+                                </li> -->
+                                {{-- <li class="nav-item dropdown notification_dropdown">
                                     <a class="nav-link " href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
@@ -1977,22 +1259,23 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </li>
+                                </li> --}}
                                 <li class="nav-item ps-3">
                                     <div class="dropdown header-profile2">
                                         <a class="nav-link" href="javascript:void(0);" role="button"
                                             data-bs-toggle="dropdown" aria-expanded="false">
                                             <div class="header-info2 d-flex align-items-center">
                                                 <div class="header-media">
-                                                    <img src="{{asset("sub_admin/SubAdminImage/".auth('subadmin')->user()->subadminImage)}}" alt="">
+                                                <img src="{{asset("sub_admin/SubAdminImage/".auth('subadmin')->user()->subadminImage)}}" alt="">
                                                 </div>
                                             </div>
                                         </a>
-                                        <div class="dropdown-menu dropdown-menu-end" style="">
+                                        <div class="dropdown-menu dropdown-menu-end">
                                             <div class="card border-0 mb-0">
                                                 <div class="card-header py-2">
                                                     <div class="products">
-                                                        <img src="{{asset("sub_admin/SubAdminImage/".auth('subadmin')->user()->subadminImage)}}" class="avatar avatar-md" alt="">
+                                                        <img src="{{asset("sub_admin/SubAdminImage/".auth('subadmin')->user()->subadminImage)}}"
+                                                            class="avatar avatar-md" alt="">
                                                         <div>
                                                             <h6>{{auth('subadmin')->user()->name }}</h6>
                                                             <span>{{auth('subadmin')->user()->email }}</span>
@@ -2000,7 +1283,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-body px-0 py-2">
-                                                    <a href="app-profile-1.html" class="dropdown-item ai-icon ">
+                                                    <a href="#" class="dropdown-item ai-icon ">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2027,9 +1310,8 @@
                                                         <span class="ms-2">My Project</span><span
                                                             class="badge badge-sm badge-primary rounded-circle text-white ms-2">4</span>
                                                     </a> -->
-                                                        
                                                     <a href="/sub_admin/change_password" class="dropdown-item ai-icon ">
-                                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
                                                                 d="M20.8066 7.62355L20.1842 6.54346C19.6576 5.62954 18.4907 5.31426 17.5755 5.83866V5.83866C17.1399 6.09528 16.6201 6.16809 16.1307 6.04103C15.6413 5.91396 15.2226 5.59746 14.9668 5.16131C14.8023 4.88409 14.7139 4.56833 14.7105 4.24598V4.24598C14.7254 3.72916 14.5304 3.22834 14.17 2.85761C13.8096 2.48688 13.3145 2.2778 12.7975 2.27802H11.5435C11.0369 2.27801 10.5513 2.47985 10.194 2.83888C9.83666 3.19791 9.63714 3.68453 9.63958 4.19106V4.19106C9.62457 5.23686 8.77245 6.07675 7.72654 6.07664C7.40418 6.07329 7.08843 5.98488 6.8112 5.82035V5.82035C5.89603 5.29595 4.72908 5.61123 4.20251 6.52516L3.53432 7.62355C3.00838 8.53633 3.31937 9.70255 4.22997 10.2322V10.2322C4.82187 10.574 5.1865 11.2055 5.1865 11.889C5.1865 12.5725 4.82187 13.204 4.22997 13.5457V13.5457C3.32053 14.0719 3.0092 15.2353 3.53432 16.1453V16.1453L4.16589 17.2345C4.41262 17.6797 4.82657 18.0082 5.31616 18.1474C5.80575 18.2865 6.33061 18.2248 6.77459 17.976V17.976C7.21105 17.7213 7.73116 17.6515 8.21931 17.7821C8.70746 17.9128 9.12321 18.233 9.37413 18.6716C9.53867 18.9488 9.62708 19.2646 9.63043 19.5869V19.5869C9.63043 20.6435 10.4869 21.5 11.5435 21.5H12.7975C13.8505 21.5 14.7055 20.6491 14.7105 19.5961V19.5961C14.7081 19.088 14.9088 18.6 15.2681 18.2407C15.6274 17.8814 16.1154 17.6806 16.6236 17.6831C16.9451 17.6917 17.2596 17.7797 17.5389 17.9393V17.9393C18.4517 18.4653 19.6179 18.1543 20.1476 17.2437V17.2437L20.8066 16.1453C21.0617 15.7074 21.1317 15.1859 21.0012 14.6963C20.8706 14.2067 20.5502 13.7893 20.111 13.5366V13.5366C19.6717 13.2839 19.3514 12.8665 19.2208 12.3769C19.0902 11.8872 19.1602 11.3658 19.4153 10.9279C19.5812 10.6383 19.8213 10.3981 20.111 10.2322V10.2322C21.0161 9.70283 21.3264 8.54343 20.8066 7.63271V7.63271V7.62355Z"
@@ -2040,9 +1322,9 @@
                                                                 stroke-linecap="round" stroke-linejoin="round" />
                                                         </svg>
 
-                                                        <span class="ms-2">Change Paaword </span>
+                                                        <span class="ms-2">Change Password </span>
                                                     </a>
-                                                    <a href="javascript:void(0);" class="dropdown-item ai-icon ">
+                                                    <!-- <a href="javascript:void(0);" class="dropdown-item ai-icon ">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path
@@ -2056,8 +1338,8 @@
                                                         </svg>
 
                                                         <span class="ms-2">Message </span>
-                                                    </a>
-                                                    <a href="email-inbox.html" class="dropdown-item ai-icon ">
+                                                    </a> -->
+                                                    <a href="/sub_admin/notification" class="dropdown-item ai-icon ">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2074,7 +1356,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="card-footer px-0 py-2">
-                                                    <a href="javascript:void(0);" class="dropdown-item ai-icon ">
+                                                    <!-- <a href="javascript:void(0);" class="dropdown-item ai-icon ">
                                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
                                                             xmlns="http://www.w3.org/2000/svg">
                                                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -2087,7 +1369,7 @@
                                                         </svg>
 
                                                         <span class="ms-2">Settings </span>
-                                                    </a>
+                                                    </a> -->
                                                     <a href="/admin/logout" class="dropdown-item ai-icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                             viewBox="0 0 24 24" fill="none" stroke="var(--primary)"
@@ -2122,7 +1404,7 @@
             <div class="deznav-scroll">
                 <ul class="metismenu" id="menu">
 
-                    <li><a href="/sub_admin/index" class="" aria-expanded="false">
+                    <li><a href="index" class="" aria-expanded="false">
                             <div class="menu-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -2134,6 +1416,85 @@
                             <span class="nav-text">Dashboard</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-tags"></i>
+                            <span class="nav-text">Management Category</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Library Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/library_type_list">Library Type List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Category Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/categories_list">Category List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Subject
+                                    Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/booksubject_list">Book Subject List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book GSM Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/bookgsm_list">Book GSM List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Dimension
+                                    Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/bookdimension_list">Book Dimension List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Paper
+                                    Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/bookpapertype_list">Book Paper Type List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Paper
+                                    Finishing Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/bookpaperfinishing_list">Book Paper Finishing List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Currency Type</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/currencytype_list">Currency Type List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Magazine
+                                    Category</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/magazinecategory_list">Magazine Category List</a></li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Magazine
+                                Periodicity</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/magazineperiodicity_list">Magazine Periodicity List</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                   
+                   
+                   
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <div class="menu-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -2155,143 +1516,236 @@
                                 </svg>
 
                             </div>
-                            <span class="nav-text">User Managment</span>
+                            <span class="nav-text">User Management</span>
                         </a>
                         <ul aria-expanded="false">
-                           
-                            <li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false">Publisher</a>                                <!-- <span
-                                        class="badge badge-danger badge-xs ms-1">NEW</span> -->
-                                   
+                            <!-- <li><a href="">Chat<span class="badge badge-danger badge-xs ms-1">NEW</span></a></li> -->
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher </a>
                                 <ul aria-expanded="false">
-                                <li><a href="/sub_admin/publisher_list">List Publisher</a></li>
+                                    <li><a href="/sub_admin/publisher_list">List Publisher</a></li>
                                     <li><a href="/sub_admin/publisher_active_list">Active Publisher</a></li>
                                     <li><a href="/sub_admin/publisher_inactive_list">Inactive Publisher</a></li>
-                                    <li><a href="/sub_admin/publisher_pending_list">Pending Publisher</a></li>
-                                    <li><a href="/sub_admin/publisher_reject_list">Reject Publisher</a></li>
                                    
                                 </ul>
                             </li>
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor</a>
                                 <ul aria-expanded="false">
-                                <li><a href="distributor_list">List Distributer</a></li>
-                                    <li><a href="/sub_admin/distributor_active_list">Active Distributer</a></li>
-                                    <li><a href="/sub_admin/distributor_inactive_list">Inactive Distributer</a></li>
-                                    <li><a href="/sub_admin/distributor_pending_list">Pending Distributer</a></li>
-                                    <li><a href="/sub_admin/distributor_reject_list">Reject Distributer</a></li>
+                                    <li><a href="/sub_admin/distributor_list">List Distributor</a></li>
+                                    <li><a href="/sub_admin/distributor_active_list">Active Distributor</a></li>
+                                    <li><a href="/sub_admin/distributor_inactive_list">Inactive Distributor</a></li>
+                                   
+
+
                                 </ul>
                             </li>
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher And
                                     Distributor</a>
                                 <ul aria-expanded="false">
-                                <li><a href="publisher_and_dis_list"> List Pub & Dist</a></li>
+                                    <li><a href="/sub_admin/publisher_and_dis_list"> List Pub & Dist</a></li>
                                     <li><a href="/sub_admin/publisher_and_dis_active_list">Active Pub & Dist</a></li>
                                     <li><a href="/sub_admin/publisher_and_dis_inactive_list">Inactive Pub & Dist</a></li>
-                                    <li><a href="/sub_admin/publisher_and_dis_pending_list">Pending Pub & Dist</a></li>
-                                    <li><a href="/sub_admin/publisher_and_dis_reject_list">Reject Pub & Dist</a></li>
                                 </ul>
                             </li>
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                            <div class="menu-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g opacity="0.5">
-                                        <path
-                                            d="M9.34933 14.8577C5.38553 14.8577 2 15.47 2 17.9174C2 20.3666 5.364 21 9.34933 21C13.3131 21 16.6987 20.3877 16.6987 17.9404C16.6987 15.4911 13.3347 14.8577 9.34933 14.8577Z"
-                                            fill="white" />
-                                        <path opacity="0.4"
-                                            d="M9.34935 12.5248C12.049 12.5248 14.2124 10.4062 14.2124 7.76241C14.2124 5.11865 12.049 3 9.34935 3C6.65072 3 4.48633 5.11865 4.48633 7.76241C4.48633 10.4062 6.65072 12.5248 9.34935 12.5248Z"
-                                            fill="white" />
-                                        <path opacity="0.4"
-                                            d="M16.1734 7.84876C16.1734 9.19508 15.7605 10.4513 15.0364 11.4948C14.9611 11.6022 15.0276 11.7468 15.1587 11.7698C15.3407 11.7996 15.5276 11.8178 15.7184 11.8216C17.6167 11.8705 19.3202 10.6736 19.7908 8.87119C20.4885 6.19677 18.4415 3.79544 15.8339 3.79544C15.5511 3.79544 15.2801 3.82419 15.0159 3.87689C14.9797 3.88456 14.9405 3.9018 14.921 3.93247C14.8955 3.97176 14.9141 4.02254 14.9395 4.05608C15.7233 5.13217 16.1734 6.44208 16.1734 7.84876Z"
-                                            fill="white" />
-                                        <path
-                                            d="M21.7791 15.1693C21.4318 14.444 20.5932 13.9466 19.3173 13.7023C18.7155 13.5586 17.0854 13.3545 15.5697 13.3832C15.5472 13.3861 15.5345 13.4014 15.5325 13.411C15.5296 13.4263 15.5365 13.4493 15.5658 13.4656C16.2664 13.8048 18.9738 15.2805 18.6333 18.3928C18.6187 18.5289 18.7292 18.6439 18.8672 18.6247C19.5335 18.5318 21.2478 18.1705 21.7791 17.0475C22.0737 16.4534 22.0737 15.7634 21.7791 15.1693Z"
-                                            fill="white" />
-                                    </g>
-                                </svg>
-                            </div>
-                            <span class="nav-text"> Fair Management</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/sub_admin/fair_manage_add">Create Fair</a></li>
-                            <li><a href="/sub_admin/fair_manage_list">List Fair</a></li>
-                            <li><a href="/sub_admin/fair_manage_previous">Previous Book Fairs</a></li>
-                            <li><a href="/sub_admin/fair_manage_current">Current book Fairs</a></li>
-                            <li><a href="/sub_admin/fair_manage_upcomming">Upcomming book Fairs</a></li>
-
-                            
-                        </ul>
-                    </li>
-                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                            <div class="menu-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g opacity="0.5">
-                                        <path
-                                            d="M9.34933 14.8577C5.38553 14.8577 2 15.47 2 17.9174C2 20.3666 5.364 21 9.34933 21C13.3131 21 16.6987 20.3877 16.6987 17.9404C16.6987 15.4911 13.3347 14.8577 9.34933 14.8577Z"
-                                            fill="white" />
-                                        <path opacity="0.4"
-                                            d="M9.34935 12.5248C12.049 12.5248 14.2124 10.4062 14.2124 7.76241C14.2124 5.11865 12.049 3 9.34935 3C6.65072 3 4.48633 5.11865 4.48633 7.76241C4.48633 10.4062 6.65072 12.5248 9.34935 12.5248Z"
-                                            fill="white" />
-                                        <path opacity="0.4"
-                                            d="M16.1734 7.84876C16.1734 9.19508 15.7605 10.4513 15.0364 11.4948C14.9611 11.6022 15.0276 11.7468 15.1587 11.7698C15.3407 11.7996 15.5276 11.8178 15.7184 11.8216C17.6167 11.8705 19.3202 10.6736 19.7908 8.87119C20.4885 6.19677 18.4415 3.79544 15.8339 3.79544C15.5511 3.79544 15.2801 3.82419 15.0159 3.87689C14.9797 3.88456 14.9405 3.9018 14.921 3.93247C14.8955 3.97176 14.9141 4.02254 14.9395 4.05608C15.7233 5.13217 16.1734 6.44208 16.1734 7.84876Z"
-                                            fill="white" />
-                                        <path
-                                            d="M21.7791 15.1693C21.4318 14.444 20.5932 13.9466 19.3173 13.7023C18.7155 13.5586 17.0854 13.3545 15.5697 13.3832C15.5472 13.3861 15.5345 13.4014 15.5325 13.411C15.5296 13.4263 15.5365 13.4493 15.5658 13.4656C16.2664 13.8048 18.9738 15.2805 18.6333 18.3928C18.6187 18.5289 18.7292 18.6439 18.8672 18.6247C19.5335 18.5318 21.2478 18.1705 21.7791 17.0475C22.0737 16.4534 22.0737 15.7634 21.7791 15.1693Z"
-                                            fill="white" />
-                                    </g>
-                                </svg>
-
-                            </div>
-                            <span class="nav-text">Application Manage</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/sub_admin/aplication_fair_list">Fair List</a></li>
                            
                         </ul>
                     </li>
+                  
+
+              
+                    <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-people"></i>
+                            <span class="nav-text">Reviewer Management </span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
+                            <li><a href="member_list">List Reviewer </a></li>
+                            <li><a href="member_active">Active Reviewer </a></li>
+                            <li><a href="member_inactive">Inactive Reviewer </a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span class="nav-text">Library Management </span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
+                            <li><a href="library_list">List Library </a></li>
+                            <li><a href="library_active_list">Active Library </a></li>
+                            <li><a href="library_unactive_list">Inactive Library </a></li>
+                        </ul>
+                    </li>
+                  
+                    <li>
+                        <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-upload"></i>
+                            <span class="nav-text">Procurement Payment</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <!-- <li><a href="procur_book_list">Book List</a></li> -->
+
+
+                            <li><a href="/sub_admin/procurement_paymrnt">Payment List</a></li>
+                            <!-- <li><a href="procur_complete_list">Complete List</a></li>
+                            <li><a href="procur_reject_view">Unaccept list</a> </li> -->
+                        </ul>
+                    </li>
+                    <!-- <li>
+                        <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-card-checklist"></i>
+                            <span class="nav-text">Procurement</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/admin/meta_book_list">Meta Book List</a></li>
+                            <li><a href="/admin/meta_pending_book">Meta pending Book List</a></li>
+                            <li><a href="/admin/meta_book_complete">Meta Complete Book List</a></li>
+                            <li><a href="/admin/procur_book_assign">Book List</a></li>
+                            <li><a href="/admin/procur_pending_list">Pending List</a></li>
+                            <li><a href="/admin/procur_complete_list">Complete List</a></li>
+                        </ul>
+                    </li> -->
+                    <li>
+                        <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-card-checklist"></i>
+                            <span class="nav-text">Magazine Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+
+                            <!-- <li><a href="/admin/magazine_add">Magazine Add</a></li> -->
+                            <li><a href="/sub_admin/magazine_list">Magazine list</a> </li>
+                        </ul>
+                    </li>
                     <!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                            <div class="menu-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g opacity="0.5">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M15.2428 4.73756C15.2428 6.95855 17.0459 8.75902 19.2702 8.75902C19.5151 8.75782 19.7594 8.73431 20 8.68878V16.6615C20 20.0156 18.0215 22 14.6624 22H7.34636C3.97851 22 2 20.0156 2 16.6615V9.3561C2 6.00195 3.97851 4 7.34636 4H15.3131C15.2659 4.243 15.2423 4.49001 15.2428 4.73756ZM13.15 14.8966L16.0078 11.2088V11.1912C16.2525 10.8625 16.1901 10.3989 15.8671 10.1463C15.7108 10.0257 15.5122 9.97345 15.3167 10.0016C15.1211 10.0297 14.9453 10.1358 14.8295 10.2956L12.4201 13.3951L9.6766 11.2351C9.51997 11.1131 9.32071 11.0592 9.12381 11.0856C8.92691 11.1121 8.74898 11.2166 8.63019 11.3756L5.67562 15.1863C5.57177 15.3158 5.51586 15.4771 5.51734 15.6429C5.5002 15.9781 5.71187 16.2826 6.03238 16.3838C6.35288 16.485 6.70138 16.3573 6.88031 16.0732L9.35125 12.8771L12.0948 15.0283C12.2508 15.1541 12.4514 15.2111 12.6504 15.1863C12.8494 15.1615 13.0297 15.0569 13.15 14.8966Z"
-                                            fill="white" />
-                                        <circle opacity="0.4" cx="19.5" cy="4.5" r="2.5" fill="white" />
-                                    </g>
-                                </svg>
-                            </div>
-                            <span class="nav-text">Feedback Manage</span>
+                            <i class="bi bi-journal-plus"></i>
+                            <span class="nav-text">Management Negotiation</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="negotiation_list">Negotiation List</a></li>
+                            <li><a href="nego_pending_list">Pending list</a></li>
+                            <li><a href="negotiation_process_list">Process list</a></li>
+                            <li><a href="nego_approved_list">Approved List</a></li>
+
+                            <li><a href="nego_failed_list">Failed list</a></li>
+
+                        </ul>
+                    </li> -->
+                    <!-- <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span class="nav-text">Management Book </span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="manage_book_list">Book list </a></li>
+                            <li><a href="manage_active_book_list">Active Book List </a></li>
+                            <li><a href="manage_inactive_book_list">Inactive Book List </a></li>
+                        </ul>
+                    </li> -->
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-cash-stack"></i>
+                            <span class="nav-text">Management Budget</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/sub_admin/budgetlist">Book Budget List</a></li>
+                            <li><a href="/sub_admin/magazinebudget_list">Magazine Budget List</a></li>
+                        </ul> 
+                    </li>
+                   
+                    <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-bag"></i>
+                            <span class="nav-text">Order Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Book Orders
+                                </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="manage_order_list">Order List </a></li>
+                                        <li><a href="manage_pending_order_list">Pending Order List</a></li>
+                                        <li><a href="manage_completed_order_list">Completed Order List</a></li>
+                                        <li><a href="manage_rejected_order_list">Rejected Order List</a></li>
+                                    </ul>
+                            </li>
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Order
+                                </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="/sub_admin/magazine_order">Order List </a></li>
+                                        <!-- <li><a href="magazine_order_pending">Pending Order List</a></li> -->
+                                        <!-- <li><a href="manage_completed_order_list">Completed Order List</a></li> -->
+                                        <li><a href="/sub_admin/magazine_order_reject">Cancelled Order List</a></li>
+                                    </ul>
+                            </li>
+
+                            
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazines</a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/sub_admin/magazine_order_list">Magazine Order List </a></li>
+                                </ul>
+                            </li>
+                            <!-- <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Subscription
+                                </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="magazine_order_subscritpion">Order List </a></li>
+                                        <li><a href="magazine_order_pending">Pending Order List</a></li>
+                                        <li><a href="manage_completed_order_list">Completed Order List</a></li>
+                                        <li><a href="magazine_order_reject">Rejected Order List</a></li>
+                                    </ul>
+
+                            </li> -->
+                        </ul>
+                    </li>
+                       
+           
+              
+               
+
+                
+                    <!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-megaphone"></i>
+                            <span class="nav-text">Manage Announcement</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/admin/anoncement">Make Announcement</a></li>
+                            <li><a href="/admin/anouncemenlist">Announcement List</a></li>
+                        </ul>
+                    </li> -->
+
+
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-layout-text-sidebar-reverse"></i>
+                            <span class="nav-text">Feedback Management</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/sub_admin/feedback_publisher_list">Publisher Feedback</a></li>
                             <li><a href="/sub_admin/feedback_distributor_list">Distributor Feedback</a></li>
                             <li><a href="/sub_admin/feedback_publisher_distributor_list">Pub & Dist Feedback</a></li>
+                            <li><a href="/sub_admin/feedback_librarian_list">Librarian Feedback</a></li>
+                            <li><a href="/sub_admin/feedback_reviewer_list">Reviewer Feedback</a></li>
+
+
                             <li><a href="/sub_admin/feedback_public_list">Public Feedback</a></li>
                         </ul>
-                    </li> -->
+                    </li>
+                  
+                   
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-						<div class="menu-icon">
-							<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<g opacity="0.5">
-									<path opacity="0.4" d="M10.0833 15.9579H3.50777C2.67555 15.9579 2 16.6217 2 17.4393C2 18.2558 2.67555 18.9206 3.50777 18.9206H10.0833C10.9155 18.9206 11.5911 18.2558 11.5911 17.4393C11.5911 16.6217 10.9155 15.9579 10.0833 15.9579Z" fill="white"/>
-									<path opacity="0.4" d="M22 6.37855C22 5.56202 21.3244 4.89832 20.4933 4.89832H13.9178C13.0856 4.89832 12.41 5.56202 12.41 6.37855C12.41 7.19617 13.0856 7.85988 13.9178 7.85988H20.4933C21.3244 7.85988 22 7.19617 22 6.37855Z" fill="white"/>
-									<path d="M8.87774 6.37856C8.87774 8.24523 7.33886 9.75821 5.43887 9.75821C3.53999 9.75821 2 8.24523 2 6.37856C2 4.51298 3.53999 3 5.43887 3C7.33886 3 8.87774 4.51298 8.87774 6.37856Z" fill="white"/>
-									<path d="M22 17.3992C22 19.2648 20.4611 20.7778 18.5611 20.7778C16.6622 20.7778 15.1223 19.2648 15.1223 17.3992C15.1223 15.5325 16.6622 14.0196 18.5611 14.0196C20.4611 14.0196 22 15.5325 22 17.3992Z" fill="white"/>
-									</g>
-							</svg>
-						</div>	
-							<span class="nav-text">Ticket Management</span>
-						</a>
-						<ul aria-expanded="false">
-							<li><a href="/sub_admin/ticket_list">List Ticket</a></li>
-							<li><a href="/sub_admin/ticket_completed">Completed Ticket</a></li>
-							<li><a href="/sub_admin/ticket_pending">Pending Ticket</a></li>
-						</ul>
-					</li>
+                            <i class="bi bi-printer"></i>
+                            <span class="nav-text">Report Management</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            {{-- <li><a href="report_download">Book Fair Report Download</a></li> --}}
+                            <li><a href="/sub_admin/report_download_publisher">Publisher Report Download</a></li>
+                            <li><a href="/sub_admin/report_download_distributor">Distributor Report Download</a></li>
+                            <li><a href="/sub_admin/report_download_pub_dist">Publisher Cum Distributor Report Download</a></li>
+                            <li><a href="/sub_admin/report_download_order_districtmagazine">Report Download Order District Magazine</a></li> 
+                            <li><a href="/sub_admin/report_download_nonoeder_magazine">Report Download  Non Order Magazine</a></li> 
+                            <li><a href="/sub_admin/report_download_oedermagazine">Report Download Oedermagazine</a></li> 
+
+                            
+                        </ul>
+                    </li>
+                 
+
                 </ul>
             </div>
         </div>
@@ -2299,3 +1753,96 @@
         <!--**********************************
             Sidebar end
         ***********************************-->
+        <style>
+.notification {
+    background-color: #555;
+    color: white;
+    text-decoration: none;
+    padding: 15px 26px;
+    position: relative;
+    display: inline-block;
+    border-radius: 2px;
+}
+
+.notification:hover {
+    background: red;
+}
+
+.notification .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 0px 5px;
+    border-radius: 50%;
+    background: red;
+    color: white;
+}
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+// Your JavaScript file
+
+$(document).ready(function() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+        url: '/sub_admin/notifications',
+        type: 'GET',
+        success: function(response) {
+            console.log(response);
+            if (response.record) {
+
+                $('ul[name="record"]').empty();
+                $('ul[name="record"]').html(response.record);
+                if (response.count == 0) {
+                    $('#count').empty();
+                } else {
+                    $('#count').empty();
+                    $('#count').html(response.count);
+                }
+
+
+
+            }
+
+        },
+
+    });
+});
+        </script>
+        <script>
+$(document).on('click', '.notify', function(e) {
+    $('#count').empty();
+    e.preventDefault();
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: "get",
+
+        url: "/sub_admin/notificationstatus",
+        success: function(response) {
+            console.log(response);
+            //     if(response.success){
+            //            $('ul[name="record"]').empty();
+            //            $('ul[name="record"]').html(response.success);
+            //            document.getElementById('datas').value = '';
+            //    }else{
+            //          document.getElementById('datas').value = '';
+            //        toastr.error(response.error,{timeout:25000});
+
+            //    }
+
+        }
+    });
+
+});
+        </script>

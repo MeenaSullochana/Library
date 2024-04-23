@@ -9,7 +9,7 @@ use Throwable;
 class FeedbackController extends Controller
 {
     public function  feedbackadd(Request $req){
-                
+   
         try{
             $validator = Validator::make($req->all(),[
                  'description'=>'required|string',
@@ -18,7 +18,7 @@ class FeedbackController extends Controller
           if($validator->fails()){
             return back()->withInput()->withErrors($validator->errors());
         }
-        
+       
        $feedback = new  Feedback();
        $loginid=auth('publisher_distributor')->user()->id;
         $feedback->description = $req->description;

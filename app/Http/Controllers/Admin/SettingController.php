@@ -1359,7 +1359,7 @@ public function reviewerbatchadd(Request $req){
              ->where('allow_status', '=', '1')
              ->orderBy('created_at', 'asc')
              ->get();
-             return  $count =count($Librarian);
+               $count =count($Librarian);
 
 
             $firstArray = collect($maga);
@@ -1659,6 +1659,249 @@ public function reviewerbatchadd(Request $req){
    
    
      }   
+
+
+
+     
+
+
+     public function report_nonoeder_magazine(Request $request){
+  
+        if($request->librarytype !=null &&  $request->district ==null  ){
+          
+         $orders = Ordermagazine::where('libraryType', '=', $request->librarytype)->where('status', '=', '1')->get();
+   
+   
+        }else if( $request->district  !=null && $request->librarytype ==null){
+   
+           
+           $orders1 = Ordermagazine::where('status', '=', '1')->get();
+           $orders=[];
+     
+           foreach ($orders1 as $val) {
+   
+               $Librarian=Librarian::where('id', '=', $val->librarianid)->where('district', '=', $request->district)->get();
+              if( $Librarian !=null){
+               array_push($orders,$val);
+              }
+               
+           }
+   
+        }
+       else if($request->librarytype !=null && $request->district !=null ){
+   
+          
+           $orders1 = Ordermagazine::where('status', '=', '1')->get();
+           $orders=[];
+     
+           foreach ($orders1 as $val) {
+   
+               $Librarian=Librarian::where('id', '=', $val->librarianid)->where('district', '=', $request->district)->get();
+              if( $Librarian->isNotEmpty()){
+               array_push($orders,$val);
+              }
+               
+           }
+   
+        }else{
+         
+           $orders = Ordermagazine::where('status', '=', '1')->get();
+   
+        }
+         
+       
+       $magazineCounts = [];
+       
+       foreach ($orders as $order) {
+           $magazineProducts = json_decode($order->magazineProduct, true);
+       
+           foreach ($magazineProducts as $magazineProduct) {
+               $magazineId = $magazineProduct['magazineid'];
+       
+               if (!isset($magazineCounts[$magazineId])) {
+                   $magazineCounts[$magazineId] = [
+                       'id' => $magazineId,
+                       'count' => 0
+                   ];
+               }
+       
+               $magazineCounts[$magazineId]['count']++;
+           }
+       }
+       
+       $magazineCounts = array_values($magazineCounts);
+     
+       $magazinedata = [];
+       foreach ($magazineCounts as $val) {
+            if($request->category !=null &&  $request->language ==null ){
+               $magazine = Magazine::where('id', '=', $val['id'])->where('category', '=', $request->category)->first();
+   
+            }
+          else if($request->category ==null &&  $request->language !=null){
+           $magazine = Magazine::where('id', '=', $val['id'])->where('language', '=', $request->language)->first();
+   
+          }
+         else if($request->category !=null &&  $request->language !=null){
+           $magazine = Magazine::where('id', '=', $val['id'])->where('category', '=', $request->category)->where('language', '=', $request->language)->first();
+   
+          }else{
+           $magazine = Magazine::find($val['id']);
+   
+          }
+           if ($magazine) {
+               $magazine->count = $val['count'];
+               $magazinedata[] = $magazine;
+           }
+       }
+       $magazinebudget = MagazineCategory::orderBy('created_at', 'asc')->get();
+   
+       $datas=[];
+         foreach($magazinebudget  as $val1){
+        foreach($magazinedata  as $val){
+         if($val1->name == $val->category){
+         
+             array_push($datas,$val);
+         }
+        
+     
+        }
+       }
+       if($request->category !=null &&  $request->language ==null ){
+        $magazine1 = Magazine::where('status', '=', '1')->where('category', '=', $request->category)->get();
+
+     }
+   else if($request->category ==null &&  $request->language !=null){
+    $magazine1 = Magazine::where('status', '=', '1')->where('language', '=', $request->language)->get();
+
+   }
+  else if($request->category !=null &&  $request->language !=null){
+    $magazine1 = Magazine::where('status', '=', '1')->where('category', '=', $request->category)->where('language', '=', $request->language)->get();
+
+   }else{
+    $magazine1 = Magazine::where('status', '=', '1')->get();
+
+   }
+    //   $magazine = Magazine::where('status','=','1')->get();
+    //  return  count($magazine1);
+    //  return $datas;
+     $firstArray = collect($magazine1);
+       $secondArray = collect($datas);
+     
+      $firstNames = $firstArray->pluck('id')->toArray(); 
+      $secondNames= $secondArray->pluck('id')->toArray();
+  
+    $uniqueNames = collect($firstNames)->filter(function ($name) use ($secondNames) {
+         return !in_array($name, $secondNames);
+     })->toArray();
+     
+      
+       $totalAmount = 0;
+       $finaldata = [];
+       $serialNumber = 1;
+       foreach ($uniqueNames as $val1) {
+      
+
+           $finaldata[] = [
+               'S.No' => $serialNumber++,
+               'Language' => $val1->language,
+               'Category' => $val1->category,
+               'Title of the Magazine' => $val1->title,
+               'Periodicity' => $val1->periodicity,
+               'Type of Library' => $request->librarytype ?? "All",
+               'District' => $request->district ?? "All",
+               'No.of Subscription' => "0",
+               'Cover Price' =>$val1->single_issue_rate,
+               'Annual Subscription' =>$val1->annual_subscription,
+               'Discount' => $val1->discount,
+               'Single Issue After Discount'=>$val1->single_issue_after_discount,
+               'Annual Subscription After Discount'=>$val1->annual_cost_after_discount,
+               'RNI Details'=>$val1->rni_details,
+               'Total No.of Pages'=>$val1->total_pages,
+               'Total No.of Multicolour Pages'=>$val1->total_multicolour_pages,
+               'Total No.of Monocolour Pages'=>$val1->total_monocolour_pages,
+               'Paper Quality'=>$val1->paper_qualitity,
+               'Size of Magazine' =>$val1->magazine_size,
+               'Contact Person'=>$val1->contact_person,
+               'Phone'=>$val1->phone,
+               'Email'=>$val1->email,
+               'Address'=>$val1->address,
+            
+   
+                 
+           ];
+           $totalAmount =$totalAmount + $val1->count * $val1->annual_cost_after_discount ;
+       }
+       
+       $finaldata[] = [
+           'S.No' => '',
+           'Language' =>'',
+           'Category' => '',
+           'Title of the Magazine' =>'',
+           'Periodicity' => '',
+           'Type of Library' => '',
+           'District' => '',
+           'No.of Subscription' => '',
+           'Cover Price' =>'',
+           'Annual Subscription' =>'',
+           'Discount' => '',
+           'Single Issue After Discount'=>'',
+           'Annual Subscription After Discount'=>'',
+           'RNI Details'=>'',
+           'Total No.of Pages'=>'',
+           'Total No.of Multicolour Pages'=>'',
+           'Total No.of Monocolour Pages'=>'',
+           'Paper Quality'=>'',
+           'Size of Magazine' =>'',
+           'Contact Person'=>'',
+           'Phone'=>'',
+           'Email'=>'',
+           'Address'=>'',
+          
+       ];
+       $finaldata[] = [
+           'Total Amount' => '',
+         
+           'Language' =>'',
+           'Category' => '',
+           'Title of the Magazine' =>'',
+           'Periodicity' => '',
+           'Type of Library' => '',
+           'District' => '',
+           'No.of Subscription' => '',
+           'Cover Price' =>'',
+           'Annual Subscription' =>'',
+           'Discount' => '',
+           'Single Issue After Discount'=>'',
+           'Annual Subscription After Discount'=>'',
+           'RNI Details'=>'',
+           'Total No.of Pages'=>'',
+           'Total No.of Multicolour Pages'=>'',
+           'Total No.of Monocolour Pages'=>'',
+           'Paper Quality'=>'',
+           'Size of Magazine' =>'',
+           'Contact Person'=>'',
+           'Phone'=>'',
+           'Email'=>'Total Amount:',
+           'Address'=>round($totalAmount),
+          
+       ];
+   //  return $finaldata;
+       $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+       $csvContent .=  "S.No,Language,Category,Title of the Magazine,Periodicity,Type of Library,District,No.of Subscription,Cover Price,Annual Subscription,Discount,Single Issue After Discount,Annual Subscription After Discount,RNI Details,Total No.of Pages,Total No.of Multicolour Pages,Total No.of Monocolour Pages,Paper Quality,Size of Magazine,Contact Person,Phone,Email,Address\n"; 
+       foreach ($finaldata as $data) {
+           $csvContent .= '"' . implode('","', $data) . "\"\n";
+       }
+   
+       $headers = [
+           'Content-Type' => 'text/csv; charset=utf-8',
+           'Content-Disposition' => 'attachment; filename="MagazineOrderReport.csv"',
+       ];
+   
+       return response()->make($csvContent, 200, $headers);
+   
+   
+     }   
+     
 }
 
 

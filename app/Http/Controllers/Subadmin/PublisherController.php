@@ -11,6 +11,10 @@ use Carbon\Carbon;
 use App\Models\Subadmin;
 use App\Models\Ticket;
 use App\Models\Publisher;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ApprovedNotification;
+use App\Notifications\RejectNotification;
+
 
 
 class PublisherController extends Controller
@@ -41,24 +45,36 @@ class PublisherController extends Controller
     }
     public function rejectstatus(Request $req){
         $publisher=Publisher::find($req->id);
+
             $publisher->approved_status="reject";
-             $publisher->save();
-             $data= [
-                 'success' => 'Statuas Updated Successfully',
-                      ];
-             return response()->json($data);
+            if($publisher->save()){
+                $adminmail=auth('admin')->user()->email;
+                $rejmessage = $req->rejectmessage;
+                $user = $publisher->email;
+                $url = "http://127.0.0.1:8000/login";
+                Notification::route('mail',  $publisher->email)->notify(new RejectNotification($user, $url,$rejmessage,$adminmail));  
+                $data= [
+                    'success' => 'Statuas Updated Successfully',
+                         ];
+                return response()->json($data);  
          }
- 
+        }
     public function approvestatus(Request $req){
-        dd($req);
-      $publisher=Publisher::find($req->publisherid);
+           $publisher=Publisher::find($req->publisherid);
            $publisher->approved_status="approve";
            $publisher->status="1";
-            $publisher->save();
+           if($publisher->save()){
+            $user = $publisher->email;
+            $url = "http://127.0.0.1:8000/login";
+            Notification::route('mail',  $publisher->email)->notify(new ApprovedNotification($user, $url));  
             $data= [
                 'success' => 'Statuas Updated Successfully',
                      ];
-            return response()->json($data);
+            return response()->json($data);  
+                       
+           }
+            
+         
         }
 
 
@@ -81,11 +97,11 @@ class PublisherController extends Controller
 
     public function publisherget(){
         $publisher=Publisher::all();
-        return view('sub_admin.publisher_list')->with('publisher',$publisher);  
+        return view('sub_admin/publisher_list')->with('publisher',$publisher);  
         }
 
     public function publisheractive(){
-      $publisher=Publisher::where('status', '=', '1')->where('approved_status', '=', 'approve')->get();
+     $publisher=Publisher::where('status', '=', '1')->where('approved_status', '=', 'approve')->get();
      return view('sub_admin/publisher_active_list')->with('publisher',$publisher);  
       }
       public function publisherinactive(){
@@ -94,11 +110,11 @@ class PublisherController extends Controller
          }         
      public function publisherpending(){
        $publisher=Publisher::where('status', '=', '0')->where('approved_status', '=', 'pending')->get();
-       return view('sub_admin/publisher_pending_list')->with('publisher',$publisher);  
+       return view('admin/publisher_pending_list')->with('publisher',$publisher);  
        }                      
      public function publisherrejectlist(){
         $publisher=Publisher::where('status', '=', '0')->where('approved_status', '=', 'reject')->get();
-         return view('sub_admin/publisher_reject_list')->with('publisher',$publisher);  
+         return view('admin/publisher_reject_list')->with('publisher',$publisher);  
          }     
          public function pubprofile($id){
             $publisher=Publisher::find($id);
@@ -107,8 +123,10 @@ class PublisherController extends Controller
             $publisher->awardTitle1= json_decode($publisher->awardTitle); 
             $publisher->association1= json_decode($publisher->association);
             $publisher->subsidiary1= json_decode($publisher->subsidiary);
-            // return $publisher;
+           
             return redirect('/sub_admin/pubprofile')->with('publisher',$publisher); 
+            
              } 
+
     }
     

@@ -16,7 +16,7 @@
         echo "<script>console.log(".json_encode($msg).")</script>";
      }
 
-    include("login.php");
+    include("login");
     echo '<script> alert("Your are successfully logged out") </script>';
     echo '<script language="JavaScript"> window.location.href ="login.php" </script>';
     //header('Location:login.php');

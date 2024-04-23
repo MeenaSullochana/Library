@@ -74,8 +74,8 @@
                             <div class="modal-body">
                             <div class="form-group mb-2 ps-3">
                             <label class="form-label">Subject<span class="text-danger">*</span></label>
-                             <textarea type="text" class="form-control" name="Enter your subject" value=""
-                           placeholder="Subject" rows="3" autocomplete="off" required="">{{ old('subject') }}</textarea>
+                             <textarea type="text" class="form-control" name="subject" value=""
+                           placeholder="Enter your subject" rows="3" autocomplete="off" required="">{{ old('subject') }}</textarea>
                             </div>
                                 <div class="form-group">
                                     <label class="form-label">Description<span class="text-danger">*</span></label>

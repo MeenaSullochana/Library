@@ -16,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
 
     <!-- PAGE TITLE HERE -->
-    <title>Book Fair </title>
+    <title>Government of Tamil Nadu - Book Procurement </title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
     <?php
@@ -56,11 +56,11 @@
             <div class="container-fluid">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <div class="d-sm-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
                                 <b>List of Public Feedback</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="feedback_public_view.php">
+                            <a class="btn btn-primary  btn-sm" href="feedback_public_view">
                                 <i class="fas fa-plus"></i> View Feedback </a>
                         </div>
                     </div>
@@ -112,13 +112,13 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
-                                                    <a href="feedback_public_view.php"
+                                                    <a href="feedback_public_view"
                                                             class="btn btn-success shadow btn-xs sharp me-1">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
-                                                        <a href="#" class="btn btn-danger shadow btn-xs sharp">
+                                                        <!-- <a href="#" class="btn btn-danger shadow btn-xs sharp">
                                                             <i class="fa fa-trash"></i>
-                                                        </a>
+                                                        </a> -->
                                                     </div>
                                                 </td>
 

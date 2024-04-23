@@ -12,9 +12,10 @@
 
 
     <!-- PAGE TITLE HERE -->
-    <title>Book Fair Management System</title>
+    <title>Tamil Nadu Book Procurement - Government of Tamil Nadu</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href= "{{ asset('sub_sub_admin/images/fevi.svg') }}">
+
 
     <link href="/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="/vendor/swiper/css/swiper-bundle.min.css" rel="stylesheet">
@@ -28,8 +29,13 @@
     <link href="/vendor/tagify/dist/tagify.css" rel="stylesheet">
 
     <!-- Style css -->
-    <link href="{{asset('sub_admin/css/style.css')}}" rel="stylesheet">
-
+    <link href= "{{asset('sub_admin/css/style.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        a.canvasjs-chart-credit {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -155,7 +161,7 @@
                                                             </div>
                                                             <div class="progress">
                                                                 <div class="progress-bar bg-secondary"
-                                                                    style="width:50%; height:5px; border-radius:4px;"
+                                                                    style="width:{{ $activepubcount != 0 ? ($activepubcount / $allpubcount * 100) : 0 }}%; height:5px; border-radius:4px;"
                                                                     role="progressbar"></div>
                                                             </div>
                                                         </div>
@@ -197,11 +203,11 @@
                                                         <div class="progress-box mt-0">
                                                             <div class="d-flex justify-content-between">
                                                                 <p class="mb-0">Status</p>
-                                                                <p class="mb-0">20</p>
+                                                                <p class="mb-0">{{$allpubcount}}</p>
                                                             </div>
                                                             <div class="progress">
                                                                 <div class="progress-bar bg-secondary"
-                                                                    style="width:50%; height:5px; border-radius:4px;"
+                                                                    style="width:{{ $inactivepubcount != 0 ? ($inactivepubcount / $allpubcount * 100) : 0 }}%; height:5px; border-radius:4px;"
                                                                     role="progressbar"></div>
                                                             </div>
                                                         </div>
@@ -296,7 +302,7 @@
                                                             </div>
                                                             <div class="progress">
                                                                 <div class="progress-bar bg-secondary"
-                                                                    style="width:50%; height:5px; border-radius:4px;"
+                                                                    style="width:{{ $activedistcount != 0 ? ($activedistcount / $alldistcount * 100) : 0 }}%; height:5px; border-radius:4px;"
                                                                     role="progressbar"></div>
                                                             </div>
                                                         </div>
@@ -342,7 +348,7 @@
                                                             </div>
                                                             <div class="progress">
                                                                 <div class="progress-bar bg-secondary"
-                                                                    style="width:50%; height:5px; border-radius:4px;"
+                                                                    style="width:{{ $inactivedistcount != 0 ? ($inactivedistcount / $alldistcount * 100) : 0 }}%; height:5px; border-radius:4px;"
                                                                     role="progressbar"></div>
                                                             </div>
                                                         </div>
@@ -437,7 +443,7 @@
                                                             </div>
                                                             <div class="progress">
                                                                 <div class="progress-bar bg-secondary"
-                                                                    style="width:50%; height:5px; border-radius:4px;"
+                                                                    style="width:{{ $activepubdistcount != 0 ? ($activepubdistcount / $allpubdistcount * 100) : 0 }}%; height:5px; border-radius:4px;"
                                                                     role="progressbar"></div>
                                                             </div>
                                                         </div>
@@ -483,7 +489,7 @@
                                                             </div>
                                                             <div class="progress">
                                                                 <div class="progress-bar bg-secondary"
-                                                                    style="width:50%; height:5px; border-radius:4px;"
+                                                                    style="width:{{ $inactivepubdistcount != 0 ? ($inactivepubdistcount / $allpubdistcount * 100) : 0 }}%; height:5px; border-radius:4px;"
                                                                     role="progressbar"></div>
                                                             </div>
                                                         </div>
@@ -495,120 +501,176 @@
                                 </div>
                             </div>
                         </div>
+                        <h4>Library</h4>
+                                        <div class="row">
+                                            <div class="col-xl-4 col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body depostit-card">
+                                                    @php
+
+                                                                   $librarian = DB::table('librarians')->count();
+                                                                   $librarianactive = DB::table('librarians')->where('status','=','1')->count();
+                                                                   $librarianinactive = DB::table('librarians')->where('status','=','0')->count();
+                                                                      @endphp
+                                                        <div
+                                                            class="depostit-card-media d-flex justify-content-between style-1">
+                                                            <div>
+                                                                <h6>Number of Library</h6>
+                                                                <h3>{{$librarian}}</h3>
+                                                            </div>
+                                                            <div class="icon-box bg-secondary">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_3_566)">
+                                                                        <path opacity="0.3" fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                            fill="#222B40" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_3_566">
+                                                                            <rect width="24" height="24" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-box mt-0">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="mb-0">Status </p>
+                                                                <p class="mb-0">{{$librarian}}</p>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-secondary"
+                                                                    style="width:100%; height:5px; border-radius:4px;"
+                                                                    role="progressbar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body depostit-card">
+                                                        <div
+                                                            class="depostit-card-media d-flex justify-content-between style-1">
+                                                            <div>
+                                                                <h6>Active Library</h6>
+                                                                <h3>{{$librarianactive}}</h3>
+                                                            </div>
+                                                            <div class="icon-box bg-secondary">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_3_566)">
+                                                                        <path opacity="0.3" fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                            fill="#222B40" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_3_566">
+                                                                            <rect width="24" height="24" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-box mt-0">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="mb-0">Status</p>
+                                                                <p class="mb-0">{{$librarian}}</p>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-secondary"
+                                                                    style="width:{{ $librarianactive != 0 ? ($librarianactive / $librarian * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                    role="progressbar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body depostit-card">
+                                                        <div
+                                                            class="depostit-card-media d-flex justify-content-between style-1">
+                                                            <div>
+                                                                <h6>Inactive Librarian</h6>
+                                                                <h3>{{$librarianinactive}}</h3>
+                                                            </div>
+                                                            <div class="icon-box bg-secondary">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_3_566)">
+                                                                        <path opacity="0.3" fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                            fill="#222B40" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_3_566">
+                                                                            <rect width="24" height="24" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-box mt-0">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="mb-0">Status</p>
+                                                                <p class="mb-0">{{$librarian}}</p>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-secondary"
+                                                                    style="width:{{ $librarianinactive != 0 ? ($librarianinactive / $librarian * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                    role="progressbar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4>Reviewer</h4>
                         <div class="row">
                             <div class="col-xl-9 col-xxl-12">
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="row">
-                                            <div class="col-xl-6">
+                                            <div class="col-xl-12">
                                                 <div class="row">
-                                                    <div class="col-xl-6 col-sm-6">
-                                                        <div class="card bg-primary text-white">
-                                                            <div class="card-header border-0 flex-wrap">
-                                                                <div class="revenue-date">
-                                                                    <span>revenue</span>
-                                                                    <h4 class="text-white"> 310.435</h4>
-                                                                </div>
-                                                                <div class="avatar-list avatar-list-stacked me-2">
-                                                                    <img src="images/contacts/pic555.jpg"
-                                                                        class="avatar rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic666.jpg"
-                                                                        class="avatar rounded-circle" alt="">
-                                                                    <span
-                                                                        class="avatar rounded-circle bg-white">25+</span>
-                                                                </div>
-
-                                                            </div>
-                                                            <div
-                                                                class="card-body pb-0 custome-tooltip d-flex align-items-center">
-                                                                <div id="chartBar" class="chartBar"></div>
-                                                                <div>
-                                                                    <svg width="20" height="20" viewBox="0 0 20 20"
-                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <circle cx="10" cy="10" r="10" fill="white" />
-                                                                        <g clip-path="url(#clip0_3_443)">
-                                                                            <path opacity="0.3"
-                                                                                d="M13.0641 7.54535C13.3245 7.285 13.3245 6.86289 13.0641 6.60254C12.8038 6.34219 12.3817 6.34219 12.1213 6.60254L6.46445 12.2594C6.2041 12.5197 6.2041 12.9419 6.46445 13.2022C6.7248 13.4626 7.14691 13.4626 7.40726 13.2022L13.0641 7.54535Z"
-                                                                                fill="black" />
-                                                                            <path
-                                                                                d="M7.40729 7.26921C7.0391 7.26921 6.74062 6.97073 6.74062 6.60254C6.74062 6.23435 7.0391 5.93587 7.40729 5.93587H13.0641C13.4211 5.93587 13.7147 6.21699 13.7302 6.57358L13.9659 11.9947C13.9819 12.3626 13.6966 12.6737 13.3288 12.6897C12.961 12.7057 12.6498 12.4205 12.6338 12.0526L12.4258 7.26921H7.40729Z"
-                                                                                fill="black" />
-                                                                        </g>
-                                                                        <defs>
-                                                                            <clipPath id="clip0_3_443">
-                                                                                <rect width="16" height="16"
-                                                                                    fill="white"
-                                                                                    transform="matrix(-1 0 0 -1 18 18)" />
-                                                                            </clipPath>
-                                                                        </defs>
-                                                                    </svg>
-                                                                    <span class="d-block font-w600">45%</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-6 col-sm-6">
-                                                        <div class="card bg-secondary text-white">
-                                                            <div class="card-header border-0">
-                                                                <div class="revenue-date">
-                                                                    <span class="text-black">Expenses</span>
-                                                                    <h4 class="text-black"><i class="fa fa-inr"
-                                                                            aria-hidden="true"></i> 920.035</h4>
-                                                                </div>
-                                                                <div class="avatar-list avatar-list-stacked me-2">
-                                                                    <span class="avatar rounded-circle bg-white">
-                                                                        <a href="#">
-                                                                            <svg width="14" height="15"
-                                                                                viewBox="0 0 14 15" fill="none"
-                                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                                <path fill-rule="evenodd"
-                                                                                    clip-rule="evenodd"
-                                                                                    d="M5.83333 6.27083V1.60417C5.83333 0.959834 6.35567 0.4375 7 0.4375C7.64433 0.4375 8.16667 0.959834 8.16667 1.60417V6.27083H12.8333C13.4777 6.27083 14 6.79317 14 7.4375C14 8.08183 13.4777 8.60417 12.8333 8.60417H8.16667V13.2708C8.16667 13.9152 7.64433 14.4375 7 14.4375C6.35567 14.4375 5.83333 13.9152 5.83333 13.2708V8.60417H1.16667C0.522334 8.60417 0 8.08183 0 7.4375C0 6.79317 0.522334 6.27083 1.16667 6.27083H5.83333Z"
-                                                                                    fill="#222B40" />
-                                                                            </svg>
-                                                                        </a>
-                                                                    </span>
-                                                                </div>
-
-                                                            </div>
-                                                            <div
-                                                                class="card-body pb-0 custome-tooltip d-flex align-items-center">
-                                                                <div id="expensesChart" class="chartBar"></div>
-                                                                <div>
-                                                                    <svg width="20" height="20" viewBox="0 0 20 20"
-                                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                        <circle cx="10" cy="10" r="10" fill="#222B40" />
-                                                                        <g clip-path="url(#clip0_3_473)">
-                                                                            <path opacity="0.3"
-                                                                                d="M13.0641 7.54535C13.3245 7.285 13.3245 6.86289 13.0641 6.60254C12.8038 6.34219 12.3817 6.34219 12.1213 6.60254L6.46446 12.2594C6.20411 12.5197 6.20411 12.9419 6.46446 13.2022C6.72481 13.4626 7.14692 13.4626 7.40727 13.2022L13.0641 7.54535Z"
-                                                                                fill="white" />
-                                                                            <path
-                                                                                d="M7.40728 7.26921C7.03909 7.26921 6.74061 6.97073 6.74061 6.60254C6.74061 6.23435 7.03909 5.93587 7.40728 5.93587H13.0641C13.4211 5.93587 13.7147 6.21699 13.7302 6.57358L13.9659 11.9947C13.9819 12.3626 13.6966 12.6737 13.3288 12.6897C12.9609 12.7057 12.6498 12.4205 12.6338 12.0526L12.4258 7.26921H7.40728Z"
-                                                                                fill="white" />
-                                                                        </g>
-                                                                        <defs>
-                                                                            <clipPath id="clip0_3_473">
-                                                                                <rect width="16" height="16"
-                                                                                    fill="white"
-                                                                                    transform="matrix(-1 0 0 -1 18 18)" />
-                                                                            </clipPath>
-                                                                        </defs>
-                                                                    </svg>
-                                                                    <span
-                                                                        class="d-block font-w600 text-black">45%</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-6 col-sm-6">
+                                                    <div class="col-xl-3 col-sm-6">
                                                         <div class="card">
                                                             <div class="card-body depostit-card">
                                                                 <div
                                                                     class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                        $rev = DB::table('reviewer')->count();
+                                                                        $revactive = DB::table('reviewer')->where('status','=',1)->count();
+                                                                        $revinactive = DB::table('reviewer')->where('status','=',0)->count();
+                                                                           @endphp
                                                                     <div>
-                                                                        <h6>Withdraw</h6>
-                                                                        <h3><i class="fa fa-inr" aria-hidden="true"></i>
-                                                                            20</h3>
+                                                                        <h6>Total Reviewer</h6>
+                                                                        <h3>
+                                                                            {{$rev}}</h3>
                                                                     </div>
                                                                     <div class="icon-box bg-secondary">
                                                                         <svg width="24" height="24" viewBox="0 0 24 24"
@@ -639,45 +701,486 @@
                                                                 </div>
                                                                 <div class="progress-box mt-0">
                                                                     <div class="d-flex justify-content-between">
-                                                                        <p class="mb-0">Complete Task</p>
-                                                                        <p class="mb-0">20/28</p>
+                                                                        <p class="mb-0">Active Reviewer</p>
+                                                                        <p class="mb-0">{{$rev}}/{{$revactive}}</p>
                                                                     </div>
                                                                     <div class="progress">
-                                                                        <div class="progress-bar bg-secondary"
-                                                                            style="width:50%; height:5px; border-radius:4px;"
-                                                                            role="progressbar"></div>
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $revactive != 0 ? ($revactive / $rev * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Inactive Reviewer</p>
+                                                                        <p class="mb-0">{{$rev}}/{{$revinactive}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $revinactive != 0 ? ($revinactive / $revr * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-6 col-sm-6">
-                                                        <div class="card same-card">
-                                                            <div class="card-body depostit-card p-0">
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
                                                                 <div
-                                                                    class="depostit-card-media d-flex justify-content-between pb-0">
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                        $reviewer1 = DB::table('reviewer')->where('reviewerType','=','external')->count();
+                                                                        $revieweractive1 = DB::table('reviewer')->where('status','=',1)->where('reviewerType','=','external')->count();
+                                                                        $reviewerinactive1= DB::table('reviewer')->where('status','=',0)->where('reviewerType','=','external')->count();
+                                                                           @endphp
                                                                     <div>
-                                                                        <h6>Total Deposit</h6>
-                                                                        <h3><i class="fa fa-inr" aria-hidden="true"></i>
-                                                                            1200.00</h3>
+                                                                        <h6>Total Expert Reviewer</h6>
+                                                                        <h3>
+                                                                            {{$reviewer1}}</h3>
                                                                     </div>
-                                                                    <div class="icon-box bg-primary">
-                                                                        <svg width="12" height="20" viewBox="0 0 12 20"
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
                                                                             fill="none"
                                                                             xmlns="http://www.w3.org/2000/svg">
-                                                                            <path
-                                                                                d="M11.4642 13.7074C11.4759 12.1252 10.8504 10.8738 9.60279 9.99009C8.6392 9.30968 7.46984 8.95476 6.33882 8.6137C3.98274 7.89943 3.29927 7.52321 3.29927 6.3965C3.29927 5.14147 4.93028 4.69493 6.32655 4.69493C7.34341 4.69493 8.51331 5.01109 9.23985 5.47964L10.6802 3.24887C9.73069 2.6333 8.43112 2.21342 7.14783 2.0831V0H4.49076V2.22918C2.12884 2.74876 0.640949 4.29246 0.640949 6.3965C0.640949 7.87005 1.25327 9.03865 2.45745 9.86289C3.37331 10.4921 4.49028 10.83 5.56927 11.1572C7.88027 11.8557 8.81873 12.2813 8.80805 13.691L8.80799 13.7014C8.80799 14.8845 7.24005 15.3051 5.89676 15.3051C4.62786 15.3051 3.248 14.749 2.46582 13.9222L0.535522 15.7481C1.52607 16.7957 2.96523 17.5364 4.4907 17.8267V20.0001H7.14783V17.8735C9.7724 17.4978 11.4616 15.9177 11.4642 13.7074Z"
-                                                                                fill="#fff" />
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
                                                                         </svg>
                                                                     </div>
                                                                 </div>
-                                                                <div id="NewExperience"></div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Active  Reviewer</p>
+                                                                        <p class="mb-0">{{$reviewer1}}/{{$revieweractive1}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $revieweractive1 != 0 ? ($revieweractive1 / $reviewer1 * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Inactive Reviewer</p>
+                                                                        <p class="mb-0">{{$reviewer1}}/{{$reviewerinactive1}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $reviewerinactive1 != 0 ? ($reviewerinactive1 / $reviewer1 * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
+                                                                <div
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                        $reviewer2 = DB::table('reviewer')->where('reviewerType','=','internal')->count();
+                                                                        $revieweractive2 = DB::table('reviewer')->where('status','=',1)->where('reviewerType','=','internal')->count();
+                                                                        $reviewerinactive2= DB::table('reviewer')->where('status','=',0)->where('reviewerType','=','internal')->count();
+                                                                           @endphp
+                                                                    <div>
+                                                                        <h6>Total Librarian Reviewer</h6>
+                                                                        <h3>
+                                                                            {{$reviewer2}}</h3>
+                                                                    </div>
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Active  Reviewer</p>
+                                                                        <p class="mb-0">{{$reviewer2}}/{{$revieweractive2}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $revieweractive2 != 0 ? ($revieweractive2 / $reviewer2 * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Inactive Reviewer</p>
+                                                                        <p class="mb-0">{{$reviewer2}}/{{$reviewerinactive2}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $reviewerinactive2 != 0 ? ($reviewerinactive2 / $reviewer2 * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
+                                                                <div
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                        $reviewer3 = DB::table('reviewer')->where('reviewerType','=','public')->count();
+                                                                        $revieweractive3 = DB::table('reviewer')->where('status','=',1)->where('reviewerType','=','public')->count();
+                                                                        $reviewerinactive3= DB::table('reviewer')->where('status','=',0)->where('reviewerType','=','public')->count();
+                                                                           @endphp
+                                                                    <div>
+                                                                        <h6>Total Librarian Reviewer</h6>
+                                                                        <h3>
+                                                                            {{$reviewer3}}</h3>
+                                                                    </div>
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Active  Reviewer</p>
+                                                                        <p class="mb-0">{{$reviewer3}}/{{$revieweractive3}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $revieweractive3 != 0 ? ($revieweractive3 / $reviewer3 * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Inactive Reviewer</p>
+                                                                        <p class="mb-0">{{$reviewer3}}/{{$reviewerinactive3}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $reviewerinactive3 != 0 ? ($reviewerinactive3 / $reviewer3 * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-3 col-sm-6">
+                                            <h4>Book</h4>
+
+                                            <div class="col-xl-12">
+                                                <div class="row">
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
+                                                                <div
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                        $books = DB::table('books')->where('book_procurement_status','=',0)->count();
+                                                                
+                                                                           @endphp
+                                                                    <div>
+                                                                        <h6>Total Books</h6>
+                                                                        <h3>
+                                                                            {{$books}}</h3>
+                                                                    </div>
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Total Books</p>
+                                                                        <p class="mb-0">{{$books}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $books != 0 ? ($books / $books * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                               
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
+                                                                <div
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                      
+                                                                        $pubbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','publisher')->count();
+                                                                           @endphp
+                                                                    <div>
+                                                                        <h6>Total Publisher Books</h6>
+                                                                        <h3>
+                                                                            {{$pubbooks}}</h3>
+                                                                    </div>
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Publisher Books</p>
+                                                                        <p class="mb-0">{{$books}}/{{$pubbooks}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $pubbooks != 0 ? ($pubbooks / $books * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                             
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
+                                                                <div
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                    $distbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','distributor')->count();
+
+                                                                           @endphp
+                                                                    <div>
+                                                                        <h6>Total Distributor Books</h6>
+                                                                        <h3>
+                                                                            {{$distbooks}}</h3>
+                                                                    </div>
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Distbooks Booksr</p>
+                                                                        <p class="mb-0">{{$books}}/{{$distbooks}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $distbooks != 0 ? ($distbooks / $books * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                             
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3 col-sm-6">
+                                                        <div class="card">
+                                                            <div class="card-body depostit-card">
+                                                                <div
+                                                                    class="depostit-card-media d-flex justify-content-between style-1">
+                                                                    @php
+
+                                                                    $pubdistbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','publisher_distributor')->count();
+
+                                                                           @endphp
+                                                                    <div>
+                                                                        <h6>Total Publisher Distributor Books </h6>
+                                                                        <h3>
+                                                                            {{$pubdistbooks}}</h3>
+                                                                    </div>
+                                                                    <div class="icon-box bg-secondary">
+                                                                        <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <g clip-path="url(#clip0_3_566)">
+                                                                                <path opacity="0.3" fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                                    fill="#222B40" />
+                                                                                <path fill-rule="evenodd"
+                                                                                    clip-rule="evenodd"
+                                                                                    d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                                    fill="#222B40" />
+                                                                            </g>
+                                                                            <defs>
+                                                                                <clipPath id="clip0_3_566">
+                                                                                    <rect width="24" height="24"
+                                                                                        fill="white" />
+                                                                                </clipPath>
+                                                                            </defs>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="progress-box mt-0">
+                                                                    <div class="d-flex justify-content-between">
+                                                                        <p class="mb-0">Publisher Distributor Books</p>
+                                                                        <p class="mb-0">{{$books}}/{{$pubdistbooks}}</p>
+                                                                    </div>
+                                                                    <div class="progress">
+                                                                    <div class="progress-bar bg-secondary"
+                                                                       style="width:{{ $pubdistbooks != 0 ? ($pubdistbooks / $books * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                            role="progressbar">
+                                                                                    </div>
+                                                                    </div>
+                                                                </div>
+                                                             
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-xl-3 col-sm-6">
                                                 <div class="card bg-success rainbow-box"
                                                     style="background-image: url(images/rainbow.gif);background-size: cover;background-blend-mode: luminosity;">
                                                     <div class="card-header border-0">
@@ -2765,66 +3268,83 @@
                                                     </div>
 
                                                 </div>
-                                            </div>
-                                            <div class="col-xl-8">
-                                                <div class="card overflow-hidden">
-                                                    <div class="card-header border-0 pb-0 flex-wrap">
-                                                        <h4 class="heading mb-0">Total Users</h4>
-                                                        <ul class="nav nav-pills mix-chart-tab" id="pills-tab"
-                                                            role="tablist">
-                                                            <li class="nav-item" role="presentation">
-                                                                <button class="nav-link active" data-series="week"
-                                                                    id="pills-week-tab" data-bs-toggle="pill"
-                                                                    data-bs-target="#pills-week" type="button"
-                                                                    role="tab" aria-selected="true">Publisher</button>
-                                                            </li>
-                                                            <li class="nav-item" role="presentation">
-                                                                <button class="nav-link" data-series="month"
-                                                                    id="pills-month-tab" data-bs-toggle="pill"
-                                                                    data-bs-target="#pills-month" type="button"
-                                                                    role="tab"
-                                                                    aria-selected="false">Distributor</button>
-                                                            </li>
-                                                            <li class="nav-item" role="presentation">
-                                                                <button class="nav-link" data-series="year"
-                                                                    id="pills-year-tab" data-bs-toggle="pill"
-                                                                    data-bs-target="#pills-year" type="button"
-                                                                    role="tab" aria-selected="false">Publisher and
-                                                                    Distributor</button>
-                                                            </li>
-                                                            <li class="nav-item" role="presentation">
-                                                                <button class="nav-link" data-series="all"
-                                                                    id="pills-all-tab" data-bs-toggle="pill"
-                                                                    data-bs-target="#pills-all" type="button" role="tab"
-                                                                    aria-selected="false">All</button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="card-body custome-tooltip p-0">
-                                                        <div id="overiewChart"></div>
-                                                        <div class="ttl-project">
-                                                            <div class="pr-data">
-                                                                <h5>12,721</h5>
-                                                                <span>Number of Users</span>
+                                            </div> -->
+                                            <div class="col-xl-6 col-sm-6">
+                                                        <div class="card text-white">
+                                                            <div class="card-header border-0 flex-wrap">
+                                                            @php
+                                                                $dataPoints = array();
+
+                                                                if ($rev != 0) {
+                                                                    $dataPoints[] = array("label"=>"External", "y"=>($reviewer1 / $rev) * 100);
+                                                                    $dataPoints[] = array("label"=>"Librarian", "y"=>($reviewer2 / $rev) * 100);
+                                                                    $dataPoints[] = array("label"=>"Public", "y"=>($reviewer3 / $rev) * 100);
+                                                                } else {
+                                                                
+                                                                    $dataPoints[] = array("label"=>"External", "y"=>0);
+                                                                    $dataPoints[] = array("label"=>"Librarian", "y"=>0);
+                                                                    $dataPoints[] = array("label"=>"Public", "y"=>0);
+                                                                }
+                                                            @endphp
+
+
+                                                                <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                                                             </div>
-                                                            <div class="pr-data">
-                                                                <h5 class="text-primary">721</h5>
-                                                                <span>Active Users</span>
-                                                            </div>
-                                                            <div class="pr-data">
-                                                                <h5>250</h5>
-                                                                <span>Inactive Users</span>
-                                                            </div>
-                                                            <!-- <div class="pr-data">
-                                                                <h5 class="text-success">12,275h</h5>
-                                                                <span>Working Hours</span>
-                                                            </div> -->
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <div class="col-xl-6 col-sm-6">
+                                                        <div class="card text-white">
+                                                            <div class="card-header border-0 flex-wrap">
+                                                            @php
+                                                                $totaluser = $allpubcount + $alldistcount + $allpubdistcount;
+                                                                $userPoints = array();
+
+                                                                if ($totaluser != 0) {
+                                                                    $userPoints[] = array("label"=>"Publisher", "y"=>($allpubcount / $totaluser) * 100);
+                                                                    $userPoints[] = array("label"=>"Distributor", "y"=>($alldistcount / $totaluser) * 100);
+                                                                    $userPoints[] = array("label"=>"Publisher Cum Distributor", "y"=>($allpubdistcount / $totaluser) * 100);
+                                                                } else {
+                                                                
+                                                                    $userPoints[] = array("label"=>"Publisher", "y"=>0);
+                                                                    $userPoints[] = array("label"=>"Distributor", "y"=>0);
+                                                                    $userPoints[] = array("label"=>"Publisher Cum Distributor", "y"=>0);
+                                                                }
+                                                            @endphp
+
+
+                                                                <div id="userschartContainer" style="height: 370px; width: 100%;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6 p-3">
+                                                @php
+                                                    $publisherPoints = array(
+                                                        array("y" =>  $activepubcount, "label" => "Active Users" ),
+                                                        array("y" => $inactivepubcount, "label" => "Inactive Users" ),
+                                                    );
+                                                @endphp
+                                                <div id="publisherPoints" style="height: 370px; width: 100%;"></div>
                                             </div>
-                                            <div class="col-xl-4">
-                                                <div class="card">
+                                            <div class="col-xl-6 p-3">
+                                                @php
+                                                    $distriputorPoints = array(
+                                                        array("y" => $activedistcount, "label" => "Active Users" ),
+                                                        array("y" => $inactivedistcount, "label" => "Inactive Users" ),
+                                                    );
+                                                @endphp
+                                                <div id="distriputorPoints" style="height: 370px; width: 100%;"></div>
+                                            </div>
+                                            <div class="col-xl-6 p-3">
+                                                @php
+                                                    $pubanddisPoints = array(
+                                                        array("y" => $activepubdistcount, "label" => "Active Users" ),
+                                                        array("y" => $inactivepubdistcount, "label" => "Inactive Users" ),
+                                                    );
+                                                @endphp
+                                                <div id="pubanddisPoints" style="height: 370px; width: 100%;"></div>
+                                            </div>
+                                            <div class="col-xl-6 p-3">
+                                                <div style="height: calc(90% - 32px) !important;" class="card">
                                                     <div class="card-header border-0 flex-wrap">
                                                         <h4 class="heading mb-0">Latest Updates</h4>
                                                         <div>
@@ -2837,7 +3357,7 @@
                                                     <marquee width="100%" direction="up" scrollamount="1" >
                                                     <div class="card-body p-0">
                                                         <div id="DZ_W_TimeLine" class="widget-timeline dz-scroll height370 my-4 px-4">
-                                                            <ul class="timeline">
+                                                            <!-- <ul class="timeline">
                                                                 <li>
                                                                     <div class="timeline-badge primary"></div>
                                                                     <a class="timeline-panel " href="#">
@@ -2862,7 +3382,7 @@
                                                                         <h6 class="mb-0">john just buy your product <strong class="text-warning">Sell $250</strong></h6>
                                                                     </a>
                                                                 </li>
-                                                            </ul>
+                                                            </ul> -->
                                                         </div>
                                                     </div>
                                                     </marquee>
@@ -2879,10 +3399,10 @@
                                     <div class="card my-calendar">
                                         <div class="card-body schedules-cal p-2">
                                             <input type="text" class="form-control d-none" id="datetimepicker1">
-                                            <div class="events">
+                                            {{-- <div class="events">
                                                 <h6>events</h6>
                                                 <div class="dz-scroll event-scroll">
-                                                    <div class="event-media">
+                                                    <!-- <div class="event-media">
                                                         <div class="d-flex align-items-center">
                                                             <div class="event-box">
                                                                 <h5 class="mb-0">20</h5>
@@ -2939,7 +3459,7 @@
                                                         <span class="text-white">12:05 PM</span>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -2978,22 +3498,38 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-6 col-xxl-12">
 
+                        <div class="col-xl-6 col-xxl-12">
+                        <div class="col-12">
+    @php
+    $catPoints = [];
+    foreach($categoryCountsPerCategory as $category => $values) {
+        $categoryDataPoints = [];
+        foreach($values as $key => $value) {
+            $categoryDataPoints[] = ["label" => $key, "y" => $value];
+        }
+        $catPoints[$category] = $categoryDataPoints;
+    }
+    @endphp
+    <div id="reviewerListChart" style="height: 370px; width: 100%;"></div>
+</div>
                             <!-- publisher -->
-                            <div class="col-xl-12 col-xxl-12">
+                            <div class="col-xl-12 col-xxl-12 mt-5">
                                 <div class="card">
-                                    <div class="card-body p-0">
+                                    <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
                                             <div class="tbl-caption">
                                                 <h4 class="heading mb-0">Publisher</h4>
                                             </div>
-                                            <table id="projects-tbl" class="table">
-                                            <thead>
+                                            <table id="example3" class="table" style="min-width: 100px">
+                                                <thead>
                                                     <tr>
+                                                        <th>S.No</th>
+                                                        <th>Publication Name</th>
                                                         <th>Name</th>
                                                         <th>User Type</th>
                                                         <th>District</th>
+                                                        <th>Book Count</th>
                                                         <th>Date</th>
                                                         <th>Status</th>
                                                         <th>Control</th>
@@ -3002,22 +3538,34 @@
                                                 <tbody>
                                                 @foreach($allpub as $val)
                                                     <tr>
-                                                        <td>{{$val->firstName}} {{$val->lastName}}</td>
-                                                        <td>{{$val->usertype}}</td>
-                                                        <td class="pe-0">
+
+                                                        <td>  <strong>{{$loop->index +1}}</strong></td>
+                                                    <td style="white-space:normal;">{{$val->publicationName}} </td>
+
+                                                        <td style="white-space:normal;">{{$val->firstName}} {{$val->lastName}}</td>
+                                                        <td style="white-space:normal;">{{$val->usertype}}</td>
+                                                        <td style="white-space:normal;" class="pe-0">
                                                             <span
                                                                 class="badge badge-danger light border-0">{{$val->District}}</span>
                                                         </td>
-                                                        <!-- <td>Publisher</td> -->
-                                                        <td class="text-success">
-                                                        {{$val->created_at->format('Y-m-d')}}
+                                                        @php
+                                                           $records = DB::table('books')
+                                                           ->where('user_id', '=', $val->id)
+                                                            ->where('book_active_status', '=', '1')
+                                                             ->count();
+                                                           $displayCount = $records ?? 0; 
+                                                              @endphp
+                                                        <td style="white-space:normal;">{{ $displayCount }}</td>
+
+                                                        <td style="white-space:normal;" class="text-success">
+                                                        {{$val->created_at->format('d-m-Y')}}
                                                         </td>
                                                         @if($val->status == "1")
-                                                        <td> <span class="badge bg-success text-white">Active</span></td>
+                                                        <td style="white-space:normal;"> <span class="badge bg-success text-white">Active</span></td>
                                                         @else
-                                                        <td> <span class="badge bg-danger text-white">Inactive</span></td>
+                                                        <td style="white-space:normal;"> <span class="badge bg-danger text-white">Inactive</span></td>
                                                         @endif
-                                                        <td>
+                                                        <td style="white-space:normal;">
                                                             <a href="/sub_admin/pub_profile/{{$val->id}}"
                                                                 class="btn btn-success shadow btn-xs sharp me-1">
                                                                 <i class="fa fa-eye"></i>
@@ -3036,51 +3584,64 @@
                             <!-- Distributor -->
                             <div class="col-xl-12 col-xxl-12">
                                 <div class="card">
-                                    <div class="card-body p-0">
+                                    <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
                                             <div class="tbl-caption">
                                                 <h4 class="heading mb-0">Distributor</h4>
                                             </div>
-                                            <table id="projects-tbl" class="table">
-                                            <thead>
-                                              
-                                              <tr>
-                                                  <th>Name</th>
-                                                  <th>User Type</th>
-                                                  <th>District</th>
-                                                  <th>Date</th>
-                                                  <th>Status</th>
-                                                  <th>Control</th>
-                                              </tr>
-                                          </thead>
-                                          <tbody>
-                                          @foreach($alldist as $val)
-                                          <tr>
-                                                  <td>{{$val->firstName}} {{$val->lastName}}</td>
-                                                  <td>{{$val->usertype}}</td>
-                                                  <td class="pe-0">
-                                                      <span
-                                                          class="badge badge-danger light border-0">{{$val->District}}</span>
-                                                  </td>
-                                                  <!-- <td>Publisher</td> -->
-                                                  <td class="text-success">
-                                                  {{$val->created_at->format('Y-m-d')}}
-                                                  </td>
-                                                  @if($val->status == "1")
-                                                  <td> <span class="badge bg-success text-white">Active</span></td>
-                                                  @else
-                                                  <td> <span class="badge bg-danger text-white">Inactive</span></td>
-                                                  @endif
-                                                  <td>
-                                                      <a href="/sub_admin/dist_profile/{{$val->id}}"
-                                                          class="btn btn-success shadow btn-xs sharp me-1">
-                                                          <i class="fa fa-eye"></i>
-                                                      </a>
-                                                  </td>
-                                              </tr>
-                                              @endforeach
-                                          </tbody>
+                                            <table id="example3" class="table" style="min-width: 100px">
+                                                <thead>
 
+                                                    <tr>
+                                                        <th>S.No</th>
+                                                        <th>Distribution Name</th>
+                                                        <th>Name</th>
+
+                                                        <th>User Type</th>
+                                                        <th>District</th>
+                                                        <th>Book Count</th>
+
+                                                        <th>Date</th>
+                                                        <th>Status</th>
+                                                        <th>Control</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($alldist as $val)
+                                                <tr>
+                                                        <td style="white-space:normal;">  <strong>{{$loop->index +1}}</strong></td>
+                                                        <td style="white-space:normal;">{{$val->distributionName}} </td>
+
+                                                        <td style="white-space:normal;">{{$val->firstName}} {{$val->lastName}}</td>
+                                                        <td style="white-space:normal;">{{$val->usertype}}</td>
+                                                        <td style="white-space:normal;" class="pe-0">
+                                                            <span
+                                                                class="badge badge-danger light border-0">{{$val->District}}</span>
+                                                        </td>
+                                                        @php
+                                                           $records = DB::table('books')
+                                                           ->where('user_id', '=', $val->id)
+                                                            ->where('book_active_status', '=', '1')
+                                                             ->count();
+                                                           $displayCount = $records ?? 0; 
+                                                              @endphp
+                                                        <td style="white-space:normal;">{{ $displayCount }}</td>
+                                                        <td style="white-space:normal;" class="text-success">
+                                                        {{$val->created_at->format('d-m-Y')}}
+                                                        </td>
+                                                        @if($val->status == "1")
+                                                        <td style="white-space:normal;"> <span class="badge bg-success text-white">Active</span></td>
+                                                        @else
+                                                        <td style="white-space:normal;"> <span class="badge bg-danger text-white">Inactive</span></td>
+                                                        @endif
+                                                        <td style="white-space:normal;">
+                                                            <a href="/sub_admin/dist_profile/{{$val->id}}"
+                                                                class="btn btn-success shadow btn-xs sharp me-1">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    @endforeach
                                                 </tbody>
 
                                             </table>
@@ -3092,17 +3653,22 @@
                             <!-- Publisher And Distributor -->
                             <div class="col-xl-12 col-xxl-12">
                                 <div class="card">
-                                    <div class="card-body p-0">
+                                    <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
                                             <div class="tbl-caption">
                                                 <h4 class="heading mb-0">Publisher And Distributor</h4>
                                             </div>
-                                            <table id="projects-tbl" class="table">
-                                            <thead>
+                                            <table id="example3" class="table" style="min-width: 100px">
+                                            {{-- <table id="projects-tbl" class="table"> --}}
+                                                <thead>
                                                     <tr>
+                                                        <th>S.No</th>
+                                                        <th> Publication / Distribution Name </th>
                                                         <th>Name</th>
                                                         <th>User Type</th>
                                                         <th>District</th>
+                                                        <th>Book Count</th>
+
                                                         <th>Date</th>
                                                         <th>Status</th>
                                                         <th>Control</th>
@@ -3111,22 +3677,31 @@
                                                 <tbody>
                                                 @foreach($allpubdist as $val)
                                                 <tr>
-                                                        <td>{{$val->firstName}} {{$val->lastName}}</td>
-                                                        <td>{{$val->usertype}}</td>
-                                                        <td class="pe-0">
+                                                    <td style="white-space:normal;">  <strong>{{$loop->index +1}}</strong></td>
+                                                    <td style="white-space:normal;"> {{$val->publicationDistributionName}} </td>
+                                                        <td style="white-space:normal;">{{$val->firstName}} {{$val->lastName}}</td>
+                                                        <td style="white-space:normal;">{{$val->usertype}}</td>
+                                                        <td style="white-space:normal;" class="pe-0">
                                                             <span
                                                                 class="badge badge-danger light border-0">{{$val->District}}</span>
                                                         </td>
-                                                        <!-- <td>Publisher</td> -->
-                                                        <td class="text-success">
-                                                        {{$val->created_at->format('Y-m-d')}}
+                                                        @php
+                                                           $records = DB::table('books')
+                                                           ->where('user_id', '=', $val->id)
+                                                            ->where('book_active_status', '=', '1')
+                                                             ->count();
+                                                           $displayCount = $records ?? 0; 
+                                                              @endphp
+                                                        <td style="white-space:normal;">{{ $displayCount }}</td>
+                                                        <td style="white-space:normal;" class="text-success">
+                                                        {{$val->created_at->format('d-m-Y')}}
                                                         </td>
                                                         @if($val->status == "1")
-                                                        <td> <span class="badge bg-success text-white">Active</span></td>
+                                                        <td style="white-space:normal;"> <span class="badge bg-success text-white">Active</span></td>
                                                         @else
-                                                        <td> <span class="badge bg-danger text-white">Inactive</span></td>
+                                                        <td style="white-space:normal;"> <span class="badge bg-danger text-white">Inactive</span></td>
                                                         @endif
-                                                        <td>
+                                                        <td style="white-space:normal;">
                                                             <a href="/sub_admin/publisherdisprofile/{{$val->id}}"
                                                                 class="btn btn-success shadow btn-xs sharp me-1">
                                                                 <i class="fa fa-eye"></i>
@@ -3146,149 +3721,84 @@
                         <div class="col-xl-6 col-xxl-8 col-lg-7">
                             <div class="card h-auto">
                                 <div class="card-header border-0 pb-3">
-                                    <h4 class="heading mb-0">Running Event</h4>
-                                    <a href="fair_manage_list.php" class="btn btn-sm btn-primary">View All</a>
+                                    <h4 class="heading mb-0">Toprating Books </h4>
+                                    <a href="/sub_admin/book_manage_all" class="btn btn-sm btn-primary">View All</a>
                                 </div>
                                 <div class="card-body pt-0">
+                                @php
+                                $records = DB::table('books')
+    ->select('books.*')
+    ->where('book_active_status', '=', '1')
+    ->orderBy('marks', 'desc')
+    ->get();
+
+
+                                            @endphp
+
                                     <div class="swiper mySwiper">
                                         <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="card-media">
-                                                            <img src="images/p1.gif" alt="">
-                                                        </div>
-                                                        <div class="media-data">
-                                                            <h4><a href="#">Publisher</a></h4>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar-list avatar-list-stacked">
-                                                                    <img src="images/contacts/pic666.jpg"
-                                                                        class="avatar avatar-md  rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic555.jpg"
-                                                                        class="avatar avatar-md rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic1.jpg"
-                                                                        class="avatar avatar-md rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic666.jpg"
-                                                                        class="avatar avatar-md  rounded-circle" alt="">
-                                                                </div>
-                                                                <span>21+ Member</span>
-                                                            </div>
-                                                            <div
-                                                                class="dateformat d-flex justify-content-between align-items-end">
-                                                                <div>
-                                                                    <p>Due Date</p>
-                                                                    <span>06 Sep 2021</span>
-                                                                </div>
-                                                                <span
-                                                                    class="badge badge-danger light border-0">District</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="card-media">
-                                                            <img src="images/p3.gif" alt="">
-                                                        </div>
-                                                        <div class="media-data">
-                                                            <h4><a href="#">Distributor</a></h4>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar-list avatar-list-stacked">
-                                                                    <img src="images/contacts/pic666.jpg"
-                                                                        class="avatar avatar-md  rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic555.jpg"
-                                                                        class="avatar avatar-md rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic1.jpg"
-                                                                        class="avatar avatar-md rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic666.jpg"
-                                                                        class="avatar avatar-md  rounded-circle" alt="">
-                                                                </div>
-                                                                <span>21+ Member</span>
-                                                            </div>
-                                                            <div
-                                                                class="dateformat d-flex justify-content-between align-items-end">
-                                                                <div>
-                                                                    <p>Due Date</p>
-                                                                    <span>06 Sep 2021</span>
-                                                                </div>
-                                                                <span
-                                                                    class="badge badge-info light border-0">District</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="card-media">
-                                                            <img src="images/p.gif" alt="">
-                                                        </div>
-                                                        <div class="media-data">
-                                                            <h4><a href="#">Publisher And Distributor</a></h4>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar-list avatar-list-stacked">
-                                                                    <img src="images/contacts/pic666.jpg"
-                                                                        class="avatar avatar-md  rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic555.jpg"
-                                                                        class="avatar avatar-md rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic1.jpg"
-                                                                        class="avatar avatar-md rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic666.jpg"
-                                                                        class="avatar avatar-md  rounded-circle" alt="">
-                                                                </div>
-                                                                <span>21+ Member</span>
-                                                            </div>
-                                                            <div
-                                                                class="dateformat d-flex justify-content-between align-items-end">
-                                                                <div>
-                                                                    <p>Due Date</p>
-                                                                    <span>06 Sep 2021</span>
-                                                                </div>
-                                                                <span
-                                                                    class="badge badge-warning light border-0">District</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <div class="card-media">
-                                                            <img src="images/p2.gif" alt="">
-                                                        </div>
-                                                        <div class="media-data">
-                                                            <h4>Distributor</h4>
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar-list avatar-list-stacked">
-                                                                    <img src="images/contacts/pic666.jpg"
-                                                                        class="avatar avatar-md  rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic555.jpg"
-                                                                        class="avatar avatar-md rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic1.jpg"
-                                                                        class="avatar avatar-md rounded-circle" alt="">
-                                                                    <img src="images/contacts/pic666.jpg"
-                                                                        class="avatar avatar-md  rounded-circle" alt="">
-                                                                </div>
-                                                                <span>21+ Member</span>
-                                                            </div>
-                                                            <div
-                                                                class="dateformat d-flex justify-content-between align-items-end">
-                                                                <div>
-                                                                    <p>Due Date</p>
-                                                                    <span>06 Sep 2021</span>
-                                                                </div>
-                                                                <span
-                                                                    class="badge badge-primary light border-0">District</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        @foreach($records as $val)
+    <div class="swiper-slide">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-media">
+                    <img src="{{ asset("Books/front/".$val->front_img) }}" alt="">
+                </div>
+                <div class="media-data">
+
+                        <h4><a href="#">{{$val->book_title}}</a></h4>
+
+                        @php
+        $records1 = DB::table('books')
+            ->where('book_active_status', '=', '1')
+            ->where('user_id', '=', $val->user_id)
+            ->get();
+        $count = count($records1);
+        $records2 = DB::table('books')
+    ->where('book_active_status', '=', '1')
+    ->where('user_id', '=', $val->user_id)
+    ->paginate(3);
+    @endphp
+                    <div class="d-flex align-items-center">
+                        <div class="avatar-list avatar-list-stacked">
+                        @foreach($records2 as $val1)
+                            <img src="{{ asset("Books/front/".$val1->front_img) }}" class="avatar avatar-md  rounded-circle" alt="">
+
+                            @endforeach
+                        </div>
+                        <!-- @if($val->user_type == 'publisher')
+                         <span> Publisher</span>
+                          @elseif($val->user_type == 'distributor')
+                         <span>Distributor</span>
+                           @else
+                         <span>Publisher cum distributor</span>
+                          @endif -->
+
+                        <span>{{$count}}+ Books</span>
+                    </div>
+                    <div class="dateformat d-flex justify-content-between align-items-end">
+                        <div>
+                            <p>User Type</p>
+                            @if($val->user_type == 'publisher')
+                         <span> Publisher</span>
+                          @elseif($val->user_type == 'distributor')
+                         <span>Distributor</span>
+                           @else
+                         <span>Publisher cum distributor</span>
+                          @endif
+                        </div>
+                        <a href="/sub_admin/book_manage_view/{{$val->id}}" class="badge badge-danger light border-0">View Book</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -3307,7 +3817,8 @@
     <!--**********************************
             Footer start
         ***********************************-->
-        @include ("sub_admin.footer")
+        @include ('sub_admin.footer')
+
     <!--**********************************
             Footer end
         ***********************************-->
@@ -3334,9 +3845,10 @@
     <script src="/vendor/chart.js/Chart.bundle.min.js"></script>
     <script src="/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <script src="/vendor/apexchart/apexchart.js"></script>
-   
+
     <!-- Dashboard 1 -->
-    <script src= "{{asset('sub_admin/js/dashboard/dashboard-1.js')}}"></script>
+
+    <script src="{{asset('sub_admin/js/dashboard/dashboard-1.js')}}"></script>
     <script src="/vendor/draggable/draggable.js"></script>
     <script src="/vendor/swiper/js/swiper-bundle.min.js"></script>
 
@@ -3348,8 +3860,8 @@
     <script src="/vendor/datatables/js/dataTables.buttons.min.js"></script>
     <script src="/vendor/datatables/js/buttons.html5.min.js"></script>
     <script src="/vendor/datatables/js/jszip.min.js"></script>
-    <script src="{{asset('sub_admin/js/plugins-init/datatables.init.js')}}"></script>
-    
+    <script src= "{{asset('sub_admin/js/plugins-init/datatables.init.js')}}"></script>
+
     <!-- Apex Chart -->
 
     <script src="/vendor/bootstrap-datetimepicker/js/moment.js"></script>
@@ -3360,15 +3872,17 @@
     <script src="/vendor/jqvmap/js/jquery.vmap.min.js"></script>
     <script src="/vendor/jqvmap/js/jquery.vmap.world.js"></script>
     <script src="/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
-    <script src= "{{asset('sub_admin/js/custom.js')}}"></script>
+    <script src="{{asset('sub_admin/js/custom.js')}}"></script>
     <script src="{{asset('sub_admin/js/deznav-init.js')}}"></script>
     <script src="{{asset('sub_admin/js/demo.js')}}"></script>
     <script src="{{asset('sub_admin/js/styleSwitcher.js')}}"></script>
 
-   
-    
-    
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    {{-- Canvas Chart --}}
+    <script src="https://cdn.canvasjs.com/ga/canvasjs.min.js"></script>
+    <script src="https://cdn.canvasjs.com/ga/canvasjs.stock.min.js"></script>
+
 
 </body>
 @if (Session::has('success'))
@@ -3387,6 +3901,149 @@ toastr.error("{{ Session::get('error') }}",{timeout:15000});
 
 @endif
 </html>
-<style>
+<script>
+    window.onload = function() {
+        var chart1 = new CanvasJS.Chart("userschartContainer", {
+            animationEnabled: true,
+            title: {
+                text: "Reviewer Data List"
+            },
+            subtitles: [{
+                text: ""
+            }],
+            data: [{
+                type: "pie",
+                yValueFormatString: "#,##0.00\"%\"",
+                indexLabel: "{label} ({y})",
+                dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+            }]
+        });
+        chart1.render();
 
-</style>
+        var chart2 = new CanvasJS.Chart("chartContainer", {
+            animationEnabled: true,
+            title: {
+                text: "User Data List"
+            },
+            subtitles: [{
+                text: ""
+            }],
+            data: [{
+                type: "pie",
+                yValueFormatString: "#,##0.00\"%\"",
+                indexLabel: "{label} ({y})",
+                dataPoints: <?php echo json_encode($userPoints, JSON_NUMERIC_CHECK); ?>
+            }]
+        });
+        chart2.render();
+
+        var chart3 = new CanvasJS.Chart("publisherPoints", {
+        animationEnabled: true,
+        theme: "light2",
+        title:{
+            text: "Publisher Users"
+        },
+        axisY: {
+            title: "Overall Publisher"
+        },
+        data: [{
+            type: "column",
+            yValueFormatString: "#,##0.## tonnes",
+            dataPoints: <?php echo json_encode($publisherPoints, JSON_NUMERIC_CHECK); ?>
+        }]
+    });
+    chart3.render();
+
+    var chart4 = new CanvasJS.Chart("distriputorPoints", {
+        animationEnabled: true,
+        theme: "light2",
+        title:{
+            text: "Distributor Users"
+        },
+        axisY: {
+            title: "Overall Distributor"
+        },
+        data: [{
+            type: "column",
+            yValueFormatString: "#,##0.## tonnes",
+            dataPoints: <?php echo json_encode($distriputorPoints, JSON_NUMERIC_CHECK); ?>
+        }]
+    });
+    chart4.render();
+
+    var chart5 = new CanvasJS.Chart("pubanddisPoints", {
+        animationEnabled: true,
+        theme: "light2",
+        title:{
+            text: "Publisher and Distributor Users"
+        },
+        axisY: {
+            title: "Overall Publisher and Distributor"
+        },
+        data: [{
+            type: "column",
+            yValueFormatString: "#,##0.## tonnes",
+            dataPoints: <?php echo json_encode($pubanddisPoints, JSON_NUMERIC_CHECK); ?>
+        }]
+    });
+    chart5.render();
+
+
+
+
+    
+    var chartTitle = "Book Procurement - <?php echo date('Y'); ?>";
+    var catPoints = <?php echo json_encode($catPoints, JSON_NUMERIC_CHECK); ?>;
+
+    var chart6 = new CanvasJS.Chart("reviewerListChart", {
+        title: {
+            text: chartTitle
+        },
+        axisY: {
+            suffix: "%"
+        },
+        toolTip: {
+            shared: true,
+            reversed: true
+        },
+        legend: {
+            cursor: "pointer",
+            itemclick: toggleDataSeries
+        },
+        data: [
+            <?php foreach($catPoints as $key => $categoryDataPoints): ?>
+            {
+                type: "stackedArea100",
+                name: "<?php echo $key; ?>",
+                showInLegend: false,
+                yValueFormatString: "#0.0#\"%\"",
+                color: getRandomColor(),
+                dataPoints: <?php echo json_encode($categoryDataPoints, JSON_NUMERIC_CHECK); ?>
+            },
+            <?php endforeach; ?>
+        ]
+    });
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    chart6.render();
+
+
+
+    function toggleDataSeries(e){
+        if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else {
+            e.dataSeries.visible = true;
+        }
+        chart6.render();
+    }
+    }
+    </script>

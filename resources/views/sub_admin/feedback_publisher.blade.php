@@ -15,12 +15,12 @@
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
     <!-- PAGE TITLE HERE -->
-    <title>Book Fair </title>
+    <title>Government of Tamil Nadu - Book Procurement </title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
     <?php
         include "sub_admin/plugin/plugin_css.php";
-    ?>
+    ?> 
 </head>
 
 <body>
@@ -41,7 +41,7 @@
     <div id="main-wrapper">
         <!--**********************************
             Nav header start
-        ***********************************--> 
+        ***********************************-->
         @include ('sub_admin.navigation')
         <!--**********************************
             Sidebar end
@@ -53,11 +53,11 @@
             <div class="container-fluid">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <div class="d-sm-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
                                 <b>View Publisher Feedback</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="feedback_publisher_list.php">
+                            <a class="btn btn-primary  btn-sm" href="/sub_admin/feedback_publisher_list.blade">
                                 <i class="fa fa-chevron-left" aria-hidden="true"></i> Back </a>
                         </div>
                     </div>
@@ -65,48 +65,28 @@
                 <div class="row">
                     <div class="col-lg-12 card-profile">
                         <div class="row">
-                            <!-- <div class="col-md-4">
-                                <div class="card ">
-                                    <div class="admin-user">
-                                        <div class="img-wrraper">
-                                            <div class="">
-                                                <img src="images/user1.jpg" class="rounded-circle">
-                                            </div>
-                                            <a class="icon-wrapper" href="edit-profile.html">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </a>
-                                        </div>
-                                        <div class="user-details">
-                                            <div class="title">
-                                                <a target="_blank" href="">
-                                                    <h4>Thomas Fleming</h4>
-                                                </a>
-                                                <h6>Publisher</h6>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
+
                             <div class="col-md-4">
                                 <div class="card ">
-                                    <div class="admin-user">
+                                    <div class="sub_admin-user">
                                         <h4 class="">Profile Details</h4>
                                         <div class="img-wrraper">
                                             <div class="">
-                                                <img src="images/user1.jpg" class="rounded-circle">
+                                                @if($data->image != null)
+                                                <img src="{{ asset("publisher/images/profile/".$data->image) }}" class="rounded-circle">
+                                                @else
+                                                <img src="{{ asset("images/default.png") }}" class="rounded-circle">
+                                                @endif
                                             </div>
-                                            <a class="icon-wrapper" href="edit-profile.html">
-                                                <i class="fa-solid fa-pencil"></i>
-                                            </a>
+
                                         </div>
                                         <div class="user-details">
 
                                             <div class="title">
                                                 <a target="_blank" href="">
-                                                    <h4>Thomas Fleming</h4>
+                                                    <h4>{{$data->firstname}}  {{$data->lastname}}</h4>
                                                 </a>
-                                                <h6>Publisher</h6>
+                                                <h6>{{$data->userType}}</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -114,18 +94,28 @@
                             </div>
 
                             <div class="col-md-8">
+
                                 <div class="card p-5">
+                                <div class="card-head">
+                                        <h4 class="text-start"> Date  : {{$data->created_at->format('Y-m-d')}}  </h4>
+
+                                    </div>
+                                    <br>
                                     <div class="card-head">
-                                        <h4 class="text-start">Comment </h4>
-                                        <span class="small pl-3">12/09/2023</span>
-                                        
+                                        <h4 class="text-start">Subject</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="text-justify indent">
+                                            {{$data->subject}}
+                                        </p>
+                                    </div>
+
+                                    <div class="card-head">
+                                        <h4 class="text-start">Description </h4>
                                     </div>
                                     <div class="card-body ">
-                                        <p class="text-justify">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime rerum,
-                                            eveniet distinctio nostrum deserunt eos exercitationem harum debitis velit
-                                            tempore incidunt aspernatur possimus alias voluptas sit expedita. Voluptas,
-                                            veritatis vel.
+                                        <p class="text-justify indent">
+                                        {{$data->description}}
                                         </p>
                                     </div>
                                 </div>
@@ -154,10 +144,10 @@
     </div>
     <!--**********************************
         Main wrapper end
-    ***********************************--> 
+    ***********************************-->
     <?php
         include "sub_admin/plugin/plugin_js.php";
-         ?>
+    ?>
 </body>
 
 </html>
@@ -167,5 +157,11 @@
     }
     .pl-3{
         text-indent: 3em;
+    }
+</style>
+
+<style>
+    .indent {
+        margin-left: 40px; /* Adjust the value based on your desired indentation */
     }
 </style>
