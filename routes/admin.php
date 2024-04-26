@@ -1017,5 +1017,8 @@ Route::post('/report_nonoeder_magazine ',[SettingController::class,'report_nonoe
 Route::get('report_download_nonoeder_magazine',function(){ return view('admin.report_download_nonoeder_magazine');});
 
 
+Route::get('/procurement_samplebookpending',[BookController::class,'procurement_samplebookpending']);
+
+
     });
 });

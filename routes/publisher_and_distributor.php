@@ -165,6 +165,9 @@ Route::post('/multibookdelete',[BookController::class,'multibookdelete']);
       }
       
   });
+  
+  Route::get('/procurement_samplebook',[BookController::class,'procurement_samplebook']);
+  Route::get('/procurement_samplebookpending',[BookController::class,'procurement_samplebookpending']);
 
      Route::get('/procurement_completed',[BookController::class,'procurecompleted']);
      Route::get('/procurement_list',[BookController::class,'procurelist']);
@@ -176,7 +179,9 @@ Route::post('/multibookdelete',[BookController::class,'multibookdelete']);
 
      Route::post('/applay_procurment',[BookController::class,'applay_procurment']);
      Route::post('/pay-endpoint',[BookController::class,'pay_endpoint']);
+     Route::post('/procurementbokkcopies',[BookController::class,'procurementbokkcopies']);
 
+     
           // Negotiation 
 
           Route::get('/nego_pending_list',function(){ return view('publisher_and_distributor.nego_pending_list');});

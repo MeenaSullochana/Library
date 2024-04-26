@@ -23,6 +23,8 @@ use Illuminate\Support\Str;
 use App\Models\ApplicationApply;
 use App\Models\Distributor;
 use App\Models\PublisherDistributor; 
+use App\Models\bookcopies;
+
 
 class BookController extends Controller
 {
@@ -433,7 +435,7 @@ public function meta_pending_book(){
   return view('admin.meta_pending_book')->with('data',$data);
 }
 public function meta_book_complete(){
-  $data=Book::where("book_procurement_status",'=',1)->where("book_reviewer_id",'!=',null)->where("book_status",'!=',null)->get();
+ $data=Book::where("book_procurement_status",'=',1)->where("book_reviewer_id",'!=',null)->where("book_status",'!=',null)->get();
   return view('admin.meta_book_complete')->with('data',$data);
 }
 
@@ -1213,7 +1215,19 @@ return response()->json($data);
    
         return redirect('admin/book_manageview');  
   }
-  
+  public function procurement_samplebookpending(){
+    $data1=Book::where('book_procurement_status','=',"6")->where('book_status','=',null)->get(); 
+     $data=[];
+     foreach($data1 as $key=>$val){
+         $bookcopies=bookcopies::where('bookid','=',$val->id)->first();
+           $copies=  json_decode($bookcopies->copies);
+           $val->copies=$copies;
+           array_push($data,$val);
+         }
+    
+    return view('admin.procurement_samplebookpending')->with('data',$data); 
+}
+
     } 
     
     

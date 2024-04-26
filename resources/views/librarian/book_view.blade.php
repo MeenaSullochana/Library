@@ -553,6 +553,7 @@
                                                                                 {{$data->subject }}
 
                                                                             </option>
+                                                                            @if(auth('librarian')->user()->metaChecker == 'yes')
                                                                             @php
                                                                             $categori =
                                                                             DB::table('book_subject')->where('status','=','1')->where('name','!=',$data->subject)->get();
@@ -564,6 +565,7 @@
                                                                                 {{$val->name}}</option>
                                                                             @endforeach
                                                                         </select>
+                                                                        @endif
                                                                     </span> </p>
                                                             </div>
                                                             <div class="col-md-5 col-5">

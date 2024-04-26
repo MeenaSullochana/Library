@@ -71,7 +71,199 @@
 
                         <div class="row">
                             @if (auth('librarian')->user()->metaChecker == 'no' &&
-                            auth('librarian')->user()->allow_status ==0)
+                            auth('librarian')->user()->allow_status ==0 && auth('librarian')->user()->libraryType
+                            =="State Libraries")
+                            <h4>Books</h4>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $bookcopies = DB::table('bookcopies')->get();
+                                            @endphp
+
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ count($bookcopies) }}</h3>
+                                                <span>Total Book</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $bookcopies1 = DB::table('bookcopies')->get();
+                                            $countre=0;
+                                            foreach($bookcopies1 as $val){
+                                                $copies= json_decode($val->copies);
+                                            foreach($copies as $val1){
+                                             if($val1->librarytype  ==  auth('librarian')->user()->libraryName && $val1->status  == "1"){
+
+                                            $countre = $countre +1;
+                                             }
+                                            }
+                                            }
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $countre }}</h3>
+                                                <span>Received Book </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
+                                                @php
+                                                $bookcopies3 = DB::table('bookcopies')->get();
+                                                $countre1=0;
+                                                foreach($bookcopies3 as $val){
+                                                    $copies= json_decode($val->copies);
+                                                    foreach($copies as $val1){
+                                                if($val1->librarytype == auth('librarian')->user()->libraryName &&
+                                                $val1->status == "0"){
+
+                                                $countre1 = $countre1 +1;
+
+                                                }
+                                                }
+                                            }
+                                                @endphp
+                                            </div>
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-primary count">{{ $countre1 }}</h3>
+                                                <span>Unreceived Book </span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <h4>Book Copies</h4>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $bookcopies4 = DB::table('bookcopies')->get();
+                                            $copiescount = 0;
+                                            if(auth('librarian')->user()->libraryName == "Anna Centenary Library"){
+                                                $copiescount = $copiescount + 3;
+                                            }else{
+                                                $copiescount = $copiescount + 1;
+                                            }
+                                            @endphp
+
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $copiescount }}</h3>
+                                                <span>Total Book Copies</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $bookcopies1 = DB::table('bookcopies')->get();
+                                            $copiescount1 = 0;
+                                            if(auth('librarian')->user()->libraryName == "Anna Centenary Library"){
+                                                $copiescount1 = $copiescount1 + 3;
+                                            }else{
+                                                $copiescount1 = $copiescount1 + 1;
+                                            }
+                                            $countre=0;
+                                            foreach($bookcopies1 as $val){
+                                                $copies= json_decode($val->copies);
+                                            foreach($copies as $val1){
+                                             if($val1->librarytype  ==  auth('librarian')->user()->libraryName && $val1->status  == "1"){
+
+                                            $countre = $countre +1;
+                                             }
+                                            }
+                                            }
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $countre * $copiescount1 }}</h3>
+                                                <span>Received Book Copies</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
+                                                @php
+                                                $bookcopies3 = DB::table('bookcopies')->get();
+                                                $copiescount11 = 0;
+                                            if(auth('librarian')->user()->libraryName == "Anna Centenary Library"){
+                                                $copiescount11 = $copiescount11 + 3;
+                                            }else{
+                                                $copiescount11 = $copiescount11 + 1;
+                                            }
+                                                $countre1=0;
+                                                foreach($bookcopies3 as $val){
+                                                    $copies= json_decode($val->copies);
+                                                    foreach($copies as $val1){
+                                                if($val1->librarytype == auth('librarian')->user()->libraryName &&
+                                                $val1->status == "0"){
+
+                                                $countre1 = $countre1 +1;
+
+                                                }
+                                                }
+                                            }
+                                                @endphp
+                                            </div>
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-primary count">{{ $countre1 * $copiescount11}}</h3>
+                                                <span>Unreceived Book Copies</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @endif
+
+
+
+                            @if (auth('librarian')->user()->metaChecker == 'no' &&
+                            auth('librarian')->user()->allow_status ==0 && auth('librarian')->user()->libraryType
+                            =="District Library Office -DLO")
                             <div class="col-xl-4 col-sm-6">
                                 <div class="card box-hover">
                                     <div class="card-body">
@@ -118,7 +310,8 @@
                                             $orders4 = [];
 
                                             foreach ($ordersdata as $val) {
-                                            $Librariandata = DB::table('librarians')->where('id', '=', $val->librarianid)
+                                            $Librariandata = DB::table('librarians')->where('id', '=',
+                                            $val->librarianid)
                                             ->where('dlo_id', '=', auth('librarian')->user()->librarianId)
                                             ->get();
 
@@ -165,11 +358,14 @@
                                         <div class="card-body depostit-card">
                                             @php
 
-                                            $librarian = DB::table('librarians')->where('dlo_id', '=', auth('librarian')->user()->librarianId)->where('allow_status','=','1')->count();
-                                          
-                                            $librarianactive = DB::table('librarians')->where('dlo_id', '=', auth('librarian')->user()->librarianId)->where('status','=','1')->where('allow_status','=','1')->count();
-                                           
-                                            $librarianinactive = DB::table('librarians')->where('dlo_id', '=', auth('librarian')->user()->librarianId)->where('status','=','0')->where('allow_status','=','1')->count();
+                                            $librarian = DB::table('librarians')->where('dlo_id', '=',
+                                            auth('librarian')->user()->librarianId)->where('allow_status','=','1')->count();
+
+                                            $librarianactive = DB::table('librarians')->where('dlo_id', '=',
+                                            auth('librarian')->user()->librarianId)->where('status','=','1')->where('allow_status','=','1')->count();
+
+                                            $librarianinactive = DB::table('librarians')->where('dlo_id', '=',
+                                            auth('librarian')->user()->librarianId)->where('status','=','0')->where('allow_status','=','1')->count();
                                             @endphp
                                             <div class="depostit-card-media d-flex justify-content-between style-1">
                                                 <div>
@@ -951,7 +1147,7 @@ $(document).ready(function() {
                 }, false)
             })
     })
-    @if(auth('librarian')-> user()-> checkstatus == Null)
+    @if(auth('librarian') -> user() -> checkstatus == Null)
     $('#modalId').modal('show');
     @endif
 

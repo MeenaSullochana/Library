@@ -16,9 +16,9 @@
       <!-- PAGE TITLE HERE -->
       <title>Government of Tamil Nadu - Book Procurement</title>
       <!-- FAVICONS ICON -->
-      <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
+      <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
     <?php
-        include "admin/plugin/plugin_css.php";
+        include "sub_admin/plugin/plugin_css.php";
     ?>
    </head>
    <body>
@@ -40,7 +40,7 @@
          <!--**********************************
             Nav header start
             ***********************************-->
-            @include ('admin.navigation')
+            @include ('sub_admin.navigation')
 
          <!--**********************************
             Sidebar end
@@ -56,7 +56,7 @@
                         <h3 class="mb-0 bc-title">
                            <b>Pending Books List</b>
                         </h3>
-                        <a class="btn btn-primary  btn-sm" href="/admin/procur_book_assign">
+                        <a class="btn btn-primary  btn-sm" href="/sub_admin/procur_book_assign">
                             <i class="fas fa-chevron-left"></i> Back</a>
                         <!-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
                         <i class="fas fa-plus"></i> Add Book</a> -->
@@ -197,7 +197,7 @@
                                         <td>
                                         <div class="products">
                                             <div>
-                                                <h6><a class="text-left" href="/admin/book_manage_view/{{$val->book->id}}">{{$val->book->book_title}}</a></h6>
+                                                <h6><a class="text-left" href="/sub_admin/book_manage_view/{{$val->book->id}}">{{$val->book->book_title}}</a></h6>
                                                 <span class="text-left">{{$val->book->subtitle}}</span>
                                             </div>
                                         </div>
@@ -219,7 +219,7 @@
                                             </td>
                                         <td data-label="control">
                                             <div class="d-flex mt-p0">
-                                                <a href="/admin/book_manage_view/{{$val->book->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                <a href="/sub_admin/book_manage_view/{{$val->book->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                                 <i class="fa fa-eye"></i>
                                                 </a>
                                                 <!-- <a href="book_manage_edit.php" class="btn btn-warning shadow btn-xs sharp me-1">
@@ -231,7 +231,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="/admin/reviewerlist/{{$val->book->id}}" class="btn btn-primary shadow btn-sm m-0 me-1" > <i class="fa fa-list" aria-hidden="true"></i>
+                                            <a href="/sub_admin/reviewerlist/{{$val->book->id}}" class="btn btn-primary shadow btn-sm m-0 me-1" > <i class="fa fa-list" aria-hidden="true"></i>
                                                 </a>
                                         </td>
                                     </tr>
@@ -251,7 +251,7 @@
          <!--**********************************
             Footer start
             ***********************************-->
-            @include ("admin.footer")
+            @include ("sub_admin.footer")
          <!--**********************************
             Footer end
             ***********************************-->
@@ -266,7 +266,7 @@
          Main wrapper end
          ***********************************-->
          <?php
-        include "admin/plugin/plugin_js.php";
+        include "sub_admin/plugin/plugin_js.php";
     ?>
    </body>
 </html>

@@ -19,7 +19,7 @@
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="images/fevi.svg">
     <?php
-        include "admin/plugin/plugin_css.php";
+        include "sub_admin/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -42,7 +42,7 @@
         <!--**********************************
             Nav header start
             ***********************************-->
-            @include ('admin.navigation')
+            @include ('sub_admin.navigation')
         <!--**********************************
             Sidebar end
             ***********************************-->
@@ -57,7 +57,7 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Meta Complete Book List</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="/admin/meta_book_list">
+                            <a class="btn btn-primary  btn-sm" href="/sub_admin/meta_book_list">
                                 <i class="fas fa-plus"></i> Meta Book List</a>
                             <!-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
                         <i class="fas fa-plus"></i> Add Book</a> -->
@@ -140,7 +140,7 @@
                                                 <td>
                                                     <div class="products">
                                                         <div>
-                                                            <h6><a class="text-left" href="/admin/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
+                                                            <h6><a class="text-left" href="/sub_admin/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
                                                             <span class="text-left">{{$val->subtitle}}</span>
                                                         </div>
                                                     </div>
@@ -157,7 +157,7 @@
                                                 </td>
                                                 <td data-label="controlq">
                                                     <div class="d-flex mt-p0 justify-content-center">
-                                                        <a href="/admin/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                        <a href="/sub_admin/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                                             <i class="fa fa-eye"></i>
                                                             @if($val->book_status=='0')
                                                     <a class="btn btn-primary mb-2" data-bs-toggle="modal" data-id="{{$val->reject_message}}" data-bs-target="#myModal">View</a>
@@ -182,7 +182,7 @@
         <!--**********************************
             Footer start
             ***********************************-->
-            @include ("admin.footer")
+            @include ("sub_admin.footer")
         <!--**********************************
             Footer end
             ***********************************-->
@@ -211,7 +211,7 @@
          Main wrapper end
          ***********************************-->
          <?php
-         include "admin/plugin/plugin_js.php";
+         include "sub_admin/plugin/plugin_js.php";
      ?>
 </body>
 <script>
