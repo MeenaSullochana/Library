@@ -56,7 +56,7 @@
       <div class="container-fluid">
         <!-- Title -->
         <div class="d-flex justify-content-between align-items-center py-3">
-          <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #16123222</h2>
+          <!-- <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #16123222</h2> -->
         </div>
 
         <!-- Main content -->
@@ -66,12 +66,12 @@
             <div class="card mb-4 h-auto">
               <div class="card-body">
                 <div class="mb-3 d-flex justify-content-between">
-                  <div>
+                  <!-- <div>
                     <span class="me-3">22-11-2021</span>
                     <span class="me-3">#16123222</span>
                     <span class="me-3">Visa -1234</span>
                     <span class="badge rounded-pill bg-info">SHIPPING</span>
-                  </div>
+                  </div> -->
                   <div class="d-flex">
                     <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text"><i class="bi bi-download"></i> <span class="text">Invoice</span></button>
                     <div class="dropdown">
@@ -102,7 +102,7 @@
                           </div>
                           <div class="flex-lg-grow-1 ms-3">
                             <h6 class="small mb-0"><a href="#" class="text-reset">{{$val->book_title}}</a></h6>
-                            <span class="small">Color: {{$val->author_name}}</span>
+                            <span class="small">Author: {{$val->author_name}}</span>
                           </div>
                         </div>
                       </td>
@@ -138,7 +138,7 @@
               <div class="card-body">
                 <div class="row">
                   <h3>Select the Payment Method</h3>
-                  <div class="col-xl-4 col-lg-12 col-xxl-4 col-sm-12">
+                  <!-- <div class="col-xl-4 col-lg-12 col-xxl-4 col-sm-12">
                     <div class="card">
                       <div class="card-body text-center ai-icon  text-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" width="6.51em" height="6em" viewBox="0 0 512 204">
@@ -166,7 +166,7 @@
                       </div>
                       
                     </div>
-                  </div>
+                  </div> -->
                   <div class="col-xl-4 col-lg-12 col-xxl-4 col-sm-12">
                         <div class="card">
                           <div class="card-body text-center ai-icon  text-primary">
@@ -178,7 +178,7 @@
                               <path fill="#EA4335" d="M84.614 33.304c12.156 0 23.672 4.479 32.63 12.796l24.312-24.312C126.2 7.712 105.727-.605 85.253.034c-31.99 0-61.42 17.915-75.496 46.706l28.151 21.753c5.758-20.474 24.952-35.189 46.706-35.189" />
                             </svg>
                             <h4 class="my-2">IDBI Bank</h4>
-                            <a href="/salesapi" class="btn my-2 btn-primary btn-lg px-4" id="idbi"><i class="fa fa-usd"></i> Pay Now</a>
+                            <a href="/salesapi" class="btn my-2 btn-primary btn-lg px-4" id="idbi"> Pay Now</a>
                           </div>
                         </div>
                       </div>

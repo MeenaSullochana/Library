@@ -10,9 +10,22 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Throwable;
 use App\Utilities\Utility;
+use Illuminate\Support\Facades\Session;
 
 class SaleController extends Controller
 {
+
+    public function index(){
+        $data = Session::get('bookitem');
+        $bookitem =[];
+        foreach($data as $key=>$val){
+         array_push($bookitem,$val->id);
+         }
+        $books= json_encode( $bookitem);
+        $user = Session::get('user');
+        $amount = count($data) *500;
+         return view('payment.payment', compact('user', 'amount','books'));
+    }
     public function processSale(Request $request)
     {
         // Set time limit and include necessary files

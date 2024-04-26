@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\MagazineController;
 
 Route::middleware(['admin'])->group(function () {
 Route::prefix('admin')->group(function () {
+ 
     Route::get('/notifications',[notificationController::class,'notifi']);
     Route::get('/notificationstatus',[notificationController::class,'notificationstatus']);
     Route::get('/Notification_virw/{id}/{type}',[notificationController::class,'Notification_virw']);
@@ -913,10 +914,7 @@ Route::post('/multiple-statuschangebook',[BookController::class,'multiple_status
 Route::get('/reviewerlist/{id}',[BookController::class,'reviewerlist']);
 Route::get('/review',function(){
     $data = Session::get('reviewer');
-
-    return view('admin.assign-user-list')->with("data",$data);
-  
-     
+     return view('admin.assign-user-list')->with("data",$data);
  });
 
 

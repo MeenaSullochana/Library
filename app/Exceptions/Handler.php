@@ -4,7 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
+use Illuminate\Http\Response;
+use Illuminate\Database\QueryException;
 
 use Exception;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -53,10 +54,16 @@ class Handler extends ExceptionHandler
     }
     public function render($request, Throwable $exception)
     {
-        if ($exception instanceof MethodNotAllowedHttpException) {
-            return response()->view('errors.405', [], 405);
+        if ($this->isHttpException($exception)) {
+            return $this->renderHttpException($exception);
+        } elseif ($exception instanceof QueryException) {
+            // Handle database errors
+            return response()->view('errors.database', [], 500); // Assuming you have a custom database error view
+        } else {
+            // Handle other unknown errors
+            return response()->view('errors.generic', [], 500); // Assuming you have a custom generic error view
         }
-
+    
         return parent::render($request, $exception);
     }
-}
+   }

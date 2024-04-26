@@ -76,6 +76,10 @@
                                             @csrf
                                             <div class="row">
                                                 <div class="col-xl-6">
+                                                <input class="textbox" type="text"  name="UDF01" id="UDF01" value="{{$user->usertype}}" size="40" maxlength="500" hidden/>
+                                                <input class="textbox" type="text"  name="UDF02" id="UDF02" value="{{$user->email}}" size="40" maxlength="500" hidden/>
+                                                <input class="textbox" type="text"  name="UDF03" id="UDF03" value="{{$user->password}}" size="40" maxlength="500" hidden/>
+                                                <input class="textbox" type="text"  name="UDF04" id="UDF04" value="{{$books}}" hidden/>
                                                     <div class="mb-3 row">
                                                         <label class="col-lg-4 col-form-label required"
                                                             for="validationCustom01">
@@ -97,7 +101,7 @@
                                                         </label>
                                                         <div class="col-lg-6">
                                                             <input type="text" class="form-control" name="Amount"
-                                                                id="Amount" value="" size="40"
+                                                                id="Amount" value="{{$amount}}" size="40"
                                                                 maxlength="12" placeholder="Your Amount.." required>
                                                             <div class="invalid-feedback">
                                                                 Please enter Amount in rupees
@@ -199,7 +203,7 @@
                                                                 <input type="text" class="form-control"
                                                                     name="CardNumber" id="CardNumber"
                                                                     placeholder="66X 67XX 78XX 90XX" required>
-                                                                <div class="invalid-feedback">Invalide Card Number
+                                                                <div class="invalid-feedback">Invalid Card Number
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -10,7 +10,6 @@
     <h4>Your Transaction ID for Order {{ $txnRefNo }} is {{ $pgTxnId }}.</h4>
     <h4>Your payment is not processed. {{ $message }}</h4>
 @endif
-
 <h4>Complete Response from PG For reference :</h4>
 <style type="text/css">
     * { font-family:sans-serif; }

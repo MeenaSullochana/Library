@@ -61,7 +61,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Apply For Procerement</b>
+                                <b>Apply For Procurement</b>
                             </h3>
                            <a onclick="javascript:window.history.back();" class="btn btn-primary  btn-sm" href="/distributor/index">
                             <i class="fa fa-angle-double-left"></i> GoBack</a>
@@ -221,15 +221,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                <p>Our payment gateway is currently being set up. Book procurement applications will be possible once it's fully functional. We'll notify you when it's ready.</p>
-                      <!-- <p>Comming Zoon</p>
-                    <p>Number Of Book Selected : </p> -->
+                <!-- <p>Our payment gateway is currently being set up. Book procurement applications will be possible once it's fully functional. We'll notify you when it's ready.</p> -->
+                      <!-- <p>Comming Zoon</p>-->
+                    <p>Number Of Books Selected : </p> 
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                    <!-- <button type="button" id="submitbutton11"
-                        class="btn btn-primary submitbutton11">Confirm</button> -->
+                    <button type="button" id="submitbutton11"
+                        class="btn btn-primary submitbutton11">Confirm</button>
                 </div>
             </div>
         </div>
