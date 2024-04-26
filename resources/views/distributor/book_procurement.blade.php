@@ -346,9 +346,8 @@
 <script>
     $(document).ready(function() {
         $('#basicModal').on('shown.bs.modal', function () {
-            $('#basicModal').modal('show');
-
-
+            var checkedBooks = $('#customCheckBox100:checked').length;
+            $('#basicModal .modal-body p:last').text('Number Of Books Selected: ' + checkedBooks);
         });
     });
 </script>
