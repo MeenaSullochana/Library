@@ -197,22 +197,26 @@ class ResponseSaleController extends Controller
         $pay->paymentstatus=        $paymentstatus;
         $pay->paidstatus=        $paidstatus;
         $pay->save();
-        $record = json_decode($bookitem);
-        foreach($record as $val){
-        $data1=Book::where('user_id','=',$user->id)->where('id','=',$val)->first();
- 
-        $data1->book_procurement_status = "5";
-        $data1->save();
+
+        if($paymentstatus == "Success"){
+            $record = json_decode($bookitem);
+            foreach($record as $val){
+            $data1=Book::where('user_id','=',$user->id)->where('id','=',$val)->first();
+     
+            $data1->book_procurement_status = "5";
+            $data1->save();
+            }
+           
+            $notifi= new Notifications();
+            $admin=Admin::first();
+     
+            $notifi->message = "Book Applied For Procurement";
+            $notifi->to= $admin->id;
+            $notifi->from=$user->id;
+            $notifi->type=$usertype;
+            $notifi->save();
         }
        
-        $notifi= new Notifications();
-        $admin=Admin::first();
- 
-        $notifi->message = "Book Applied For Procurement";
-        $notifi->to= $admin->id;
-        $notifi->from=$user->id;
-        $notifi->type=$usertype;
-        $notifi->save();
 
         // Return the response view with data
         return view($route, [
