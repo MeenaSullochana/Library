@@ -1918,6 +1918,16 @@
                         </ul>
                     </li> -->
                     <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                        <i class="bi bi-bookshelf"></i>
+                            <span class="nav-text">Book Sample Copies </span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="procurement_samplebookpending">Sample Book Copies </a></li>
+                         
+                        </ul>
+                    </li>
+                    <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-upload"></i>
                             <span class="nav-text">Procurement Payment</span>

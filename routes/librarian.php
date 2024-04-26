@@ -170,5 +170,12 @@ Route::prefix('librarian')->group(function () {
     Route::get('report_download_order_magazine',function(){ return view('librarian.report_download_order_magazine');});
     Route::post('/magazine_district_order ',[SettingController::class,'magazine_district_order']);
 
+    Route::get('/bookcopies_pendinglist',[LibrarianController::class,'bookcopies_pendinglist']);
+    Route::post('/bookcopiesstatus',[LibrarianController::class,'bookcopiesstatus']);
+
+    Route::get('/bookcopies_completelist',[LibrarianController::class,'bookcopies_completelist']);
+
+    
+   
 });
 });

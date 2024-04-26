@@ -19,6 +19,9 @@ use Illuminate\Support\Str;
 use App\Models\Notifications;
 use App\Models\Booksubject;
 use App\Models\Admin;
+use App\Models\bookcopies;
+
+
 use App\Models\Procurementpaymrnt;
 use Illuminate\Support\Facades\Session;
 
@@ -317,6 +320,26 @@ public function procurecompleted(){
     $data=Book::where('user_id','=',$id)->where('book_procurement_status','=',1)->where('book_status','=',1)->get(); 
     return view('publisher_and_distributor.book_procurement_complete')->with('data',$data); 
 }
+public function procurement_samplebook(){
+    $id=auth('publisher_distributor')->user()->id;
+    $data=Book::where('user_id','=',$id)->where('book_procurement_status','=',"5")->where('book_status','=',null)->get(); 
+    return view('publisher_and_distributor.procurement_samplebook')->with('data',$data); 
+}
+public function procurement_samplebookpending(){
+    $id=auth('publisher_distributor')->user()->id;
+     $data1=Book::where('user_id','=',$id)->where('book_procurement_status','=',"6")->where('book_status','=',null)->get(); 
+     $data=[];
+     foreach($data1 as $key=>$val){
+         $bookcopies=bookcopies::where('bookid','=',$val->id)->first();
+           $copies=  json_decode($bookcopies->copies);
+           $val->copies=$copies;
+           array_push($data,$val);
+         }
+    
+    return view('publisher_and_distributor.procurement_samplebookpending')->with('data',$data); 
+}
+
+
 public function bookupdatedandreturn(Request $request){
     $id=auth('publisher_distributor')->user()->id;
     $data1=Book::where('user_id','=',$id)->where('id','=',$request->id)->first();
@@ -415,7 +438,7 @@ public function applay_procurment(Request $request){
    foreach($record as $key=>$val){
    $data1=Book::where('user_id','=',$id)->where('id','=',$val->id)->first();  
  
-   $data1->book_procurement_status = "1";
+   $data1->book_procurement_status = "5";
    $data1->save();
 
    }
@@ -920,4 +943,24 @@ public function getlanguage(Request $request)
     
     return response()->json(['subjects' => $subjects]);
 }
+
+public function procurementbokkcopies(Request $request){
+    $bookcopies=new bookcopies();
+    $bookcopies->bookid =  $request->bookid;
+    $bookcopies->booktitle =  $request->booktitle;
+    $bookcopies->copies =  json_encode($request->datarec);
+    $bookcopies->userid =  auth('publisher_distributor')->user()->id;
+    $bookcopies->usertype =  auth('publisher_distributor')->user()->usertype;
+
+    
+    if($bookcopies->save()){
+        $book =Book::find($request->bookid);
+        $book->book_procurement_status="6";
+        $book->save();
+        return response()->json(['success' => 'copies send successfull']);
+
+    }
+
+}
+
 }

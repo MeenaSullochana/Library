@@ -29,7 +29,7 @@ class BookController extends Controller
     
 
 public function bookmanageall(){
-      return "hi";
+    
   $data = Book::
   where('book_active_status', '=', '1')
   ->orderBy('marks', 'desc')
@@ -90,7 +90,7 @@ public function meta_book_list(){
   $val->check = $check;
     
  }
-  return view('admin.meta_book_list')->with('data',$data);
+  return view('sub_admin.meta_book_list')->with('data',$data);
 }
 
 public function checkBookTitle($data)
@@ -430,11 +430,11 @@ foreach ($rec as $key => $subject) {
 
 public function meta_pending_book(){
   $data=Book::where("book_procurement_status",'=',1)->where("book_reviewer_id",'!=',null)->where("book_status",'=',null)->get();
-  return view('admin.meta_pending_book')->with('data',$data);
+  return view('sub_admin.meta_pending_book')->with('data',$data);
 }
 public function meta_book_complete(){
   $data=Book::where("book_procurement_status",'=',1)->where("book_reviewer_id",'!=',null)->where("book_status",'!=',null)->get();
-  return view('admin.meta_book_complete')->with('data',$data);
+  return view('sub_admin.meta_book_complete')->with('data',$data);
 }
 
 public function meta_book_assign(Request $req,$id){
@@ -584,7 +584,8 @@ public function procur_pending_list(){
       array_push($record,$obj);
    }
   }
-  return view('admin.procur_pending_list')->with('record',$record);
+  
+  return view('sub_admin.procur_pending_list')->with('record',$record);
 }
 public function procur_complete_list(){
   $data = BookReviewStatus::groupBy('book_id')->get('book_id');
@@ -635,11 +636,11 @@ public function procur_complete_list(){
       array_push($record,$obj);
    }
   }
-  return view('admin.procur_complete_list')->with('record',$record);
+  return view('sub_admin.procur_complete_list')->with('record',$record);
 }
 public function procur_reject_view(){
   $data=Book::where("book_procurement_status",'=',1)->where("book_reviewer_id",'!=',null)->where("book_status",'=',0)->get();
-  return view('admin.procur_reject_view')->with('data',$data);
+  return view('sub_admin.procur_reject_view')->with('data',$data);
 }
 
 public function get_books($id)

@@ -371,8 +371,11 @@ Route::get('/report_download_pub_dist',function(){ return view('sub_admin.report
 Route::get('/report_download_order',function(){ return view('sub_admin.report_download_order');});
 Route::get('report_download_order_districtmagazine',function(){ return view('sub_admin.report_download_order_districtmagazine');});
 Route::post('/magazine_district_order ',[SettingController::class,'magazine_district_order']);
-
-
+// procurement
+Route::get('/procur_book_list',[BookController::class,'procur_book_list']);
+Route::get('/procur_pending_list',[BookController::class,'procur_pending_list']);
+Route::get('/procur_complete_list',[BookController::class,'procur_complete_list']);
+Route::get('/procur_reject_view',[BookController::class,'procur_reject_view']);
 
 
 
@@ -462,8 +465,6 @@ Route::get('/book_price_manage',function(){ return view('admin.book_price_manage
 Route::get('/procur_book_assign',function(){ return view('admin.procur_book_assign');});
 Route::get('/procur_book_list',function(){ return view('admin.procur_book_list');});
 Route::get('/procur_book_view',function(){ return view('admin.procur_book_view');});
-Route::get('/procur_complete_list',function(){ return view('admin.procur_complete_list');});
-Route::get('/procur_pending_list',function(){ return view('admin.procur_pending_list');});
 Route::get('/procur_reject_view',function(){ return view('admin.procur_reject_view');});
 
 Route::get('/magazine_add',function(){ return view('admin.magazine_add');});
@@ -749,10 +750,7 @@ Route::get('/change_password',function(){ return view('sub_admin.change_password
     }
 
 });
- Route::get('/procur_book_list',[BookController::class,'procur_book_list']);
- Route::get('/procur_pending_list',[BookController::class,'procur_pending_list']);
- Route::get('/procur_complete_list',[BookController::class,'procur_complete_list']);
- Route::get('/procur_reject_view',[BookController::class,'procur_reject_view']);
+
 //  Route::get('/procur_book_assign/{id}',[BookController::class,'procur_assign']);
 
 //  Route::get('/procur_book_assign',function(){

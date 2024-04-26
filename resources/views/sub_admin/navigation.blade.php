@@ -1591,20 +1591,20 @@
                             <li><a href="procur_reject_view">Unaccept list</a> </li> -->
                         </ul>
                     </li>
-                    <!-- <li>
+                    <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-card-checklist"></i>
                             <span class="nav-text">Procurement</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/admin/meta_book_list">Meta Book List</a></li>
-                            <li><a href="/admin/meta_pending_book">Meta pending Book List</a></li>
-                            <li><a href="/admin/meta_book_complete">Meta Complete Book List</a></li>
-                            <li><a href="/admin/procur_book_assign">Book List</a></li>
-                            <li><a href="/admin/procur_pending_list">Pending List</a></li>
-                            <li><a href="/admin/procur_complete_list">Complete List</a></li>
+                            <!-- <li><a href="/sub_admin/meta_book_list">Meta Book List</a></li> -->
+                            <li><a href="/sub_admin/meta_pending_book">Meta pending Book List</a></li>
+                            <li><a href="/sub_admin/meta_book_complete">Meta Complete Book List</a></li>
+                            <!-- <li><a href="/sub_admin/procur_book_assign">Book List</a></li> -->
+                            <li><a href="/sub_admin/procur_pending_list">Pending List</a></li>
+                            <li><a href="/sub_admin/procur_complete_list">Complete List</a></li>
                         </ul>
-                    </li> -->
+                    </li>
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-card-checklist"></i>
