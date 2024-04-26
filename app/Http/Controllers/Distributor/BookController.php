@@ -412,7 +412,8 @@ public function applay_procurment(Request $request){
 
     }
     \Session::put('bookitem', $bookitem);
-
+    $user = auth('distributor')->user();
+    \Session::put('user',$user);
     $data= [
         'success' => 'Book Send Payment Page Successfully',
              ];

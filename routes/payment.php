@@ -12,9 +12,10 @@ use App\Http\Controllers\Payment\ResponseSaleController;
 
 
 
-Route::get('/salesapi',function(){return view('payment.saleapi');});
+// Route::get('/salesapi',function(){return view('payment.saleapi');});
 
-Route::get('/payment-gateway',function(){return view('payment.payment');});
+// Route::get('/salesapi',function(){return view('payment.payment');});
+Route::get('/salesapi', [SaleController::class, 'index']);
 Route::get('/payment-responce/success',function(){return view('payment.success');});
 Route::get('/payment-responce/failure',function(){return view('payment.failure');});
 

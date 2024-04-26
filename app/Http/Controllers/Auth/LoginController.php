@@ -130,6 +130,7 @@ class LoginController extends Controller
                 if(Session::has('error')){
                     Session::forget('error');
                 }
+                // dd($redirect_route);
              return redirect($redirect_route)->with('success',"Logged in successfully");
             }else if($user->status != 1 && $user->verfication == 1){
              \Auth::guard($guard)->logout();
@@ -222,6 +223,7 @@ class LoginController extends Controller
                 return redirect()->back();
             }
             if($request->type == "publisher"){
+
                 if (\Auth::guard('publisher')->attempt($credentials)){
                     $login_user = auth('publisher')->user();
                     $redirect_route = '/publisher/index';

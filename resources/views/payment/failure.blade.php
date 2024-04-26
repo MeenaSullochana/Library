@@ -54,7 +54,7 @@
                <div class="col-md-12">
                   <div class="authincation-content">
                      <div class="row no-gutters">
-                        <div class="col-xl-12">
+                        <div class="col-xl-12" id="print-pdf">
                            <div class="row">
                               <div class="col-md-10 text-left ps-5">
                                  <img class="p-3" style="width: 150px;height:auto;"
@@ -63,120 +63,72 @@
                                  <small>Secure Payment gateway System</small>
                               </div>
                               <div class="col-md-2 p-3 text-center">
-                                 <i class="fa fa-print p-2"></i>
-                                 <i class="fa fa-download p-2"></i>
-                                <a href="/"> <i class="fa fa-home p-2"></i></a>
+                              <i class="fa fa-download p-2" onclick="generatePdf()"></i>
+                                <a href={{$url}}> <i class="fa fa-home p-2"></i></a>
                               </div>
                            </div>
                            <div class="card-body">
                               <div class="form-validation">
-                                 <form class="needs-validation" novalidate="" action="/process-sale"
-                                    method="post" accept-charset="ISO-8859-1">
-                                    @csrf
+                                 <form>
+                                
                                     <div class="row p-5">
                                        <div class="col-12 text-center">
                                           <img src="https://images.squarespace-cdn.com/content/v1/5ee517995ce62276749898ed/1592727363796-QPOB76M9SETTY5GG2W7W/0-3071_red-cross-mark-download-png-red-circle-with.jpg" alt="" srcset="" style="width:50px">
                                           <h2 class="fw-bold">Payment Failure</h2>
-                                          <p>Your Transaction ID for Order<b> 3434 </b> is <b>240893839058</b>.<br>Your payment is not processed. Invalid bankid and itemcode combination</p>
+                                          <p>Your Transaction ID for Order<b> {{ $txnRefNo }} </b> is <b>{{ $pgTxnId }}</b>.<br>Your payment is not processed. {{ $message }}</p>
                                        </div>
                                     </div>
                                     <div class="row">
-                                       <div class="col-xl-6">
+                                    <div class="col-xl-6">
                                           <div class="row">
                                              <label class="col-lg-4 col-form-label required" for="validationCustom01">Amount: </label>
                                              <div class="col-lg-6">
-                                                	<p>2300</p>
+                                                	<p>Rs. {{ $amount/100 }}</p>
                                              </div>
                                           </div>
-                                          <div class="row">
-                                             <label class="col-lg-4 col-form-label required"
-                                                for="validationCustom02">BankId:<span
-                                                class="text-danger"> *</span>
-                                             </label>
-                                             <div class="col-lg-6">
-                                               <p>	000004</p>
-                                             </div>
-                                          </div>
+      
                                           <div class="row p-0 m-0">
                                              <label class="col-lg-4 col-form-label required p-0 m-0"
-                                                for="validationCustom03">Currency:<span
-                                                class="text-danger"> *</span></label>
+                                                for="validationCustom03">Currency:</label>
                                              <div class="col-lg-6">
-                                                <p>	356</p>
+                                                <p>{{$currency}}</p>
                                              </div>
                                           </div>
+                                        
                                           <div class="row p-0 m-0">
                                              <label class="col-lg-4 col-form-label required p-0 m-0"
-                                                for="validationCustom03">MerchantId:<span
-                                                class="text-danger"> *</span></label>
+                                                for="validationCustom03">Message:</label>
                                              <div class="col-lg-6">
-                                                <p>	101000000000781</p>
+                                                <p>{{$message}}</p>
                                              </div>
                                           </div>
+                                         
                                           <div class="row p-0 m-0">
-                                             <label class="col-lg-4 col-form-label required p-0 m-0"
-                                                for="validationCustom03">Message:<span
-                                                class="text-danger"> *</span></label>
+                                             <label class="col-lg-4 col-form-label required"
+                                                for="validationCustom03">PaymentOption:</label>
                                              <div class="col-lg-6">
-                                                <p>Invalid bankid and itemcode combination</p>
+                                                <p>{{$PaymentOption}}</p>
                                              </div>
                                           </div>
                                           <div class="row p-0 m-0">
                                              <label class="col-lg-4 col-form-label required"
-                                                for="validationCustom03">PassCode:<span
-                                                class="text-danger"> *</span></label>
+                                                for="validationCustom03">TerminalId:</label>
                                              <div class="col-lg-6">
-                                                <p>SVPL4257</p>
+                                                <p>{{$TerminalId}}</p>
                                              </div>
                                           </div>
                                           <div class="row p-0 m-0">
                                              <label class="col-lg-4 col-form-label required"
-                                                for="validationCustom03">PaymentOption:<span
-                                                class="text-danger"> *</span></label>
+                                                for="validationCustom03">TxnRefNo:</label>
                                              <div class="col-lg-6">
-                                                <p>wt</p>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-xl-6">
-                                          <div class="row p-0 m-0">
-                                             <label class="col-lg-4 col-form-label required"
-                                                for="validationCustom03">ResponseCode:<span
-                                                class="text-danger"> *</span></label>
-                                             <div class="col-lg-6">
-                                                <p>TRAVE0003</p>
+                                                <p>{{$txnRefNo}}</p>
                                              </div>
                                           </div>
                                           <div class="row p-0 m-0">
                                              <label class="col-lg-4 col-form-label required"
-                                                for="validationCustom03">TerminalId:<span
-                                                class="text-danger"> *</span></label>
+                                                for="validationCustom03">pgTxnId:</label>
                                              <div class="col-lg-6">
-                                                <p>10100781</p>
-                                             </div>
-                                          </div>
-                                          <div class="row p-0 m-0">
-                                             <label class="col-lg-4 col-form-label required"
-                                                for="validationCustom03">TxnRefNo:<span
-                                                class="text-danger"> *</span></label>
-                                             <div class="col-lg-6">
-                                                <p>3434</p>
-                                             </div>
-                                          </div>
-                                          <div class="row p-0 m-0">
-                                             <label class="col-lg-4 col-form-label required"
-                                                for="validationCustom03">payOpt:<span
-                                                class="text-danger"> *</span></label>
-                                             <div class="col-lg-6">
-                                                <p>wt</p>
-                                             </div>
-                                          </div>
-                                          <div class="row p-0 m-0">
-                                             <label class="col-lg-4 col-form-label required"
-                                                for="validationCustom03">pgTxnId:<span
-                                                class="text-danger"> *</span></label>
-                                             <div class="col-lg-6">
-                                                <p>240893839058</p>
+                                                <p>{{$pgTxnId}}</p>
                                              </div>
                                           </div>
                                        </div>
@@ -202,6 +154,14 @@
       {{-- <script src="{{ asset('admin/js/styleSwitcher.js') }}"></script> --}}
       {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+<script>
+    function generatePdf() {
+        let htmlElement = document.getElementById('print-pdf');
+        html2pdf().from(htmlElement).save('Payment Receipt.pdf');
+    }
+</script>
       <script type="text/javascript">
          document.onkeydown = function(e) {
              if (event.keyCode == 123) {
