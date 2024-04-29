@@ -102,7 +102,7 @@
                                                         <div class="col-lg-6">
                                                             <input type="text" class="form-control" name="Amount"
                                                                 id="Amount" value="{{$amount}}" size="40"
-                                                                maxlength="12" placeholder="Your Amount.." required>
+                                                                maxlength="12" placeholder="Your Amount.." required readonly>
                                                             <div class="invalid-feedback">
                                                                 Please enter Amount in rupees
                                                             </div>
@@ -114,8 +114,8 @@
                                                                 class="text-danger"> *</span></label>
                                                         <div class="col-lg-6">
                                                             <input type="text" class="form-control" name="Currency"
-                                                                id="Currency" value="" size="40"
-                                                                maxlength="40" placeholder="Currency Code.." required>
+                                                                id="Currency" value="356" size="40"
+                                                                maxlength="40" placeholder="Currency Code.." required readonly>
                                                             <div class="invalid-feedback">
                                                                 Please Enter Currency Code
                                                             </div>
