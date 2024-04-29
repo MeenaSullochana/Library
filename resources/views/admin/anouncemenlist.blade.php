@@ -61,7 +61,7 @@
                         <h3>Anouncemenlist List</h3>
                      </div>
                      <div class="item">
-                       <a href="#"> <button type="button" class="btn btn-primary"><i class="fa fa-backward" aria-hidden="true"></i> Back</button></a>
+                       <a href="/admin/anoncement"> <button type="button" class="btn btn-primary"><i class="fa fa-backward" aria-hidden="true"></i> Back</button></a>
                      </div>
                   </div>
                </div>
@@ -182,7 +182,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
 										</div>
 									</div>
 								</div>

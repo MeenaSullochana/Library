@@ -84,7 +84,7 @@
                                                 src="images/crm/party-popper.png" alt=""></h4>
 
 
-                                        <a href="/distributor/dist_profile_view" class="btn btn-primary btn-sm mt-4">View Profile</a>
+                                        <a href="/publisher/pub_profile_view" class="btn btn-primary btn-sm mt-4">View Profile</a>
                                     </div>
                                     <img src="images/analytics/developer_male.png" class="harry-img w-25" alt="">
 
@@ -182,9 +182,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-md-6">
+                    <div class="col-xl-6 col-md-12">
                         <div class="row">
-                            <div class="col-xl-6 col-sm-12">
+                            <div class="col-xl-6 col-sm-6">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -205,7 +205,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-sm-12">
+                            <div class="col-xl-6 col-sm-6">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -229,7 +229,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-xl-6 col-sm-12">
+                            <div class="col-xl-6 col-sm-6">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -250,7 +250,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-sm-12">
+                            <div class="col-xl-6 col-sm-6">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
@@ -675,8 +675,6 @@
     <script src="{{asset('publisher/js/styleSwitcher.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
-</html>
-
 <style>
     .scroll-view {
     height: 190px;
@@ -694,3 +692,4 @@
     }
     }
 </style>
+</html>

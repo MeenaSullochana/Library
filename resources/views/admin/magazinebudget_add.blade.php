@@ -90,7 +90,7 @@
                                             <form id="formId">
                                                 @csrf
                                                 <div class="mt-3 " id="compose-content">
-                                                    <div class="compose-content">
+                                                    <div class="compose-content p-3">
                                                         <div class="mb-3">
                                                             <label class="form-label">Library Type<span
                                                                     class="text-danger maditory">*</span></label>
@@ -128,8 +128,13 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <p>Total Amount<span class="text-danger maditory">*</p>
-                                                                Rs.<input type="number" class="form-control"
-                                                                    id="totalAmount">
+                                                                {{-- Rs.<input type="number" class="form-control"
+                                                                    id="totalAmount"> --}}
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text"><i class="fa fa-inr"></i></span>
+                                                                        <input type="number" class="form-control"
+                                                                        id="totalAmount">
+                                                                      </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
@@ -150,20 +155,32 @@
                                                             <div class="col-md-4">
                                                                 <p>{{ $val->name }}<span
                                                                         class="text-danger maditory">*</span></p>
-                                                                Rs.<input type="number"
+                                                                {{-- Rs.<input type="number"
                                                                     class="form-control category-input"
                                                                     data-name="{{ $val->name }}"
+                                                                    name="category[{{ $val->name }}]"> --}}
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text"><i class="fa fa-inr"></i></span>
+                                                                        <input type="number" class="form-control category-input"
+                                                                        data-name="{{ $val->name }}"
                                                                     name="category[{{ $val->name }}]">
+                                                                      </div>
                                                             </div>
                                                             @endforeach
                                                             @foreach($categories1 as $val)
                                                             <div class="col-md-4">
                                                                 <p>{{ $val->name }}<span
                                                                         class="text-danger maditory">*</span></p>
-                                                                Rs.<input type="number"
+                                                                {{-- Rs.<input type="number"
                                                                     class="form-control category-input"
                                                                     data-name="{{ $val->name }}"
+                                                                    name="category[{{ $val->name }}]"> --}}
+                                                                    <div class="input-group mb-3">
+                                                                        <span class="input-group-text  "><i class="fa fa-inr"></i></span>
+                                                                        <input type="number" class="form-control category-input"
+                                                                        data-name="{{ $val->name }}"
                                                                     name="category[{{ $val->name }}]">
+                                                                      </div>
                                                             </div>
                                                             @endforeach
                                                         </div>

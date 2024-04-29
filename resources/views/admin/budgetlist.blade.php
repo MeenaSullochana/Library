@@ -131,7 +131,7 @@
 																		<rect width="21" height="21" fill="white" transform="translate(31 9) rotate(90)"></rect>
 																	</clipPath>
 																</defs> -->
-                                                            <!-- </svg> --> -->
+                                                            <!-- </svg> --> 
                                                         </a>
                                                     </div>
                                                 </div>
