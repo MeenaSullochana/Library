@@ -217,8 +217,8 @@
             <div class="modal-content">
             <div class="modal-body">
             <!-- <p>Our payment gateway is currently being set up. Book procurement applications will be possible once it's fully functional. We'll notify you when it's ready.</p> -->
-                <p>Comming Zoon</p>
-                <p>Number Of Book Selected : </p>
+                <!-- <p>Comming Zoon</p> -->
+                <p>Number Of Books Selected : </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
