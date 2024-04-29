@@ -19,6 +19,9 @@ use App\Models\Notifications;
 use App\Models\Admin;
 use App\Models\Procurementpaymrnt;
 use App\Models\Booksubject;
+use App\Models\bookcopies;
+
+
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 class BookController extends Controller
@@ -465,7 +468,25 @@ public function procurecompleted(){
     $data=Book::where('user_id','=',$id)->where('book_procurement_status','=',1)->where('book_status','=',1)->get();
     return view('publisher.book_procurement_complete')->with('data',$data);
 }
-
+public function procurement_samplebook(){
+ 
+    $id=auth('publisher')->user()->id;
+    $data=Book::where('user_id','=',$id)->where('book_procurement_status','=',"5")->where('book_status','=',null)->get(); 
+    return view('publisher.procurement_samplebook')->with('data',$data); 
+}
+public function procurement_samplebookpending(){
+    $id=auth('publisher')->user()->id;
+     $data1=Book::where('user_id','=',$id)->where('book_procurement_status','=',"6")->where('book_status','=',null)->get(); 
+     $data=[];
+     foreach($data1 as $key=>$val){
+         $bookcopies=bookcopies::where('bookid','=',$val->id)->first();
+           $copies=  json_decode($bookcopies->copies);
+           $val->copies=$copies;
+           array_push($data,$val);
+         }
+    
+    return view('publisher.procurement_samplebookpending')->with('data',$data); 
+}
 public function bookupdatedandreturn(Request $request){
     $id=auth('publisher')->user()->id;
     $data1=Book::where('user_id','=',$id)->where('id','=',$request->id)->first();
@@ -964,4 +985,26 @@ if(isset($request->back_img)){
         
         return response()->json(['subjects' => $subjects]);
     }
+
+    public function procurementbokkcopies(Request $request){
+        $bookcopies=new bookcopies();
+    
+        $bookcopies->bookid =  $request->bookid;
+        $bookcopies->booktitle =  $request->booktitle;
+        $bookcopies->copies =  json_encode($request->datarec);
+        $bookcopies->userid =  auth('publisher')->user()->id;
+        $bookcopies->usertype =  auth('publisher')->user()->usertype;
+    
+     
+        if($bookcopies->save()){
+    
+            $book =Book::find($request->bookid);
+            $book->book_procurement_status="6";
+            $book->save();
+            return response()->json(['success' => 'copies send successfull']);
+    
+        }
+    
+    }
+
 }

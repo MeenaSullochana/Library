@@ -206,7 +206,10 @@ Route::prefix('publisher')->group(function () {
 
      Route::post('/sendnegotiationsamount',[BookController::class,'sendnegotiationsamount']);
 
-
+     Route::get('/procurement_samplebook',[BookController::class,'procurement_samplebook']);
+     Route::get('/procurement_samplebookpending',[BookController::class,'procurement_samplebookpending']);
+   
+     Route::post('/procurementbokkcopies',[BookController::class,'procurementbokkcopies']);
 
 
     });

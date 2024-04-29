@@ -177,7 +177,7 @@
                                             @endphp
 
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-success count">{{ $copiescount }}</h3>
+                                                <h3 class="text-success count">{{count($bookcopies4) * $copiescount }}</h3>
                                                 <span>Total Book Copies</span>
                                             </div>
                                         </div>

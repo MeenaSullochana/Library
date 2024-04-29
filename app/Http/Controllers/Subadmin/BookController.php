@@ -23,6 +23,9 @@ use Illuminate\Support\Str;
 use App\Models\ApplicationApply;
 use App\Models\Distributor;
 use App\Models\PublisherDistributor; 
+use App\Models\bookcopies; 
+
+
 
 class BookController extends Controller
 {
@@ -1215,6 +1218,34 @@ return response()->json($data);
         return redirect('sub_admin/book_manageview');  
   }
   
+
+
+  public function procurement_samplebookpending(){
+    $data1=Book::where('book_procurement_status','=',"6")->where('book_status','=',null)->get(); 
+     $data=[];
+     foreach($data1 as $key=>$val){
+         $bookcopies=bookcopies::where('bookid','=',$val->id)->first();
+           $copies=  json_decode($bookcopies->copies);
+           $val->copies=$copies;
+           array_push($data,$val);
+         }
+    
+    return view('sub_admin.procurement_samplebookpending')->with('data',$data); 
+}
+
+
+public function procurement_samplebookcomplete(){
+  $data1=Book::where('book_procurement_status','=',"1")->where('book_status','=',null)->get(); 
+   $data=[];
+   foreach($data1 as $key=>$val){
+       $bookcopies=bookcopies::where('bookid','=',$val->id)->first();
+         $copies=  json_decode($bookcopies->copies);
+         $val->copies=$copies;
+         array_push($data,$val);
+       }
+  
+  return view('sub_admin.procurement_samplebookcomplete')->with('data',$data); 
+}
     } 
     
     

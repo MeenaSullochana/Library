@@ -25,7 +25,7 @@ class ReviewerController extends Controller
 {
         
     public function createreviewer(Request $req){
-     
+    
         $validator = Validator::make($req->all(),[
             'reviewerType'=>'required|string',
         ]);
@@ -68,7 +68,7 @@ class ReviewerController extends Controller
                 $reviewer->libraryType = $req->libraryType;
                 $reviewer->libraryName = $req->libraryName;
                 $reviewer->email = $req->email;
-                $reviewer->subject = $req->subject;
+                $reviewer->subject = json_encode($req->subject);
                 $reviewer->district = $req->district;
                 $reviewer->phoneNumber = $req->phoneNumber; 
                 $reviewer->password=Hash::make($req->password);
@@ -131,7 +131,7 @@ class ReviewerController extends Controller
             $reviewer=new Reviewer();
             $reviewer->reviewerType = $req->reviewerType;
             $reviewer->name = $req->name;
-            $reviewer->subject = $req->subject;
+            $reviewer->subject = json_encode($req->subject);
             $reviewer->designation = $req->designation;
             $reviewer->organisationDetails = $req->organisationDetails;
             $reviewer->email = $req->email;

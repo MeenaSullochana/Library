@@ -21,9 +21,9 @@
       https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.css
       " rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="shortcut icon" type="image/png" href="{{ asset('publisher_and_distributor/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('publisher/images/fevi.svg') }}">
     <?php
-        include "publisher_and_distributor/plugin/plugin_css.php";
+        include "publisher/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -46,7 +46,7 @@
         <!--**********************************
             Nav header start
             ***********************************-->
-        @include ('publisher_and_distributor.navigation')
+        @include ('publisher.navigation')
         <!--**********************************
             Sidebar end
             ***********************************-->
@@ -92,7 +92,7 @@
                                                 <td data-label="Book ID">{{$val->product_code}}</td>
                                                 <td style="white-space:normal;" data-label="Title">
                                                     <h6><a class="text-left"
-                                                            href="/publisher_and_distributor/book_manage_view/{{$val->id}}">{{$val->book_title}}</a>
+                                                            href="/publisher/book_manage_view/{{$val->id}}">{{$val->book_title}}</a>
                                                     </h6>
                                                     <span class="text-left">{{$val->subtitle}}</span>
                                                 </td>
@@ -104,11 +104,11 @@
                                                 </td>
                                                 <td data-label="control">
 
-                                                    <a href="/publisher_and_distributor/book_manage_view/{{$val->id}}"
+                                                    <a href="/publisher/book_manage_view/{{$val->id}}"
                                                         class="btn btn-success shadow btn-xs sharp me-1">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
-                                                    <!-- <a href="/publisher_and_distributor/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                    <!-- <a href="/publisher/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                             <i class="fa fa-eye-slash"></i>
                                             </a> -->
 
@@ -145,7 +145,7 @@
          Main wrapper end
          ***********************************-->
     <?php
-         include "publisher_and_distributor/plugin/plugin_js.php";
+         include "publisher/plugin/plugin_js.php";
      ?>
     <!-- Modal Confirm Apply Procurement-->
     <div class="modal fade" id="exampleModalCenter">
@@ -347,14 +347,14 @@ $(document).ready(function() {
             });
             $.ajax({
                 type: "post",
-                url: "/publisher_and_distributor/procurementbokkcopies",
+                url: "/publisher/procurementbokkcopies",
                 data: data,
                 dataType: "json",
                 success: function(response) {
                     if (response.success) {
                         $('#ModalConfirmCenter').modal('hide');
                         setTimeout(function() {
-                 window.location.href ="/publisher_and_distributor/procurement_samplebook"
+                 window.location.href ="/publisher/procurement_samplebook"
                   }, 3000);
                         toastr.success(response.success, {
                             timeout: 45000
@@ -366,7 +366,7 @@ $(document).ready(function() {
                             timeout: 45000
                         });
                         setTimeout(function() {
-                 window.location.href ="/publisher_and_distributor/procurement_samplebook"
+                 window.location.href ="/publisher/procurement_samplebook"
                   }, 3000);
 
                     }

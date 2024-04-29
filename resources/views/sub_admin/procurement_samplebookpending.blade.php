@@ -18,9 +18,9 @@
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="images/fevi.svg">
 
-    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
     <?php
-        include "admin/plugin/plugin_css.php";
+        include "sub_admin/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -43,7 +43,7 @@
         <!--**********************************
             Nav header start
             ***********************************-->
-        @include ('admin.navigation')
+        @include ('sub_admin.navigation')
         <!--**********************************
             Sidebar end
             ***********************************-->
@@ -89,7 +89,7 @@
                                                 <td data-label="Book ID">{{$val->product_code}}</td>
                                                 <td style="white-space:normal;" data-label="Title">
                                                     <h6><a class="text-left"
-                                                            href="/admin/book_manage_view/{{$val->id}}">{{$val->book_title}}</a>
+                                                            href="/sub_admin/book_manage_view/{{$val->id}}">{{$val->book_title}}</a>
                                                     </h6>
                                                     <span class="text-left">{{$val->subtitle}}</span>
                                                 </td>
@@ -102,11 +102,11 @@
                                                 </td>
                                                 <td data-label="control">
 
-                                                    <a href="/admin/book_manage_view/{{$val->id}}"
+                                                    <a href="/sub_admin/book_manage_view/{{$val->id}}"
                                                         class="btn btn-success shadow btn-xs sharp me-1">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
-                                                    <!-- <a href="/admin/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                    <!-- <a href="/sub_admin/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                             <i class="fa fa-eye-slash"></i>
                                             </a> -->
 
@@ -143,7 +143,7 @@
          Main wrapper end
          ***********************************-->
     <?php
-         include "admin/plugin/plugin_js.php";
+         include "sub_admin/plugin/plugin_js.php";
      ?>
     <!-- Modal Confirm Apply Procurement-->
 

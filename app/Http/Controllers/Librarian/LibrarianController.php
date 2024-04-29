@@ -696,13 +696,13 @@ public function librarianreturnmessage(Request $req){
       foreach($copies as $val1){
            if($val1->librarytype  ==  auth('librarian')->user()->libraryName && $val1->status  == "0"){
             $val->copiesrec=$val1;
-            if($val->type == "publisher"){
+            if($val->usertype == "publisher"){
               $publisher=Publisher::find($val->userid);
               if($publisher !=null){
                 $val->name=$publisher->publicationName;
               }
                
-            }elseif($val->type == "distributor"){
+            }elseif($val->usertype== "distributor"){
         
               $distributor=Distributor::find($val->userid);
               if($distributor !=null){
@@ -780,15 +780,16 @@ public function librarianreturnmessage(Request $req){
     foreach($bookcopies as $val){
       $copies= json_decode($val->copies);
       foreach($copies as $val1){
+    
            if($val1->librarytype  ==  auth('librarian')->user()->libraryName && $val1->status  == "1"){
             $val->copiesrec=$val1;
-            if($val->type == "publisher"){
+            if($val->usertype == "publisher"){
               $publisher=Publisher::find($val->userid);
               if($publisher !=null){
                 $val->name=$publisher->publicationName;
               }
                
-            }elseif($val->type == "distributor"){
+            }elseif($val->usertype == "distributor"){
         
               $distributor=Distributor::find($val->userid);
               if($distributor !=null){
@@ -807,7 +808,7 @@ public function librarianreturnmessage(Request $req){
      }
 
     }
- 
+  
     return view('librarian.bookcopies_completelist')->with('data',$data); 
 
  

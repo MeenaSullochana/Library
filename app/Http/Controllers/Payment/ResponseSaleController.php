@@ -124,14 +124,16 @@ class ResponseSaleController extends Controller
         }
          if($usertype == "publisher"){
                 $user = Publisher::where('email',$email)->first();
-             
+               
                 if ($user) {
                     if ($password == $user->password) {
                         Auth::guard('publisher')->login($user);
                     }
                 }
                 $url = "/publisher/index";
+          
          }else if($usertype == "distributor"){
+           
             $user = Distributor::where('email',$email)->first();
              
             if ($user) {

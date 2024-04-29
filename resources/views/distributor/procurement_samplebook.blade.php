@@ -21,9 +21,9 @@
       https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.css
       " rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="shortcut icon" type="image/png" href="{{ asset('publisher_and_distributor/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('distributor/images/fevi.svg') }}">
     <?php
-        include "publisher_and_distributor/plugin/plugin_css.php";
+        include "distributor/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -46,7 +46,7 @@
         <!--**********************************
             Nav header start
             ***********************************-->
-        @include ('publisher_and_distributor.navigation')
+        @include ('distributor.navigation')
         <!--**********************************
             Sidebar end
             ***********************************-->
@@ -92,7 +92,7 @@
                                                 <td data-label="Book ID">{{$val->product_code}}</td>
                                                 <td style="white-space:normal;" data-label="Title">
                                                     <h6><a class="text-left"
-                                                            href="/publisher_and_distributor/book_manage_view/{{$val->id}}">{{$val->book_title}}</a>
+                                                            href="/distributor/book_manage_view/{{$val->id}}">{{$val->book_title}}</a>
                                                     </h6>
                                                     <span class="text-left">{{$val->subtitle}}</span>
                                                 </td>
@@ -100,15 +100,15 @@
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary openModal"
                                                         data-title="{{$val->book_title}}" data-id="{{$val->id}}"
-                                                        id="openModal">Send Book Copies</a>
+                                                        >Send Book Copies</a>
                                                 </td>
                                                 <td data-label="control">
 
-                                                    <a href="/publisher_and_distributor/book_manage_view/{{$val->id}}"
+                                                    <a href="/distributor/book_manage_view/{{$val->id}}"
                                                         class="btn btn-success shadow btn-xs sharp me-1">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
-                                                    <!-- <a href="/publisher_and_distributor/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                    <!-- <a href="/distributor/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                             <i class="fa fa-eye-slash"></i>
                                             </a> -->
 
@@ -145,7 +145,7 @@
          Main wrapper end
          ***********************************-->
     <?php
-         include "publisher_and_distributor/plugin/plugin_js.php";
+         include "distributor/plugin/plugin_js.php";
      ?>
     <!-- Modal Confirm Apply Procurement-->
     <div class="modal fade" id="exampleModalCenter">
@@ -297,12 +297,12 @@ $(document).ready(function() {
         var title = $(this).data('title');
         var id = $(this).data('id');
         $('#booktitle').text('Book Title: ' + title);
-
+        console.log(id);
         $('#hiddenId').val(id);
         $('#hiddentitle').val(title);
 
         $('#ModalConfirmCenter').modal('show');
-        console.log(dataId);
+        // console.log(dataId);
     });
 });
 </script>
@@ -335,11 +335,14 @@ $(document).ready(function() {
                 'status': '0'
             };
             datarec.push(data1, data2, data3);
+        
+
             var data = {
                 'bookid': $('#hiddenId').val(),
                 'booktitle': $('#hiddentitle').val(),
                 'datarec': datarec
             }
+            console.log(data);
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -347,14 +350,14 @@ $(document).ready(function() {
             });
             $.ajax({
                 type: "post",
-                url: "/publisher_and_distributor/procurementbokkcopies",
+                url: "/distributor/procurementbokkcopies",
                 data: data,
                 dataType: "json",
                 success: function(response) {
                     if (response.success) {
                         $('#ModalConfirmCenter').modal('hide');
                         setTimeout(function() {
-                 window.location.href ="/publisher_and_distributor/procurement_samplebook"
+                 window.location.href ="/distributor/procurement_samplebook"
                   }, 3000);
                         toastr.success(response.success, {
                             timeout: 45000
@@ -366,7 +369,7 @@ $(document).ready(function() {
                             timeout: 45000
                         });
                         setTimeout(function() {
-                 window.location.href ="/publisher_and_distributor/procurement_samplebook"
+                 window.location.href ="/distributor/procurement_samplebook"
                   }, 3000);
 
                     }
