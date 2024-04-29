@@ -57,7 +57,7 @@
                         <h3>Create Announcement</h3>
                      </div>
                      <div class="item">
-                       <a href="index.php"> <button type="button" class="btn btn-primary"><i class="fa fa-backward" aria-hidden="true"></i> Back</button></a>
+                       <a href="/admin/anouncemenlist"> <button type="button" class="btn btn-primary"><i class="fa fa-backward" aria-hidden="true"></i> Back</button></a>
                      </div>
                   </div>
                </div>
@@ -182,6 +182,11 @@
     </script>
    </body>
    <style>
+      @media only screen and (max-width: 61.9375rem){
+         .compose-wrapper {
+            height: 100%;
+         }
+      }
       .email-left-box {
       height: calc(58vh - 160px);
       }

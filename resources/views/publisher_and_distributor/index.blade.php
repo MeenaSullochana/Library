@@ -84,7 +84,7 @@
                                                 src="images/crm/party-popper.png" alt=""></h4>
 
 
-                                                <a href="/publisher_and_distributor/publisher_and_dis_profile_view" class="btn btn-primary btn-sm mt-4">View Profile</a>
+                                                <a href="/publisher_and_distributor/book_manage_all" class="btn btn-primary btn-sm mt-4">View Profile</a>
                                     </div>
                                     <img src="images/analytics/developer_male.png" class="harry-img w-25" alt="">
 
@@ -182,7 +182,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6 col-md-6">
+                    <div class="col-xl-6 col-md-12 col-sm-12">
                     <div class="row">
                             <div class="col-xl-6 col-sm-6">
                                 <div class="card">

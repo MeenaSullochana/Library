@@ -162,7 +162,7 @@
                                         <th>Public</th>
                                         <th>Total</th>
                                         <th>  Action</th>
-                                        <th>  Reviwer List</th>
+                                        <th>  reviewer List</th>
 
                                         
                                     </tr>

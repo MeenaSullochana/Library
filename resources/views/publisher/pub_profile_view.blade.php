@@ -342,14 +342,14 @@
                                     <div class="custom-tab-1">
                                         <ul class="nav nav-tabs">
                                             <li class="nav-item"><a href="#info" data-bs-toggle="tab"
-                                                    class="nav-link">Info</a>
+                                                    class="nav-link active show">Info</a>
                                             </li>
                                             <li class="nav-item"><a href="#other_Info" data-bs-toggle="tab"
-                                                    class="nav-link active show">Other Info</a>
+                                                    class="nav-link">Other Info</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content">
-                                            <div id="info" class="tab-pane fade">
+                                            <div id="info" class="tab-pane fade active show">
                                                 <div class="profile-personal-info">
                                                     <h4 class="text-primary mb-4 pt-4 border-bottom-1 pb-3">Users
                                                         Information</h4>
@@ -562,7 +562,7 @@
 
                                                 </div>
                                             </div>
-                                            <div id="other_Info" class="tab-pane fade active show">
+                                            <div id="other_Info" class="tab-pane fade">
                                                 <!--<div class="profile-about-me">-->
                                                 <!--    <div class="pt-4 border-bottom-1 pb-3">-->
                                                 <!--        <h4 class="text-primary">Member in Publishers Association</h4>-->

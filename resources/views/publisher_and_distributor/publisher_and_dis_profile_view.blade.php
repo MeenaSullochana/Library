@@ -155,9 +155,9 @@
 
                                         <h5 class="text-primary d-inline">Latest Book Catalogue</h5>
                                             <div class="row mt-4 sp4" id="lightgallery">
-                                                <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
+                                                <a href="{{asset("publisher_and_distributor/images/proof/BookCatalogue/".$data->bookCatalogue)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/BookCatalogue/".$data->bookCatalogue)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                         <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i>  {{$data->bookCatalogue}} </h3>
 
                                                 </a>
@@ -223,93 +223,93 @@
                                                 @endif
 
                                                  @if($data->panOrTanProof != null)
-                                                      <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/pan_tan/".$data->panOrTanProof)}}"
+                                                      <a href="{{asset("publisher_and_distributor/images/proof/pan_tan/".$data->panOrTanProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/pan_tan/".$data->panOrTanProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/pan_tan/".$data->panOrTanProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i>  PAN / TAN  </h3>
                                                 </a>
                                                 @endif
                                                  @if($data->udyamProof != null)
                                                     <a href="{{asset("publisher_and_distributor/images/proof/udayam/".$data->udyamProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/udayam/".$data->udyamProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/udayam/".$data->udyamProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i> Udyam Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->certificationIncorporationProof != null)
                                                       <a href="{{asset("publisher_and_distributor/images/proof/certification_incon/".$data->certificationIncorporationProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i> Certificate of Incorporation </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->certificationRegistrationProof != null)
                                                       <a href="{{asset("publisher_and_distributor/images/proof/cgReg/".$data->certificationRegistrationProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i>  Certificate of Registration </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->partnershipDeedProof != null)
                                                        <a href="{{asset("publisher_and_distributor/images/proof/pan_deed/".$data->partnershipDeedProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i>  Partnership Deed  </h3>
                                                 </a>
                                                 @endif
                                                   @if($data->moaProof != null)
                                                         <a href="{{asset("publisher_and_distributor/images/proof/moa/".$data->moaProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/moa/".$data->moaProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/moa/".$data->moaProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i> MOA </h3>
                                                 </a>
                                                 @endif
                                                   @if($data->llpProof != null)
                                                         <a href="{{asset("publisher_and_distributor/images/proof/llp_agre/".$data->llpProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/llp_agre/".$data->llpProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/llp_agre/".$data->llpProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i>  LLP Agreement </h3>
                                                 </a>
                                                 @endif
                                                     @if($data->aoaProof != null)
                                                         <a href="{{asset("publisher_and_distributor/images/proof/aoa/".$data->aoaProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/aoa/".$data->aoaProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/aoa/".$data->aoaProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i>  AOA </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->privateTrustProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/privatetrust/".$data->privateTrustProof)}}"
+                                                        <a href="{{asset("publisher_and_distributor/images/proof/privatetrust/".$data->privateTrustProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/privatetrust/".$data->privateTrustProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/privatetrust/".$data->privateTrustProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i>  Private Trust Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->privateSocietyProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/privatesociety/".$data->privateSocietyProof)}}"
+                                                        <a href="{{asset("publisher_and_distributor/images/proof/privatesociety/".$data->privateSocietyProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/privatesociety/".$data->privateSocietyProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/privatesociety/".$data->privateSocietyProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i>  Private Society Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->institutionProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/institution/".$data->institutionProof)}}"
+                                                        <a href="{{asset("publisher_and_distributor/images/proof/institution/".$data->institutionProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/institution/".$data->institutionProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/institution/".$data->institutionProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i> Government Institutional Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->trustFoundationProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
+                                                        <a href="{{asset("publisher_and_distributor/images/proof/trustfoundation/".$data->trustFoundationProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i> Government Trust/Foundation Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
                                                 @if($data->societyProof != null)
-                                                        <a href="#" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/society/".$data->societyProof)}}"
+                                                        <a href="{{asset("publisher_and_distributor/images/proof/society/".$data->societyProof)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/society/".$data->societyProof)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/society/".$data->societyProof)}}"
-                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i> Government Society Publication Registration Certificate </h3>
                                                 </a>
                                                 @endif
@@ -548,7 +548,7 @@
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
                                                             <h5 class="f-w-500">Number of Books Published in the last 3
-                                                                years<span class="pull-end">:</span></h5>
+                                                                years</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
                                                             <span>: <b class="ms-3">{{$data->bookCountLast3}}</b></span>
@@ -693,7 +693,7 @@
                                                          <a href="{{asset("publisher_and_distributor/images/proof/authorization/".$val->authorization_letter)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/authorization/".$val->authorization_letter)}}"
                                                     data-src="{{asset("publisher_and_distributor/images/proof/authorization/".$val->authorization_letter)}}"
                                                     class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1">Authorization  Letter</h3>
+                                                    <h3  class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i> Authorization  Letter</h3>
                                                 </a>
                                         </tr>
 
@@ -772,8 +772,8 @@
                                                 <td data-label="Document">
                                                     <a href="{{asset("publisher_and_distributor/images/proof/sub_doc/".$val->subsidiary_doc)}}" data-exthumbimage="{{asset("publisher_and_distributor/images/proof/sub_doc/".$val->subsidiary_doc)}}"
                                                         data-src="{{asset("publisher_and_distributor/images/proof/sub_doc/".$val->subsidiary_doc)}}"
-                                                        class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                        <h3 class="btn btn-primary light btn-xs mb-1"> {{$val->subsidiary_doc}} </h3>
+                                                        class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
+                                                        <h3 class="btn btn-primary light btn-xs mb-1"><i class="fa fa-download"></i> {{$val->subsidiary_doc}} </h3>
                                                     </a>
                                                 </td>
                                             </tr>

@@ -126,9 +126,8 @@
                                                                 <div class="mb-3">
                                                                     <label class="form-label">Subject<span
                                                                             class="text-danger maditory">*</span></label>
-                                                                    <input type="text"
-                                                                        class="form-control bg-transparent" id="subject"
-                                                                        placeholder=" Subject:">
+                                                                    <input type="text" class="form-control bg-transparent"
+                                                                        id="subject" placeholder=" Subject">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -233,92 +232,91 @@
     ?>
 </body>
 <script>
-$(document).ready(function() {
-    $('#submitForm').on('click', function() {
-        if ($("#libraryType").val() === '') {
-            toastr.error("Select Librarytype ", {
-                timeOut: 2000
-            });
-            return;
-        }
-        if ($("#subject").val() === '') {
-            toastr.error("Enter subject ", {
-                timeOut: 2000
-            });
-            return;
-        }
-        if ($("#description").val() === '') {
-            toastr.error("Enter description ", {
-                timeOut: 2000
-            });
-            return;
-        }
-        if ($("#totalAmount").val() === '') {
-            toastr.error("Enter totalAmount ", {
-                timeOut: 2000
-            });
-            return;
-        }
-        var categoryData = [];
-
-
-        $('.category-input').each(function() {
-            var name = $(this).data('name');
-            var amount = $(this).val().trim();
-
-            if (amount === '') {
-
-                toastr.error("Please enter an amount for " + name, {
+    $(document).ready(function() {
+        $('#submitForm').on('click', function() {
+            if ($("#libraryType").val() === '') {
+                toastr.error("Select Librarytype ", {
                     timeOut: 2000
                 });
-                dd();
-            } else {
-                var category = {
-                    name: name,
-                    amount: amount
-                };
-                categoryData.push(category);
+                return;
             }
-        });
-
-
-
-        var data = {
-            libraryType: $("#libraryType").val(),
-            subject: $("#subject").val(),
-            description: $("#description").val(),
-            CategorieAmount: categoryData,
-            totalAmount: $("#totalAmount").val(),
-            type: "bookbudget"
-        };
-
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            if ($("#subject").val() === '') {
+                toastr.error("Enter subject ", {
+                    timeOut: 2000
+                });
+                return;
             }
-        });
-        $.ajax({
-            url: "/admin/budgetadd",
-            type: "POST",
-            data: data,
-            success: function(response) {
-                if (response.success) {
-                    toastr.success(response.success, {
-                        timeout: 2000
+            if ($("#description").val() === '') {
+                toastr.error("Enter description ", {
+                    timeOut: 2000
+                });
+                return;
+            }
+            if ($("#totalAmount").val() === '') {
+                toastr.error("Enter totalAmount ", {
+                    timeOut: 2000
+                });
+                return;
+            }
+            var categoryData = [];
+
+
+            $('.category-input').each(function() {
+                var name = $(this).data('name');
+                var amount = $(this).val().trim();
+
+                if (amount === '') {
+
+                    toastr.error("Please enter an amount for " + name, {
+                        timeOut: 2000
                     });
-                    $('#formId')[0].reset();
-
+                    dd();
                 } else {
-                    toastr.error(response.error, {
-                        timeout: 2000
-                    });
+                    var category = {
+                        name: name,
+                        amount: amount
+                    };
+                    categoryData.push(category);
                 }
-            }
-        });
+            });
 
+
+
+            var data = {
+                libraryType: $("#libraryType").val(),
+                subject: $("#subject").val(),
+                description: $("#description").val(),
+                CategorieAmount: categoryData,
+                totalAmount: $("#totalAmount").val(),
+                type: "bookbudget"
+            };
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "/admin/budgetadd",
+                type: "POST",
+                data: data,
+                success: function(response) {
+                    if (response.success) {
+                        toastr.success(response.success, {
+                            timeout: 2000
+                        });
+                        $('#formId')[0].reset();
+
+                    } else {
+                        toastr.error(response.error, {
+                            timeout: 2000
+                        });
+                    }
+                }
+            });
+
+        });
     });
-});
 </script>
 
 

@@ -179,7 +179,7 @@
                                         <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                         colspan="1" aria-label="Action: activate to sort column ascending"
                                         style="width: 87.4688px;">  Action</th>
-                                        <th>Reviwer List</th>
+                                        <th>reviewer List</th>
                                     </tr>
                                 </thead>
                                 <tbody>
