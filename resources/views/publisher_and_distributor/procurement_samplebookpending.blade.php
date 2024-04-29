@@ -98,7 +98,7 @@
                                                 </td>
 
                                                 <td data-label="Status">
-                                                    <a href="#" class="badge bg-primary"
+                                                    <a href="#" class="badge bg-primary openModal"
                                                         data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
                                                         id="openModal">Send Book Copies</a>
                                                 </td>
@@ -191,7 +191,7 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function() {
-    $('#openModal').on('click', function() {
+    $('.openModal').on('click', function() {
         var title = $(this).data('title');
         var id = $(this).data('id');
         var copies = $(this).data('copies');

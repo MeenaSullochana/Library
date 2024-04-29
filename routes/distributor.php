@@ -180,5 +180,12 @@ Route::get('/report_download', function () {return view('distributor.report_down
       Route::post('/update/book',[BookController::class,'update']);
       Route::post('/remove-image', [BookController::class,'removeImage']);
       Route::post('/remove-image-highlights', [BookController::class,'removeImageHighlights']);
-});
+
+      Route::get('/procurement_samplebook',[BookController::class,'procurement_samplebook']);
+      Route::get('/procurement_samplebookpending',[BookController::class,'procurement_samplebookpending']);
+    
+      Route::post('/procurementbokkcopies',[BookController::class,'procurementbokkcopies']);
+ 
+
+    });
 });

@@ -1923,8 +1923,9 @@
                             <span class="nav-text">Book Sample Copies </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="procurement_samplebookpending">Sample Book Copies </a></li>
-                         
+                            <li><a href="procurement_samplebookpending">Sample Book Unreceive Copies </a></li>
+                            <li><a href="procurement_samplebookcomplete">Sample Book Receive  Copies </a></li>
+
                         </ul>
                     </li>
                     <li>
@@ -2040,8 +2041,6 @@
                                         <li><a href="magazine_order_reject">Cancelled Order List</a></li>
                                     </ul>
                             </li>
-
-                            
                             <li><a class="has-arrow" href="#" aria-expanded="false">Magazines</a>
                                 <ul aria-expanded="false">
                                     <li><a href="magazine_order_list">Magazine Order List </a></li>
@@ -2088,18 +2087,7 @@
                             </li>  --}}
                         </ul>
                     </li>
-                    {{-- <li>
-                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                            <i class="bi bi-bag"></i>
-                            <span class="nav-text">Order Management</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="manage_order_list">Order List </a></li>
-                            <li><a href="manage_pending_order_list">Pending Order List</a></li>
-                            <li><a href="manage_completed_order_list">Completed Order List</a></li>
-                            <li><a href="manage_rejected_order_list">Cancelled Order List</a></li>
-                        </ul>
-                    </li> --}}
+             
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-cash-stack"></i>

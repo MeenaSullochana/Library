@@ -1319,6 +1319,9 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/publisher/procurement">Apply For Procurement</a></li>
+							<li><a href="/publisher/procurement_samplebook">Procurement Sample Book Copies send list</a></li>
+							<li><a href="/publisher/procurement_samplebookpending">Procurement Sample Book Copies pending list</a></li>
+
                             {{-- <li><a href="/publisher/procurement_list">Pending List </a></li>
 							<li><a href="/publisher/book_updatelist">Return Correction Book List</a></li>
 

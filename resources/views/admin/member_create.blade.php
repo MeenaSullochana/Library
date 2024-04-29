@@ -164,19 +164,16 @@
                                                                 <label class="form-label">Subject<span
                                                                         class="text-danger maditory">*</span></label>
                                                                 <!-- <input type="text" class="form-control" placeholder="Enter the Subject" id="subject" Required> -->
-                                                                <select class="form-select bg-white" id="subject"
-                                                                    name="subject" required>
-                                                                    <option value="">Select One</option>
-                                                                    @php
-                                                                    $categori =
-                                                                    DB::table('book_subject')->where('status','=','1')->get();
-                                                                    @endphp
-                                                                    @foreach($categori as $val)
-                                                                    <option value="{{$val->name}}">{{$val->name}}
-                                                                    </option>
-
-                                                                    @endforeach
-                                                                </select>
+                                                                <select id="limit-selection" name=subject[] multiple
+                                                                class="select2 subject">
+                                                                @php
+                                                                $categori =
+                                                                DB::table('book_subject')->where('status','=','1')->get();
+                                                                @endphp
+                                                                @foreach($categori as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach
+                                                            </select>
                                                             </div>
                                                             <div class="col-sm-12 mb-3" id="basic5"
                                                                 style="display: none;">
@@ -680,7 +677,7 @@ $(document).on('click', '#submitButton', function(e) {
     var phoneNumber = $('#phoneNumber').val();
     var organisationDetails = $('#organisationDetails').val();
     var designation = $('#designation').val();
-    var subject = $('#subject').val();
+    var subject = $('select[name="subject[]"]').val();
     var name = $('#name').val();
     var reviewerType = $('#reviewerType').val();
     var libraryType = $('#libraryType').val();
@@ -872,7 +869,7 @@ document.getElementById('reviewerType').addEventListener('change', function() {
         $('#district').val('');
         // $('#Batch').val('');
         $('#Category').val('');
-        $('#subject').val('');
+        $('select[name="subject[]"]').val(null).trigger('change');
         $('input[type=password]').val('');
         $('input[type=email]').val('');
 
@@ -914,7 +911,7 @@ document.getElementById('reviewerType').addEventListener('change', function() {
         $('#libraryType').val('');
         $('input[type=password]').val('');
         $('input[type=email]').val('');
-        $('#subject').val('');
+        $('select[name="subject[]"]').val(null).trigger('change');
 
     } else {
         bankDetailsFields.style.display = 'block';
@@ -934,7 +931,7 @@ document.getElementById('reviewerType').addEventListener('change', function() {
         $('input[type=text]').val('');
         $('input[type=password]').val('');
         $('input[type=email]').val('');
-        $('#subject').val('');
+        $('select[name="subject[]"]').val(null).trigger('change');
 
         $('input[type=number]').val('');
         $('#district').val('');

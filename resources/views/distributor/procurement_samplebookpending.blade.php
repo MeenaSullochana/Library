@@ -17,10 +17,13 @@
     <title>Government of Tamil Nadu - Book Procurement</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="images/fevi.svg">
-
-    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
+    <link href="
+      https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.css
+      " rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('distributor/images/fevi.svg') }}">
     <?php
-        include "admin/plugin/plugin_css.php";
+        include "distributor/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -43,7 +46,7 @@
         <!--**********************************
             Nav header start
             ***********************************-->
-        @include ('admin.navigation')
+        @include ('distributor.navigation')
         <!--**********************************
             Sidebar end
             ***********************************-->
@@ -56,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>procurement sample Books Unreceive List</b>
+                                <b>procurement Send sample Books List</b>
                             </h3>
 
                         </div>
@@ -89,24 +92,23 @@
                                                 <td data-label="Book ID">{{$val->product_code}}</td>
                                                 <td style="white-space:normal;" data-label="Title">
                                                     <h6><a class="text-left"
-                                                            href="/admin/book_manage_view/{{$val->id}}">{{$val->book_title}}</a>
+                                                            href="/distributor/book_manage_view/{{$val->id}}">{{$val->book_title}}</a>
                                                     </h6>
                                                     <span class="text-left">{{$val->subtitle}}</span>
                                                 </td>
 
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary openModal"
-                                                        data-title="{{$val->book_title}}" data-id="{{$val->id}}"
-                                                        data-copies="{{ json_encode($val->copies) }}"
-                                                        id="openModal">View</a>
+                                                        data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
+                                                        id="openModal">Send Book Copies</a>
                                                 </td>
                                                 <td data-label="control">
 
-                                                    <a href="/admin/book_manage_view/{{$val->id}}"
+                                                    <a href="/distributor/book_manage_view/{{$val->id}}"
                                                         class="btn btn-success shadow btn-xs sharp me-1">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
-                                                    <!-- <a href="/admin/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                    <!-- <a href="/distributor/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                             <i class="fa fa-eye-slash"></i>
                                             </a> -->
 
@@ -143,7 +145,7 @@
          Main wrapper end
          ***********************************-->
     <?php
-         include "admin/plugin/plugin_js.php";
+         include "distributor/plugin/plugin_js.php";
      ?>
     <!-- Modal Confirm Apply Procurement-->
 
@@ -164,10 +166,10 @@
                     </h5>
                     </h5>
                     <br>
-                    <div id="rowrecord">
-
-
-                    </div>
+                    <div  id="rowrecord">
+                
+                
+                 </div>
                 </div>
 
                 <div class="modal-footer">
@@ -190,39 +192,34 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
     $('.openModal').on('click', function() {
-
         var title = $(this).data('title');
         var id = $(this).data('id');
         var copies = $(this).data('copies');
         $('#booktitle').text('Book Title: ' + title);
-
+       
         var content = ""; // Initialize an empty string to store the generated HTML content
 
         // Loop through each copy in the 'copies' array
         copies.forEach(function(val) {
             content += '<div class="row">' +
-                '<div class="col-md-6">' +
-                '<div class="form-group">' +
-                '<label for="inputNumberBooks1">Library Type</label>' +
-                '<input type="text" class="form-control" value="' + val.librarytype +
-                '" id="librarytype1" name="inputNumberBooks1" readonly>' +
-                '</div>' +
-                '</div>' +
-                '<div class="col-md-3">' +
-                '<div class="form-group">' +
-                '<label for="inputNumberBooks1">Book Copies</label>' +
-                '<input type="text" class="form-control" id="copies1" value="' + val.copies +
-                '" name="inputNumberBooks1" readonly>' +
-                '</div>' +
-                '</div>' +
-                '<div class="col-md-3">' +
-                '<div class="form-check">' +
-                '<input  type="button"' + (val.status == "0" ? 'value="Unverified"' :
-                    'value="Verified"') + ' class="mt-4 btn btn-' + (val.status == "0" ?
-                    'warning' : 'success') + '">' +
-                '</div>' +
-                '</div>' +
-                '</div>';
+    '<div class="col-md-6">' +
+    '<div class="form-group">' +
+    '<label for="inputNumberBooks1">Library Type</label>' +
+    '<input type="text" class="form-control" value="' + val.librarytype + '" id="librarytype1" name="inputNumberBooks1" readonly>' +
+    '</div>' +
+    '</div>' +
+    '<div class="col-md-3">' +
+    '<div class="form-group">' +
+    '<label for="inputNumberBooks1">Book Copies</label>' +
+    '<input type="text" class="form-control" id="copies1" value="' + val.copies + '" name="inputNumberBooks1" readonly>' +
+    '</div>' +
+    '</div>' +
+    '<div class="col-md-3">' +
+    '<div class="form-check">' +
+    '<input  type="button"' + (val.status == "0" ? 'value="Unverified"' : 'value="Verified"') + ' class="mt-4 btn btn-' + (val.status == "0" ? 'warning' : 'success') + '">' +
+    '</div>' +
+    '</div>' +
+    '</div>';
 
         });
 

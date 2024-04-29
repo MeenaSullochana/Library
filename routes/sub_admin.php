@@ -943,7 +943,9 @@ Route::get('/magazinebudget_add',function(){ return view('admin.magazinebudget_a
   });
   Route::post('/librarianeditnew',[LibrarianController::class,'librarianeditnew']);
 
-
+  Route::get('/procurement_samplebookpending',[BookController::class,'procurement_samplebookpending']);
+  Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
+  
 
     });
 });

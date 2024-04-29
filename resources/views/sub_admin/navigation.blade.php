@@ -1576,7 +1576,17 @@
                             <li><a href="library_unactive_list">Inactive Library </a></li>
                         </ul>
                     </li>
-                  
+                    <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                        <i class="bi bi-bookshelf"></i>
+                            <span class="nav-text">Book Sample Copies </span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/sub_admin/procurement_samplebookpending">Sample Book Unreceive Copies </a></li>
+                            <li><a href="/sub_admin/procurement_samplebookcomplete">Sample Book Receive  Copies </a></li>
+
+                        </ul>
+                    </li>
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-upload"></i>
