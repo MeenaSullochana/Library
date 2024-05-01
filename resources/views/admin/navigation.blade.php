@@ -2076,6 +2076,9 @@
                                     <li><a href="magazine_delivery_list">List Delivery</a></li>
                                     <li><a href="dist_application_approved_list.php">Approved Application</a></li>
                                     <li><a href="dist_application_rejected_list.php">Rejected Application</a></li>
+
+                                    <li><a href="dispatch-year-list">Magazine List</a></li>
+                                    <li><a href="magazine-overview">Overview</a></li>
                                 </ul>
                             </li>
                             {{-- <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor And Publisher Application</a>

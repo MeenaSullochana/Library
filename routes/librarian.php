@@ -67,6 +67,17 @@ Route::prefix('librarian')->group(function () {
     Route::get('/magazine_order_reject',function(){ return view('librarian.magazine_reject_list');});
     Route::get('/magazine_order_complete',function(){ return view('librarian.magazine_complete_list');});
 
+    // Dispatching System magazine-view-freq
+    //Librarian
+    Route::get('/dispatch-magazine-list',function(){ return view('librarian.dispatch_magazine_list');});
+    Route::get('/dispatch-year-list',function(){ return view('librarian.dispatch-year-list');});
+    Route::get('/magazine-view-freq',function(){ return view('librarian.magazine-view-freq');});
+
+    //For DLO
+    Route::get('/magazine-overview',function(){ return view('librarian.dispatch_overview');});
+    Route::get('/magazine-overview-list',function(){ return view('librarian.dispatch_magazine_over_list');});
+    Route::get('/magazine-over-library-list',function(){ return view('librarian.dispatch_library_over_magazine_list');});
+
     Route::get('/meta_book_list',[LibrarianController::class,'metabooklist']);
     Route::post('/librarianapprovestatus',[LibrarianController::class,'librarianapprovestatus']);
     Route::post('/librarianrejectstatus',[LibrarianController::class,'librarianrejectstatus']);

@@ -148,6 +148,15 @@ Route::get('/magazineupdate',function(){
     }
 
 });
+
+
+//For DLO
+Route::get('/library-magazine-list',function(){ return view('admin.dispatch_library_magazine_list');});
+Route::get('/magazine-overview',function(){ return view('admin.dispatch_overview');});
+Route::get('/magazine-overview-list',function(){ return view('admin.dispatch_magazine_over_list');});
+Route::get('/magazine-over-library-list',function(){ return view('admin.dispatch_library_over_magazine_list');});
+
+
 Route::post('/magazine/update/{id}',[MagazineController::class,'magazineupdate']);
 Route::post('/getlanguage', [MagazineController::class, 'getcategory']);
 Route::get('/magazine_order',function(){ return view('admin.magazine_order');});
