@@ -1780,7 +1780,7 @@
                                                 <div class="div">
                                                     <input type="radio" class="ms-2" id="attendingYes" name="sample_file" value="Epub" required>
                                                     <label for="attendingYes">Epub file</label><br>
-                                                    <input type="radio" class="ms-2" id="attendingNo" name="sample_file" value="Pdf">
+                                                    <input type="radio" class="ms-2" id="attendingNo" name="sample_file" accept="application/pdf,application/vnd.ms-excel" value="Pdf">
                                                     <label for="attendingNo">PDF file</label><br>
                                                 </div>
                                             </div>
@@ -1791,7 +1791,7 @@
 
                                                 <div class="col-sm-12 col-md-6  form-group mt-2" style="display:none" id="fileInputNo" class="hidden">
                                                     <label for="fname">Upload PDF file <span class="text-danger ms-2">*</span></label><br>
-                                                    <input type="file" id="sample_pdf" name="sample_pdf" >
+                                                    <input type="file" id="sample_pdf" name="sample_pdf"  accept="application/pdf,application/vnd.ms-excel">
                                                 </div>
                                         </div>
                                     </div>

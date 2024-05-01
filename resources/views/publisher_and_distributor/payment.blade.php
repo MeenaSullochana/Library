@@ -66,7 +66,7 @@
       <!-- Details -->
       <div class="card mb-4 h-auto">
         <div class="card-body">
-          <div class="mb-3 d-flex justify-content-between">
+          <div class="mb-3 d-flex justify-content-end">
             <!-- <div>
               <span class="me-3">22-11-2021</span>
               <span class="me-3">#16123222</span>
@@ -80,8 +80,8 @@
                   <i class="bi bi-three-dots-vertical"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i> Edit</a></li>
-                  <li><a class="dropdown-item" href="#"><i class="bi bi-printer"></i> Print</a></li>
+                  <li><a class="dropdown-item" href="#"><i class="bi bi-pencil"></i> Download</a></li>
+                  {{-- <li><a class="dropdown-item" href="#"><i class="bi bi-printer"></i> Print</a></li> --}}
                 </ul>
               </div>
             </div>
@@ -102,12 +102,12 @@
                 </div>
                 <div class="flex-lg-grow-1 ms-3">
                     <h6 class="small mb-0"><a href="#" class="text-reset">{{$val->book_title}}</a></h6>
-                    <span class="small">Author: {{$val->author_name}}</span>
+                    <span class="small"><b>Author :</b> {{$val->author_name}}</span>
                 </div>
             </div>
         </td>
         <td></td>
-        <td class="text-end">₹ 500</td>
+        <td class="text-end"><i class="fa fa-inr"> 500</td>
     </tr>
 @endforeach
 
@@ -126,8 +126,8 @@
                 <td class="text-danger text-end">-$10.00</td>
               </tr> -->
               <tr class="fw-bold">
-                <td colspan="2">TOTAL</td>
-                <td class="text-end">₹ {{count($data)  *500}}</td>
+                <td>TOTAL</td>
+                <td class="text-end"><i class="fa fa-inr"> {{count($data)  *500}}</td>
               </tr>
             </tfoot>
           </table>
@@ -233,28 +233,46 @@
     <div class="col-lg-4">
       <!-- Customer Notes -->
       <div class="card mb-4 h-auto">
-        <div class="card-body">
-          <h3 class="h6">Customer Notes</h3>
-          <p>Sed enim, faucibus litora velit vestibulum habitasse. Cras lobortis cum sem aliquet mauris rutrum. Sollicitudin. Morbi, sem tellus vestibulum porttitor.</p>
-        </div>
+          <div class="card-body">
+              <h3 class="h6">Customer Notes</h3>
+              <div class="row">
+                  <div class="col-md-6 col-sm-6 col-6">
+                      <p>Publication Name </p>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-6">
+                      <p> <b>: Test</b></p>
+                  </div>
+              </div>
+          </div>
       </div>
       <div class="card mb-4 h-auto">
-        <!-- Shipping information -->
-        <div class="card-body">
-          <h3 class="h6">Shipping Information</h3>
-          <strong>FedEx</strong>
-          <span><a href="#" class="text-decoration-underline" target="_blank">FF1234567890</a> <i class="bi bi-box-arrow-up-right"></i> </span>
-          <hr>
-          <h3 class="h6">Address</h3>
-          <address>
-            <strong>John Doe</strong><br>
-            1355 Market St, Suite 900<br>
-            San Francisco, CA 94103<br>
-            <abbr title="Phone">P:</abbr> (123) 456-7890
-          </address>
-        </div>
+          <!-- Shipping information -->
+          <div class="card-body">
+              <h3 class="h6">User Information</h3>
+              <div class="row">
+                  <div class="col-md-6 col-sm-6 col-6">
+                      <p>Publisher Name </p>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-6">
+                      <p> <b>: Test</b></p>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-6">
+                      <p>Email Id </p>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-6">
+                      <p> <b>: test@gmail.com</b></p>
+                  </div>
+              </div>
+              <hr>
+              <h3 class="h6">Address</h3>
+              <address>
+                  <p><abbr title="address">Address : </abbr>1355 Market St, Suite 900<br>
+                      San Francisco, CA 94103<br></p>
+                  <p><abbr title="Phone">Phone No : </abbr> (123) 456-7890</p>
+              </address>
+          </div>
       </div>
-    </div>
+  </div>
   </div>
             </div>
         </div>

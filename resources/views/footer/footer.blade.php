@@ -1,7 +1,7 @@
         <!-- feature-area-start -->
         <section style="background-image: url(assets/img/footer/footer-shape-1.png);"
             class="feature-area mainfeature__bg grey-bg pt-50 pb-40"
-            data-background="assets/img/footer/footer-shape-1.svg">
+            data-background="assets/img/footer/footer-shape-1.png">
             <!-- <div class="container">
                 <div class="mainfeature__border pb-15">
                     <div class="row row-cols-lg-5 row-cols-md-3 row-cols-2">

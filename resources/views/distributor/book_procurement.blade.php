@@ -223,7 +223,7 @@
                 <div class="modal-body">
                 <!-- <p>Our payment gateway is currently being set up. Book procurement applications will be possible once it's fully functional. We'll notify you when it's ready.</p> -->
                       <!-- <p>Comming Zoon</p>-->
-                    <p>Number Of Books Selected : </p> 
+                    <p>Number of Books Selected : </p> 
 
                 </div>
                 <div class="modal-footer">
@@ -347,7 +347,7 @@
     $(document).ready(function() {
         $('#basicModal').on('shown.bs.modal', function () {
             var checkedBooks = $('#customCheckBox100:checked').length;
-            $('#basicModal .modal-body p:last').text('Number Of Books Selected: ' + checkedBooks);
+            $('#basicModal .modal-body p:last').text('Number of Books Selected: ' + checkedBooks);
         });
     });
 </script>

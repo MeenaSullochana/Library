@@ -98,7 +98,7 @@
                                                 </td>
 
                                                 <td data-label="Status">
-                                                    <a href="#" class="badge bg-primary openModal"
+                                                    <a href="#" class="badge bg-primary text-white openModal"
                                                         data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
                                                         id="openModal">Send Book Copies</a>
                                                 </td>
@@ -151,7 +151,7 @@
 
     <!-- Modal inform Procurement-->
     <div class="modal fade" id="ModalConfirmCenter">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <!-- <h5 class="modal-title">Are you send book Copies?</h5> -->
