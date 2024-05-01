@@ -509,6 +509,15 @@
 						</ul>
 					</li> -->
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                        <i class="bi bi-blockquote-left"></i>
+                        <span class="nav-text">Dispatch Magazine</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/librarian/dispatch-year-list">Magazine List</a></li>
+                            <li><a href="/librarian/magazine-overview">Overview</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-chat-dots"></i>
                             <span class="nav-text">Feedback Manage</span>
                         </a>
@@ -635,4 +644,4 @@ $(document).on('click', '.notify', function(e) {
     });
 
 });
-        </script>
+</script>

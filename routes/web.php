@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 include(base_path('routes/auth.php'));
 include(base_path('routes/adminauth.php'));
 include(base_path('routes/admin.php'));
@@ -27,7 +28,10 @@ Route::get('/invoice-pdf',function(){return view('invoice-view');});
 Route::get('/policy',function(){return view('policy');});
 
 Route::get('/payment',function(){return view('payment.payment');});
-
 Route::get('/testpdf',function(){return view('cartpdfview');});
 
+Route::get('/privacy-policy',function(){return view('privacy-policy');});
+Route::get('/return-and-refund-policy',function(){return view('return-and-refund-policy');});
+Route::get('/terms-and-conditions',function(){return view('terms-and-conditions');});
+ 
 
