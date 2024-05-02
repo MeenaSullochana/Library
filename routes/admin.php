@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\BudgetController;
 use App\Http\Controllers\Admin\LibraryTypeController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\MagazineController;
-
+use App\Http\Controllers\Admin\SubscriptionController;
 
 
 
@@ -1027,6 +1027,7 @@ Route::get('report_download_nonoeder_magazine',function(){ return view('admin.re
 Route::get('/procurement_samplebookpending',[BookController::class,'procurement_samplebookpending']);
 Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
 
-
+//Subscription
+Route::get('/subscription',[SubscriptionController::class,'subscription']);
     });
 });

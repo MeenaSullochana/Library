@@ -771,71 +771,140 @@ public function reviewerpublic($id){
             
 //          }
 // }
+// public function importFile(Request $request)
+// {
+//     try {    
+//         $admin = auth('admin')->user();
+//         if ($request->hasFile('file_reviewer')) {
+//             $file = $request->file('file_reviewer');
+//             $fileContents = file($file->getPathname());
+//             $emails = [];
+//             foreach ($fileContents as $line) {
+//                 $data = str_getcsv($line);
+//                 if ($data[0] == "internal") {
+//                     if (!empty($data[1]) && !empty($data[5]) && !empty($data[7]) && !empty($data[8])) {
+//                         // Check if the reviewer with the same email already exists
+//                         $reviewer = Reviewer::where('email', $data[7])->exists();
+//                         if ($reviewer) {
+//                             return redirect()->back()->with('error', $data[7] . " already exists");
+//                         }
+//                         // Check if the email is duplicated in the file
+//                         if (in_array($data[7], $emails)) {
+//                             return redirect()->back()->with('error', $data[7] . " Duplicate entry");
+//                         } else {
+//                             $emails[] = $data[7];
+//                         }
+//                     }
+//                 }
+//             }
+//             $review = [];
+//             foreach ($fileContents as $line) {
+//                 $data = str_getcsv($line);
+              
+//                 if ($data[0] == "internal" && isset($data[1]) && isset($data[5]) && isset($data[7]) && isset($data[8])) {
+//                     $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
+//                     $reviewer = new Reviewer();
+            
+//                     $reviewer->reviewerType = $data[0];
+//                     $reviewer->name = $data[4];
+//                     $reviewer->libraryType = $data[1];
+//                     $reviewer->libraryName =$data[2];
+//                     $reviewer->email = $data[7];
+//                     $reviewer->subject = $data[5];
+//                     $reviewer->district = $data[3];
+//                     $reviewer->phoneNumber =$data[6]; 
+//                     $reviewer->password=Hash::make($data[8]);
+//                     $reviewer->role = "reviewer";
+//                     $reviewer->creater = $admin->id; 
+//                     $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
+//                     $reviewer->reviewerId= $randomCode;
+                   
+//                     $reviewer->save();
+                 
+//                 }
+//             }
+//             // return $review;
+//             return redirect()->back();
+//         } else {
+//             return redirect()->back();
+//         }
+//     } catch (Throwable $e) {
+//         // Handle the exception (e.g., log it)
+//         // return $e;
+//         return redirect()->back()->with('error', 'An error occurred while importing.');
+//     }
+// }
 public function importFile(Request $request)
 {
-    try {    
+    try {
         $admin = auth('admin')->user();
         if ($request->hasFile('file_reviewer')) {
             $file = $request->file('file_reviewer');
             $fileContents = file($file->getPathname());
-            $emails = [];
-            foreach ($fileContents as $line) {
-                $data = str_getcsv($line);
-                if ($data[0] == "internal") {
-                    if (!empty($data[1]) && !empty($data[5]) && !empty($data[7]) && !empty($data[8])) {
-                        // Check if the reviewer with the same email already exists
-                        $reviewer = Reviewer::where('email', $data[7])->exists();
-                        if ($reviewer) {
-                            return redirect()->back()->with('error', $data[7] . " already exists");
-                        }
-                        // Check if the email is duplicated in the file
-                        if (in_array($data[7], $emails)) {
-                            return redirect()->back()->with('error', $data[7] . " Duplicate entry");
-                        } else {
-                            $emails[] = $data[7];
-                        }
+            unset($fileContents[0]);
+
+            $batchSize = 100; 
+
+            $chunks = array_chunk($fileContents, $batchSize);
+
+            foreach ($chunks as $chunk) {
+                $librarianId = [];
+                foreach ($chunk as $line) {
+                    $data = str_getcsv($line);
+
+                    $reviewer = Reviewer::where('email', $data[7])->exists();
+                    if ($reviewer ) {
+                        return redirect()->back()->with('errorlib', $data[7] . " already exists");
+                    }
+
+                    if (in_array($data[7], $librarianId)) {
+                        return redirect()->back()->with('errorlib', $data[7] . " Duplicate entry");
+                    } else {
+                        array_push($librarianId, $data[7]);
                     }
                 }
-            }
-            $review = [];
-            foreach ($fileContents as $line) {
-                $data = str_getcsv($line);
-              
-                if ($data[0] == "internal" && isset($data[1]) && isset($data[5]) && isset($data[7]) && isset($data[8])) {
+                
+                foreach ($chunk as $line) {
+                    $data = str_getcsv($line);
                     $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
                     $reviewer = new Reviewer();
-            
                     $reviewer->reviewerType = $data[0];
-                    $reviewer->name = $data[4];
-                    $reviewer->libraryType = $data[1];
-                    $reviewer->libraryName =$data[2];
-                    $reviewer->email = $data[7];
-                    $reviewer->subject = $data[5];
-                    $reviewer->district = $data[3];
-                    $reviewer->phoneNumber =$data[6]; 
+                    $reviewer->libraryType = $data[1]??null;
+                    $reviewer->libraryName =$data[2]??null;
+                    $reviewer->district = $data[3]??null;
+                    $reviewer->name = $data[4]??null;
+                    $reviewer->subject = $data[5]??null;
+                    $reviewer->phoneNumber =$data[6]??null; 
+                    $reviewer->email = $data[7]??null;
                     $reviewer->password=Hash::make($data[8]);
+                    $reviewer->designation = $data[9]??null;
+                    $reviewer->organisationdetails = $data[10] ?? null;
+                    $reviewer->profileImage = $data[11] ?? null;
+                    $reviewer->bankName = $data[12] ?? null;
+                    $reviewer->accountNumber = $data[13]??null;
+                    $reviewer->batch = $data[14] ?? null;
+                    $reviewer->category = $data[15] ?? null;
+                    $reviewer->branch = $data[16] ?? null;
+                    $reviewer->ifscNumber = $data[17] ?? null;
+                    $reviewer->membershipId = $data[18] ?? null;
                     $reviewer->role = "reviewer";
                     $reviewer->creater = $admin->id; 
-                    $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
                     $reviewer->reviewerId= $randomCode;
-                   
                     $reviewer->save();
-                 
                 }
             }
-            // return $review;
-            return redirect()->back();
+
+            return redirect()->back()->with('successlib', 'File imported successfully');
         } else {
-            return redirect()->back();
+            return redirect()->back()->with('errorlib', 'No file uploaded');
         }
-    } catch (Throwable $e) {
+    } catch (\Throwable $e) {
+        return $e;
         // Handle the exception (e.g., log it)
-        // return $e;
-        return redirect()->back()->with('error', 'An error occurred while importing.');
+        return redirect()->back()->with('errorlib', 'An error occurred while importing.');
     }
 }
-
-        }
+}
 
 	
 									
