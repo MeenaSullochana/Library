@@ -534,7 +534,6 @@ public function importFile(Request $request)
                     $library->librarianId = $data[1]??null;
                     $library->libraryName = $data[2]??null;
                     $library->libraryType = $data[3]??null;
-                 
                     $library->street = $data[4]??null;
                     $library->place = $data[5]??null;
                     $library->Village = $data[6]??null;
@@ -547,8 +546,8 @@ public function importFile(Request $request)
                     $library->librarianDesignation = $data[13]??null;
                     $library->phoneNumber = $data[14]??null;
                     $library->door_no= $data[15]??null;
-     
-
+                    $library->subject= $data[16]??null;
+                    $library->email= $data[17]??null;
                     $library->state = "Tamil Nadu";
                     $library->password = Hash::make("12345678");
                     $library->role = "librarian";
