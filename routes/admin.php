@@ -1026,6 +1026,7 @@ Route::get('report_download_nonoeder_magazine',function(){ return view('admin.re
 
 Route::get('/procurement_samplebookpending',[BookController::class,'procurement_samplebookpending']);
 Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
+Route::post('/order_complete_status',[MagazineController::class,'order_complete_status']);
 
 //Subscription
 Route::get('/subscription',[SubscriptionController::class,'subscription']);

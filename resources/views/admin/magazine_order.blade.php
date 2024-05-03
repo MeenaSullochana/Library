@@ -192,121 +192,157 @@
 
                                         <a href="/admin/report_downl_not_order">
                                             <button class="btn btn-primary">
-                                                <span><i class="fa-solid fa-file-excel"></i> >Export Non - Orderers</span>
+                                                <span><i class="fa-solid fa-file-excel"></i> >Export Non -
+                                                    Orderers</span>
                                             </button>
                                         </a>
 
 
 
-                                    </div> 
+                                    </div>
                                 </div>
-                                <hr>
-                                @php
-
-                                $records = DB::table('ordermagazines')
-                                ->where('status', '=', '1')
-                                ->orderBy('created_at', 'asc')
-                                ->get();
-
-                                @endphp
+                                <div class="row">
 
 
-                                <div class="table-responsive">
-                                    <table class="table table-sm mb-0 table-striped student-tbl" id="example3">
-                                        <thead>
-                                            <tr>
+                                    <div class="d-sm-flex align-items-center justify-content-between">
+                                        <button class="btn btn-info assignPro mb-5 justify-content-between"
+                                            data-bs-toggle="modal" data-bs-target="#basicModal">Complete Order</button>
 
-                                                <th>S.No</th>
-                                                <th>Library Id</th>
-                                                <th>Library Type</th>
-                                                <th>Library Name</th>
 
-                                                <th>District</th>
-                                                <th>Contack Number</th>
-                                                <th>Order Id</th>
-                                                <th>Qty</th>
-                                                <th>Total Amount</th>
-                                                <th>Purchase Amount</th>
-                                                <th>Order Status</th>
-                                                <th>Order Date</th>
-                                                <th>Readers Forum</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="customers">
-                                            @foreach($records as $val)
-                                            @php
+                                    </div>
+                                    <hr>
+                                    @php
 
-                                            $librarians = DB::table('librarians')
-                                            ->where('librarianId', '=', $val->libraryid)
-                                            ->first();
-                                            @endphp
-                                            <tr class="btn-reveal-trigger">
-                                                <td class="py-2">{{$loop->index + 1}}</td>
-                                                <td class="py-2">{{$val->libraryid}}</td>
-                                                <td class="py-2">{{$val->libraryType}}</td>
-                                                <td class="py-2">{{ $librarians->libraryName ?? '' }}</td>
-                                                <td class="py-2">{{ $librarians->district ?? '' }}</td>
-                                                <td class="py-2">{{$librarians->phoneNumber}}</td>
-                                                <td class="py-2">{{$val->orderid}}</td>
-                                                <td class="py-2">{{$val->quantity}}</td>
-                                                <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalBudget}}</td>
+                                    $records = DB::table('ordermagazines')
+                                    ->where('status', '=', '1')
+                                    ->orderBy('created_at', 'asc')
+                                    ->get();
 
-                                                <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalPurchased}}
-                                                </td>
-                                                <td class="py-2"> <span class="badge bg-primary">Pending</span></td>
-                                                <td class="py-2">
-                                                    {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}</td>
-                                                <td class="py-2">
-                                                    <button type="button" class="btn btn-primary"
-                                                        data-id="{{ asset('reviewer/readersForum/' . $val->readersForum) }}"
-                                                        data-bs-toggle="modal" data-bs-target="#modalId">VIew
-                                                        ReadersForum Report</button>
+                                    @endphp
 
-                                                </td>
 
-                                                <td class="py-2 text-end">
-                                                    <div class="dropdown"><button
-                                                            class="btn btn-primary tp-btn-light sharp" type="button"
-                                                            data-bs-toggle="dropdown" aria-expanded="false"><span
-                                                                class="fs--1"><svg xmlns="http://www.w3.org/2000/svg"
-                                                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                                    width="18px" height="18px" viewBox="0 0 24 24"
-                                                                    version="1.1">
-                                                                    <g stroke="none" stroke-width="1" fill="none"
-                                                                        fill-rule="evenodd">
-                                                                        <rect x="0" y="0" width="24" height="24"></rect>
-                                                                        <circle fill="#000000" cx="5" cy="12" r="2">
-                                                                        </circle>
-                                                                        <circle fill="#000000" cx="12" cy="12" r="2">
-                                                                        </circle>
-                                                                        <circle fill="#000000" cx="19" cy="12" r="2">
-                                                                        </circle>
-                                                                    </g>
-                                                                </svg></span></button>
-                                                        <div class="dropdown-menu dropdown-menu-end border py-0"
-                                                            style="">
-                                                            <div class="py-2">
-                                                                <a class="dropdown-item"
-                                                                    href="/admin/magazine_order_view/{{$val->id}}"><i
-                                                                        class="fa fa-eye p-2"></i>View Order</a>
-                                                                <a class="dropdown-item"
-                                                                    href="/admin/magazine_invoice_view/{{$val->id}}"><i
-                                                                        class="fa fa-pencil p-2"></i> View Order
-                                                                    Invoice</a>
-                                                                <a class="dropdown-item text-danger delete-status"
-                                                                    data-id="{{$val->id}}"
-                                                                    data-name="{{$librarians->libraryName}}"
-                                                                    data-libid="{{$val->libraryid}}"><i
-                                                                        class="fa fa-trash p-2"></i>Delete</a>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm mb-0 table-striped student-tbl" id="example3">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div
+                                                            class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                id="selectAllIorder" required="">
+                                                            <label class="form-check-label"
+                                                                for="selectAllIorder"></label>
+                                                        </div>
+                                                    </th>
+                                                    <th>S.No</th>
+                                                    <th>Library Id</th>
+                                                    <th>Library Type</th>
+                                                    <th>Library Name</th>
+
+                                                    <th>District</th>
+                                                    <th>Contack Number</th>
+                                                    <th>Order Id</th>
+                                                    <th>Qty</th>
+                                                    <th>Total Amount</th>
+                                                    <th>Purchase Amount</th>
+                                                    <th>Order Status</th>
+                                                    <th>Order Date</th>
+                                                    <th>Readers Forum</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="customers">
+                                                @foreach($records as $val)
+                                                @php
+
+                                                $librarians = DB::table('librarians')
+                                                ->where('librarianId', '=', $val->libraryid)
+                                                ->first();
+                                                @endphp
+                                                <tr class="btn-reveal-trigger">
+                                                    <td>
+                                                        <div
+                                                            class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                            <input type="checkbox" class="form-check-input orderitem"
+                                                                id="checkItem_{{ $val->id }}"
+                                                                data-order-id="{{ $val->id }}" required="">
+                                                            <label class="form-check-label"
+                                                                for="checkItem_{{ $val->id }}"></label>
+                                                        </div>
+                                                    </td>
+                                                    <td class="py-2">{{$loop->index + 1}}</td>
+                                                    <td class="py-2">{{$val->libraryid}}</td>
+                                                    <td class="py-2">{{$val->libraryType}}</td>
+                                                    <td class="py-2">{{ $librarians->libraryName ?? '' }}</td>
+                                                    <td class="py-2">{{ $librarians->district ?? '' }}</td>
+                                                    <td class="py-2">{{$librarians->phoneNumber}}</td>
+                                                    <td class="py-2">{{$val->orderid}}</td>
+                                                    <td class="py-2">{{$val->quantity}}</td>
+                                                    <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalBudget}}
+                                                    </td>
+
+                                                    <td class="py-2"><i class="fa fa-rupee"></i>
+                                                        {{$val->totalPurchased}}
+                                                    </td>
+                                                    <td class="py-2"> <span class="badge bg-primary">Pending</span></td>
+                                                    <td class="py-2">
+                                                        {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}
+                                                    </td>
+                                                    <td class="py-2">
+                                                        <button type="button" class="btn btn-primary"
+                                                            data-id="{{ asset('reviewer/readersForum/' . $val->readersForum) }}"
+                                                            data-bs-toggle="modal" data-bs-target="#modalId">VIew
+                                                            ReadersForum Report</button>
+
+                                                    </td>
+
+                                                    <td class="py-2 text-end">
+                                                        <div class="dropdown"><button
+                                                                class="btn btn-primary tp-btn-light sharp" type="button"
+                                                                data-bs-toggle="dropdown" aria-expanded="false"><span
+                                                                    class="fs--1"><svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                        width="18px" height="18px" viewBox="0 0 24 24"
+                                                                        version="1.1">
+                                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                                            fill-rule="evenodd">
+                                                                            <rect x="0" y="0" width="24" height="24">
+                                                                            </rect>
+                                                                            <circle fill="#000000" cx="5" cy="12" r="2">
+                                                                            </circle>
+                                                                            <circle fill="#000000" cx="12" cy="12"
+                                                                                r="2">
+                                                                            </circle>
+                                                                            <circle fill="#000000" cx="19" cy="12"
+                                                                                r="2">
+                                                                            </circle>
+                                                                        </g>
+                                                                    </svg></span></button>
+                                                            <div class="dropdown-menu dropdown-menu-end border py-0"
+                                                                style="">
+                                                                <div class="py-2">
+                                                                    <a class="dropdown-item"
+                                                                        href="/admin/magazine_order_view/{{$val->id}}"><i
+                                                                            class="fa fa-eye p-2"></i>View Order</a>
+                                                                    <a class="dropdown-item"
+                                                                        href="/admin/magazine_invoice_view/{{$val->id}}"><i
+                                                                            class="fa fa-pencil p-2"></i> View Order
+                                                                        Invoice</a>
+                                                                    <a class="dropdown-item text-danger delete-status"
+                                                                        data-id="{{$val->id}}"
+                                                                        data-name="{{$librarians->libraryName}}"
+                                                                        data-libid="{{$val->libraryid}}"><i
+                                                                            class="fa fa-trash p-2"></i>Delete</a>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -314,23 +350,22 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!--************
+        <!--************
                 Content body end
             *************-->
-    <!--************
+        <!--************
                 Footer start
             *************-->
-    @include ('admin.footer')
-    <!--************
+        @include ('admin.footer')
+        <!--************
                 Footer end
             *************-->
 
-    <!--************
+        <!--************
             Support ticket button start
             *************-->
 
-    <!--************
+        <!--************
             Support ticket button end
             *************-->
 
@@ -386,7 +421,19 @@
     </div>
 
 
-
+    <div class="modal fade" id="basicModal">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-body">
+                <p>Do you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="submitbutton11" class="btn btn-danger light submitbutton11" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="submitbutton" class="btn btn-primary submitbutton">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
     <!--************
             Main wrapper end
         *************-->
@@ -413,6 +460,64 @@
             $('#exampleModal').modal('show');
             console.log(dataId);
         });
+    });
+    </script>
+    <script>
+    $(document).ready(function() {
+        $('#selectAllIorder').on('click', function() {
+           
+            var isChecked = $(this).prop('checked');
+            $('.orderitem').prop('checked', isChecked);
+        });
+    });
+    </script>
+
+    <script>
+    $('.submitbutton').click(function() {
+        $('#submitbutton').prop('disabled',true);
+        $('#submitbutton11').prop('disabled',true);
+
+        var checkebook = $('.orderitem:checked').map(function() {
+            return $(this).data('order-id');
+        }).get();
+
+        var requestData = {
+            orderId: checkebook,
+
+        };
+        console.log(requestData);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/admin/order_complete_status',
+            method: 'POST',
+            data: requestData,
+            success: function (response) {
+              console.log(response.data);
+              if(response.success){
+               $('#basicModal').modal('hide');
+               window.location.href ="/admin/magazine_order"
+               toastr.success(response.success,{timeout:45000});
+               }else{
+                  $('#basicModal').modal('hide');
+                toastr.error(response.error,{timeout:45000});
+                $('#submitbutton').prop('disabled',false);
+                $('#submitbutton11').prop('disabled',false);
+
+               }
+
+            },
+            error: function (xhr, status, error) {
+                $('#submitbutton').prop('disabled',false);
+                $('#submitbutton11').prop('disabled',false);
+
+                console.error('AJAX error:', status, error);
+            }
+        });
+
     });
     </script>
 

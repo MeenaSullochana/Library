@@ -653,8 +653,22 @@ public function get_books($id)
     $books = Book::where('subject', $id)->where('book_procurement_status', '=', '1')->where('book_status', '=', '1')->get();
 
 }
-    $reviewers = Reviewer::where('subject',$id)->where('reviewerType', '=', 'external')->where('status', '=', 1)->get();
+    $reviewers1 = Reviewer::where('reviewerType', '=', 'external')
+                      ->where('status', '=', 1)
+                      ->get();
+  $reviewers=[];          
+   foreach($reviewers1 as $key=>$val){
+    $subjects = json_decode($val->subject);
+    $subjectsArray = explode(',', $subjects);
+    $revin= in_array($id, $subjectsArray);
+    if($revin){
+      array_push($reviewers,$val);
 
+    }
+
+}
+
+ 
     $html = '';
     $htmldata = '';
 
@@ -695,13 +709,18 @@ public function get_books($id)
             }
         }
     }
-
-    if 
-    ($reviewers->isEmpty()) {
+  
+    if (count($reviewers) <= 0){
+    
         $htmldata = '<tr><td colspan="3">No expert reviewers found.</td></tr>';
     } else
      {
+     
+
         foreach ($reviewers as $key => $val) {
+        
+          $subjects = json_decode($val->subject);
+   
             $htmldata .= '<tr>
                 <td>
                 <div class="form-check custom-checkbox checkbox-success check-lg me-3">
@@ -711,20 +730,36 @@ public function get_books($id)
                 </td>
                 <td>' . ($key + 1) . '</td>
                 <td>' . $val->name . '</td>
-                <td>' .$val->subject . '</td>
+                <td>' .$subjects . '</td>
 
             </tr>';
         }
     }
+   
     $tbodyHtml2 = ''; 
     $index1 = 1; 
-    $internals = Reviewer::where('subject',$id)->where('reviewerType', '=', 'internal')->where('status', '=', 1)->get();
+    $internals1 = Reviewer::where('reviewerType', '=', 'internal')->where('status', '=', 1)->get();
+
+    $internals=[];          
+    foreach($internals1 as $key=>$val){
+     $subjects = json_decode($val->subject);
+     $subjectsArray = explode(',', $subjects);
+     $revin= in_array($id, $subjectsArray);
+     if($revin){
+       array_push($internals,$val);
+ 
+     }
+ 
+ }
+
     if 
-    ($internals->isEmpty()) {
+    (count($internals) <= 0) {
         $tbodyHtml2 = '<tr><td colspan="3">No Librarian reviewers found.</td></tr>';
     } else
      {
-    foreach ($internals as $key => $val) {         
+    foreach ($internals as $key => $val) {    
+      $subjects = json_decode($val->subject);
+     
             $tbodyHtml2 .= '<tr>';
             $tbodyHtml2 .= '<td>';
             $tbodyHtml2 .= '<div class="form-check custom-checkbox checkbox-success check-lg me-3">';
@@ -735,15 +770,16 @@ public function get_books($id)
             $tbodyHtml2 .= '<td>' . $index1 . '</td>';
             $tbodyHtml2 .= '<td><span>' . $val->name . '</span></td>';
             $tbodyHtml2 .= '<td><span>' . $val->libraryName . '</span></td>';
-            $tbodyHtml2 .= '<td><span>' . $val->subject . '</span></td>';
+            $tbodyHtml2 .= '<td><span>' . $subjects . '</span></td>';
            
             $tbodyHtml2 .= '</tr>';
             $index1++; 
         
     }
   }
+ 
   if 
-  ($books->isEmpty()) {
+  (count($books) <= 0) {
       $tbodyHtml3 = '<tr><td colspan="3">No Public reviewers found.</td></tr>';
   } else
    {
@@ -826,10 +862,10 @@ public function reviewpost($bookid){
    $publicReviewverId=$req->publicReviewverId;
    $mergedArray = array_merge($internalReviewverId, $externalReviewverId, $publicReviewverId);
    foreach($bookId as $key=>$val1){
-         
+       
            foreach($mergedArray as $key=>$val){
             $rev = Reviewer::where("id",'=',$val)->first();
-       
+          
           $bookreview = new BookReviewStatus();
           $bookreview->book_id= $val1;
            $bookreview->reviewer_id= $rev->id;
@@ -837,7 +873,7 @@ public function reviewpost($bookid){
            $bookreview->save();
            }
    }
-  
+    
    foreach($mergedArray as $key=>$val){
    $notifi= new Notifications();
       $notifi->message = "Book Assengend For Review";

@@ -19,8 +19,7 @@
 
     <title>Government of Tamil Nadu - Book Procurement - General Setting Page</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
-    <?php
+      <?php
         include "admin/plugin/plugin_css.php";
     ?>
     <link href="
@@ -938,6 +937,43 @@ $(document).on('click','#submit3232',function(e){
 </script>
 
 
+<script>
+        $(document).ready(function() {
+            $("#submitbutton33").on("click", function (e) {
+                e.preventDefault();
+            
+                var websitefavicon = $('#formFile33')[0].files;
+              
+                let fd = new FormData();
+                // fd.append('type', type);
+                fd.append('websitefavicon',websitefavicon[0]);  
+                console.log(fd);
+                // $.ajaxSetup({
+                //     headers: {
+                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                //     }
+                // });
+
+                // $.ajax({
+                //     url: "/admin/websitelogo",
+                //     type: "POST",
+                //     data: fd,
+                //     processData: false,
+                //     contentType: false,
+                //     success: function (response) {
+                //         if (response.success) {
+                //             toastr.success(response.success, {timeout: 2000});
+                //             setTimeout(function () {
+                //                 window.location.href = "/admin/manage_general_setting";
+                //             }, 3000);
+                //         } else {
+                //             toastr.error(response.error, {timeout: 2000});
+                //         }
+                //     }
+                // });
+            });
+        });
+    </script>
 
 
 </body>

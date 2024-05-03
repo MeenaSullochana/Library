@@ -58,7 +58,7 @@ class ReviewerController extends Controller
     }
 
     public function review(Request $req){
-      
+       
         $rev = BookReviewStatus::find($req->rev);
         $book = Book::find($req->bookid);
         $review = $req->review;
@@ -76,10 +76,13 @@ class ReviewerController extends Controller
         $rev->category = $req->category;
         $rev->review_remark =      json_encode( $req->review_remark);
 
-    
+     
         $rev->review_type = $review;
+  
         $rev->remark=$req->about_book;
+     
         $rev->save();
+       
        if($rev->reviewertype == "external"){
             // $rmark = 2 * $mark;
             $rmark = $mark;
@@ -88,6 +91,7 @@ class ReviewerController extends Controller
        }
         $book->marks = $book->marks + $rmark;
         $book->save();
+      
         return redirect('reviewer/review_book_list');
 
     }
@@ -250,7 +254,7 @@ class ReviewerController extends Controller
 
 
   public function createpublicreviewer(Request $req){
-
+   
     $validator = Validator::make($req->all(),[
         'publicreviewername'=>'required|string',
         'Category'=>'required',
@@ -273,9 +277,9 @@ class ReviewerController extends Controller
 
     if($req->profileImage !="undefined"){
      
-        $Admin=auth('reviewer')->user()->first();
+        $Admin=auth('reviewer')->user()->id;
         $reviewer=new Reviewer();
-      
+    
         $reviewer->name = $req->publicreviewername;
         $reviewer->Category = $req->Category;
         $reviewer->membershipId = $req->membershipId;
@@ -297,6 +301,7 @@ class ReviewerController extends Controller
         $reviewer->profileImage = $imagename;
     
          $reviewer->save();
+     
          $user =  $reviewer->email;
          $record =  $reviewer;
          $password = $req->password;

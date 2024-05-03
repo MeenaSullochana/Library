@@ -73,21 +73,30 @@
                 <div class="row">
                     <div class="row">
                         <div class="col-md-6 filter-elecment-one">
-                            <div class="input-group mb-3">
+                            <!-- <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Search Scheme" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                 <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-6 filter-elecment-two text-right">
                             <div class="d-flex justify-content-end">
                                 <button class="btn btn-outline-success m-2"><i class="fa fa-file-excel"></i> Export Excel</button>
-                                <button class="btn btn-outline-light m-2"><i class="fa fa-file-pdf"></i> PDF Export</button>
-                                <button class="btn btn-outline-danger m-2"><i class="fa fa-print"></i> Print</button>
+                                <!-- <button class="btn btn-outline-light m-2"><i class="fa fa-file-pdf"></i> PDF Export</button>
+                                <button class="btn btn-outline-danger m-2"><i class="fa fa-print"></i> Print</button> -->
                             </div>
                         </div>
                     </div>
                 </div>
+				@php
+				$id = auth('librarian')->user()->id;
+                                      $records = DB::table('ordermagazines')
+                                        ->where('librarianid', '=', $id)
+                                          ->where('status', '=', '0')
+                                         ->orderBy('created_at', 'asc')
+                                         ->get();
+                                      
 
+                                @endphp
 				<div class="row">
 					{{-- <h3>Your Order Magazine</h3> --}}
 					<div class="col-xl-12">
@@ -100,46 +109,49 @@
 									<table id="example3" class="table">
 										<thead>
 											<tr>
-												<th>
-												</th>
+												
 												<th>S.No</th>
-												<th>Scheme Name</th>
-												<th>Scheme Year</th>
-                                                <th>Status</th>
-                                                <th>Date</th>
+                                                <th>Order Id</th>
+                                                <th>Qty</th>
+                                                <th>Total Amount</th>
+                                                <th>Purchase Amount</th>
+                                                <th>Order Status</th>
+                                              
+                                                <th>Order Date</th>
 												<th>Control</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
+										@foreach($records as $val)
+                 
+                                          
+                                            <tr class="btn-reveal-trigger">
+											<td class="py-2">{{$loop->index + 1}}</td>
+                                                <td class="py-2">{{$val->orderid}}</td>
+                                                <td class="py-2">{{$val->quantity}}</td>
+                                                <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalBudget}}</td>
+
+                                                <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalPurchased}}</td>                                              
+                     
 												<td>
-													<div class="form-check custom-checkbox">
-														<input type="checkbox" class="form-check-input" id="customCheckBox3" required>
-														<label class="form-check-label" for="customCheckBox3"></label>
-													</div>
-												</td>
-												<td><span>03</span></td>
-												<td>
-													<div class="products">
-														<div>
-															<!-- <h6>Create Frontend WordPress</h6> -->
-															<span>2024 New Order</span>
-														</div>
-													</div>
-												</td>
-												<td><span>06 Feb 2023</span></td>
-                                                <td>
 													<span class="badge bg-success">Approved</span>
-													<span class="badge bg-warning">Pending</span>
-													<span class="badge bg-danger">Rejected</span>
+													<!-- <span class="badge bg-warning">Pending</span>
+													<span class="badge bg-danger">Rejected</span> -->
 												</td>
-                                                <td><span>2024-2025</span></td>
+												<td class="py-2">
+                                                    {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}</td>
 												<td>
-                                                    <a href="dispatch-magazine-list"> <i class="fa fa-eye p-2"></i></a>
+                                                    <a href="/librarian/dispatch-magazine-list/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
 													<a href="#"><i class="fa fa-trash p-2"></i></a>
 													<i class="fa fa-trash-o p-2" aria-hidden="true"></i>
 												</td>
-											</tr>
+                                            </tr>
+                                           
+                                            @endforeach
+
+
+                                               
+										
 										</tbody>
 									</table>
 								</div>

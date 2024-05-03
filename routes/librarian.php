@@ -8,6 +8,9 @@ use App\Http\Controllers\Librarian\FeedbackController;
 use App\Http\Controllers\Librarian\notificationController;
 use App\Http\Controllers\WebsitebookController;
 use App\Http\Controllers\Librarian\SettingController;
+use App\Http\Controllers\Librarian\OrderController;
+
+
 Route::middleware(['librarian'])->group(function () {
 Route::prefix('librarian')->group(function () { 
 
@@ -69,7 +72,18 @@ Route::prefix('librarian')->group(function () {
 
     // Dispatching System magazine-view-freq
     //Librarian
-    Route::get('/dispatch-magazine-list',function(){ return view('librarian.dispatch_magazine_list');});
+    // Route::get('/dispatch-magazine-list',function(){ return view('librarian.dispatch_magazine_list');});
+
+    Route::get('/dispatch-magazine-list/{id}',[OrderController::class,'dispatch_magazine_list']);
+    Route::get('/dispatchmagazine',function(){
+      $data = Session::get('dispatch_magazin');
+      if (count($data) > 0) {
+        
+            return view('librarian.dispatch_magazine_list')->with("data",$data);
+        }
+        
+    });
+
     Route::get('/dispatch-year-list',function(){ return view('librarian.dispatch-year-list');});
     Route::get('/magazine-view-freq',function(){ return view('librarian.magazine-view-freq');});
 
@@ -186,7 +200,18 @@ Route::prefix('librarian')->group(function () {
 
     Route::get('/bookcopies_completelist',[LibrarianController::class,'bookcopies_completelist']);
 
+    Route::get('/magazine-view-freq/{id}/{orderid}',[OrderController::class,'magazine_view_freq']);
+
+    Route::get('/dispatchdata',function(){
+        $data = Session::get('data');
+        if($data !==null){
+            return view('librarian.magazine-view-freq')->with("data",$data);
+        }
+        
+    });
+    Route::post('/magazinestatuschange',[OrderController::class,'magazinestatuschange']);
+
+
     
-   
 });
 });
