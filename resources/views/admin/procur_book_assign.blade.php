@@ -91,11 +91,16 @@
 
 
                                        @php
-                                        $categori = DB::table('book_subject')->where('status','=','1')->get();
+                                        $subject = DB::table('book_subject')->where('status','=','1')->where('type','=','Tamil')->get();
+                                        $subject1 = DB::table('book_subject')->where('status','=','1')->where('type','=','English')->get();
+
                                        @endphp
                                        <select name="sortColumn" id="books-sort" class="form-control select-picker pr-2 d-tc" autocomplete="off" tabindex="-98">
                                        <option data-order="DESC" value="all"> <i class="fa fa-filter" aria-hidden="true"></i>All Books</option>
-                                       @foreach($categori as $val)
+                                       @foreach($subject as $val)
+                                          <option value="{{ $val->name }}" data-order="DESC">{{ $val->name }}</option>
+                                       @endforeach
+                                       @foreach($subject1 as $val)
                                           <option value="{{ $val->name }}" data-order="DESC">{{ $val->name }}</option>
                                        @endforeach
                                     </select>

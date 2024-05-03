@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +18,8 @@
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement </title>
     <!-- FAVICONS ICON -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
         include "admin/plugin/plugin_css.php";
@@ -71,7 +72,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <form form="" class="profile-form" id="formId">
-                                @csrf
+                                    @csrf
                                     <div class="form-validation">
                                         <div class="row">
                                             <div class="col-md-8">
@@ -80,44 +81,79 @@
                                                     <div class="col-md-6">
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Select Reviewer Type<span
-                                                               class="text-danger maditory">*</span></label>
-                                                            <select name="reviewer_type" id="reviewerType" class="form-select" Disable>
-                                                              @if($data->reviewerType  == "internal")
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <select name="reviewer_type" id="reviewerType"
+                                                                class="form-select" Disable>
+                                                                @if($data->reviewerType == "internal")
                                                                 <option value="internal">Internal</option>
 
-                                                             @else
+                                                                @else
 
                                                                 <option value="external">External</option>
-                                                               @endif
+                                                                @endif
                                                             </select>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Name<span
-                                                             class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Name" id="name" value="{{$data->name}}" Required>
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter Name" id="name"
+                                                                value="{{$data->name}}" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
+
                                                             <label class="form-label">Subject<span
-                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Subject" id="subject" value="{{$data->subject}}" Required>
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <select id="limit-selection" name="subject[]" multiple
+                                                                class="select2">
+                                                                @php
+                                                                $book_subject2 = DB::table('book_subject')
+                                                                ->where('status', '=', '1')
+                                                                ->where('type', '=', 'Tamil')
+                                                                ->get();
+                                                                $book_subject3 = DB::table('book_subject')
+                                                                ->where('status', '=', '1')
+                                                                ->where('type', '=', 'English')
+                                                                ->get();
+                                                                @endphp
+                                                                @php
+                                                                $selectedSubjects = explode(',', $data->subject);
+                                                                @endphp
+                                                                @foreach ($selectedSubjects as $subject)
+                                                                <option value="{{ $subject }}" selected>{{ $subject }}</option>
+                                                                 @endforeach
+                                                                @foreach($book_subject2 as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach
+                                                                @foreach($book_subject3 as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
 
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Designation<span
-                                                              class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter designation" id="designation"  value="{{$data->designation}}" Required>
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter designation" id="designation"
+                                                                value="{{$data->designation}}" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Organisation Details <span
-                                                             class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter OrganisationDetails" id="organisationDetails"  value="{{$data->organisationDetails}}" Required>
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter OrganisationDetails"
+                                                                id="organisationDetails"
+                                                                value="{{$data->organisationDetails}}" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Phone number<span
-                                                               class="text-danger maditory">*</span></label>
-                                                            <input type="number" class="form-control" placeholder="Enter  Phonenumber" id="phoneNumber" value="{{$data->phoneNumber}}"  Required>
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <input type="number" class="form-control"
+                                                                placeholder="Enter  Phonenumber" id="phoneNumber"
+                                                                value="{{$data->phoneNumber}}" Required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -129,9 +165,14 @@
                                                             <div class="p-5">
                                                                 <div class="author-profile">
                                                                     <div class="author-media">
-                                                                        <img src="{{ asset("reviewer/ProfileImage/".$data->profileImage) }}" alt="" id="output" >
-                                                                        <div class="upload-link" title="" data-toggle="tooltip" data-placement="right" data-original-title="update">
-                                                                            <input type="file" class="update-flie" id="profileImage" onchange="loadFile(event)" Required>
+                                                                        <img src="{{ asset("reviewer/ProfileImage/".$data->profileImage) }}"
+                                                                            alt="" id="output">
+                                                                        <div class="upload-link" title=""
+                                                                            data-toggle="tooltip" data-placement="right"
+                                                                            data-original-title="update">
+                                                                            <input type="file" class="update-flie"
+                                                                                id="profileImage"
+                                                                                onchange="loadFile(event)" Required>
                                                                             <i class="fa fa-camera"></i>
                                                                         </div>
                                                                     </div>
@@ -147,34 +188,42 @@
 
 
                                         </div>
-                                        <div class="row" >
-                                        @if($data->reviewerType  != "internal")
+                                        <div class="row">
+                                            @if($data->reviewerType != "internal")
                                             <div class="col-md-12" id="bankDetailsFields" style="display: block;">
-                                                 <h3 class="">Bank Details </h3>
-                                                   <hr>
+                                                <h3 class="">Bank Details </h3>
+                                                <hr>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Bank Name<span
-                                                             class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Bank Name"  id= "bankName" value="{{$data->bankName}}" Required>
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter Bank Name" id="bankName"
+                                                                value="{{$data->bankName}}" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Account Number<span
-                                                               class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Account Number" id="accountNumber" value="{{$data->accountNumber}}" Required>
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter Account Number" id="accountNumber"
+                                                                value="{{$data->accountNumber}}" Required>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Branch<span
-                                                                class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter Branch" id="branch" value="{{$data->branch}}" Required>
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter Branch" id="branch"
+                                                                value="{{$data->branch}}" Required>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">IFSC Number<span
-                                                               class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control" placeholder="Enter IFSC Number" id="ifscNumber" value="{{$data->ifscNumber}}" Required>
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter IFSC Number" id="ifscNumber"
+                                                                value="{{$data->ifscNumber}}" Required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -185,28 +234,33 @@
                                                 <div class="col-md-6">
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Email<span
-                                                         class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Email" id="email"  value="{{$data->email}}" Required>
+                                                                class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Enter Email" id="email"
+                                                            value="{{$data->email}}" Required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">New Password<span
-                                                          class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter Password" id="newpassword" >
+                                                                class="text-danger maditory">*</span></label>
+                                                        <input type="password" class="form-control"
+                                                            placeholder="Enter Password" id="newpassword">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="col-sm-12 mb-3">
                                                         <label class="form-label">Confirm Password<span
-                                                          class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter Password" id="confirmpassword"  >
+                                                                class="text-danger maditory">*</span></label>
+                                                        <input type="password" class="form-control"
+                                                            placeholder="Enter Password" id="confirmpassword">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-12 text-end">
-                                                    <button type="submit" class="btn btn-primary" data-id="{{$data->id}}" id="submitButton">Submit</button>
+                                                    <button type="submit" class="btn btn-primary"
+                                                        data-id="{{$data->id}}" id="submitButton">Submit</button>
                                                 </div>
                                             </div>
 
@@ -227,7 +281,7 @@
     <!--**********************************
             Footer start
         ***********************************-->
-        @include ("admin.footer")
+    @include ("admin.footer")
     <!--**********************************
             Footer end
         ***********************************-->
@@ -249,74 +303,101 @@
         include "admin/plugin/plugin_js.php";
     ?>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 <script>
-    $(document).on('click', '#submitButton', function(e) {
-        e.preventDefault();
-        var id = $(this).data('id');
-        var newpassword = $('#newpassword').val();
-        var confirmpassword = $('#confirmpassword').val();
-        var ifscNumber = $('#ifscNumber').val();
-        var branch = $('#branch').val();
-        var accountNumber = $('#accountNumber').val();
-        var bankName = $('#bankName').val();
-        var email = $('#email').val();
-        var phoneNumber = $('#phoneNumber').val();
-        var organisationDetails = $('#organisationDetails').val();
-        var designation = $('#designation').val();
-        var subject = $('#subject').val();
-        var name = $('#name').val();
-        var reviewerType = $('#reviewerType').val();
-        var profileImage = $('#profileImage')[0].files;
-        let fd = new FormData();
-        fd.append('newpassword', newpassword);
-        fd.append('id', id);
-        fd.append('confirmpassword', confirmpassword);
-        fd.append('ifscNumber', ifscNumber);
-        fd.append('branch', branch);
-        fd.append('accountNumber', accountNumber);
-        fd.append('bankName', bankName);
-        fd.append('email', email);
-        fd.append('organisationDetails', organisationDetails);
-        fd.append('phoneNumber', phoneNumber);
-        fd.append('designation', designation);
-        fd.append('subject', subject);
-        fd.append('name', name);
-        fd.append('reviewerType', reviewerType);
-        fd.append('profileImage', profileImage[0])
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: "post",
-            url: "/admin/editreviewer",
-            data: fd,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                if (response.success) {
-                    toastr.success(response.success, { timeout: 2000 });
-                    $('#ProfileImage').val(response.type);
-                    $('#output').attr('src', response.type);
-                    setTimeout(function() {
-                        window.location.href = "/admin/member_list"
-                    }, 3000);
-                } else {
-                    toastr.error(response.error, { timeout: 2000 });
-                }
-            }
-        });
+$(document).ready(function() {
+    $('#limit-selection').select2({
+        minimumInputLength: 0
     });
+});
+</script>
+<script>
+$(document).on('click', '#submitButton', function(e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    var newpassword = $('#newpassword').val();
+    var confirmpassword = $('#confirmpassword').val();
+    var ifscNumber = $('#ifscNumber').val();
+    var branch = $('#branch').val();
+    var accountNumber = $('#accountNumber').val();
+    var bankName = $('#bankName').val();
+    var email = $('#email').val();
+    var phoneNumber = $('#phoneNumber').val();
+    var organisationDetails = $('#organisationDetails').val();
+    var designation = $('#designation').val();
+    var subject = $('select[name="subject[]"]').val();
+    var name = $('#name').val();
+    var reviewerType = $('#reviewerType').val();
+    var profileImage = $('#profileImage')[0].files;
+    let fd = new FormData();
+    fd.append('newpassword', newpassword);
+    fd.append('id', id);
+    fd.append('confirmpassword', confirmpassword);
+    fd.append('ifscNumber', ifscNumber);
+    fd.append('branch', branch);
+    fd.append('accountNumber', accountNumber);
+    fd.append('bankName', bankName);
+    fd.append('email', email);
+    fd.append('organisationDetails', organisationDetails);
+    fd.append('phoneNumber', phoneNumber);
+    fd.append('designation', designation);
+    fd.append('subject', subject);
+    fd.append('name', name);
+    fd.append('reviewerType', reviewerType);
+    fd.append('profileImage', profileImage[0])
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: "post",
+        url: "/admin/editreviewer",
+        data: fd,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (response.success) {
+                toastr.success(response.success, {
+                    timeout: 2000
+                });
+                $('#ProfileImage').val(response.type);
+                $('#output').attr('src', response.type);
+                setTimeout(function() {
+                    window.location.href = "/admin/member_list"
+                }, 3000);
+            } else {
+                toastr.error(response.error, {
+                    timeout: 2000
+                });
+            }
+        }
+    });
+});
 </script>
 
 <script>
-  var loadFile = function(event) {
+var loadFile = function(event) {
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
     output.onload = function() {
-      URL.revokeObjectURL(output.src) // free memory
+        URL.revokeObjectURL(output.src) // free memory
     }
-  };
+};
 </script>
+
+
 </html>
+
+<style>
+.profile-form .form-control,
+.profile-form .bootstrap-select .dropdown-toggle {
+    height: 35px !important;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    border-color: #E6E6E6;
+}
+</style>

@@ -179,7 +179,10 @@
                                                 <th scope="row">District</th>
                                                 <td> : {{$data->district}}</td>
                                             </tr>
-                                          
+                                            <tr>
+                                                <th scope="row">Subject</th>
+                                                <td>: {{$data->subject}}</td>
+                                            </tr>
                                             @endif
                                             @if($data->reviewerType == "public")
                                             <tr>

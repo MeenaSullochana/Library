@@ -60,7 +60,7 @@ class ReviewerController extends Controller
             
             if($req->profileImage !="undefined"){
 
-                $Admin=auth('admin')->user()->first();
+                $Admin=auth('admin')->user()->id;
                 $reviewer=new Reviewer();
                 $reviewer->reviewerType = $req->reviewerType;
                 $reviewer->name = $req->librarianName;
@@ -127,7 +127,7 @@ class ReviewerController extends Controller
                
             }
         if($req->profileImage !=null){
-            $Admin=auth('admin')->user()->first();
+            $Admin=auth('admin')->user()->id;
             $reviewer=new Reviewer();
             $reviewer->reviewerType = $req->reviewerType;
             $reviewer->name = $req->name;
@@ -216,6 +216,7 @@ public function reviewerstatus(Request $req){
    } 
    public function memberview(Request $req){
     $reviewer= Reviewer::find($req->id);
+    $reviewer->subject= json_decode($reviewer->subject, true);
     $review=BookReviewStatus::where('reviewer_id','=',$req->id)->get();
     $data=[];
     foreach($review as $key=>$val){
@@ -233,6 +234,7 @@ public function reviewerstatus(Request $req){
    }
    public function memberedit($id){
     $reviewer= Reviewer::find($id);
+    $reviewer->subject= json_decode($reviewer->subject, true);
 
     return redirect('/admin/revieweredit')->with('reviewer',$reviewer); 
 
@@ -280,7 +282,7 @@ public function reviewerstatus(Request $req){
             $reviewer->libraryType = $req->libraryType;
             $reviewer->libraryName = $req->libraryName;
   
-            $reviewer->subject = $req->subject;
+            $reviewer->subject = json_encode($req->subject);
             $reviewer->district = $req->district;
             $reviewer->phoneNumber = $req->phoneNumber; 
             if ($reviewer->email == $req->email) {
@@ -352,7 +354,7 @@ public function reviewerstatus(Request $req){
             $reviewer->libraryType = $req->libraryType;
             $reviewer->libraryName = $req->libraryName;
   
-            $reviewer->subject = $req->subject;
+            $reviewer->subject = json_encode($req->subject);
             $reviewer->district = $req->district;
             $reviewer->phoneNumber = $req->phoneNumber; 
                 if ($reviewer->email == $req->email) {
@@ -437,7 +439,7 @@ public function reviewerstatus(Request $req){
           
             $reviewer = Reviewer::find($req->id);
             $reviewer->name = $req->name;
-            $reviewer->subject = $req->subject;
+            $reviewer->subject = json_encode($req->subject);
             $reviewer->designation = $req->designation;
             $reviewer->bankName = $req->bankName;
             $reviewer->accountNumber = $req->accountNumber;
@@ -504,7 +506,7 @@ public function reviewerstatus(Request $req){
                 $Admin=auth('admin')->user()->first();
                 $reviewer = Reviewer::find($req->id);
                 $reviewer->name = $req->name;
-                $reviewer->subject = $req->subject;
+                $reviewer->subject = json_encode($req->subject);
                 $reviewer->designation = $req->designation;
                 $reviewer->bankName = $req->bankName;
                 $reviewer->accountNumber = $req->accountNumber;

@@ -607,7 +607,7 @@
                                                         <div
                                                             class="depostit-card-media d-flex justify-content-between style-1">
                                                             <div>
-                                                                <h6>Inactive Librarian</h6>
+                                                                <h6>Inactive Library</h6>
                                                                 <h3>{{$librarianinactive}}</h3>
                                                             </div>
                                                             <div class="icon-box bg-secondary">
@@ -3729,6 +3729,7 @@
                                 $records = DB::table('books')
     ->select('books.*')
     ->where('book_active_status', '=', '1')
+    ->where('marks', '>=', '40')
     ->orderBy('marks', 'desc')
     ->get();
 

@@ -72,16 +72,16 @@
 				<div class="row">
                     <div class="row">
                         <div class="col-md-6 filter-elecment-one">
-                            <div class="input-group mb-3">
+                            <!-- <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Search Scheme" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                 <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-6 filter-elecment-two text-right">
                             <div class="d-flex justify-content-end">
                                 <button class="btn btn-outline-success m-2"><i class="fa fa-file-excel"></i> Export Excel</button>
-                                <button class="btn btn-outline-light m-2"><i class="fa fa-file-pdf"></i> PDF Export</button>
-                                <button class="btn btn-outline-danger m-2"><i class="fa fa-print"></i> Print</button>
+                                <!-- <button class="btn btn-outline-light m-2"><i class="fa fa-file-pdf"></i> PDF Export</button>
+                                <button class="btn btn-outline-danger m-2"><i class="fa fa-print"></i> Print</button> -->
                             </div>
                         </div>
                     </div>
@@ -98,46 +98,64 @@
 									<table id="example3" class="table">
 										<thead>
 											<tr>
-												<th>
-												</th>
-												<th>S.No</th>
-												<th>Magazine id</th>
-												<th>Magazine Name</th>
-                                                <th>Frequency</th>
+											<th>S.No</th>
+                                                <th>Language</th>
+                                                <th>Category</th>
+                                                <th>Title of the Magazine</th>
+                                                <th>Periodicity</th>
+                                                <th>Type of Library</th>
+                                                <!-- <th>District</th> -->
+                                                <th>No.of Subscription</th>
+                                                <th>Cover Price</th>
+                                                <th>Annual Subscription</th>
+                                                <th>Discount</th>
+                                                <th>Single Issue After Discount</th>
+                                                <th>Annual Subscription After Discount</th>
+                                                <th>RNI Details</th>
+                                                <th>Total No.of Pages</th>
+                                                <th>Total No.of Multicolour Pages</th>
+                                                <th>Total No.of Monocolour Pages</th>
+                                                <th>Paper Quality</th>
+                                                <th>Size of Magazine</th>
                                                 <th>Status</th>
 												<th>Control</th>
 											</tr>
 										</thead>
 										<tbody>
+										@foreach($data as $val1)
 											<tr>
-												<td>
-													<div class="form-check custom-checkbox">
-														<input type="checkbox" class="form-check-input" id="customCheckBox3" required>
-														<label class="form-check-label" for="customCheckBox3"></label>
-													</div>
-												</td>
-												<td><span>03</span></td>
-												<td>
-													<div class="products">
-														<div>
-															<!-- <h6>Create Frontend WordPress</h6> -->
-															<span>INV-100023456</span>
-														</div>
-													</div>
-												</td>
-												<td><span>Tamil Kavithai</span></td>
-												<td><span>Weekly</span></td>
+											<td class="py-2">{{ $loop->index + 1}}</td>
+                                                <td class="py-2">{{$val1->language}}</td>
+                                                <td class="py-2">{{$val1->category}}</td>
+                                                <td class="py-2">{{ $val1->title}}</td>
+                                                <td class="py-2">{{$val1->periodicity}}</td>
+                                                <td class="py-2">{{ $val1->librarytype }}</td>
+                                                <!-- <td class="py-2">{{$val1->district }}</td> -->
+                                                <td class="py-2">{{ $val1->count}}</td>
+                                                <td class="py-2">{{ $val1->single_issue_rate}}</td>
+                                                <td class="py-2">{{ $val1->annual_subscription}}</td>
+                                                <td class="py-2">{{  $val1->discount}}</td>
+                                                <td class="py-2">{{  $val1->single_issue_after_discount}}</td>
+                                                <td class="py-2">{{ $val1->annual_cost_after_discount}}</td>
+                                                <td class="py-2">{{  $val1->rni_details}}</td>
+                                                <td class="py-2">{{ $val1->total_pages}}</td>
+                                                <td class="py-2">{{  $val1->total_multicolour_pages}}</td>
+                                                <td class="py-2">{{  $val1->total_monocolour_pages}}</td>
+                                                <td class="py-2">{{  $val1->paper_qualitity}}</td>
+                                                <td class="py-2">{{  $val1->magazine_size}}</td>
                                                 <td>
 													<span class="badge bg-success">Approved</span>
 													<span class="badge bg-warning">Pending</span>
 													<span class="badge bg-danger">Cencelled</span>
 												</td>
 												<td>
-                                                    <a href="/librarian/magazine-view-freq"> <i class="fa fa-eye p-2"></i></a>
+                                                    <a href="/librarian/magazine-view-freq/{{$val1->id}}/{{$val1->orderid}}"> <i class="fa fa-eye p-2"></i></a>
 													<a href="#"><i class="fa fa-edit p-2"></i></a>
 													<i class="fa fa-trash-o p-2" aria-hidden="true"></i>
 												</td>
 											</tr>
+											@endforeach
+
 										</tbody>
 									</table>
 								</div>

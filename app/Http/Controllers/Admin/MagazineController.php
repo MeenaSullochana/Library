@@ -21,6 +21,7 @@ use App\Models\Publisher;
  use Illuminate\Support\Str;
  use App\Models\Mailurl;
  use App\Models\Budget;
+ use App\Models\Dispatch;
  use App\Models\MagazineCategory;
  use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -465,7 +466,49 @@ public function magazine_orderview($id){
    
 
   }
+
+  public function order_complete_status(Request $request){
+ 
+   if(count($request->orderId) == 1){
+
+
+   
+      $magazine = Ordermagazine::find($request->orderId[0]);
+      $magazineProduct =json_decode($magazine->magazineProduct);
+        foreach($magazineProduct as $val1){
+          $Dispatch=Dispatch::where('magazine_id' ,'=',$val1->magazineid)->get();
+          foreach($Dispatch as $val2){
+            $orderdata = [];
+            array_push($orderdata, $magazine->id);
+           $array = json_decode($val2->order_id, true);
+           $merged = array_merge($orderdata, $array);
+           $librarydata = [];
+           array_push($librarydata, $magazine->librarianid);
+          $array1 = json_decode($val2->library_id, true);
+          $merged1 = array_merge($librarydata, $array);
+           $Dispatchdata=Dispatch::find($val2->id);
+           $Dispatchdata->library_id = $merged1;
+           $Dispatchdata->order_id = $merged;
+           $Dispatchdata->save();
+           }
+          }
+          $magazine->status="0";
+           $magazine->save();
+         
+         $data= [
+          'success' => 'Order status change Successfully',
+               ];
+      return response()->json($data);
+   }
+   else{
+    $data= [
+      'error' => 'Onely One Order Update',
+           ];
+  return response()->json($data);
+
+   }
+  }
+
+  }
+
   
-
-}
-

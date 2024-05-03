@@ -167,10 +167,25 @@
                                                                 <select id="limit-selection" name=subject[] multiple
                                                                 class="select2 subject">
                                                                 @php
-                                                                $categori =
-                                                                DB::table('book_subject')->where('status','=','1')->get();
+                                                               
+                                                                $book_subject = DB::table('book_subject')
+                                                                ->where('status', '=', '1')
+                                                                ->where('type', '=', 'Tamil')
+                                                               
+                                                                  ->get();
                                                                 @endphp
-                                                                @foreach($categori as $val)
+                                                                @php
+                                                               
+                                                               $book_subject1 = DB::table('book_subject')
+                                                               ->where('status', '=', '1')
+                                                               ->where('type', '=', 'English')
+                                                              
+                                                                 ->get();
+                                                               @endphp
+                                                                @foreach($book_subject as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach
+                                                                @foreach($book_subject1 as $val)
                                                                 <option value="{{$val->name}}">{{$val->name}}</option>
                                                                 @endforeach
                                                             </select>
@@ -413,13 +428,28 @@
                                                         <div class="col-sm-6 mb-3">
                                                             <label class="form-label">Subject<span
                                                                     class="text-danger maditory">*</span></label>
-                                                            <select id="limit-selection" name=subject[] multiple
+                                                            <select id="limit-selection1" name="subject[]" multiple
                                                                 class="select2">
                                                                 @php
-                                                                $categori =
-                                                                DB::table('book_subject')->where('status','=','1')->get();
+                                                               
+                                                                $book_subject2 = DB::table('book_subject')
+                                                                ->where('status', '=', '1')
+                                                                ->where('type', '=', 'Tamil')
+                                                               
+                                                                  ->get();
                                                                 @endphp
-                                                                @foreach($categori as $val)
+                                                                @php
+                                                               
+                                                               $book_subject3 = DB::table('book_subject')
+                                                               ->where('status', '=', '1')
+                                                               ->where('type', '=', 'English')
+                                                              
+                                                                 ->get();
+                                                               @endphp
+                                                                @foreach($book_subject2 as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach
+                                                                @foreach($book_subject3 as $val)
                                                                 <option value="{{$val->name}}">{{$val->name}}</option>
                                                                 @endforeach
                                                             </select>
@@ -661,7 +691,13 @@
         });
     });
     </script>
-
+    <script>
+    $(document).ready(function() {
+        $('#limit-selection1').select2({
+            minimumInputLength: 0 // Disable minimum input length
+        });
+    });
+    </script>
 </body>
 
 
@@ -733,7 +769,7 @@ $(document).on('click', '#submitButton', function(e) {
                     timeout: 2000
                 });
                 $('#formId')[0].reset();
-
+                $('select[name="subject[]"]').val(null).trigger('change');
                 $('#ProfileImage').val('images/user.jpg');
                 $('#output').attr('src', 'images/user.jpg');
             } else {
