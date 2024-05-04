@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('dispatches', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('magazine_id');
+            $table->string('magazine_name');
+            $table->string('periodicity');
             $table->string('subscription_id');
             $table->string('expected_date');
             $table->json('order_id');

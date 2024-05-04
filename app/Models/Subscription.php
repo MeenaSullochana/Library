@@ -18,6 +18,7 @@ class Subscription extends Model
        'end_date',
        'periodicity',
        'created_by',
-       'status'
+       'status',
+       'frequency'
     ];
 }
