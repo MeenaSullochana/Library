@@ -22,5 +22,7 @@ class Dispatch extends Model
             'pending_id',
             'not_received_id',
            'status',
+           'magazine_name',
+           'periodicity'
     ];
 }

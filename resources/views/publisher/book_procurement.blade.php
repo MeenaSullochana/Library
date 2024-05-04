@@ -219,14 +219,22 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <!-- <p>Our payment gateway is currently being set up. Book procurement applications will be possible once it's fully functional. We'll notify you when it's ready.</p> -->
+                 <!-- @if(auth('publisher')->user()->userName != "Meena") -->
+
+                    <!-- <p>Our payment gateway is currently being set up. Book procurement applications will be possible once it's fully functional. We'll notify you when it's ready.</p>  -->
                     <!-- <p>Comming Soon</p> -->
+                 <!-- @else -->
                     <p>Number of Books Selected : </p>
+                 <!-- @endif -->
                 </div>
                 <div class="modal-footer">
+                <!-- @if(auth('publisher')->user()->userName != "Meena") -->
+                    <!-- <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button> -->
+                <!-- @else    -->
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
                     <button type="button" id="submitbutton11"
                         class="btn btn-primary submitbutton11">Confirm</button>
+                <!-- @endif -->
                 </div>
             </div>
         </div>
