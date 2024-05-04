@@ -87,6 +87,8 @@ Route::prefix('librarian')->group(function () {
     Route::get('/dispatch-year-list',function(){ return view('librarian.dispatch-year-list');});
     Route::get('/magazine-view-freq',function(){ return view('librarian.magazine-view-freq');});
 
+    Route::get('/magazine-view-dis',function(){ return view('librarian.dispatch_magazine_view');});
+
     //For DLO
     Route::get('/magazine-overview',function(){ return view('librarian.dispatch_overview');});
     Route::get('/magazine-overview-list',function(){ return view('librarian.dispatch_magazine_over_list');});
@@ -108,7 +110,7 @@ Route::prefix('librarian')->group(function () {
             return view('librarian.book_view')->with("data",$data);
         }
         
-    });
+    }); 
     Route::post('/changepassword',[LibrarianController::class,'librarianchangepassword']);
     Route::post('/changepasswordnew',[LibrarianController::class,'librarianchangepasswordnew']);
 
@@ -211,7 +213,12 @@ Route::prefix('librarian')->group(function () {
     });
     Route::post('/magazinestatuschange',[OrderController::class,'magazinestatuschange']);
 
+    Route::get('/order-library-list',function(){
+        return view('librarian.dispatch_library_list');
+    });
 
-    
+    Route::get('/order-library-item-list',function(){
+        return view('librarian.dispatch_order_library_item_list');
+    });
 });
 });
