@@ -92,7 +92,7 @@
                 @php
 
                 $records = DB::table('ordermagazines')
-                ->where('status', '=', '1')
+                ->where('status', '=', '0')
                 ->orderBy('created_at', 'asc')
                 ->get();
 
@@ -164,8 +164,8 @@
                                                 <td>
                                                     <a href="/librarian/dispatch-magazine-list/{{$val->id}}"> <i
                                                             class="fa fa-eye p-2"></i></a>
-                                                    <a href="#"><i class="fa fa-trash p-2"></i></a>
-                                                    <i class="fa fa-trash-o p-2" aria-hidden="true"></i>
+                                                    <!-- <a href="#"><i class="fa fa-trash p-2"></i></a> -->
+                                                    <!-- <i class="fa fa-trash-o p-2" aria-hidden="true"></i> -->
                                                 </td>
                                             </tr>
                                             @endif

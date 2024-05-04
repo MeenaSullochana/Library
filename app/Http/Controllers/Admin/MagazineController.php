@@ -27,8 +27,9 @@ use App\Models\Publisher;
 use Illuminate\Support\Facades\Session;
  
  use Illuminate\Support\Facades\Auth;
+ use App\Models\Subscription;
 
-
+ 
 
  use Illuminate\Support\Facades\Notification;
 use App\Notifications\Member1detailNotification;
@@ -476,21 +477,32 @@ public function magazine_orderview($id){
       $magazine = Ordermagazine::find($request->orderId[0]);
       $magazineProduct =json_decode($magazine->magazineProduct);
         foreach($magazineProduct as $val1){
-          $Dispatch=Dispatch::where('magazine_id' ,'=',$val1->magazineid)->get();
-          foreach($Dispatch as $val2){
-            $orderdata = [];
-            array_push($orderdata, $magazine->id);
-           $array = json_decode($val2->order_id, true);
-           $merged = array_merge($orderdata, $array);
-           $librarydata = [];
-           array_push($librarydata, $magazine->librarianid);
-          $array1 = json_decode($val2->library_id, true);
-          $merged1 = array_merge($librarydata, $array);
-           $Dispatchdata=Dispatch::find($val2->id);
-           $Dispatchdata->library_id = $merged1;
-           $Dispatchdata->order_id = $merged;
-           $Dispatchdata->save();
-           }
+          $ldate = date('Y-m-d');
+          $Subscription = Subscription::where('magazine_id' ,'=',$val1->magazineid)->whereDate('issue_date','<=',$ldate)->where('end_date','>=',$ldate)->first();
+          if($Subscription != null){
+            $Dispatch=Dispatch::where('magazine_id' ,'=',$val1->magazineid)->where('subscription_id','=',$Subscription->id)->get();
+       
+            foreach($Dispatch as $val2){
+              $orderdata = [];
+              array_push($orderdata, $magazine->id);
+             $array = json_decode($val2->order_id, true);
+             $merged = array_merge($orderdata, $array);
+             $librarydata = [];
+             array_push($librarydata, $magazine->librarianid);
+            $array1 = json_decode($val2->library_id, true);
+            $merged1 = array_merge($librarydata, $array);
+             $Dispatchdata=Dispatch::find($val2->id);
+             $Dispatchdata->library_id = $merged1;
+             $Dispatchdata->order_id = $merged;
+             $Dispatchdata->save();
+             }
+          }else{
+            $data= [
+              'success' => 'Please Create Subscription Successfully',
+                   ];
+          return response()->json($data);
+          }
+   
           }
           $magazine->status="0";
            $magazine->save();

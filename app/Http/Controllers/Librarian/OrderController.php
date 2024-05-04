@@ -25,17 +25,16 @@ use App\Models\Magazine;
 use App\Models\Budget;
 use App\Models\bookcopies;
 use App\Models\Dispatch;
+use App\Models\Subscription;
+
 
 
 class OrderController extends Controller
 {
   
      public function dispatch_magazine_list($id){
-    
       $Ordermagazine=Ordermagazine::find($id);
       $balanceAmount =json_decode($Ordermagazine->balanceAmount);
-
-     
      $magazineProduct =json_decode($Ordermagazine->magazineProduct);
      $dispatch_magazin=[];
      foreach($balanceAmount  as $val1){
@@ -60,6 +59,10 @@ class OrderController extends Controller
 
    public function magazine_view_freq($id,$orderid){
    $Ordermagazine=Ordermagazine::find($orderid);
+   $ldate = date('Y-m-d');
+   $Subscription = Subscription::where('magazine_id' ,'=',$id)->whereDate('issue_date','<=',$ldate)->where('end_date','>=',$ldate)->first();
+  
+   if($Subscription != null){
    $Dispatchdata = Dispatch::where('magazine_id', '=', $id)
           ->where(function ($query) use ($Ordermagazine) {
                   $query->whereJsonContains('library_id', $Ordermagazine->librarianid)
@@ -71,6 +74,7 @@ class OrderController extends Controller
                     ->orWhereJsonContains('order_id', (string) $Ordermagazine->id); 
           })
           ->orderBy('expected_date','ASC')
+          ->where('subscription_id','=',$Subscription->id)
           ->get();
 
        $data=[];
@@ -132,6 +136,7 @@ class OrderController extends Controller
 
 
    }
+}
 // return $data;
    \Session::put('data', $data);
 

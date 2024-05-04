@@ -394,7 +394,15 @@
 
                         </ul>
                     </li>
-
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                        <i class="bi bi-blockquote-left"></i>
+                        <span class="nav-text">Dispatch Magazine</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <!-- <li><a href="/librarian/dispatch-year-list">Magazine List</a></li> -->
+                            <li><a href="/librarian/magazine-overview">Overview</a></li>
+                        </ul>
+                    </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-printer"></i>
                             <span class="nav-text">Report Management</span>
@@ -466,7 +474,15 @@
                             </li>
                         </ul>
                     </li>
-
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                        <i class="bi bi-blockquote-left"></i>
+                        <span class="nav-text">Dispatch Magazine</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/librarian/dispatch-year-list">Magazine List</a></li>
+                            <!-- <li><a href="/librarian/magazine-overview">Overview</a></li> -->
+                        </ul>
+                    </li>
                     @endif
 
                     @if(auth('librarian')->user()->metaChecker =="yes")
@@ -508,15 +524,7 @@
 							<li><a href="/librarian/change_password">Change Password</a></li>
 						</ul>
 					</li> -->
-                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                        <i class="bi bi-blockquote-left"></i>
-                        <span class="nav-text">Dispatch Magazine</span>
-                        </a>
-                        <ul aria-expanded="false">
-                            <li><a href="/librarian/dispatch-year-list">Magazine List</a></li>
-                            <li><a href="/librarian/magazine-overview">Overview</a></li>
-                        </ul>
-                    </li>
+              
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-chat-dots"></i>
                             <span class="nav-text">Feedback Manage</span>

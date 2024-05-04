@@ -145,13 +145,13 @@
                                                 <td class="py-2">{{  $val1->magazine_size}}</td>
                                                 <td>
 													<span class="badge bg-success">Approved</span>
-													<span class="badge bg-warning">Pending</span>
-													<span class="badge bg-danger">Cencelled</span>
+													<!-- <span class="badge bg-warning">Pending</span>
+													<span class="badge bg-danger">Cencelled</span> -->
 												</td>
 												<td>
                                                     <a href="/librarian/magazine-view-freq/{{$val1->id}}/{{$val1->orderid}}"> <i class="fa fa-eye p-2"></i></a>
-													<a href="#"><i class="fa fa-edit p-2"></i></a>
-													<i class="fa fa-trash-o p-2" aria-hidden="true"></i>
+													<!-- <a href="#"><i class="fa fa-edit p-2"></i></a> -->
+													<!-- <i class="fa fa-trash-o p-2" aria-hidden="true"></i> -->
 												</td>
 											</tr>
 											@endforeach
