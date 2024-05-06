@@ -1967,6 +1967,18 @@
 
                             <li><a href="/admin/magazine_add">Magazine Add</a></li>
                             <li><a href="/admin/magazine_list">Magazine list</a> </li>
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Management Subscriptions </a>
+                                <ul aria-expanded="false">
+                                    <!-- <li><a href="./user.html">Publisher List</a></li> -->
+                                    <li><a href="/admin/subscription_add"> Subscriptions Add</a></li>
+                                    <li><a href="/admin/subscription_list"> Subscriptions List</a></li>
+
+
+                                    <!-- <li><a href="./app-profile-2.html">Profile 2 <span class="badge badge-danger badge-xs ms-1">NEW</span></a></li>
+									<li><a href="./edit-profile.html">Edit Profile</a></li>
+									<li><a href="./post-details.html">Post Details</a></li> -->
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
