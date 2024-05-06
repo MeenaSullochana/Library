@@ -124,6 +124,10 @@ Route::get('/procur_book_view',function(){ return view('admin.procur_book_view')
 Route::get('/procur_complete_list',function(){ return view('admin.procur_complete_list');});
 Route::get('/procur_pending_list',function(){ return view('admin.procur_pending_list');});
 Route::get('/procur_reject_view',function(){ return view('admin.procur_reject_view');});
+Route::get('/subscription_add',function(){ return view('admin.subscription_add');});
+Route::get('/subscription_list',function(){ return view('admin.subscription_list');});
+Route::get('/subscription_edit',function(){ return view('admin.subscription_edit');});
+Route::get('/subscription_view',function(){ return view('admin.subscription_view');});
 
 Route::get('/magazine_add',function(){ return view('admin.magazine_add');});
 Route::post('/magazine/import', [MagazineController::class,'importFile']);
@@ -131,6 +135,7 @@ Route::get('/magazine_add_new',function(){ return view('admin.magazine_add_new')
 Route::get('/magazine_list',[MagazineController::class,'list']);
 Route::get('/magazine_list_dummy',function(){ return view('admin.magazine_list_dummy');});
 // Route::get('/magazine_view',function(){ return view('admin.magazine_view');});
+Route::get('/magazine_view/{id}',[MagazineController::class,'magazine_view']);
 Route::get('/magazine_view/{id}',[MagazineController::class,'magazine_view']);
 Route::get('/magazineview',function(){
     $data = \Session::get('magazine');
