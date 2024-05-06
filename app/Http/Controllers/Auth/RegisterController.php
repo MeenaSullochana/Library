@@ -87,7 +87,6 @@ class RegisterController extends Controller
 
   public function pub_create(Request $request)
     {
-    
         $validator = Validator::make($request->all(), [
             'usertype'                                  => 'required',
             'publication_name'                          => 'required|string|max:255',
@@ -298,17 +297,14 @@ class RegisterController extends Controller
            if($request->pub_ownership =="Partnership"){
             if($request->hasFile('pan_tan') && $request->hasFile('pan_deed')){
                 $validator = Validator::make($request->all(), [
-                    'pan_tan' => 'required|mimes:pdf',
-                    'pan_deed' => 'required|mimes:pdf',
-                    'udayam' => 'nullable|mimes:pdf', // Allow udayam file if uploaded, and validate it as PDF
-                    'gst' => 'nullable|mimes:pdf', // Allow gst file if uploaded, and validate it as PDF
+                    'pan_tan' => 'required',
+                    'pan_deed' => 'required',
+                    'udayam' => 'nullable', // Allow udayam file if uploaded, and validate it as PDF
+                    'gst' => 'nullable', // Allow gst file if uploaded, and validate it as PDF
                 ], [
                     'pan_tan.required' => 'The PAN/TAN document file is required.',
-                    'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+                   
                     'pan_deed.required' => 'The Partnership Deed document file is required.',
-                    'pan_deed.mimes' => 'The Partnership Deed document must be a PDF file.',
-                    'udayam.mimes' => 'The Udayam file must be a PDF file.', // Custom error message for udayam file
-                    'gst.mimes' => 'The GST file must be a PDF file.', // Custom error message for gst file
                 ]);
         
                 if ($validator->fails()) {
@@ -337,19 +333,16 @@ class RegisterController extends Controller
            if($request->pub_ownership =="Private"){
             if($request->hasFile('pan_tan') && $request->hasFile('certification_incon')){
                 $validator = Validator::make($request->all(), [
-                    'pan_tan' => 'required|mimes:pdf', 
-                    'certification_incon' => 'required|mimes:pdf', 
-                    'moa' => 'nullable|mimes:pdf', // Allow moa file if uploaded, and validate it as PDF
-                    'aoa' => 'nullable|mimes:pdf', // Allow aoa file if uploaded, and validate it as PDF
-                    'gst' => 'nullable|mimes:pdf', // Allow gst file if uploaded, and validate it as PDF
+                    'pan_tan' => 'required', 
+                    'certification_incon' => 'required', 
+                    'moa' => 'nullable', // Allow moa file if uploaded, and validate it as PDF
+                    'aoa' => 'nullable', // Allow aoa file if uploaded, and validate it as PDF
+                    'gst' => 'nullable', // Allow gst file if uploaded, and validate it as PDF
                 ], [
                     'pan_tan.required' => 'The PAN/TAN document file is required.',
-                    'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+                  
                     'certification_incon.required' => 'The Certification document file is required.',
-                    'certification_incon.mimes' => 'The Certification document must be a PDF file.',
-                    'moa.mimes' => 'The MOA must be a PDF file.', // Custom error message for moa file
-                    'aoa.mimes' => 'The AOA must be a PDF file.', // Custom error message for aoa file
-                    'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for gst file
+                 
                 ]);
         
                 if ($validator->fails()) {
@@ -378,15 +371,14 @@ class RegisterController extends Controller
            if($request->pub_ownership =="Publication"){
             if( $request->hasFile('certification_incon') && $request->hasFile('pan_tan')){
                 $validator = Validator::make($request->all(), [
-                    'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                    'certification_incon' => 'required|mimes:pdf', // Ensure Certification document is a PDF file
-                    'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                    'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                    'certification_incon' => 'required',
+                    'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                 ], [
                     'pan_tan.required' => 'The PAN/TAN document file is required.',
-                    'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+                   
                     'certification_incon.required' => 'The Certification document file is required.',
-                    'certification_incon.mimes' => 'The Certification document must be a PDF file.',
-                    'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                  
                 ]);
         
                 if ($validator->fails()) {
@@ -415,14 +407,12 @@ class RegisterController extends Controller
            if($request->pub_ownership =="oneperson"){
             if( $request->hasFile('pan_tan')){
                 $validator = Validator::make($request->all(), [
-                    'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                    'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
-                    'udayam' => 'nullable|mimes:pdf', // Allow Udayam file if uploaded, and validate it as PDF
+                    'pan_tan' => 'required', 
+                    'gst' => 'nullable', 
+                    'udayam' => 'nullable', // Allow Udayam file if uploaded, and validate it as PDF
                 ], [
                     'pan_tan.required' => 'The PAN/TAN document file is required.',
-                    'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                    'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
-                    'udayam.mimes' => 'The Udayam document must be a PDF file.', // Custom error message for Udayam file
+                  
                 ]);
         
                 if ($validator->fails()) {
@@ -451,17 +441,15 @@ class RegisterController extends Controller
            if($request->pub_ownership =="limited"){
             if(  $request->hasFile('pan_tan')&& $request->hasFile('llp_agre')){
                 $validator = Validator::make($request->all(), [
-                    'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                    'llp_agre' => 'required|mimes:pdf', // Ensure LLP Agreement document is a PDF file
-                    'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
-                    'udayam' => 'nullable|mimes:pdf', // Allow Udayam file if uploaded, and validate it as PDF
+                    'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                    'llp_agre' => 'required', // Ensure LLP Agreement document is a PDF file
+                    'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
+                    'udayam' => 'nullable', // Allow Udayam file if uploaded, and validate it as PDF
                 ], [
                     'pan_tan.required' => 'The PAN/TAN document file is required.',
-                    'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+                  
                     'llp_agre.required' => 'The LLP Agreement document file is required.',
-                    'llp_agre.mimes' => 'The LLP Agreement document must be a PDF file.',
-                    'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
-                    'udayam.mimes' => 'The Udayam document must be a PDF file.', // Custom error message for Udayam file
+                  
                 ]);
         
                 if ($validator->fails()) {
@@ -490,15 +478,14 @@ class RegisterController extends Controller
            if($request->pub_ownership =="trust"){
             if( $request->hasFile('private_trust') && $request->hasFile('pan_tan')){
                 $validator = Validator::make($request->all(), [
-                    'private_trust' => 'required|mimes:pdf', // Ensure Private Trust document is a PDF file
-                    'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                    'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                    'private_trust' => 'required', // Ensure Private Trust document is a PDF file
+                    'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                    'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                 ], [
                     'private_trust.required' => 'The Private Trust document file is required.',
-                    'private_trust.mimes' => 'The Private Trust document must be a PDF file.',
+                
                     'pan_tan.required' => 'The PAN/TAN document file is required.',
-                    'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                    'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                    
                 ]);
         
                 if ($validator->fails()) {
@@ -527,15 +514,14 @@ class RegisterController extends Controller
            if($request->pub_ownership =="society"){
             if($request->hasFile('private_society') && $request->hasFile('pan_tan')){
                 $validator = Validator::make($request->all(), [
-                    'private_society' => 'required|mimes:pdf', // Ensure Private Society document is a PDF file
-                    'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                    'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                    'private_society' => 'required', // Ensure Private Society document is a PDF file
+                    'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                    'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                 ], [
                     'private_society.required' => 'The Private Society document file is required.',
-                    'private_society.mimes' => 'The Private Society document must be a PDF file.',
+                  
                     'pan_tan.required' => 'The PAN/TAN document file is required.',
-                    'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                    'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                   
                 ]);
         
                 if ($validator->fails()) {
@@ -564,15 +550,14 @@ class RegisterController extends Controller
            if($request->pub_ownership =="institutional"){
             if( $request->hasFile('institution') && $request->hasFile('pan_tan')){
                 $validator = Validator::make($request->all(), [
-                    'institution' => 'required|mimes:pdf', // Ensure Institutional document is a PDF file
-                    'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                    'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                    'institution' => 'required', // Ensure Institutional document is a PDF file
+                    'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                    'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                 ], [
                     'institution.required' => 'The Institutional document file is required.',
-                    'institution.mimes' => 'The Institutional document must be a PDF file.',
+                  
                     'pan_tan.required' => 'The PAN/TAN document file is required.',
-                    'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                    'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                   
                 ]);
         
                 if ($validator->fails()) {
@@ -601,15 +586,14 @@ class RegisterController extends Controller
            if($request->pub_ownership =="trust-foundation"){
             if( $request->hasFile('trust_foundation') && $request->hasFile('pan_tan')){
                 $validator = Validator::make($request->all(), [
-                    'trust_foundation' => 'required|mimes:pdf', // Ensure Trust/Foundation document is a PDF file
-                    'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                    'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                    'trust_foundation' => 'required', // Ensure Trust/Foundation document is a PDF file
+                    'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                    'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                 ], [
                     'trust_foundation.required' => 'The Trust/Foundation document file is required.',
-                    'trust_foundation.mimes' => 'The Trust/Foundation document must be a PDF file.',
+                 
                     'pan_tan.required' => 'The PAN/TAN document file is required.',
-                    'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                    'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                    
                 ]);
         
                 if ($validator->fails()) {
@@ -638,15 +622,12 @@ class RegisterController extends Controller
            if($request->pub_ownership =="government-society"){
             if( $request->hasFile('society') && $request->hasFile('pan_tan')){
                 $validator = Validator::make($request->all(), [
-                    'society' => 'required|mimes:pdf', // Ensure Society document is a PDF file
-                    'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                    'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                    'society' => 'required', // Ensure Society document is a PDF file
+                    'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                    'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                 ], [
                     'society.required' => 'The Society document file is required.',
-                    'society.mimes' => 'The Society document must be a PDF file.',
                     'pan_tan.required' => 'The PAN/TAN document file is required.',
-                    'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                    'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
                 ]);
         
                 if ($validator->fails()) {
@@ -687,10 +668,10 @@ class RegisterController extends Controller
                 
                 if ($titleCount == $authorCount && $titleCount == $fromCount && $titleCount == $toCount) {
                     $validator = Validator::make($request->all(), [
-                        'subsidiary_doc.*' => 'required|mimes:pdf',
+                        'subsidiary_doc.*' => 'required',
                     ], [
                         'subsidiary_doc.*.required' => 'The subsidiary document file is required.',
-                        'subsidiary_doc.*.mimes' => 'The subsidiary document must be a PDF file.',
+                        
                     ]);
         
                     if ($validator->fails()) {
@@ -1260,10 +1241,9 @@ public function emailCheck(Request $request){
             
             if ($titleCount == $authorCount && $titleCount == $toCount) {
                 $validator = Validator::make($request->all(), [
-                    'authorization_letter.*' => 'required|mimes:pdf',
+                    'authorization_letter.*' => 'required',
                 ], [
                     'authorization_letter.*.required' => 'The authorization letter is required.',
-                    'authorization_letter.*.mimes' => 'The authorization letter must be a PDF file.',
                 ]);
     
                 if ($validator->fails()) {
@@ -1305,17 +1285,15 @@ public function emailCheck(Request $request){
      if($request->dis_ownership =="Partnership"){
         if($request->hasFile('pan_tan') && $request->hasFile('pan_deed')){
             $validator = Validator::make($request->all(), [
-                'pan_tan' => 'required|mimes:pdf',
-                'pan_deed' => 'required|mimes:pdf',
-                'udayam' => 'nullable|mimes:pdf', // Allow udayam file if uploaded, and validate it as PDF
-                'gst' => 'nullable|mimes:pdf', // Allow gst file if uploaded, and validate it as PDF
+                'pan_tan' => 'required',
+                'pan_deed' => 'required',
+                'udayam' => 'nullable', // Allow udayam file if uploaded, and validate it as PDF
+                'gst' => 'nullable', // Allow gst file if uploaded, and validate it as PDF
             ], [
                 'pan_tan.required' => 'The PAN/TAN document file is required.',
-                'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+               
                 'pan_deed.required' => 'The Partnership Deed document file is required.',
-                'pan_deed.mimes' => 'The Partnership Deed document must be a PDF file.',
-                'udayam.mimes' => 'The Udayam file must be a PDF file.', // Custom error message for udayam file
-                'gst.mimes' => 'The GST file must be a PDF file.', // Custom error message for gst file
+               
             ]);
     
             if ($validator->fails()) {
@@ -1344,19 +1322,16 @@ public function emailCheck(Request $request){
        if($request->dis_ownership =="Private"){
         if($request->hasFile('pan_tan') && $request->hasFile('certification_incon')){
             $validator = Validator::make($request->all(), [
-                'pan_tan' => 'required|mimes:pdf', 
-                'certification_incon' => 'required|mimes:pdf', 
-                'moa' => 'nullable|mimes:pdf', // Allow moa file if uploaded, and validate it as PDF
-                'aoa' => 'nullable|mimes:pdf', // Allow aoa file if uploaded, and validate it as PDF
-                'gst' => 'nullable|mimes:pdf', // Allow gst file if uploaded, and validate it as PDF
+                'pan_tan' => 'required', 
+                'certification_incon' => 'required', 
+                'moa' => 'nullable', // Allow moa file if uploaded, and validate it as PDF
+                'aoa' => 'nullable', // Allow aoa file if uploaded, and validate it as PDF
+                'gst' => 'nullable', // Allow gst file if uploaded, and validate it as PDF
             ], [
                 'pan_tan.required' => 'The PAN/TAN document file is required.',
-                'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+             
                 'certification_incon.required' => 'The Certification document file is required.',
-                'certification_incon.mimes' => 'The Certification document must be a PDF file.',
-                'moa.mimes' => 'The MOA must be a PDF file.', // Custom error message for moa file
-                'aoa.mimes' => 'The AOA must be a PDF file.', // Custom error message for aoa file
-                'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for gst file
+              
             ]);
     
             if ($validator->fails()) {
@@ -1385,15 +1360,14 @@ public function emailCheck(Request $request){
        if($request->dis_ownership =="Publication"){
         if( $request->hasFile('certification_incon') && $request->hasFile('pan_tan')){
             $validator = Validator::make($request->all(), [
-                'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                'certification_incon' => 'required|mimes:pdf', // Ensure Certification document is a PDF file
-                'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                'certification_incon' => 'required', // Ensure Certification document is a PDF file
+                'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
             ], [
                 'pan_tan.required' => 'The PAN/TAN document file is required.',
-                'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+              
                 'certification_incon.required' => 'The Certification document file is required.',
-                'certification_incon.mimes' => 'The Certification document must be a PDF file.',
-                'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+              
             ]);
     
             if ($validator->fails()) {
@@ -1422,14 +1396,12 @@ public function emailCheck(Request $request){
        if($request->dis_ownership =="oneperson"){
         if( $request->hasFile('pan_tan')){
             $validator = Validator::make($request->all(), [
-                'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
-                'udayam' => 'nullable|mimes:pdf', // Allow Udayam file if uploaded, and validate it as PDF
+                'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
+                'udayam' => 'nullable', // Allow Udayam file if uploaded, and validate it as PDF
             ], [
                 'pan_tan.required' => 'The PAN/TAN document file is required.',
-                'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
-                'udayam.mimes' => 'The Udayam document must be a PDF file.', // Custom error message for Udayam file
+              
             ]);
     
             if ($validator->fails()) {
@@ -1458,17 +1430,15 @@ public function emailCheck(Request $request){
        if($request->dis_ownership =="limited"){
         if(  $request->hasFile('pan_tan')&& $request->hasFile('llp_agre')){
             $validator = Validator::make($request->all(), [
-                'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                'llp_agre' => 'required|mimes:pdf', // Ensure LLP Agreement document is a PDF file
-                'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
-                'udayam' => 'nullable|mimes:pdf', // Allow Udayam file if uploaded, and validate it as PDF
+                'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                'llp_agre' => 'required', // Ensure LLP Agreement document is a PDF file
+                'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
+                'udayam' => 'nullable', // Allow Udayam file if uploaded, and validate it as PDF
             ], [
                 'pan_tan.required' => 'The PAN/TAN document file is required.',
-                'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+                
                 'llp_agre.required' => 'The LLP Agreement document file is required.',
-                'llp_agre.mimes' => 'The LLP Agreement document must be a PDF file.',
-                'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
-                'udayam.mimes' => 'The Udayam document must be a PDF file.', // Custom error message for Udayam file
+              
             ]);
     
             if ($validator->fails()) {
@@ -1497,15 +1467,14 @@ public function emailCheck(Request $request){
        if($request->dis_ownership =="trust"){
         if( $request->hasFile('private_trust') && $request->hasFile('pan_tan')){
             $validator = Validator::make($request->all(), [
-                'private_trust' => 'required|mimes:pdf', // Ensure Private Trust document is a PDF file
-                'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                'private_trust' => 'required', // Ensure Private Trust document is a PDF file
+                'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
             ], [
                 'private_trust.required' => 'The Private Trust document file is required.',
-                'private_trust.mimes' => 'The Private Trust document must be a PDF file.',
+             
                 'pan_tan.required' => 'The PAN/TAN document file is required.',
-                'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+              
             ]);
     
             if ($validator->fails()) {
@@ -1534,15 +1503,14 @@ public function emailCheck(Request $request){
        if($request->dis_ownership =="society"){
         if($request->hasFile('private_society') && $request->hasFile('pan_tan')){
             $validator = Validator::make($request->all(), [
-                'private_society' => 'required|mimes:pdf', // Ensure Private Society document is a PDF file
-                'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                'private_society' => 'required', // Ensure Private Society document is a PDF file
+                'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
             ], [
                 'private_society.required' => 'The Private Society document file is required.',
-                'private_society.mimes' => 'The Private Society document must be a PDF file.',
+               
                 'pan_tan.required' => 'The PAN/TAN document file is required.',
-                'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                
             ]);
     
             if ($validator->fails()) {
@@ -1571,15 +1539,14 @@ public function emailCheck(Request $request){
        if($request->dis_ownership =="institutional"){
         if( $request->hasFile('institution') && $request->hasFile('pan_tan')){
             $validator = Validator::make($request->all(), [
-                'institution' => 'required|mimes:pdf', // Ensure Institutional document is a PDF file
-                'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                'institution' => 'required', // Ensure Institutional document is a PDF file
+                'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
             ], [
                 'institution.required' => 'The Institutional document file is required.',
-                'institution.mimes' => 'The Institutional document must be a PDF file.',
+                
                 'pan_tan.required' => 'The PAN/TAN document file is required.',
-                'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                
             ]);
     
             if ($validator->fails()) {
@@ -1608,15 +1575,14 @@ public function emailCheck(Request $request){
        if($request->dis_ownership =="trust-foundation"){
         if( $request->hasFile('trust_foundation') && $request->hasFile('pan_tan')){
             $validator = Validator::make($request->all(), [
-                'trust_foundation' => 'required|mimes:pdf', // Ensure Trust/Foundation document is a PDF file
-                'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                'trust_foundation' => 'required', // Ensure Trust/Foundation document is a PDF file
+                'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
             ], [
                 'trust_foundation.required' => 'The Trust/Foundation document file is required.',
-                'trust_foundation.mimes' => 'The Trust/Foundation document must be a PDF file.',
+               
                 'pan_tan.required' => 'The PAN/TAN document file is required.',
-                'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+               
             ]);
     
             if ($validator->fails()) {
@@ -1645,15 +1611,14 @@ public function emailCheck(Request $request){
        if($request->dis_ownership =="government-society"){
         if( $request->hasFile('society') && $request->hasFile('pan_tan')){
             $validator = Validator::make($request->all(), [
-                'society' => 'required|mimes:pdf', // Ensure Society document is a PDF file
-                'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                'society' => 'required', // Ensure Society document is a PDF file
+                'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
             ], [
                 'society.required' => 'The Society document file is required.',
-                'society.mimes' => 'The Society document must be a PDF file.',
+              
                 'pan_tan.required' => 'The PAN/TAN document file is required.',
-                'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                
             ]);
     
             if ($validator->fails()) {
@@ -1694,10 +1659,10 @@ public function emailCheck(Request $request){
             
             if ($titleCount == $authorCount && $titleCount == $fromCount && $titleCount == $toCount) {
                 $validator = Validator::make($request->all(), [
-                    'subsidiary_name_distributor_file.*' => 'required|mimes:pdf',
+                    'subsidiary_name_distributor_file.*' => 'required',
                 ], [
                     'subsidiary_name_distributor_file.*.required' => 'The subsidiary document file is required.',
-                    'subsidiary_name_distributor_file.*.mimes' => 'The subsidiary document must be a PDF file.',
+                  
                 ]);
     
                 if ($validator->fails()) {
@@ -2217,10 +2182,10 @@ public function disemailCheck(Request $request){
                 
                 if ($titleCount == $authorCount && $titleCount == $toCount) {
                     $validator = Validator::make($request->all(), [
-                        'authorization_letter.*' => 'required|mimes:pdf',
+                        'authorization_letter.*' => 'required',
                     ], [
                         'authorization_letter.*.required' => 'The authorization letter is required.',
-                        'authorization_letter.*.mimes' => 'The authorization letter must be a PDF file.',
+                       
                     ]);
         
                     if ($validator->fails()) {
@@ -2364,17 +2329,15 @@ public function disemailCheck(Request $request){
                if($request->pub_dis_ownership =="Partnership"){
                 if($request->hasFile('pan_tan') && $request->hasFile('pan_deed')){
                     $validator = Validator::make($request->all(), [
-                        'pan_tan' => 'required|mimes:pdf',
-                        'pan_deed' => 'required|mimes:pdf',
-                        'udayam' => 'nullable|mimes:pdf', // Allow udayam file if uploaded, and validate it as PDF
-                        'gst' => 'nullable|mimes:pdf', // Allow gst file if uploaded, and validate it as PDF
+                        'pan_tan' => 'required',
+                        'pan_deed' => 'required',
+                        'udayam' => 'nullable', // Allow udayam file if uploaded, and validate it as PDF
+                        'gst' => 'nullable', // Allow gst file if uploaded, and validate it as PDF
                     ], [
                         'pan_tan.required' => 'The PAN/TAN document file is required.',
-                        'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+                      
                         'pan_deed.required' => 'The Partnership Deed document file is required.',
-                        'pan_deed.mimes' => 'The Partnership Deed document must be a PDF file.',
-                        'udayam.mimes' => 'The Udayam file must be a PDF file.', // Custom error message for udayam file
-                        'gst.mimes' => 'The GST file must be a PDF file.', // Custom error message for gst file
+                       
                     ]);
             
                     if ($validator->fails()) {
@@ -2403,19 +2366,16 @@ public function disemailCheck(Request $request){
                if($request->pub_dis_ownership =="Private"){
                 if($request->hasFile('pan_tan') && $request->hasFile('certification_incon')){
                     $validator = Validator::make($request->all(), [
-                        'pan_tan' => 'required|mimes:pdf', 
-                        'certification_incon' => 'required|mimes:pdf', 
-                        'moa' => 'nullable|mimes:pdf', // Allow moa file if uploaded, and validate it as PDF
-                        'aoa' => 'nullable|mimes:pdf', // Allow aoa file if uploaded, and validate it as PDF
-                        'gst' => 'nullable|mimes:pdf', // Allow gst file if uploaded, and validate it as PDF
+                        'pan_tan' => 'required', 
+                        'certification_incon' => 'required', 
+                        'moa' => 'nullable', // Allow moa file if uploaded, and validate it as PDF
+                        'aoa' => 'nullable', // Allow aoa file if uploaded, and validate it as PDF
+                        'gst' => 'nullable', // Allow gst file if uploaded, and validate it as PDF
                     ], [
                         'pan_tan.required' => 'The PAN/TAN document file is required.',
-                        'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+                      
                         'certification_incon.required' => 'The Certification document file is required.',
-                        'certification_incon.mimes' => 'The Certification document must be a PDF file.',
-                        'moa.mimes' => 'The MOA must be a PDF file.', // Custom error message for moa file
-                        'aoa.mimes' => 'The AOA must be a PDF file.', // Custom error message for aoa file
-                        'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for gst file
+                       
                     ]);
             
                     if ($validator->fails()) {
@@ -2444,15 +2404,14 @@ public function disemailCheck(Request $request){
                if($request->pub_dis_ownership =="Publication"){
                 if( $request->hasFile('certification_incon') && $request->hasFile('pan_tan')){
                     $validator = Validator::make($request->all(), [
-                        'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                        'certification_incon' => 'required|mimes:pdf', // Ensure Certification document is a PDF file
-                        'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                        'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                        'certification_incon' => 'required', // Ensure Certification document is a PDF file
+                        'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                     ], [
                         'pan_tan.required' => 'The PAN/TAN document file is required.',
-                        'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+                    
                         'certification_incon.required' => 'The Certification document file is required.',
-                        'certification_incon.mimes' => 'The Certification document must be a PDF file.',
-                        'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                       
                     ]);
             
                     if ($validator->fails()) {
@@ -2481,14 +2440,12 @@ public function disemailCheck(Request $request){
                if($request->pub_dis_ownership =="oneperson"){
                 if( $request->hasFile('pan_tan')){
                     $validator = Validator::make($request->all(), [
-                        'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                        'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
-                        'udayam' => 'nullable|mimes:pdf', // Allow Udayam file if uploaded, and validate it as PDF
+                        'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                        'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
+                        'udayam' => 'nullable', // Allow Udayam file if uploaded, and validate it as PDF
                     ], [
                         'pan_tan.required' => 'The PAN/TAN document file is required.',
-                        'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                        'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
-                        'udayam.mimes' => 'The Udayam document must be a PDF file.', // Custom error message for Udayam file
+                      
                     ]);
             
                     if ($validator->fails()) {
@@ -2517,17 +2474,15 @@ public function disemailCheck(Request $request){
                if($request->pub_dis_ownership =="limited"){
                 if(  $request->hasFile('pan_tan')&& $request->hasFile('llp_agre')){
                     $validator = Validator::make($request->all(), [
-                        'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                        'llp_agre' => 'required|mimes:pdf', // Ensure LLP Agreement document is a PDF file
-                        'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
-                        'udayam' => 'nullable|mimes:pdf', // Allow Udayam file if uploaded, and validate it as PDF
+                        'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                        'llp_agre' => 'required', // Ensure LLP Agreement document is a PDF file
+                        'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
+                        'udayam' => 'nullable', // Allow Udayam file if uploaded, and validate it as PDF
                     ], [
                         'pan_tan.required' => 'The PAN/TAN document file is required.',
-                        'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
+                      
                         'llp_agre.required' => 'The LLP Agreement document file is required.',
-                        'llp_agre.mimes' => 'The LLP Agreement document must be a PDF file.',
-                        'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
-                        'udayam.mimes' => 'The Udayam document must be a PDF file.', // Custom error message for Udayam file
+                     
                     ]);
             
                     if ($validator->fails()) {
@@ -2556,15 +2511,14 @@ public function disemailCheck(Request $request){
                if($request->pub_dis_ownership =="trust"){
                 if( $request->hasFile('private_trust') && $request->hasFile('pan_tan')){
                     $validator = Validator::make($request->all(), [
-                        'private_trust' => 'required|mimes:pdf', // Ensure Private Trust document is a PDF file
-                        'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                        'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                        'private_trust' => 'required', // Ensure Private Trust document is a PDF file
+                        'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                        'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                     ], [
                         'private_trust.required' => 'The Private Trust document file is required.',
-                        'private_trust.mimes' => 'The Private Trust document must be a PDF file.',
+                       
                         'pan_tan.required' => 'The PAN/TAN document file is required.',
-                        'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                        'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                    
                     ]);
             
                     if ($validator->fails()) {
@@ -2593,15 +2547,14 @@ public function disemailCheck(Request $request){
                if($request->pub_dis_ownership =="society"){
                 if($request->hasFile('private_society') && $request->hasFile('pan_tan')){
                     $validator = Validator::make($request->all(), [
-                        'private_society' => 'required|mimes:pdf', // Ensure Private Society document is a PDF file
-                        'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                        'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                        'private_society' => 'required', // Ensure Private Society document is a PDF file
+                        'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                        'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                     ], [
                         'private_society.required' => 'The Private Society document file is required.',
-                        'private_society.mimes' => 'The Private Society document must be a PDF file.',
+                      
                         'pan_tan.required' => 'The PAN/TAN document file is required.',
-                        'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                        'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                      
                     ]);
             
                     if ($validator->fails()) {
@@ -2630,15 +2583,14 @@ public function disemailCheck(Request $request){
                if($request->pub_dis_ownership =="institutional"){
                 if( $request->hasFile('institution') && $request->hasFile('pan_tan')){
                     $validator = Validator::make($request->all(), [
-                        'institution' => 'required|mimes:pdf', // Ensure Institutional document is a PDF file
-                        'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                        'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                        'institution' => 'required', // Ensure Institutional document is a PDF file
+                        'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                        'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                     ], [
                         'institution.required' => 'The Institutional document file is required.',
-                        'institution.mimes' => 'The Institutional document must be a PDF file.',
+                      
                         'pan_tan.required' => 'The PAN/TAN document file is required.',
-                        'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                        'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                   
                     ]);
             
                     if ($validator->fails()) {
@@ -2667,15 +2619,14 @@ public function disemailCheck(Request $request){
                if($request->pub_dis_ownership =="trust-foundation"){
                 if( $request->hasFile('trust_foundation') && $request->hasFile('pan_tan')){
                     $validator = Validator::make($request->all(), [
-                        'trust_foundation' => 'required|mimes:pdf', // Ensure Trust/Foundation document is a PDF file
-                        'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                        'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                        'trust_foundation' => 'required', // Ensure Trust/Foundation document is a PDF file
+                        'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                        'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                     ], [
                         'trust_foundation.required' => 'The Trust/Foundation document file is required.',
-                        'trust_foundation.mimes' => 'The Trust/Foundation document must be a PDF file.',
+                      
                         'pan_tan.required' => 'The PAN/TAN document file is required.',
-                        'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                        'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                      
                     ]);
             
                     if ($validator->fails()) {
@@ -2706,15 +2657,14 @@ public function disemailCheck(Request $request){
                if($request->pub_dis_ownership =="government-society"){
                 if( $request->hasFile('society') && $request->hasFile('pan_tan')){
                     $validator = Validator::make($request->all(), [
-                        'society' => 'required|mimes:pdf', // Ensure Society document is a PDF file
-                        'pan_tan' => 'required|mimes:pdf', // Ensure PAN/TAN document is a PDF file
-                        'gst' => 'nullable|mimes:pdf', // Allow GST file if uploaded, and validate it as PDF
+                        'society' => 'required', // Ensure Society document is a PDF file
+                        'pan_tan' => 'required', // Ensure PAN/TAN document is a PDF file
+                        'gst' => 'nullable', // Allow GST file if uploaded, and validate it as PDF
                     ], [
                         'society.required' => 'The Society document file is required.',
-                        'society.mimes' => 'The Society document must be a PDF file.',
+                       
                         'pan_tan.required' => 'The PAN/TAN document file is required.',
-                        'pan_tan.mimes' => 'The PAN/TAN document must be a PDF file.',
-                        'gst.mimes' => 'The GST document must be a PDF file.', // Custom error message for GST file
+                       
                     ]);
             
                     if ($validator->fails()) {
@@ -2755,10 +2705,10 @@ public function disemailCheck(Request $request){
                     
                     if ($titleCount == $authorCount && $titleCount == $fromCount && $titleCount == $toCount) {
                         $validator = Validator::make($request->all(), [
-                            'subsidiary_publication_distribution_file.*' => 'required|mimes:pdf',
+                            'subsidiary_publication_distribution_file.*' => 'required',
                         ], [
                             'subsidiary_publication_distribution_file.*.required' => 'The subsidiary document file is required.',
-                            'subsidiary_publication_distribution_file.*.mimes' => 'The subsidiary document must be a PDF file.',
+                           
                         ]);
             
                         if ($validator->fails()) {
@@ -2809,10 +2759,10 @@ public function disemailCheck(Request $request){
             
             if ($titleCount == $authorCount && $titleCount == $fromCount && $titleCount == $toCount) {
                 $validator = Validator::make($request->all(), [
-                    'subsidiary_publication_distribution_file.*' => 'required|mimes:pdf',
+                    'subsidiary_publication_distribution_file.*' => 'required',
                 ], [
                     'subsidiary_publication_distribution_file.*.required' => 'The subsidiary document file is required.',
-                    'subsidiary_publication_distribution_file.*.mimes' => 'The subsidiary document must be a PDF file.',
+                   
                 ]);
     
                 if ($validator->fails()) {

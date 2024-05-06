@@ -24,10 +24,11 @@ class SaleController extends Controller
         $books= json_encode( $bookitem);
         $user = Session::get('user');
         $amount = count($data) *500;
-         return view('payment.payment', compact('user', 'amount','books'));
+        return view('payment.payment', compact('user', 'amount','books'));
     }
     public function processSale(Request $request)
     {
+        dd($request->all());
         // Set time limit and include necessary files
         set_time_limit(0);
           

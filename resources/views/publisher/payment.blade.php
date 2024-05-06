@@ -63,7 +63,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <!-- Details -->
-                        <div class="card mb-4 h-auto">
+                        <div class="card mb-4 h-auto" id="print-pdf">
                             <div class="card-body">
                                 <div class="mb-3 d-flex justify-content-end ">
                                       <!-- <div>
@@ -73,7 +73,7 @@
                                         <span class="badge rounded-pill bg-info">SHIPPING</span>
                                       </div> -->
                                     <div class="d-flex ">
-                                        <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text"><i
+                                        <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text" onclick="generatePdf()"><i
                                                 class="bi bi-download"></i> <span class="text">Download</span></button>
                                         <div class="dropdown">
                                             <button class="btn btn-link p-0 text-muted" type="button"
@@ -255,13 +255,17 @@
                         <!-- Customer Notes -->
                         <div class="card mb-4 h-auto">
                             <div class="card-body">
+                                @php
+                                   $user = auth('publisher')->user();
+                     
+                                @endphp
                                 <h3 class="h6">Customer Notes</h3>
                                 <div class="row">
                                   <div class="col-md-6 col-sm-6 col-6">
                                     <p>Publication Name </p>
                                   </div>
                                   <div class="col-md-6 col-sm-6 col-6">
-                                    <p> <b>: Test</b></p>
+                                    <p> <b>: {{$user->publicationName}}</b></p>
                                   </div>
                                 </div>
                             </div>
@@ -275,21 +279,21 @@
                                     <p>Publisher Name </p>
                                   </div>
                                   <div class="col-md-6 col-sm-6 col-6">
-                                    <p> <b>: Test</b></p>
+                                    <p> <b>: {{$user->firstName}} {{$user->lastName}}</b></p>
                                   </div>
                                   <div class="col-md-6 col-sm-6 col-6">
                                     <p>Email Id </p>
                                   </div>
                                   <div class="col-md-6 col-sm-6 col-6">
-                                    <p> <b>: test@gmail.com</b></p>
+                                    <p> <b>: {{$user->email}}</b></p>
                                   </div>
                                 </div>
                                 <hr>
                                 <h3 class="h6">Address</h3>
                                 <address>
-                                    <p><abbr title="address">Address : </abbr>1355 Market St, Suite 900<br>
-                                    San Francisco, CA 94103<br></p>
-                                    <p><abbr title="Phone">Phone No : </abbr> (123) 456-7890</p>
+                                    <p><abbr title="address">Address : </abbr>{{$user->publicationAddress}}<br>
+                                    {{$user->city}}, {{$user->District}} , {{$user->state}}, {{$user->country}} , {{$user->postalCode}}<br></p>
+                                    <p><abbr title="Phone">Phone No : </abbr>{{$user->mobileNumber}}</p>
                                 </address>
                             </div>
                         </div>
@@ -399,5 +403,12 @@
         });
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
+<script>
+    function generatePdf() {
+        let htmlElement = document.getElementById('print-pdf');
+        html2pdf().from(htmlElement).save('Procurement Books.pdf');
+    }
+</script>
 </html>

@@ -74,7 +74,7 @@
                                     <div class="row p-5">
                                        <div class="col-12 text-center">
                                           <img src="https://images.squarespace-cdn.com/content/v1/5ee517995ce62276749898ed/1592727363796-QPOB76M9SETTY5GG2W7W/0-3071_red-cross-mark-download-png-red-circle-with.jpg" alt="" srcset="" style="width:50px">
-                                          <h2 class="fw-bold">Payment Failure</h2>
+                                          <h2 class="fw-bold">Payment Failed</h2>
                                           <p>Your Transaction ID for Order<b> {{ $txnRefNo }} </b> is <b>{{ $pgTxnId }}</b>.<br>Your payment is not processed. {{ $message }}</p>
                                        </div>
                                     </div>
