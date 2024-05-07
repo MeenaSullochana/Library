@@ -89,7 +89,7 @@
                                                 <td data-label="Invoice Number">{{ $val->invoiceNumber }}</td>
 
                                                 <td data-label="Date">{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d ') }}</td>
-                                                <td data-label="Control"><a href="/distributor/payment_recept/{{ $val->id }}"><i
+                                                <td data-label="Control"><a href="/distributor/payment_receipt/{{ $val->id }}"><i
                                                             class="fa fa-eye p-2"></i></a>
 
                                                 </td>

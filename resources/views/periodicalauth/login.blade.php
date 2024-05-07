@@ -217,33 +217,33 @@
                                 <div class="static-tabs mt-5 mb-5">
                                     <img class="w-100" src="assets/img/logo/login-logo-welcom.jpeg" alt="img">
                                 </div>
-                                <form action="/login" class="p-2" id="userloginForm" method="POST">
+                                <form action="/periodical/login" class="p-2" id="userloginForm" method="POST">
                                     @csrf
                                     <p id="tooltip-1" title="Please Select Who You are" class="fs-5 fw-bold">Please select who you are?</p>
                                     <hr>
                                     <div class="row login_static">
-                                        <div class="col-lg-3 col-md-6">
+                                        <div class="col-lg-4 col-md-6">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio1" name="type"
                                                     value="publisher" checked>
                                                 <label class="form-check-label" for="radio1"> Publisher</label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-6">
+                                        <div class="col-lg-4 col-md-6">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio2" name="type"
                                                     value="distributor">
                                                 <label class="form-check-label" for="radio2"> Distributor</label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-12">
+                                        <!-- <div class="col-lg-6 col-md-12">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio3"
                                                     name="type" value="publisher_distributor">
                                                 <label class="form-check-label" for="radio3"> Publisher Cum
                                                     Distributor</label>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                     <div class="col-md-8 mt-2">
                                         <label for="inputEmail4" class="form-label">User Name / Email<span

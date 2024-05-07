@@ -1374,15 +1374,15 @@
                             <li><a href="feedback_public_list">Public Feedback</a></li> -->
                         </ul>
                     </li>
-					{{--<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-minecart-loaded"></i>
                             <span class="nav-text">Procurement Receipt</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/distributor/procurement_paymrnt"> Payment Receipt List</a></li>
+                            <li><a href="/distributor/procurement_payment"> Payment Receipt List</a></li>
 
                         </ul>
-                    </li>--}}
+                    </li>
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-minecart-loaded"></i>
                             <span class="nav-text">Manage Procurement</span>

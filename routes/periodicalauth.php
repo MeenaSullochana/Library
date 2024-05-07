@@ -33,8 +33,8 @@ Route::prefix('periodical')->group(function () {
     Route::get('/login',function(){return view('periodicalauth.login');});
 
 // Route::get('/login',[LoginController::class,'showLoginForm']);
-Route::post('/login',[LoginController::class,'userLogin']);
-Route::get('/logout', [LoginController::class, 'logout']);
+Route::post('/login',[LoginController::class,'userLogin'])->name('periodical.login');
+Route::get('/logout', [LoginController::class, 'logout'])->name('periodical.logout');
 });
 
 // Route::get('/forgotform',function(){ return view('Auth.forgotform');});
