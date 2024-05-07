@@ -275,7 +275,7 @@ public function subjectupdate(Request $req){
     $data= [
     'success' => 'Subject Updated Successfully',
          ];
-return response()->json($data);  
+return response()->json($data);   
 
 
 }
@@ -721,7 +721,7 @@ public function librarianreturnmessage(Request $req){
      }
 
     }
- 
+
     return view('librarian.bookcopies_pendinglist')->with('data',$data); 
 
  

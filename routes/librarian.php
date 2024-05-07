@@ -87,12 +87,25 @@ Route::prefix('librarian')->group(function () {
     Route::get('/dispatch-year-list',function(){ return view('librarian.dispatch-year-list');});
     Route::get('/magazine-view-freq',function(){ return view('librarian.magazine-view-freq');});
 
-    Route::get('/magazine-view-dis',function(){ return view('librarian.dispatch_magazine_view');});
 
     //For DLO
-    Route::get('/magazine-overview',function(){ return view('librarian.dispatch_overview');});
+    // Route::get('/magazine-overview',function(){ return view('librarian.dispatch_overview');});
     Route::get('/magazine-overview-list',function(){ return view('librarian.dispatch_magazine_over_list');});
-    Route::get('/magazine-over-library-list',function(){ return view('librarian.dispatch_library_over_magazine_list');});
+    // Route::get('/magazine-over-library-list',function(){ return view('librarian.dispatch_library_over_magazine_list');});
+
+    Route::get('/dispatch_overview',[OrderController::class,'dispatch_overview']);
+    Route::get('/dispatch_library_magazine/{id}/{orderid}',[OrderController::class,'dispatch_library_over_magazine_list']);
+    
+    Route::get('/dispatch_library',function(){
+        $data = Session::get('dispatchlibrary');
+        if($data !==null){
+          
+              return view('librarian.dispatch_library_over_magazine_list')->with("data",$data);
+          }
+          
+      }); 
+
+
 
     Route::get('/meta_book_list',[LibrarianController::class,'metabooklist']);
     Route::post('/librarianapprovestatus',[LibrarianController::class,'librarianapprovestatus']);
@@ -217,8 +230,31 @@ Route::prefix('librarian')->group(function () {
         return view('librarian.dispatch_library_list');
     });
 
-    Route::get('/order-library-item-list',function(){
-        return view('librarian.dispatch_order_library_item_list');
+    // Route::get('/order-library-item-list',function(){
+    //     return view('librarian.dispatch_order_library_item_list');
+    // });
+
+    // Route::get('/magazine-view-dis',function(){ return view('librarian.dispatch_magazine_view');});
+    
+
+    Route::get('/order-library-item-list/{id}',[OrderController::class,'order_library_item_list']);
+
+    Route::get('/order_library_item_list',function(){
+        $data = Session::get('datas');
+        if($data !==null){
+            return view('librarian.dispatch_order_library_item_list')->with("data",$data);
+        }
+        
     });
+    Route::get('/dispatch_magazine_view/{id}/{orderid}',[OrderController::class,'dispatch_magazine_view']);
+    Route::get('/dispatch-magazine-view',function(){
+        $data = Session::get('fredata');
+        if($data !==null){
+            return view('librarian.dispatch_magazine_view')->with("data",$data);
+        }
+        
+    });
+    
+
 });
 });

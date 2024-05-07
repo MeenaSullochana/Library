@@ -400,7 +400,10 @@
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="/librarian/dispatch-year-list">Magazine List</a></li> -->
-                            <li><a href="/librarian/magazine-overview">Overview</a></li>
+                            <li><a href="/librarian/dispatch_overview">Overview</a></li>
+                            <li><a href="/librarian/order-library-list"> Frequency of order magazine </a></li>
+
+                            
                         </ul>
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">

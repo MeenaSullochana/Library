@@ -25,6 +25,113 @@
     <?php
         include "publisher_and_distributor/plugin/plugin_css.php";
     ?>
+    <style>
+    table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    table caption {
+        font-size: 1.5em;
+        margin: .5em 0 .75em;
+    }
+
+    table tr {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: .35em;
+    }
+
+    table th,
+    table td {
+        padding: .625em;
+        text-align: center;
+    }
+
+    table th {
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    @media screen and (max-width: 600px) {
+        table {
+            border: 0;
+        }
+
+        table caption {
+            font-size: 1.3em;
+        }
+
+        table thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        .form-check.mt-p00.form-switch {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+
+        table td {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+
+        table td::before {
+            /*
+   * aria-label has no advantage, it won't be read inside a table
+   content: attr(aria-label);
+   */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table td:last-child {
+            border-bottom: 0;
+        }
+
+        .d-flex.mt-p0 {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+
+    /* general styling */
+    body {
+        font-family: "Open Sans", sans-serif;
+        line-height: 1.25;
+    }
+
+    .active-projects.style-1 .dt-buttons .dt-button {
+        top: -50px;
+        right: 0 !important;
+    }
+
+    .active-projects tbody tr td:last-child {
+        text-align: center;
+    }
+    </style>
 </head>
 
 <body>
@@ -192,7 +299,7 @@
     </div>
     <!-- Modal inform Procurement-->
     <div class="modal fade" id="ModalConfirmCenter">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Are you send book Copies?</h5>
@@ -214,62 +321,80 @@
 
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="inputNumberBooks1">Library Type</label>
                                 <input type="text" class="form-control" value="Anna Centenary Library" id="librarytype1"
                                     name="inputNumberBooks1" readonly>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="inputNumberBooks1"> book copies</label>
                                 <input type="text" class="form-control" id="copies1" value="3" name="inputNumberBooks1"
                                     readonly>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group mt-2">
+                                <label for="inputNumberBooks1">Upload Proof</label>
+                                <input type="file" id="uplode1" name="" require>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-md-2">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox">
 
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="inputNumberBooks1">Library Type</label>
                                 <input type="text" class="form-control" id="librarytype2"
                                     value="Kalaignar Centenary Library" name="inputNumberBooks1" readonly>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="inputNumberBooks1"> book copies</label>
                                 <input type="text" class="form-control" id="copies2" value="1" name="inputNumberBooks1"
                                     readonly>
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group mt-2">
+                                <label for="inputNumberBooks1"> Upload Proof</label>
+                                <input type="file" id="uplode2" name="" require>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="col-md-2">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox">
 
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="inputNumberBooks1">Library Type</label>
                                 <input type="text" class="form-control" id="librarytype3"
                                     value="Connemara Public Library" name="inputNumberBooks1" readonly>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="inputNumberBooks1"> book copies</label>
                                 <input type="text" class="form-control" id="copies3" value="1" name="inputNumberBooks1"
                                     readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group mt-2">
+                                <label for="inputNumberBooks1"> Upload Proof</label>
+                                <input type="file" id="uplode3" name="" require>
                             </div>
                         </div>
                     </div>
@@ -306,10 +431,14 @@ $(document).ready(function() {
     });
 });
 </script>
-
+<!-- 
 <script>
 $(document).ready(function() {
     $('#sendbook').on('click', function() {
+
+        var profileImage = $('#uplode1')[0].files[0];
+        var profileImage1 = $('#uplode2')[0].files[0];
+        var profileImage2 = $('#uplode3')[0].files[0];
 
         var checkedCount = $('#ModalConfirmCenter input[type="checkbox"]:checked').length;
         if (checkedCount != 3) {
@@ -322,24 +451,32 @@ $(document).ready(function() {
             var data1 = {
                 'librarytype': $('#librarytype1').val(),
                 'copies': $('#copies1').val(),
-                'status': '0'
+                'status': '0',
+                'profileImage' = profileImage[0],
             };
             var data2 = {
                 'librarytype': $('#librarytype2').val(),
                 'copies': $('#copies2').val(),
-                'status': '0'
+                'status': '0',
+                'profileImage1' = profileImage1[0],
             };
             var data3 = {
                 'librarytype': $('#librarytype3').val(),
                 'copies': $('#copies3').val(),
                 'status': '0'
+                'profileImage2' = profileImage2[0],
+
             };
             datarec.push(data1, data2, data3);
-            var data = {
-                'bookid': $('#hiddenId').val(),
-                'booktitle': $('#hiddentitle').val(),
-                'datarec': datarec
-            }
+
+            var datarecJsonString = JSON.stringify(datarec);
+
+            var formData = new FormData();
+
+            formData.append('datarec', datarecJsonString);
+            formData.append('bookid', $('#hiddenId').val());
+            formData.append('booktitle', $('#hiddentitle').val());
+            console.log(formData);
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -348,8 +485,9 @@ $(document).ready(function() {
             $.ajax({
                 type: "post",
                 url: "/publisher_and_distributor/procurementbokkcopies",
-                data: data,
-                dataType: "json",
+                data: formData,
+                processData: false, 
+                contentType: false,
                 success: function(response) {
                     if (response.success) {
                         $('#ModalConfirmCenter').modal('hide');
@@ -378,113 +516,105 @@ $(document).ready(function() {
 
     });
 });
+</script> -->
+<script>
+$(document).ready(function() {
+    $('#sendbook').on('click', function() {
+        var profileImage = $('#uplode1')[0].files[0];
+        var profileImage1 = $('#uplode2')[0].files[0];
+        var profileImage2 = $('#uplode3')[0].files[0];
+
+
+
+
+        var checkedCount = $('#ModalConfirmCenter input[type="checkbox"]:checked').length;
+        if (checkedCount != 3) {
+            toastr.error("Please Select All Checkbox", {
+                timeout: 45000
+            });
+        } else {
+            if (!profileImage || !profileImage1 || !profileImage2) {
+                toastr.error("Please select all three PDF files", {
+                    timeout: 45000
+                });
+                return;
+            }
+
+            if (!isPDF(profileImage) || !isPDF(profileImage1) || !isPDF(profileImage2)) {
+                toastr.error("Please select PDF files only", {
+                    timeout: 45000
+                });
+                return;
+            }
+
+            function isPDF(file) {
+                return file.type === 'application/pdf';
+            }
+            var datarec = [];
+            var data1 = {
+                'librarytype': $('#librarytype1').val(),
+                'copies': $('#copies1').val(),
+                'status': '0',
+                
+            };
+            var data2 = {
+                'librarytype': $('#librarytype2').val(),
+                'copies': $('#copies2').val(),
+                'status': '0',
+               
+            };
+            var data3 = {
+                'librarytype': $('#librarytype3').val(),
+                'copies': $('#copies3').val(),
+                'status': '0',
+                
+            };
+            datarec.push(data1, data2, data3);
+
+            var datarecJsonString = JSON.stringify(datarec);
+
+            var formData = new FormData();
+
+            formData.append('datarec', datarecJsonString);
+            formData.append('bookid', $('#hiddenId').val());
+            formData.append('booktitle', $('#hiddentitle').val());
+            formData.append('profileImage0', profileImage);
+            formData.append('profileImage1', profileImage1);
+            formData.append('profileImage2', profileImage2);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "post",
+                url: "/publisher_and_distributor/procurementbokkcopies",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        $('#ModalConfirmCenter').modal('hide');
+                        setTimeout(function() {
+                            window.location.href =
+                                "/publisher_and_distributor/procurement_samplebook";
+                        }, 3000);
+                        toastr.success(response.success, {
+                            timeout: 45000
+                        });
+                    } else {
+                        // $('#ModalConfirmCenter').modal('hide');
+                        toastr.error(response.error, {
+                            timeout: 45000
+                        });
+
+                    }
+                }
+            });
+        }
+    });
+});
 </script>
 
 </html>
-<style>
-table {
-    border: 1px solid #ccc;
-    border-collapse: collapse;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    table-layout: fixed;
-}
-
-table caption {
-    font-size: 1.5em;
-    margin: .5em 0 .75em;
-}
-
-table tr {
-    background-color: #f8f8f8;
-    border: 1px solid #ddd;
-    padding: .35em;
-}
-
-table th,
-table td {
-    padding: .625em;
-    text-align: center;
-}
-
-table th {
-    font-size: .85em;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-}
-
-@media screen and (max-width: 600px) {
-    table {
-        border: 0;
-    }
-
-    table caption {
-        font-size: 1.3em;
-    }
-
-    table thead {
-        border: none;
-        clip: rect(0 0 0 0);
-        height: 1px;
-        margin: -1px;
-        overflow: hidden;
-        padding: 0;
-        position: absolute;
-        width: 1px;
-    }
-
-    .form-check.mt-p00.form-switch {
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    table tr {
-        border-bottom: 3px solid #ddd;
-        display: block;
-        margin-bottom: .625em;
-    }
-
-    table td {
-        border-bottom: 1px solid #ddd;
-        display: block;
-        font-size: .8em;
-        text-align: right;
-    }
-
-    table td::before {
-        /*
-   * aria-label has no advantage, it won't be read inside a table
-   content: attr(aria-label);
-   */
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
-        text-transform: uppercase;
-    }
-
-    table td:last-child {
-        border-bottom: 0;
-    }
-
-    .d-flex.mt-p0 {
-        display: flex;
-        justify-content: flex-end;
-    }
-}
-
-/* general styling */
-body {
-    font-family: "Open Sans", sans-serif;
-    line-height: 1.25;
-}
-
-.active-projects.style-1 .dt-buttons .dt-button {
-    top: -50px;
-    right: 0 !important;
-}
-
-.active-projects tbody tr td:last-child {
-    text-align: center;
-}
-</style>

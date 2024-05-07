@@ -17,7 +17,10 @@
     <title>Government of Tamil Nadu - Book Procurement</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="images/fevi.svg">
-
+    <link href="
+      https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.css
+      " rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
         include "admin/plugin/plugin_css.php";
@@ -56,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>procurement sample Books Unreceive List</b>
+                                <b>procurement Send sample Books List</b>
                             </h3>
 
                         </div>
@@ -95,10 +98,9 @@
                                                 </td>
 
                                                 <td data-label="Status">
-                                                    <a href="#" class="badge bg-primary openModal"
-                                                        data-title="{{$val->book_title}}" data-id="{{$val->id}}"
-                                                        data-copies="{{ json_encode($val->copies) }}"
-                                                        id="openModal">View</a>
+                                                    <a href="#" class="badge bg-primary text-white openModal"
+                                                        data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
+                                                        id="openModal">Send Book Copies</a>
                                                 </td>
                                                 <td data-label="control">
 
@@ -149,7 +151,7 @@
 
     <!-- Modal inform Procurement-->
     <div class="modal fade" id="ModalConfirmCenter">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <!-- <h5 class="modal-title">Are you send book Copies?</h5> -->
@@ -164,15 +166,40 @@
                     </h5>
                     </h5>
                     <br>
-                    <div id="rowrecord">
-
-
-                    </div>
+                    <div  id="rowrecord">
+                
+                
+                 </div>
                 </div>
 
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">No</button> -->
                     <!-- <button type="button" id="sendbook" class="btn btn-primary">Confirm to submit</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa fa-chevron-left"></i>Back to</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+                <div class="modal-footer" style="display: flex; justify-content: space-between;">
+                    <div>
+                        <a id="prev" href="#prev" class="arrow">Previous</a>
+                        <a id="next" href="#next" class="arrow">Next</a>
+                    </div>
+                    <div>
+                        <!-- Add any buttons you need in the footer -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -190,41 +217,48 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
     $('.openModal').on('click', function() {
-
         var title = $(this).data('title');
         var id = $(this).data('id');
         var copies = $(this).data('copies');
         $('#booktitle').text('Book Title: ' + title);
-
+       
         var content = ""; // Initialize an empty string to store the generated HTML content
 
         // Loop through each copy in the 'copies' array
         copies.forEach(function(val) {
-            content += '<div class="row">' +
-                '<div class="col-md-6">' +
-                '<div class="form-group">' +
-                '<label for="inputNumberBooks1">Library Type</label>' +
-                '<input type="text" class="form-control" value="' + val.librarytype +
-                '" id="librarytype1" name="inputNumberBooks1" readonly>' +
-                '</div>' +
-                '</div>' +
-                '<div class="col-md-3">' +
-                '<div class="form-group">' +
-                '<label for="inputNumberBooks1">Book Copies</label>' +
-                '<input type="text" class="form-control" id="copies1" value="' + val.copies +
-                '" name="inputNumberBooks1" readonly>' +
-                '</div>' +
-                '</div>' +
-                '<div class="col-md-3">' +
-                '<div class="form-check">' +
-                '<input  type="button"' + (val.status == "0" ? 'value="Unverified"' :
-                    'value="Verified"') + ' class="mt-4 btn btn-' + (val.status == "0" ?
-                    'warning' : 'success') + '">' +
-                '</div>' +
-                '</div>' +
-                '</div>';
+            var assetUrl = '<?php echo asset("Books/copies/") ?>' + '/' + val.profileImage;
 
-        });
+    content += '<div class="row">' +
+        '<div class="col-md-4">' +
+        '<div class="form-group">' +
+        '<label for="inputNumberBooks1">Library Type</label>' +
+        '<input type="text" class="form-control" value="' + val.librarytype + '" id="librarytype1" name="inputNumberBooks1" readonly>' +
+        '</div>' +
+        '</div>' +
+        '<div class="col-md-3">' +
+        '<div class="form-group">' +
+        '<label for="inputNumberBooks1">Book Copies</label>' +
+        '<input type="text" class="form-control" id="copies1" value="' + val.copies + '" name="inputNumberBooks1" readonly>' +
+        '</div>' +
+        '</div>' +
+        '<div class="col-md-2">' +
+        '<div class="form-check">' +
+        '<label for="inputNumberBooks1">Status</label>' +
+        '<input type="button" ' + (val.status == "0" ? 'value="Unverified"' : 'value="Verified"') + ' class="mt-4 btn btn-' + (val.status == "0" ? 'warning' : 'success') + '">' +
+        '</div>' +
+        '</div>' +
+        '<div class="col-md-3">' +
+        '<div class="form-check">' +
+        '<label for="inputNumberBooks1">Proof</label>' +
+        '<br>' +
+        '<button type="button" class="btn btn-primary modalId" ' +
+        'data-id="' + assetUrl + '" ' +
+        'data-bs-toggle="modal" data-bs-target="#modalId">View Proof</button>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+});
+
 
         // Append the generated HTML content to the element with id 'rowrecord'
         $('#rowrecord').html(content);
@@ -236,10 +270,51 @@ $(document).ready(function() {
     });
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function loadContent(content) {
+        document.getElementById('modalBody').innerHTML = content;
+    }
 
+    function loadFile(dataId) {
+        var fileExtension = dataId.split('.').pop().toLowerCase();
 
+        switch (fileExtension) {
+            case 'pdf':
+                loadContent('<embed src="' + dataId + '" type="application/pdf" width="100%" height="600px" />');
+                break;
+            case 'jpg':
+            case 'jpeg':
+            case 'png':
+            case 'gif':
+                loadContent('<img src="' + dataId + '" alt="Image" style="max-width: 100%; max-height: 600px;">');
+                break;
+            case 'html':
+                fetch(dataId)
+                    .then(response => response.text())
+                    .then(html => {
+                        loadContent(html);
+                    })
+                    .catch(error => console.error('Error loading HTML:', error));
+                break;
+            default:
+                loadContent('<p>File type not supported</p>');
+                break;
+        }
+    }
+
+    $('#modalId').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+
+        var dataId = button.data('id');
+
+        loadFile(dataId);
+    });
+    </script>
 
 </html>
+
 <style>
 table {
     border: 1px solid #ccc;
@@ -347,3 +422,4 @@ body {
     text-align: center;
 }
 </style>
+

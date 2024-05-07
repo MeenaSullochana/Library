@@ -52,18 +52,18 @@ class Handler extends ExceptionHandler
             //
         });
     }
-    public function render($request, Throwable $exception)
-    {
-        if ($this->isHttpException($exception)) {
-            return $this->renderHttpException($exception);
-        } elseif ($exception instanceof QueryException) {
-            // Handle database errors
-            return response()->view('errors.database', [], 500); // Assuming you have a custom database error view
-        } else {
-            // Handle other unknown errors
-            return response()->view('errors.generic', [], 500); // Assuming you have a custom generic error view
-        }
+    // public function render($request, Throwable $exception)
+    // {
+    //     if ($this->isHttpException($exception)) {
+    //         return $this->renderHttpException($exception);
+    //     } elseif ($exception instanceof QueryException) {
+    //         // Handle database errors
+    //         return response()->view('errors.database', [], 500); // Assuming you have a custom database error view
+    //     } else {
+    //         // Handle other unknown errors
+    //         return response()->view('errors.generic', [], 500); // Assuming you have a custom generic error view
+    //     }
     
-        return parent::render($request, $exception);
-    }
+    //     return parent::render($request, $exception);
+    // }
    }

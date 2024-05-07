@@ -84,6 +84,7 @@
                                                 <th>Total Book Copies</th>
                                                 <th>Issued Status</th>
                                                 <th>Book Copies Send Date</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -108,6 +109,13 @@
                                               
                                                 <td data-label="">
                                                 {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}
+                                                </td>
+
+                                                <td class="py-2">
+                                                    <button type="button" class="btn btn-primary"
+                                                        data-id="{{ asset('Books/copies/' . $val->copiesrec->profileImage) }}"
+                                                        data-bs-toggle="modal" data-bs-target="#modalId">View Copies
+                                                        Proof</button>
                                                 </td>
                                             </tr>
                                     
@@ -165,6 +173,32 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="submitButton1">submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa fa-chevron-left"></i>Back to</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+                <div class="modal-footer" style="display: flex; justify-content: space-between;">
+                    <div>
+                        <a id="prev" href="#prev" class="arrow">Previous</a>
+                        <a id="next" href="#next" class="arrow">Next</a>
+                    </div>
+                    <div>
+                        <!-- Add any buttons you need in the footer -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -231,6 +265,50 @@ $(document).on('click', '#submitButton1', function(e) {
     });
 })
 </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function loadContent(content) {
+        document.getElementById('modalBody').innerHTML = content;
+    }
+
+    function loadFile(dataId) {
+        var fileExtension = dataId.split('.').pop().toLowerCase();
+
+        switch (fileExtension) {
+            case 'pdf':
+                loadContent('<embed src="' + dataId + '" type="application/pdf" width="100%" height="600px" />');
+                break;
+            case 'jpg':
+            case 'jpeg':
+            case 'png':
+            case 'gif':
+                loadContent('<img src="' + dataId + '" alt="Image" style="max-width: 100%; max-height: 600px;">');
+                break;
+            case 'html':
+                fetch(dataId)
+                    .then(response => response.text())
+                    .then(html => {
+                        loadContent(html);
+                    })
+                    .catch(error => console.error('Error loading HTML:', error));
+                break;
+            default:
+                loadContent('<p>File type not supported</p>');
+                break;
+        }
+    }
+
+    $('#modalId').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+
+        var dataId = button.data('id');
+
+        loadFile(dataId);
+    });
+    </script>
 </html>
 <style>
 table {

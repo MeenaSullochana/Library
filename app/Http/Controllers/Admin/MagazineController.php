@@ -487,10 +487,14 @@ public function magazine_orderview($id){
               array_push($orderdata, $magazine->id);
              $array = json_decode($val2->order_id, true);
              $merged = array_merge($orderdata, $array);
+
+
              $librarydata = [];
              array_push($librarydata, $magazine->librarianid);
             $array1 = json_decode($val2->library_id, true);
-            $merged1 = array_merge($librarydata, $array);
+            $merged1 = array_merge($librarydata, $array1);
+
+
              $Dispatchdata=Dispatch::find($val2->id);
              $Dispatchdata->library_id = $merged1;
              $Dispatchdata->order_id = $merged;
