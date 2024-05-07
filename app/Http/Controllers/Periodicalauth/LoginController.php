@@ -45,9 +45,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest:publisher')->except('logout');
-        $this->middleware('guest:distributor')->except('logout');
-        $this->middleware('guest:publisher_distributor')->except('logout');
+        $this->middleware('guest:periodical_publisher')->except('logout');
+        $this->middleware('guest:periodical_distributor')->except('logout');
     }
 
     public function showLoginForm()
@@ -224,10 +223,10 @@ class LoginController extends Controller
             }
             if($request->type == "publisher"){
 
-                if (\Auth::guard('publisher')->attempt($credentials)){
-                    $login_user = auth('publisher')->user();
-                    $redirect_route = '/publisher/index';
-                    $guard = 'publisher';
+                if (\Auth::guard('periodical_publisher')->attempt($credentials)){
+                    $login_user = auth('periodical_publisher')->user();
+                    $redirect_route = '/periodical_publisher/index';
+                    $guard = 'periodical_publisher';
                     return $this->usercheck($login_user,$redirect_route,$guard);
                     }
                     if(Session::has('validation_error')){
@@ -239,10 +238,10 @@ class LoginController extends Controller
                 return back()->withInput()->with('error',"Invalid Credentials");
             }
             if($request->type == "distributor"){
-                if (\Auth::guard('distributor')->attempt($credentials)){
-                    $login_user = auth('distributor')->user();
-                    $redirect_route = '/distributor/index';
-                    $guard = 'distributor';
+                if (\Auth::guard('periodical_distributor')->attempt($credentials)){
+                    $login_user = auth('periodical_distributor')->user();
+                    $redirect_route = '/periodical_distributor/index';
+                    $guard = 'periodical_distributor';
                     return $this->usercheck($login_user,$redirect_route,$guard);
                     }
                     if(Session::has('validation_error')){
@@ -253,24 +252,6 @@ class LoginController extends Controller
                     }
                 return back()->withInput()->with('error',"Invalid Credentials");
             }
-            if($request->type == "publisher_distributor"){
-                if (\Auth::guard('publisher_distributor')->attempt($credentials)){
-                    $login_user = auth('publisher_distributor')->user();
-                    $redirect_route = '/publisher_and_distributor/index';
-                    $guard = 'publisher_distributor';
-                    return $this->usercheck($login_user,$redirect_route,$guard);
-                    }
-                    if(Session::has('validation_error')){
-                        Session::forget('validation_error');
-                    }
-                    if(Session::has('error')){
-                        Session::forget('error');
-                    }
-                return back()->withInput()->with('error',"Invalid Credentials");
-            }
-            
-                
-        
         }
        
 
@@ -286,18 +267,13 @@ class LoginController extends Controller
     public function logout()
     {
         
-        if((\Auth::guard('publisher')->check())){
-            \Auth::guard('publisher')->logout();
+        if((\Auth::guard('periodical_publisher')->check())){
+            \Auth::guard('periodical_publisher')->logout();
         }
-       else if((\Auth::guard('distributor')->check())){
-            \Auth::guard('distributor')->logout();
+       else if((\Auth::guard('periodical_distributor')->check())){
+            \Auth::guard('periodical_distributor')->logout();
         }
-       else if((\Auth::guard('publisher_distributor')->check())){
-            \Auth::guard('publisher_distributor')->logout();
-        }
-
-
-      return redirect()->route('user.login-view');
+      return redirect()->route('periodical.login');
     //     $this->guard('publisher')->logout();
 
     //     $request->session()->invalidate();

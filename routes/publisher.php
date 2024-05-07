@@ -18,17 +18,17 @@ Route::prefix('publisher')->group(function () {
     Route::post('/getlanguage', [BookController::class, 'getlanguage']);
     Route::get('/notifications',[notificationController::class,'notifi']);
     Route::get('/notificationstatus',[notificationController::class,'notificationstatus']);
-    Route::get('/payment_recept/{id}',[PaymentController::class,'payment_recept']);
+    Route::get('/payment_receipt/{id}',[PaymentController::class,'payment_recept']);
 
     // Route::get('/payment_recept',function(){ return view('publisher.payment_recept');});
-    Route::get('/paymentrecept',function(){
+    Route::get('/paymentreceipt',function(){
        $data = Session::get('paymrnt');
          if($data !==null){
              return view('publisher.payment_recept')->with("data",$data);
          }
 
      });
-    Route::get('/procurement_paymrnt',function(){ return view('publisher.procurement_paymrnt');});
+    Route::get('/procurement_payment',function(){ return view('publisher.procurement_paymrnt');});
     Route::post('/isbn',[BookController::class,'isbn']);
 
 

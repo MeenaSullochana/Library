@@ -33,7 +33,7 @@ class PaymentController extends Controller
         $paymrnt['bookdata'] = $data1; 
     
         \Session::put('paymrnt', $paymrnt);
-        return redirect('publisher/paymentrecept');   
+        return redirect('publisher/paymentreceipt');   
         
     }
     

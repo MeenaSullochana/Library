@@ -1937,7 +1937,7 @@
                             <!-- <li><a href="procur_book_list">Book List</a></li> -->
 
 
-                            <li><a href="/admin/procurement_paymrnt">Payment List</a></li>
+                            <li><a href="/admin/procurement_payment">Payment List</a></li>
                             <!-- <li><a href="procur_complete_list">Complete List</a></li>
                             <li><a href="procur_reject_view">Unaccept list</a> </li> -->
                         </ul>

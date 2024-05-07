@@ -1316,15 +1316,15 @@
                             <li><a href="/publisher_and_distributor/procurement_reject">Reject List </a></li> --}}
                         </ul>
                     </li>
-                    {{-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                   <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-receipt"></i>
                             <span class="nav-text">Procurement Receipt</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/publisher_and_distributor/procurement_paymrnt"> Payment Receipt List</a></li>
+                            <li><a href="/publisher_and_distributor/procurement_payment"> Payment Receipt List</a></li>
 
                         </ul>
-                    </li> --}}
+                    </li> 
 					{{-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-journal-plus"></i>
                             <span class="nav-text">Manage Negotiation</span>

@@ -58,10 +58,11 @@
                     <div class="col-lg-12">
 
                         <div class="card mt-3">
-                            <div class="card-header"> Invoice <strong><span class="badge bg-primary"><i class="fa fa-print"></i></span><span class="badge bg-primary"><i class="bi bi-file-excel"></i></span> </strong> <span class="float-end">
-                                    <strong>Status:</strong> Pending</span> </div>
-                            <div class="card-body">
-                                <div class="row mb-5">
+                            <!-- <div class="card-header"> Invoice <strong><span class="badge bg-primary"><i class="fa fa-print"></i></span><span class="badge bg-primary"><i class="bi bi-file-excel"></i></span> </strong> <span class="float-end"> -->
+                                    <!-- <strong>Status:</strong> Pending</span> </div> -->
+                                    <div class="card-header">Status:   {{$data->paymentstatus}}</span> </div>
+                                    <div class="card-body">
+                                <!-- <div class="row mb-5">
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                         <h6>From:</h6>
                                         <div> <strong>Webz Poland</strong> </div>
@@ -91,12 +92,12 @@
                                             <div class="col-sm-3 mt-3"> <img src="images/qr.png" alt="" class="img-fluid width110"> </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="table-responsive">
                                     <table class="table table-border">
                                         <thead>
                                             <tr>
-                                                <th class="center">#</th>
+                                                <th class="center">S.No</th>
                                                 <th>Book Name</th>
                                                 <th>Book Id</th>
 
@@ -147,7 +148,7 @@
                                 <div class="row">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <a class="btn btn-primary btn-sm" href="procurement_paymrnt"><i class="fas fa-arrow-left"></i> Back</a>
+                                            <a class="btn btn-primary btn-sm" href="procurement_payment"><i class="fas fa-arrow-left"></i> Back</a>
                                         </div>
                                     </div>
                                 </div>

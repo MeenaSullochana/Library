@@ -617,7 +617,7 @@ Route::get('/procur_complete_view',function(){
  });
 
 
- Route::get('/procurement_paymrnt',function(){ return view('admin.procurement_paymrnt');});
+ Route::get('/procurement_payment',function(){ return view('admin.procurement_paymrnt');});
 
  Route::get('/',function(){ return view('admin.payment_invoice');});
  Route::get('/payment_invoice/{id}',[PaymentController::class,'payment_invoice']);

@@ -68,6 +68,14 @@ return [
             'driver' => 'session',
             'provider' => 'librarian',
         ],
+        'periodical_publisher' => [
+            'driver' => 'session',
+            'provider' => 'periodical_publisher',
+        ],
+        'periodical_distributor' => [
+            'driver' => 'session',
+            'provider' => 'periodical_distributor',
+        ],
     ],
 
     /*
@@ -119,6 +127,14 @@ return [
         'librarian' => [
             'driver' => 'eloquent',
             'model' => App\Models\Librarian::class,
+        ],
+        'periodical_publisher' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\PeriodicalPublisher::class,
+        ],
+        'periodical_distributor' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\PeriodicalDistributor::class,
         ],
 
         // 'users' => [
@@ -175,6 +191,18 @@ return [
         ],
         'publisher_distributor' => [
             'provider' => 'publisher_distributor',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'periodical_publishers' => [
+            'provider' => 'periodical_publisher',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'periodical_distributors' => [
+            'provider' => 'periodical_distributor',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
