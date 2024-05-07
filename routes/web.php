@@ -16,6 +16,7 @@ include(base_path('routes/order.php'));
 include(base_path('routes/payment.php'));
 include(base_path('routes/periodicalauth.php'));
 include(base_path('routes/periodical_publisher.php'));
+include(base_path('routes/periodical_distributor.php'));
 Route::get('/', function () {return view('index');});
 Route::get('/faq',function(){return view('faq');});
 Route::get('/guidelines',function(){return view('guidelines');});

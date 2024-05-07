@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
-         include "periodicalauth/plugin/css.php";
+         include "periodical/plugin/css.php";
       ?>
 </head>
 
@@ -55,9 +55,7 @@
                                     <li class="nav-item">
                                         <a href="#navpills-2" class="nav-link" data-bs-toggle="tab" aria-expanded="false"><i class="fa fa-user-circle p-2 text-success"></i>Distributor</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="#navpills-3" class="nav-link" data-bs-toggle="tab" aria-expanded="true"><i class="fa fa-users p-2 text-success"></i>Publisher Cum Distributor</a>
-                                    </li>
+                                 
                                 </ul>
                                 <div class="tab-content" >
                                     <div id="navpills-1" class="tab-pane overflowTest active">
@@ -133,44 +131,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="navpills-3" class="tab-pane overflowTest">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="overflowTest ms-3">
-                                                @php
-                                                $rev = DB::table('forgothidelins_title')->where('userType', '=', 'publisher_and_distributor')->first();
-
-                                                if ($rev !== null) {
-                                                    $data = json_decode($rev->hidelineContent);
-                                                } else {
-                                                    $data = []; // Set a default value or handle accordingly
-                                                }
-                                            @endphp
-                                            <h6 class="text-danger"><b>{{$rev ? $rev->hidelineTitle : 'Default Title'}}</b></h6>
-
-                                            @if ($rev !== null)
-
-                                                @foreach($data as $val)
-                                                    <!-- hidelineContent -->
-                                                    <li>{{$val}}.</li>
-                                                @endforeach
-                                            @else
-                                                <p>No data available for publisher cum distributor.</p>
-                                            @endif
-
-                                                    <!-- <h6 class="text-danger"><b>About the Guideline Publisher Cum Distributor</b></h6> -->
-                                                    <!-- <li>Publisher Cum Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <li>Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <li>Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <li>Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <li>Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <li>Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <p>
-                                                        <br /> Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid.</p> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                
                                 </div>
                             </div>
                         </div>
@@ -181,29 +142,21 @@
                                 </div>
                                 <form action="/action_page.php" class="p-2" id="userloginForm" method="POST">
                                 <div class="row login_static">
-                                        <div class="col-lg-3 col-md-6">
+                                        <div class="col-lg-6 col-md-6">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio1" name='usertype'
                                                     value="publisher" checked>
                                                 <label class="form-check-label" for="radio1"> Publisher</label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-6">
+                                        <div class="col-lg-6 col-md-6">
                                             <div class="form-check">
                                                 <input type="radio" class="form-check-input" id="radio2" name='usertype'
                                                     value="distributor">
                                                 <label class="form-check-label" for="radio2"> Distributor</label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 col-md-12">
-                                            <div class="form-check">
-                                                <input type="radio" class="form-check-input" id="radio3"
-                                                 name='usertype' value="publisherdistributor">
-                                                <label class="form-check-label" for="radio3"> Publisher And
-                                                    Distributor</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-md-8 mt-2">
                                         <label for="inputEmail4" class="form-label">Email<span
                                                 class="text-danger maditory">*</span></label></label>
@@ -242,7 +195,7 @@
     @include("footer.footer")
     <!-- footer-area-end -->
     <?php
-         include "periodicalauth/plugin/js.php";
+         include "periodical/plugin/js.php";
       ?>
        <script>
    function onSubmit(token) {
@@ -270,14 +223,14 @@
         });
         $.ajax({
            type:"post",
-           url:"/forgotpassword",
+           url:"periodical/forgotpassword",
            data:data,
            dataType:"json",
            success: function(response) {
             if(response.success){
                     toastr.success(response.success,{timeout:25000});
                     setTimeout(function() {
-                        window.location.href = "/login";
+                        window.location.href = "/periodical/login";
                      }, 3000);
                 }else{
                     toastr.error(response.error,{timeout:25000});

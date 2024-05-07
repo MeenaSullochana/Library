@@ -3,6 +3,7 @@
 use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PeriodicalPublisher\MagazineController;
+use App\Http\Controllers\PeriodicalPublisher\PeriodicalPublisherController;
 
 
 
@@ -19,6 +20,7 @@ Route::prefix('periodical_publisher')->group(function () {
         }
     
     });
-    
+    Route::post('/changepassword',[PeriodicalPublisherController::class,'peripubchangepassword']);
+    Route::get('/change_password',function(){ return view('periodical_publisher.change_password');});
 });
 

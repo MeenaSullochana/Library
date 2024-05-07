@@ -149,7 +149,7 @@ class LoginController extends Controller
                 if(Session::has('error')){
                     Session::forget('error');
                 }
-                return redirect('/mailconfirmation')->with('error',"Your account was not verified yet..Please verify");
+                return redirect('/periodical/mailconfirmation')->with('error',"Your account was not verified yet..Please verify");
             }
         }
         else if($user->approved_status == "pending"){

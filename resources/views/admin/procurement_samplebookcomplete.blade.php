@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>procurement Received  Books Copies List</b>
+                            <b>procurement Copies Pending  Books List</b>
                             </h3>
 
                         </div>

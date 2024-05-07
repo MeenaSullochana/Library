@@ -21,6 +21,10 @@
                         <a class="text-white fw-bold" href="/librarian/index">Dashboard</a>
                         @elseif (auth('reviewer')->user())
                         <a class="text-white fw-bold" href="/reviewer/index">Dashboard</a>
+                        @elseif (auth('periodical_publisher')->user())
+                        <a class="text-white fw-bold" href="/periodical_publisher/index">Dashboard</a>
+                        @elseif (auth('periodical_distributor')->user())
+                        <a class="text-white fw-bold" href="/periodical_distributor/index">Dashboard</a>
                         @else
                         <a class="text-white fw-bold" href="/login">
                             <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>

@@ -41,6 +41,8 @@
                                         <li><a href="/login">Publisher Login</a></li>
                                         <li><a href="/login">Distributor Login</a></li>
                                         <li><a href="/login">Publisher Cum Distributor Login</a></li>
+                                        <li><a href="/periodical/login">Periodical Publisher Login</a></li>
+                                        <li><a href="/periodical/login">Periodical Distributor Login</a></li>
                                         <li><a href="/member/login">Reviewer Login</a></li>
                                         <li><a href="/member/login">Librarian Login</a></li>
                                         <li><a href="/member/login">User Login</a></li>

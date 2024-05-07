@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Periodicalauth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -53,7 +53,7 @@ class RegisterController extends Controller
         if(Session::has('error')){
             Session::forget('error');
         }
-        return view('newindex');
+        return view('periodicalnewindex');
     }
     public function showRegistrationForm(Request $request)
     {
