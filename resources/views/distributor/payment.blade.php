@@ -56,24 +56,19 @@
             <div class="container-fluid">
                 <!-- Title -->
                 <div class="d-flex justify-content-between align-items-center py-3">
-                    <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #16123222</h2>
+                    <!-- <h2 class="h5 mb-0"><a href="#" class="text-muted"></a> Order #16123222</h2> -->
                 </div>
 
                 <!-- Main content -->
                 <div class="row">
                     <div class="col-lg-8">
                         <!-- Details -->
-                        <div class="card mb-4 h-auto">
+                        <div class="card mb-4 h-auto" id="print-pdf">
                             <div class="card-body">
                                 <div class="mb-3 d-flex justify-content-end ">
-                                    <!-- <div>
-              <span class="me-3">22-11-2021</span>
-              <span class="me-3">#16123222</span>
-              <span class="me-3">Visa -1234</span>
-              <span class="badge rounded-pill bg-info">SHIPPING</span>
-            </div> -->
+                                  
                                     <div class="d-flex">
-                                        <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text"><i
+                                        <button class="btn btn-link p-0 me-3 d-none d-lg-block btn-icon-text" onclick="generatePdf()"><i
                                                 class="bi bi-download"></i> <span
                                                 class="text">Download</span></button>
                                         <div class="dropdown">
@@ -118,18 +113,6 @@
 
                                     </tbody>
                                     <tfoot>
-                                        <!-- <tr>
-                <td colspan="2">Subtotal</td>
-                <td class="text-end">$159,98</td>
-              </tr>
-              <tr>
-                <td colspan="2">Shipping</td>
-                <td class="text-end">$20.00</td>
-              </tr>
-              <tr>
-                <td colspan="2">Discount (Code: NEWYEAR)</td>
-                <td class="text-danger text-end">-$10.00</td>
-              </tr> -->
                                         <tr class="fw-bold">
                                             <td>TOTAL</td>
                                             <td class="text-end"><span><i class="fa fa-inr"></i>
@@ -246,13 +229,17 @@
                         <!-- Customer Notes -->
                         <div class="card mb-4 h-auto">
                             <div class="card-body">
+                            @php
+                                   $user = auth('distributor')->user();
+                     
+                                @endphp
                                 <h3 class="h6">Customer Notes</h3>
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-6">
-                                        <p>Publication Name </p>
+                                        <p>Distribution Name </p>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-6">
-                                        <p> <b>: Test</b></p>
+                                        <p> <b>: {{$user->distributionName}}</b></p>
                                     </div>
                                 </div>
                             </div>
@@ -263,24 +250,24 @@
                                 <h3 class="h6">User Information</h3>
                                 <div class="row">
                                     <div class="col-md-6 col-sm-6 col-6">
-                                        <p>Publisher Name </p>
+                                        <p>Distributor Name </p>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-6">
-                                        <p> <b>: Test</b></p>
+                                        <p> <b>: {{$user->firstName}} {{$user->lastName}}</b></p>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-6">
                                         <p>Email Id </p>
                                     </div>
                                     <div class="col-md-6 col-sm-6 col-6">
-                                        <p> <b>: test@gmail.com</b></p>
+                                        <p> <b>: {{$user->email}}</b></p>
                                     </div>
                                 </div>
                                 <hr>
                                 <h3 class="h6">Address</h3>
                                 <address>
-                                    <p><abbr title="address">Address : </abbr>1355 Market St, Suite 900<br>
-                                        San Francisco, CA 94103<br></p>
-                                    <p><abbr title="Phone">Phone No : </abbr> (123) 456-7890</p>
+                                    <p><abbr title="address">Address : </abbr>{{$user->publicationAddress}}<br>
+                                    {{$user->city}}, {{$user->District}} , {{$user->state}}, {{$user->country}} , {{$user->postalCode}}<br></p>
+                                    <p><abbr title="Phone">Phone No : </abbr>{{$user->mobileNumber}}</p>
                                 </address>
                             </div>
                         </div>
@@ -395,5 +382,12 @@
         });
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
+<script>
+    function generatePdf() {
+        let htmlElement = document.getElementById('print-pdf');
+        html2pdf().from(htmlElement).save('Procurement Books.pdf');
+    }
+</script>
 </html>

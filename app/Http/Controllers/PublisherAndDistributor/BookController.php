@@ -406,7 +406,7 @@ public function applay_procurment(Request $request){
     $user = auth('publisher_distributor')->user();
     \Session::put('user',$user);
     $data= [
-        'success' => 'Book Send Payment Page Successfully',
+        'success' => 'Book Applied For Procurement',
              ];
     return response()->json($data);  
  }
