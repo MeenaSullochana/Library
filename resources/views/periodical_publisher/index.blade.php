@@ -33,7 +33,7 @@
     <link href="{{asset('vendor/tagify/dist/tagify.css')}}" rel="stylesheet">
 
     <!-- Style css -->
-    <link href="{{asset('periodical/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('periodical_publisher/css/style.css')}}" rel="stylesheet">
 
 
 </head>
@@ -46,7 +46,7 @@
     ********************-->
     <div id="preloader">
         <div class="text-center">
-            <img src="{{ asset('periodical/images/goverment_loader.gif') }}" alt="" width="25%">
+            <img src="{{ asset('periodical_publisher/images/goverment_loader.gif') }}" alt="" width="25%">
         </div>
     </div>
     <!--*******************
@@ -87,7 +87,7 @@
                                                 src="images/crm/party-popper.png" alt=""></h4>
 
 
-                                        <a href="/periodical/pub_profile_view" class="btn btn-primary btn-sm mt-4">View
+                                        <a href="/periodical_publisher/pub_profile_view" class="btn btn-primary btn-sm mt-4">View
                                             Profile</a>
                                     </div>
                                     <img src="images/analytics/developer_male.png" class="harry-img w-25" alt="">
@@ -217,7 +217,7 @@
     <script src="{{asset('vendor/apexchart/apexchart.js')}}"></script>
 
     <!-- Dashboard 1 -->
-    <script src="{{asset('periodical/js/dashboard/dashboard-1.js')}}"></script>
+    <script src="{{asset('periodical_publisher/js/dashboard/dashboard-1.js')}}"></script>
     <script src="{{asset('vendor/draggable/draggable.js')}}"></script>
     <script src="{{asset('vendor/swiper/js/swiper-bundle.min.js')}}"></script>
 
@@ -229,7 +229,7 @@
     <script src="{{asset('vendor/datatables/js/dataTables.buttons.min.js')}}"></script>
     <script src="{{asset('vendor/datatables/js/buttons.html5.min.js')}}"></script>
     <script src="{{asset('vendor/datatables/js/jszip.min.js')}}"></script>
-    <script src="{{asset('periodical/js/plugins-init/datatables.init.js')}}"></script>
+    <script src="{{asset('periodical_publisher/js/plugins-init/datatables.init.js')}}"></script>
 
     <!-- Apex Chart -->
 
@@ -240,10 +240,10 @@
     <script src="{{asset('vendor/jqvmap/js/jquery.vmap.min.js')}}"></script>
     <script src="{{asset('vendor/jqvmap/js/jquery.vmap.world.js')}}"></script>
     <script src="{{asset('vendor/jqvmap/js/jquery.vmap.usa.js')}}"></script>
-    <script src="{{asset('periodical/js/custom.js')}}"></script>
-    <script src="{{asset('periodical/js/deznav-init.js')}}"></script>
-    <script src="{{asset('periodical/js/demo.js')}}"></script>
-    <script src="{{asset('periodical/js/styleSwitcher.js')}}"></script>
+    <script src="{{asset('periodical_publisher/js/custom.js')}}"></script>
+    <script src="{{asset('periodical_publisher/js/deznav-init.js')}}"></script>
+    <script src="{{asset('periodical_publisher/js/demo.js')}}"></script>
+    <script src="{{asset('periodical_publisher/js/styleSwitcher.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
