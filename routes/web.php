@@ -26,6 +26,8 @@ Route::get('/splash-screen',function(){return view('splash-screen');});
 Route::get('/invoice-pdf',function(){return view('invoice-view');});
 // Route::get('/cart-magazine',function(){return view('cart-magazine');});
 
+Route::get('/magazine-register-one',function (){return view('Auth.magazine.pub_register');});
+
 Route::get('/policy',function(){return view('policy');});
 
 Route::get('/payment',function(){return view('payment.payment');});
