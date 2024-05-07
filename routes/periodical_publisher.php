@@ -11,6 +11,7 @@ Route::prefix('periodical_publisher')->group(function () {
     Route::get('/index',function(){ return view('periodical_publisher.index');});
 
     Route::get('/Magazine_add',function(){ return view('periodical_publisher.Magazine_add');});
+    Route::post('/magazine/add',[MagazineController::class,'createmagazine']);
     Route::get('/magazine_list',[MagazineController::class,'list']);
     Route::get('/magazine_view/{id}',[MagazineController::class,'magazine_view']);
     Route::get('/magazineview',function(){
@@ -22,5 +23,7 @@ Route::prefix('periodical_publisher')->group(function () {
     });
     Route::post('/changepassword',[PeriodicalPublisherController::class,'peripubchangepassword']);
     Route::get('/change_password',function(){ return view('periodical_publisher.change_password');});
+    Route::post('/getcategory', [MagazineController::class, 'getcategory']);
+    Route::post('/getdistrict', [MagazineController::class, 'getDistricts']);
 });
 
