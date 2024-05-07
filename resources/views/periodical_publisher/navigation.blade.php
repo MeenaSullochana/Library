@@ -343,14 +343,14 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/periodical_publisher/Magazine_add">Magazine Add</a></li>
-							<li><a href="/periodical_publisher/Magazine_manage_all">Magazine list</a></li>
+							<li><a href="/periodical_publisher/magazine_list">Magazine list</a></li>
                         </ul>
                     </li>
                   
                     <!--
                         F-menu Setting End
                     -->
-                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                    <!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 					<i class="bi bi-chat-dots"></i>
                             <span class="nav-text">Feedback Manage</span>
                         </a>
@@ -358,7 +358,7 @@
                             <li><a href="feedback_publisher_add">Create Feedback</a></li>
 
                         </ul>
-                    </li>
+                    </li> -->
 				</ul>
 			</div>
         </div>
