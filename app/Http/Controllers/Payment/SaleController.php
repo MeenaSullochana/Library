@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Throwable;
+use Illuminate\Support\Str;
 use App\Utilities\Utility;
 use Illuminate\Support\Facades\Session;
 
@@ -24,11 +25,12 @@ class SaleController extends Controller
         $books= json_encode( $bookitem);
         $user = Session::get('user');
         $amount = count($data) *500;
-        return view('payment.payment', compact('user', 'amount','books'));
+        $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
+       $merchantrefno= $randomCode;
+        return view('payment.payment', compact('user', 'amount','books','merchantrefno'));
     }
     public function processSale(Request $request)
     {
-        dd($request->all());
         // Set time limit and include necessary files
         set_time_limit(0);
           

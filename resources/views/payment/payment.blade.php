@@ -87,7 +87,7 @@
                                                         </label>
                                                         <div class="col-lg-6">
                                                             <input type="textbox" class="form-control" name="TxnRefNo"
-                                                                id="TxnRefNo" value="" size="40"
+                                                                id="TxnRefNo" value="{{$merchantrefno}}" size="40"
                                                                 maxlength="40" placeholder="Enter a TxnRefNo" required>
                                                             <div class="invalid-feedback">
                                                                 Please Enter Merchant Txn. Ref. No
