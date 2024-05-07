@@ -79,6 +79,45 @@
 							<hr>
                             <div class="">
                                 <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data">
+                                    
+                                    <section class="bg-light-new">
+                                        <div class="row p-3">
+                                            <div class="col-md-2">
+                                                <h4>RNI Details</h4>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <div class="col-lg-12">
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">RNI Details<span class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                <div class="input-group">
+                                                                    <textarea type="text" class="form-control" id="rni" name="rni" placeholder="Enter the RNI Details" required></textarea>
+                                                                    <div class="invalid-feedback"> Please Enter RNI Details. </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">RNI Attach proof<span class="text-danger"></span></label>
+                                                            <div class="small-12 medium-2 large-2 columns">
+                                                                <input type="file" name="rni_attachment_proof" ID="rni_attachment_proof" class="form-control" aria-label="file example" required>
+                                                                <div class="invalid-feedback">Please Upload RNI Attachment_Proof PDF</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -169,7 +208,7 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Periodi City</h4>
+                                                <h4>Name of the Publisher</h4>
                                             </div>
                                             <div class="col-md-10">
                                                 <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
@@ -177,10 +216,10 @@
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Periodi City <span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Name of the Publisher  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="periodi_city" name="periodi_city" placeholder="Enter the Periodi City" required>
-                                                                <div class="invalid-feedback"> Please enter a periodi city. </div>
+                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" required>
+                                                                <div class="invalid-feedback"> Please enter the name of the publisher. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -192,14 +231,38 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Frequency</h4>
+                                                <h4>Name of the Editor</h4>
                                             </div>
                                             <div class="col-md-10">
                                                 <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
-                                                            <label class="text-label form-label text-black" for="validationCustomUsername">Frequency <span class="text-danger">*</span></label>
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">Name of the Editor <span class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="name_of_editor" name="name_of_editor" placeholder="Enter the Name of the Editor" required>
+                                                                <div class="invalid-feedback"> Please enter the name of the publisher. </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                    
+                                    <section class="bg-light-new">
+                                        <div class="row p-3">
+                                            <div class="col-md-2">
+                                                <h4>Periodicity</h4>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <div class="col-lg-12">
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black" for="validationCustomUsername">Periodicity <span class="text-danger">*</span></label>
                                                                 <select class="form-select rounded-0" id="frequency" name="frequency" required>
                                                                     <option value="" selected>Select One</option>
                                                                     <option value="">Monthly</option>
@@ -215,6 +278,75 @@
                                                                     <option value="">Bimonthly</option>
                                                             </select>
                                                             <div class="invalid-feedback"> Please select frequency. </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                    <section class="bg-light-new">
+                                        <div class="row p-3">
+                                            <div class="col-md-2">
+                                                <h4>The year of first issue </h4>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <div class="col-lg-12">
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">The year of first issue  <span class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" id="first_issue" name="first_issue" placeholder="Enter The year of first issue" required>
+                                                                <div class="invalid-feedback"> Please Enter The The year of first issue . </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                    <section class="bg-light-new">
+                                        <div class="row p-3">
+                                            <div class="col-md-2">
+                                                <h4>Total Number Of Issues Per Year</h4>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <div class="col-lg-12">
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">Total Number Of Issues Per Year <span class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                <input type="number" class="form-control" id="per_year" name="per_year" placeholder="Enter Total Number Of Issues Per Year" required>
+                                                                <div class="invalid-feedback"> Please Enter Total Number Of Issues Per Year. </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                    <section class="bg-light-new">
+                                        <div class="row p-3">
+                                            <div class="col-md-2">
+                                                <h4>Date of Publication of every issue</h4>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <P class="fs-4">Date of Publication of every issue ( eg : 1st /15th of every month)</P>
+                                                <div class="col-lg-12">
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">Date of Publication of every issue <span class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control" id="every_issue" name="every_issue" placeholder="Enter Date of Publication of every issue" required>
+                                                                <div class="invalid-feedback"> Please Enter Date of Publication of every issue. </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -339,18 +471,31 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Total Subscription Before Discount</h4>
+                                                <h4>Highlights Please mention some of the key highlights</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <P class="fs-4">Highlights Please mention some of the key highlights, Quotes, Phrases if any (Attachment)</P>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Total Subscription Before Discount <span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Some Of The Key Highlights, Quotes, Phrases If Any<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="subscription_before_discount" name="subscription_before_discount" placeholder="Enter the Total Subscription Before Discount" required>
-                                                                <div class="invalid-feedback"> Please Enter Total Subscription Before Discount. </div>
+                                                                <textarea type="number" class="form-control" id="quotes_one" name="quotes_one" rows="3" placeholder=" Please Enter Highlights, Quotes, Phrases" required></textarea>
+                                                                <div class="invalid-feedback"> Please Enter Highlights, Quotes, Phrases. </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">File Attachment<span class="text-danger">*</span></label>
+                                                            <div class="small-12 medium-2 large-2 columns">
+                                                                <input type="file" name="clip_attachment" ID="clip_attachment" class="form-control" aria-label="file example" required>
+                                                                <div class="invalid-feedback">Please upload File Attachment PDF</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -362,7 +507,7 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Total Subscription After Discount</h4>
+                                                <h4>Short Description About The Periodical</h4>
                                             </div>
                                             <div class="col-md-10">
                                                 <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
@@ -370,10 +515,10 @@
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Total Subscription After Discount <span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Short Description About The Periodical<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="subscription_after_discount" name="subscription_after_discount" placeholder="Enter the Total Subscription After Discount" required>
-                                                                <div class="invalid-feedback"> Please Enter Subscription After Discount. </div>
+                                                                <textarea type="number" class="form-control" id="periodical_short_info" name="periodical_short_info" rows="3" placeholder="Enter the Short Description About The Periodical" required></textarea>
+                                                                <div class="invalid-feedback"> Please Enter Short Description About The Periodical. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -385,18 +530,28 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Difference in Amount</h4>
+                                                <h4>About Publisher/Editor</h4>
                                             </div>
                                             <div class="col-md-10">
                                                 <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <div class="col-md-12">
+                                                    <div class="mb-3">
+                                                        <label class="text-label form-label text-black"
+                                                            for="validationCustomUsername">Publisher/Editor Profile Image<span class="text-danger"></span></label>
+                                                        <div class="small-12 medium-2 large-2 columns">
+                                                            <input type="file" name="editor_profile_image" ID="editor_profile_image" class="form-control" aria-label="file example" required>
+                                                            <div class="invalid-feedback">Please upload Editor Profile Image</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Difference in Amount<span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">About Publisher/Editor<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="difference_in_amount" name="difference_in_amount" placeholder="Enter the Difference in Amount" required>
-                                                                <div class="invalid-feedback"> Please Enter Difference in Amount. </div>
+                                                                <textarea type="number" class="form-control" id="about_editor" name="about_editor" rows="3" placeholder="Enter the About Publisher/Editor" required></textarea>
+                                                                <div class="invalid-feedback"> Please Enter About Publisher/Editor. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -405,23 +560,22 @@
 
                                         </div>
                                     </section>
+                                    
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>RNI Details</h4>
+                                                <h4>Size of the Magazine</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <P class="fs-4">Size of the periodical (Length x Breadth(in Centimeters) </P>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">RNI Details<span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Size of the Magazine<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <div class="input-group">
-                                                                    <textarea type="text" class="form-control" id="rni" name="rni" placeholder="Enter the RNI Details" required></textarea>
-                                                                    <div class="invalid-feedback"> Please Enter RNI Details. </div>
-                                                                </div>
+                                                                <input type="text" class="form-control" id="magazine_size" name="magazine_size" placeholder="Enter the Size of the Magazine" required>
+                                                                <div class="invalid-feedback"> Please Enter the Size of the Magazine. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -440,50 +594,51 @@
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
-                                                            <label class="text-label form-label text-black" for="validationCustomUsername">Paper Quality<span class="text-danger">*</span></label>
-                                                                <select class="form-select rounded-0" id="" name="" required>
+                                                            <label class="text-label form-label text-black" for="validationCustomUsername">GSM<span class="text-danger">*</span></label>
+                                                                <select class="form-select rounded-0" id="gsm" name="gsm" required>
                                                                     <option value="" selected>Select One</option>
                                                                     <option value="">GSM</option>
                                                                     <option value="">Map Litho</option>
                                                                     <option value="">Art Paper</option>
                                                                 </select>
-                                                                <div class="invalid-feedback"> Please Select Paper Quality. </div>
+                                                                <div class="invalid-feedback"> Please Select GSM. </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                        </div>
-                                    </section>
-
-                                    <section class="bg-light-new">
-                                        <div class="row p-3">
-                                            <div class="col-md-2">
-                                                <h4>Type of Library</h4>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
-                                                            <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Type of Library<span class="text-danger">*</span></label>
-                                                                <select class="form-select rounded-0" id="library_type" name="library_type" required>
+                                                            <label class="text-label form-label text-black" for="validationCustomUsername">Type Of Paper<span class="text-danger">*</span></label>
+                                                                <select class="form-select rounded-0" id="type_paper" name="type_paper" required>
                                                                     <option value="" selected>Select One</option>
-                                                                    <option value="">DCL</option>
-                                                                    <option value="">FTBL </option>
-                                                                    <option value="">BL </option>
-                                                                    <option value="">VL </option>
-                                                                    <option value="">PTL </option>
+                                                                    <option value="">GSM</option>
+                                                                    <option value="">Map Litho</option>
+                                                                    <option value="">Art Paper</option>
                                                                 </select>
-                                                                <div class="invalid-feedback"> Please Select the Type of Library. </div>
+                                                                <div class="invalid-feedback"> Please Select Type Paper. </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-lg-12">
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black" for="validationCustomUsername">Paper Finishing<span class="text-danger">*</span></label>
+                                                                <select class="form-select rounded-0" id="paper_finishing" name="paper_finishing" required>
+                                                                    <option value="" selected>Select One</option>
+                                                                    <option value="">GSM</option>
+                                                                    <option value="">Map Litho</option>
+                                                                    <option value="">Art Paper</option>
+                                                                </select>
+                                                                <div class="invalid-feedback"> Please Select Paper Finishing. </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
                                         </div>
-                                    </section>
+                                    </section>                                   
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -553,29 +708,7 @@
 
                                         </div>
                                     </section>
-                                    <section class="bg-light-new">
-                                        <div class="row p-3">
-                                            <div class="col-md-2">
-                                                <h4>Size of the Magazine</h4>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
-                                                <div class="col-lg-12">
-                                                    <div class="basic-form">
-                                                        <div class="mb-3">
-                                                            <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Size of the Magazine<span class="text-danger">*</span></label>
-                                                            <div class="input-group">
-                                                                <input type="number" class="form-control" id="magazine_size" name="magazine_size" placeholder="Enter the Size of the Magazine" required>
-                                                                <div class="invalid-feedback"> Please Enter the Size of the Magazine. </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </section>
+                                    
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -800,7 +933,7 @@
                                             <div class="col-md-10">
                                                 <P class="fs-4">You can provide up to 8 images including some key illustrations with a minimum of 3 compulsory cover images</p>
                                                 <div class="row">
-                                                    <div class="col-lg-3">
+                                                    <div class="col-md-3">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -815,7 +948,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-3">
+                                                    <div class="col-md-3">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -830,7 +963,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-3">
+                                                    <div class="col-md-3">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -839,26 +972,56 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="full_img form-control" type="file" accept="image/*" required/>
+                                                                     <input class="full_img form-control" type="file" accept="image/*" />
                                                                      <div class="invalid-feedback"> Please Upload Full Image. </div>
                                                                   </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-3">
-                                                        <div class="basic-form">
-                                                            <div class="mb-3">
-                                                                <label class="text-label form-label text-black"
-                                                                    for="validationCustomUsername">PDF<span class="text-danger"></span></label>
-                                                                <div class="small-12 medium-2 large-2 columns">
-                                                                    <input type="file" name="pdf_content" ID="pdf_content" class="form-control" aria-label="file example" required>
-                                                                    <div class="invalid-feedback">Please upload PDF</div>
-                                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="bg-light-new mt-5">
+                                        <div class="row p-3">
+                                            <div class="col-md-2">
+                                                <h4>Sample Copy In PDF 3 Copies (Latest issue)</h4>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">Sample PDF One<span class="text-danger"></span></label>
+                                                            <div class="small-12 medium-2 large-2 columns">
+                                                                <input type="file" name="pdf_content_one" ID="pdf_content_one" class="form-control" aria-label="file example" required>
+                                                                <div class="invalid-feedback">Please upload PDF</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">Sample PDF Two<span class="text-danger"></span></label>
+                                                            <div class="small-12 medium-2 large-2 columns">
+                                                                <input type="file" name="pdf_content_two" ID="pdf_content_two" class="form-control" aria-label="file example" required>
+                                                                <div class="invalid-feedback">Please upload PDF</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">Sample PDF Three<span class="text-danger"></span></label>
+                                                            <div class="small-12 medium-2 large-2 columns">
+                                                                <input type="file" name="pdf_content_three" ID="pdf_content_three" class="form-control" aria-label="file example" required>
+                                                                <div class="invalid-feedback">Please upload PDF</div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </section>
                                     <div class="row">
