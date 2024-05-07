@@ -55,9 +55,7 @@
                                     <li class="nav-item">
                                         <a href="#navpills-2" class="nav-link" data-bs-toggle="tab" aria-expanded="false"><i class="fa fa-user-circle p-2 text-success"></i>Distributor</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="#navpills-3" class="nav-link" data-bs-toggle="tab" aria-expanded="true"><i class="fa fa-users p-2 text-success"></i>Publisher Cum Distributor</a>
-                                    </li>
+                               
                                 </ul>
                                 <div class="tab-content" >
                                     <div id="navpills-1" class="tab-pane overflowTest active">
@@ -133,44 +131,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="navpills-3" class="tab-pane overflowTest">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="overflowTest ms-3">
-                                                @php
-                                                $rev = DB::table('forgotpasswordhidelins_title')->where('userType', '=', 'publisher_and_distributor')->first();
-
-                                                if ($rev !== null) {
-                                                    $data1 = json_decode($rev->hidelineContent);
-                                                } else {
-                                                    $data1 = []; // Set a default value or handle accordingly
-                                                }
-                                            @endphp
-                                            <h6 class="text-danger"><b>{{$rev ? $rev->hidelineTitle : 'Default Title'}}</b></h6>
-
-                                            @if ($rev !== null)
-
-                                                @foreach($data1 as $val)
-                                                    <!-- hidelineContent -->
-                                                    <li>{{$val}}.</li>
-                                                @endforeach
-                                            @else
-                                                <p>No data available for publisher_and_distributor.</p>
-                                            @endif
-
-                                                    <!-- <h6 class="text-danger"><b>About the Guideline Publisher Cum Distributor</b></h6> -->
-                                                    <!-- <li>Publisher Cum Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <li>Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <li>Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <li>Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <li>Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <li>Distributor Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica.</li>
-                                                    <p>
-                                                        <br /> Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid.</p> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                              
                                 </div>
                             </div>
                         </div>
@@ -181,26 +142,21 @@
                                 </div>
                                 <form action="" class="p-2" id="userloginForm" method="POST">
                                 <div class="row login_static">
-                                <div class="col-lg-3 col-md-6">
+                                <div class="col-lg-6 col-md-6">
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" name="usertype" id="publisher" value="publisher" @if($data->type == "publisher") checked @endif disabled>
                                         <label class="form-check-label" for="radio1"> Publisher</label>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-md-6">
+                                <div class="col-lg-6 col-md-6">
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" name="usertype" id="distributor" value="distributor" @if($data->type == "distributor") checked @endif disabled>
                                         <label class="form-check-label" for="radio2"> Distributor</label>
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="form-check">
-                                        <input type="radio" class="form-check-input" name="usertype" id="publisherdistributor" value="publisherdistributor" @if($data->type == "publisherdistributor") checked @endif disabled>
-                                        <label class="form-check-label" for="radio3"> Publisher And Distributor</label>
-                                    </div>
-                                </div>
+                            
                                 <div class="col-md-8 mt-2">
                                     <label for="inputEmail4" class="form-label">Enter Email ID<span
                                             class="text-danger maditory">*</span></label></label>
@@ -222,10 +178,10 @@
                                         <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                 </div>
                                 <p class="reg-redirect mt-3 p-0 ms-3 m-0">
-                                    Don't have an account? <a class="text-primary" href="/register"> Register Now</a>
+                                    Don't have an account? <a class="text-primary" href="/periodical/register"> Register Now</a>
                                 </p>
                                 <p class="reg-redirect ms-3 p-0 m-0">
-                                        <a class="text-primary" href="#"> Back To Login?</a>
+                                        <a class="text-primary" href="/periodical/login"> Back To Login?</a>
                                 </p>
                                 <div class="tpabout__inner-btn login_static_new mb-5">
                                 <button class="g-recaptcha btn btn-dark bg-dark text-white"
@@ -293,7 +249,7 @@
         // Send Ajax POST request
         $.ajax({
             type: "post",
-            url: "/password/change",
+            url: "/periodical/password/change",
             data: data,
             dataType: "json",
             success: function (response) {
@@ -302,7 +258,7 @@
 
                     // Redirect after 3 seconds
                     setTimeout(function () {
-                        window.location.href = "/login";
+                        window.location.href = "/periodical/login";
                     }, 3000);
                 } else {
                     toastr.error(response.error, { timeout: 25000 });

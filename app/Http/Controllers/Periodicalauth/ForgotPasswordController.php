@@ -50,7 +50,7 @@ class ForgotPasswordController extends Controller
                     $record1=PeriodicalPublisher::where('email', '=', $request->email)->where('status', '=', '1')->first();
                     $user = $request->email;
                     $rev =Mailurl::first();
-                    $url = $rev->name ."/forgotform/$user/$request->usertype";
+                    $url = $rev->name ."/periodical/forgotform/$user/$request->usertype";
                         if($record1 !== null){
                           
                                 Notification::route('mail',  $request->email)->notify(new ForgotPasswordNotification($user, $url));
@@ -86,7 +86,7 @@ class ForgotPasswordController extends Controller
                     $record1=PeriodicalDistributor::where('email', '=', $request->email)->where('status', '=', '1')->first();
                     $user = $request->email;
                     $rev =Mailurl::first();
-                    $url = $rev->name ."/forgotform/$user/$request->usertype";
+                    $url = $rev->name ."/periodical/forgotform/$user/$request->usertype";
                         if($record1 !== null){
                           
                                 Notification::route('mail',  $request->email)->notify(new ForgotPasswordNotification($user, $url));
@@ -157,7 +157,7 @@ class ForgotPasswordController extends Controller
             }
             if($req->usertype == "publisher"){
            if($req->newpassword == $req->conformpassword ){
-            $publisher = Publisher::where('email', '=',$req->email)->first();
+            $publisher = PeriodicalPublisher::where('email', '=',$req->email)->first();
              $publisher->password =Hash::make($req->newpassword);
              if($publisher->save()){
                 $data= [
@@ -176,7 +176,7 @@ class ForgotPasswordController extends Controller
         } elseif($req->usertype == "distributor"){
           
             if($req->newpassword == $req->conformpassword ){
-                $distributor = Distributor::where('email', '=',$req->email)->first();
+                $distributor = PeriodicalDistributor::where('email', '=',$req->email)->first();
                  $distributor->password =Hash::make($req->newpassword);
                  if($distributor->save()){
                     $data= [
@@ -193,24 +193,6 @@ class ForgotPasswordController extends Controller
                
                }
 
-        }else{
-            if($req->newpassword == $req->conformpassword ){
-                $pubdist = PublisherDistributor::where('email', '=',$req->email)->first();
-                 $pubdist->password =Hash::make($req->newpassword);
-                 if($pubdist->save()){
-                    $data= [
-                        'success' => 'Password Change Successfully'
-                             ];
-                    return response()->json($data);
-                 }
-                
-               }else{
-                $data= [
-                    'error' =>'newPassword and confirmPassword is mishmatch'
-                         ];
-                return response()->json($data);
-               
-               }
         }
     }
 
@@ -230,7 +212,7 @@ class ForgotPasswordController extends Controller
             if($otps->otp == $req->otp){
               
                   if($req->usertype == "publisher"){
-                  $record = Publisher::where('id', '=',$req->id)->first();
+                  $record = PeriodicalPublisher::where('id', '=',$req->id)->first();
                   $record->verfication="1";
                   $record->save();
                   Notification::route('mail',  $record->email)->notify(new UserNotification($record, $record->password));
@@ -244,7 +226,7 @@ class ForgotPasswordController extends Controller
                 
                 }
                 elseif($req->usertype == "distributor"){
-                    $record = Distributor::where('id', '=',$req->id)->first();
+                    $record = PeriodicalDistributor::where('id', '=',$req->id)->first();
                     $record->verfication="1";
                     $record->save();
                     Notification::route('mail',  $record->email)->notify(new UserNotification($record, $record->password));
@@ -256,35 +238,7 @@ class ForgotPasswordController extends Controller
                     
                     return response()->json($data);
                     
-                  } elseif($req->usertype == "reviewer"){
-                    $record = Reviewer::where('id', '=',$req->id)->first();
-                    $record->firstName=$record->name;
-                    $record->usertype=$record->role;
-                   
-                    Notification::route('mail',  $record->email)->notify(new UserNotification($record, $record->password));
-                    $data = [
-                        'success' => 'Registered Successfully',
-                        'type' => 'reviewer'
-                    ];
-                    
-                    return response()->json($data);
-                    
-                  }
-                  else{
-                    $record = PublisherDistributor::where('id', '=',$req->id)->first();
-                    $record->verfication="1";
-                    $record->save();
-                    Notification::route('mail',  $record->email)->notify(new UserNotification($record, $record->password));
-                    $data = [
-                        // 'success' => 'Registration waiting for approval. You\'ll receive an email when it\'s approved',
-                        'success' => 'Registered Successfully',
-                        'type' => 'pubdist'
-                    ];
-                    
-                    return response()->json($data);
-                    
-                  }
-          
+                  } 
 
           }else{
             $data= [
@@ -297,7 +251,7 @@ class ForgotPasswordController extends Controller
        }
        public function resendcode(Request $req){
         if($req->usertype == "publisher"){
-            $record = Publisher::where('id', '=',$req->id)->first();
+            $record = PeriodicalPublisher::where('id', '=',$req->id)->first();
             $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
             $otps=  Otp::where('userId','=',$req->id)->first();
             if($otps){
@@ -320,7 +274,7 @@ class ForgotPasswordController extends Controller
             return response()->json($data); 
           }
           elseif($req->usertype == "distributor"){
-            $record = Distributor::where('id', '=',$req->id)->first();
+            $record = PeriodicalDistributor::where('id', '=',$req->id)->first();
 
             $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
             $otps=  Otp::where('userId','=',$req->id)->first();
@@ -342,59 +296,14 @@ class ForgotPasswordController extends Controller
                      ];
             return response()->json($data); 
             }
-            elseif($req->usertype == "reviewer"){
-                $record = Reviewer::where('id', '=',$req->id)->first();
-                 $record->firstName=$record->name;
-                 $record->usertype=$record->role;
-                $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
-                $otps=  Otp::where('userId','=',$req->id)->first();
-                if($otps){
-                    $otps->otp=$randomCode;
-                    $otps->dateTime= Carbon::now();
-                    $otps->save();
-                }else{
-                    $otps= new Otp();
-                    $otps->otp=$randomCode;
-                    $otps->userId= $req->id;
-                    $otps->dateTime= Carbon::now();
-                    $otps->save();
-                }
-                Notification::route('mail',  $record->email)->notify(new UserCreatedNotification( $record, $record->email,$randomCode));
-                $data= [
-                    'success' =>'Otp Resend Successfully',
-                    'type' =>'reviewer'
-                         ];
-                return response()->json($data); 
-                }
-            else{
-                $record = PublisherDistributor::where('id', '=',$req->id)->first();
-                $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
-                $otps=  Otp::where('userId','=',$req->id)->first();
-                if($otps){
-                    $otps->otp=$randomCode;
-                    $otps->dateTime= Carbon::now();
-                    $otps->save();
-                }else{
-                    $otps= new Otp();
-                    $otps->otp=$randomCode;
-                    $otps->userId= $req->id;
-                    $otps->dateTime= Carbon::now();
-                    $otps->save();
-                }
-                Notification::route('mail',  $record->email)->notify(new UserCreatedNotification( $record, $record->email,$randomCode));
-                $data= [
-                    'success' =>'Otp Resend Successfully',
-                    'type' =>'pubdist'
-                         ];
-                return response()->json($data); 
-            }
+          
         
        }
        public function changemail(Request $req){
         
         if($req->usertype == "publisher"){
             $validator = Validator::make($req->all(),[
-                'email'=>'required|email|unique:publishers',
+                'email'=>'required|email|unique:periodical_publishers',
             ]);
             if($validator->fails()){
                 $data= [
@@ -403,7 +312,7 @@ class ForgotPasswordController extends Controller
                 return response()->json($data);  
                
             }
-            $publisher = Publisher::where('id', '=',$req->id)->first();
+            $publisher = PeriodicalPublisher::where('id', '=',$req->id)->first();
             $publisher->email=$req->email;
             $publisher->save();
             $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
@@ -429,7 +338,7 @@ class ForgotPasswordController extends Controller
           }
           elseif($req->usertype == "distributor"){
             $validator = Validator::make($req->all(),[
-                'email'=>'required|unique:distributors',
+                'email'=>'required|unique:periodical_distributors',
             ]);
             if($validator->fails()){
                 $data= [
@@ -438,7 +347,7 @@ class ForgotPasswordController extends Controller
                 return response()->json($data);  
                
             }
-            $publisher = Distributor::where('id', '=',$req->id)->first();
+            $publisher = PeriodicalDistributor::where('id', '=',$req->id)->first();
             $publisher->email=$req->email;
             $publisher->save();
             $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
@@ -462,80 +371,7 @@ class ForgotPasswordController extends Controller
                 return response()->json($data); 
 
             }
-            elseif($req->usertype == "reviewer"){
-                $validator = Validator::make($req->all(),[
-                    'email'=>'required|unique:reviewer',
-                ]);
-                if($validator->fails()){
-                    $data= [
-                        'error' => $validator->errors()->first(),
-                             ];
-                    return response()->json($data);  
-                   
-                }
-                $reviewer = Reviewer::where('id', '=',$req->id)->first();
-                $reviewer->email=$req->email;
-                $reviewer->save();
-                $publisher = Reviewer::where('id', '=',$reviewer->id)->first();
-                $publisher->firstName=$publisher->name;
-                $publisher->usertype=$publisher->role;
-              
-                $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
-                Notification::route('mail',  $publisher->email)->notify(new UserCreatedNotification($publisher, $publisher->password,$randomCode));
-                $otps=  Otp::where('userId','=',$req->id)->first();
-                if($otps){
-                    $otps->otp=$randomCode;
-                    $otps->dateTime= Carbon::now();
-                    $otps->save();
-                }else{
-                    $otps= new Otp();
-                    $otps->otp=$randomCode;
-                    $otps->userId= $req->id;
-                    $otps->dateTime= Carbon::now();
-                    $otps->save();
-                }
-                    $data= [
-                        'success' =>'Mail Change Successfully PLease Enter Otp',
-                        'email'=>$publisher->email
-                             ];
-                    return response()->json($data); 
-    
-                }
-            else{
-                $validator = Validator::make($req->all(),[
-                    'email'=>'required|unique:publisher_distributors',
-                ]);
-                if($validator->fails()){
-                    $data= [
-                        'error' => $validator->errors()->first(),
-                             ];
-                    return response()->json($data);  
-                   
-                }
-                $publisher = PublisherDistributor::where('id', '=',$req->id)->first();
-                $randomCode = str_pad(random_int(0, 9999), 4, '0', STR_PAD_LEFT);
-                $publisher->email=$req->email;
-                $publisher->save();
-                Notification::route('mail',  $publisher->email)->notify(new UserCreatedNotification($publisher, $publisher->password,$randomCode));
-                $otps=  Otp::where('userId','=',$req->id)->first();
-                if($otps){
-                    $otps->otp=$randomCode;
-                    $otps->dateTime= Carbon::now();
-                    $otps->save();
-                }else{
-                    $otps= new Otp();
-                    $otps->otp=$randomCode;
-                    $otps->userId= $req->id;
-                    $otps->dateTime= Carbon::now();
-                    $otps->save();
-                }
-                $data= [
-                    'success' =>'Mail Change Successfully PLease Enter Otp',
-                    'email'=>$publisher->email
-                         ];
-                return response()->json($data); 
-
-            }
+          
 
        }
 

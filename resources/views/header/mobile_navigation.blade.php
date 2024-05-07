@@ -11,20 +11,20 @@
                         <a href="/"><img class="w-100" src="assets/img/logo/logo.png" alt="logo"></a>
                     </div>
                 </div>
-                 <div class="col-lg-4 col-md-2 col-2 col-sm-2">
-                     <div class="header__info d-flex align-items-center">
+                <div class="col-lg-4 col-md-2 col-2 col-sm-2">
+                    <div class="header__info d-flex align-items-center">
                         <div class="header__info-cart tpcolor__oasis ml-10 ">
-                        @php
+                            @php
                             $user = auth('librarian')->user();
                             @endphp
 
                             @if($user && $user->metaChecker =="no")
                             @if(Session::has('magazinecartcount'))
                             <a href="/cart-magazine">
-                            <button id="magazinecartcountId">
-                              <i><img src="assets/img/icon/cart-1.svg" alt=""></i>
-                               <span id='magazinecartcount'>{{ Session::get('magazinecartcount') }}</span>
-                             </button>
+                                <button id="magazinecartcountId">
+                                    <i><img src="assets/img/icon/cart-1.svg" alt=""></i>
+                                    <span id='magazinecartcount'>{{ Session::get('magazinecartcount') }}</span>
+                                </button>
 
                             </a>
                             @else
@@ -38,8 +38,8 @@
                             @endif
                             @endif
                         </div>
-                     </div> 
-                 </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -67,32 +67,56 @@
                     tabindex="0">
                     <div class="mobile-menu"></div>
                 </div>
-                
+
             </div>
         </div>
-        <div class="tpsideinfo__account-link">
- 
+        <div class="tpsideinfo__wishlist-link">
+            @if (auth('publisher')->user())
+            <a class="text-white fw-bold" href="/publisher/index"><i class="fas fa-user" aria-hidden="true"></i>Dashboard</a>
+            @elseif (auth('distributor')->user())
+            <a class="text-white fw-bold" href="/distributor/index"><i class="fas fa-user" aria-hidden="true"></i>Dashboard</a>
+            @elseif (auth('admin')->user())
+            <a class="text-white fw-bold" href="/admin/index"><i class="fas fa-user" aria-hidden="true"></i>Dashboard</a>
+            @elseif (auth('publisher_distributor')->user())
+            <a class="text-white fw-bold" href="/publisher_and_distributor/index"><i class="fas fa-user" aria-hidden="true"></i>Dashboard</a>
+            @elseif (auth('librarian')->user())
+            <a class="text-white fw-bold" href="/librarian/index"><i class="fas fa-user" aria-hidden="true"></i>Dashboard</a>
+            @elseif (auth('reviewer')->user())
+            <a class="text-white fw-bold" href="/reviewer/index"><i class="fas fa-user" aria-hidden="true"></i>Dashboard</a>
+            @elseif (auth('periodical_publisher')->user())
+            <a class="text-white fw-bold" href="/periodical_publisher/index"><i class="fas fa-user" aria-hidden="true"></i>Dashboard</a>
+            @elseif (auth('periodical_distributor')->user())
+            <a class="text-white fw-bold" href="/periodical_distributor/index">
+                <i class="fas fa-user" aria-hidden="true"></i> Dashboard
+            </a> @else
+            <a class="text-white fw-bold" href="/login">
+                <i class="fas fa-user" aria-hidden="true"></i> Login</a>
+            </br>
+            <a href="/register"><i class="icon-user icons" aria-hidden="true"></i>
+                New Registration</a>
+            @endif
 
         </div>
-        <div class="tpsideinfo__wishlist-link">
+        <!-- <div class="tpsideinfo__wishlist-link">
             <a href="/register"><i class="icon-user icons"></i> Register</a>
-        </div>
+        </div> -->
         <div class="tpsideinfo__wishlist-link">
             <a href="/faq"><i class="fas fa-question-circle"></i> FAQs</a>
         </div>
     </div>
     <!-- sidebar-menu-area-end -->
 
-<style>
+    <style>
 .tpsideinfo.tp-sidebar-opened {
     transform: translateX(0);
     z-index: 99999;
 }
+
 button.tp-menu-toggle {
     background-color: white;
 }
+
 div#header-sticky-2 {
     background-color: white;
 }
-
-</style>
+    </style>
