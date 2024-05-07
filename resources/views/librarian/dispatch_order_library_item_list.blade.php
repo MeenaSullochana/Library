@@ -108,52 +108,50 @@
                         <div class="card">
                             <div class="card-body p-3">
                                 <div class="table-responsive active-projects task-table">
-                                    <table id="example3" class="table">
+                                <table class="table table-sm mb-0 table-striped student-tbl" id="example3">
                                         <thead>
                                             <tr>
-                                                <th></th>
                                                 <th>S.No</th>
-                                                <th>Magazine id</th>
-                                                <th>Magazine Name</th>
-                                                <th>Frequency</th>
-                                                <th>Order Qty</th>
+                                                <th>Language</th>
+                                                <th>Category</th>
+                                                <th>Title of the Magazine</th>
+                                                <th>Periodicity</th>
+                                                <th>price</th>
+                                                <th>Total Order Qty</th>
                                                 <th>Received Qty</th>
+												<th>Not Received Qty</th>
+												<th>Not Arrived Qty</th>
                                                 <th>Status</th>
-                                                <th>Control</th>
+												<th>Control</th>
+                                          
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
+                                        <tbody id="customers">
+                                            @foreach($data as $val1)
+                                            <tr class="btn-reveal-trigger">
+                                                <td class="py-2">{{ $loop->index + 1}}</td>
+                                                <td class="py-2">{{$val1->language}}</td>
+                                                <td class="py-2">{{$val1->category}}</td>
+                                                <td class="py-2">{{ $val1->title}}</td>
+                                                <td class="py-2">{{$val1->periodicity}}</td>
+                                                <td class="py-2">{{ $val1->annual_cost_after_discount}}</td>
+                                                <td><span>{{$val1->totalorder}}</span></td>
+                                                <td><span>{{$val1->recived}}</span></td>
+											
+												<td><span>{{$val1->notrecived}}</span></td>
+												<td><span>{{$val1->totalorder   -$val1->recived -$val1->notrecived }}</span></td>
                                                 <td>
-                                                    <div class="form-check custom-checkbox">
-                                                        <input type="checkbox" class="form-check-input" id="customCheckBox3" required>
-                                                        <label class="form-check-label" for="customCheckBox3"></label>
-                                                    </div>
-                                                </td>
-                                                <td><span>1</span></td>
-                                                <td>
-                                                    <div class="products">
-                                                        <div>
-                                                            <!-- <h6>Create Frontend WordPress</h6> -->
-                                                            <span>INV-100023456</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td><span>Tamil Kavithai</span></td>
-                                                <td><span>Weekly</span></td>
-                                                <td><span>1</span></td>
-                                                <td><span>1</span></td>
-                                                <td>
-                                                    <span class="badge bg-success">Approved</span>
-                                                    <span class="badge bg-warning">Pending</span>
-                                                    <span class="badge bg-danger">Cencelled</span>
-                                                </td>
-                                                <td>
-                                                    <a href="/librarian/magazine-view-dis"> <i class="fa fa-eye p-2"></i></a>
-                                                    <a href="#"><i class="fa fa-edit p-2"></i></a>
-                                                    <i class="fa fa-trash-o p-2" aria-hidden="true"></i>
-                                                </td>
-                                                </tr>
+													<!-- <span class="badge bg-success">Approved</span> -->
+													<span class="badge bg-warning">Pending</span>
+													<!-- <span class="badge bg-danger">Cencelled</span> -->
+												</td>
+												<td>
+                                                    <a href="/librarian/dispatch_magazine_view/{{$val1->id}}/{{$val1->orderid}}"> <i class="fa fa-eye p-2"></i></a>
+													<!-- <a href="#"><i class="fa fa-edit p-2"></i></a>
+													<i class="fa fa-trash-o p-2" aria-hidden="true"></i> -->
+												</td>
+                                        
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>

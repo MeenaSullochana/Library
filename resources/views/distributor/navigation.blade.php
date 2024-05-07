@@ -1391,6 +1391,7 @@
                             <li><a href="/distributor/procurement">Apply For Procurement</a></li>
 							<li><a href="/distributor/procurement_samplebook">Procurement Sample Book Copies send list</a></li>
 							<li><a href="/distributor/procurement_samplebookpending">Procurement Sample Book Copies pending list</a></li>
+							<li><a href="/distributor/procurement_samplebookcomplete">Procurement Sample Book Copies Complete list</a></li>
 
 							
 							{{-- <li><a href="/distributor/procurement_list">pending List </a></li>

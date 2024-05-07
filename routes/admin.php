@@ -1035,5 +1035,9 @@ Route::post('/order_complete_status',[MagazineController::class,'order_complete_
 
 //Subscription
 Route::get('/subscription',[SubscriptionController::class,'subscription']);
+
+Route::get('/exportexcelmagazine ',[SettingController::class,'exportexcelmagazine']);
+
+
     });
 });

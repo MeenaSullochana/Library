@@ -987,24 +987,57 @@ if(isset($request->back_img)){
     }
 
     public function procurementbokkcopies(Request $request){
-        $bookcopies=new bookcopies();
     
-        $bookcopies->bookid =  $request->bookid;
-        $bookcopies->booktitle =  $request->booktitle;
-        $bookcopies->copies =  json_encode($request->datarec);
-        $bookcopies->userid =  auth('publisher')->user()->id;
-        $bookcopies->usertype =  auth('publisher')->user()->usertype;
-    
-     
-        if($bookcopies->save()){
-    
-            $book =Book::find($request->bookid);
-            $book->book_procurement_status="6";
-            $book->save();
-            return response()->json(['success' => 'copies send successfull']);
-    
+          $datarec1=[];
+        
+          $datarecJson = json_decode($request->datarec);
+          foreach ($datarecJson as $key => $val) {
+           $pdfcopies = $request->file('profileImage'.$key);
+
+            $pdf_name = $request->librarytype . time() . '_' . $pdfcopies->getClientOriginalName();
+            $pdfcopies->move(('Books/copies'), $pdf_name);
+            $val->profileImage = $pdf_name;
+            
+            array_push($datarec1,$val);
         }
+          
+     
+      
+
+
+            $bookcopies=new bookcopies();
+            $bookcopies->bookid =  $request->bookid;
+            $bookcopies->booktitle =  $request->booktitle;
+            $bookcopies->copies =  json_encode($datarec1);
+            $bookcopies->userid =  auth('publisher')->user()->id;
+            $bookcopies->usertype =  auth('publisher')->user()->usertype;
+            if($bookcopies->save()){
+        
+                $book =Book::find($request->bookid);
+                $book->book_procurement_status="6";
+                $book->save();
+                return response()->json(['success' => 'copies send successfull']);
+        
+            }
+        
+      
+       
     
+    }
+
+
+    public function procurement_samplebookcomplete(){
+        $id=auth('publisher')->user()->id;
+         $data1=Book::where('user_id','=',$id)->where('book_procurement_status','=',"1")->where('book_status','=',null)->get(); 
+         $data=[];
+         foreach($data1 as $key=>$val){
+             $bookcopies=bookcopies::where('bookid','=',$val->id)->first();
+               $copies=  json_decode($bookcopies->copies);
+               $val->copies=$copies;
+               array_push($data,$val);
+             }
+        
+        return view('publisher.procurement_samplebookcomplete')->with('data',$data); 
     }
 
 }

@@ -69,7 +69,7 @@
                     <div class="col-xl-12">
                         <div class="card-body p-0">
                             <div class="table-responsive active-projects style-1 ItemsCheckboxSec shorting ">
-                          
+
                                 <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
                                     {{-- empoloyees-tbl3 --}}
                                     <table id="example3" class="table dataTable no-footer" role="grid"
@@ -84,11 +84,12 @@
                                                 <th>Total Book Copies</th>
                                                 <th>Issued Status</th>
                                                 <th>Book Copies Send Date</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @foreach($data as $key=>$val)
-                                      
+
                                             <tr role="row" class="odd">
 
                                                 <td data-label="">{{$loop->index+1}}</td>
@@ -107,19 +108,32 @@
                                                         <select class="col-sm-12 m-b30" name="user_approval"
                                                             id="user_approval" data-id="{{$val->id}}"
                                                             data-bookid="{{$val->bookid}}"
-
-                                                             data-libraryname="{{$val->copiesrec->librarytype}}">
+                                                            data-libraryname="{{$val->copiesrec->librarytype}}">
                                                             <option style="color: green;" value=""></option>
 
-                                                            <option style="color: green;" value="Received">Received</option>
-                                                         </select>
+                                                            <option style="color: green;" value="Received">Received
+                                                            </option>
+                                                        </select>
                                                     </div>
                                                 </td>
                                                 <td data-label="">
-                                                {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}
+                                                    {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}
                                                 </td>
+                                                <td class="py-2">
+                                                    <button type="button" class="btn btn-primary"
+                                                        data-id="{{ asset('Books/copies/' . $val->copiesrec->profileImage) }}"
+                                                        data-bs-toggle="modal" data-bs-target="#modalId">View Copies
+                                                        Proof</button>
+                                                </td>
+
+                                                <!-- <td>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#modalId" data-id="{{ asset('Books/copies/' . $val->profileUmage) }}">
+                                                        Open PDF
+                                                    </button>
+                                                     </td> -->
                                             </tr>
-                                    
+
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -178,26 +192,57 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa fa-chevron-left"></i>Back to</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                </div>
+                <div class="modal-footer" style="display: flex; justify-content: space-between;">
+                    <div>
+                        <a id="prev" href="#prev" class="arrow">Previous</a>
+                        <a id="next" href="#next" class="arrow">Next</a>
+                    </div>
+                    <div>
+                        <!-- Add any buttons you need in the footer -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
+
+
 <script>
 $('#example3').on('change', "select[name='user_approval']", function(e) {
     var approval_ = $(this).val();
-if(approval_ == "Received"){
-    var id = $(this).data('id');
-    var libraryname = $(this).data('libraryname');
-    var bookid = $(this).data('bookid');
+    if (approval_ == "Received") {
+        var id = $(this).data('id');
+        var libraryname = $(this).data('libraryname');
+        var bookid = $(this).data('bookid');
 
-    
+
         $('#hiddenInput1').val(id);
         $('#hiddenInput2').val(libraryname);
         $('#hiddenInput3').val(bookid);
         $('#staticBackdrop1').modal('show');
-}
-   
+    }
+
 });
 </script>
 
 <script>
+    $('.btn-close').on('click',function(){
+        $("#modalId").modal('hide');
+    })
 $(document).on('click', '#submitButton1', function(e) {
     e.preventDefault();
     var data = {
@@ -242,6 +287,49 @@ $(document).on('click', '#submitButton1', function(e) {
     });
 })
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    function loadContent(content) {
+        document.getElementById('modalBody').innerHTML = content;
+    }
+
+    function loadFile(dataId) {
+        var fileExtension = dataId.split('.').pop().toLowerCase();
+
+        switch (fileExtension) {
+            case 'pdf':
+                loadContent('<embed src="' + dataId + '" type="application/pdf" width="100%" height="600px" />');
+                break;
+            case 'jpg':
+            case 'jpeg':
+            case 'png':
+            case 'gif':
+                loadContent('<img src="' + dataId + '" alt="Image" style="max-width: 100%; max-height: 600px;">');
+                break;
+            case 'html':
+                fetch(dataId)
+                    .then(response => response.text())
+                    .then(html => {
+                        loadContent(html);
+                    })
+                    .catch(error => console.error('Error loading HTML:', error));
+                break;
+            default:
+                loadContent('<p>File type not supported</p>');
+                break;
+        }
+    }
+
+    $('#modalId').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+
+        var dataId = button.data('id');
+
+        loadFile(dataId);
+    });
+    </script>
+
 </html>
 <style>
 table {

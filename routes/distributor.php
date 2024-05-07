@@ -185,7 +185,8 @@ Route::get('/report_download', function () {return view('distributor.report_down
       Route::get('/procurement_samplebookpending',[BookController::class,'procurement_samplebookpending']);
     
       Route::post('/procurementbokkcopies',[BookController::class,'procurementbokkcopies']);
- 
+      Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
+
 
     });
 });

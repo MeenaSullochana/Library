@@ -1900,8 +1900,110 @@ public function reviewerbatchadd(Request $req){
        return response()->make($csvContent, 200, $headers);
    
    
-     }   
+     } 
      
+     
+     
+     public function exportexcelmagazine(){
+  
+       $magazine1 = Magazine::get();
+       $total = 0;
+       $finaldata = [];
+       $serialNumber = 1;
+       foreach ($magazine1 as $val1) {
+      
+
+           $finaldata[] = [
+               'S.No' => $serialNumber++,
+               'Language' => $val1->language,
+               'Category' => $val1->category,
+               'Title of the Magazine' => $val1->title,
+               'Periodicity' => $val1->periodicity,
+               'Cover Price' =>$val1->single_issue_rate,
+               'Annual Subscription' =>$val1->annual_subscription,
+               'Discount' => $val1->discount,
+               'Single Issue After Discount'=>$val1->single_issue_after_discount,
+               'Annual Subscription After Discount'=>$val1->annual_cost_after_discount,
+               'RNI Details'=>$val1->rni_details,
+               'Total No.of Pages'=>$val1->total_pages,
+               'Total No.of Multicolour Pages'=>$val1->total_multicolour_pages,
+               'Total No.of Monocolour Pages'=>$val1->total_monocolour_pages,
+               'Paper Quality'=>$val1->paper_qualitity,
+               'Size of Magazine' =>$val1->magazine_size,
+               'Contact Person'=>$val1->contact_person,
+               'Phone'=>$val1->phone,
+               'Email'=>$val1->email,
+               'Address'=>$val1->address,
+            
+   
+                 
+           ];
+           $total =  $total + 1;
+       }
+       
+       $finaldata[] = [
+           'S.No' => '',
+           'Language' =>'',
+           'Category' => '',
+           'Title of the Magazine' =>'',
+           'Periodicity' => '',
+           'Cover Price' =>'',
+           'Annual Subscription' =>'',
+           'Discount' => '',
+           'Single Issue After Discount'=>'',
+           'Annual Subscription After Discount'=>'',
+           'RNI Details'=>'',
+           'Total No.of Pages'=>'',
+           'Total No.of Multicolour Pages'=>'',
+           'Total No.of Monocolour Pages'=>'',
+           'Paper Quality'=>'',
+           'Size of Magazine' =>'',
+           'Contact Person'=>'',
+           'Phone'=>'',
+           'Email'=>'',
+           'Address'=>'',
+          
+       ];
+       $finaldata[] = [
+           'Total Amount' => '',
+         
+           'Language' =>'',
+           'Category' => '',
+           'Title of the Magazine' =>'',
+           'Periodicity' => '',
+           'Cover Price' =>'',
+           'Annual Subscription' =>'',
+           'Discount' => '',
+           'Single Issue After Discount'=>'',
+           'Annual Subscription After Discount'=>'',
+           'RNI Details'=>'',
+           'Total No.of Pages'=>'',
+           'Total No.of Multicolour Pages'=>'',
+           'Total No.of Monocolour Pages'=>'',
+           'Paper Quality'=>'',
+           'Size of Magazine' =>'',
+           'Contact Person'=>'',
+           'Phone'=>'',
+           'Email'=>'Total Amount:',
+           'Address'=>$total,
+          
+       ];
+   //  return $finaldata;
+       $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+       $csvContent .=  "S.No,Language,Category,Title of the Magazine,Periodicity,Cover Price,Annual Subscription,Discount,Single Issue After Discount,Annual Subscription After Discount,RNI Details,Total No.of Pages,Total No.of Multicolour Pages,Total No.of Monocolour Pages,Paper Quality,Size of Magazine,Contact Person,Phone,Email,Address\n"; 
+       foreach ($finaldata as $data) {
+           $csvContent .= '"' . implode('","', $data) . "\"\n";
+       }
+   
+       $headers = [
+           'Content-Type' => 'text/csv; charset=utf-8',
+           'Content-Disposition' => 'attachment; filename="MagazineOrderReport.csv"',
+       ];
+   
+       return response()->make($csvContent, 200, $headers);
+   
+   
+     } 
 }
 
 

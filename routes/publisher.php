@@ -210,7 +210,8 @@ Route::prefix('publisher')->group(function () {
      Route::get('/procurement_samplebookpending',[BookController::class,'procurement_samplebookpending']);
    
      Route::post('/procurementbokkcopies',[BookController::class,'procurementbokkcopies']);
+     Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
 
-
+     
     });
 });

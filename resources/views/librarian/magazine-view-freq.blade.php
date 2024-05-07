@@ -215,6 +215,7 @@
                                 <select class="form-select rounded-0 changestatus" aria-label="Default select example"
                                     data-id="{{$val->id}}" data-orderid="{{$val->order}}"
                                     data-magazineid="{{$val->magazine_id}}">
+                                   
                                     <option value="Not Arrived">Not Arrived</option>
                                     <option value="Arrived">Arrived</option>
                                   
@@ -223,7 +224,7 @@
                                 <select class="form-select rounded-0 changestatus" aria-label="Default select example"
                                     data-id="{{$val->id}}" data-orderid="{{$val->order}}"
                                     data-magazineid="{{$val->magazine_id}}">
-                                  
+                                    <option></option>
                                     <option value="Arrived">Arrived</option>
                                     <option value="Not Arrived">Not Arrived</option>
                                 </select>
