@@ -13,6 +13,7 @@
     <meta property="og:description" content="">
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement - Book Add</title>
@@ -78,8 +79,8 @@
 							</div>
 							<hr>
                             <div class="">
-                                <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data">
-                                    
+                                <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data" action="/periodical_publisher/magazine/add">
+                                    @csrf
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -94,8 +95,9 @@
                                                                 for="validationCustomUsername">RNI Details<span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <div class="input-group">
-                                                                    <textarea type="text" class="form-control" id="rni" name="rni" placeholder="Enter the RNI Details" required></textarea>
-                                                                    <div class="invalid-feedback"> Please Enter RNI Details. </div>
+                                                                <input type="text" class="form-control" id="rni" name="rni" placeholder="Enter the RNI Details" required>
+                                                                <div class="invalid-feedback"> Please Enter RNI Details. </div>
+                         
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -129,52 +131,26 @@
                                                     <div class="basic-form">
 
                                                         <div class="mb-3">
-                                                            <label class="text-label form-label text-black required"  for="validationCustomUsername">Select Subject 
-                                                                <span class="text-danger">*</span></label>
-                                                            <select class="form-select rounded-0" id="select-lang" name="" required>
-                                                                <option value="">Select One</option>
-                                                                <option value="tamil">Tamil</option>
-                                                                <option value="english">English</option>
+                                                            <label class="text-label form-label text-black" for="validationCustomUsername">Select Language <span class="text-danger">*</span></label>
+                                                            <select class="default-select wide form-control" id="select-lang" name="language" required>
+                                                            <option value="" selected>Select Language</option>
+                                                                <option value="Tamil">Tamil</option>
+                                                                <option value="English">English</option>
+                                                               
+
                                                             </select>
-                                                            <div class="invalid-feedback">please select language .</div>
                                                         </div>
-                                                        <div class="mb-3 tamil-category d-none">
-                                                            <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername"> Category - Tamil<span
-                                                                    class="text-danger">*</span></label>
-                                                                    <select class="default-select wide form-control" id="tamil-category" name="">
-                                                                        <option value="">Select One</option>
-                                                                        <option value="குழந்தைகள்">குழந்தைகள்</option>
-                                                                        <option value="போட்டித்தேர்வு">போட்டித்தேர்வு</option>
-                                                                        <option value="பொருளாதாரம்">பொருளாதாரம்</option>
-                                                                        <option value="பொழுதுபோக்கு">பொழுதுபோக்கு</option>
-                                                                        <option value="பொது">பொது</option>
-                                                                        <option value="உடல்நலம்">உடல்நலம்</option>
-                                                                        <option value="இலக்கியம்">இலக்கியம்</option>
-                                                                        <option value="சமயம்">சமயம்</option>
-                                                                        <option value="அறிவியல் & தொழில்நுட்பம்">அறிவியல் & தொழில்நுட்பம்</option>
-                                                                        <option value="விளையாட்டு">விளையாட்டு</option>
-                                                                        <option value="பெண்கள்">பெண்கள்</option>
-                                                                    </select>
-                                                        </div>
-                                                        <div class="mb-3 english-category d-none">
-                                                            <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Category - English<span
-                                                                    class="text-danger">*</span></label>
-                                                                    <select class="default-select wide form-control" id="english-category" name="">
-                                                                        <option value="">Select One</option>
-                                                                        <option value="Children">Children</option>
-                                                                        <option value="Competitive">Competitive</option>
-                                                                        <option value="Economics">Economics</option>
-                                                                        <option value="Entertainment">Entertainment</option>
-                                                                        <option value="General">General</option>
-                                                                        <option value="Health">Health</option>
-                                                                        <option value="Literature">Literature</option>
-                                                                        <option value="Religion">Religion</option>
-                                                                        <option value="Science & Technology">Science & Technology</option>
-                                                                        <option value="Sports">Sports</option>
-                                                                        <option value="Women">Women</option>
-                                                                    </select>
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black" for="validationCustomUsername"> Category <span class="text-danger">*</span></label>
+                                                            <select class="select wide form-control" id="categories" name="category" required>
+                                                                @php
+                                                                $categori = DB::table('magazine_categories')->where('status','=','1')->get();
+                                                                @endphp
+                                                                <option value="">Select Category</option>
+                                                                @foreach($categori as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -195,7 +171,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Title of the Magazine <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="title_of_magazine" name="title_of_magazine" placeholder="Enter the title of the Magazine" required>
+                                                                <input type="text" class="form-control" id="title_of_magazine" name="title" placeholder="Enter the title of the Magazine" required>
                                                                 <div class="invalid-feedback"> Please enter a magazine title. </div>
                                                             </div>
                                                         </div>
@@ -207,6 +183,10 @@
                                     </section>
                                     <section class="bg-light-new">
                                         <div class="row p-3">
+                                            @php
+                                              $user = auth('periodical_publisher')->user();
+                                              $publishername = $user->firstName." ".$user->lastName;
+                                            @endphp
                                             <div class="col-md-2">
                                                 <h4>Name of the Publisher</h4>
                                             </div>
@@ -218,7 +198,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Name of the Publisher  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" required>
+                                                                <input type="text" value="{{$publishername}}"class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" required>
                                                                 <div class="invalid-feedback"> Please enter the name of the publisher. </div>
                                                             </div>
                                                         </div>
@@ -263,21 +243,16 @@
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">Periodicity <span class="text-danger">*</span></label>
-                                                                <select class="form-select rounded-0" id="frequency" name="frequency" required>
-                                                                    <option value="" selected>Select One</option>
-                                                                    <option value="">Monthly</option>
-                                                                    <option value="">Quarterly</option>
-                                                                    <option value="">Annual</option>
-                                                                    <option value="">Weekly</option>
-                                                                    <option value="">Bi Monthly</option>
-                                                                    <option value="">Fortnight</option>
-                                                                    <option value="">BiMonthly</option>
-                                                                    <option value="">Bi weekly</option>
-                                                                    <option value="">Half yearly</option>
-                                                                    <option value="">Yearly</option>
-                                                                    <option value="">Bimonthly</option>
+                                                            <select class="form-select rounded-0" id="frequency" name="frequency" required>
+                                                            @php
+                                                                $periodicity = DB::table('magazine_periodicities')->where('status','=','1')->get();
+                                                                @endphp
+                                                                <option value="">Select Periodicity</option>
+                                                                @foreach($periodicity as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach
                                                             </select>
-                                                            <div class="invalid-feedback"> Please select frequency. </div>
+                                                            <div class="invalid-feedback"> Please select periodicity. </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -435,7 +410,7 @@
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">Single Issue After Discount <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="single_issue_after_discount" name=">single_issue_after_discount" placeholder="Enter the Single Issue after discount" required>
+                                                                <input type="number" class="form-control" id="single_issue_after_discount" name="single_issue_after_discount" placeholder="Enter the Single Issue after discount" required>
                                                                 <div class="invalid-feedback"> Please Enter Single Issue After Discount. </div>
                                                             </div>
                                                         </div>
@@ -596,10 +571,14 @@
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">GSM<span class="text-danger">*</span></label>
                                                                 <select class="form-select rounded-0" id="gsm" name="gsm" required>
-                                                                    <option value="" selected>Select One</option>
-                                                                    <option value="">GSM</option>
-                                                                    <option value="">Map Litho</option>
-                                                                    <option value="">Art Paper</option>
+                                                                <option value="">Select One</option>
+                                                        @php
+                                                          $categori = DB::table('book_gsm')->where('status','=','1')->get();
+                                                          @endphp
+                                                          @foreach($categori as $val)
+                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+
+                                                            @endforeach
                                                                 </select>
                                                                 <div class="invalid-feedback"> Please Select GSM. </div>
                                                         </div>
@@ -611,10 +590,14 @@
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">Type Of Paper<span class="text-danger">*</span></label>
                                                                 <select class="form-select rounded-0" id="type_paper" name="type_paper" required>
-                                                                    <option value="" selected>Select One</option>
-                                                                    <option value="">GSM</option>
-                                                                    <option value="">Map Litho</option>
-                                                                    <option value="">Art Paper</option>
+                                                                <option value="">Select One</option>
+                                                        @php
+                                                          $categori = DB::table('book_papertype')->where('status','=','1')->get();
+                                                          @endphp
+                                                          @foreach($categori as $val)
+                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+
+                                                            @endforeach
                                                                 </select>
                                                                 <div class="invalid-feedback"> Please Select Type Paper. </div>
                                                         </div>
@@ -626,10 +609,14 @@
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">Paper Finishing<span class="text-danger">*</span></label>
                                                                 <select class="form-select rounded-0" id="paper_finishing" name="paper_finishing" required>
-                                                                    <option value="" selected>Select One</option>
-                                                                    <option value="">GSM</option>
-                                                                    <option value="">Map Litho</option>
-                                                                    <option value="">Art Paper</option>
+                                                                <option value="">Select One</option>
+                                                        @php
+                                                          $categori = DB::table('book_paperfinishing')->where('status','=','1')->get();
+                                                          @endphp
+                                                          @foreach($categori as $val)
+                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+
+                                                            @endforeach
                                                                 </select>
                                                                 <div class="invalid-feedback"> Please Select Paper Finishing. </div>
                                                         </div>
@@ -758,9 +745,14 @@
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black" for="validationCustomUsername">Country  <span class="text-danger">*</span></label>
                                                                     <select class="form-select rounded-0" id="country" name="country" required>
-                                                                        <option value="" selected>Select One</option>
-                                                                        <option value="">test one</option>
-                                                                        <option value="">test two</option>
+                                                                    @php
+                                                                      $country =  DB::table('countries')->where('status','=','1')->get();
+                                                                    @endphp   
+                                                                    <option value="" selected>Select Country</option>
+                                                                    @foreach($country as $val)
+                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+
+                                                            @endforeach
                                                                     </select>
                                                                     <div class="invalid-feedback"> Please Select the Country. </div>
                                                             </div>
@@ -771,9 +763,14 @@
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black" for="validationCustomUsername">State <span class="text-danger">*</span></label>
                                                                     <select class="form-select rounded-0" id="state" name="state" required>
-                                                                        <option value="" selected>Select One</option>
-                                                                        <option value="">test one</option>
-                                                                        <option value="">test two</option>
+                                                                    @php
+                                                                      $states =  DB::table('states')->get();
+                                                                    @endphp   
+                                                                    <option value="" selected>Select State</option>
+                                                                    @foreach($states as $val)
+                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+
+                                                            @endforeach
                                                                     </select>
                                                                     <div class="invalid-feedback"> Please Select the State. </div>
                                                             </div>
@@ -785,10 +782,9 @@
                                                                 <label class="text-label form-label text-black" for="validationCustomUsername">District <span class="text-danger">*</span></label>
                                                                     <select class="form-select rounded-0" id="district" name="district" required>
                                                                         <option value="" selected>Select One</option>
-                                                                        <option value="">test one</option>
-                                                                        <option value="">test two</option>
+                                                                      
                                                                     </select>
-                                                                    <div class="invalid-feedback"> Please Select the State. </div>
+                                                                    <div class="invalid-feedback"> Please Select the district. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -858,7 +854,7 @@
 
                                         </div>
                                     </section>
-                                    <section class="bg-light-new">
+                                    {{--<section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
                                                 <h4>Bank Account Details</h4>
@@ -924,7 +920,7 @@
                                             </div>
 
                                         </div>
-                                    </section>
+                                    </section>--}}
                                     <section class="bg-light-new mt-4">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -942,7 +938,7 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="front_img form-control" type="file" accept="image/*" required/>
+                                                                     <input class="front_img form-control" name="front_img" type="file" accept="image/*" required/>
                                                                      <div class="invalid-feedback"> Please Upload Front Image. </div>
                                                                   </div>
                                                             </div>
@@ -957,8 +953,8 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="back_img form-control" type="file" accept="image/*" required/>
-                                                                     <div class="invalid-feedback"> Please Upload Front Image. </div>
+                                                                     <input class="back_img form-control" name="back_img" type="file" accept="image/*" required/>
+                                                                     <div class="invalid-feedback"> Please Upload Back Image. </div>
                                                                   </div>
                                                             </div>
                                                         </div>
@@ -972,7 +968,7 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="full_img form-control" type="file" accept="image/*" />
+                                                                     <input class="full_img form-control" name="full_img" type="file" accept="image/*" />
                                                                      <div class="invalid-feedback"> Please Upload Full Image. </div>
                                                                   </div>
                                                             </div>
@@ -1156,6 +1152,66 @@
 			})
 		})()
 	</script>
+
+<script>
+        $('#select-lang').change(function() {
+            var lang = $(this).val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/periodical_publisher/getcategory',
+                data: {
+                    'lang': lang
+                },
+                success: function(response) {
+                    console.log(response);
+                    var subjects22 = response.categories;
+                    console.log("asdfsdf");
+                    $('#categories').empty();
+                    $('#categories').append('<option value="">Select One</option>');
+                    $.each(subjects22, function(key, value) {
+                        $('#categories').append('<option value="' + value.name + '">' + value.name + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+</script>
+<script>
+    $('#state').on('change', function() {
+   // alert('asfasd');
+   var stateId = $(this).val();
+   $.ajaxSetup({
+      headers:{
+         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+      }
+   });
+   $.ajax({
+      type: "post",
+      dataType: "json",
+      url: '/periodical_publisher/getdistrict',
+      data: {'state_id':stateId},
+       success: function(response) {
+           var districts = response.districts;
+           $('#district').empty();
+ $('#district').append('<option value="">Select District</option>');
+           $.each(districts, function(key, value) {
+               $('#district').append('<option value="' + value.name + '">' + value.name + '</option>');
+           });
+       },
+       error: function(xhr, status, error) {
+           console.error(error);
+       }
+   });
+});
+</script>
 </body>
 
 <style>

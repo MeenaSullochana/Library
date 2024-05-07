@@ -73,7 +73,7 @@
                             <div class="">
                                 <form class="needs-validation" novalidate method="POST" action="/admin/magazine/update/{{$data->id}}" enctype="multipart/form-data">
                                 @csrf  
-                                <section class="bg-light-new">
+                                   <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
                                                 <h4>Language</h4>
