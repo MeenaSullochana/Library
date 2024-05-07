@@ -264,10 +264,10 @@
                                             <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                     </div>
                                     <p class="reg-redirect mt-3 p-0 m-0">
-                                        Don't have an account? <a class="text-primary" href="/register" id="tooltip-2" title="User Login"> Register Now</a>
+                                        Don't have an account? <a class="text-primary" href="/periodical/register" id="tooltip-2" title="User Login"> Register Now</a>
                                     </p>
                                     <p class="reg-redirect p-0 m-0">
-                                         <a class="text-primary" href="/forgotform" id="tooltip-3" title="Forgot User Password"> Forgot Password</a>
+                                         <a class="text-primary" href="/periodical/forgotform" id="tooltip-3" title="Forgot User Password"> Forgot Password</a>
                                     </p>
                                     <div class="tpabout__inner-btn login_static_new mb-5">
                                     <button class="g-recaptcha btn btn-dark bg-dark text-white"

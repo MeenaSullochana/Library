@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Periodicalauth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
@@ -9,9 +9,9 @@ use Illuminate\Http\Response;
 use App\Models\Subadmin;
 use App\Models\Admin;
 use App\Models\Otp;
-use App\Models\Publisher;
+use App\Models\PeriodicalPublisher;
 use App\Models\Reviewer;
-use App\Models\Distributor;
+use App\Models\PeriodicalDistributor;
 use App\Models\PublisherDistributor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -43,11 +43,11 @@ class ForgotPasswordController extends Controller
         if($request->email !== null){
         if($request->usertype !== null){
             if($request->usertype == "publisher"){
-                $record2=Publisher::where('email', '=', $request->email)->first();
+                $record2=PeriodicalPublisher::where('email', '=', $request->email)->first();
                 if($record2 !=null){
-                    $record=Publisher::where('email', '=', $request->email)->where('approved_status', '=', 'approve')->first();
+                    $record=PeriodicalPublisher::where('email', '=', $request->email)->where('approved_status', '=', 'approve')->first();
                 if($record !=null){
-                    $record1=Publisher::where('email', '=', $request->email)->where('status', '=', '1')->first();
+                    $record1=PeriodicalPublisher::where('email', '=', $request->email)->where('status', '=', '1')->first();
                     $user = $request->email;
                     $rev =Mailurl::first();
                     $url = $rev->name ."/forgotform/$user/$request->usertype";
@@ -79,11 +79,11 @@ class ForgotPasswordController extends Controller
             }
                
                }elseif($request->usertype == "distributor"){
-                $record2=Distributor::where('email', '=', $request->email)->first();
+                $record2=PeriodicalDistributor::where('email', '=', $request->email)->first();
                 if($record2 !=null){
-                    $record=Distributor::where('email', '=', $request->email)->where('approved_status', '=', 'approve')->first();
+                    $record=PeriodicalDistributor::where('email', '=', $request->email)->where('approved_status', '=', 'approve')->first();
                 if($record !=null){
-                    $record1=Distributor::where('email', '=', $request->email)->where('status', '=', '1')->first();
+                    $record1=PeriodicalDistributor::where('email', '=', $request->email)->where('status', '=', '1')->first();
                     $user = $request->email;
                     $rev =Mailurl::first();
                     $url = $rev->name ."/forgotform/$user/$request->usertype";
@@ -113,42 +113,8 @@ class ForgotPasswordController extends Controller
                 ];
                 return response()->json($data);
             }
-            }else{
-                $record2=PublisherDistributor::where('email', '=', $request->email)->first();
-                if($record2 !=null){
-                    $record=PublisherDistributor::where('email', '=', $request->email)->where('approved_status', '=', 'approve')->first();
-                if($record !=null){
-                    $record1=PublisherDistributor::where('email', '=', $request->email)->where('status', '=', '1')->first();
-                    $user = $request->email;
-                    $rev =Mailurl::first();
-                    $url = $rev->name ."/forgotform/$user/$request->usertype";
-                        if($record1 !== null){
-                          
-                                Notification::route('mail',  $request->email)->notify(new ForgotPasswordNotification($user, $url));
-                        
-                            $data= [
-                                'success' => 'Mail Sent Successfully',
-                                     ];
-                            return response()->json($data);
-                        }else{
-                            $data= [
-                                'error' => 'You Account Was Not Active',
-                            ];
-                            return response()->json($data);
-                        }
-                }else{
-                    $data= [
-                        'error' => 'You Account Was Not Approve',
-                    ];
-                    return response()->json($data);
-                }
-            }else{
-                $data= [
-                    'error' => 'No User Found',
-                ];
-                return response()->json($data);
             }
-        }
+           
         }else{
             $data= [
                 'error' => 'Select your usertype',
@@ -172,7 +138,7 @@ class ForgotPasswordController extends Controller
             "type"=>$type,
         ];
         // return view('Auth.resetpassword');
-       return redirect('/reset-password')->with('obj',$obj); 
+       return redirect('/periodical/reset-password')->with('obj',$obj); 
     }
     public function passwordchange(Request $req){
      

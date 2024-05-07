@@ -70,6 +70,8 @@ class Kernel extends HttpKernel
         'publisher_distributor' => \App\Http\Middleware\publisherdistributorMiddleware::class,
         'librarian' => \App\Http\Middleware\LibrarianMiddleware::class,
         'reviewer' => \App\Http\Middleware\ReviewerMiddleware::class,
+        'periodical_publisher' => \App\Http\Middleware\PeriodicalPublisherMiddleware::class,
+        'periodical_distributor' => \App\Http\Middleware\PeriodicalDistributorMiddleware::class,
 
         
     ];
