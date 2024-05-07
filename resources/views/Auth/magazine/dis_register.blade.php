@@ -55,18 +55,18 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="pub_details">
-                                <h6 class="fw-bold">Publication Details - <span class="mt-055"> பதிப்பு விவரம்</span>
+                                <h6 class="fw-bold">Distribution Details - <span class="mt-055"> விநியோக விவரங்கள்</span>
                                 </h6>
                                 <div class="row mb-3 border border-0 p-2 m-2">
                                     <div class="col-md-6">
-                                        <label for="inputEmail4" class="form-label">Publication Name - <span
-                                                class="mt-056">பதிப்பகத்தின் பெயர்</span> <span
+                                        <label for="inputEmail4" class="form-label">Distribution Name - <span
+                                                class="mt-056">விநியோக பெயர்</span> <span
                                                 class="text-danger maditory">*</span></label>
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control " id="inputEmail4"
-                                            name="publication_name" placeholder="Enter the publication name" required>
-                                        <div class="invalid-feedback"> Please Enter publication Name. </div>
+                                            name="publication_name" placeholder="Enter the Distribution Name" required>
+                                        <div class="invalid-feedback"> Please Enter Distribution Name. </div>
                                     </div>
                                 </div>
 
@@ -85,7 +85,7 @@
 
                                 <div class="row mb-3 border border-0 p-2 m-2">
                                     <div class="col-md-6">
-                                        <label for="inputEmail4" class="form-label">Periodical/Magazine Publication Details  <span
+                                        <label for="inputEmail4" class="form-label">Periodical/Magazine Distribution Details  <span
                                                 class="mt-056">- பதிப்பு விவரம்</span> <span
                                                 class="text-danger maditory">*</span></label>
                                     </div>
@@ -126,7 +126,7 @@
                                 </div>
                             </div>
                             <div class="user_publisher_details">
-                                <h6 class="fw-bold">Publisher Details - <span class="mt-055">பதிப்பக உரிமையாளரின்
+                                <h6 class="fw-bold">Distribution Details - <span class="mt-055">விநியோகம் உரிமையாளரின்
                                         விவரங்கள்</span></h6>
                                 <div class="row mb-3 border border-0 p-2 m-2">
                                     <div class="col-md-4 mb-3">
@@ -208,7 +208,7 @@
                                         <div class="invalid-feedback"> Please Enter Last Name. </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <label for="validationTextarea" class="form-label">Publication Address<span
+                                        <label for="validationTextarea" class="form-label">Distribution Address<span
                                                 class="text-danger maditory">*</span></label>
                                         <textarea class="form-control" id="pub_address" placeholder="Required Address" required></textarea>
                                         <div class="valid-feedback"> Looks good!</div>
@@ -301,11 +301,11 @@
                                         <div class="invalid-feedback"> Please Enter Last Name. </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <label for="validationTextarea" class="form-label">Publication Address<span
+                                        <label for="validationTextarea" class="form-label">Distribution Address<span
                                                 class="text-danger maditory">*</span></label>
                                         <textarea class="form-control" id="con_publication_address" placeholder="Required Address" required></textarea>
                                         <div class="valid-feedback"> Looks good!</div>
-                                        <div class="invalid-feedback"> Please Enter Publication Address.</div>
+                                        <div class="invalid-feedback"> Please Enter Distribution Address.</div>
                                     </div>
                                 </div>
                             </div>
@@ -322,14 +322,14 @@
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="validationCustom02" class="form-label">years of experience in
-                                            Periodical/magazine publication - பருவ இதழ் பதிப்பில் அனுபவம்(வருடங்களில்)
+                                            Periodical/magazine Distribution - பருவ இதழ் பதிப்பில் அனுபவம்(வருடங்களில்)
                                             <span class="text-danger maditory">*</span></label>
                                         <input type="number" class="form-control" id="validationCustom02"
                                             placeholder="years of experience in Periodical/magazine publication"
                                             required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please Enter years of experience in
-                                            Periodical/magazine publication. </div>
+                                            Periodical/magazine Distribution. </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <label for="validationCustom02" class="form-label">Number of
@@ -340,7 +340,7 @@
                                             placeholder="Number of periodical/magazine circulation per year" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please Enter Number of
-                                            periodical/magazine circulation per year. </div>
+                                            periodical/magazine circulation per year </div>
                                     </div>
                                 </div>
                             </div>
@@ -406,7 +406,7 @@
                                 </div>
                             </div>
                             <div class="awarded_titles">
-                                <h6 class="fw-bold">Awarded Titles in Your Publication -<span class="mt-055"> பதிப்பகத்தில் விருது பெற்ற
+                                <h6 class="fw-bold">Awarded Titles in Your Distribution -<span class="mt-055"> பதிப்பகத்தில் விருது பெற்ற
                                     தலைப்புகள்</span>
                                  </h6>
                                  <div class="row mb-3 border border-0 p-2 m-2">
@@ -502,7 +502,7 @@
 
                                  <div class="col-md-6 form-group">
                                     {{-- <label for="text">Primary Language of Publication - <span class="mt-056">வெளியீட்டின் முதன்மை மொழி</span><span class="text-danger maditory">*</span></label> --}}
-                                    <h6 class="fw-bold mt-3 mb-3">Primary Language of Publication -<span class="mt-055"> வெளியீட்டின் முதன்மை மொழி</span></h6>
+                                    <h6 class="fw-bold mt-3 mb-3">Primary Language of Distribution -<span class="mt-055"> வெளியீட்டின் முதன்மை மொழி</span></h6>
                                     <div class="custom-control custom-checkbox">
                                        <input type="checkbox" id="customCheckbox" name="primary_language_of_publication[]" value="Tamil" class="custom-control-input">
                                        <label class="custom-control-label" for="customCheckbox">Tamil - <span class="mt-056">தமிழ்</span></label>
@@ -536,11 +536,11 @@
                                 </div>
                             </div>
                             <div class="nature_of_ownership">
-                                <h6 class="fw-bold">Nature of Your Publication Ownership</h6>
+                                <h6 class="fw-bold">Nature of Your Distribution Ownership</h6>
                                 <div class="row mb-3 border border-0 p-2 m-2">
                                     <div class="col-md-6  form-group ">
                                         <label for="inputState" class="form-label">
-                                        Nature of Your Publication Ownership
+                                        Nature of Your Distribution Ownership
                                         <span class="text-danger maditory">*</span>
                                         </label>
                                         <select name="pub_ownership" class="wide form-control" id="pub_ownership" required="">
@@ -567,7 +567,7 @@
                                 <div class="row mb-3 border border-0 p-2 m-2">
                                 <div class="col-md-6 form-group ">
                                     <label for="text">Do you have any subsidiary publications? If yes, list the
-                                    subsidary publication - <span class="mt-056">தங்கள் பதிப்பகத்திற்கு துணை
+                                    subsidary Distribution - <span class="mt-056">தங்கள் பதிப்பகத்திற்கு துணை
                                     பதிப்பகங்கள் உள்ளனவா? ஆமெனில், துணை பதிப்பகத்தின் பட்டியல்
                                     தரவும்</span><span class="text-danger maditory">*</span></label>
                                     <!-- <label for="text">Do you have any subsidiary publications? </label> -->
