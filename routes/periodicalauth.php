@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Periodicalauth\LoginController;
 // use App\Http\Controllers\Auth\RegisterController;
 // use App\Http\Controllers\Subadmin\TicketController;
-// use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Periodicalauth\ForgotPasswordController;
 // use App\Http\Controllers\WebsitebookController;
 // use Illuminate\Support\Facades\Session;
 
@@ -35,21 +35,23 @@ Route::prefix('periodical')->group(function () {
 // Route::get('/login',[LoginController::class,'showLoginForm']);
 Route::post('/login',[LoginController::class,'userLogin'])->name('periodical.login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('periodical.logout');
+
+
+Route::get('/forgotform',function(){ return view('periodicalauth.forgotform');});
+Route::post('/forgotpassword', [ForgotPasswordController::class,'forgotpassword']);
+Route::get('/forgotform/{email}/{type}', [ForgotPasswordController::class, 'resetpassword']);
+// Route::post('/getdistrict', [RegisterController::class, 'getDistricts']);
+Route::get('/reset-password',function(){
+    $data = Session::get('obj');
+    if($data !==null){
+        return view('periodicalauth.resetpassword')->with("data",$data);
+    }else{
+        return back();
+    }
+
 });
 
-// Route::get('/forgotform',function(){ return view('Auth.forgotform');});
-// Route::post('/forgotpassword', [ForgotPasswordController::class,'forgotpassword']);
-// Route::get('/forgotform/{email}/{type}', [ForgotPasswordController::class, 'resetpassword']);
-// Route::post('/getdistrict', [RegisterController::class, 'getDistricts']);
-// Route::get('/reset-password',function(){
-//     $data = Session::get('obj');
-//     if($data !==null){
-//         return view('Auth.resetpassword')->with("data",$data);
-//     }else{
-//         return back();
-//     }
 
-// });
 // Route::get('/mailconfirmation',function(){
 //     $data = Session::get('publisher');
 //     if($data !==null){
@@ -75,4 +77,4 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('periodical.logo
 //         return view('shope')->with("data",$data);
 //     }
 
-// });
+});

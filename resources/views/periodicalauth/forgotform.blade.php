@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
-         include "plugin/css.php";
+         include "periodicalauth/plugin/css.php";
       ?>
 </head>
 
@@ -242,7 +242,7 @@
     @include("footer.footer")
     <!-- footer-area-end -->
     <?php
-         include "plugin/js.php";
+         include "periodicalauth/plugin/js.php";
       ?>
        <script>
    function onSubmit(token) {
