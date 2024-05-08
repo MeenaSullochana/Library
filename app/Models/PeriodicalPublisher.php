@@ -13,10 +13,10 @@ class PeriodicalPublisher extends Authenticatable
     use UUID;
 
     protected $casts = [
-        'topTitles' => 'array',
+       
         'topTranslatedBooks' => 'array',
         'awardTitle' => 'array',
-        'bookCategories' => 'array',
+ 
         'specialCategories' => 'array',
         'language' => 'array',
         // 'association' => 'array',

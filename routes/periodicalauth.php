@@ -15,8 +15,8 @@ use App\Http\Controllers\Periodicalauth\ForgotPasswordController;
 
 
 Route::prefix('periodical')->group(function () {
-
-    Route::get('/login',function(){return view('periodicalauth.login');});
+Route::post('/create/publisher', [RegisterController::class, 'pub_create']);
+Route::get('/login',function(){return view('periodicalauth.login');});
 
 Route::post('/login',[LoginController::class,'userLogin'])->name('periodical.login');
 Route::get('/logout', [LoginController::class, 'logout'])->name('periodical.logout');
@@ -37,8 +37,8 @@ Route::get('/reset-password',function(){
 
 Route::post('/password/change', [ForgotPasswordController::class, 'passwordchange']);
 Route::get('/register',[RegisterController::class, 'index']);
- Route::get('/userregister', [RegisterController::class, 'showRegistrationForm']);
-
+Route::get('/userregister', [RegisterController::class, 'showRegistrationForm'])->name('periodical.register.form');
+Route::post('/userregister', [RegisterController::class, 'showRegistrationForm']);
 
 Route::get('/mailconfirmation',function(){
     $data = Session::get('publisher');
