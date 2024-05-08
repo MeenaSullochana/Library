@@ -88,7 +88,7 @@ public function importFile(Request $request){
 
 public function list(){
     try{
-      $magazines = Magazine::where('status', '=', '1')->get();
+    $magazines = Magazine::get();
  
       return view('periodical_publisher.magazine_list',compact('magazines'));
     }catch(\Throwable $e){
@@ -805,7 +805,7 @@ if(isset($request->rni_attachment_proof)){
      $magazine->user_type = "publisher";
      $magazine->user_id = $user->id;
      $magazine->save();
-     return back()->with('success',"Magazine updated successfully");
+     return back()->with('success',"Magazine Create successfully");
   } 
 
   public function getDistricts(Request $request)

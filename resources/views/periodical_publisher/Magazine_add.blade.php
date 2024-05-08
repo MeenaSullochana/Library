@@ -62,7 +62,7 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Add Magazine</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href=" {{ url('admin/magazine_list') }}">
+                            <a class="btn btn-primary  btn-sm" href=" {{ url('periodical_publisher/magazine_list') }}">
                                 <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Magazine </a>
                         </div>
                     </div>
@@ -70,13 +70,13 @@
                 <div class="row">
                     <div class="card mb-4">
                         <div class="card-body">
-							<div class="d-flex align-items-center justify-content-between">
+							<!-- <div class="d-flex align-items-center justify-content-between">
 								<h3 class="mb-0 bc-title">
 									<b>Add Magazine Form</b>
 								</h3>
 								<a class="btn btn-primary  btn-sm" href=" {{ url('admin/magazine_add') }}">
 									<i class="fa fa-angle-double-left" aria-hidden="true"></i> Bulk CV Upload  </a>
-							</div>
+							</div> -->
 							<hr>
                             <div class="">
                                 <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data" action="/periodical_publisher/magazine/add">
@@ -143,13 +143,13 @@
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername"> Category <span class="text-danger">*</span></label>
                                                             <select class="select wide form-control" id="categories" name="category" required>
-                                                                @php
+                                                                <!-- @php
                                                                 $categori = DB::table('magazine_categories')->where('status','=','1')->get();
                                                                 @endphp
                                                                 <option value="">Select Category</option>
                                                                 @foreach($categori as $val)
                                                                 <option value="{{$val->name}}">{{$val->name}}</option>
-                                                                @endforeach
+                                                                @endforeach -->
                                                             </select>
                                                         </div>
                                                     </div>
@@ -469,7 +469,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">File Attachment<span class="text-danger">*</span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="clip_attachment" ID="clip_attachment" class="form-control" aria-label="file example" required>
+                                                                <input type="file" name="clip_attachment" id="clip_attachment" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload File Attachment PDF</div>
                                                             </div>
                                                         </div>
@@ -514,7 +514,7 @@
                                                         <label class="text-label form-label text-black"
                                                             for="validationCustomUsername">Publisher/Editor Profile Image<span class="text-danger"></span></label>
                                                         <div class="small-12 medium-2 large-2 columns">
-                                                            <input type="file" name="editor_profile_image" ID="editor_profile_image" class="form-control" aria-label="file example" required>
+                                                            <input type="file" name="editor_profile_image" id="editor_profile_image" class="form-control" aria-label="file example" required>
                                                             <div class="invalid-feedback">Please upload Editor Profile Image</div>
                                                         </div>
                                                     </div>
@@ -640,7 +640,7 @@
                                                                 for="validationCustomUsername">Total Number of Pages <span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <input type="number" class="form-control" id="number_of_pages" name="number_of_pages" placeholder="Enter the Total Number of Pages" required>
-                                                                <div class="invalid-feedback"> Please Select the Type of Library. </div>
+                                                                <div class="invalid-feedback"> Please Enter the Total Number of Pages. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -929,7 +929,7 @@
                                             <div class="col-md-10">
                                                 <P class="fs-4">You can provide up to 8 images including some key illustrations with a minimum of 3 compulsory cover images</p>
                                                 <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -938,13 +938,13 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="front_img form-control" name="front_img" type="file" accept="image/*" required/>
+                                                                     <input class="front_img form-control" name="front_img"  id="front_img" type="file" accept="image/*" required/>
                                                                      <div class="invalid-feedback"> Please Upload Front Image. </div>
                                                                   </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -959,7 +959,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -968,7 +968,7 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="full_img form-control" name="full_img" type="file" accept="image/*" />
+                                                                     <input class="full_img form-control" name="full_img" type="file" accept="image/*" / required>
                                                                      <div class="invalid-feedback"> Please Upload Full Image. </div>
                                                                   </div>
                                                             </div>
@@ -990,7 +990,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Sample PDF One<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="pdf_content_one" ID="pdf_content_one" class="form-control" aria-label="file example" required>
+                                                                <input type="file" name="pdf_content_one" id="pdf_content_one" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
                                                             </div>
                                                         </div>
@@ -1000,7 +1000,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Sample PDF Two<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="pdf_content_two" ID="pdf_content_two" class="form-control" aria-label="file example" required>
+                                                                <input type="file" name="pdf_content_two" id="pdf_content_two" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
                                                             </div>
                                                         </div>
@@ -1010,7 +1010,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Sample PDF Three<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="pdf_content_three" ID="pdf_content_three" class="form-control" aria-label="file example" required>
+                                                                <input type="file" name="pdf_content_three" id="pdf_content_three" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
                                                             </div>
                                                         </div>
@@ -1212,6 +1212,201 @@
    });
 });
 </script>
+
+<script>
+    document.getElementById("rni_attachment_proof").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("clip_attachment").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+<script>
+    document.getElementById("editor_profile_image").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("front_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("back_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("full_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+
+<script>
+    document.getElementById("pdf_content_one").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("pdf_content_two").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+
+
+<script>
+    document.getElementById("pdf_content_three").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+@if (Session::has('success'))
+
+<script>
+
+toastr.success("{{ Session::get('success') }}",{timeout:15000});
+
+</script>
+@elseif (Session::has('error'))
+<script>
+
+toastr.error("{{ Session::get('error') }}",{timeout:15000});
+
+</script>
+@endif
 </body>
 
 <style>
