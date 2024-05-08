@@ -197,7 +197,7 @@
                                     </Wait>
                                 </div> -->
 
-                                <form action="{{ route('userregister') }}" class="p-2"  method="POST">
+                                <form action="/periodical/userregister" class="p-2"  method="POST">
                                 @csrf
                                 <p id="tooltip-1" title="Please Select Who You are" class="fs-5 fw-bold">Please Select Who You are?</p>
                                     <hr>

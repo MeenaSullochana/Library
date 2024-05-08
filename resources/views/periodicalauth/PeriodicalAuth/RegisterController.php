@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Publisher;
-use App\Models\PeriodicalPublisher;
 use App\Models\Distributor;
 use App\Models\PublisherDistributor;
 use App\Models\District;
@@ -64,10 +63,10 @@ class RegisterController extends Controller
             $state = State::all();
             $district = District::all();
             $country = Country::where('status', 1)->get();
-            if($user == "Publisher"){
-                return view('periodicalauth.pub_register', compact('state', 'district', 'country', 'user'));
+            if($user == "publisher"){
+                return view('Auth.register', compact('state', 'district', 'country', 'user'));
             }else{
-                return view('periodicalauth.dis_register', compact('state', 'district', 'country', 'user'));
+                return view('Auth.register', compact('state', 'district', 'country', 'user'));
             }
            
 
@@ -82,10 +81,10 @@ class RegisterController extends Controller
             $state = State::all();
            $district = District ::all();
            $country = Country ::where('status','=',1)->get();
-           if($user == "Publisher"){
-            return view('periodicalauth.pub_register', compact('state', 'district', 'country', 'user'));
+           if($user == "publisher"){
+            return view('Auth.register', compact('state', 'district', 'country', 'user'));
         }else{
-            return view('periodicalauth.dis_register', compact('state', 'district', 'country', 'user'));
+            return view('Auth.register', compact('state', 'district', 'country', 'user'));
         }
           
         }
@@ -98,17 +97,14 @@ class RegisterController extends Controller
 
   public function pub_create(Request $request)
     {
-        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'usertype'                                  => 'required',
             'publication_name'                          => 'required|string|max:255',
-            'name_periodical'                          => 'required|string|max:255',
-            'magazine_publication_name'                => 'required|string|max:255',
-            'userName'                                  => 'required|string|max:255|unique:periodical_publishers',
+            'userName'                                  => 'required|string|max:255|unique:publishers',
             'password'                                  => 'required|string|min:8',
             'pub_first_name'                            => 'required|string|max:255',
             'pub_last_name'                             => 'required|string|max:255',
-            'email'                                     => 'required|string|email|unique:periodical_publishers',
+            'email'                                     => 'required|string|email|unique:publishers',
             'contact_number'                            => 'required|string|max:10',
             'pub_address'                               => 'required|string|max:255',
             'pub_city'                                  => 'required|string|max:255',
@@ -116,8 +112,7 @@ class RegisterController extends Controller
             'pub_state'                                 => 'required|string|max:255',
             'pub_country'                               => 'required|string|max:255',
             'pub_pin_code'                              => 'required|string|max:255',
-            'contact_first_name'                       => 'required|string|max:255',
-            'contact_last_name'                       => 'required|string|max:255',
+            'contact_person_name'                       => 'required|string|max:255',
             'con_email_id'                              => 'required|string|email',
             'con_contact_number'                        => 'required|string|max:10',
             'con_publication_address'                   => 'required|string|max:255',
@@ -127,12 +122,16 @@ class RegisterController extends Controller
             'con_country'                               => 'required|string|max:255',
             'con_pin_code'                              => 'required|string|max:255',
             'publication_shop_established_year'         => 'required|numeric|max:'.date('Y'),
-            'year_of_experience'                        => 'required|numeric',
-            'number_of_magazines_year'                  => 'required|numeric',
-            'translated_book'                           => 'required',
-            'member_in_publishers_yes_old_asrmy'          => 'required',
-            'specialized_category_magazine'             => 'required|array',
+            'number_of_books_published_so_for'          => 'required|numeric',
+            'number_of_books_published_latest_year'     => 'required|numeric',
+            'publications_shope_book_title'              => 'required|array',
+            'publications_shope_book_author'             => 'required|array',
+            'member_in_publishers_yes_old'              => 'required',
+            'member_in_publishers_yes_old_asr'          => 'required',
+            'category_of_books_published'               => 'required|array',
+            'specialized_category_books'                 => 'required|array',
             'primary_language_of_publication'            => 'required|array',
+            'latest_book_categories'                     => 'required|mimes:xls,xlsx',
             'pub_ownership'                             => 'required',
             'subsidiary_publications'                   => 'required',
             'declaration'                               => 'required',
@@ -159,8 +158,7 @@ class RegisterController extends Controller
             'pub_state.required'                        => 'The state is required.',
             'pub_country.required'                      => 'The country is required.',
             'pub_pin_code.required'                     => 'The pin code is required.',
-            'contact_first_name.required'              => 'The contact person\'s first name is required.',
-            'contact_last_name.required'              => 'The contact person\'s last name is required.',
+            'contact_person_name.required'              => 'The contact person\'s name is required.',
             'con_email_id.required'                     => 'The contact person\'s email is required.',
             'con_email_id.email'                        => 'Please provide a valid email address for the contact person.',
             'con_contact_number.required'               => 'The contact person\'s number is required.',
@@ -173,15 +171,17 @@ class RegisterController extends Controller
             'con_pin_code.required'                     => 'The contact person\'s pin code is required.',
             'publication_shop_established_year.required' => 'The establishment year is required.',
             'publication_shop_established_year.max'      => 'The establishment year cannot be in the future.',
-            'year_of_experience.required'  => 'The number of year experience field is required.',
-            'number_of_magazines_year.required' => 'The number of magazines per year field required.',
-          
-            'translated_book.required'      => 'Please specify if you have a list of the top 5 translated books.',
-            'member_in_publishers_yes_old_asrmy.required'  => 'Please indicate if there are any awarded titles in your publication',
-            
-            'specialized_category_magazine.required'      => 'The specialized category of each book published is required.',
+            'number_of_books_published_so_for.required'  => 'The number of books published so far is required.',
+            'number_of_books_published_latest_year.required' => 'The number of books published in the latest 3 years is required.',
+            'publications_shope_book_title.required'   => 'Best Seller Titles in Your Publication\'s title is required.',
+            'publications_shope_book_author.required'  => 'Best Seller Titles in Your Publication\'s author is required.',
+            'member_in_publishers_yes_old.required'      => 'Please specify if you have a list of the top 5 translated books.',
+            'member_in_publishers_yes_old_asr.required'  => 'Please indicate if there are any awarded titles in your publication',
+            'category_of_books_published.required'       => 'Please select at least one category of books.',
+            'specialized_category_books.required'      => 'The specialized category of each book published is required.',
             'primary_language_of_publication.required' => 'The primary language of publication for each book is required.',
-           
+            'latest_book_categories.required'            => 'The book catalogue file is required.',
+            'latest_book_categories.mimes'               => 'The book catalogue must be a file of type: xls, xlsx.',
             'pub_ownership.required'                    => 'The publication ownership information is required.',
             'subsidiary_publications.required'           => 'Please specify if there are any subsidiary publications.',
             'declaration.required'                       => 'Please agree to the first declaration.',
@@ -189,9 +189,8 @@ class RegisterController extends Controller
             'declaration-three.required'                       => 'Please agree to the third declaration.',
             'declaration-four.required'                       => 'Please agree to the fourth declaration.',
         ]);
-   
+      
         if ($validator->fails()) {
-            // dd("in",$request->all());
             $errors = $validator->errors();
             if(Session::has('validation_error')){
                 Session::forget('validation_error');
@@ -200,38 +199,39 @@ class RegisterController extends Controller
                 Session::forget('error');
             }
             Session::put('validation_error',$errors);
-          return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
+            return redirect()->route('register.form')->with('usertype', $request->usertype);
         }
+       
         //Best Seller Titles
-            // if ($request->has('publications_shope_book_title') && $request->has('publications_shope_book_author')  &&
-            // count(array_filter($request->publications_shope_book_title)) !=0  && count(array_filter($request->publications_shope_book_author)) != 0 )  {
+            if ($request->has('publications_shope_book_title') && $request->has('publications_shope_book_author')  &&
+            count(array_filter($request->publications_shope_book_title)) !=0  && count(array_filter($request->publications_shope_book_author)) != 0 )  {
                
-            //         // Check if all fields have the same count
-            //     $stateCount = count(array_filter($request->publications_shope_book_title));
-            //     $centralCount = count(array_filter($request->publications_shope_book_author));
-            //     if ($stateCount == $centralCount) {
-            //     } else {
-            //         if(Session::has('validation_error')){
-            //             Session::forget('validation_error');
-            //         }
-            //         if(Session::has('error')){
-            //             Session::forget('error');
-            //         }
-            //         Session::put('error', 'The number of elements in best seller titles in your publications fields must be the same.');
-            //         return redirect()->route('register.form')->with('usertype', $request->usertype);
-            //     }
-            // } else {
+                    // Check if all fields have the same count
+                $stateCount = count(array_filter($request->publications_shope_book_title));
+                $centralCount = count(array_filter($request->publications_shope_book_author));
+                if ($stateCount == $centralCount) {
+                } else {
+                    if(Session::has('validation_error')){
+                        Session::forget('validation_error');
+                    }
+                    if(Session::has('error')){
+                        Session::forget('error');
+                    }
+                    Session::put('error', 'The number of elements in best seller titles in your publications fields must be the same.');
+                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                }
+            } else {
           
-            //     if(Session::has('error')){
-            //         Session::forget('error');
-            //     }
-            //     Session::put('error', 'All fields in best seller titles in your publications are required and must not be empty.');
-            //     return redirect()->route('register.form')->with('usertype', $request->usertype);
+                if(Session::has('error')){
+                    Session::forget('error');
+                }
+                Session::put('error', 'All fields in best seller titles in your publications are required and must not be empty.');
+                return redirect()->route('register.form')->with('usertype', $request->usertype);
                
-            // }
+            }
 
         //Best Translated Books
-        if ($request->translated_book == 'yes') {
+        if ($request->member_in_publishers_yes_old == 'yes') {
             
             // Check if all fields are present and not empty
             if ($request->has('trans_title') && $request->has('trans_author') && $request->has('trans_from') && $request->has('trans_to') &&
@@ -252,7 +252,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('error', 'The number of elements in translated books fields must be the same.');
-                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('register.form')->with('usertype', $request->usertype);
                 }
             } else {
           
@@ -263,13 +263,13 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                 Session::put('error', 'All fields in translated books are required and must not be empty.');
-                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
+                return redirect()->route('register.form')->with('usertype', $request->usertype);
                
             }
         }
 
         //Awarded Titles
-        if ($request->member_in_publishers_yes_old_asrmy == 'yes') {
+        if ($request->member_in_publishers_yes_old_asr == 'yes') {
             
             // Check if all fields are present and not empty
             if ($request->has('trs_state_awarded') && $request->has('trs_central_awarded')  &&
@@ -718,23 +718,22 @@ class RegisterController extends Controller
                
             }
         }
-           $publisher=new PeriodicalPublisher();
-        
+           $publisher=new Publisher();
         //top title
-                    // $title_array = $request->publications_shope_book_title;
-                    // $author_array = $request->publications_shope_book_author;
-                    // $title_len = sizeof($title_array);
-                    // $top_titles=[];
-                    // for($i=0;$i<$title_len;$i++){
-                    //     $obj=(Object)[
-                    //         "title"=>$title_array[$i],
-                    //         "author"=>$author_array[$i],
-                    //     ];
-                    //     array_push($top_titles,$obj);
-                    // }
+                    $title_array = $request->publications_shope_book_title;
+                    $author_array = $request->publications_shope_book_author;
+                    $title_len = sizeof($title_array);
+                    $top_titles=[];
+                    for($i=0;$i<$title_len;$i++){
+                        $obj=(Object)[
+                            "title"=>$title_array[$i],
+                            "author"=>$author_array[$i],
+                        ];
+                        array_push($top_titles,$obj);
+                    }
 
        //translatebooks
-       if($request->translated_book == 'yes'){
+       if($request->member_in_publishers_yes_old == 'yes'){
         if($request->trans_title &&$request->trans_author && $request->trans_from && $request->trans_to ){
             $trs_book_title = $request->trans_title;
             $trs_book_author = $request->trans_author;
@@ -766,7 +765,7 @@ class RegisterController extends Controller
        }
     
          //award
-         if($request->member_in_publishers_yes_old_asrmy == 'yes'){
+         if($request->member_in_publishers_yes_old_asr == 'yes'){
             if($request->trs_state_awarded && $request->trs_central_awarded){
              $trs_state_awarded = $request->trs_state_awarded;
             $trs_central_awarded = $request->trs_central_awarded;
@@ -808,7 +807,7 @@ class RegisterController extends Controller
                     for($i=0;$i<$mem_len;$i++){
                         $pub_doc = $subsidiary_doc[$i];
                         $pub_doc_name=$request->pub_first_name.time().'_'.$pub_doc->getClientOriginalName();
-                        $pub_doc->move(('periodical_publisher/images/proof/sub_doc'),$pub_doc_name);  
+                        $pub_doc->move(('publisher/images/proof/sub_doc'),$pub_doc_name);  
                         $obj=(Object)[
                             "subsidiary_publication_name" => $subsidiary_no_publications_content[$i],
                             "subsidiary_publisher_name"   =>$name_of_the_subsidiary_publisher[$i],
@@ -836,43 +835,43 @@ class RegisterController extends Controller
  
 
             //book catalogue
-            //      if($request->hasFile('latest_book_categories'))
-            //      {
+                 if($request->hasFile('latest_book_categories'))
+                 {
                     
-            //      $path = 'publisher/images/proof/BookCatalogue'.$request->latest_book_categories;
-            //      if(File::exists($path)){
-            //       File::delete($path);
-            //      }
-            //      $book_proof = $request->file('latest_book_categories');
-            //      $book_proof_name= $request->pub_first_name.time().'_'.$book_proof->getClientOriginalName();
-            //      $request->latest_book_categories->move(('publisher/images/proof/BookCatalogue'),$book_proof_name);  
-            //  }
+                 $path = 'publisher/images/proof/BookCatalogue'.$request->latest_book_categories;
+                 if(File::exists($path)){
+                  File::delete($path);
+                 }
+                 $book_proof = $request->file('latest_book_categories');
+                 $book_proof_name= $request->pub_first_name.time().'_'.$book_proof->getClientOriginalName();
+                 $request->latest_book_categories->move(('publisher/images/proof/BookCatalogue'),$book_proof_name);  
+             }
       
           
           //gst
                 if($request->hasFile('gst'))
                 {
                     
-                $path = 'periodical_publisher/images/proof/gst'.$request->gst;
+                $path = 'publisher/images/proof/gst'.$request->gst;
                 if(File::exists($path)){
                 File::delete($path);
                 }
                 $gst_proof = $request->file('gst');
                 $gst_proof_name= $request->pub_first_name.time().'_'.$gst_proof->getClientOriginalName();
-                $request->gst->move(('periodical_publisher/images/proof/gst'),$gst_proof_name);  
+                $request->gst->move(('publisher/images/proof/gst'),$gst_proof_name);  
                 $publisher->gstProof = $gst_proof_name;
             }
             //udyam
             if($request->hasFile('udayam'))
             {
                 
-            $path = 'periodical_publisher/images/proof/udayam'.$request->udayam;
+            $path = 'publisher/images/proof/udayam'.$request->udayam;
             if(File::exists($path)){
             File::delete($path);
             }
             $udayam_proof = $request->file('udayam');
             $udayam_proof_name= $request->pub_first_name.time().'_'.$udayam_proof->getClientOriginalName();
-            $request->udayam->move(('periodical_publisher/images/proof/udayam'),$udayam_proof_name);  
+            $request->udayam->move(('publisher/images/proof/udayam'),$udayam_proof_name);  
             $publisher->udyamProof =  $udayam_proof_name;
         }
 
@@ -881,13 +880,13 @@ class RegisterController extends Controller
                    if($request->hasFile('certification_incon'))
                    {
                        
-                   $path = 'periodical_publisher/images/proof/certification_incon'.$request->certification_incon;
+                   $path = 'publisher/images/proof/certification_incon'.$request->certification_incon;
                    if(File::exists($path)){
                    File::delete($path);
                    }
                    $certification_incon_proof = $request->file('certification_incon');
                    $certification_incon_proof_name= $request->pub_first_name.time().'_'.$certification_incon_proof->getClientOriginalName();
-                   $request->certification_incon->move(('periodical_publisher/images/proof/certification_incon'),$certification_incon_proof_name);  
+                   $request->certification_incon->move(('publisher/images/proof/certification_incon'),$certification_incon_proof_name);  
                    $publisher->certificationIncorporationProof =  $certification_incon_proof_name;
                 }
 
@@ -895,13 +894,13 @@ class RegisterController extends Controller
                 if($request->hasFile('pan_tan'))
                 {
                     
-                $path = 'periodical_publisher/images/proof/pan_tan'.$request->pan_tan;
+                $path = 'publisher/images/proof/pan_tan'.$request->pan_tan;
                 if(File::exists($path)){
                 File::delete($path);
                 }
                 $pan_tan_proof = $request->file('pan_tan');
                 $pan_tan_proof_name= $request->pub_first_name.time().'_'.$pan_tan_proof->getClientOriginalName();
-                $request->pan_tan->move(('periodical_publisher/images/proof/pan_tan'),$pan_tan_proof_name);  
+                $request->pan_tan->move(('publisher/images/proof/pan_tan'),$pan_tan_proof_name);  
                 
                 $publisher->panOrTanProof=  $pan_tan_proof_name;
             }
@@ -909,26 +908,26 @@ class RegisterController extends Controller
                 if($request->hasFile('cgReg'))
                 {
                      
-                $path = 'periodical_publisher/images/proof/cgReg'.$request->cgReg;
+                $path = 'publisher/images/proof/cgReg'.$request->cgReg;
                 if(File::exists($path)){
                 File::delete($path);
                 }
                 $cgReg_proof = $request->file('cgReg');
                 $cgReg_proof_name= $request->pub_first_name.time().'_'.$cgReg_proof->getClientOriginalName();
-                $request->cgReg->move(('periodical_publisher/images/proof/cgReg'),$cgReg_proof_name);  
+                $request->cgReg->move(('publisher/images/proof/cgReg'),$cgReg_proof_name);  
                 $publisher->certificationRegistrationProof  =   $cgReg_proof_name;
                 }
             //pan_deed
             if($request->hasFile('pan_deed'))
             {
                 
-            $path = 'periodical_publisher/images/proof/pan_deed'.$request->pan_deed;
+            $path = 'publisher/images/proof/pan_deed'.$request->pan_deed;
             if(File::exists($path)){
             File::delete($path);
             }
             $pan_deed_proof = $request->file('pan_deed');
             $pan_deed_proof_name= $request->pub_first_name.time().'_'.$pan_deed_proof->getClientOriginalName();
-            $request->pan_deed->move(('periodical_publisher/images/proof/pan_deed'),$pan_deed_proof_name); 
+            $request->pan_deed->move(('publisher/images/proof/pan_deed'),$pan_deed_proof_name); 
             $publisher->partnershipDeedProof  =   $pan_deed_proof_name; 
             }
 
@@ -936,26 +935,26 @@ class RegisterController extends Controller
              if($request->hasFile('llp_agre'))
              {
                 
-             $path = 'periodical_publisher/images/proof/llp_agre'.$request->llp_agre;
+             $path = 'publisher/images/proof/llp_agre'.$request->llp_agre;
              if(File::exists($path)){
              File::delete($path);
              }
              $llp_agre_proof = $request->file('llp_agre');
              $llp_agre_proof_name= $request->pub_first_name.time().'_'.$llp_agre_proof->getClientOriginalName();
-             $request->llp_agre->move(('periodical_publisher/images/proof/llp_agre'),$llp_agre_proof_name);  
+             $request->llp_agre->move(('publisher/images/proof/llp_agre'),$llp_agre_proof_name);  
              $publisher->llpProof  =   $llp_agre_proof_name; 
              }
             //moa
             if($request->hasFile('moa'))
             {
                  
-            $path = 'periodical_publisher/images/proof/moa'.$request->moa;
+            $path = 'publisher/images/proof/moa'.$request->moa;
             if(File::exists($path)){
             File::delete($path);
             }
             $moa_proof = $request->file('moa');
             $moa_proof_name= $request->pub_first_name.time().'_'.$moa_proof->getClientOriginalName();
-            $request->moa->move(('periodical_publisher/images/proof/moa'),$moa_proof_name);  
+            $request->moa->move(('publisher/images/proof/moa'),$moa_proof_name);  
             $publisher->moaProof    =   $moa_proof_name; 
             }
 
@@ -963,83 +962,83 @@ class RegisterController extends Controller
               if($request->hasFile('aoa'))
               {
               
-              $path = 'periodical_publisher/images/proof/aoa'.$request->aoa;
+              $path = 'publisher/images/proof/aoa'.$request->aoa;
               if(File::exists($path)){
               File::delete($path);
               }
               $aoa_proof = $request->file('aoa');
               $aoa_proof_name= $request->pub_first_name.time().'_'.$aoa_proof->getClientOriginalName();
-              $request->aoa->move(('periodical_publisher/images/proof/aoa'),$aoa_proof_name);
+              $request->aoa->move(('publisher/images/proof/aoa'),$aoa_proof_name);
               $publisher->aoaProof    =  $aoa_proof_name; 
               }
 //private_society
          if($request->hasFile('private_society'))
          {
              
-         $path = 'periodical_publisher/images/proof/privatesociety'.$request->private_society;
+         $path = 'publisher/images/proof/privatesociety'.$request->private_society;
          if(File::exists($path)){
          File::delete($path);
          }
          $private_society_proof = $request->file('private_society');
          $private_society_proof_name= $request->pub_first_name.time().'_'.$private_society_proof->getClientOriginalName();
-         $request->private_society->move(('periodical_publisher/images/proof/privatesociety'),$private_society_proof_name);  
+         $request->private_society->move(('publisher/images/proof/privatesociety'),$private_society_proof_name);  
          $publisher->privateSocietyProof =  $private_society_proof_name;
      }
      //private_trust
      if($request->hasFile('private_trust'))
      {
          
-     $path = 'periodical_publisher/images/proof/privatetrust'.$request->private_trust;
+     $path = 'publisher/images/proof/privatetrust'.$request->private_trust;
      if(File::exists($path)){
      File::delete($path);
      }
      $private_trust_proof = $request->file('private_trust');
      $private_trust_proof_name= $request->pub_first_name.time().'_'.$private_trust_proof->getClientOriginalName();
-     $request->private_trust->move(('periodical_publisher/images/proof/privatetrust'),$private_trust_proof_name);  
+     $request->private_trust->move(('publisher/images/proof/privatetrust'),$private_trust_proof_name);  
      $publisher->privateTrustProof =  $private_trust_proof_name;
  }
       //institution
       if($request->hasFile('institution'))
       {
           
-      $path = 'periodical_publisher/images/proof/institution'.$request->institution;
+      $path = 'publisher/images/proof/institution'.$request->institution;
       if(File::exists($path)){
       File::delete($path);
       }
       $institution_proof = $request->file('institution');
       $institution_proof_name= $request->pub_first_name.time().'_'.$institution_proof->getClientOriginalName();
-      $request->institution->move(('periodical_publisher/images/proof/institution'),$institution_proof_name);  
+      $request->institution->move(('publisher/images/proof/institution'),$institution_proof_name);  
       $publisher->institutionProof =  $institution_proof_name;
   }
         //trust_foundation
         if($request->hasFile('trust_foundation'))
         {
             
-        $path = 'periodical_publisher/images/proof/trustfoundation'.$request->trust_foundation;
+        $path = 'publisher/images/proof/trustfoundation'.$request->trust_foundation;
         if(File::exists($path)){
         File::delete($path);
         }
         $trust_foundation_proof = $request->file('trust_foundation');
         $trust_foundation_proof_name= $request->pub_first_name.time().'_'.$trust_foundation_proof->getClientOriginalName();
-        $request->trust_foundation->move(('periodical_publisher/images/proof/trustfoundation'),$trust_foundation_proof_name);  
+        $request->trust_foundation->move(('publisher/images/proof/trustfoundation'),$trust_foundation_proof_name);  
         $publisher->trustFoundationProof =  $trust_foundation_proof_name;
     }
          //govt society
          if($request->hasFile('society'))
          {
              
-         $path = 'periodical_publisher/images/proof/society'.$request->society;
+         $path = 'publisher/images/proof/society'.$request->society;
          if(File::exists($path)){
          File::delete($path);
          }
          $society_proof = $request->file('society');
          $society_proof_name= $request->pub_first_name.time().'_'.$society_proof->getClientOriginalName();
-         $request->society->move(('periodical_publisher/images/proof/society'),$society_proof_name);  
+         $request->society->move(('publisher/images/proof/society'),$society_proof_name);  
          $publisher->societyProof =  $society_proof_name;
      }
       
 //special category
-                $special = $request->specialized_category_magazine;
+                $special = $request->specialized_category_books;
                 foreach ($special as $key=>$val){
                 if($val == "Other If Any"){
                     $publisher->otherSpecial  = $request->other_specialized_category_books;
@@ -1055,10 +1054,8 @@ class RegisterController extends Controller
                     $publisher->otherForeign  = $request->other_foreign_language;
                 }
                 }
-               
+
            $publisher->publicationName              =$request->publication_name;
-           $publisher->periodicalName               =$request->name_periodical;
-           $publisher->magazinePublicationName      =$request->magazine_publication_name;
            $publisher->userName                     =$request->userName;
            $publisher->password                     =Hash::make($request->password);
            $publisher->firstName                    =$request->pub_first_name;
@@ -1071,8 +1068,7 @@ class RegisterController extends Controller
            $publisher->state                        =$request->pub_state;
            $publisher->country                      =$request->pub_country;
            $publisher->postalCode                   =$request->pub_pin_code;
-           $publisher->contactfirstName             =$request->contact_first_name;
-           $publisher->contactlastName             =$request->contact_last_name;
+           $publisher->contactName                  =$request->contact_person_name;
            $publisher->contactEmail                 =$request->con_email_id;
            $publisher->contactMobileNumber          =$request->con_contact_number;
            $publisher->contactAddress               =$request->con_publication_address;
@@ -1082,18 +1078,19 @@ class RegisterController extends Controller
            $publisher->contactCountry               =$request->con_country;
            $publisher->contactPostalCode            =$request->con_pin_code;
            $publisher->yearOfEstablishment          =$request->publication_shop_established_year;
-         
-           $publisher->yearofexp                    =$request->year_of_experience;
-           $publisher->numberPerYear               =$request->number_of_magazines_year;
-        
-           $publisher->specialCategories            =$request->specialized_category_magazine;
+           $publisher->bookCountSoFar               =$request->number_of_books_published_so_for;
+           $publisher->bookCountLast3               =$request->number_of_books_published_latest_year;
+           $publisher->topTitles                    =json_encode($top_titles);
+           $publisher->bookCategories               =$request->category_of_books_published;
+           $publisher->specialCategories            =$request->specialized_category_books;
            $publisher->language                     =$request->primary_language_of_publication;
            $publisher->pubOwnership                =$request->pub_ownership;
            $publisher->haveSubsidiary              =$request->subsidiary_publications;
            $publisher->declaration                 =$request->declaration;
+           $publisher->bookCatalogue               =$book_proof_name;
            $publisher->usertype                    = $request->usertype;
-           $publisher->have_translated_books            = $request->translated_book;
-           $publisher->have_award_title                 = $request ->member_in_publishers_yes_old_asrmy; 
+           $publisher->have_translated_books            = $request->member_in_publishers_yes_old;
+           $publisher->have_award_title                 = $request ->member_in_publishers_yes_old_asr; 
            $publisher->approved_status        ="approve";
            $publisher->status                 ="1";
             if ($publisher->save()) {
@@ -1121,7 +1118,7 @@ class RegisterController extends Controller
         }
            Session::put('publisher',$publisher);
         //    return view('mailconfirm',compact('publisher'));
-           return redirect('/periodical/mailconfirmation'); 
+           return redirect('/mailconfirmation'); 
         //   return back()->with('success',"You are registered successfully!! Please wait for admin apporval mail");
     }
 //username check
