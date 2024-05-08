@@ -72,24 +72,28 @@
                         <div class="profile card card-body px-3 pt-3 pb-0">
                             <div class="profile-head">
                                 <div class="photo-content">
-                                @if($data->full_img == Null)
-                                    <div class="cover-photo rounded" style="background: url('{{asset("images/default.png")}}'); background-size:cover;" id="output1" ></div>
+                                    @if($data->full_img == Null)
+                                    <div class="cover-photo rounded"
+                                        style="background: url('{{asset("images/default.png")}}'); background-size:cover;"
+                                        id="output1"></div>
                                     @else
-                                    <div class="cover-photo rounded" style="background: url('{{asset("Magazine/full/".$data->full_img)}}'); background-size:cover;" id="output1" ></div>
+                                    <div class="cover-photo rounded"
+                                        style="background: url('{{asset("Magazine/full/".$data->full_img)}}'); background-size:cover;"
+                                        id="output1"></div>
 
-                                        @endif
-                               
+                                    @endif
+
                                 </div>
                                 <div class="profile-info">
-									<div class="profile-photo">
-										<img src="" class="img-fluid rounded-circle" alt="">
-									</div>
-									<div class="profile-details">
-										<div class="profile-name px-3 pt-2">
-											<h4 class="text-primary mb-0">{{$data->title}}</h4>
-											{{-- <p>UX / UI Designer</p> --}}
-										</div>
-										{{-- <div class="dropdown ms-auto">
+                                    <div class="profile-photo">
+                                        <img src="" class="img-fluid rounded-circle" alt="">
+                                    </div>
+                                    <div class="profile-details">
+                                        <div class="profile-name px-3 pt-2">
+                                            <h4 class="text-primary mb-0">{{$data->title}}</h4>
+                                            {{-- <p>UX / UI Designer</p> --}}
+                                        </div>
+                                        {{-- <div class="dropdown ms-auto">
 											<a href="#" class="btn btn-primary light sharp" data-bs-toggle="dropdown" aria-expanded="true"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewBox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></a>
 											<ul class="dropdown-menu dropdown-menu-end">
 												<li class="dropdown-item"><i class="fa fa-user-circle text-primary me-2"></i> View profile</li>
@@ -101,7 +105,7 @@
 											
 											</ul>
 										</div> --}}
-									</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -128,16 +132,16 @@
                                         </div> -->
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="{{ asset('Magazine/back/' . $data->back_img) }}"
-                                            class="w-100 d-block" alt="Second slide" />
+                                        <img src="{{ asset('Magazine/back/' . $data->back_img) }}" class="w-100 d-block"
+                                            alt="Second slide" />
                                         <!-- <div class="carousel-caption d-none d-md-block">
                                             <h3>Title</h3>
                                             <p>Description</p>
                                         </div> -->
                                     </div>
                                     <div class="carousel-item">
-                                        <img src="{{ asset('Magazine/full/' . $data->full_img) }}"
-                                            class="w-100 d-block" alt="Third slide" />
+                                        <img src="{{ asset('Magazine/full/' . $data->full_img) }}" class="w-100 d-block"
+                                            alt="Third slide" />
                                         <!-- <div class="carousel-caption d-none d-md-block">
                                             <h3>Title</h3>
                                             <p>Description</p>
@@ -155,8 +159,8 @@
                                     <span class="visually-hidden">Next</span>
                                 </button>
                             </div>
-                            
-                            
+
+
                         </div>
                         <div class="col-md-6">
                             <div class="row">
@@ -169,7 +173,7 @@
                                     <div class="row">
                                         <div class="col-6 fw-bolder p-2">Frequency</div>
                                         <div class="col-6">: {{$data->periodicity}}</div>
-                                           <div class="col-6 fw-bolder p-2">Language</div>
+                                        <div class="col-6 fw-bolder p-2">Language</div>
                                         <div class="col-6">: {{$data->language}}</div>
 
                                         <div class="col-6 fw-bolder p-2">Category </div>
@@ -189,7 +193,7 @@
                                         <div class="col-6 fw-bolder p-2">Annual Subscription After Discount </div>
                                         <div class="col-6">: {{$data->annual_cost_after_discount}}</div>
 
-                                       
+
 
                                     </div>
                                 </div>
@@ -201,8 +205,8 @@
                                         <div class="col-6 fw-bolder p-2">RNI Details </div>
                                         <div class="col-6">: {{$data->rni_details}}</div>
 
-                                        <div class="col-6 fw-bolder p-2">Paper Quality </div>
-                                        <div class="col-6">: {{$data->paper_quality}}</div>
+                                        <!-- <div class="col-6 fw-bolder p-2">Paper Quality </div>
+                                        <div class="col-6">: {{$data->paper_quality}}</div> -->
 
                                         <!-- <div class="col-6 fw-bolder p-2">Type of Library :</div>
                                         <div class="col-6">90</div> -->
@@ -219,7 +223,7 @@
                                         <div class="col-6 fw-bolder p-2">Size of the Magazine </div>
                                         <div class="col-6">: {{$data->magazine_size}}</div>
 
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -227,10 +231,17 @@
                             <div class="row mt-3">
                                 <div class="col-md-12">
                                     <h4>Read Sample PDF</h4>
-                                    
+
                                 </div>
                                 <div class="col-md-12 mb-3">
-                                    <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle" role="button">Read PDF</a>
+                                    <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle"
+                                        role="button">Read PDF</a>
+                            
+                                    <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle1"
+                                        role="button">Read PDF</a>
+                               
+                                    <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle2"
+                                        role="button">Read PDF</a>
                                 </div>
                             </div>
                         </div>
@@ -252,26 +263,26 @@
                             <div class="col-6 fw-bolder p-2">Contact Number </div>
                             <div class="col-6">: {{$data->phone}} </div>
                         </div>
-                        <!-- <div class="row">
+                        <div class="row">
                             <div class="col-6 fw-bolder p-2">Country </div>
-                            <div class="col-6">India </div>
-                        </div> -->
-                        <!-- <div class="row">
+                            <div class="col-6">{{$data->country}} </div>
+                        </div> 
+                       <div class="row">
                             <div class="col-6 fw-bolder p-2">State </div>
-                            <div class="col-6">india </div>
+                            <div class="col-6">{{$data->state}} </div>
                         </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">District </div>
-                            <div class="col-6">india </div>
+                            <div class="col-6">{{$data->district}} </div>
                         </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">City </div>
-                            <div class="col-6">india </div>
+                            <div class="col-6">{{$data->city}} </div>
                         </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">Pincode </div>
-                            <div class="col-6">india </div>
-                        </div> -->
+                            <div class="col-6">{{$data->pincode}} </div>
+                        </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">Contact Person Address </div>
                             <div class="col-6">: {{$data->address}} </div>
@@ -281,13 +292,15 @@
                     <hr>
                     <div class="row">
                         <div class="col-12">
-                        {{$data->address}}
+                            {{$data->official_address}}
                         </div>
                     </div>
+                    <p class="h2 bg-main text-white mt-3"></p>
 
-                    <p class="h2 bg-main text-white mt-3">Bank Account Details</p>
+                    <!-- <p class="h2 bg-main text-white mt-3">Bank Account Details</p> -->
                     <hr>
-                    <div class="row">
+                                        </br>
+                    <!-- <div class="row">
                         <div class="col-6 fw-bolder p-2">IFSC Code </div>
                         <div class="col-6">: </div>
                     </div>
@@ -305,7 +318,7 @@
                     <div class="row">
                         <div class="col-6 fw-bolder p-2">Account Holder Name </div>
                         <div class="col-6">: </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -338,52 +351,117 @@
     <?php
     include 'periodical_publisher/plugin/plugin_js.php';
     ?>
-    <div class="modal fade" id="exampleModalToggle" aria-hidden="true"
-    aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalToggleLabel">
-                    Read magazine Sample
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel">
+                        Read magazine Sample
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
 
-            @if($data->sample_pdf == null)
-                                                                    <iframe
-                                                                    src=""
-                                                                        style="width:100%; height:1000px;"
-                                                                        frameborder="0"></iframe>
-                                                                    @else
-                                                                     @if(file_exists(public_path('Magazine/pdf/' . $data->sample_pdf)))
-                                                                     
-                                                                            <iframe src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
-                                                                                    style="width:100%; height:1000px;" frameborder="0"></iframe>
-                                                                     @else
-                                                                                <iframe
-                                                                                src=""
-                                                                                    style="width:100%; height:1000px;"
-                                                                                    frameborder="0"></iframe>
-                                                                     @endif
-                                                                  
-                                                                    @endif
+                    @if($data->pdf1 == null)
+                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
+                    @else
+                    @if(file_exists(public_path('Magazine/pdf1/' . $data->pdf1)))
 
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary"
-                    data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
-                    Close
-                </button>
+                    <iframe src="{{ asset('Magazine/pdf1/' . $data->pdf1) }}" style="width:100%; height:1000px;"
+                        frameborder="0"></iframe>
+                    @else
+                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
+                    @endif
+
+                    @endif
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                        Close
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="modal fade" id="exampleModalToggle1" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel">
+                        Read magazine Sample
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
 
-<style>
-    .bg-main{
+
+                    @if($data->pdf2 == null)
+                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
+                    @else
+                    @if(file_exists(public_path('Magazine/pdf2/' . $data->pdf2)))
+
+                    <iframe src="{{ asset('Magazine/pdf2/' . $data->pdf2) }}" style="width:100%; height:1000px;"
+                        frameborder="0"></iframe>
+                    @else
+                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
+                    @endif
+
+                    @endif
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel">
+                        Read magazine Sample
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+                    @if($data->pdf3 == null)
+                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
+                    @else
+                    @if(file_exists(public_path('Magazine/pdf3/' . $data->pdf3)))
+
+                    <iframe src="{{ asset('Magazine/pdf3/' . $data->pdf3) }}" style="width:100%; height:1000px;"
+                        frameborder="0"></iframe>
+                    @else
+                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
+                    @endif
+
+                    @endif
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+    .bg-main {
         background-color: #222B40;
     }
     </style>

@@ -63,9 +63,7 @@ return new class extends Migration
             $table->string('pdf3')->nullable();
             $table->string('editorprofile')->nullable();
             $table->string('highlightimg')->nullable();
-
-
-
+            $table->enum('status',['1','0'])->default('0');
             $table->timestamps();
         });
     }
