@@ -406,30 +406,65 @@
                                 </div>
                             </div>
                             <div class="awarded_titles">
-                                <h6 class="fw-bold">Awarded Titles in Your Distribution -<span class="mt-055"> பதிப்பகத்தில் விருது பெற்ற
+                                <h6 class="fw-bold">Awarded Titles in Your Publication -<span class="mt-055"> பதிப்பகத்தில் விருது பெற்ற
                                     தலைப்புகள்</span>
                                  </h6>
                                  <div class="row mb-3 border border-0 p-2 m-2">
+                                    <div class="col-md-6 form-group ">
+
+                                        <!-- <label for="text">Do you have any subsidiary publications? </label> -->
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input type="radio" class="form-check-input yes_qus_old_asrmy"
+                                                    id="member_in_publishers_yes_old_asrmy"
+                                                    name="member_in_publishers_yes_old_asrmy" value="yes" required>Yes -
+                                                <span class="mt-056">ஆம்</span>
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input type="radio"
+                                                    class="form-check-input"
+                                                    id="member_in_publishers_yes_old_asrmy"
+                                                    name="member_in_publishers_yes_old_asrmy" value="No">No - <span
+                                                    class="mt-056">இல்லை</span>
+                                            </label>
+                                        </div>
+                                    </div>
                                     <div class="col-md-12">
-                                        <div name="add_name" id="add_name" method="post">
-                                            <div class="table-responsive">
-                                            <table class="table table-bordered" id="awarded_titles_name">
-                                                <tbody>
-                                                    <tr>
-                                                        <th>Award Name <span class="mt-056"></span><span class="text-danger maditory">*</span></th>
-                                                        <th>Book Title <span class="mt-056"> </span><span class="text-danger maditory">*</span></th>
-                                                        <th>Add</th>
-                                                    </tr>
-                                                <tr>
-                                                    <td><input type="text" name="trs_state_awarded[]" placeholder="Award Name*" class="form-control"></td>
-                                                    <td><input type="text" name="trs_central_awarded[]" placeholder="Title*" class="form-control"></td>
-                                                    <td><button type="button" name="awarded_titles" id="awarded_titles" class="btn btn-success">+</button></td>
-                                                </tr>
-                                            </tbody></table>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="subsidiary_pub_name_bg_oldmy" name="member_in_publishers_old_asrmy"
+                                                    id="member_in_publishers_new_old_asrmy" method="post">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered" id="trans_book_pub_dis_asrmy">
+                                                            <tr>
+                                                                <th> Award Name  <span class="mt-056"></span><span
+                                                                        class="text-danger maditory">*</span>
+                                                                </th>
+                                                                <th> Book Title <span class="mt-056"></span><span
+                                                                        class="text-danger maditory">*</span>
+                                                                </th>
+                                                                <th>Add</th>
+                                                            </tr>
+                                                            <tr>
+                                                                <td><input type="text" name="trs_state_awarded_dis_pub[]" id="pub_test"
+                                                                        placeholder="Enter the award name*"
+                                                                        class="form-control name_list" /></td>
+                                                                <td><input type="text" name="trs_central_awarded_dis_pub[]" id="pub_testone"
+                                                                        placeholder="Enter the title*"
+                                                                        class="form-control name_list" /></td>
+                                                                <td><button type="button" name="trs_central_awarded"
+                                                                        id="translated_pub_dis_asrmy"
+                                                                        class="btn btn-success">+</button></td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                 </div>
                             </div>
                             <div class="subject_category_periodical">
                                 <h6 class="fw-bold">Specialized Category Magazine  -<span class="mt-055"> தங்களின்
@@ -545,15 +580,18 @@
                                         </label>
                                         <select name="pub_ownership" class="wide form-control" id="pub_ownership" required="">
                                         
-                                        <option value="" selected="">Select Anyone</option>
-                                        
-                                        <option value="Publication">Public Limited</option>
-                                        <option value="Private">Private Limited</option>
-                                        <option value="limited">Limited Liability Partnership(LLP)</option>
-                                        <option value="Partnership">Partnership Firm</option>
-                                        <option value="oneperson">One Person Company</option>
-                                        <option value="Proprietorship">Sole Proprietorship</option>
-                                        <option value="society">Society-Trust</option>
+                                            <option value="" selected>Select Anyone</option>
+
+                                            <option value="Publication">Public Limited</option>
+                                            <option value="Private">Private Limited</option>
+                                            <option value="limited">Limited Liability Partnership(LLP)</option>
+                                            <option value="Partnership">Partnership Firm</option>
+                                            <option value="oneperson">Proprietorship</option>
+                                            <option value="trust">Private Trust</option>
+                                            <option value="society">Private Society</option>
+                                            <option value="institutional">Government Institutional Publication</option>
+                                            <option value="trust-foundation">Government Trust/Foundation Publication</option>
+                                            <option value="government-society">Government Society Publication</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6" id="id_proof_data">
@@ -722,28 +760,77 @@
                /*************************************
                 // Awarded Titles in The Publication
               ***************************************/
-                var i='';
-                var pubtrsfivecounter = 0;
-                $('#awarded_titles').click(function () {
-                    // alert('good');
-                    if (pubtrsfivecounter < 5) {
-                        i++;
-                        pubtrsfivecounter++;
-                        $('#awarded_titles_name').
-                            append('<tr id="row' + i +
-                            '"><td><input type="text" name="trs_state_awarded[]" placeholder="Award Name*" class="form-control" required/></td><td><input type="text" name="trs_central_awarded[]" placeholder=" Title *" class="form-control" required/></td><td><button type="button" name="remove" id="' +
-                            i + '" class="btn btn-danger btn_remove_awarded">X</button></td></tr>');
-                    } else {
-                        $('#awarded_titles').prop('disabled', true);
-                        alert('Allowed 5 input only ');
-                    }
-                });
+                // var i='';
+                // var pubtrsfivecounter = 0;
+                // $('#awarded_titles').click(function () {
+                //     // alert('good');
+                //     if (pubtrsfivecounter < 5) {
+                //         i++;
+                //         pubtrsfivecounter++;
+                //         $('#awarded_titles_name').
+                //             append('<tr id="row' + i +
+                //             '"><td><input type="text" name="trs_state_awarded[]" placeholder="Award Name*" class="form-control" required/></td><td><input type="text" name="trs_central_awarded[]" placeholder=" Title *" class="form-control" required/></td><td><button type="button" name="remove" id="' +
+                //             i + '" class="btn btn-danger btn_remove_awarded">X</button></td></tr>');
+                //     } else {
+                //         $('#awarded_titles').prop('disabled', true);
+                //         alert('Allowed 5 input only ');
+                //     }
+                // });
 
-                $(document).on('click', '.btn_remove_awarded', function () {
+                // $(document).on('click', '.btn_remove_awarded', function () {
+                //     var button_id = $(this).attr("id");
+                //     $('#row' + button_id + '').remove();
+                //     if (pubtrsfivecounter <= 5) {
+                //         $('#awarded_titles').prop('disabled', false);
+                //     }
+                //     pubtrsfivecounter--;
+                // });
+
+                $('#member_in_publishers_new_old_asrmy').css('display', 'none');
+                var sramy = 3;
+
+                $('input[type=radio][name=member_in_publishers_yes_old_asrmy]').on('change', function () {
+                switch ($(this).val()) {
+                    case 'yes':
+                        $('#member_in_publishers_yes_old_asrmy').prop('required', true);
+
+                        $('#pub_test').prop('required', true);
+                        $('#pub_testone').prop('required', true);
+
+                        $('#member_in_publishers_new_old_asrmy').css('display', 'block');
+                        // alert('sub_pub_name_os');
+                        $('#member_in_publishers_name_old_asrmy').prop('required', true);
+                        $('#member_in_publishers_id_old_asrmy').prop('required', true);
+                        $('#translated_pub_dis_asrmy').click(function () {
+                            sramy++;
+                            $('#trans_book_pub_dis_asrmy').
+                            append('<tr id="row' + sramy +
+                            '"  class="removecl"><td><input type="text" name="trs_state_awarded_dis_pub[]" placeholder="Enter the award name*" class="form-control name_list" required/></td><td><input type="text" name="trs_central_awarded_dis_pub[]" placeholder="Enter the title *" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+                            sramy + '" class="btn btn-danger btn_remove_best_five_my">X</button></td></tr>');
+
+                        });
+                        break;
+                    case 'No':
+                        // alert($(this).val());
+                        sramy=0;
+                        $('div#member_in_publishers_new_old_asrmy').css('display','none')
+
+                        $('#member_in_publishers_name_old_asrmy').prop('required', false);
+                        $('#member_in_publishers_name_old_asrmy').prop('required', false);
+
+                        $('#member_in_publishers_yes_old_asrmy').prop('required', false);
+
+
+                        $('.removecl').remove();
+                        // alert('off')
+                        break;
+                }
+                });
+                $(document).on('click', '.btn_remove_best_five_my', function () {
                     var button_id = $(this).attr("id");
                     $('#row' + button_id + '').remove();
-                    if (pubtrsfivecounter <= 5) {
-                        $('#awarded_titles').prop('disabled', false);
+                    if (pubtrsfivecounter <= 4) {
+                    $('#awarded_titles_dis_pub').prop('disabled', false);
                     }
                     pubtrsfivecounter--;
                 });
@@ -833,102 +920,202 @@
                 $('#ownership_doc').css('display','none');
 
                 $('#pub_ownership').on('change',function(){
-                var value = $(this).val();
-                if(value == 'Proprietorship'){
-                    //  $('#ownership_doc').css('display','block');
-                    $('.user_file_input').append('<div id="proprietorship_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="udayam" placeholder="Enter Udayam*" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" placeholder="Enter GST*" class="form-control name_list" required/></div>');
+                    var value = $(this).val();
+                    //   alert(value);
+                    if(value == 'Proprietorship'){
+                        //  $('#ownership_doc').css('display','block');
+                        $('.user_file_input').append('<div id="proprietorship_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file" name="udayam" accept="application/pdf,application/vnd.ms-excel" placeholder="Enter Udayam" class="form-control name_list"/><label for="formFileSm" class="form-label">GST Certificate </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" placeholder="Enter GST" class="form-control name_list"/></div>');
 
+                        $("#partnership_input").remove();
+                        $("#private_input").remove();
+                        $("#publication_input").remove();
+                        $("#oneperson_input").remove();
+                        $('#limited_input').remove();
+                        $('#society_input').remove();
+                        $('#trust_input').remove();
+                        $('#institutional_input').remove();
+                        $('#trust-foundation_input').remove();
+                        $('#government-society_input').remove();
+
+                    }
+                    else if(value == 'Partnership'){
+                        // $('#ownership_doc').css('display','block');
+                        $('.user_file_input').append('<div id="partnership_input"><label for="formFileSm" class="form-label">Udyam Certificate<span class="mt-056"></span></label><input type="file" name="udayam" accept="application/pdf,application/vnd.ms-excel" class="form-control name_list"/><label for="formFileSm" class="form-label">Partnership Deed <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="pan_deed" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate </label><input accept="application/pdf,application/vnd.ms-excel" type="file" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN / TAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input accept="application/pdf,application/vnd.ms-excel" type="file" name="pan_tan" class="form-control name_list" required/></div>');
+
+                        $("#proprietorship_input").remove();
+                        $("#private_input").remove();
+                        $("#publication_input").remove();
+                        $("#oneperson_input").remove();
+                        $('#limited_input').remove();
+                        $('#society_input').remove();
+                        $('#trust_input').remove();
+                        $('#institutional_input').remove();
+                        $('#trust-foundation_input').remove();
+                        $('#government-society_input').remove();
+
+                    }
+                    else if(value == 'Private'){
+                    $('.user_file_input').append('<div id="private_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" accept="application/pdf,application/vnd.ms-excel" class="form-control name_list" required/><label for="formFileSm" class="form-label">MOA <span class="mt-056"></span><span class="text-danger "></span></label><input type="file" name="moa" accept="application/pdf,application/vnd.ms-excel" class="form-control name_list"/><label for="formFileSm" class="form-label">AOA  <span class="mt-056"></span><span class="text-danger"></span></label><input type="file" name="aoa"accept="application/pdf,application/vnd.ms-excel" class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="pan_tan" class="form-control name_list" required/></div>');
+
+                    $("#proprietorship_input").remove();
                     $("#partnership_input").remove();
-                    $("#private_input").remove();
                     $("#publication_input").remove();
                     $("#oneperson_input").remove();
                     $('#limited_input').remove();
                     $('#society_input').remove();
-                }
-                else if(value == 'Partnership'){
-                    // $('#ownership_doc').css('display','block');
-                    $('.user_file_input').append('<div id="partnership_input"><label for="formFileSm" class="form-label">Certificate of Registration<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="cgReg" class="form-control name_list" required/><label for="formFileSm" class="form-label">Partnership Deed - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_deed" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+                    $('#trust_input').remove();
+                    $('#institutional_input').remove();
+                    $('#trust-foundation_input').remove();
+                    $('#government-society_input').remove();
 
-                    $("#proprietorship_input").remove();
-                    $("#private_input").remove();
-                    $("#publication_input").remove();
-                    $("#oneperson_input").remove();
-                    $('#limited_input').remove();
-                    $('#society_input').remove();
-                }
-                else if(value == 'Private'){
-                $('.user_file_input').append('<div id="private_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">MOA <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="moa" class="form-control name_list" required/><label for="formFileSm" class="form-label">AOA  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="aoa" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+                    }
+                    else if(value == 'Publication'){
+                        //  $('#ownership_doc').css('display','block');
+                        $('.user_file_input').append('<div id="publication_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="certification_incon" placeholder="Enter the Award Author*" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" placeholder="Enter the Award Author*" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="pan_tan" placeholder="Enter the Award Author*" class="form-control name_list" required/></div>');
 
-                $("#proprietorship_input").remove();
-                $("#partnership_input").remove();
-                $("#publication_input").remove();
-                $("#oneperson_input").remove();
-                $('#limited_input').remove();
-                $('#society_input').remove();
+                        $("#proprietorship_input").remove();
+                        $("#user_file_input").remove();
+                        $("#private_input").remove();
+                        $("#oneperson_input").remove();
+                        $('#limited_input').remove();
+                        $('#society_input').remove();
+                        $('#trust_input').remove();
+                        $('#institutional_input').remove();
+                        $('#trust-foundation_input').remove();
+                        $('#government-society_input').remove();
 
-                }
-                else if(value == 'Publication'){
-                    //  $('#ownership_doc').css('display','block');
-                    $('.user_file_input').append('<div id="publication_input"><label for="formFileSm" class="form-label">Certificate of incorporation <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" placeholder="Enter Award Author*" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" placeholder="Enter Award Author*" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" placeholder="Enter Award Author*" class="form-control name_list" required/></div>');
+                    }else if(value == 'oneperson'){
+                        //  $('#ownership_doc').css('display','block');
+                        $('.user_file_input').append('<div id="oneperson_input"><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span></label><input type="file" name="udayam" accept="application/pdf,application/vnd.ms-excel" class="form-control name_list" /><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN / TAN  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="pan_tan" class="form-control name_list" required/></div>');
 
-                    $("#proprietorship_input").remove();
-                    $("#user_file_input").remove();
-                    $("#private_input").remove();
-                    $("#oneperson_input").remove();
-                    $('#limited_input').remove();
-                    $('#society_input').remove();
-
-                }else if(value == 'oneperson'){
-                    //  $('#ownership_doc').css('display','block');
-                    $('.user_file_input').append('<div id="oneperson_input"><label for="formFileSm" class="form-label">Certificate of Incorporation - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
-
-                    $("#proprietorship_input").remove();
-                    $("#user_file_input").remove();
-                    $("#private_input").remove();
-                    $('#limited_input').remove();
-                    $('#partnership_input').remove();
-                    $('#proprietorship_input').remove();
-                    $('#publication_input').remove();
+                        //  $("#proprietorship_input").remove();
+                        $("#user_file_input").remove();
+                        $("#private_input").remove();
+                        $('#limited_input').remove();
+                        $('#partnership_input').remove();
+                        $('#proprietorship_input').remove();
+                        $('#publication_input').remove();
+                        $('#society_input').remove();
+                        $('#trust_input').remove();
+                        $('#institutional_input').remove();
+                        $('#trust-foundation_input').remove();
+                        $('#government-society_input').remove();
 
 
-                }else if(value == 'limited'){
+                    }else if(value == 'limited'){
 
-                    $('.user_file_input').append('<div id="limited_input"><label for="formFileSm" class="form-label">LLP Agreement - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="llp_agre" class="form-control name_list" required/><label for="formFileSm" class="form-label">Certificate of Incorporation- <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="certification_incon" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN / TAN - <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+                        $('.user_file_input').append('<div id="limited_input"><label for="formFileSm" class="form-label">LLP Agreement  <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="llp_agre" class="form-control name_list" required/><label for="formFileSm" class="form-label">Udyam Certificate <span class="mt-056"></span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="udayam" class="form-control name_list"/><label for="formFileSm" class="form-label">GST Certificate <span class="mt-056"></span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN / TAN <span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="pan_tan" class="form-control name_list" required/></div>');
 
-                    $("#proprietorship_input").remove();
-                    $("#user_file_input").remove();
-                    $("#private_input").remove();
-                    $('#partnership_input').remove();
-                    $('#society_input').remove();
-                    $('#publication_input').remove();
-                    $('#oneperson_input').remove();
-                    
+                        $("#proprietorship_input").remove();
+                        $("#user_file_input").remove();
+                        $("#private_input").remove();
+                        $('#partnership_input').remove();
+                        $('#society_input').remove();
+                        $('#publication_input').remove();
+                        $('#oneperson_input').remove();
+                        $('#trust_input').remove();
+                        $('#institutional_input').remove();
+                        $('#trust-foundation_input').remove();
+                        $('#government-society_input').remove();
 
 
-                }else if(value == 'society'){
 
-                    $('.user_file_input').append('<div id="society_input"><label for="formFileSm" class="form-label">GST Certificate - <span class="mt-056">தொடர்புடைய ஆவணங்கள் விவரங்கள்</span><span class="text-danger maditory">*</span></label><input type="file" name="gst" class="form-control name_list" required/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" name="pan_tan" class="form-control name_list" required/></div>');
+                    }else if(value == 'trust'){
 
-                    $("#proprietorship_input").remove();
-                    $("#user_file_input").remove();
-                    $("#private_input").remove();
-                    $('#partnership_input').remove();
-                    $('#limited_input').remove();
-                    $('#oneperson_input').remove();
-                    $('#publication_input').remove();
+                        $('.user_file_input').append('<div id="trust_input"><label for="formFileSm" class="form-label">Private Trust Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="private_trust" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="pan_tan" class="form-control name_list" required/></div>');
 
-                }else{
-                    $("#proprietorship_input").remove();
-                    $("#user_file_input").remove();
-                    $("#private_input").remove();
-                    $("#publication_input").remove();
-                    $("#oneperson_input").remove();
-                    $('#limited_input').remove();
-                    $('#society_input').remove();
-                }
-                });
+                        $("#proprietorship_input").remove();
+                        $("#user_file_input").remove();
+                        $("#private_input").remove();
+                        $('#partnership_input').remove();
+                        $('#limited_input').remove();
+                        $('#oneperson_input').remove();
+                        $('#publication_input').remove();
+                        $('#society_input').remove();
+                        $('#institutional_input').remove();
+                        $('#trust-foundation_input').remove();
+                        $('#government-society_input').remove();
+
+                    }else if(value == 'society'){
+
+                        $('.user_file_input').append('<div id="society_input"><label for="formFileSm" class="form-label">Private Society Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="private_society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="pan_tan" class="form-control name_list" required/></div>');
+
+                        $("#proprietorship_input").remove();
+                        $("#user_file_input").remove();
+                        $("#private_input").remove();
+                        $('#partnership_input').remove();
+                        $('#limited_input').remove();
+                        $('#oneperson_input').remove();
+                        $('#publication_input').remove();
+                        $('#trust_input').remove();
+                        $('#institutional_input').remove();
+                        $('#trust-foundation_input').remove();
+                        $('#government-society_input').remove();
+
+                    }else if(value == 'institutional'){
+
+                        $('.user_file_input').append('<div id="institutional_input"><label for="formFileSm" class="form-label">Government Institutional Publication Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="institution" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" class="form-control name_list"/><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="pan_tan" class="form-control name_list" required/></div>');
+
+                        $("#proprietorship_input").remove();
+                        $("#user_file_input").remove();
+                        $("#private_input").remove();
+                        $('#partnership_input').remove();
+                        $('#limited_input').remove();
+                        $('#oneperson_input').remove();
+                        $('#publication_input').remove();
+                        $('#trust_input').remove();
+                        $('#society_input').remove();
+                        $('#trust-foundation_input').remove();
+                        $('#government-society_input').remove();
+
+                    }else if(value == 'trust-foundation'){
+
+                        $('.user_file_input').append('<div id="trust-foundation_input"><label for="formFileSm" class="form-label">Government Trust/Foundation Publication Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="trust_foundation" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate  </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="pan_tan" class="form-control name_list" required/></div>');
+
+                        $("#proprietorship_input").remove();
+                        $("#user_file_input").remove();
+                        $("#private_input").remove();
+                        $('#partnership_input').remove();
+                        $('#limited_input').remove();
+                        $('#oneperson_input').remove();
+                        $('#publication_input').remove();
+                        $('#trust_input').remove();
+                        $('#society_input').remove();
+                        $('#institutional_input').remove();
+                        $('#government-society_input').remove();
+
+                    }else if(value == 'government-society'){
+
+                        $('.user_file_input').append('<div id="government-society_input"><label for="formFileSm" class="form-label">Government Society Publication Registration Certificate<span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="society" class="form-control name_list" required/><label for="formFileSm" class="form-label">GST Certificate </label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="gst" class="form-control name_list" /><label for="formFileSm" class="form-label">PAN<span class="mt-056"></span><span class="text-danger maditory">*</span></label><input type="file" accept="application/pdf,application/vnd.ms-excel" name="pan_tan" class="form-control name_list" required/></div>');
+
+                        $("#proprietorship_input").remove();
+                        $("#user_file_input").remove();
+                        $("#private_input").remove();
+                        $('#partnership_input').remove();
+                        $('#limited_input').remove();
+                        $('#oneperson_input').remove();
+                        $('#publication_input').remove();
+                        $('#trust_input').remove();
+                        $('#society_input').remove();
+                        $('#institutional_input').remove();
+                        $('#trust-foundation_input').remove();
+
+                    }else{
+                        $("#proprietorship_input").remove();
+                        $("#user_file_input").remove();
+                        $("#private_input").remove();
+                        $("#publication_input").remove();
+                        $("#oneperson_input").remove();
+                        $('#limited_input').remove();
+                        $('#society_input').remove();
+                        $('#trust_input').remove();
+                        $('#institutional_input').remove();
+                        $('#trust-foundation_input').remove();
+                        $('#government-society_input').remove();
+                    }
+                });                
                 /*************************************
-                 //End Ownershipt Data
+                //End Ownershipt Data
                 ***************************************/
 
                 /*************************************

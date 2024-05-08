@@ -161,13 +161,13 @@
                                         <label for="inputEmail4" class="form-label">Email<span
                                                 class="text-danger maditory">*</span></label></label>
                                         <input type="email" class="form-control" id="email"
-                                            placeholder=" Enter your User Name" required>
+                                            placeholder=" Enter your email" required>
                                     </div>
-                                    <p class="reg-redirect mt-3 p-0 m-0">
-                                        Don't have an account? <a class="text-primary" href="/register"> Register Now</a>
+                                    <p class="reg-redirect mt-3 ms-3 m-0">
+                                        Don't have an account? <a class="text-primary" href="/periodical/register"> Register Now</a>
                                     </p>
-                                    <p class="reg-redirect p-0 m-0">
-                                         <a class="text-primary" href="/login">Back To Login</a>
+                                    <p class="reg-redirect ms-3 m-0">
+                                         <a class="text-primary" href="/periodical/login">Back To Login</a>
                                     </p>
                                     <div class="tpabout__inner-btn login_static_new mb-5">
                                     <button class="g-recaptcha btn btn-dark bg-dark text-white"
@@ -223,7 +223,7 @@
         });
         $.ajax({
            type:"post",
-           url:"periodical/forgotpassword",
+           url:"/periodical/forgotpassword",
            data:data,
            dataType:"json",
            success: function(response) {

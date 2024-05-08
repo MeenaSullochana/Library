@@ -56,6 +56,8 @@ Route::prefix('publisher')->group(function () {
     
     // Route::get('/book_manage_view',function(){ return view('publisher.book_manage_view');});
 
+    Route::get('/receipt', function () {return view('publisher.receipt');});
+
     Route::get('/activitymonitor',function(){ return view('publisher.activitymonitor');});
     Route::get('/allocated_location_list',function(){ return view('publisher.allocated_location_list');});
     Route::get('/allocated_location_view',function(){ return view('publisher.allocated_location_view');});

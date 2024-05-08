@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Directorate of Public Libraries </title>
+    <title>Directorate of Public Libraries - Periodical Login </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php
@@ -222,7 +222,7 @@
                                         <label for="inputEmail4" class="form-label">User Name / Email<span
                                                 class="text-danger maditory">*</span></label></label>
                                         <input type="text" class="form-control @error('user_name') is-invalid @enderror"
-                                            id="user_name" name="user_name" placeholder=" Enter your User Name"
+                                            id="user_name" name="user_name" placeholder=" Enter your user name / email"
                                             required>
                                         @error('user_name')
                                         <span class="invalid-feedback" role="alert">
@@ -234,7 +234,7 @@
                                         <label for="inputPassword4" class="form-label">Password <span
                                                 class="text-danger maditory">*</span></label></label>
                                         <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Enter Password" required>
+                                            placeholder="Enter your password" required>
                                         <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                     </div>
                                     <p class="reg-redirect mt-3 p-0 m-0">
