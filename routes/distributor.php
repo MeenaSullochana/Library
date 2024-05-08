@@ -38,7 +38,8 @@ Route::prefix('distributor')->group(function () {
           
       });
      Route::get('/procurement_payment',function(){ return view('distributor.procurement_paymrnt');});
-     
+Route::get('/receipt', function () {return view('distributor.receipt');});     
+
 Route::get('/index', function () {return view('distributor.index');});
 Route::get('/allocated_location_list', function () {return view('distributor.allocated_location_list');});
 Route::get('/allocated_location_view', function () {return view('distributor.allocated_location_view');});
