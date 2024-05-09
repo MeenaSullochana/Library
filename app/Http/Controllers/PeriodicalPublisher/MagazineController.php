@@ -87,8 +87,10 @@ public function importFile(Request $request){
 }
 
 public function list(){
-    try{
-    $magazines = Magazine::get();
+  try{
+    $user= auth('periodical_publisher')->user()->id;
+
+  $magazines = Magazine::where('user_id',$user)->get();
  
       return view('periodical_publisher.magazine_list',compact('magazines'));
     }catch(\Throwable $e){

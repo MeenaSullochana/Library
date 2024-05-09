@@ -37,12 +37,12 @@ Route::prefix('publisher_and_distributor')->group(function () {
      Route::get('/paymentreceipt',function(){
         $data = Session::get('paymrnt');
           if($data !==null){
-              return view('publisher_and_distributor.payment_recept')->with("data",$data);
+              return view('publisher_and_distributor.receipt')->with("data",$data);
           }
           
       });
      Route::get('/procurement_payment',function(){ return view('publisher_and_distributor.procurement_paymrnt');});
-     Route::get('/receipt', function () {return view('publisher_and_distributor.receipt');});
+    //  Route::get('/receipt', function () {return view('publisher_and_distributor.receipt');});
      
 Route::get('/allocated_location_list', function () {return view('publisher_and_distributor.allocated_location_list');});
 Route::get('/allocated_location_view', function () {return view('publisher_and_distributor.allocated_location_view');});
