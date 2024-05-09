@@ -304,7 +304,8 @@ public function magazine_orderview($id){
       'front_img' => 'required|image',
       'back_img' => 'required|image',
       'full_img' => 'required|image',
-      'sample_pdf' => 'required|mimes:pdf'
+      'sample_pdf' => 'required|mimes:pdf',
+ 
   ], [
       'language.required' => 'The language field is required.',
       'category.required' => 'The category field is required.',
@@ -333,7 +334,9 @@ public function magazine_orderview($id){
       'full_img.required' => 'The full image field is required.',
       'full_img.image' => 'The full image must be an image file.',
       'sample_pdf.required' => 'The sample PDF field is required.',
-      'sample_pdf.mimes' => 'The sample PDF must be a PDF file.'
+      'sample_pdf.mimes' => 'The sample PDF must be a PDF file.',
+
+
   ]);
   if ($validator->fails()) {
     $errors = $validator->errors();
@@ -577,6 +580,10 @@ public function magazine_orderview($id){
       'pdf_content_one' => 'required|mimes:pdf',
       'pdf_content_two' => 'required|mimes:pdf',
       'pdf_content_three' => 'required|mimes:pdf',
+      'bank_Name' => 'required',
+      'ifsc_Code' => 'required',
+      'ban_Acc_Num' => 'required',
+      'acc_Hol_Nam' => 'required',
   
   ], [
       'language.required' => 'The language field is required.',
@@ -632,7 +639,11 @@ public function magazine_orderview($id){
       'pdf_content_three.required' => 'The sample PDF field is required.',
       'pdf_content_three.mimes' => 'The sample PDF must be a PDF file.',
       'rni_attachment_proof.required' => 'The sample PDF field is required.',
-      'rni_attachment_proof.mimes' => 'The sample PDF must be a PDF file.'
+      'rni_attachment_proof.mimes' => 'The sample PDF must be a PDF file.',
+      'bank_Name' => 'The bank Name field is required.',
+      'ifsc_Code' => 'The ifsc code field is required.',
+      'ban_Acc_Num' => 'The bank Account Number field is required.',
+      'acc_Hol_Nam' => 'The Account Holder name field is required.',
   ]);
   if ($validator->fails()) {
     $errors = $validator->errors();
@@ -806,6 +817,10 @@ if(isset($request->rni_attachment_proof)){
      $magazine->official_address = $request->offcial_address;
      $magazine->user_type = "publisher";
      $magazine->user_id = $user->id;
+     $magazine->bank_Name =$request->bank_Name;
+     $magazine->ifsc_Code = $request->ifsc_Code;
+     $magazine->ban_Acc_Num = $request->ban_Acc_Num;
+     $magazine->acc_Hol_Nam =$request->acc_Hol_Nam;
      $magazine->save();
      return back()->with('success',"Magazine Create successfully");
   } 

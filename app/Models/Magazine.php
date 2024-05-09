@@ -60,7 +60,9 @@ class Magazine extends Model
        'pdf3',
        'editorprofile',
        'highlightimg',
-
-        
+       'bank_Name',
+       'ifsc_Code',
+       'ban_Acc_Num',
+       'acc_Hol_Nam'
     ];
 }

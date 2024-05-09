@@ -161,10 +161,10 @@
                                 <!-- <button type="button" class="btn btn-primary"><span
                                         class="btn-icon-start text-primary"><i class="fa fa-file-pdf-o"></i>
                                     </span>PDF</button> -->
-                                <a href="exportexcelmagazine" class="btn btn-info">
+                                <!-- <a href="exportexcelmagazine" class="btn btn-info">
                                     <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
                                     Export Excel
-                                </a>
+                                </a> -->
 
                                 <!-- <button type="button" class="btn  btn-warning"><span
                                         class="btn-icon-start text-warning"><i

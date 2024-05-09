@@ -183,10 +183,7 @@
                                     </section>
                                     <section class="bg-light-new">
                                         <div class="row p-3">
-                                            @php
-                                              $user = auth('periodical_publisher')->user();
-                                              $publishername = $user->firstName." ".$user->lastName;
-                                            @endphp
+                                        
                                             <div class="col-md-2">
                                                 <h4>Name of the Publisher</h4>
                                             </div>
@@ -198,7 +195,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Name of the Publisher  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" value="{{$publishername}}"class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" required>
+                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" value="{{auth('periodical_publisher')->user()->publicationName}}" readonly>>
                                                                 <div class="invalid-feedback"> Please enter the name of the publisher. </div>
                                                             </div>
                                                         </div>
@@ -273,7 +270,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">The year of first issue  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="first_issue" name="first_issue" placeholder="Enter The year of first issue" required>
+                                                            <input type="number" class="form-control" id="first_issue" name="first_issue" placeholder="Enter The year of first issue" required min="1000" max="9999">
                                                                 <div class="invalid-feedback"> Please Enter The The year of first issue . </div>
                                                             </div>
                                                         </div>
@@ -319,7 +316,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Date of Publication of every issue <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="every_issue" name="every_issue" placeholder="Enter Date of Publication of every issue" required readonly>
+                                                            <input type="text" class="form-control" id="every_issue" name="every_issue" placeholder="Enter Date of Publication of every issue (1-31)" required>
                                                                 <div class="invalid-feedback"> Please Enter Date of Publication of every issue. </div>
                                                             </div>
                                                         </div>
@@ -970,7 +967,7 @@
                                                                     <label class="text-label form-label text-black"
                                                                         for="validationCustomUsername">IFSC Code <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" placeholder="Enter the IFSC Code" required>
+                                                                        <input type="text" class="form-control" id="ifsc_Code" name="ifsc_Code" placeholder="Enter the IFSC Code" required>
                                                                         <div class="invalid-feedback"> Please Enter IFSC Code. </div>
                                                                     </div>
                                                                 </div>
@@ -983,7 +980,7 @@
                                                                         for="validationCustomUsername">
                                                                         Bank Account Number <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="account_number" name="account_number" placeholder="Enter the Bank Account Number" required>
+                                                                        <input type="text" class="form-control" id="ban_Acc_Num" name="ban_Acc_Num" placeholder="Enter the Bank Account Number" required>
                                                                         <div class="invalid-feedback"> Please Enter Account Number. </div>
                                                                     </div>
                                                                 </div>
@@ -997,7 +994,7 @@
                                                                         for="validationCustomUsername">
                                                                         Bank Name <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="bank_name" name="bank_name" placeholder="Enter the Bank Name" required>
+                                                                        <input type="text" class="form-control" id="bank_Name" name="bank_Name" placeholder="Enter the Bank Name" required>
                                                                         <div class="invalid-feedback"> Please Enter Bank Name. </div>
                                                                     </div>
                                                                 </div>
@@ -1010,7 +1007,7 @@
                                                                         for="validationCustomUsername">
                                                                        Account Holder Name <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="account_holder_name" name="account_holder_name" placeholder="Enter the Account Holder Name" required>
+                                                                        <input type="text" class="form-control" id="acc_Hol_Nam" name="acc_Hol_Nam" placeholder="Enter the Account Holder Name" required>
                                                                         <div class="invalid-feedback"> Please Enter Account Holder Name. </div>
                                                                     </div>
                                                                 </div>
@@ -1371,77 +1368,13 @@
     });
 </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var input = document.getElementById("every_issue");
-
-        // Function to open the date picker
-        function openDatePicker() {
-            var overlay = document.createElement("div");
-            overlay.className = "overlay";
-
-            // Create a grid of buttons for days 1 to 31
-            var gridContainer = document.createElement("div");
-            gridContainer.className = "grid-container";
-            for (var i = 1; i <= 31; i++) {
-                var button = document.createElement("button");
-                button.textContent = i;
-                button.className = "day-button";
-                button.addEventListener("click", function() {
-                    input.value = this.textContent;
-                    document.body.removeChild(overlay);
-                });
-                gridContainer.appendChild(button);
-            }
-
-            overlay.appendChild(gridContainer);
-
-            // Append overlay to body
-            document.body.appendChild(overlay);
-
-            // Close overlay when clicking outside
-            overlay.addEventListener("click", function(event) {
-                if (event.target === overlay) {
-                    document.body.removeChild(overlay);
-                }
-            });
-        }
-
-        // Open date picker when input is clicked
-        input.addEventListener("click", function() {
-            openDatePicker();
-        });
-    });
+document.getElementById('every_issue').addEventListener('input', function(event) {
+    let value = event.target.value;
+    value = value.replace(/\D/g, '');
+    value = Math.min(Math.max(parseInt(value), 1), 31);
+    event.target.value = value;
+});
 </script>
-
-<style>
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
-
-    .grid-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-        grid-gap: 5px;
-        padding: 20px;
-        max-width: 500px;
-    }
-
-    .day-button {
-        padding: 10px;
-        border: none;
-        background-color: #fff;
-        cursor: pointer;
-    }
-</style>
 
 
 <script>

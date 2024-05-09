@@ -13,11 +13,12 @@
     <meta property="og:description" content="">
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement - Book Add</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('periodical/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_distributor/images/fevi.svg') }}">
     <?php
     include 'periodical_distributor/plugin/plugin_css.php';
     ?>
@@ -61,7 +62,7 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Add Magazine</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href=" {{ url('admin/magazine_list') }}">
+                            <a class="btn btn-primary  btn-sm" href=" {{ url('periodical_distributor/magazine_list') }}">
                                 <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Magazine </a>
                         </div>
                     </div>
@@ -69,17 +70,17 @@
                 <div class="row">
                     <div class="card mb-4">
                         <div class="card-body">
-							<div class="d-flex align-items-center justify-content-between">
+							<!-- <div class="d-flex align-items-center justify-content-between">
 								<h3 class="mb-0 bc-title">
 									<b>Add Magazine Form</b>
 								</h3>
 								<a class="btn btn-primary  btn-sm" href=" {{ url('admin/magazine_add') }}">
 									<i class="fa fa-angle-double-left" aria-hidden="true"></i> Bulk CV Upload  </a>
-							</div>
+							</div> -->
 							<hr>
                             <div class="">
-                                <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data">
-                                    
+                                <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data" action="/periodical_distributor/magazine/add">
+                                    @csrf
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -94,8 +95,9 @@
                                                                 for="validationCustomUsername">RNI Details<span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <div class="input-group">
-                                                                    <textarea type="text" class="form-control" id="rni" name="rni" placeholder="Enter the RNI Details" required></textarea>
-                                                                    <div class="invalid-feedback"> Please Enter RNI Details. </div>
+                                                                <input type="text" class="form-control" id="rni" name="rni" placeholder="Enter the RNI Details" required>
+                                                                <div class="invalid-feedback"> Please Enter RNI Details. </div>
+                         
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -129,52 +131,26 @@
                                                     <div class="basic-form">
 
                                                         <div class="mb-3">
-                                                            <label class="text-label form-label text-black required"  for="validationCustomUsername">Select Subject 
-                                                                <span class="text-danger">*</span></label>
-                                                            <select class="form-select rounded-0" id="select-lang" name="" required>
-                                                                <option value="">Select One</option>
-                                                                <option value="tamil">Tamil</option>
-                                                                <option value="english">English</option>
+                                                            <label class="text-label form-label text-black" for="validationCustomUsername">Select Language <span class="text-danger">*</span></label>
+                                                            <select class="default-select wide form-control" id="select-lang" name="language" required>
+                                                            <option value="" selected>Select Language</option>
+                                                                <option value="Tamil">Tamil</option>
+                                                                <option value="English">English</option>
+                                                               
+
                                                             </select>
-                                                            <div class="invalid-feedback">please select language .</div>
                                                         </div>
-                                                        <div class="mb-3 tamil-category d-none">
-                                                            <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername"> Category - Tamil<span
-                                                                    class="text-danger">*</span></label>
-                                                                    <select class="default-select wide form-control" id="tamil-category" name="">
-                                                                        <option value="">Select One</option>
-                                                                        <option value="குழந்தைகள்">குழந்தைகள்</option>
-                                                                        <option value="போட்டித்தேர்வு">போட்டித்தேர்வு</option>
-                                                                        <option value="பொருளாதாரம்">பொருளாதாரம்</option>
-                                                                        <option value="பொழுதுபோக்கு">பொழுதுபோக்கு</option>
-                                                                        <option value="பொது">பொது</option>
-                                                                        <option value="உடல்நலம்">உடல்நலம்</option>
-                                                                        <option value="இலக்கியம்">இலக்கியம்</option>
-                                                                        <option value="சமயம்">சமயம்</option>
-                                                                        <option value="அறிவியல் & தொழில்நுட்பம்">அறிவியல் & தொழில்நுட்பம்</option>
-                                                                        <option value="விளையாட்டு">விளையாட்டு</option>
-                                                                        <option value="பெண்கள்">பெண்கள்</option>
-                                                                    </select>
-                                                        </div>
-                                                        <div class="mb-3 english-category d-none">
-                                                            <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Category - English<span
-                                                                    class="text-danger">*</span></label>
-                                                                    <select class="default-select wide form-control" id="english-category" name="">
-                                                                        <option value="">Select One</option>
-                                                                        <option value="Children">Children</option>
-                                                                        <option value="Competitive">Competitive</option>
-                                                                        <option value="Economics">Economics</option>
-                                                                        <option value="Entertainment">Entertainment</option>
-                                                                        <option value="General">General</option>
-                                                                        <option value="Health">Health</option>
-                                                                        <option value="Literature">Literature</option>
-                                                                        <option value="Religion">Religion</option>
-                                                                        <option value="Science & Technology">Science & Technology</option>
-                                                                        <option value="Sports">Sports</option>
-                                                                        <option value="Women">Women</option>
-                                                                    </select>
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black" for="validationCustomUsername"> Category <span class="text-danger">*</span></label>
+                                                            <select class="select wide form-control" id="categories" name="category" required>
+                                                                <!-- @php
+                                                                $categori = DB::table('magazine_categories')->where('status','=','1')->get();
+                                                                @endphp
+                                                                <option value="">Select Category</option>
+                                                                @foreach($categori as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach -->
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -195,7 +171,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Title of the Magazine <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="title_of_magazine" name="title_of_magazine" placeholder="Enter the title of the Magazine" required>
+                                                                <input type="text" class="form-control" id="title_of_magazine" name="title" placeholder="Enter the title of the Magazine" required>
                                                                 <div class="invalid-feedback"> Please enter a magazine title. </div>
                                                             </div>
                                                         </div>
@@ -207,6 +183,7 @@
                                     </section>
                                     <section class="bg-light-new">
                                         <div class="row p-3">
+                                        
                                             <div class="col-md-2">
                                                 <h4>Name of the Publisher</h4>
                                             </div>
@@ -218,7 +195,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Name of the Publisher  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" required>
+                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" value="{{auth('periodical_distributor')->user()->distributionName}}" readonly>>
                                                                 <div class="invalid-feedback"> Please enter the name of the publisher. </div>
                                                             </div>
                                                         </div>
@@ -263,21 +240,16 @@
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">Periodicity <span class="text-danger">*</span></label>
-                                                                <select class="form-select rounded-0" id="frequency" name="frequency" required>
-                                                                    <option value="" selected>Select One</option>
-                                                                    <option value="">Monthly</option>
-                                                                    <option value="">Quarterly</option>
-                                                                    <option value="">Annual</option>
-                                                                    <option value="">Weekly</option>
-                                                                    <option value="">Bi Monthly</option>
-                                                                    <option value="">Fortnight</option>
-                                                                    <option value="">BiMonthly</option>
-                                                                    <option value="">Bi weekly</option>
-                                                                    <option value="">Half yearly</option>
-                                                                    <option value="">Yearly</option>
-                                                                    <option value="">Bimonthly</option>
+                                                            <select class="form-select rounded-0" id="frequency" name="frequency" required>
+                                                            @php
+                                                                $periodicity = DB::table('magazine_periodicities')->where('status','=','1')->get();
+                                                                @endphp
+                                                                <option value="">Select Periodicity</option>
+                                                                @foreach($periodicity as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach
                                                             </select>
-                                                            <div class="invalid-feedback"> Please select frequency. </div>
+                                                            <div class="invalid-feedback"> Please select periodicity. </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -298,7 +270,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">The year of first issue  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="first_issue" name="first_issue" placeholder="Enter The year of first issue" required>
+                                                            <input type="number" class="form-control" id="first_issue" name="first_issue" placeholder="Enter The year of first issue" required min="1000" max="9999">
                                                                 <div class="invalid-feedback"> Please Enter The The year of first issue . </div>
                                                             </div>
                                                         </div>
@@ -339,12 +311,12 @@
                                             <div class="col-md-10">
                                                 <P class="fs-4">Date of Publication of every issue ( eg : 1st /15th of every month)</P>
                                                 <div class="col-lg-12">
-                                                    <div class="basic-form">
+                                                <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Date of Publication of every issue <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="every_issue" name="every_issue" placeholder="Enter Date of Publication of every issue" required>
+                                                            <input type="text" class="form-control" id="every_issue" name="every_issue" placeholder="Enter Date of Publication of every issue (1-31)" required>
                                                                 <div class="invalid-feedback"> Please Enter Date of Publication of every issue. </div>
                                                             </div>
                                                         </div>
@@ -435,7 +407,7 @@
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">Single Issue After Discount <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="single_issue_after_discount" name=">single_issue_after_discount" placeholder="Enter the Single Issue after discount" required>
+                                                                <input type="number" class="form-control" id="single_issue_after_discount" name="single_issue_after_discount" placeholder="Enter the Single Issue after discount" required>
                                                                 <div class="invalid-feedback"> Please Enter Single Issue After Discount. </div>
                                                             </div>
                                                         </div>
@@ -468,42 +440,7 @@
 
                                         </div>
                                     </section>
-                                    <section class="bg-light-new">
-                                        <div class="row p-3">
-                                            <div class="col-md-2">
-                                                <h4>Highlights Please mention some of the key highlights</h4>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <P class="fs-4">Highlights Please mention some of the key highlights, Quotes, Phrases if any (Attachment)</P>
-                                                <div class="col-lg-12">
-                                                    <div class="basic-form">
-                                                        <div class="mb-3">
-                                                            <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Some Of The Key Highlights, Quotes, Phrases If Any<span class="text-danger">*</span></label>
-                                                            <div class="input-group">
-                                                                <textarea type="number" class="form-control" id="quotes_one" name="quotes_one" rows="3" placeholder=" Please Enter Highlights, Quotes, Phrases" required></textarea>
-                                                                <div class="invalid-feedback"> Please Enter Highlights, Quotes, Phrases. </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="basic-form">
-                                                        <div class="mb-3">
-                                                            <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">File Attachment<span class="text-danger">*</span></label>
-                                                            <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="clip_attachment" ID="clip_attachment" class="form-control" aria-label="file example" required>
-                                                                <div class="invalid-feedback">Please upload File Attachment PDF</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </section>
+                               
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -539,7 +476,7 @@
                                                         <label class="text-label form-label text-black"
                                                             for="validationCustomUsername">Publisher/Editor Profile Image<span class="text-danger"></span></label>
                                                         <div class="small-12 medium-2 large-2 columns">
-                                                            <input type="file" name="editor_profile_image" ID="editor_profile_image" class="form-control" aria-label="file example" required>
+                                                            <input type="file" name="editor_profile_image" id="editor_profile_image" class="form-control" aria-label="file example" required>
                                                             <div class="invalid-feedback">Please upload Editor Profile Image</div>
                                                         </div>
                                                     </div>
@@ -596,10 +533,14 @@
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">GSM<span class="text-danger">*</span></label>
                                                                 <select class="form-select rounded-0" id="gsm" name="gsm" required>
-                                                                    <option value="" selected>Select One</option>
-                                                                    <option value="">GSM</option>
-                                                                    <option value="">Map Litho</option>
-                                                                    <option value="">Art Paper</option>
+                                                                <option value="">Select One</option>
+                                                        @php
+                                                          $categori = DB::table('book_gsm')->where('status','=','1')->get();
+                                                          @endphp
+                                                          @foreach($categori as $val)
+                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+
+                                                            @endforeach
                                                                 </select>
                                                                 <div class="invalid-feedback"> Please Select GSM. </div>
                                                         </div>
@@ -611,10 +552,14 @@
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">Type Of Paper<span class="text-danger">*</span></label>
                                                                 <select class="form-select rounded-0" id="type_paper" name="type_paper" required>
-                                                                    <option value="" selected>Select One</option>
-                                                                    <option value="">GSM</option>
-                                                                    <option value="">Map Litho</option>
-                                                                    <option value="">Art Paper</option>
+                                                                <option value="">Select One</option>
+                                                        @php
+                                                          $categori = DB::table('book_papertype')->where('status','=','1')->get();
+                                                          @endphp
+                                                          @foreach($categori as $val)
+                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+
+                                                            @endforeach
                                                                 </select>
                                                                 <div class="invalid-feedback"> Please Select Type Paper. </div>
                                                         </div>
@@ -626,10 +571,14 @@
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">Paper Finishing<span class="text-danger">*</span></label>
                                                                 <select class="form-select rounded-0" id="paper_finishing" name="paper_finishing" required>
-                                                                    <option value="" selected>Select One</option>
-                                                                    <option value="">GSM</option>
-                                                                    <option value="">Map Litho</option>
-                                                                    <option value="">Art Paper</option>
+                                                                <option value="">Select One</option>
+                                                        @php
+                                                          $categori = DB::table('book_paperfinishing')->where('status','=','1')->get();
+                                                          @endphp
+                                                          @foreach($categori as $val)
+                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+
+                                                            @endforeach
                                                                 </select>
                                                                 <div class="invalid-feedback"> Please Select Paper Finishing. </div>
                                                         </div>
@@ -653,7 +602,7 @@
                                                                 for="validationCustomUsername">Total Number of Pages <span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <input type="number" class="form-control" id="number_of_pages" name="number_of_pages" placeholder="Enter the Total Number of Pages" required>
-                                                                <div class="invalid-feedback"> Please Select the Type of Library. </div>
+                                                                <div class="invalid-feedback"> Please Enter the Total Number of Pages. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -758,9 +707,14 @@
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black" for="validationCustomUsername">Country  <span class="text-danger">*</span></label>
                                                                     <select class="form-select rounded-0" id="country" name="country" required>
-                                                                        <option value="" selected>Select One</option>
-                                                                        <option value="">test one</option>
-                                                                        <option value="">test two</option>
+                                                                    @php
+                                                                      $country =  DB::table('countries')->where('status','=','1')->get();
+                                                                    @endphp   
+                                                                    <option value="" selected>Select Country</option>
+                                                                    @foreach($country as $val)
+                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+
+                                                            @endforeach
                                                                     </select>
                                                                     <div class="invalid-feedback"> Please Select the Country. </div>
                                                             </div>
@@ -771,9 +725,14 @@
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black" for="validationCustomUsername">State <span class="text-danger">*</span></label>
                                                                     <select class="form-select rounded-0" id="state" name="state" required>
-                                                                        <option value="" selected>Select One</option>
-                                                                        <option value="">test one</option>
-                                                                        <option value="">test two</option>
+                                                                    @php
+                                                                      $states =  DB::table('states')->get();
+                                                                    @endphp   
+                                                                    <option value="" selected>Select State</option>
+                                                                    @foreach($states as $val)
+                                                            <option value="{{$val->name}}">{{$val->name}}</option>
+
+                                                            @endforeach
                                                                     </select>
                                                                     <div class="invalid-feedback"> Please Select the State. </div>
                                                             </div>
@@ -785,10 +744,9 @@
                                                                 <label class="text-label form-label text-black" for="validationCustomUsername">District <span class="text-danger">*</span></label>
                                                                     <select class="form-select rounded-0" id="district" name="district" required>
                                                                         <option value="" selected>Select One</option>
-                                                                        <option value="">test one</option>
-                                                                        <option value="">test two</option>
+                                                                      
                                                                     </select>
-                                                                    <div class="invalid-feedback"> Please Select the State. </div>
+                                                                    <div class="invalid-feedback"> Please Select the district. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -858,65 +816,35 @@
 
                                         </div>
                                     </section>
+                                  
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Bank Account Details</h4>
+                                                <h4>Highlights Please mention some of the key highlights</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <P class="fs-4">Highlights Please mention some of the key highlights, Quotes, Phrases if any (Attachment)</P>
                                                 <div class="col-lg-12">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="basic-form">
-                                                                <div class="mb-3">
-                                                                    <label class="text-label form-label text-black"
-                                                                        for="validationCustomUsername">IFSC Code <span class="text-danger">*</span></label>
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" placeholder="Enter the IFSC Code" required>
-                                                                        <div class="invalid-feedback"> Please Enter IFSC Code. </div>
-                                                                    </div>
-                                                                </div>
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">Some Of The Key Highlights, Quotes, Phrases If Any<span class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                <textarea type="number" class="form-control" id="quotes_one" name="quotes_one" rows="3" placeholder=" Please Enter Highlights, Quotes, Phrases" required></textarea>
+                                                                <div class="invalid-feedback"> Please Enter Highlights, Quotes, Phrases. </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="basic-form">
-                                                                <div class="mb-3">
-                                                                    <label class="text-label form-label text-black"
-                                                                        for="validationCustomUsername">
-                                                                        Bank Account Number <span class="text-danger">*</span></label>
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control" id="account_number" name="account_number" placeholder="Enter the Bank Account Number" required>
-                                                                        <div class="invalid-feedback"> Please Enter Account Number. </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                        <div class="col-lg-6">
-                                                            <div class="basic-form">
-                                                                <div class="mb-3">
-                                                                    <label class="text-label form-label text-black"
-                                                                        for="validationCustomUsername">
-                                                                        Bank Name <span class="text-danger">*</span></label>
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control" id="bank_name" name="bank_name" placeholder="Enter the Bank Name" required>
-                                                                        <div class="invalid-feedback"> Please Enter Bank Name. </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="basic-form">
-                                                                <div class="mb-3">
-                                                                    <label class="text-label form-label text-black"
-                                                                        for="validationCustomUsername">
-                                                                       Account Holder Name <span class="text-danger">*</span></label>
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control" id="account_holder_name" name="account_holder_name" placeholder="Enter the Account Holder Name" required>
-                                                                        <div class="invalid-feedback"> Please Enter Account Holder Name. </div>
-                                                                    </div>
-                                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">File Attachment<span class="text-danger">*</span></label>
+                                                            <div class="small-12 medium-2 large-2 columns">
+                                                                <input type="file" name="clip_attachment" id="clip_attachment" class="form-control" aria-label="file example" required>
+                                                                <div class="invalid-feedback">Please upload File Attachment PDF</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -933,7 +861,7 @@
                                             <div class="col-md-10">
                                                 <P class="fs-4">You can provide up to 8 images including some key illustrations with a minimum of 3 compulsory cover images</p>
                                                 <div class="row">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -942,13 +870,13 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="front_img form-control" type="file" accept="image/*" required/>
+                                                                     <input class="front_img form-control" name="front_img"  id="front_img" type="file" accept="image/*" required/>
                                                                      <div class="invalid-feedback"> Please Upload Front Image. </div>
                                                                   </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -957,13 +885,13 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="back_img form-control" type="file" accept="image/*" required/>
-                                                                     <div class="invalid-feedback"> Please Upload Front Image. </div>
+                                                                     <input class="back_img form-control" name="back_img" type="file" accept="image/*" required/>
+                                                                     <div class="invalid-feedback"> Please Upload Back Image. </div>
                                                                   </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-4">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -972,7 +900,7 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="full_img form-control" type="file" accept="image/*" />
+                                                                     <input class="full_img form-control" name="full_img" type="file" accept="image/*" / required>
                                                                      <div class="invalid-feedback"> Please Upload Full Image. </div>
                                                                   </div>
                                                             </div>
@@ -994,7 +922,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Sample PDF One<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="pdf_content_one" ID="pdf_content_one" class="form-control" aria-label="file example" required>
+                                                                <input type="file" name="pdf_content_one" id="pdf_content_one" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
                                                             </div>
                                                         </div>
@@ -1004,7 +932,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Sample PDF Two<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="pdf_content_two" ID="pdf_content_two" class="form-control" aria-label="file example" required>
+                                                                <input type="file" name="pdf_content_two" id="pdf_content_two" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
                                                             </div>
                                                         </div>
@@ -1014,8 +942,75 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Sample PDF Three<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="pdf_content_three" ID="pdf_content_three" class="form-control" aria-label="file example" required>
+                                                                <input type="file" name="pdf_content_three" id="pdf_content_three" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                    <section class="bg-light-new">
+                                        <div class="row p-3">
+                                            <div class="col-md-2">
+                                                <h4>Bank Account Details</h4>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <div class="col-lg-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="basic-form">
+                                                                <div class="mb-3">
+                                                                    <label class="text-label form-label text-black"
+                                                                        for="validationCustomUsername">IFSC Code <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="ifsc_Code" name="ifsc_Code" placeholder="Enter the IFSC Code" required>
+                                                                        <div class="invalid-feedback"> Please Enter IFSC Code. </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="basic-form">
+                                                                <div class="mb-3">
+                                                                    <label class="text-label form-label text-black"
+                                                                        for="validationCustomUsername">
+                                                                        Bank Account Number <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="ban_Acc_Num" name="ban_Acc_Num" placeholder="Enter the Bank Account Number" required>
+                                                                        <div class="invalid-feedback"> Please Enter Account Number. </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="basic-form">
+                                                                <div class="mb-3">
+                                                                    <label class="text-label form-label text-black"
+                                                                        for="validationCustomUsername">
+                                                                        Bank Name <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="bank_Name" name="bank_Name" placeholder="Enter the Bank Name" required>
+                                                                        <div class="invalid-feedback"> Please Enter Bank Name. </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="basic-form">
+                                                                <div class="mb-3">
+                                                                    <label class="text-label form-label text-black"
+                                                                        for="validationCustomUsername">
+                                                                       Account Holder Name <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="acc_Hol_Nam" name="acc_Hol_Nam" placeholder="Enter the Account Holder Name" required>
+                                                                        <div class="invalid-feedback"> Please Enter Account Holder Name. </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1156,6 +1151,268 @@
 			})
 		})()
 	</script>
+
+<script>
+        $('#select-lang').change(function() {
+            var lang = $(this).val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: '/periodical_distributor/getcategory',
+                data: {
+                    'lang': lang
+                },
+                success: function(response) {
+                    console.log(response);
+                    var subjects22 = response.categories;
+                    console.log("asdfsdf");
+                    $('#categories').empty();
+                    $('#categories').append('<option value="">Select One</option>');
+                    $.each(subjects22, function(key, value) {
+                        $('#categories').append('<option value="' + value.name + '">' + value.name + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+</script>
+<script>
+    $('#state').on('change', function() {
+   // alert('asfasd');
+   var stateId = $(this).val();
+   $.ajaxSetup({
+      headers:{
+         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+      }
+   });
+   $.ajax({
+      type: "post",
+      dataType: "json",
+      url: '/periodical_distributor/getdistrict',
+      data: {'state_id':stateId},
+       success: function(response) {
+           var districts = response.districts;
+           $('#district').empty();
+ $('#district').append('<option value="">Select District</option>');
+           $.each(districts, function(key, value) {
+               $('#district').append('<option value="' + value.name + '">' + value.name + '</option>');
+           });
+       },
+       error: function(xhr, status, error) {
+           console.error(error);
+       }
+   });
+});
+</script>
+
+<script>
+    document.getElementById("rni_attachment_proof").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("clip_attachment").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+<script>
+    document.getElementById("editor_profile_image").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("front_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("back_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("full_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+
+<script>
+    document.getElementById("pdf_content_one").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("pdf_content_two").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+document.getElementById('every_issue').addEventListener('input', function(event) {
+    let value = event.target.value;
+    value = value.replace(/\D/g, '');
+    value = Math.min(Math.max(parseInt(value), 1), 31);
+    event.target.value = value;
+});
+</script>
+
+<script>
+    document.getElementById("pdf_content_three").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+@if (Session::has('success'))
+
+<script>
+
+toastr.success("{{ Session::get('success') }}",{timeout:15000});
+
+</script>
+@elseif (Session::has('error'))
+<script>
+
+toastr.error("{{ Session::get('error') }}",{timeout:15000});
+
+</script>
+@endif
 </body>
 
 <style>
