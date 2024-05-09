@@ -222,7 +222,8 @@
 
                                         <div class="col-6 fw-bolder p-2">Size of the Magazine </div>
                                         <div class="col-6">: {{$data->magazine_size}}</div>
-
+                                        <div class="col-6 fw-bolder p-2">GSM </div>
+                                        <div class="col-6">: {{$data->gsm}}</div>
 
                                     </div>
                                 </div>
@@ -297,28 +298,27 @@
                     </div>
                     <p class="h2 bg-main text-white mt-3"></p>
 
-                    <!-- <p class="h2 bg-main text-white mt-3">Bank Account Details</p> -->
+                    <p class="h2 bg-main text-white mt-3">Bank Account Details</p>
                     <hr>
                                         </br>
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-6 fw-bolder p-2">IFSC Code </div>
-                        <div class="col-6">: </div>
+                        <div class="col-6">: {{$data->ifsc_Code}} </div>
                     </div>
-
                     <div class="row">
                         <div class="col-6 fw-bolder p-2">Bank Account Number </div>
-                        <div class="col-6">: </div>
+                        <div class="col-6">: {{$data->ban_Acc_Num}} </div>
                     </div>
 
                     <div class="row">
                         <div class="col-6 fw-bolder p-2">Bank Name </div>
-                        <div class="col-6">: </div>
+                        <div class="col-6">:  {{$data->bank_Name}}</div>
                     </div>
 
                     <div class="row">
                         <div class="col-6 fw-bolder p-2">Account Holder Name </div>
-                        <div class="col-6">: </div>
-                    </div> -->
+                        <div class="col-6">: {{$data->acc_Hol_Nam}} </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1038,6 +1038,9 @@ Route::get('/subscription',[SubscriptionController::class,'subscription']);
 
 Route::get('/exportexcelmagazine ',[SettingController::class,'exportexcelmagazine']);
 
+Route::get('/mailsend',[SettingController::class,'mailsend']);
+
+Route::get('/new-email',function(){ return view('admin.new-email');});
 
     });
 });

@@ -22,5 +22,8 @@ Route::prefix('periodical_distributor')->group(function () {
     });
     Route::post('/changepassword',[PeriodicalDistributorController::class,'peridistchangepassword']);
 Route::get('/change_password',function(){ return view('periodical_distributor.change_password');});
+Route::post('/magazine/add',[MagazineController::class,'createmagazine']);
+Route::post('/getcategory', [MagazineController::class, 'getcategory']);
+Route::post('/getdistrict', [MagazineController::class, 'getDistricts']);
 });
 

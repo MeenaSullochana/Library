@@ -40,6 +40,10 @@ return new class extends Migration
             $table->string('full_img'); 
             $table->string('user_type'); 
             $table->string('user_id'); 
+            $table->string('bank_Name'); 
+            $table->string('ifsc_Code'); 
+            $table->string('ban_Acc_Num'); 
+            $table->string('acc_Hol_Nam'); 
             $table->string('sample_pdf')->nullable(); 
             $table->string('publisher_name')->nullable(); 
             $table->string('editor_name')->nullable(); 

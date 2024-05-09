@@ -22,7 +22,8 @@ use App\Models\Mailconfirmtitle;
 use App\Models\Homepagebooks;
 use App\Models\Ordermagazine;
 use App\Models\MagazineCategory;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewMailMailable;
 use App\Models\Magazine;
 
 use File;
@@ -44,6 +45,8 @@ use App\Models\PublisherDistributor;
 use App\Models\Librarian;
 
 
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\newmail;
 class SettingController extends Controller
 {
 
@@ -2004,6 +2007,22 @@ public function reviewerbatchadd(Request $req){
    
    
      } 
+
+     public function mailsend(Request $request){
+    
+        $publishers = Publisher::pluck('email')->toArray();
+        $distributors = Distributor::pluck('email')->toArray();
+        $publisherDistributors = PublisherDistributor::pluck('email')->toArray();
+        
+     return   $allEmails = array_unique(array_merge($publishers, $distributors, $publisherDistributors));
+        
+        $mail = new NewMailMailable();
+        $mail->bcc($allEmails);
+        
+        Mail::to('tndplbookprocure@gmail.com')
+            ->send($mail);
+    }
+     
 }
 
 
