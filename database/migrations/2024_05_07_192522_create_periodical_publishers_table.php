@@ -16,8 +16,6 @@ return new class extends Migration
         Schema::create('periodical_publishers', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('publicationName');
-            $table->string('periodicalName');
-            $table->string('magazinePublicationName');
             $table->string('userName')->unique();;
             $table->string('password');
             $table->string('firstName');
@@ -44,8 +42,6 @@ return new class extends Migration
             $table->string('yearOfEstablishment');
             $table->string('yearofexp');
             $table->string('numberPerYear');
-            $table->string('have_translated_books');
-            $table->json('topTranslatedBooks')->nullable();
             $table->string('have_award_title');
             $table->json('awardTitle')->nullable();
        
@@ -90,7 +86,7 @@ return new class extends Migration
     public function down()
     {
          
-        Schema::create('publishers', function (Blueprint $table) {
+        Schema::create('periodical_publishers', function (Blueprint $table) {
             $table->string('profileImage');
             $table->string('backgroundImage');
             $table->string('otherSpecial');
@@ -107,7 +103,6 @@ return new class extends Migration
             $table->string('llpProof');
             $table->string('moaProof');
             $table->string('aoaProof');
-            $table->json('topTranslatedBooks');
             $table->json('awardTitle');
             $table->string('privateTrustProof');
             $table->string('privateSocietyProof');
