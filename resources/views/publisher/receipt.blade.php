@@ -18,8 +18,8 @@
 	<!-- FAVICONS ICON -->
 	<link rel="shortcut icon" type="image/png" href="images/fevi.svg">
     <?php
-        include "plugin/plugin_css.php";
-    ?>
+        include "publisher/plugin/plugin_css.php";
+        ?>
 </head>
 <body>
 
@@ -42,9 +42,7 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-		<?php
-			include "navigation.php";
-		?>
+        @include ('publisher.navigation')
 		<!--**********************************
             Sidebar end
         ***********************************-->
@@ -57,20 +55,20 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>PDF Download</b>
+                                <b>Payment Acknowledgement </b>
                             </h3>
                             <div class="print-section">
-                                <a class="btn btn-primary  btn-sm" href="#">
+                                <a class="btn btn-primary  btn-sm" href="/publisher/procurement_payment">
                                 <i class="fa fa-angle-left"></i> Back </a>
 
-                                <a class="btn btn-primary  btn-sm" href="#">
-                                <i class="fa fa-print"></i> Print </a>
+                                <button type="button" class="btn btn-primary" id="print_invoice" onclick="generatePdf()"><span class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
+
                             </div>                                
                         </div>
                     </div>
                 </div>
 
-                <div class="card" id="print-card">
+                <div class="card" id="print-pdf">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 text-center">
@@ -81,11 +79,11 @@
                         </div>
                         <div class="row p-3 text-center">
                             <div class="col-6">
-                                <p><b>Name </b>	: Name of the user</p>
+                                <p><b>Name </b>	: {{$data->userName}}</p>
                             </div>
                             <div class="col-6 text-left">
-                                <p class="p-0 m-0"><b>Acknowledgement  No:</b> TN34343434</p>
-                                <p class="p-0 m-0">Date: 12/10/2024</p>
+                                <p class="p-0 m-0"><b>Acknowledgement  No:</b>{{$data->txnrefno}}4</p>
+                                <p class="p-0 m-0">Date: {{ \Carbon\Carbon::parse($data->created_at)->format('Y-m-d ') }}</p>
                             </div>
                         </div>
                         <table class="table responsive mt-5">
@@ -100,23 +98,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                    for($i=0;$i<10;$i++){
-                                ?>
+                                @php
+                                  $booksdata= json_decode($data->bookId);
+                                @endphp
+                                @foreach($booksdata as $val)
+                                @php
+                                $books = DB::table('books')->find($val);
+                                @endphp
                                     <tr role="row" class="odd">
-                                        <td><span>1</span></td>
-                                        <td> 1212121212</td>
-                                        <td>Title Of the Book</td>
-                                        <td>ISB34343</td>
-                                        <td>12</td>
-                                        <td><i class="fa fa-inr ms-2"></i> 32323</td>
+                                        <td><span>{{$loop->index +1}}</span></td>
+                                        <td> {{$books->product_code}}</td>
+                                        <td>{{$books->book_title}}</td>
+                                        <td>{{$books->isbn}}</td>
+                                        <td>1</td>
+                                        <td><i class="fa fa-inr ms-2"></i> 450</td>
                                     </tr>
-                                    <?php
-                                    }
-                                    ?>
+                                  @endforeach
+                                    
                                     <tr>
                                         <td class="fw-bold text-end" colspan="5">Total Amount</td>
-                                        <td class="fw-bold">: <i class="fa fa-inr ms-2"></i> 121232</td>
+                                        <td class="fw-bold">: <i class="fa fa-inr ms-2"></i> {{$data->totalAmount}}</td>
                                     </tr>
                                 </tbody>
                         </table>
@@ -131,9 +132,7 @@
         <!--**********************************
             Footer start
         ***********************************-->
-        <?php
-            include "footer.php";
-        ?>
+        @include ("publisher.footer")
         <!--**********************************
             Footer end
         ***********************************-->
@@ -152,8 +151,17 @@
         Main wrapper end
     ***********************************-->
     <?php
-        include "plugin/plugin_js.php";
-        include 'error/error_handle.php';
+               include "publisher/plugin/plugin_js.php";
+
     ?>
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+<script>
+    function generatePdf() {
+        let htmlElement = document.getElementById('print-pdf');
+        html2pdf().from(htmlElement).save('book_receipt.pdf');
+    }
+</script>
 </html>

@@ -31,14 +31,14 @@ Route::prefix('distributor')->group(function () {
      Route::get('/payment_receipt/{id}',[PaymentController::class,'payment_recept']);
 
      Route::get('/paymentreceipt',function(){
-        $data = Session::get('paymrnt');
+       $data = Session::get('paymrnt');
           if($data !==null){
-              return view('distributor.payment_recept')->with("data",$data);
+              return view('distributor.receipt')->with("data",$data);
           }
           
       });
      Route::get('/procurement_payment',function(){ return view('distributor.procurement_paymrnt');});
-Route::get('/receipt', function () {return view('distributor.receipt');});     
+// Route::get('/receipt', function () {return view('distributor.receipt');});     
 
 Route::get('/index', function () {return view('distributor.index');});
 Route::get('/allocated_location_list', function () {return view('distributor.allocated_location_list');});

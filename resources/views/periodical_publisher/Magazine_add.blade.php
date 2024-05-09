@@ -314,12 +314,12 @@
                                             <div class="col-md-10">
                                                 <P class="fs-4">Date of Publication of every issue ( eg : 1st /15th of every month)</P>
                                                 <div class="col-lg-12">
-                                                    <div class="basic-form">
+                                                <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Date of Publication of every issue <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="every_issue" name="every_issue" placeholder="Enter Date of Publication of every issue" required>
+                                                                <input type="text" class="form-control" id="every_issue" name="every_issue" placeholder="Enter Date of Publication of every issue" required readonly>
                                                                 <div class="invalid-feedback"> Please Enter Date of Publication of every issue. </div>
                                                             </div>
                                                         </div>
@@ -443,42 +443,7 @@
 
                                         </div>
                                     </section>
-                                    <section class="bg-light-new">
-                                        <div class="row p-3">
-                                            <div class="col-md-2">
-                                                <h4>Highlights Please mention some of the key highlights</h4>
-                                            </div>
-                                            <div class="col-md-10">
-                                                <P class="fs-4">Highlights Please mention some of the key highlights, Quotes, Phrases if any (Attachment)</P>
-                                                <div class="col-lg-12">
-                                                    <div class="basic-form">
-                                                        <div class="mb-3">
-                                                            <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Some Of The Key Highlights, Quotes, Phrases If Any<span class="text-danger">*</span></label>
-                                                            <div class="input-group">
-                                                                <textarea type="number" class="form-control" id="quotes_one" name="quotes_one" rows="3" placeholder=" Please Enter Highlights, Quotes, Phrases" required></textarea>
-                                                                <div class="invalid-feedback"> Please Enter Highlights, Quotes, Phrases. </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-12">
-                                                    <div class="basic-form">
-                                                        <div class="mb-3">
-                                                            <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">File Attachment<span class="text-danger">*</span></label>
-                                                            <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="clip_attachment" id="clip_attachment" class="form-control" aria-label="file example" required>
-                                                                <div class="invalid-feedback">Please upload File Attachment PDF</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </section>
+                               
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -854,65 +819,35 @@
 
                                         </div>
                                     </section>
-                                    {{--<section class="bg-light-new">
+                                  
+                                    <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Bank Account Details</h4>
+                                                <h4>Highlights Please mention some of the key highlights</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <P class="fs-4">Highlights Please mention some of the key highlights, Quotes, Phrases if any (Attachment)</P>
                                                 <div class="col-lg-12">
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="basic-form">
-                                                                <div class="mb-3">
-                                                                    <label class="text-label form-label text-black"
-                                                                        for="validationCustomUsername">IFSC Code <span class="text-danger">*</span></label>
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" placeholder="Enter the IFSC Code" required>
-                                                                        <div class="invalid-feedback"> Please Enter IFSC Code. </div>
-                                                                    </div>
-                                                                </div>
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">Some Of The Key Highlights, Quotes, Phrases If Any<span class="text-danger">*</span></label>
+                                                            <div class="input-group">
+                                                                <textarea type="number" class="form-control" id="quotes_one" name="quotes_one" rows="3" placeholder=" Please Enter Highlights, Quotes, Phrases" required></textarea>
+                                                                <div class="invalid-feedback"> Please Enter Highlights, Quotes, Phrases. </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="basic-form">
-                                                                <div class="mb-3">
-                                                                    <label class="text-label form-label text-black"
-                                                                        for="validationCustomUsername">
-                                                                        Bank Account Number <span class="text-danger">*</span></label>
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control" id="account_number" name="account_number" placeholder="Enter the Bank Account Number" required>
-                                                                        <div class="invalid-feedback"> Please Enter Account Number. </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                        <div class="col-lg-6">
-                                                            <div class="basic-form">
-                                                                <div class="mb-3">
-                                                                    <label class="text-label form-label text-black"
-                                                                        for="validationCustomUsername">
-                                                                        Bank Name <span class="text-danger">*</span></label>
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control" id="bank_name" name="bank_name" placeholder="Enter the Bank Name" required>
-                                                                        <div class="invalid-feedback"> Please Enter Bank Name. </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <div class="basic-form">
-                                                                <div class="mb-3">
-                                                                    <label class="text-label form-label text-black"
-                                                                        for="validationCustomUsername">
-                                                                       Account Holder Name <span class="text-danger">*</span></label>
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control" id="account_holder_name" name="account_holder_name" placeholder="Enter the Account Holder Name" required>
-                                                                        <div class="invalid-feedback"> Please Enter Account Holder Name. </div>
-                                                                    </div>
-                                                                </div>
+                                                <div class="col-lg-12">
+                                                    <div class="basic-form">
+                                                        <div class="mb-3">
+                                                            <label class="text-label form-label text-black"
+                                                                for="validationCustomUsername">File Attachment<span class="text-danger">*</span></label>
+                                                            <div class="small-12 medium-2 large-2 columns">
+                                                                <input type="file" name="clip_attachment" id="clip_attachment" class="form-control" aria-label="file example" required>
+                                                                <div class="invalid-feedback">Please upload File Attachment PDF</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -920,7 +855,7 @@
                                             </div>
 
                                         </div>
-                                    </section>--}}
+                                    </section>
                                     <section class="bg-light-new mt-4">
                                         <div class="row p-3">
                                             <div class="col-md-2">
@@ -1012,6 +947,73 @@
                                                             <div class="small-12 medium-2 large-2 columns">
                                                                 <input type="file" name="pdf_content_three" id="pdf_content_three" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                    <section class="bg-light-new">
+                                        <div class="row p-3">
+                                            <div class="col-md-2">
+                                                <h4>Bank Account Details</h4>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                <div class="col-lg-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="basic-form">
+                                                                <div class="mb-3">
+                                                                    <label class="text-label form-label text-black"
+                                                                        for="validationCustomUsername">IFSC Code <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="ifsc_code" name="ifsc_code" placeholder="Enter the IFSC Code" required>
+                                                                        <div class="invalid-feedback"> Please Enter IFSC Code. </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="basic-form">
+                                                                <div class="mb-3">
+                                                                    <label class="text-label form-label text-black"
+                                                                        for="validationCustomUsername">
+                                                                        Bank Account Number <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="account_number" name="account_number" placeholder="Enter the Bank Account Number" required>
+                                                                        <div class="invalid-feedback"> Please Enter Account Number. </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="basic-form">
+                                                                <div class="mb-3">
+                                                                    <label class="text-label form-label text-black"
+                                                                        for="validationCustomUsername">
+                                                                        Bank Name <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="bank_name" name="bank_name" placeholder="Enter the Bank Name" required>
+                                                                        <div class="invalid-feedback"> Please Enter Bank Name. </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="basic-form">
+                                                                <div class="mb-3">
+                                                                    <label class="text-label form-label text-black"
+                                                                        for="validationCustomUsername">
+                                                                       Account Holder Name <span class="text-danger">*</span></label>
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" id="account_holder_name" name="account_holder_name" placeholder="Enter the Account Holder Name" required>
+                                                                        <div class="invalid-feedback"> Please Enter Account Holder Name. </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1368,7 +1370,78 @@
         }
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var input = document.getElementById("every_issue");
 
+        // Function to open the date picker
+        function openDatePicker() {
+            var overlay = document.createElement("div");
+            overlay.className = "overlay";
+
+            // Create a grid of buttons for days 1 to 31
+            var gridContainer = document.createElement("div");
+            gridContainer.className = "grid-container";
+            for (var i = 1; i <= 31; i++) {
+                var button = document.createElement("button");
+                button.textContent = i;
+                button.className = "day-button";
+                button.addEventListener("click", function() {
+                    input.value = this.textContent;
+                    document.body.removeChild(overlay);
+                });
+                gridContainer.appendChild(button);
+            }
+
+            overlay.appendChild(gridContainer);
+
+            // Append overlay to body
+            document.body.appendChild(overlay);
+
+            // Close overlay when clicking outside
+            overlay.addEventListener("click", function(event) {
+                if (event.target === overlay) {
+                    document.body.removeChild(overlay);
+                }
+            });
+        }
+
+        // Open date picker when input is clicked
+        input.addEventListener("click", function() {
+            openDatePicker();
+        });
+    });
+</script>
+
+<style>
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        grid-gap: 5px;
+        padding: 20px;
+        max-width: 500px;
+    }
+
+    .day-button {
+        padding: 10px;
+        border: none;
+        background-color: #fff;
+        cursor: pointer;
+    }
+</style>
 
 
 <script>
