@@ -70,7 +70,8 @@
                               <th>S/No</th>
                               <th>User Name</th>
                               <th>User Type</th>
-                              <th>Invoice Number</th>
+                              <th>Acknowledgement Number</th>
+                              <th>Payment Status</th>
                               <th>Date</th>
                               <th>Control</th>
                            </tr>
@@ -82,7 +83,21 @@
                               <td>{{$loop->index +1}}</td>
                               <td>{{$val->userName}}</td>
                               <td>{{$val->userType}}</td>
-                              <td>{{$val->invoiceNumber}}</td>
+                              <td>{{$val->txnrefno}}</td>
+                              <td>
+                              @if($val->paymentstatus == "Success")
+                              <button type="button" class="btn btn-success">{{$val->paymentstatus}}</button>
+
+
+                              @elseif($val->paymentstatus == "Failed" )  
+                              <button type="button" class="btn btn-danger" >{{$val->paymentstatus}}</button>
+
+
+                               @else
+                               <button type="button" class="btn btn-warning">{{$val->paymentstatus}}</button>
+
+                              @endif
+                              </td>
 
                               <td>{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d ') }}</td>
                               <td><a href="/publisher_and_distributor/payment_receipt/{{$val->id}}"><i class="fa fa-eye p-2"></i></a>

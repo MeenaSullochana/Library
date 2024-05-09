@@ -37,6 +37,33 @@
       
       </style>
 <style>
+         .validation-errors {
+          position: fixed;
+          top: 250px;
+          right: 20px;
+          background-color: #ffcccc;
+          border: 1px solid #ff0000;
+          border-radius: 5px;
+          padding: 10px;
+          max-width: 500px;
+          max-height: 200px; /* Set a fixed height */
+          overflow-y: auto; /* Add vertical scrollbar */
+          z-index: 1000; /* Ensure it appears above other content */
+      }
+      
+      .validation-errors ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+      }
+      
+      .validation-errors ul li {
+          color: #ff0000;
+          margin-bottom: 5px;
+      }
+      
+      </style>
+<style>
     h5 {
         color: #ffffff;
         font-weight: 400;
@@ -49,6 +76,7 @@
         border-left: 10px solid #ffc10799;
         box-shadow: 4px 2px 15px 0px rgb(199 199 199);
     }
+    
 </style>
 
 <body>
@@ -124,7 +152,9 @@
                                         <div class="invalid-feedback"> Please enter name of the periodical/magazine. </div>
                                     </div>
                                 </div> --}}
-
+                                <input type="text" class="form-control"
+                           name="usertype" hidden value="publisher"
+                           required />
                                 <div class="row mb-3 border border-0 p-2 m-2">
                                     <div class="col-md-6">
                                         <label for="inputEmail5" class="form-label">Name Of the Publication  <span
@@ -148,6 +178,8 @@
                                             placeholder="Enter your user name" name="userName" required>
                                         <div class="valid-feedback"> Looks good! </div>
                                         <div class="invalid-feedback"> Please enter username. </div>
+                                        <p id="checkusername" style="color: rgb(202, 14, 14)"></p>
+                                        <input id="usernameval" type="text" name="usernameval" value="" hidden/>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="validationCustom02" class="form-label">Password <span
@@ -156,6 +188,7 @@
                                             placeholder="*********" required name="password" autocomplete="false">
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter password. </div>
+                                        <p id="divCheckPasswordMatch" style="color: rgb(202, 14, 14)"></p>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="validationCustom02" class="form-label">Confirm Password <span
@@ -194,6 +227,8 @@
                                             placeholder="Enter your e-mail id" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter e-mail id. </div>
+                                        <p id="checkemail" style="color: rgb(202, 14, 14)"></p>
+                                 <input id="emailval" type="text" name="emailval" value="" hidden/>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="validationCustom02" class="form-label">Contact Number<span
@@ -725,6 +760,12 @@
                         <div class="card-footer text-muted text-end">
                             <button type="submit" class="btn btn-primary" id="btn_publisher_submit_form"> Submit</button>
                         </div>
+                        <div id="loadingBar2" class="loading-bar" style="display: none;">
+                           <div class="spinner-border" role="status">
+                          <span class="sr-only">Loading...</span>
+                         </div>
+                <div class="loading-text">Loading...</div>
+                     </div>
                     </div>
                 </form>
             </div>
@@ -1286,6 +1327,673 @@
             });
                
             </script>
+
+           <script>
+            $(document).ready(function () {
+
+//***************************************************** */
+//###################Book Publisher#######################
+//***************************************************** */
+//Publisher-username check
+$('#pub_state').on('change', function() {
+// alert('asfasd');
+            var stateId = $(this).val();
+            $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+            });
+            $.ajax({
+            type: "post",
+            dataType: "json",
+            url: '/getdistrict',
+            data: {'state_id':stateId},
+                success: function(response) {
+                    var districts = response.districts;
+                    $('#pub_district').empty();
+            $('#pub_district').append('<option value="">Select District</option>');
+                    $.each(districts, function(key, value) {
+                        $('#pub_district').append('<option value="' + value.name + '">' + value.name + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+});
+
+$('#con_state').on('change', function() {
+            // alert('asfasd');
+            var stateId = $(this).val();
+            $.ajaxSetup({
+            headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+            });
+            $.ajax({
+            type: "post",
+            dataType: "json",
+            url: '/getdistrict',
+            data: {'state_id':stateId},
+                success: function(response) {
+                    var districts = response.districts;
+                    $('#con_district').empty();
+            $('#con_district').append('<option value="">Select District</option>');
+                    $.each(districts, function(key, value) {
+                        $('#con_district').append('<option value="' + value.name + '">' + value.name + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+});
+var typingTimer;
+var doneTypingInterval = 1000;
+$('#user_name').keyup(function(){
+            clearTimeout(typingTimer);
+            if ($('#user_name').val) {
+                typingTimer = setTimeout(function(){
+                    var v = $("#user_name").val();
+                    if(v.length == 0){
+                        $("#checkusername").html("Username required");
+                        toastr.error('Username required!');
+                    }else{
+            //ajax
+            $.ajaxSetup({
+            headers:{
+            'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+            }
+            });
+            $.ajax({
+            type: "post",
+            dataType: "json",
+            url: '/check/username',
+            data: {'userName':v},
+            success: function(response) {
+            if(response.success){
+            var username = document.getElementById("usernameval");
+            username.value = 1;
+            $("#checkusername").html("");
+            }else{
+            var username = document.getElementById("usernameval");
+            username.value = 0;
+            $("#checkusername").html("Username already taken");
+            toastr.error('Username already taken!');
+            }
+
+            }
+            });
+                    }
+                
+
+
+                }, doneTypingInterval);
+            }
+
+});
+//email check
+var typingTimer;
+var doneTypingInterval = 1000;
+$('#pub_email_id').keyup(function(){
+            clearTimeout(typingTimer);
+            if ($('#pub_email_id').val) {
+                typingTimer = setTimeout(function(){
+                    var v = $("#pub_email_id").val();
+                    if(v.length == 0){
+                        $("#checkemail").html("Email Required!!");
+                        toastr.error('Email Required!');
+                    }else{
+                        var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+                        if (reg.test(v) == false)
+                        {
+                        var email = document.getElementById("emailval");
+                            email.value = 2;
+                        $("#checkemail").html("Invalid Email!!");
+                        toastr.error('Invalid Email!');
+                        }else{
+                            $("#checkemail").html("");
+                                $.ajaxSetup({
+                                headers:{
+                                    'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                                }
+                                });
+                            $.ajax({
+                                type: "post",
+                                dataType: "json",
+                                url: '/check/email',
+                                data: {'email':v},
+                                success: function(response) {
+                                if(response.success){
+                                    var email = document.getElementById("emailval");
+                                    email.value = 1;
+                                    $("#checkemail").html("");
+                                }else{
+                                    var email = document.getElementById("emailval");
+                                    email.value = 0;
+                                    $("#checkemail").html("Email already taken");
+                                    toastr.error('Email already taken!');
+                                }
+
+                                }
+                            });
+                    }
+                    
+                    }
+                }, doneTypingInterval);
+            }
+
+});
+
+//Password Check
+function checkPasswordMatch() {
+            var password = $("#password").val();
+            var confirmPassword = $("#password_confirmation").val();
+            if(password.length == 0){
+            $("#divCheckPasswordMatch").html("Password is required!");
+            toastr.error('Passwords required!');
+            }else{
+            if (password != confirmPassword){
+                $("#divCheckPasswordMatch").html("Passwords does not match!");
+                toastr.error('Passwords does not match!');
+                }
+                else {
+                $("#divCheckPasswordMatch").html("");
+                }
+            }
+            
+}
+
+  $('#password_confirmation').keyup( function() {
+   if( this.value.length < 8 ) return;
+   checkPasswordMatch();
+});
+
+var i = 1;
+
+ function showLoading() {
+     // Show loading bar
+     document.getElementById('loadingBar').style.display = 'block';
+     // Add 'loading' class to the form to make it semi-transparent
+     document.getElementById('magazine_publisher_register').classList.add('loading');
+ }
+
+ function hideLoadingBar() {
+   document.getElementById('loadingBar').style.display = 'none';
+   document.getElementById('magazine_publisher_register').classList.remove('loading');
+}
+
+/*************
+// Awarded Titles in The Publication
+*************/
+$('#member_in_publishers_new_old_asr').css('display', 'none');
+var sramy = 3;
+
+$('input[type=radio][name=member_in_publishers_yes_old_asr]').on('change', function () {
+   switch ($(this).val()) {
+      case 'yes':
+         $('#member_in_publishers_yes_old_asr').prop('required', true);
+
+        
+
+         $('#member_in_publishers_new_old_asr').css('display', 'block');
+         $('#pub_state_awarded').prop('required', true);
+         $('#pub_central').prop('required', true);
+         $('#translated_pub_asr').click(function () {
+            sramy++;
+            $('#trans_book_pub_asr').
+               append('<tr id="row' + sramy +
+               '"  class="removecl"><td><input type="text" name="trs_state_awarded[]" placeholder="Enter the award name*" class="form-control name_list" required/></td><td><input type="text" name="trs_central_awarded[]" placeholder="Enter the title *" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+               sramy + '" class="btn btn-danger btn_remove_best_five_my">X</button></td></tr>');
+
+         });
+         break;
+      case 'No':
+         // alert($(this).val());
+         sramy=0;
+         $('div#member_in_publishers_new_old_asr').css('display','none')
+         $('#pub_state_awarded').prop('required', false);
+         $('#pub_central').prop('required', false);
+
+         $('#member_in_publishers_yes_old_asr').prop('required', false);
+
+
+         $('.removecl').remove();
+         // alert('off')
+         break;
+   }
+});
+$(document).on('click', '.btn_remove_best_five_my', function () {
+    var button_id = $(this).attr("id");
+    $('#row' + button_id + '').remove();
+    if (pubtrsfivecounter <= 4) {
+       $('#translated_pub_asr').prop('disabled', false);
+    }
+    pubtrsfivecounter--;
+ });
+
+/*************
+// End Awarded Titles in The Publication
+*************/
+
+//Publisher final form submit
+$('#submitBtnPublisher').on('click', function () {
+   $("#magazine_publisher_register").submit(function (e) {
+      showLoading();
+      //username
+     var uname =  $("#user_name").val();
+     if(uname.length == 0){
+      hideLoadingBar();
+      toastr.error("Username required!!!");
+      e.preventDefault();
+     }else{
+      var username1 = $("#usernameval").val();
+     if(username1 && username1 == 0){
+        hideLoadingBar();
+        toastr.error("Username already taken!!!");
+        e.preventDefault();
+     }
+   }
+   
+//password
+   var password = $("#password").val();
+   var confirmPassword = $("#password_confirmation").val();
+   if(password.length == 0){
+      hideLoadingBar();
+      toastr.error("Password is required!!");
+     e.preventDefault();
+   }else if(confirmPassword.length == 0){
+      hideLoadingBar();
+      toastr.error("Confirm Password is required!!");
+     e.preventDefault();
+   }else{
+      if(password != confirmPassword){
+         hideLoadingBar();
+          toastr.error("Password and confirm password doesn't match!!");
+         e.preventDefault();
+      }
+   }
+ 
+
+//email
+var uemail =  $("#pub_email_id").val();
+if (uemail.length === 0){
+   hideLoadingBar();
+   toastr.error('Email Required!!');
+   e.preventDefault();
+}else{
+   var email = $("#emailval").val();
+   if(email == 0){
+      hideLoadingBar();
+      toastr.error('Email already taken!!');
+      e.preventDefault();
+   }
+   else if(email == 2){
+      hideLoadingBar();
+      toastr.error('Invalid Email!!');
+      e.preventDefault();
+   }
+}
+//category check 
+
+      var s_ctg_book = $("[name='specialized_category_books[]']:checked").length; // count the checked rows
+      var p_lan_book = $("[name='primary_language_of_publication[]']:checked").length; // count the checked rows
+      // var bapasi_id_name = $("[name='member_in_publisher_Association_depart_pub_book_pub[]']:checked").length; // count the checked rows
+   
+         if (s_ctg_book != 0) {
+            if (p_lan_book != 0) {
+
+            } else {
+              
+               // alert("Please select any primary Category of Books Published");
+               hideLoadingBar();
+                  toastr.error('Please select primary language of publication');
+               e.preventDefault();
+            }
+         } else {
+            
+            hideLoadingBar();
+           toastr.error('Please select any Special Category of Books Published');
+            // alert("Please select any Special Category of Books Published");
+            e.preventDefault();
+         }
+      
+
+
+
+
+//Pubownership proof
+var ownership = $("#pub_ownership").val();
+
+if (ownership == 'Partnership') {
+ var gst = $("[name='gst']").prop('files')[0];
+ var udayam = $("[name='udayam']").prop('files')[0];
+ var pan_deed = $("[name='pan_deed']").prop('files')[0];
+ var pan_tan = $("[name='pan_tan']").prop('files')[0];
+      if (udayam.type !== 'application/pdf') {
+         toastr.error('Udyam Certificate must be a PDF file.');
+         hideLoadingBar();
+         e.preventDefault();
+
+         }
+      if (pan_deed.type !== 'application/pdf') {
+      toastr.error('Partnership Deed must be a PDF file.');
+      hideLoadingBar();
+      e.preventDefault();
+         }
+      if (gst.type !== 'application/pdf') {
+         toastr.error('GST Certificate must be a PDF file.');
+         hideLoadingBar();
+         e.preventDefault();
+
+      }
+      if (pan_tan.type !== 'application/pdf') {
+         toastr.error('PAN / TAN must be a PDF file.');
+         hideLoadingBar();
+         e.preventDefault();
+
+      }
+}
+else if (ownership == 'Private') {
+var certification_incon = $("[name='certification_incon']").prop('files')[0];
+var moa = $("[name='moa']").prop('files')[0];
+var aoa = $("[name='aoa']").prop('files')[0];
+var pan_tan = $("[name='pan_tan']").prop('files')[0];
+var gst = $("[name='gst']").prop('files')[0];
+
+     if (certification_incon.type !== 'application/pdf') {
+        toastr.error('Certificate of incorporation must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+     if (moa.type !== 'application/pdf') {
+      toastr.error('MOA must be a PDF file.');
+      hideLoadingBar();
+      e.preventDefault();
+
+      }
+   if (aoa.type !== 'application/pdf') {
+   toastr.error('AOA must be a PDF file.');
+   hideLoadingBar();
+   e.preventDefault();
+      }
+     if (gst.type !== 'application/pdf') {
+      toastr.error('GST Certificate must be a PDF file.');
+      hideLoadingBar();
+      e.preventDefault();
+
+   }
+     if (pan_tan.type !== 'application/pdf') {
+        toastr.error('PAN must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+     }
+}
+else if (ownership == 'Publication') {
+var certification_incon = $("[name='certification_incon']").prop('files')[0];
+var pan_tan = $("[name='pan_tan']").prop('files')[0];
+var gst = $("[name='gst']").prop('files')[0];
+     if (certification_incon.type !== 'application/pdf') {
+        toastr.error('Certificate of incorporation must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+     if (gst.type !== 'application/pdf') {
+      toastr.error('GST Certificate must be a PDF file.');
+      hideLoadingBar();
+      e.preventDefault();
+
+   }
+     if (pan_tan.type !== 'application/pdf') {
+        toastr.error('PAN must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+     }
+}
+else if (ownership == 'oneperson') {
+
+var udayam = $("[name='udayam']").prop('files')[0];
+var gst = $("[name='gst']").prop('files')[0];
+var pan_tan = $("[name='pan_tan']").prop('files')[0];
+     if (udayam.type !== 'application/pdf') {
+        toastr.error('Udyam Certificate must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+        }
+     if (gst.type !== 'application/pdf') {
+        toastr.error('GST Certificate must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+     if (pan_tan.type !== 'application/pdf') {
+        toastr.error('PAN / TAN must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+
+
+}
+else if (ownership == 'limited') {
+var llp = $("[name='llp_agre']").prop('files')[0];
+var udayam = $("[name='udayam']").prop('files')[0];
+var gst = $("[name='gst']").prop('files')[0];
+var pan_tan = $("[name='pan_tan']").prop('files')[0];
+
+        if (llp.type !== 'application/pdf') {
+           toastr.error('LLP Agreement must be a PDF file.');
+           hideLoadingBar();
+           e.preventDefault();
+   }
+     if (udayam.type !== 'application/pdf') {
+        toastr.error('Udyam Certificate must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+        }
+     if (gst.type !== 'application/pdf') {
+        toastr.error('GST Certificate must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+     if (pan_tan.type !== 'application/pdf') {
+        toastr.error('PAN / TAN must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+
+}
+else if (ownership == 'trust') {
+var society = $("[name='private_trust']").prop('files')[0];
+var gst = $("[name='gst']").prop('files')[0];
+var pan_tan = $("[name='pan_tan']").prop('files')[0];
+        if (society.type !== 'application/pdf') {
+           toastr.error('Private Trust Registration Certificate must be a PDF file.');
+           hideLoadingBar();
+           e.preventDefault();
+   }
+     if (gst.type !== 'application/pdf') {
+        toastr.error('GST Certificate must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+     if (pan_tan.type !== 'application/pdf') {
+        toastr.error('PAN must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+
+
+}
+else if (ownership == 'society') {
+var society = $("[name='private_society']").prop('files')[0];
+var gst = $("[name='gst']").prop('files')[0];
+var pan_tan = $("[name='pan_tan']").prop('files')[0];
+
+        if (society.type !== 'application/pdf') {
+           toastr.error('Private Society Registration Certificate must be a PDF file.');
+           hideLoadingBar();
+           e.preventDefault();
+   }
+     if (gst.type !== 'application/pdf') {
+        toastr.error('GST Certificate must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+     if (pan_tan.type !== 'application/pdf') {
+        toastr.error('PAN must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+
+
+}
+else if (ownership == 'institutional') {
+var society = $("[name='institution']").prop('files')[0];
+var gst = $("[name='gst']").prop('files')[0];
+var pan_tan = $("[name='pan_tan']").prop('files')[0];
+        if (society.type !== 'application/pdf') {
+           toastr.error('Government Institutional Publication Registration Certificate must be a PDF file.');
+           hideLoadingBar();
+           e.preventDefault();
+   }
+     if (gst.type !== 'application/pdf') {
+        toastr.error('GST Certificate must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+     if (pan_tan.type !== 'application/pdf') {
+        toastr.error('PAN must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+
+
+}
+else if (ownership == 'trust-foundation') {
+var society = $("[name='trust_foundation']").prop('files')[0];
+var gst = $("[name='gst']").prop('files')[0];
+var pan_tan = $("[name='pan_tan']").prop('files')[0];
+        if (society.type !== 'application/pdf') {
+           toastr.error('Government Trust/Foundation Publication Registration Certificate must be a PDF file.');
+           hideLoadingBar();
+           e.preventDefault();
+   }
+     if (gst.type !== 'application/pdf') {
+        toastr.error('GST Certificate must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+     if (pan_tan.type !== 'application/pdf') {
+        toastr.error('PAN must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+}
+else if (ownership == 'government-society') {
+var society = $("[name='society']").prop('files')[0];
+var gst = $("[name='gst']").prop('files')[0];
+var pan_tan = $("[name='pan_tan']").prop('files')[0];
+
+        if (society.type !== 'application/pdf') {
+           toastr.error('Government Society Publication Registration Certificate must be a PDF file.');
+           hideLoadingBar();
+           e.preventDefault();
+   }
+     if (gst.type !== 'application/pdf') {
+        toastr.error('GST Certificate must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+     if (pan_tan.type !== 'application/pdf') {
+        toastr.error('PAN must be a PDF file.');
+        hideLoadingBar();
+        e.preventDefault();
+
+     }
+
+}
+//Sub-Doc
+var doc = document.getElementById('subsidiary_publications');
+var doc_name = doc.value;
+var docstatus = "true";
+var arr = [];
+if (doc_name === "yes") {
+ var documents = $("[name='subsidiary_doc[]']");
+ documents.each(function (index, element) {
+     var file = element.files[0];
+     if (file.type !== 'application/pdf') {
+         arr.push(file);
+     }
+ });
+}
+if (arr.length !== 0) {
+ toastr.error('Subsidiary Document must be a PDF file.');
+ hideLoadingBar();
+ e.preventDefault();
+ return false;
+}
+    
+
+
+      // if (bapasi_id_name != 0) {
+      // } else {
+      //    alert("Please select member in publisher's association");
+      //    e.preventDefault();
+      // }
+
+   });
+});
+            });
+            </script>
+            <style>
+/* Style for loading bar */
+.loading-bar {
+    display: none; /* Initially hide the loading bar */
+    position: fixed;
+    top: 50%; /* Position from the top */
+    left: 50%; /* Position from the left */
+    transform: translate(-50%, -50%); /* Center the loading bar both horizontally and vertically */
+    width: 200px; /* Adjust the width as needed */
+    height: 40px; /* Adjust the height as needed */
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 5px; /* Add border radius for rounded corners */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Ensure loading bar is above other elements */
+}
+
+/* Style for loading spinner */
+.spinner-border {
+    width: 1.5rem; /* Adjust the width of the spinner */
+    height: 1.5rem; /* Adjust the height of the spinner */
+    color: #007bff; /* Set the color of the spinner */
+}
+
+</style>
+<style>
+        /* Style to make form semi-transparent when loading bar is shown */
+        #magazine_publisher_register.loading {
+            opacity: 0.5;
+        }
+    </style>
 </body>
 
 </html>

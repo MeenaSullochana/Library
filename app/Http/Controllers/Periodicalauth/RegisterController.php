@@ -44,7 +44,7 @@ class RegisterController extends Controller
 
     public function __construct()
     {
-        $this->middleware('guest:publisher')->except('logout');
+        $this->middleware('guest:periodical_publisher')->except('logout');
     }
 
     public function index(){
@@ -59,19 +59,20 @@ class RegisterController extends Controller
     public function showRegistrationForm(Request $request)
     {
         if ($request->isMethod('GET')) {
-          
+         
             $user = $request->session()->get('usertype'); 
             $state = State::all();
             $district = District::all();
             $country = Country::where('status', 1)->get();
-            if($user == "Publisher"){
+            if($user == "Publisher" || $user == "publisher"){
                 return view('periodicalauth.pub_register', compact('state', 'district', 'country', 'user'));
-            }else{
+            }elseif($user == "Distributor" || $user == "distributor"){
                 return view('periodicalauth.dis_register', compact('state', 'district', 'country', 'user'));
             }
            
 
         } elseif ($request->isMethod('POST')) {
+           
             if(Session::has('validation_error')){
                 Session::forget('validation_error');
             }
@@ -82,9 +83,9 @@ class RegisterController extends Controller
             $state = State::all();
            $district = District ::all();
            $country = Country ::where('status','=',1)->get();
-           if($user == "Publisher"){
+           if($user == "Publisher" || $user == "publisher"){
             return view('periodicalauth.pub_register', compact('state', 'district', 'country', 'user'));
-        }else{
+        }elseif($user == "Distributor" || $user == "distributor"){
             return view('periodicalauth.dis_register', compact('state', 'district', 'country', 'user'));
         }
           
@@ -98,12 +99,9 @@ class RegisterController extends Controller
 
   public function pub_create(Request $request)
     {
-        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'usertype'                                  => 'required',
             'publication_name'                          => 'required|string|max:255',
-            'name_periodical'                          => 'required|string|max:255',
-            'magazine_publication_name'                => 'required|string|max:255',
             'userName'                                  => 'required|string|max:255|unique:periodical_publishers',
             'password'                                  => 'required|string|min:8',
             'pub_first_name'                            => 'required|string|max:255',
@@ -129,7 +127,6 @@ class RegisterController extends Controller
             'publication_shop_established_year'         => 'required|numeric|max:'.date('Y'),
             'year_of_experience'                        => 'required|numeric',
             'number_of_magazines_year'                  => 'required|numeric',
-            'translated_book'                           => 'required',
             'member_in_publishers_yes_old_asrmy'          => 'required',
             'specialized_category_magazine'             => 'required|array',
             'primary_language_of_publication'            => 'required|array',
@@ -175,8 +172,6 @@ class RegisterController extends Controller
             'publication_shop_established_year.max'      => 'The establishment year cannot be in the future.',
             'year_of_experience.required'  => 'The number of year experience field is required.',
             'number_of_magazines_year.required' => 'The number of magazines per year field required.',
-          
-            'translated_book.required'      => 'Please specify if you have a list of the top 5 translated books.',
             'member_in_publishers_yes_old_asrmy.required'  => 'Please indicate if there are any awarded titles in your publication',
             
             'specialized_category_magazine.required'      => 'The specialized category of each book published is required.',
@@ -231,42 +226,42 @@ class RegisterController extends Controller
             // }
 
         //Best Translated Books
-        if ($request->translated_book == 'yes') {
+        // if ($request->translated_book == 'yes') {
             
-            // Check if all fields are present and not empty
-            if ($request->has('trans_title') && $request->has('trans_author') && $request->has('trans_from') && $request->has('trans_to') &&
-            count(array_filter($request->trans_title)) !=0  && count(array_filter($request->trans_author)) != 0 && count(array_filter($request->trans_from)) != 0 && count(array_filter($request->trans_to)) != 0)  {
+        //     // Check if all fields are present and not empty
+        //     if ($request->has('trans_title') && $request->has('trans_author') && $request->has('trans_from') && $request->has('trans_to') &&
+        //     count(array_filter($request->trans_title)) !=0  && count(array_filter($request->trans_author)) != 0 && count(array_filter($request->trans_from)) != 0 && count(array_filter($request->trans_to)) != 0)  {
                
-                    // Check if all fields have the same count
-                $titleCount = count(array_filter($request->trans_title));
-                $authorCount = count(array_filter($request->trans_author));
-                $fromCount = count(array_filter($request->trans_from));
-                $toCount = count(array_filter($request->trans_to));
+        //             // Check if all fields have the same count
+        //         $titleCount = count(array_filter($request->trans_title));
+        //         $authorCount = count(array_filter($request->trans_author));
+        //         $fromCount = count(array_filter($request->trans_from));
+        //         $toCount = count(array_filter($request->trans_to));
                 
-                if ($titleCount == $authorCount && $titleCount == $fromCount && $titleCount == $toCount) {
-                } else {
-                    if(Session::has('validation_error')){
-                        Session::forget('validation_error');
-                    }
-                    if(Session::has('error')){
-                        Session::forget('error');
-                    }
-                    Session::put('error', 'The number of elements in translated books fields must be the same.');
-                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
-                }
-            } else {
+        //         if ($titleCount == $authorCount && $titleCount == $fromCount && $titleCount == $toCount) {
+        //         } else {
+        //             if(Session::has('validation_error')){
+        //                 Session::forget('validation_error');
+        //             }
+        //             if(Session::has('error')){
+        //                 Session::forget('error');
+        //             }
+        //             Session::put('error', 'The number of elements in translated books fields must be the same.');
+        //             return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
+        //         }
+        //     } else {
           
-                if(Session::has('validation_error')){
-                    Session::forget('validation_error');
-                }
-                if(Session::has('error')){
-                    Session::forget('error');
-                }
-                Session::put('error', 'All fields in translated books are required and must not be empty.');
-                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
+        //         if(Session::has('validation_error')){
+        //             Session::forget('validation_error');
+        //         }
+        //         if(Session::has('error')){
+        //             Session::forget('error');
+        //         }
+        //         Session::put('error', 'All fields in translated books are required and must not be empty.');
+        //         return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                
-            }
-        }
+        //     }
+        // }
 
         //Awarded Titles
         if ($request->member_in_publishers_yes_old_asrmy == 'yes') {
@@ -287,7 +282,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('error', 'The number of elements in awarded titles in your publications fields must be the same.');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             } else {
           
@@ -298,7 +293,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                 Session::put('error', 'All fields in awarded titles in your publications are required and must not be empty.');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                
             }
         }
@@ -326,7 +321,7 @@ class RegisterController extends Controller
                 Session::forget('error');
             }
                     Session::put('validation_error', $errors);
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             }else{
                 if(Session::has('validation_error')){
@@ -336,7 +331,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                     Session::put('error', 'Publication Ownership Documents required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
 
            }
@@ -364,7 +359,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('validation_error', $errors);
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             }else{
                 if(Session::has('validation_error')){
@@ -374,7 +369,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                     Session::put('error', 'Publication Ownership Documents required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
 
            }
@@ -400,7 +395,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('validation_error',$errors);
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             }else{
                 if(Session::has('validation_error')){
@@ -410,7 +405,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                     Session::put('error', 'Publication Ownership Documents required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
 
            }
@@ -434,7 +429,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('validation_error',$errors);
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             }else{
                 if(Session::has('validation_error')){
@@ -444,7 +439,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                     Session::put('error', 'Publication Ownership Documents required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
 
            }
@@ -471,7 +466,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('validation_error',$errors);
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             }else{
                 if(Session::has('validation_error')){
@@ -481,7 +476,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                     Session::put('error', 'Publication Ownership Documents required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
 
            }
@@ -507,7 +502,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('validation_error',$errors);
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             }else{
                 if(Session::has('validation_error')){
@@ -517,7 +512,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                     Session::put('error', 'Publication Ownership Documents required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
 
            }
@@ -543,7 +538,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('validation_error',$errors);
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             }else{
                 if(Session::has('validation_error')){
@@ -553,7 +548,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                     Session::put('error', 'Publication Ownership Documents required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
 
            }
@@ -579,7 +574,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('validation_error',$errors);
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             }else{
                 if(Session::has('validation_error')){
@@ -589,7 +584,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                     Session::put('error', 'Publication Ownership Documents required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
 
            }
@@ -615,7 +610,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('validation_error',$errors);
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             }else{
                 if(Session::has('validation_error')){
@@ -625,7 +620,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                     Session::put('error', 'Publication Ownership Documents required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
 
            }
@@ -649,7 +644,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('validation_error',$errors);
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             }else{
                 if(Session::has('validation_error')){
@@ -659,7 +654,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                     Session::put('error', 'Publication Ownership Documents required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
 
            }
@@ -693,7 +688,7 @@ class RegisterController extends Controller
                             Session::forget('error');
                         }
                             Session::put('validation_error',$errors);
-                            return redirect()->route('register.form')->with('usertype', $request->usertype);
+                            return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 } else {
                     if(Session::has('validation_error')){
@@ -703,7 +698,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('error', 'The number of elements in subsidiary publication fields must be the same.');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             } else {
           
@@ -714,7 +709,7 @@ class RegisterController extends Controller
                     Session::forget('error');
                 }
                 Session::put('error', 'All fields in subsidiary publication are required and must not be empty.');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                
             }
         }
@@ -733,37 +728,37 @@ class RegisterController extends Controller
                     //     array_push($top_titles,$obj);
                     // }
 
-       //translatebooks
-       if($request->translated_book == 'yes'){
-        if($request->trans_title &&$request->trans_author && $request->trans_from && $request->trans_to ){
-            $trs_book_title = $request->trans_title;
-            $trs_book_author = $request->trans_author;
-            $trs_book_lan_one = $request->trans_from;
-            $trs_book_lan_two = $request->trans_to;
-            $trans_len = sizeof($trs_book_title);
-            $trans_books=[];
-            for($i=0;$i<$trans_len;$i++){
-                $obj=(Object)[
-                    "title"=> $trs_book_title[$i],
-                    "author"=>$trs_book_author[$i],
-                    "lan_from"=>$trs_book_lan_one[$i],
-                    "lan_to"=>$trs_book_lan_two[$i]
-                ];
-                array_push($trans_books,$obj);
-            }
-            $publisher->topTranslatedBooks =   json_encode($trans_books);
-        }
-        else{
-            if(Session::has('validation_error')){
-                Session::forget('validation_error');
-            }
-            if(Session::has('error')){
-                Session::forget('error');
-            }
-            Session::put('error', 'Best translated books required');
-            return redirect()->route('register.form')->with('usertype', $request->usertype);
-        }
-       }
+    //    //translatebooks
+    //    if($request->translated_book == 'yes'){
+    //     if($request->trans_title &&$request->trans_author && $request->trans_from && $request->trans_to ){
+    //         $trs_book_title = $request->trans_title;
+    //         $trs_book_author = $request->trans_author;
+    //         $trs_book_lan_one = $request->trans_from;
+    //         $trs_book_lan_two = $request->trans_to;
+    //         $trans_len = sizeof($trs_book_title);
+    //         $trans_books=[];
+    //         for($i=0;$i<$trans_len;$i++){
+    //             $obj=(Object)[
+    //                 "title"=> $trs_book_title[$i],
+    //                 "author"=>$trs_book_author[$i],
+    //                 "lan_from"=>$trs_book_lan_one[$i],
+    //                 "lan_to"=>$trs_book_lan_two[$i]
+    //             ];
+    //             array_push($trans_books,$obj);
+    //         }
+    //         $publisher->topTranslatedBooks =   json_encode($trans_books);
+    //     }
+    //     else{
+    //         if(Session::has('validation_error')){
+    //             Session::forget('validation_error');
+    //         }
+    //         if(Session::has('error')){
+    //             Session::forget('error');
+    //         }
+    //         Session::put('error', 'Best translated books required');
+    //         return redirect()->route('register.form')->with('usertype', $request->usertype);
+    //     }
+    //    }
     
          //award
          if($request->member_in_publishers_yes_old_asrmy == 'yes'){
@@ -790,7 +785,7 @@ class RegisterController extends Controller
                 Session::forget('error');
             }
             Session::put('error', 'Awarded title details required');
-            return redirect()->route('register.form')->with('usertype', $request->usertype);
+            return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
          }
            
          }
@@ -828,7 +823,7 @@ class RegisterController extends Controller
                         Session::forget('error');
                     }
                     Session::put('error', 'Subsidiary details required');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                    
                 }
                     
@@ -1057,8 +1052,6 @@ class RegisterController extends Controller
                 }
                
            $publisher->publicationName              =$request->publication_name;
-           $publisher->periodicalName               =$request->name_periodical;
-           $publisher->magazinePublicationName      =$request->magazine_publication_name;
            $publisher->userName                     =$request->userName;
            $publisher->password                     =Hash::make($request->password);
            $publisher->firstName                    =$request->pub_first_name;
@@ -1092,7 +1085,6 @@ class RegisterController extends Controller
            $publisher->haveSubsidiary              =$request->subsidiary_publications;
            $publisher->declaration                 =$request->declaration;
            $publisher->usertype                    = $request->usertype;
-           $publisher->have_translated_books            = $request->translated_book;
            $publisher->have_award_title                 = $request ->member_in_publishers_yes_old_asrmy; 
            $publisher->approved_status        ="approve";
            $publisher->status                 ="1";
@@ -1126,7 +1118,7 @@ class RegisterController extends Controller
     }
 //username check
 public function usernameCheck(Request $request){
-    $Publisher = Publisher::where('userName','=',$request->userName)->get();
+    $Publisher = PeriodicalPublisher::where('userName','=',$request->userName)->get();
     if(sizeof($Publisher) == 0){
         return response()->json(['success'=>"true"]);
     }else{
@@ -1136,7 +1128,7 @@ public function usernameCheck(Request $request){
 
 //email check
 public function emailCheck(Request $request){
-    $Publisher = Publisher::where('email','=',$request->email)->get();
+    $Publisher = PeriodicalPublisher::where('email','=',$request->email)->get();
     if(sizeof($Publisher) == 0){
         return response()->json(['success'=>"true"]);
     }else{
@@ -1240,7 +1232,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
             Session::put('validation_error',$errors);
-            return redirect()->route('register.form')->with('usertype', $request->usertype);
+            return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
            }
 
     //publisher in distribution
@@ -1268,7 +1260,7 @@ public function emailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             } else {
                 if(Session::has('validation_error')){
@@ -1278,7 +1270,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('error', 'The number of elements in publisher in distribution fields must be the same.');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         } else {
       
@@ -1289,7 +1281,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
             Session::put('error', 'All fields in publisher in distribution are required and must not be empty.');
-            return redirect()->route('register.form')->with('usertype', $request->usertype);
+            return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
            
         }
 
@@ -1318,7 +1310,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error', $errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         }else{
             if(Session::has('validation_error')){
@@ -1328,7 +1320,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
                 Session::put('error', 'Publication Ownership Documents required');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
         }
 
        }
@@ -1356,7 +1348,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error', $errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         }else{
             if(Session::has('validation_error')){
@@ -1366,7 +1358,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
                 Session::put('error', 'Publication Ownership Documents required');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
         }
 
        }
@@ -1392,7 +1384,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error',$errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         }else{
             if(Session::has('validation_error')){
@@ -1402,7 +1394,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
                 Session::put('error', 'Publication Ownership Documents required');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
         }
 
        }
@@ -1426,7 +1418,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error',$errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         }else{
             if(Session::has('validation_error')){
@@ -1436,7 +1428,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
                 Session::put('error', 'Publication Ownership Documents required');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
         }
 
        }
@@ -1463,7 +1455,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error',$errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         }else{
             if(Session::has('validation_error')){
@@ -1473,7 +1465,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
                 Session::put('error', 'Publication Ownership Documents required');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
         }
 
        }
@@ -1499,7 +1491,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error',$errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         }else{
             if(Session::has('validation_error')){
@@ -1509,7 +1501,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
                 Session::put('error', 'Publication Ownership Documents required');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
         }
 
        }
@@ -1535,7 +1527,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error',$errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         }else{
             if(Session::has('validation_error')){
@@ -1545,7 +1537,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
                 Session::put('error', 'Publication Ownership Documents required');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
         }
 
        }
@@ -1571,7 +1563,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error',$errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         }else{
             if(Session::has('validation_error')){
@@ -1581,7 +1573,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
                 Session::put('error', 'Publication Ownership Documents required');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
         }
 
        }
@@ -1607,7 +1599,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error',$errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         }else{
             if(Session::has('validation_error')){
@@ -1617,7 +1609,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
                 Session::put('error', 'Publication Ownership Documents required');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
         }
 
        }
@@ -1643,7 +1635,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error',$errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         }else{
             if(Session::has('validation_error')){
@@ -1653,7 +1645,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
                 Session::put('error', 'Publication Ownership Documents required');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
         }
 
        }
@@ -1687,7 +1679,7 @@ public function emailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             } else {
                 if(Session::has('validation_error')){
@@ -1697,7 +1689,7 @@ public function emailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('error', 'The number of elements in subsidiary distributor fields must be the same.');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         } else {
       
@@ -1708,7 +1700,7 @@ public function emailCheck(Request $request){
                 Session::forget('error');
             }
             Session::put('error', 'All fields in subsidiary distributor are required and must not be empty.');
-            return redirect()->route('register.form')->with('usertype', $request->usertype);
+            return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
            
         }
     }
@@ -2182,7 +2174,7 @@ public function disemailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('validation_error',$errors);
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
             //publisher in distribution
             if ($request->has('publisher_name') && $request->has('publisher_place')  && $request->has('authorization_letter') &&
@@ -2210,7 +2202,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                             Session::put('validation_error',$errors);
-                            return redirect()->route('register.form')->with('usertype', $request->usertype);
+                            return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 } else {
                     if(Session::has('validation_error')){
@@ -2220,7 +2212,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                     Session::put('error', 'The number of elements in publisher in distribution fields must be the same.');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             } else {
           
@@ -2231,7 +2223,7 @@ public function disemailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('error', 'All fields in publisher in distribution are required and must not be empty.');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                
             }
             //Best Seller Titles
@@ -2250,7 +2242,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('error', 'The number of elements in best seller titles in your publications fields must be the same.');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 } else {
               
@@ -2261,7 +2253,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                     Session::put('error', 'All fields in best seller titles in your publications are required and must not be empty.');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                    
                 }
     
@@ -2287,7 +2279,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('error', 'The number of elements in translated books fields must be the same.');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 } else {
               
@@ -2298,7 +2290,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                     Session::put('error', 'All fields in translated books are required and must not be empty.');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                    
                 }
             }
@@ -2322,7 +2314,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('error', 'The number of elements in awarded titles in your publications fields must be the same.');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 } else {
               
@@ -2333,7 +2325,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                     Session::put('error', 'All fields in awarded titles in your publications are required and must not be empty.');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                    
                 }
             }
@@ -2362,7 +2354,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('validation_error', $errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 }else{
                     if(Session::has('validation_error')){
@@ -2372,7 +2364,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('error', 'Publication Ownership Documents required');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
     
                }
@@ -2400,7 +2392,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('validation_error', $errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 }else{
                     if(Session::has('validation_error')){
@@ -2410,7 +2402,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('error', 'Publication Ownership Documents required');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
     
                }
@@ -2436,7 +2428,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 }else{
                     if(Session::has('validation_error')){
@@ -2446,7 +2438,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('error', 'Publication Ownership Documents required');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
     
                }
@@ -2470,7 +2462,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 }else{
                     if(Session::has('validation_error')){
@@ -2480,7 +2472,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('error', 'Publication Ownership Documents required');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
     
                }
@@ -2507,7 +2499,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 }else{
                     if(Session::has('validation_error')){
@@ -2517,7 +2509,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('error', 'Publication Ownership Documents required');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
     
                }
@@ -2543,7 +2535,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 }else{
                     if(Session::has('validation_error')){
@@ -2553,7 +2545,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('error', 'Publication Ownership Documents required');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
     
                }
@@ -2579,7 +2571,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 }else{
                     if(Session::has('validation_error')){
@@ -2589,7 +2581,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('error', 'Publication Ownership Documents required');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
     
                }
@@ -2615,7 +2607,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 }else{
                     if(Session::has('validation_error')){
@@ -2625,7 +2617,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('error', 'Publication Ownership Documents required');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
     
                }
@@ -2653,7 +2645,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 }else{
                     if(Session::has('validation_error')){
@@ -2663,7 +2655,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('error', 'Publication Ownership Documents required');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
     
                }
@@ -2689,7 +2681,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 }else{
                     if(Session::has('validation_error')){
@@ -2699,7 +2691,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('error', 'Publication Ownership Documents required');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
     
                }
@@ -2733,7 +2725,7 @@ public function disemailCheck(Request $request){
                                 Session::forget('error');
                             }
                                 Session::put('validation_error',$errors);
-                                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                         }
                     } else {
                         if(Session::has('validation_error')){
@@ -2743,7 +2735,7 @@ public function disemailCheck(Request $request){
                             Session::forget('error');
                         }
                         Session::put('error', 'The number of elements in subsidiary publisher/distributor fields must be the same.');
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                     }
                 } else {
               
@@ -2754,7 +2746,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                     Session::put('error', 'All fields in subsidiary publisher/distributor are required and must not be empty.');
-                    return redirect()->route('register.form')->with('usertype', $request->usertype);
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                    
                 }
             }
@@ -2787,7 +2779,7 @@ public function disemailCheck(Request $request){
                         Session::forget('error');
                     }
                         Session::put('validation_error',$errors);
-                        return redirect()->route('register.form')->with('usertype', $request->usertype);
+                        return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
                 }
             } else {
                 if(Session::has('validation_error')){
@@ -2797,7 +2789,7 @@ public function disemailCheck(Request $request){
                     Session::forget('error');
                 }
                 Session::put('error', 'The number of elements in subsidiary publisher and distributor fields must be the same.');
-                return redirect()->route('register.form')->with('usertype', $request->usertype);
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
             }
         } else {
       
@@ -2808,7 +2800,7 @@ public function disemailCheck(Request $request){
                 Session::forget('error');
             }
             Session::put('error', 'All fields in subsidiary publisher and distributor are required and must not be empty.');
-            return redirect()->route('register.form')->with('usertype', $request->usertype);
+            return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
            
         }
     }

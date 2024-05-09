@@ -14,7 +14,7 @@ class PeriodicalPublisher extends Authenticatable
 
     protected $casts = [
        
-        'topTranslatedBooks' => 'array',
+    
         'awardTitle' => 'array',
  
         'specialCategories' => 'array',

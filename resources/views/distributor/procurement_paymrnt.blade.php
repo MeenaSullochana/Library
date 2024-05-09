@@ -74,20 +74,34 @@
                                             <th>S/No</th>
                                             <th>User Name</th>
                                             <th>User Type</th>
-                                            <th>Invoice Number</th>
-                                            <th>Date</th>
-                                            <th>Control</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                            <th>Acknowledgement Number</th>
+                                            <th>Payment Status</th>
+                              <th>Date</th>
+                              <th>Control</th>
+                           </tr>
+                        </thead>
+                        <tbody>
 
-                                        @foreach ($payment as $val)
-                                            <tr>
-                                                <td data-label="S/No">{{ $loop->index + 1 }}</td>
-                                                <td data-label="User Name">{{ $val->userName }}</td>
-                                                <td data-label="User Type">{{ $val->userType }}</td>
-                                                <td data-label="Invoice Number">{{ $val->invoiceNumber }}</td>
+                     @foreach($payment as $val)
+                           <tr>
+                              <td>{{$loop->index +1}}</td>
+                              <td>{{$val->userName}}</td>
+                              <td>{{$val->userType}}</td>
+                              <td>{{$val->txnrefno}}</td>
+                              <td>
+                              @if($val->paymentstatus == "Success")
+                              <button type="button" class="btn btn-success">{{$val->paymentstatus}}</button>
 
+
+                              @elseif($val->paymentstatus == "Failed" )  
+                              <button type="button" class="btn btn-danger" >{{$val->paymentstatus}}</button>
+
+
+                               @else
+                               <button type="button" class="btn btn-warning">{{$val->paymentstatus}}</button>
+
+                              @endif
+                              </td>
                                                 <td data-label="Date">{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d ') }}</td>
                                                 <td data-label="Control"><a href="/distributor/payment_receipt/{{ $val->id }}"><i
                                                             class="fa fa-eye p-2"></i></a>
