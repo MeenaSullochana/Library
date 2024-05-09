@@ -57,7 +57,7 @@
                             <div class="pub_details">
                                 <h6 class="fw-bold">Distribution Details - <span class="mt-055"> விநியோக விவரங்கள்</span>
                                 </h6>
-                                <div class="row mb-3 border border-0 p-2 m-2">
+                                {{-- <div class="row mb-3 border border-0 p-2 m-2">
                                     <div class="col-md-6">
                                         <label for="inputEmail4" class="form-label">Distribution Name - <span
                                                 class="mt-056">விநியோக பெயர்</span> <span
@@ -81,18 +81,16 @@
                                             name="name_periodical" placeholder="Enter the name of the periodical/magazine" required>
                                         <div class="invalid-feedback"> Please enter name of the periodical/magazine. </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="row mb-3 border border-0 p-2 m-2">
                                     <div class="col-md-6">
-                                        <label for="inputEmail4" class="form-label">Periodical/Magazine Distribution Details  <span
-                                                class="mt-056">- பதிப்பு விவரம்</span> <span
-                                                class="text-danger maditory">*</span></label>
+                                        <label for="inputEmail4" class="form-label">Distribution Name <span class="text-danger maditory">*</span></label>
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control " id="inputEmail4"
-                                            name="publication_name" placeholder="Enter the periodical/magazine publication details" required>
-                                        <div class="invalid-feedback"> Please enter periodical/magazine publication details</div>
+                                            name="publication_name" placeholder="Enter The Distribution Name" required>
+                                        <div class="invalid-feedback"> Please Enter Distribution Name</div>
                                     </div>
                                 </div>
                             </div>
@@ -344,7 +342,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="translated_magazine">
+                            {{-- <div class="translated_magazine">
                                 <h6 class="fw-bold">Translated Versions of the Periodical/Magazine (if any) <span class="mt-055"> -  பருவ இதழ் பிற மொழியில் மொழிபெயர்க்கப்பட்டுள்ளதா (ஏதேனும் இருந்தால் குறிப்பிடவும்) </span></h6>
                                 <div class="row mb-3 border border-0 p-2 m-2">
                                     <div class="col-md-6 form-group ">
@@ -403,7 +401,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="awarded_titles">
                                 <h6 class="fw-bold">Awards if Any - <span class="mt-055"> பருவ இதழ் பெற்ற விருது/விருதுகள் (ஏதேனும் இருந்தால் குறிப்பிடவும்)</span>
                                  </h6>
@@ -588,6 +586,45 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="authorization_latter">
+                                <h6 class="fw-bold">Name of Publishers in your Distribution - <span class="mt-055">உங்கள் விநியோகத்தில்
+                                    உள்ள வெளியீட்டாளர்களின் பெயர்</span>
+                                 </h6>
+                                <div class="row mb-3 border border-0 p-2 m-2">
+                                    <div class="col-md-12">
+                                        <div name="add_name" id="add_name" method="post">
+                                           <div class="table-responsive">
+                                              <table class="table table-bordered" id="distribution_table"
+                                                 class="distribution_table">
+                                                 <tr>
+                                                    <th>Publisher Name - <span
+                                                       class="mt-056">வெளியீட்டாளர்களின் பெயர்</span><span
+                                                       class="text-danger maditory">*</span></label></th>
+                                                    <th> Place - <span class="mt-056">இடம்</span><span
+                                                       class="text-danger maditory">*</span></label></th>
+                                                    <th> Authorization Letter From Publisher - <span class="mt-056">வெளியீட்டாளரிடமிருந்து அங்கீகார கடிதம்</span><span
+                                                        class="text-danger maditory">*</span></label></th>
+                                                    <th>Add</th>
+                                                 </tr>
+                                                 <tr>
+                                                    <td data-title="Publisher Name"><input type="text" name="publisher_name[]"
+                                                       placeholder="Enter  the publisher name*"
+                                                       class="form-control name_list" required /></td>
+                                                    <td data-title="Place"><input type="text" name="publisher_place[]"
+                                                       placeholder="Enter the place*"
+                                                       class="form-control name_list" required /></td>
+                                                    <td data-title="Authorization Letter From Publisher"><input type="file" name="authorization_letter[]"
+                                                        class="form-control name_list" accept="application/pdf,application/vnd.ms-excel" required /></td>
+                                                    <td data-title="Add"><button type="button" name="distribution_book"
+                                                       id="distribution_book"
+                                                       class="btn btn-success">+</button></td>
+                                                 </tr>
+                                              </table>
+                                           </div>
+                                        </div>
+                                     </div>
+                                </div>
+                            </div>
                             <div class="subsidiary_publications">
                                 <h6 class="fw-bold">Subsidiary Publications</span></h6>
                                 <div class="row mb-3 border border-0 p-2 m-2">
@@ -700,46 +737,46 @@
         $(document).ready(function() {
             /*************************************
              // Translated Books
-            ***************************************/
-            $('#magazine_member_in_publishers').css('display', 'none');
-            // $('#subsidiary_publications').css('display', 'none');
-            var sra = 1;
-            $('input[type=radio][name=translated_book]').on('change', function() {
-                switch ($(this).val()) {
-                    case 'yes':
-                        $('#magazine_member_in_publishers').css('display', 'block');
-                        $("input.name_list").prop('required', true);
-                        break;
-                    case 'No':
-                        sra = 0;
-                        $('div#magazine_member_in_publishers').css('display', 'none')
-                        $("input.name_list").prop('required', false);
-                        // $('.removecl').empty();
-                        break;
-                }
-            });
+            // ***************************************/
+            // $('#magazine_member_in_publishers').css('display', 'none');
+            // // $('#subsidiary_publications').css('display', 'none');
+            // var sra = 1;
+            // $('input[type=radio][name=translated_book]').on('change', function() {
+            //     switch ($(this).val()) {
+            //         case 'yes':
+            //             $('#magazine_member_in_publishers').css('display', 'block');
+            //             $("input.name_list").prop('required', true);
+            //             break;
+            //         case 'No':
+            //             sra = 0;
+            //             $('div#magazine_member_in_publishers').css('display', 'none')
+            //             $("input.name_list").prop('required', false);
+            //             // $('.removecl').empty();
+            //             break;
+            //     }
+            // });
 
-                var trs_pub_sit = 0;
-                $('#translated_pub_dis').click(function () {
-                    trs_pub_sit++;
-                    if (trs_pub_sit < 5) {
-                        $('#trans_book_pub_dis').
-                            append('<tr id="row' + trs_pub_sit +
-                            '"><td><input type="text" name="trans_title[]" placeholder="Enter the title*" class="form-control name_list" required/></td><td><input type="text" name="trans_author[]" placeholder="Enter the author*" class="form-control name_list" required/></td><td><input type="text" name="trans_from[]" placeholder="Enter the language from*" class="form-control name_list" required/></td><td><input type="text" name="trans_to[]" placeholder="Enter the language to*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
-                                trs_pub_sit + '" class="btn btn-danger btn_remove_trs">X</button></td></tr>');
-                    } else {
-                        // $('#translated_pub_dis').prop('disabled', true);
-                        alert('Allowed 5 input only ');
+            //     var trs_pub_sit = 0;
+            //     $('#translated_pub_dis').click(function () {
+            //         trs_pub_sit++;
+            //         if (trs_pub_sit < 5) {
+            //             $('#trans_book_pub_dis').
+            //                 append('<tr id="row' + trs_pub_sit +
+            //                 '"><td><input type="text" name="trans_title[]" placeholder="Enter the title*" class="form-control name_list" required/></td><td><input type="text" name="trans_author[]" placeholder="Enter the author*" class="form-control name_list" required/></td><td><input type="text" name="trans_from[]" placeholder="Enter the language from*" class="form-control name_list" required/></td><td><input type="text" name="trans_to[]" placeholder="Enter the language to*" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+            //                     trs_pub_sit + '" class="btn btn-danger btn_remove_trs">X</button></td></tr>');
+            //         } else {
+            //             // $('#translated_pub_dis').prop('disabled', true);
+            //             alert('Allowed 5 input only ');
 
-                    }
-                });
+            //         }
+            //     });
 
 
-            $(document).on('click', '.btn_remove_trs', function() {
-                var button_id = $(this).attr("id");
-                $('#row' + button_id + '').remove();
-                trs_pub_sit --;
-            });
+            // $(document).on('click', '.btn_remove_trs', function() {
+            //     var button_id = $(this).attr("id");
+            //     $('#row' + button_id + '').remove();
+            //     trs_pub_sit --;
+            // });
             /*************************************
              // End Best 5 Translated Books
             ***************************************/
@@ -857,6 +894,39 @@
                 // $('#subsidiary_publications').css('display', 'none');
                 /*************************************
                  // End specialized_category_other
+                ***************************************/
+
+                /*************************************
+                 // Name of Publishers in your Distribution
+                ***************************************/
+                var dstcounter = 0;
+                var p = 1;
+                var m = 0;
+                $('#distribution_book').click(function () {
+                    m++;
+                    dstcounter++;
+                    if (dstcounter < 10) {
+                        $('#distribution_table').
+                            append('<tr id="row' + m +
+                            '"><td><input type="text" name="publisher_name[]" placeholder="Enter the publisher name*" class="form-control name_list" required /></td><td><input type="text" name="publisher_place[]" placeholder="Enter the place*" class="form-control name_list" required/></td><td><input type="file" name="authorization_letter[]" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+                            m + '" class="btn btn-danger btn_remove_dist">X</button></td></tr>');
+                    } else {
+                        $('#distribution_book').prop('disabled', true);
+                        return  toastr.error('Only 10 input only Allowed');
+                        // alert('Only 10 input only Allowed');
+                    }
+                });
+
+                $(document).on('click', '.btn_remove_dist', function () {
+                    var button_id = $(this).attr("id");
+                    $('#row' + button_id + '').remove();
+                    if (dstcounter <= 10) {
+                        $('#distribution_book').prop('disabled', false);
+                    }
+                    dstcounter--;
+                });
+                /*************************************
+                 // End Name of Publishers in your Distribution
                 ***************************************/
 
                 /*************************************
