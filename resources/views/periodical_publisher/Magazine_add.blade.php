@@ -87,7 +87,7 @@
                                                 <h4>RNI Details</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -127,7 +127,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="col-lg-12">
-                                                    <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                                
                                                     <div class="basic-form">
 
                                                         <div class="mb-3">
@@ -164,7 +164,7 @@
                                                 <h4>Title of the Magazine</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -188,7 +188,7 @@
                                                 <h4>Name of the Publisher</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -211,7 +211,7 @@
                                                 <h4>Name of the Editor</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -235,7 +235,7 @@
                                                 <h4>Periodicity</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -263,7 +263,7 @@
                                                 <h4>The year of first issue </h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -286,7 +286,7 @@
                                                 <h4>Total Number Of Issues Per Year</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -332,7 +332,7 @@
                                                 <h4>Single Issue Rate</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -355,7 +355,7 @@
                                                 <h4>Annual Subscription</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -378,7 +378,7 @@
                                                 <h4>Discount %</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -401,7 +401,7 @@
                                                 <h4>Single Issue After Discount</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -423,7 +423,7 @@
                                                 <h4>Annual Subscription After Discount</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -447,7 +447,7 @@
                                                 <h4>Short Description About The Periodical</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -470,7 +470,7 @@
                                                 <h4>About Publisher/Editor</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-md-12">
                                                     <div class="mb-3">
                                                         <label class="text-label form-label text-black"
@@ -527,7 +527,7 @@
                                                 <h4>Paper Quality</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -594,7 +594,7 @@
                                                 <h4>Total Number of Pages</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -617,7 +617,7 @@
                                                 <h4>Number of Multicolour pages</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -640,7 +640,7 @@
                                                 <h4>Number of Monocolour Pages</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -664,7 +664,7 @@
                                                 <h4>Contact Person Details with Address</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="basic-form">
@@ -799,7 +799,7 @@
                                                 <h4>Official Address</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -958,7 +958,7 @@
                                                 <h4>Bank Account Details</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
+                                            
                                                 <div class="col-lg-12">
                                                     <div class="row">
                                                         <div class="col-lg-6">

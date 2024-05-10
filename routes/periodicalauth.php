@@ -16,6 +16,12 @@ use App\Http\Controllers\Periodicalauth\ForgotPasswordController;
 
 Route::prefix('periodical')->group(function () {
 Route::post('/create/publisher', [RegisterController::class, 'pub_create']);
+Route::post('/create/distributor', [RegisterController::class, 'dis_create']);
+Route::post('/check/username', [RegisterController::class, 'usernameCheck']);
+Route::post('/check/email', [RegisterController::class, 'emailCheck']);
+Route::post('/check/dis_username', [RegisterController::class, 'disusernameCheck']);
+Route::post('/check/dis_email', [RegisterController::class, 'disemailCheck']);
+Route::post('/getdistrict', [RegisterController::class, 'getDistricts']);
 Route::get('/login',function(){return view('periodicalauth.login');});
 
 Route::post('/login',[LoginController::class,'userLogin'])->name('periodical.login');
