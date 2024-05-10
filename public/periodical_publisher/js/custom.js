@@ -746,4 +746,34 @@ jQuery(window).on('resize',function () {
 /*  Window Resize END */
 jQuery(document).ready(function() {
 	$('#example4').DataTable();
+	$('#all-export').DataTable({
+		dom: 'Blfrtip',
+		buttons: [
+			{
+				extend: 'copy',
+				text: '<i class="fas fa-copy"></i> Copy',
+				className: 'btn btn-primary text-black'
+			},
+			{
+				extend: 'csv',
+				text: '<i class="fas fa-file-csv"></i> CSV',
+				className: 'btn btn-primary text-black'
+			},
+			{
+				extend: 'excel',
+				text: '<i class="fas fa-file-excel"></i> Excel',
+				className: 'btn btn-primary text-black'
+			},
+			{
+				extend: 'pdfHtml5',
+				text: '<i class="fas fa-file-pdf"></i> PDF',
+				className: 'btn btn-secondary text-black'
+			},
+			{
+				extend: 'print',
+				text: '<i class="fas fa-print"></i> Print',
+				className: 'btn btn-primary text-black'
+			}
+		]
+	 });
 });

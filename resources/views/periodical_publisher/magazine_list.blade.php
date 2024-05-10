@@ -21,7 +21,11 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_publisher/images/fevi.svg') }}">
     <?php include 'periodical_publisher/plugin/plugin_css.php'; ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
+    <style>
+        table.dataTable thead th {
+            text-transform: math-auto !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -54,86 +58,17 @@
             *************-->
         <div class="content-body">
             <div class="container-fluid">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item card">
-                        <h2 class="accordion-header p-0 m-0 bg-white" id="headingOne">
-                            <button class="accordion-button bg-white" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-
-                                <h3 class="mb-0 bc-title">
-                                    <b>Magazine List</b>
-                                </h3>
-                            </button>
-                        </h2>
-                        <!-- <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                            data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
-                                            <label class="form-label">Category</label>
-                                            <select name="" id="" class="form-select bg-white p-2 border border-1 mb-3">
-                                                <option value="">All Category</option>
-                                                @php
-                                             $categori = DB::table('magazine_categories')->orderBy('created_at','ASC')->get();
-                                             @endphp
-                                             @foreach($categori as $val)
-                                             <option value="{{$val->name}}">{{$val->name}}</option>
-                                             @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="col-xl-3 col-sm-6">
-                                            <label class="form-label">Frequency</label>
-                                            <select name="" id=""
-                                                class="form-select bg-white p-2 border border-1">
-                                                <option value="tamil">monhly</option>
-                                                <option value="English">Year</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
-                                            <label class="form-label">language</label>
-                                            <select name="" id=""
-                                                class="form-select bg-white p-2 border border-1">
-                                                <option value="tamil">Tamil</option>
-                                                <option value="English">English</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-xl-3 col-sm-6">
-                                            <label class="form-label">Date</label>
-                                            <label class="sr-only">Date</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-text"><i class="far fa-calendar"></i></div>
-                                                <input type="date" class="form-control" placeholder="Username">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-xl-3 col-sm-6 align-self-end">
-                                            <div>
-                                                <button class="btn btn-primary me-2" title="Click here to Search"
-                                                    type="button"><i class="fa fa-filter me-1"></i>Filter</button>
-                                               
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+                <div class="card-body bg-white mb-5">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h3 class="mb-0 bc-title">
+                            <b>Magazine list</b>
+                        </h3>
+                        <a class="btn btn-primary  btn-sm" href="/index">
+                            <i class="fa fa-plus"></i> Add </a>
                     </div>
-
                 </div>
                 <div class="card">
                     <div class="card-body p-3">
-                        <div class="d-flex justify-content-between align-items-end">
-                            <h6>Export Option</h6>
-                            <a href="magazine_add">
-                                <button type="button" class="btn btn-primary"><span
-                                        class="btn-icon-start text-primary"><i class="fa fa-plus"></i>
-                                    </span>Add</button>
-                            </a>
-                        </div>
-                        <hr>
                         <div class="row mb-4 d-flex">
                             <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
                                 <label class="form-label">Select Category</label>
@@ -174,7 +109,7 @@
                         </div>
                         <hr>
                         <div class="table-responsive p-3">
-                            <table id="example3" class="display table" style="min-width: 200px">
+                            <table id="example3" class="display table">
                                 <thead>
                                     <tr>
                                         <th>S.No</th>
@@ -217,7 +152,7 @@
                                     </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="9">No magazines found.</td>
+                                        <td colspan="9" class="text-center">No magazines found.</td>
                                     </tr>
                                     @endforelse
                                 </tbody>
@@ -317,6 +252,7 @@ $(document).ready(function() {
         filterLanguage(language);
     });
 });
+
 </script>
 
 
