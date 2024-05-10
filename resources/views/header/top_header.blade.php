@@ -26,9 +26,9 @@
                         @elseif (auth('periodical_distributor')->user())
                         <a class="text-white fw-bold" href="/periodical_distributor/index">Dashboard</a>
                         @else
-                        <a class="text-white fw-bold" href="/login">
-                            <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
-                        <a class="text-white fw-bold" href="/register"><i class="fa fa-registered"
+                        <a class="text-white fw-bold" href="/login" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                            <i class="fa fa-sign-in"aria-hidden="true"></i> Login</a>
+                        <a class="text-white fw-bold" href="/register" data-bs-toggle="modal" data-bs-target="#register"><i class="fa fa-registered"
                                 aria-hidden="true"></i>
                             New Registration</a>
                         @endif
