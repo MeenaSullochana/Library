@@ -6,6 +6,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Directorate of Public Libraries </title>
     <meta name="description" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php include 'plugin/css.php'; ?>
 </head>
@@ -174,7 +175,7 @@
                                     <div class="col-md-4">
                                         <label for="validationCustom01" class="form-label">User Name <span
                                                 class="text-danger maditory">*</span></label>
-                                        <input type="text" class="form-control" id="validationCustom02"
+                                        <input type="text" class="form-control" id="user_name"
                                             placeholder="Enter your user name" name="userName" required>
                                         <div class="valid-feedback"> Looks good! </div>
                                         <div class="invalid-feedback"> Please enter username. </div>
@@ -184,7 +185,7 @@
                                     <div class="col-md-4">
                                         <label for="validationCustom02" class="form-label">Password <span
                                                 class="text-danger maditory">*</span></label>
-                                        <input type="password" class="form-control" id="validationCustom03"
+                                        <input type="password" class="form-control" id="password"
                                             placeholder="*********" required name="password" autocomplete="false">
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter password. </div>
@@ -193,7 +194,7 @@
                                     <div class="col-md-4">
                                         <label for="validationCustom02" class="form-label">Confirm Password <span
                                                 class="text-danger maditory">*</span></label>
-                                        <input type="password" class="form-control" name="password_confirmation" id="validationCustom04"
+                                        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation"
                                             placeholder="*********" required autocomplete="false">
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter password. </div>
@@ -760,7 +761,7 @@
                         <div class="card-footer text-muted text-end">
                             <button type="submit" class="btn btn-primary" id="btn_publisher_submit_form"> Submit</button>
                         </div>
-                        <div id="loadingBar2" class="loading-bar" style="display: none;">
+                        <div id="loadingBar" class="loading-bar" style="display: none;">
                            <div class="spinner-border" role="status">
                           <span class="sr-only">Loading...</span>
                          </div>
@@ -944,11 +945,11 @@
                             if (pd_p_lan_book != 0) {
 
                             } else {
-                                alert("Please select any One Primary Language");
+                                toastr.error("Please select any One Primary Language");
                                 e.preventDefault();
                             }
                             } else {
-                            alert("Please select any One Spacial Category of Magazine Published");
+                                toastr.error("Please select any One Spacial Category of Magazine Published");
                             e.preventDefault();
                         }
                     });
@@ -1346,7 +1347,7 @@ $('#pub_state').on('change', function() {
             $.ajax({
             type: "post",
             dataType: "json",
-            url: '/getdistrict',
+            url: '/periodical/getdistrict',
             data: {'state_id':stateId},
                 success: function(response) {
                     var districts = response.districts;
@@ -1373,7 +1374,7 @@ $('#con_state').on('change', function() {
             $.ajax({
             type: "post",
             dataType: "json",
-            url: '/getdistrict',
+            url: '/periodical/getdistrict',
             data: {'state_id':stateId},
                 success: function(response) {
                     var districts = response.districts;
@@ -1408,7 +1409,7 @@ $('#user_name').keyup(function(){
             $.ajax({
             type: "post",
             dataType: "json",
-            url: '/check/username',
+            url: '/periodical/check/username',
             data: {'userName':v},
             success: function(response) {
             if(response.success){
@@ -1462,7 +1463,7 @@ $('#pub_email_id').keyup(function(){
                             $.ajax({
                                 type: "post",
                                 dataType: "json",
-                                url: '/check/email',
+                                url: '/periodical/check/email',
                                 data: {'email':v},
                                 success: function(response) {
                                 if(response.success){
@@ -1513,6 +1514,7 @@ function checkPasswordMatch() {
 var i = 1;
 
  function showLoading() {
+
      // Show loading bar
      document.getElementById('loadingBar').style.display = 'block';
      // Add 'loading' class to the form to make it semi-transparent
@@ -1524,61 +1526,8 @@ var i = 1;
    document.getElementById('magazine_publisher_register').classList.remove('loading');
 }
 
-/*************
-// Awarded Titles in The Publication
-*************/
-$('#member_in_publishers_new_old_asr').css('display', 'none');
-var sramy = 3;
-
-$('input[type=radio][name=member_in_publishers_yes_old_asr]').on('change', function () {
-   switch ($(this).val()) {
-      case 'yes':
-         $('#member_in_publishers_yes_old_asr').prop('required', true);
-
-        
-
-         $('#member_in_publishers_new_old_asr').css('display', 'block');
-         $('#pub_state_awarded').prop('required', true);
-         $('#pub_central').prop('required', true);
-         $('#translated_pub_asr').click(function () {
-            sramy++;
-            $('#trans_book_pub_asr').
-               append('<tr id="row' + sramy +
-               '"  class="removecl"><td><input type="text" name="trs_state_awarded[]" placeholder="Enter the award name*" class="form-control name_list" required/></td><td><input type="text" name="trs_central_awarded[]" placeholder="Enter the title *" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
-               sramy + '" class="btn btn-danger btn_remove_best_five_my">X</button></td></tr>');
-
-         });
-         break;
-      case 'No':
-         // alert($(this).val());
-         sramy=0;
-         $('div#member_in_publishers_new_old_asr').css('display','none')
-         $('#pub_state_awarded').prop('required', false);
-         $('#pub_central').prop('required', false);
-
-         $('#member_in_publishers_yes_old_asr').prop('required', false);
-
-
-         $('.removecl').remove();
-         // alert('off')
-         break;
-   }
-});
-$(document).on('click', '.btn_remove_best_five_my', function () {
-    var button_id = $(this).attr("id");
-    $('#row' + button_id + '').remove();
-    if (pubtrsfivecounter <= 4) {
-       $('#translated_pub_asr').prop('disabled', false);
-    }
-    pubtrsfivecounter--;
- });
-
-/*************
-// End Awarded Titles in The Publication
-*************/
-
 //Publisher final form submit
-$('#submitBtnPublisher').on('click', function () {
+$('#btn_publisher_submit_form').on('click', function () {
    $("#magazine_publisher_register").submit(function (e) {
       showLoading();
       //username
@@ -1637,28 +1586,7 @@ if (uemail.length === 0){
 }
 //category check 
 
-      var s_ctg_book = $("[name='specialized_category_books[]']:checked").length; // count the checked rows
-      var p_lan_book = $("[name='primary_language_of_publication[]']:checked").length; // count the checked rows
-      // var bapasi_id_name = $("[name='member_in_publisher_Association_depart_pub_book_pub[]']:checked").length; // count the checked rows
-   
-         if (s_ctg_book != 0) {
-            if (p_lan_book != 0) {
-
-            } else {
-              
-               // alert("Please select any primary Category of Books Published");
-               hideLoadingBar();
-                  toastr.error('Please select primary language of publication');
-               e.preventDefault();
-            }
-         } else {
-            
-            hideLoadingBar();
-           toastr.error('Please select any Special Category of Books Published');
-            // alert("Please select any Special Category of Books Published");
-            e.preventDefault();
-         }
-      
+  
 
 
 
@@ -1962,38 +1890,11 @@ if (arr.length !== 0) {
 });
             });
             </script>
-            <style>
-/* Style for loading bar */
-.loading-bar {
-    display: none; /* Initially hide the loading bar */
-    position: fixed;
-    top: 50%; /* Position from the top */
-    left: 50%; /* Position from the left */
-    transform: translate(-50%, -50%); /* Center the loading bar both horizontally and vertically */
-    width: 200px; /* Adjust the width as needed */
-    height: 40px; /* Adjust the height as needed */
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 5px; /* Add border radius for rounded corners */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999; /* Ensure loading bar is above other elements */
-}
 
-/* Style for loading spinner */
-.spinner-border {
-    width: 1.5rem; /* Adjust the width of the spinner */
-    height: 1.5rem; /* Adjust the height of the spinner */
-    color: #007bff; /* Set the color of the spinner */
-}
+  
 
-</style>
-<style>
-        /* Style to make form semi-transparent when loading bar is shown */
-        #magazine_publisher_register.loading {
-            opacity: 0.5;
-        }
-    </style>
+
+
 </body>
 
 </html>

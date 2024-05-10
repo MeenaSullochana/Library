@@ -7,8 +7,36 @@
     <title>Directorate of Public Libraries - Magazine Distributor - Register </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <?php include 'plugin/css.php'; ?>
 </head>
+<style>
+         .validation-errors {
+          position: fixed;
+          top: 250px;
+          right: 20px;
+          background-color: #ffcccc;
+          border: 1px solid #ff0000;
+          border-radius: 5px;
+          padding: 10px;
+          max-width: 500px;
+          max-height: 200px; /* Set a fixed height */
+          overflow-y: auto; /* Add vertical scrollbar */
+          z-index: 1000; /* Ensure it appears above other content */
+      }
+      
+      .validation-errors ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+      }
+      
+      .validation-errors ul li {
+          color: #ff0000;
+          margin-bottom: 5px;
+      }
+      
+      </style>
 <style>
     h5 {
         color: #ffffff;
@@ -50,8 +78,23 @@
 
             <div class="card">
                 <h5>Transparent Magazine Procurement-2024</h5>
-                <form class="row g-3 needs-validation" id="magazine_publisher_register" novalidate method="POST" >
-                    {{-- <div class="card-header p-3 fw-bold fs-4">Magazine Users Registeration</div> --}}
+                @if (Session::has('validation_error'))
+    <div class="validation-errors">
+        <div class="error-list">
+            <ul>
+                @foreach (Session::get('validation_error')->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+@endif
+                <form class="row g-3 needs-validation" id="magazine_publisher_register" action="/periodical/create/distributor" enctype="multipart/form-data" novalidate method="POST" >
+                   @csrf
+                   <input type="text" class="form-control"
+                           name="usertype" hidden value="distributor"
+                           required />
+                {{-- <div class="card-header p-3 fw-bold fs-4">Magazine Users Registeration</div> --}}
                     <div class="card-body">
                         <div class="row">
                             <div class="pub_details">
@@ -89,7 +132,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <input type="text" class="form-control " id="inputEmail4"
-                                            name="publication_name" placeholder="Enter The Distribution Name" required>
+                                            name="distribution_name" placeholder="Enter The Distribution Name" required>
                                         <div class="invalid-feedback"> Please Enter Distribution Name</div>
                                     </div>
                                 </div>
@@ -100,24 +143,27 @@
                                     <div class="col-md-4">
                                         <label for="validationCustom01" class="form-label">User Name <span
                                                 class="text-danger maditory">*</span></label>
-                                        <input type="text" class="form-control" id="validationCustom01"
-                                            placeholder="Enter the user name" required>
+                                        <input type="text" class="form-control" id="dis_user_name"
+                                            placeholder="Enter the user name" name="userName" required>
                                         <div class="valid-feedback"> Looks good! </div>
                                         <div class="invalid-feedback"> Please enter the user name. </div>
+                                        <p id="discheckusername" style="color: rgb(202, 14, 14)"></p>
+                             <input id="disusernameval" type="text" value="" hidden/>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="validationCustom02" class="form-label">Password <span
                                                 class="text-danger maditory">*</span></label>
-                                        <input type="password" class="form-control" id="validationCustom02"
+                                        <input type="password" name="password" class="form-control" id="dis_password"
                                             placeholder="*********" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your password. </div>
+                                        <p id="disdivCheckPasswordMatch" style="color: rgb(202, 14, 14)"></p>
                                     </div>
                                     <div class="col-md-4">
                                         <label for="validationCustom02" class="form-label">Re-Password <span
                                                 class="text-danger maditory">*</span></label>
-                                        <input type="password" class="form-control" id="validationCustom02"
-                                            placeholder="*********" required>
+                                        <input type="password" class="form-control" id="dis_conform_password"
+                                            placeholder="*********" name="conform_password" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your password. </div>
                                     </div>
@@ -131,7 +177,7 @@
                                         <label for="validationCustom01" class="form-label">First Name <span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="text" class="form-control" id="pub_first_name"
-                                            placeholder="Enter your first name" required>
+                                        name="distn_first_name"  placeholder="Enter your first name" required>
                                         <div class="valid-feedback"> Looks good! </div>
                                         <div class="invalid-feedback"> Please enter your first name. </div>
                                     </div>
@@ -139,7 +185,7 @@
                                         <label for="validationCustom02" class="form-label">Last Name <span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="text" class="form-control" id="pub_last_name"
-                                            placeholder="Enter your last name" required>
+                                        name="distn_last_name" placeholder="Enter your last name" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your last Name. </div>
                                     </div>
@@ -147,24 +193,28 @@
                                         <label for="validationCustom02" class="form-label">E-mail ID<span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="email" class="form-control" id="pub_email_id"
-                                            placeholder="Enter your e-mail id" required>
+                                        name="email" placeholder="Enter your e-mail id" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your e-mail id. </div>
+                                        <p id="discheckemail" style="color: rgb(202, 14, 14)"></p>
+                                 <input id="disemailval" type="text" value="" hidden/>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="validationCustom02" class="form-label">Contact Number<span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="number" class="form-control" id="contact_number"
-                                            placeholder="+919XXXXXXXX" required>
+                                        name="distn_contact_number" placeholder="+919XXXXXXXX" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your mobile number. </div>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="inputState" class="form-label">Country<span
                                                 class="text-danger maditory">*</span></label>
-                                        <select id="pub_country" class="wide form-control" name="pub_country"
+                                        <select id="pub_country" class="wide form-control" name="distn_country"
                                             required>
-                                            <option value="India">India</option>
+                                            @foreach ($country as $val)
+                                <option value="{{$val->name}}">{{$val->name}}</option>
+                              @endforeach
                                         </select>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please select your country.</div>
@@ -172,8 +222,11 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="inputState" class="form-label">State <span
                                                 class="text-danger maditory">*</span></label>
-                                        <select id="pub_state" class="wide form-control" name="pub_state" required>
-                                            <option value="India">India</option>
+                                        <select id="pub_state" class="wide form-control" name="distn_state" required>
+                                        <option value="" selected>Select State</option>
+                                @foreach ($state as $val)
+                                <option value="{{$val->name}}">{{$val->name}}</option>
+                              @endforeach
                                         </select>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please select your state.</div>
@@ -181,9 +234,12 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="inputState" class="form-label">District <span
                                                 class="text-danger maditory">*</span></label>
-                                        <select id="pub_district" class="wide form-control" name="pub_district"
+                                        <select id="pub_district" class="wide form-control" name="distn_district"
                                             required>
-                                            <option value="India">India</option>
+                                            <option value="" selected>Select District</option>
+                                @foreach ($district as $val)
+                                    <option value="{{$val->name}}">{{$val->name}}</option>
+                                  @endforeach
                                         </select>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please select your district.</div>
@@ -191,9 +247,9 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="inputState" class="form-label">City <span
                                                 class="text-danger maditory">*</span></label>
-                                        <select id="pub_city" class="wide form-control" name="pub_city" required>
-                                            <option value="India">India</option>
-                                        </select>
+                                                <input type="text" class="form-control" name="distn_city" id="pub_city"
+                                 placeholder="Enter your city" required>
+                                       
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please select your sity.</div>
                                     </div>
@@ -201,14 +257,14 @@
                                         <label for="validationCustom02" class="form-label">Pincode <span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="text" class="form-control" id="pub_pin_code"
-                                            placeholder="Enter your Pincode" required>
+                                        name="distn_pincode" placeholder="Enter your Pincode" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your last name. </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <label for="validationTextarea" class="form-label">Distribution Address<span
                                                 class="text-danger maditory">*</span></label>
-                                        <textarea class="form-control" id="pub_address" placeholder="Enter your distribution address" required></textarea>
+                                        <textarea class="form-control" name="distn_address" id="pub_address" placeholder="Enter your distribution address" required></textarea>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your address.</div>
                                     </div>
@@ -224,7 +280,7 @@
                                         <label for="validationCustom01" class="form-label">First Name <span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="text" class="form-control" id="con_first_name"
-                                            placeholder="Enter your first name" required>
+                                        name="contact_first_name" placeholder="Enter your first name" required>
                                         <div class="valid-feedback"> Looks good! </div>
                                         <div class="invalid-feedback"> Please enter your first name. </div>
                                     </div>
@@ -232,7 +288,7 @@
                                         <label for="validationCustom02" class="form-label">Last Name <span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="text" class="form-control" id="con_last_name"
-                                            placeholder="Enter your last name" required>
+                                        name="contact_last_name" placeholder="Enter your last name" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your last name. </div>
                                     </div>
@@ -240,7 +296,7 @@
                                         <label for="validationCustom02" class="form-label">E-mail ID<span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="email" class="form-control" id="con_email_id"
-                                            placeholder="Enter your e-mail id" required>
+                                        name="cont_per_email_id" placeholder="Enter your e-mail id" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your e-mail id. </div>
                                     </div>
@@ -248,16 +304,18 @@
                                         <label for="validationCustom02" class="form-label">Contact Number<span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="number" class="form-control" id="con_contact_number"
-                                            placeholder="+919XXXXXXXX" required>
+                                        name="cont_per_contact_no" placeholder="+919XXXXXXXX" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your contact number. </div>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="inputState" class="form-label">Country<span
                                                 class="text-danger maditory">*</span></label>
-                                        <select id="con_country" class="wide form-control" name="pub_country"
+                                        <select id="con_country" class="wide form-control" name="cont_per_country"
                                             required>
-                                            <option value="India">India</option>
+                                            @foreach ($country as $val)
+                                <option value="{{$val->name}}">{{$val->name}}</option>
+                              @endforeach
                                         </select>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please select your country.</div>
@@ -265,8 +323,11 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="inputState" class="form-label">State <span
                                                 class="text-danger maditory">*</span></label>
-                                        <select id="con_state" class="wide form-control" name="pub_state" required>
-                                            <option value="India">India</option>
+                                        <select id="con_state" class="wide form-control" name="cont_per_state" required>
+                                        <option value="" selected>Select State</option>
+                                @foreach ($state as $val)
+                                    <option value="{{$val->name}}">{{$val->name}}</option>
+                                  @endforeach
                                         </select>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please select your state.</div>
@@ -274,9 +335,12 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="inputState" class="form-label">District <span
                                                 class="text-danger maditory">*</span></label>
-                                        <select id="con_district" class="wide form-control" name="pub_district"
+                                        <select id="con_district" class="wide form-control"  name="cont_per_district"
                                             required>
-                                            <option value="India">India</option>
+                                            <option value="" selected>Select District</option>
+                                @foreach ($district as $val)
+                                    <option value="{{$val->name}}">{{$val->name}}</option>
+                                  @endforeach
                                         </select>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please select your district.</div>
@@ -284,9 +348,9 @@
                                     <div class="col-md-4 mb-3">
                                         <label for="inputState" class="form-label">City <span
                                                 class="text-danger maditory">*</span></label>
-                                        <select id="con_city" class="wide form-control" name="pub_city" required>
-                                            <option value="India">India</option>
-                                        </select>
+                                                <input type="text" id="con_city" class="wide form-control" name="cont_per_city"
+                                 placeholder="Enter your city" required>
+                                        
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please select your city.</div>
                                     </div>
@@ -294,14 +358,14 @@
                                         <label for="validationCustom02" class="form-label">Pincode <span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="text" class="form-control" id="con_pin_code"
-                                            placeholder="Enter your pincode" required>
+                                        name="cont_per_pincode"    placeholder="Enter your pincode" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your last name. </div>
                                     </div>
                                     <div class="col-md-12 mb-3">
                                         <label for="validationTextarea" class="form-label">Distribution Address<span
                                                 class="text-danger maditory">*</span></label>
-                                        <textarea class="form-control" id="con_publication_address" placeholder="Enter your distribution address" required></textarea>
+                                        <textarea class="form-control"  name="cont_per_address" id="con_publication_address" placeholder="Enter your distribution address" required></textarea>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter your distribution address.</div>
                                     </div>
@@ -314,7 +378,7 @@
                                         <label for="validationCustom01" class="form-label">Year of Establishment -
                                             தொடங்கப்பட்ட ஆண்டு <span class="text-danger maditory">*</span></label>
                                         <input type="number" class="form-control" id="validationCustom01"
-                                            placeholder="Enter the year of establishment" required>
+                                        name="yr_of_establishment" placeholder="Enter the year of establishment" required>
                                         <div class="valid-feedback"> Looks good! </div>
                                         <div class="invalid-feedback"> Please enter the year of establishment. </div>
                                     </div>
@@ -323,7 +387,7 @@
                                             Periodical/Magazine Distribution - பருவ இதழ் பதிப்பில் அனுபவம்(வருடங்களில்)
                                             <span class="text-danger maditory">*</span></label>
                                         <input type="number" class="form-control" id="validationCustom02"
-                                            placeholder="Enter the years of experience in periodical/magazine publication"
+                                        name="yr_of_exp" placeholder="Enter the years of experience in periodical/magazine publication"
                                             required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter years of experience in
@@ -335,7 +399,7 @@
                                             இதழ்களின் எண்ணிக்கை ( பொது நூலகங்கள் அல்லாது)<span
                                                 class="text-danger maditory">*</span></label>
                                         <input type="number" class="form-control" id="validationCustom02"
-                                            placeholder="Enter the number of periodical/magazine circulation per year" required>
+                                        name="no_of_magazine_year" placeholder="Enter the number of periodical/magazine circulation per year" required>
                                         <div class="valid-feedback"> Looks good!</div>
                                         <div class="invalid-feedback"> Please enter the number of
                                             periodical/magazine circulation per year </div>
@@ -440,8 +504,8 @@
                                                                 <th>Add</th>
                                                             </tr>
                                                             <tr>
-                                                                <td><input type="text" name="trs_state_awarded[]" id="pub_test" placeholder="Enter the award name*" class="form-control award_name_list" /></td>
-                                                                <td><input type="text" name="trs_central_awarded[]" id="pub_testone" placeholder="Enter the title*" class="form-control award_name_list" /></td>
+                                                                <td><input type="text" name="trs_state_awarded_dis_pub[]" id="pub_test" placeholder="Enter the award name*" class="form-control award_name_list" /></td>
+                                                                <td><input type="text" name="trs_central_awarded_dis_pub[]" id="pub_testone" placeholder="Enter the title*" class="form-control award_name_list" /></td>
                                                                 <td><button type="button" name="trs_central_awarded" id="translated_pub_dis_asrmy" class="btn btn-success">+</button></td>
                                                             </tr>
                                                         </table>
@@ -525,31 +589,31 @@
                                     {{-- <label for="text">Primary Language of Publication - <span class="mt-056">வெளியீட்டின் முதன்மை மொழி</span><span class="text-danger maditory">*</span></label> --}}
                                     <h6 class="fw-bold mt-3 mb-3">Primary Language of Distribution -<span class="mt-055"> வெளியீட்டின் முதன்மை மொழி</span></h6>
                                     <div class="custom-control custom-checkbox">
-                                       <input type="checkbox" id="customCheckbox" name="primary_language_of_publication[]" value="Tamil" class="custom-control-input">
+                                       <input type="checkbox" id="customCheckbox" name="pub_dis_primary_language_of_publication[]" value="Tamil" class="custom-control-input">
                                        <label class="custom-control-label" for="customCheckbox">Tamil - <span class="mt-056">தமிழ்</span></label>
                                     </div>
                                     <div class="custom-control custom-checkbox">
-                                       <input type="checkbox" id="customCheckbox2" name="primary_language_of_publication[]" value="English" class="custom-control-input">
+                                       <input type="checkbox" id="customCheckbox2" name="pub_dis_primary_language_of_publication[]" value="English" class="custom-control-input">
                                        <label class="custom-control-label" for="customCheckbox2">English - <span class="mt-056">ஆங்கிலம்</span></label>
                                     </div>
                                     <div class="custom-control custom-checkbox">
-                                       <input type="checkbox" id="other_indian_lag" name="primary_language_of_publication[]" value="Other" class="custom-control-input">
+                                       <input type="checkbox" id="other_indian_lag" name="pub_dis_primary_language_of_publication[]" value="Other" class="custom-control-input">
                                        <label class="custom-control-label" for="customCheckbox3">Other Indian Languages -<span class="mt-056"> மற்ற இந்திய மொழிகள்</span></label>
                                     </div>
                                     <div class="col-md-12 other_indian_lang mt-2 mb-2" style="display: none;">
-                                       <input type="text" class="form-control" id="other_indian_lang" name="other_indian_language" placeholder="Enter the other indian languages">
+                                       <input type="text" class="form-control" id="other_indian_lang" name="otherIndian" placeholder="Enter the other indian languages">
                                     </div>
                                     <!--<div class="col-md-6">
                                        <input type="text" class="form-control" id="inother_indian_lang"
                                            name="other_indian_lang" placeholder="Enter Other Indian Languages">
                                        </div> -->
                                     <div class="custom-control custom-checkbox">
-                                       <input type="checkbox" id="other_forign_lag" name="primary_language_of_publication[]" value="foreign languages" class="custom-control-input">
+                                       <input type="checkbox" id="other_forign_lag" name="pub_dis_primary_language_of_publication[]" value="foreign languages" class="custom-control-input">
                                        <label class="custom-control-label" for="customCheckbox3">Other Foreign
                                        Languages - <span class="mt-056">மற்ற வெளிநாட்டு மொழிகள்</span></label>
                                     </div>
                                     <div class="col-md-12 mt-1 other_foreign_lang mt-2 mb-2" style="display: none;">
-                                       <input type="text" class="form-control" id="other_foreign_lang" name="other_foreign_language" placeholder="Enter the other foreign languages">
+                                       <input type="text" class="form-control" id="other_foreign_lang" name="otherForeign" placeholder="Enter the other foreign languages">
                                     </div>
                                  </div>
 
@@ -564,7 +628,7 @@
                                         <span class="text-danger maditory">*</span><br>
                                         <small class="text-danger">Please upload the file in PDF format and ensure that it is below 5 MB</small>
                                         </label>
-                                        <select name="pub_ownership" class="wide form-control" id="pub_ownership" required="">
+                                        <select name="dis_ownership" class="wide form-control" id="pub_ownership" required="">
                                         
                                             <option value="" selected>Select Anyone</option>
 
@@ -636,12 +700,12 @@
                                     <!-- <label for="text">Do you have any subsidiary publications? </label> -->
                                     <div class="form-check">
                                        <label class="form-check-label">
-                                       <input type="radio" class="form-check-input yes_qus" id="subsidiary_publications" name="subsidiary_publications" value="yes" required="">Yes - <span class="mt-056">ஆம்</span>
+                                       <input type="radio" class="form-check-input yes_qus" id="subsidiary_publications" name="subsidiary_distributor_dis" value="yes" required="">Yes - <span class="mt-056">ஆம்</span>
                                        </label>
                                     </div>
                                     <div class="form-check">
                                        <label class="form-check-label">
-                                       <input type="radio" class="form-check-input subsidiary_publications_no_yes no_qus" id="subsidiary_publications" name="subsidiary_publications" value="No">No -
+                                       <input type="radio" class="form-check-input subsidiary_publications_no_yes no_qus" id="subsidiary_publications" name="subsidiary_distributor_dis" value="No">No -
                                        <span class="mt-056">இல்லை</span>
                                        </label>
                                     </div>
@@ -662,10 +726,10 @@
                                                       <th>Add</th>
                                                    </tr>
                                                    <tr>
-                                                      <td><input type="text" id="name_of_the_subsidiary_publication" name="name_of_the_subsidiary_publication[]" placeholder="Enter the name of the subsidiary publication " class="form-control sub_name_list" required></td>
-                                                      <td><input type="text" id="content_of_the_subsidiary_publication" name="name_of_the_subsidiary_publisher[]" placeholder="Enter the name of the subsidiary publisher" class="form-control sub_name_list" required></td>
-                                                      <td><input type="number" id="content_of_the_subsidiary_publication_stack" name="stack_holder_percentage[]" placeholder="Enter the stock holder percentage" class="form-control sub_name_list" required></td>
-                                                      <td> <input class="form-control sub_name_list" id="content_of_the_subsidiary_publication_file" name="subsidiary_doc[]" placeholder="Enter the document" type="file" accept="application/pdf,application/vnd.ms-excel" multiple="" required>
+                                                      <td><input type="text" id="name_of_the_subsidiary_publication" name="substidiary_name_account_transaction_content_distributor[]" placeholder="Enter the name of the subsidiary publication " class="form-control sub_name_list" required></td>
+                                                      <td><input type="text" id="content_of_the_subsidiary_publication" name="substidiary_name_account_transaction_content_distribution[]" placeholder="Enter the name of the subsidiary publisher" class="form-control sub_name_list" required></td>
+                                                      <td><input type="number" id="content_of_the_subsidiary_publication_stack" name="subsidiary_name_distributor_content[]" placeholder="Enter the stock holder percentage" class="form-control sub_name_list" required></td>
+                                                      <td> <input class="form-control sub_name_list" id="content_of_the_subsidiary_publication_file" name="subsidiary_name_distributor_file[]" placeholder="Enter the document" type="file" accept="application/pdf,application/vnd.ms-excel" multiple="" required>
                                                          <span class="text-danger"><small>Please upload the file in PDF format and ensure that it is below 5 MB</small></span>
                                                       </td>
                                                       <td><button type="button" name="sub_pub_add" id="sub_pub_add" class="btn btn-success">+</button>
@@ -686,17 +750,17 @@
                                  </div>
 
                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="declarationtwo" name="declarationtwo" value="yes" required="">
+                                    <input class="form-check-input" type="checkbox" id="declarationtwo" name="declaration-two" value="yes" required="">
                                     <label class="form-check-label">Acknowledge that I will submit  3 copies (Latest) of each periodical for review and selection purposes to Anna Centenary Library, Chennai</label>
                                  </div>
 
                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="declarationthree" name="declarationthree" value="yes" required="">
+                                    <input class="form-check-input" type="checkbox" id="declarationthree" name="declaration-three" value="yes" required="">
                                     <label class="form-check-label">Acknowledge that I will send the purchased periodicals to the selected libraries across Tamil Nadu.</label>
                                  </div>
 
                                  <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="declarationfour" name="declarationfour" value="yes" required="">
+                                    <input class="form-check-input" type="checkbox" id="declarationfour" name="declaration-four" value="yes" required="">
                                     <label class="form-check-label">I acknowledge that a payment of an application fee is required for each periodical submission. This fee is necessary to ensure that submissions are taken seriously and to cover the costs associated with evaluating the submissions.</label>
                                  </div>
                             </div>
@@ -711,6 +775,13 @@
     @include('footer.footer')
     <!-- footer-area-end -->
     <?php include 'plugin/js.php'; ?>
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                $('.validation-errors').fadeOut('slow');
+            }, 15000); 
+        });
+    </script>
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function() {
@@ -828,17 +899,17 @@
                 $('#btn_publisher_submit_form').on('click', function () {
                     $("#magazine_publisher_register").submit(function (e) {
                         var pd_s_ctg_book = $("[name='specialized_category_magazine[]']:checked").length; // count the checked rows
-                        var pd_p_lan_book = $("[name='primary_language_of_publication[]']:checked").length; // count the checked rows
+                        var pd_p_lan_book = $("[name='pub_dis_primary_language_of_publication[]']:checked").length; // count the checked rows
 
                         if (pd_s_ctg_book != 0) {
                             if (pd_p_lan_book != 0) {
 
                             } else {
-                                alert("Please select any One Primary Language");
+                                toastr.error("Please select any One Primary Language");
                                 e.preventDefault();
                             }
                             } else {
-                            alert("Please select any One Spacial Category of Magazine Published");
+                                toastr.error("Please select any One Spacial Category of Magazine Published");
                             e.preventDefault();
                         }
                     });
@@ -1142,7 +1213,7 @@
                 $('#subsidiary_publishcation_no').css('display', 'none');
                 var w = 0;
                 $('#name_of_the_subsidiary_publication').attr('required', false);
-                $('input[type=radio][name=subsidiary_publications]').on('change', function () {
+                $('input[type=radio][name=subsidiary_distributor_dis]').on('change', function () {
                     switch ($(this).val()) {
                         case 'yes':
                             $('input.sub_name_list').prop('required', true);
@@ -1159,7 +1230,7 @@
                             w++;
                             $('#subsidiary_publishcation_no_tbl').
                                 append('<tr id="row' + w +
-                                    '" class="removecl"><td><input type="text" name="name_of_the_subsidiary_publication[]" placeholder="Enter the name of the subsidiary publication *" class="form-control sub_name_list" required/></td><td><input type="text" name="name_of_the_subsidiary_publisher[]" placeholder="Enter the name of the subsidiary publisher*" class="form-control sub_name_list" required/></td><td><input type="number" id="content_of_the_subsidiary_publication" name="stack_holder_percentage[]" placeholder="Enter the stock holder percentage" class="form-control sub_name_list" required /></td> <td> <input class="form-control" id="content_of_the_subsidiary_publication" name="subsidiary_doc[]" placeholder="Enter the document" accept="application/pdf,application/vnd.ms-excel" type="file" multiple required> <span class="text-danger"><small>Please upload the file in PDF format and ensure that it is below 5 MB</small></span> </td><td><button type="button" name="remove" id="' +
+                                    '" class="removecl"><td><input type="text" name="substidiary_name_account_transaction_content_distributor[]" placeholder="Enter the name of the subsidiary publication *" class="form-control sub_name_list" required/></td><td><input type="text" name="substidiary_name_account_transaction_content_distribution[]" placeholder="Enter the name of the subsidiary publisher*" class="form-control sub_name_list" required/></td><td><input type="number" id="content_of_the_subsidiary_publication" name="subsidiary_name_distributor_content[]" placeholder="Enter the stock holder percentage" class="form-control sub_name_list" required /></td> <td> <input class="form-control" id="content_of_the_subsidiary_publication" name="subsidiary_name_distributor_file[]" placeholder="Enter the document" accept="application/pdf,application/vnd.ms-excel" type="file" multiple required> <span class="text-danger"><small>Please upload the file in PDF format and ensure that it is below 5 MB</small></span> </td><td><button type="button" name="remove" id="' +
                                     w + '" class="btn btn-danger btn_remove">X</button></td></tr>');
 
                             });
@@ -1242,6 +1313,560 @@
                    }
                 });
                    
+                </script>
+                <script>
+//Distributor-username check
+$('#pub_state').on('change', function() {
+      // alert('asfasd');
+      var stateId = $(this).val();
+      $.ajaxSetup({
+         headers:{
+            'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+         }
+      });
+      $.ajax({
+         type: "post",
+         dataType: "json",
+         url: '/periodical/getdistrict',
+         data: {'state_id':stateId},
+          success: function(response) {
+              var districts = response.districts;
+              $('#pub_district').empty();
+   $('#pub_district').append('<option value="">Select District</option>');
+
+              $.each(districts, function(key, value) {
+                  $('#pub_district').append('<option value="' + value.name + '">' + value.name + '</option>');
+              });
+          },
+          error: function(xhr, status, error) {
+              console.error(error);
+          }
+      });
+   });
+   
+   $('#con_state').on('change', function() {
+      // alert('asfasd');
+      var stateId = $(this).val();
+      $.ajaxSetup({
+         headers:{
+            'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+         }
+      });
+      $.ajax({
+         type: "post",
+         dataType: "json",
+         url: '/periodical/getdistrict',
+         data: {'state_id':stateId},
+          success: function(response) {
+              var districts = response.districts;
+              $('#con_district').empty();
+  $('#con_district').append('<option value="">Select District</option>');
+              $.each(districts, function(key, value) {
+                  $('#con_district').append('<option value="' + value.name + '">' + value.name + '</option>');
+              });
+          },
+          error: function(xhr, status, error) {
+              console.error(error);
+          }
+      });
+   });
+var typingTimer;
+var doneTypingInterval = 1000;
+$('#dis_user_name').keyup(function(){
+    clearTimeout(typingTimer);
+    if ($('#dis_user_name').val) {
+        typingTimer = setTimeout(function(){
+             var v = $("#dis_user_name").val();
+             if(v.length == 0){
+               $("#discheckusername").html("Username required");
+               toastr.error('Username required!!');
+             }else{
+   //ajax
+   $.ajaxSetup({
+      headers:{
+         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+      }
+   });
+ $.ajax({
+     type: "post",
+     dataType: "json",
+     url: '/periodical/check/dis_username',
+     data: {'userName':v},
+     success: function(response) {
+        if(response.success){
+         var username = document.getElementById("disusernameval");
+         username.value = 1;
+         $("#discheckusername").html("");
+        }else{
+         var username = document.getElementById("disusernameval");
+         username.value = 0;
+         $("#discheckusername").html("Username already taken");
+         toastr.error('Username already taken!!');
+        }
+
+     }
+ });
+             }
+         
+
+
+        }, doneTypingInterval);
+    }
+
+});
+
+
+
+//email check
+var typingTimer;
+var doneTypingInterval = 1000;
+$('#pub_email_id').keyup(function(){
+    clearTimeout(typingTimer);
+    if ($('#pub_email_id').val) {
+        typingTimer = setTimeout(function(){
+             var v = $("#pub_email_id").val();
+             if(v.length == 0){
+               $("#discheckemail").html("Email required");
+               toastr.error('Email required!!');
+             }else{
+               var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+               if (reg.test(v) == false)
+               {
+                 var email = document.getElementById("disemailval");
+                    email.value = 2;
+                 $("#discheckemail").html("Invalid Email!!");
+                 toastr.error('Invalid Email!!');
+               }else{
+                    $("#discheckemail").html("");
+                       $.ajaxSetup({
+                          headers:{
+                             'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                          }
+                       });
+                    $.ajax({
+                       type: "post",
+                       dataType: "json",
+                       url: '/periodical/check/dis_email',
+                       data: {'email':v},
+                       success: function(response) {
+                          if(response.success){
+                             var email = document.getElementById("disemailval");
+                             email.value = 1;
+                             $("#discheckemail").html("");
+                          }else{
+                             var email = document.getElementById("disemailval");
+                             email.value = 0;
+                             $("#discheckemail").html("Email already taken");
+                             toastr.error('Email already taken!!');
+                          }
+  
+                       }
+                    });
+             }
+             
+             }
+        }, doneTypingInterval);
+    }
+
+});
+
+//Password Check
+   function discheckPasswordMatch() {
+      var password = $("#dis_password").val();
+      var confirmPassword = $("#dis_conform_password").val();
+if(password.length == 0){
+   $("#disdivCheckPasswordMatch").html("Password required!");
+   toastr.error('Password required!');
+}else{
+   if (password != confirmPassword){
+      $("#disdivCheckPasswordMatch").html("Passwords does not match!");
+       toastr.error('Passwords does not match!');
+
+      }
+      else {
+      $("#disdivCheckPasswordMatch").html("");
+      }
+}
+   
+  }
+
+     $('#dis_conform_password').keyup( function() {
+      if( this.value.length < 8 ) return;
+      discheckPasswordMatch();
+   });
+
+   function showLoading1() {
+      // Show loading bar
+      document.getElementById('loadingBar1').style.display = 'block';
+      // Add 'loading' class to the form to make it semi-transparent
+      document.getElementById('form_distriputor').classList.add('loading1');
+  }
+
+  function hideLoadingBar1() {
+    document.getElementById('loadingBar1').style.display = 'none';
+    document.getElementById('form_distriputor').classList.remove('loading1');
+}
+   $('#btn_publisher_submit_form').on('click', function () {
+
+      $("#magazine_publisher_register").submit(function (e) {
+         showLoading1();
+           //password
+      var password = $("#dis_password").val();
+      var confirmPassword = $("#dis_conform_password").val();
+      if(password.length == 0){
+         hideLoadingBar1();
+         toastr.error("Password required!!");
+         e.preventDefault();
+      }else if(confirmPassword.length == 0){
+         hideLoadingBar1();
+         toastr.error("Confirm password required!!");
+         e.preventDefault();
+      }else{
+         if(password != confirmPassword){
+            hideLoadingBar1();
+            toastr.error("Password and confirm password doesn't match!!");
+            e.preventDefault();
+         }
+      }
+     
+   //username
+   var uname1 = $("#dis_user_name").val();
+   if(uname1.length == 0){
+      hideLoadingBar1();
+      toastr.error("Username required!!!");
+     e.preventDefault();
+   }else{
+      var username1 = $("#disusernameval").val();
+      if(username1 && username1 == 0){
+           hideLoadingBar1();
+            toastr.error("Username already taken!!!");
+           e.preventDefault();
+        }
+   }
+     
+   //email
+   var uemail1 = $("#pub_email_id").val();
+   if(uemail1.length == 0){
+      hideLoadingBar1();
+      toastr.error('Email required!!');
+     e.preventDefault();
+   }else{
+      var email = $("#disemailval").val();
+      if(email == 0){
+         hideLoadingBar1();
+          toastr.error('Email already taken!!');
+         e.preventDefault();
+      }
+      else if(email == 2){
+         hideLoadingBar1();
+          toastr.error('Invalid Email!!');
+         e.preventDefault();
+      }
+   }
+     
+//Language
+
+         //Authorization Letter
+         var documents1 = $("[name='authorization_letter[]']");
+         var errorOccurred = false; // Flag to track if an error occurred
+
+         documents1.each(function (index, element) {
+             var file = element.files[0];
+             if (file && file.type !== 'application/pdf') {
+                 toastr.error('Authorization letter must be a PDF file.');
+                 errorOccurred = true; // Set the flag to true if an error occurs
+                 return false; // Exit the loop early
+             }
+         });
+
+         if (errorOccurred) {
+             hideLoadingBar1();
+             e.preventDefault(); // Prevent form submission if an error occurred
+         }
+
+
+
+
+//Pubownership proof
+var ownership = $("#dis_ownership").val();
+
+if (ownership == 'Partnership') {
+    var gst = $("[name='gst']").prop('files')[0];
+    var udayam = $("[name='udayam']").prop('files')[0];
+    var pan_deed = $("[name='pan_deed']").prop('files')[0];
+    var pan_tan = $("[name='pan_tan']").prop('files')[0];
+         if (udayam.type !== 'application/pdf') {
+            hideLoadingBar1();
+             toastr.error('Udyam Certificate must be a PDF file.');
+            e.preventDefault();
+
+            }
+         if (pan_deed.type !== 'application/pdf') {
+            hideLoadingBar1();
+          toastr.error('Partnership Deed must be a PDF file.');
+         e.preventDefault();
+            }
+         if (gst.type !== 'application/pdf') {
+            hideLoadingBar1();
+             toastr.error('GST Certificate must be a PDF file.');
+            e.preventDefault();
+
+         }
+         if (pan_tan.type !== 'application/pdf') {
+            hideLoadingBar1();
+             toastr.error('PAN / TAN must be a PDF file.');
+            e.preventDefault();
+
+         }
+}
+else if (ownership == 'Private') {
+   var certification_incon = $("[name='certification_incon']").prop('files')[0];
+   var moa = $("[name='moa']").prop('files')[0];
+   var aoa = $("[name='aoa']").prop('files')[0];
+   var pan_tan = $("[name='pan_tan']").prop('files')[0];
+   var gst = $("[name='gst']").prop('files')[0];
+
+        if (certification_incon.type !== 'application/pdf') {
+         hideLoadingBar1();
+            toastr.error('Certificate of incorporation must be a PDF file.');
+           e.preventDefault();
+
+        }
+        if (moa.type !== 'application/pdf') {
+         hideLoadingBar1();
+          toastr.error('MOA must be a PDF file.');
+         e.preventDefault();
+
+         }
+      if (aoa.type !== 'application/pdf') {
+         hideLoadingBar1();
+       toastr.error('AOA must be a PDF file.')
+      e.preventDefault();
+         }
+        if (gst.type !== 'application/pdf') {
+         hideLoadingBar1();
+          toastr.error('GST Certificate must be a PDF file.');
+         e.preventDefault();
+
+      }
+        if (pan_tan.type !== 'application/pdf') {
+         hideLoadingBar1();
+            toastr.error('PAN must be a PDF file.');
+           e.preventDefault();
+        }
+}
+else if (ownership == 'Publication') {
+   var certification_incon = $("[name='certification_incon']").prop('files')[0];
+   var pan_tan = $("[name='pan_tan']").prop('files')[0];
+   var gst = $("[name='gst']").prop('files')[0];
+
+        if (certification_incon.type !== 'application/pdf') {
+         hideLoadingBar1();
+            toastr.error('Certificate of incorporation must be a PDF file.');
+           e.preventDefault();
+
+        }
+        if (gst.type !== 'application/pdf') {
+         hideLoadingBar1();
+          toastr.error('GST Certificate must be a PDF file.');
+         e.preventDefault();
+
+      }
+        if (pan_tan.type !== 'application/pdf') {
+         hideLoadingBar1();
+            toastr.error('PAN must be a PDF file.');
+           e.preventDefault();
+        }
+}
+else if (ownership == 'oneperson') {
+
+   var udayam = $("[name='udayam']").prop('files')[0];
+   var gst = $("[name='gst']").prop('files')[0];
+   var pan_tan = $("[name='pan_tan']").prop('files')[0];
+        if (udayam.type !== 'application/pdf') {
+         hideLoadingBar1();
+            toastr.error('Udyam Certificate must be a PDF file.');
+           e.preventDefault();
+
+           }
+        if (gst.type !== 'application/pdf') {
+         hideLoadingBar1();
+            toastr.error('GST Certificate must be a PDF file.');
+           e.preventDefault();
+
+        }
+        if (pan_tan.type !== 'application/pdf') {
+         hideLoadingBar1();
+            toastr.error('PAN / TAN must be a PDF file.');
+           e.preventDefault();
+
+        }
+}
+else if (ownership == 'limited') {
+   var llp = $("[name='llp_agre']").prop('files')[0];
+   var udayam = $("[name='udayam']").prop('files')[0];
+   var gst = $("[name='gst']").prop('files')[0];
+   var pan_tan = $("[name='pan_tan']").prop('files')[0];
+           if (llp.type !== 'application/pdf') {
+            hideLoadingBar1();
+               toastr.error('LLP Agreement must be a PDF file.');
+              e.preventDefault();
+      }
+        if (udayam.type !== 'application/pdf') {
+         hideLoadingBar1();
+            toastr.error('Udyam Certificate must be a PDF file.');
+           e.preventDefault();
+
+           }
+        if (gst.type !== 'application/pdf') {
+         hideLoadingBar1();
+            toastr.error('GST Certificate must be a PDF file.');
+           e.preventDefault();
+
+        }
+        if (pan_tan.type !== 'application/pdf') {
+         hideLoadingBar1();
+            toastr.error('PAN / TAN must be a PDF file.');
+           e.preventDefault();
+
+        }
+}
+else if (ownership == 'trust') {
+   var society = $("[name='private_trust']").prop('files')[0];
+   var gst = $("[name='gst']").prop('files')[0];
+   var pan_tan = $("[name='pan_tan']").prop('files')[0];
+           if (society.type !== 'application/pdf') {
+              toastr.error('Private Trust Registration Certificate must be a PDF file.');
+              hideLoadingBar1();
+              e.preventDefault();
+      }
+        if (gst.type !== 'application/pdf') {
+           toastr.error('GST Certificate must be a PDF file.');
+           hideLoadingBar1();
+           e.preventDefault();
+
+        }
+        if (pan_tan.type !== 'application/pdf') {
+           toastr.error('PAN must be a PDF file.');
+           hideLoadingBar1();
+           e.preventDefault();
+
+        }
+}
+else if (ownership == 'society') {
+   var society = $("[name='private_society']").prop('files')[0];
+   var gst = $("[name='gst']").prop('files')[0];
+   var pan_tan = $("[name='pan_tan']").prop('files')[0];
+           if (society.type !== 'application/pdf') {
+              toastr.error('Private Society Registration Certificate must be a PDF file.');
+             hideLoadingBar1();
+              e.preventDefault();
+      }
+        if (gst.type !== 'application/pdf') {
+           toastr.error('GST Certificate must be a PDF file.');
+          hideLoadingBar1();
+           e.preventDefault();
+
+        }
+        if (pan_tan.type !== 'application/pdf') {
+           toastr.error('PAN must be a PDF file.');
+          hideLoadingBar1();
+           e.preventDefault();
+
+        }
+}
+else if (ownership == 'institutional') {
+   var society = $("[name='institution']").prop('files')[0];
+   var gst = $("[name='gst']").prop('files')[0];
+   var pan_tan = $("[name='pan_tan']").prop('files')[0];
+           if (society.type !== 'application/pdf') {
+              toastr.error('Government Institutional Publication Registration Certificate must be a PDF file.');
+           hideLoadingBar1();
+              e.preventDefault();
+      }
+        if (gst.type !== 'application/pdf') {
+           toastr.error('GST Certificate must be a PDF file.');
+        hideLoadingBar1();
+           e.preventDefault();
+
+        }
+        if (pan_tan.type !== 'application/pdf') {
+           toastr.error('PAN must be a PDF file.');
+        hideLoadingBar1();
+           e.preventDefault();
+
+        }
+}
+else if (ownership == 'trust-foundation') {
+   var society = $("[name='trust_foundation']").prop('files')[0];
+   var gst = $("[name='gst']").prop('files')[0];
+   var pan_tan = $("[name='pan_tan']").prop('files')[0];
+           if (society.type !== 'application/pdf') {
+              toastr.error('Government Trust/Foundation Publication Registration Certificate must be a PDF file.');
+             hideLoadingBar1();
+              e.preventDefault();
+      }
+        if (gst.type !== 'application/pdf') {
+           toastr.error('GST Certificate must be a PDF file.');
+          hideLoadingBar1();
+           e.preventDefault();
+
+        }
+        if (pan_tan.type !== 'application/pdf') {
+           toastr.error('PAN must be a PDF file.');
+          hideLoadingBar1();
+           e.preventDefault();
+
+        }
+}
+else if (ownership == 'government-society') {
+   var society = $("[name='society']").prop('files')[0];
+   var gst = $("[name='gst']").prop('files')[0];
+   var pan_tan = $("[name='pan_tan']").prop('files')[0];
+           if (society.type !== 'application/pdf') {
+              toastr.error('Government Society Publication Registration Certificate must be a PDF file.');
+             hideLoadingBar1();
+              e.preventDefault();
+      }
+        if (gst.type !== 'application/pdf') {
+           toastr.error('GST Certificate must be a PDF file.');
+          hideLoadingBar1();
+           e.preventDefault();
+
+        }
+        if (pan_tan.type !== 'application/pdf') {
+           toastr.error('PAN must be a PDF file.');
+          hideLoadingBar1();
+           e.preventDefault();
+
+        }
+}
+
+
+//Sub-Doc
+var doc = document.getElementById('subsidiary_distributor_dis');
+var doc_name = doc.value;
+var docstatus = "true";
+var arr = [];
+if (doc_name === "yes") {
+    var documents = $("[name='subsidiary_name_distributor_file[]']");
+    documents.each(function (index, element) {
+        var file = element.files[0];
+        if (file.type !== 'application/pdf') {
+            arr.push(file);
+        }
+    });
+}
+if (arr.length !== 0) {
+   hideLoadingBar1();
+     toastr.error('Subsidiary Document must be a PDF file.');
+    e.preventDefault();
+}
+
+      });
+   });
+
                 </script>
 </body>
 
