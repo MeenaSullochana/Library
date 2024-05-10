@@ -346,10 +346,23 @@
                             <li><a href="/librarian/bookcopies_completelist">Bookcopies Complete List </a></li>
                         </ul>
                     </li>
-
+                   
+                    @if(auth('librarian')->user()->libraryName =="Anna Centenary Library")
+                    <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span class="nav-text">Periodical Copies Management </span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
+                            <li><a href="/librarian/periodicalcopies_pendinglist">Periodicalcopies Pending List </a></li>
+                            <li><a href="/librarian/periodicalcopies_completelist">Periodicalcopies Complete List </a></li>
+                        </ul>
+                    </li>
               
 
               
+                    @endif
                     @endif
                     @if(auth('librarian')->user()->metaChecker =="no" && auth('librarian')->user()->allow_status ==0 &&
                     auth('librarian')->user()->libraryType =="District Library Office -DLO")

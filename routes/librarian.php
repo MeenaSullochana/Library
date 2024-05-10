@@ -255,6 +255,7 @@ Route::prefix('librarian')->group(function () {
         
     });
     
+    Route::get('/periodicalcopies_pendinglist',[LibrarianController::class,'periodicalcopies_pendinglist']);
 
 });
 });

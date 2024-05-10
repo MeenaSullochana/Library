@@ -69,6 +69,7 @@ return new class extends Migration
             $table->string('highlightimg')->nullable();
             $table->enum('status',['1','0'])->default('0');
             $table->enum('periodical_procurement_status',['1','0'])->default('0');
+            $table->string('periodical_status')->nullable();
 
             
             $table->timestamps();
@@ -107,6 +108,8 @@ return new class extends Migration
             $table->string('pdf3');
             $table->string('editorprofile');
             $table->string('highlightimg');
+            $table->string('periodical_status');
+
         });
     }
 };

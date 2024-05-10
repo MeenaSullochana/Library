@@ -24,8 +24,10 @@ use App\Models\Ordermagazine;
 use App\Models\Magazine;
 use App\Models\Budget;
 use App\Models\bookcopies;
+use App\Models\periodicalcopies;
 
-
+use App\Models\PeriodicalPublisher;
+use App\Models\PeriodicalDistributor;
 class LibrarianController extends Controller
 {
         
@@ -728,8 +730,42 @@ public function librarianreturnmessage(Request $req){
     
 
   }
+  
+  public function periodicalcopies_pendinglist(){
+    $periodicalcopies = periodicalcopies::where('status','=',"1")->get();
+   $data=[];
+    foreach($periodicalcopies as $val){
+      $copies= json_decode($val->copies);
+      foreach($copies as $val1){
+           if($val1->librarytype  ==  auth('librarian')->user()->libraryName && $val1->status  == "0"){
+            $val->copiesrec=$val1;
+            if($val->usertype == "publisher"){
+              $publisher=PeriodicalPublisher::find($val->userid);
+              if($publisher !=null){
+                $val->name=$publisher->publicationName;
+              }
+               
+            }elseif($val->usertype== "distributor"){
+        
+              $distributor=PeriodicalDistributor::find($val->userid);
+              if($distributor !=null){
+                $val->name=$distributor->distributionName;
+      
+              }
+            }
+               array_push($data,$val);
 
+        }
+     }
 
+    }
+
+    return view('librarian.periodicalcopies_pendinglist')->with('data',$data); 
+
+ 
+    
+
+  }
   public function bookcopiesstatus(Request $req){
     $bookcopies = bookcopies::find($req->id);
 
@@ -773,7 +809,53 @@ public function librarianreturnmessage(Request $req){
      }
 
   }
+  
 
+  public function periodicalcopiesstatus(Request $req){
+
+    return $req;
+    $bookcopies = bookcopies::find($req->id);
+
+    $copies= json_decode($bookcopies->copies);
+    $rec=[];
+   $count =0;
+   $countdata = 0;
+    foreach($copies as $val1){
+      if($val1->status  == "0"){
+        if($val1->librarytype  ==  auth('librarian')->user()->libraryName){
+             $val1->status="1";
+        
+            $count =$count + 1;
+            array_push($rec,$val1);
+          
+        }else{
+          array_push($rec,$val1);
+
+        }
+     
+      
+      }else if($val1->status  == "1"){
+        $count =$count +1;
+        array_push($rec,$val1);
+      }
+      $countdata = $countdata +1;
+
+    }
+
+     if($count == $countdata ){
+      $book = Book::find($bookcopies->bookid);
+      $book->book_procurement_status="1";
+      $book->save();
+      $bookcopies->status="0";
+      $bookcopies->save();
+     }
+     $bookcopies->copies=json_encode($rec);
+     if($bookcopies->save()){
+      return response()->json(['success' => 'copies status  change successfull']);
+
+     }
+
+  }
   public function bookcopies_completelist(){
     $bookcopies = bookcopies::get();
    $data=[];

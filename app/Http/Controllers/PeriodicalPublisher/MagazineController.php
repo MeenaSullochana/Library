@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Session;
  
  use Illuminate\Support\Facades\Auth;
  use App\Models\Subscription;
+ use App\Models\periodicalcopies;
 
  
 
@@ -871,6 +872,77 @@ public function applay_procurment(Request $request){
            ];
   return response()->json($data);  
 }
+
+// 
+
+public function procurement_sampleperiodical(){
+
+  $id=auth('periodical_publisher')->user()->id;
+  $data=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"5")->where('periodical_status','=',null)->get(); 
+  return view('periodical_publisher.procurement_sampleperiodical')->with('data',$data); 
+}
+
+public function procurementperiodicalcopies(Request $request){
+ 
+  $datarec1=[];
+  
+  $datarecJson = json_decode($request->datarec);
+  foreach ($datarecJson as $key => $val) {
+   $pdfcopies = $request->file('profileImage'.$key);
+
+    $pdf_name = $request->librarytype . time() . '_' . $pdfcopies->getClientOriginalName();
+    $pdfcopies->move(('Magazine/copies'), $pdf_name);
+    $val->profileImage = $pdf_name;
+    
+    array_push($datarec1,$val);
+}
+  
+    $periodicalcopies=new periodicalcopies();
+    $periodicalcopies->periodicalid =  $request->periodicalid;
+    $periodicalcopies->periodicaltitle =  $request->periodicaltitle;
+    $periodicalcopies->copies =  json_encode($datarec1);
+    $periodicalcopies->userid =  auth('periodical_publisher')->user()->id;
+    $periodicalcopies->usertype =  auth('periodical_publisher')->user()->usertype;
+    if($periodicalcopies->save()){
+
+        $Magazine =Magazine::find($request->periodicalid);
+        $Magazine->periodical_procurement_status="6";
+        $Magazine->save();
+        return response()->json(['success' => 'copies send successfull']);
+
+    }
+
+
+}
+
+public function procurement_sampleperiodicalpending(){
+
+ $id=auth('periodical_publisher')->user()->id;
+   $data1=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"6")->where('periodical_status','=',null)->get(); 
+   $data=[];
+   foreach($data1 as $key=>$val){
+       $periodicalcopies=periodicalcopies::where('periodicalid','=',$val->id)->first();
+         $copies=  json_decode($periodicalcopies->copies);
+         $val->copies=$copies;
+         array_push($data,$val);
+       }
+    
+  return view('periodical_publisher.procurement_sampleperiodicalpending')->with('data',$data); 
+}
+public function procurement_sampleperiodicalcomplete(){
+  $id=auth('periodical_publisher')->user()->id;
+   $data1=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"1")->where('periodical_status','=',null)->get(); 
+   $data=[];
+   foreach($data1 as $key=>$val){
+       $periodicalcopies=periodicalcopies::where('periodicalid','=',$val->id)->first();
+         $copies=  json_decode($periodicalcopies->copies);
+         $val->copies=$copies;
+         array_push($data,$val);
+       }
+  
+  return view('periodical_publisher.procurement_sampleperiodicalcomplete')->with('data',$data); 
+}
+
 
   }
 
