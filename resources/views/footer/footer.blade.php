@@ -175,6 +175,78 @@
                 </div>
             </div>
         </footer>
+
+        <!-- Modal login-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+                  <div class="modal-title fs-5 h1" id="exampleModalLabel">Users Login Panel</div>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class="row">
+               <div class="col-md-6 text-center">
+                  <img src="{{ asset('assets/img/book.png')}}" class="w-25">
+                  <h6>Transparent Book Procurement Portal</h6>
+                  <small class="text-center">Don't have an account? <a class="text-danger" href="/register">Click to Register</a></small>
+                  <div class="login-btn mt-2">
+                     <a href="/login"> <button class="btn btn-primary"><i class="fa fa-sign-in"></i> Login</button></a>
+                  </div>
+               </div>
+               <div class="col-md-6 text-center">
+                  <img src="{{ asset('assets/img/magazine.png')}}" class="w-25">
+                  <h6>Transparent Periodical Procurement Portal</h6>
+                  <small class="text-center">Don't have an account? <a class="text-danger" href="periodical/register">Click to Register</a></small>
+                  <div class="login-btn mt-2">
+                     <a href="periodical/login"><button class="btn btn-primary"><i class="fa fa-sign-in"></i> Login</button></a>
+                  </div>
+               </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+               {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+            </div>
+         </div>
+         </div>
+      </div>
+  <!-- Modal register-->
+  <div class="modal fade" id="register" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+   <div class="modal-content">
+      <div class="modal-header">
+            <div class="modal-title fs-5 h1" id="exampleModalLabel">Users Login Panel</div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="row">
+         <div class="col-md-6 text-center">
+            <img src="{{ asset('assets/img/book.png')}}" class="w-25">
+            <h6>Transparent Book Procurement Portal</h6>
+            <small class="text-center">Do you have a account? <a class="text-danger" href="/login">Login</a></small>
+            <div class="login-btn mt-2">
+               <p><small></small> <a href="/register"> <button class="btn btn-primary"><i class="fa fa-sign-in"></i> Register</button></a></p>
+            </div>
+         </div>
+         <div class="col-md-6 text-center">
+            <img src="{{ asset('assets/img/magazine.png')}}" class="w-25">
+            <h6>Transparent Periodical Procurement Portal</h6>
+            <small class="text-center">Do you have a account? <a class="text-danger" href="periodical/login">Login</a></small>
+            <div class="login-btn mt-2">
+               <p><small> </small> <a href="periodical/register"> <button class="btn btn-primary"> <i class="fa fa-sign-in"></i> Register</button></a>
+            </div>
+         </div>
+      </div>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+         {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+      </div>
+   </div>
+   </div>
+</div>
+
         <style>
          i.fab.fa-facebook-f {
             color: #1873eb;
