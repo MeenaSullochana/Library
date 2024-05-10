@@ -6,6 +6,7 @@ use App\Http\Controllers\PeriodicalPublisher\MagazineController;
 use App\Http\Controllers\PeriodicalPublisher\PeriodicalPublisherController;
 
 
+Route::middleware(['periodical_publisher'])->group(function () {
 
 Route::prefix('periodical_publisher')->group(function () { 
     Route::get('/index',function(){ return view('periodical_publisher.index');});
@@ -32,7 +33,11 @@ Route::prefix('periodical_publisher')->group(function () {
     Route::get('/publisher_notification_view',function(){ return view('periodical_publisher.publisher_notification_view');});
     
     // procurement
-    Route::get('/procurement',function(){ return view('periodical_publisher.procurement');});
+    Route::get('/procurement', [MagazineController::class, 'procurement']);
+    Route::post('/applay_procurment',[MagazineController::class,'applay_procurment']);
+
+
+    
     Route::get('/procurement_samplemagazine',function(){ return view('periodical_publisher.procurement_samplemagazine');});
     Route::get('/procurement_samplemagazinepending',function(){ return view('periodical_publisher.procurement_samplemagazinepending');});
     Route::get('/procurement_samplemagazinecomplete',function(){ return view('periodical_publisher.procurement_samplemagazinecomplete');});
@@ -47,4 +52,4 @@ Route::prefix('periodical_publisher')->group(function () {
     // payment
     Route::get('/payment',function(){ return view('periodical_publisher.payment');});
 });
-
+});

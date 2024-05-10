@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PeriodicalDistributor\MagazineController;
 use App\Http\Controllers\PeriodicalDistributor\PeriodicalDistributorController;
 
+Route::middleware(['periodical_publisher'])->group(function () {
 
 
 Route::prefix('periodical_distributor')->group(function () { 
@@ -27,3 +28,4 @@ Route::post('/getcategory', [MagazineController::class, 'getcategory']);
 Route::post('/getdistrict', [MagazineController::class, 'getDistricts']);
 });
 
+});

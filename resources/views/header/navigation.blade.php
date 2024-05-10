@@ -30,9 +30,9 @@
                                 <!-- <li class="#">
                                     <a href="#">Library Catalogue</a>
                                  </li> -->
-                                 @if(auth('librarian')->user())
-                                 @else
-                                 <li class="has-dropdown">
+                                @if(auth('librarian')->user())
+                                @else
+                                <li class="has-dropdown">
                                     <a href="#">Login</a>
                                     <ul class="sub-menu">
                                         <!-- <li><a href="#">Section</a></li>
@@ -48,8 +48,8 @@
                                         <li><a href="/member/login">User Login</a></li>
                                     </ul>
                                 </li>
-                                 @endif
-                             
+                                @endif
+
 
                                 <!--<li class="#">-->
                                 <!--   <a href="#">Section</a>-->
@@ -77,10 +77,10 @@
                             @if($user && $user->metaChecker =="no")
                             @if(Session::has('magazinecartcount'))
                             <a href="/cart-magazine">
-                            <button id="magazinecartcountId">
-                              <i><img src="assets/img/icon/cart-1.svg" alt=""></i>
-                               <span id='magazinecartcount'>{{ Session::get('magazinecartcount') }}</span>
-                             </button>
+                                <button id="magazinecartcountId">
+                                    <i><img src="assets/img/icon/cart-1.svg" alt=""></i>
+                                    <span id='magazinecartcount'>{{ Session::get('magazinecartcount') }}</span>
+                                </button>
 
                             </a>
                             @else
@@ -212,13 +212,27 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-12 col-md-12">
-            @php
-            $news_feeds = DB::table('news_feeds')->first();
-                  @endphp
+                @php
+                $news_feeds = DB::table('news_feeds')->first();
+                $sentences = explode('.', $news_feeds->newsFeed);
+                @endphp
+
                 <div class="header__top-left text-white">
-                    <marquee behavior="" direction="">{{ $news_feeds->newsFeed}}</marquee>
+                    <marquee behavior="" direction="">
+                        <ul class="d-flex">
+                            @foreach($sentences as $sentence)
+                            <li class="ms-5">{{ $sentence }}</li>
+                            @endforeach
+                        </ul>
+                    </marquee>
                 </div>
+
+            </div>
         </div>
     </div>
-</div>
-<!-- header-cart-end -->
+    <!-- header-cart-end -->
+<style>
+        ul.d-flex {
+    list-style: none;
+}
+</style>
