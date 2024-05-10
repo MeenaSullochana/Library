@@ -834,7 +834,44 @@ if(isset($request->rni_attachment_proof)){
       return response()->json(['districts' => $districts]);
   }
 
+
+  public function procurement(){
+   $id=auth('periodical_publisher')->user()->id;
+    $data=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"0")->get();
+    return view('periodical_publisher.procurement')->with('data',$data);
+}
   
+public function applay_procurment(Request $request){
+  $validator = Validator::make($request->all(), [
+
+      'periodicalId'=> 'required|array|min:1',
+    
+  ]);
+
+  if ($validator->fails()) {
+      $data = [
+          'error' => $validator->errors()->first(),
+      ];
+      return response()->json($data);
+  }
+  $periodicalitem=[];
+  $periodicalIds = $request->input('periodicalId', []);
+  foreach($periodicalIds as $key=>$val){
+ 
+      $periodicals = Magazine::find($val);
+      array_push($periodicalitem,$periodicals);
+
+  }
+
+  \Session::put('periodicalitem', $periodicalitem);
+  $user = auth('periodical_publisher')->user();
+  \Session::put('user',$user);
+  $data= [
+      'success' => 'Book Applied For Procurement',
+           ];
+  return response()->json($data);  
+}
+
   }
 
   

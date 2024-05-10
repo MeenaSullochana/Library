@@ -100,9 +100,10 @@
                                                 <th class="center">S.No</th>
                                                 <th>Book Name</th>
                                                 <th>Book Id</th>
-
-                                                <th class="center">Qty</th>
                                                 <th class="right">amount</th>
+                                                <th class="center">Qty</th>
+                                                <th class="right">Total Amount</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -111,8 +112,10 @@
         <td class="center">{{$loop->index+1}}</td>
         <td class="left strong">{{$val['bookname']}}</td>
         <td class="left">{{$val['booknum']}}</td>
-        <td class="center">1</td>
-        <td class="right">${{$data->amount}}</td>
+       
+        <td class="right"><i class="fa fa-inr"></i>{{$data->amount}}</td>
+        <td class="right">{{$data->totalAmount /   $data->amount}}</td>
+        <td class="right"> <i class="fa fa-inr"></i> {{$data->totalAmount }}</td>
     </tr>
 @endforeach
 
@@ -138,7 +141,7 @@
                                                 </tr> -->
                                                 <tr>
                                                     <td class="left"><strong>Total</strong></td>
-                                                    <td class="right"><strong>${{$data->totalAmount}}</strong><br>
+                                                    <td class="left"> <i class="fa fa-inr"></i> <strong>${{$data->totalAmount}}</strong><br>
                                                         <!-- <strong>0.15050000</strong></td> -->
                                                 </tr>
                                             </tbody>

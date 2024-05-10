@@ -63,7 +63,7 @@
                <div class="card-body">
                @php
                         $payment = DB::table('procurement_paymrnts')->get();
-                            @endphp
+               @endphp
 
                   <div class="table-responsive">
                      <table id="example4" class="display table" style="min-width: 845px">
@@ -73,6 +73,10 @@
                               <th>User Name</th>
                               <th>User Type</th>
                               <th>Invoice Number</th>
+                              <th>Amount</th>
+                              <th>Total Book</th>
+                              <th>Total Amount</th>
+                              <th>Payment Status</th>
                               <th>Date</th>
                               <th>Control</th>
                            </tr>
@@ -85,7 +89,10 @@
                               <td>{{$val->userName}}</td>
                               <td>{{$val->userType}}</td>
                               <td>{{$val->invoiceNumber}}</td>
-
+                              <td> <i class="fa fa-inr"></i> {{$val->amount}}</td>
+                              <td >  {{$val->totalAmount /$val->amount }}</td>
+                              <td> <i class="fa fa-inr"></i> {{$val->totalAmount}}</td>
+                              <td>{{$val->paymentstatus}}</td>
                               <td>{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d ') }}</td>
                               <td><a href="payment_invoice/{{$val->id}}"><i class="fa fa-eye p-2 text-primary"></i></a>
 

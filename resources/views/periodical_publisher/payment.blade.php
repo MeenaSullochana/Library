@@ -102,14 +102,14 @@
                                         <thead>
                                             <tr>
                                                 <th>S/No</th>
-                                                <th>Book Name and Image</th>
+                                                <th>Periodical Name and Image</th>
                                                 <th>Amount</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             @php
-                                                $data = Session::get('bookitem');
-                                                $amount = count($data) * 500;
+                                                $data = Session::get('periodicalitem');
+                                                $amount = count($data) * 450;
                                             @endphp
 
                                             @foreach ($data as $val)
@@ -118,13 +118,13 @@
                                                     <td data-label="Book Name and Image">
                                                         <div class="d-flex mb-2">
                                                             <div class="flex-shrink-0">
-                                                                <img src="{{ asset('Books/front/' . $val->front_img) }}"
+                                                                <img src="{{ asset('Magazine/full/' . $val->full_img) }}"
                                                                     alt="" width="35" class="img-fluid">
                                                             </div>
                                                             <div class="flex-lg-grow-1 ms-3">
                                                                 <h6 class=" mb-0"><a href="#"
-                                                                        class="text-reset">{{ $val->book_title }}</a></h6>
-                                                                <span class="small"> <b>Author </b> : {{ $val->author_name }}</span>
+                                                                        class="text-reset">{{ $val->title }}</a></h6>
+                                                                <span class="small"> <b>RNI </b> : {{ $val->rni_details }}</span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -275,7 +275,7 @@
                         <div class="card mb-4 h-auto">
                             <div class="card-body">
                                 @php
-                                   $user = auth('publisher')->user();
+                                   $user = auth('periodical_publisher')->user();
                      
                                 @endphp
                                 <h3 class="h6">Customer Notes</h3>

@@ -63,6 +63,7 @@ class Magazine extends Model
        'bank_Name',
        'ifsc_Code',
        'ban_Acc_Num',
-       'acc_Hol_Nam'
+       'acc_Hol_Nam',
+        'periodical_procurement_status'
     ];
 }
