@@ -61,6 +61,14 @@
 
                 <!-- Main content -->
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger" role="alert">
+                            <h4 class="alert-heading">Important Notice!</h4>
+                            <p>Review Fee for Book Selection is<b> Non Refundable.</b></p>
+                            <hr>
+                            <p class="mb-0">Directorate of Public Library</p>
+                        </div>
+                    </div>
                     <div class="col-lg-8">
                         <!-- Details -->
                         <div class="card mb-4 h-auto" id="print-pdf">
