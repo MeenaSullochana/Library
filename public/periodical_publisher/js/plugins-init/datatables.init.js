@@ -37,9 +37,6 @@ let dataSet = [
     [ "Unity Butler", "Marketing Designer", "San Francisco", "5384", "2009/12/09", "$85,675" ]
 ];
 
-
-
-
 (function($) {
      "use strict"
 	 
@@ -303,6 +300,8 @@ let dataSet = [
 		},
 		
     });
+
+
 	var table = $('#empoloyees-tbl1').DataTable({
 		//dom: 'Bfrtip',
 		'dom': 'ZBfrltip',

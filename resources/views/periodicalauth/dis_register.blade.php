@@ -651,7 +651,7 @@
                                 </div>
                             </div>
                             <div class="authorization_latter">
-                                <h6 class="fw-bold">Name of Publishers in your Distribution - <span class="mt-055">உங்கள் விநியோகத்தில்
+                                <h6 class="fw-bold">Name of Periodical in your Distribution - <span class="mt-055">உங்கள் விநியோகத்தில்
                                     உள்ள வெளியீட்டாளர்களின் பெயர்</span>
                                  </h6>
                                 <div class="row mb-3 border border-0 p-2 m-2">
@@ -661,7 +661,7 @@
                                               <table class="table table-bordered" id="distribution_table"
                                                  class="distribution_table">
                                                  <tr>
-                                                    <th>Publisher Name - <span
+                                                    <th>Periodical Name - <span
                                                        class="mt-056">வெளியீட்டாளர்களின் பெயர்</span><span
                                                        class="text-danger maditory">*</span></label></th>
                                                     <th> Place - <span class="mt-056">இடம்</span><span
@@ -671,8 +671,8 @@
                                                     <th>Add</th>
                                                  </tr>
                                                  <tr>
-                                                    <td data-title="Publisher Name"><input type="text" name="publisher_name[]"
-                                                       placeholder="Enter  the publisher name*"
+                                                    <td data-title="Periodical Name"><input type="text" name="publisher_name[]"
+                                                       placeholder="Enter  the Periodical name*"
                                                        class="form-control name_list" required /></td>
                                                     <td data-title="Place"><input type="text" name="publisher_place[]"
                                                        placeholder="Enter the place*"

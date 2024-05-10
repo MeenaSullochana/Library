@@ -17,6 +17,8 @@
     <?php
         include "periodical_publisher/plugin/plugin_css.php";
     ?>
+    
+   
 </head>
 
 <body>
@@ -61,7 +63,7 @@
                <div class="card-body">
 
                   <div class="table-responsive">
-                     <table id="example4" class="display table" style="min-width: 845px">
+                     <table id="all-export" class="display table" style="min-width: 845px">
                         <thead>
                            <tr>
                               <th>S/No</th>
@@ -131,6 +133,7 @@
          <?php
         include "periodical_publisher/plugin/plugin_js.php";
     ?>
+    </script>
 </body>
 
 </html>

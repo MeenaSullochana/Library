@@ -16,12 +16,6 @@
 	<!-- tagify -->
 	<script src="../vendor/tagify/dist/tagify.js"></script>
 
-	<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
-	<script src="../vendor/datatables/js/dataTables.buttons.min.js"></script>
-	<script src="../vendor/datatables/js/buttons.html5.min.js"></script>
-	<script src="../vendor/datatables/js/jszip.min.js"></script>
-	<script src="./js/plugins-init/datatables.init.js"></script>
-
 	<!-- Apex Chart -->
 
 	<script src="../vendor/bootstrap-datetimepicker/js/moment.js"></script>
@@ -43,6 +37,28 @@
     <script src="./js/plugins-init/sweetalert.init.js"></script>
 
     <!-- Toastr -->
-    <!-- <script src="./vendor/toastr/js/toastr.min.js"></script> -->
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.js"></script> -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+	<script src="../vendor/datatables/js/jszip.min.js"></script>
+	<script src="./js/plugins-init/datatables.init.js"></script>
+    <script src="./vendor/toastr/js/toastr.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.js"></script>
+	<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+
+	<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.pdfHtml5.min.js"></script>
+	<script src="https://cdn.datatables.net/zbfrltip/1.0.0/js/zbfrltip.dataTables.min.js"></script>
+
+
+	<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+
+	<!-- <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script> -->
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>

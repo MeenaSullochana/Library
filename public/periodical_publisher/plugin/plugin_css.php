@@ -20,3 +20,4 @@
 
 	<!-- sweetalert2 -->
 	<link href="../vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
+	
