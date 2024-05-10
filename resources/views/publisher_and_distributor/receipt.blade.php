@@ -121,6 +121,7 @@
                                     </tr>
                                 </tbody>
                         </table>
+                        <p class="text-center"><span class="text-danger ">Note:</span> Review Fee for Book Selection is Non Refundable.</p>
                     </div>
                 </div>
             </div>

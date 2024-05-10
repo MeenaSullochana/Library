@@ -25,113 +25,6 @@
     <?php
         include "publisher_and_distributor/plugin/plugin_css.php";
     ?>
-    <style>
-    table {
-        border: 1px solid #ccc;
-        border-collapse: collapse;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        table-layout: fixed;
-    }
-
-    table caption {
-        font-size: 1.5em;
-        margin: .5em 0 .75em;
-    }
-
-    table tr {
-        background-color: #f8f8f8;
-        border: 1px solid #ddd;
-        padding: .35em;
-    }
-
-    table th,
-    table td {
-        padding: .625em;
-        text-align: center;
-    }
-
-    table th {
-        font-size: .85em;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-    }
-
-    @media screen and (max-width: 600px) {
-        table {
-            border: 0;
-        }
-
-        table caption {
-            font-size: 1.3em;
-        }
-
-        table thead {
-            border: none;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-        }
-
-        .form-check.mt-p00.form-switch {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        table tr {
-            border-bottom: 3px solid #ddd;
-            display: block;
-            margin-bottom: .625em;
-        }
-
-        table td {
-            border-bottom: 1px solid #ddd;
-            display: block;
-            font-size: .8em;
-            text-align: right;
-        }
-
-        table td::before {
-            /*
-   * aria-label has no advantage, it won't be read inside a table
-   content: attr(aria-label);
-   */
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        table td:last-child {
-            border-bottom: 0;
-        }
-
-        .d-flex.mt-p0 {
-            display: flex;
-            justify-content: flex-end;
-        }
-    }
-
-    /* general styling */
-    body {
-        font-family: "Open Sans", sans-serif;
-        line-height: 1.25;
-    }
-
-    .active-projects.style-1 .dt-buttons .dt-button {
-        top: -50px;
-        right: 0 !important;
-    }
-
-    .active-projects tbody tr td:last-child {
-        text-align: center;
-    }
-    </style>
 </head>
 
 <body>
@@ -166,9 +59,50 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>procurement Send sample Books List</b>
+                                <b>Procurement Send Sample Books List</b>
                             </h3>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h6 class="fw-bold">Copies to be Submitted for Review and Selection: 5 copies</h6>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong> Archiving purpose:</strong> To comply with the Delivery of Books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.<br><br>
+                            <p><strong>Review purpose: </strong> Send two copies for review of books to Anna Centenary Library, Chennai.</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <b>Transparent Book Procurement</b> <br>
+                                Book Selection Committee<br>
+                                Anna Centenary Library <br>
+                                Kotturpuram , Chennai - 600 085<br>
+                                Tamil Nadu<br>
+                                Ph. No. : 044-22201011<br>
+
+                            </div>
+                            <div class="col-md-4 border-start">
+                                <b>Transparent Book Procurement</b> <br>
+                                Book Selection Committee<br>
+                                Connemara Public Library Chennai<br>
+                                Museum Compound, Pantheon Road, Egmore, <br>
+                                Chennai - 600 008<br>
+                                Tamil Nadu <br>
+                                Ph. No. : 044-28193751<br>
+
+                            </div>
+                            <div class="col-md-4 border-start">
+                                <b>Transparent Book Procurement</b><br> 
+                                Book Selection Committee<br>
+                                Kalaignar Centenary Library,<br>
+                                Reserve Line, Madurai - 625 002<br>
+                                Tamil Nadu <br>
+                                Ph. No. : 0452-2535400 <br>
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -408,6 +342,113 @@
         </div>
     </div>
 </body>
+<style>
+    table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    table caption {
+        font-size: 1.5em;
+        margin: .5em 0 .75em;
+    }
+
+    table tr {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: .35em;
+    }
+
+    table th,
+    table td {
+        padding: .625em;
+        text-align: center;
+    }
+
+    table th {
+        font-size: .85em;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+    }
+
+    @media screen and (max-width: 600px) {
+        table {
+            border: 0;
+        }
+
+        table caption {
+            font-size: 1.3em;
+        }
+
+        table thead {
+            border: none;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        .form-check.mt-p00.form-switch {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        table tr {
+            border-bottom: 3px solid #ddd;
+            display: block;
+            margin-bottom: .625em;
+        }
+
+        table td {
+            border-bottom: 1px solid #ddd;
+            display: block;
+            font-size: .8em;
+            text-align: right;
+        }
+
+        table td::before {
+            /*
+   * aria-label has no advantage, it won't be read inside a table
+   content: attr(aria-label);
+   */
+            content: attr(data-label);
+            float: left;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        table td:last-child {
+            border-bottom: 0;
+        }
+
+        .d-flex.mt-p0 {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+
+    /* general styling */
+    body {
+        font-family: "Open Sans", sans-serif;
+        line-height: 1.25;
+    }
+
+    .active-projects.style-1 .dt-buttons .dt-button {
+        top: -50px;
+        right: 0 !important;
+    }
+
+    .active-projects tbody tr td:last-child {
+        text-align: center;
+    }
+    </style>
 <script>
 $(document).ready(function() {
     $('#closedata').on('click', function() {

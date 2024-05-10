@@ -172,6 +172,47 @@
                         </div>
                     </div>
                 </div>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h6 class="fw-bold">Copies to be Submitted for Review and Selection: 5 copies</h6>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong> Archiving purpose:</strong> To comply with the Delivery of Books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.<br><br>
+                            <p><strong>Review purpose: </strong> Send two copies for review of books to Anna Centenary Library, Chennai.</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <b>Transparent Book Procurement</b> <br>
+                                Book Selection Committee<br>
+                                Anna Centenary Library <br>
+                                Kotturpuram , Chennai - 600 085<br>
+                                Tamil Nadu<br>
+                                Ph. No. : 044-22201011<br>
+
+                            </div>
+                            <div class="col-md-4 border-start">
+                                <b>Transparent Book Procurement</b> <br>
+                                Book Selection Committee<br>
+                                Connemara Public Library Chennai<br>
+                                Museum Compound, Pantheon Road, Egmore, <br>
+                                Chennai - 600 008<br>
+                                Tamil Nadu <br>
+                                Ph. No. : 044-28193751<br>
+
+                            </div>
+                            <div class="col-md-4 border-start">
+                                <b>Transparent Book Procurement</b><br> 
+                                Book Selection Committee<br>
+                                Kalaignar Centenary Library,<br>
+                                Reserve Line, Madurai - 625 002<br>
+                                Tamil Nadu <br>
+                                Ph. No. : 0452-2535400 <br>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row bg-white p-2">
                     <div class="col-xl-12">
                         <div class="card-body p-0">
