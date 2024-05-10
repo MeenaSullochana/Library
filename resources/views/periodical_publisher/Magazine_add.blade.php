@@ -195,7 +195,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Name of the Publisher  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" value="{{auth('periodical_publisher')->user()->publicationName}}" readonly>>
+                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" required>
                                                                 <div class="invalid-feedback"> Please enter the name of the publisher. </div>
                                                             </div>
                                                         </div>

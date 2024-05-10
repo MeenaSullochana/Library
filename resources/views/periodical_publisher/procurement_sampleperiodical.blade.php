@@ -14,16 +14,16 @@
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement</title>
+    <title>Government of Tamil Nadu - periodical Procurement</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="images/fevi.svg">
     <link href="
       https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.css
       " rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="shortcut icon" type="image/png" href="{{ asset('distributor/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_publisher/images/fevi.svg') }}">
     <?php
-        include "distributor/plugin/plugin_css.php";
+        include "periodical_publisher/plugin/plugin_css.php";
     ?>
     <style>
     table {
@@ -153,7 +153,7 @@
         <!--**********************************
             Nav header start
             ***********************************-->
-        @include ('distributor.navigation')
+        @include ('periodical_publisher.navigation')
         <!--**********************************
             Sidebar end
             ***********************************-->
@@ -166,7 +166,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>procurement Send sample Books List</b>
+                                <b>procurement Send sample Periodical List</b>
                             </h3>
 
                         </div>
@@ -174,10 +174,10 @@
                 </div>
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h6 class="fw-bold">Copies to be Submitted for Review and Selection: 5 copies</h6>
+                        <h6 class="fw-bold">Copies to be Submitted for Review and Selection: 3 copies</h6>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong> Archiving purpose:</strong> To comply with the Delivery of Books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.<br><br>
-                            <p><strong>Review purpose: </strong> Send two copies for review of books to Anna Centenary Library, Chennai.</p>
+                            <strong> Archiving purpose:</strong> To comply with the Delivery of periodicals (Public Libraries) Act, 1954, send one copy of all published periodicals to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of periodicals.<br><br>
+                            <p><strong>Review purpose: </strong> Send two copies for review of periodicals to Anna Centenary Library, Chennai.</p>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
 
@@ -191,7 +191,7 @@
                                 Ph. No. : 044-22201011<br>
 
                             </div>
-                            <div class="col-md-4 border-start">
+                            <!-- <div class="col-md-4 border-start">
                                 <b>Transparent Book Procurement</b> <br>
                                 Book Selection Committee<br>
                                 Connemara Public Library Chennai<br>
@@ -209,7 +209,7 @@
                                 Tamil Nadu <br>
                                 Ph. No. : 0452-2535400 <br>
 
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -226,8 +226,9 @@
                                             <tr role="row">
 
                                                 <th>S.No</th>
-                                                <th>Book ID</th>
                                                 <th>Title</th>
+                                                <th>Periodicity</th>
+                                                 <th> RNI </th>
                                                 <th>Issued Status</th>
                                                 <th> Action</th>
                                             </tr>
@@ -237,26 +238,26 @@
                                             <tr role="row" class="odd">
 
                                                 <td data-label="S/No">{{$loop->index+1}}</td>
-                                                <td data-label="Book ID">{{$val->product_code}}</td>
+                                                <!-- <td data-label="Book ID">{{$val->product_code}}</td> -->
                                                 <td style="white-space:normal;" data-label="Title">
                                                     <h6><a class="text-left"
-                                                            href="/distributor/book_manage_view/{{$val->id}}">{{$val->book_title}}</a>
+                                                            href="/periodical_publisher/magazine_view/{{$val->id}}">{{$val->title}}</a>
                                                     </h6>
-                                                    <span class="text-left">{{$val->subtitle}}</span>
                                                 </td>
-
+                                                <td data-label=""> {{$val->periodicity}}</td>
+                                                 <td data-label="">{{$val->rni_details}}</td>
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary openModal"
-                                                        data-title="{{$val->book_title}}" data-id="{{$val->id}}"
-                                                        id="openModal">Send Book Copies</a>
+                                                        data-title="{{$val->title}}" data-id="{{$val->id}}"
+                                                        id="openModal">Send Periodical Copies</a>
                                                 </td>
                                                 <td data-label="control">
 
-                                                    <a href="/distributor/book_manage_view/{{$val->id}}"
+                                                    <a href="/periodical_publisher/magazine_view/{{$val->id}}"
                                                         class="btn btn-success shadow btn-xs sharp me-1">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
-                                                    <!-- <a href="/distributor/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                    <!-- <a href="/periodical_publisher/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                             <i class="fa fa-eye-slash"></i>
                                             </a> -->
 
@@ -293,7 +294,7 @@
          Main wrapper end
          ***********************************-->
     <?php
-         include "distributor/plugin/plugin_js.php";
+         include "periodical_publisher/plugin/plugin_js.php";
      ?>
     <!-- Modal Confirm Apply Procurement-->
     <div class="modal fade" id="exampleModalCenter">
@@ -343,7 +344,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Are you send book Copies?</h5>
+                    <h5 class="modal-title">Are you send periodical Copies?</h5>
                     <button type="button" id="closedata" class="btn-close" data-bs-dismiss="modal">
                     </button>
                 </div>
@@ -351,7 +352,7 @@
                     <input type="hidden" id="hiddenId">
                     <input type="hidden" id="hiddentitle">
                     <h5 class="modal-title">
-                        <p id="booktitle">Book Title:</p>
+                        <p id="periodicaltitle">periodical Title:</p>
                     </h5>
                     </h5>
                     <br>
@@ -371,7 +372,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="inputNumberBooks1"> book copies</label>
+                                <label for="inputNumberBooks1"> periodical copies</label>
                                 <input type="text" class="form-control" id="copies1" value="3" name="inputNumberBooks1"
                                     readonly>
                             </div>
@@ -383,62 +384,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-md-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox">
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="inputNumberBooks1">Library Type</label>
-                                <input type="text" class="form-control" id="librarytype2"
-                                    value="Kalaignar Centenary Library" name="inputNumberBooks1" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="inputNumberBooks1"> book copies</label>
-                                <input type="text" class="form-control" id="copies2" value="1" name="inputNumberBooks1"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group mt-2">
-                                <label for="inputNumberBooks1"> Upload Proof</label>
-                                <input type="file" id="uplode2" name="" require>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-2">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox">
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="inputNumberBooks1">Library Type</label>
-                                <input type="text" class="form-control" id="librarytype3"
-                                    value="Connemara Public Library" name="inputNumberBooks1" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label for="inputNumberBooks1"> book copies</label>
-                                <input type="text" class="form-control" id="copies3" value="1" name="inputNumberBooks1"
-                                    readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group mt-2">
-                                <label for="inputNumberBooks1"> Upload Proof</label>
-                                <input type="file" id="uplode3" name="" require>
-                            </div>
-                        </div>
-                    </div>
+                  
                 </div>
 
                 <div class="modal-footer">
@@ -462,209 +408,104 @@ $(document).ready(function() {
     $('.openModal').on('click', function() {
         var title = $(this).data('title');
         var id = $(this).data('id');
-        $('#booktitle').text('Book Title: ' + title);
+        $('#periodicaltitle').text('Periodical Title: ' + title);
 
         $('#hiddenId').val(id);
         $('#hiddentitle').val(title);
 
         $('#ModalConfirmCenter').modal('show');
-        console.log(dataId);
     });
 });
 </script>
-<!-- 
+
 <script>
-$(document).ready(function() {
-    $('#sendbook').on('click', function() {
+    $(document).ready(function() {
+        $('#sendbook').on('click', function() {
+            $('#sendbook').prop('disabled',true);
 
-        var profileImage = $('#uplode1')[0].files[0];
-        var profileImage1 = $('#uplode2')[0].files[0];
-        var profileImage2 = $('#uplode3')[0].files[0];
+            var profileImage = $('#uplode1')[0].files[0];
 
-        var checkedCount = $('#ModalConfirmCenter input[type="checkbox"]:checked').length;
-        if (checkedCount != 3) {
-            toastr.error("Please Select All Checkbox", {
-                timeout: 45000
-            });
-
-        } else {
-            var datarec = [];
-            var data1 = {
-                'librarytype': $('#librarytype1').val(),
-                'copies': $('#copies1').val(),
-                'status': '0',
-                'profileImage' = profileImage[0],
-            };
-            var data2 = {
-                'librarytype': $('#librarytype2').val(),
-                'copies': $('#copies2').val(),
-                'status': '0',
-                'profileImage1' = profileImage1[0],
-            };
-            var data3 = {
-                'librarytype': $('#librarytype3').val(),
-                'copies': $('#copies3').val(),
-                'status': '0'
-                'profileImage2' = profileImage2[0],
-
-            };
-            datarec.push(data1, data2, data3);
-
-            var datarecJsonString = JSON.stringify(datarec);
-
-            var formData = new FormData();
-
-            formData.append('datarec', datarecJsonString);
-            formData.append('bookid', $('#hiddenId').val());
-            formData.append('booktitle', $('#hiddentitle').val());
-            console.log(formData);
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                type: "post",
-                url: "/distributor/procurementbokkcopies",
-                data: formData,
-                processData: false, 
-                contentType: false,
-                success: function(response) {
-                    if (response.success) {
-                        $('#ModalConfirmCenter').modal('hide');
-                        setTimeout(function() {
-                 window.location.href ="/distributor/procurement_samplebook"
-                  }, 3000);
-                        toastr.success(response.success, {
-                            timeout: 45000
-                        });
-                    } else {
-                        $('#ModalConfirmCenter').modal('hide');
-
-                        toastr.error(response.error, {
-                            timeout: 45000
-                        });
-                        setTimeout(function() {
-                 window.location.href ="/distributor/procurement_samplebook"
-                  }, 3000);
-
-                    }
-
-                }
-            });
-
-        }
-
-    });
-});
-</script> -->
-<script>
-$(document).ready(function() {
-    $('#sendbook').on('click', function() {
-        $('#sendbook').prop('disabled',true);
-
-        var profileImage = $('#uplode1')[0].files[0];
-        var profileImage1 = $('#uplode2')[0].files[0];
-        var profileImage2 = $('#uplode3')[0].files[0];
-
-
-
-
-        var checkedCount = $('#ModalConfirmCenter input[type="checkbox"]:checked').length;
-        if (checkedCount != 3) {
-            $('#sendbook').prop('disabled',false);
-
-            toastr.error("Please Select All Checkbox", {
-                timeout: 45000
-            });
-        } else {
-            if (!profileImage || !profileImage1 || !profileImage2) {
+            var checkedCount = $('#ModalConfirmCenter input[type="checkbox"]:checked').length;
+            if (checkedCount !== 1) {
                 $('#sendbook').prop('disabled',false);
 
-                toastr.error("Please select all three PDF files", {
+                toastr.error("Please Select All Checkbox", {
                     timeout: 45000
                 });
-                return;
-            }
+            } else {
+                if (!profileImage) {
+                    $('#sendbook').prop('disabled',false);
 
-            if (!isPDF(profileImage) || !isPDF(profileImage1) || !isPDF(profileImage2)) {
-                $('#sendbook').prop('disabled',false);
-
-                toastr.error("Please select PDF files only", {
-                    timeout: 45000
-                });
-                return;
-            }
-
-            function isPDF(file) {
-                return file.type === 'application/pdf';
-            }
-            var datarec = [];
-            var data1 = {
-                'librarytype': $('#librarytype1').val(),
-                'copies': $('#copies1').val(),
-                'status': '0',
-                
-            };
-            var data2 = {
-                'librarytype': $('#librarytype2').val(),
-                'copies': $('#copies2').val(),
-                'status': '0',
-               
-            };
-            var data3 = {
-                'librarytype': $('#librarytype3').val(),
-                'copies': $('#copies3').val(),
-                'status': '0',
-                
-            };
-            datarec.push(data1, data2, data3);
-
-            var datarecJsonString = JSON.stringify(datarec);
-
-            var formData = new FormData();
-
-            formData.append('datarec', datarecJsonString);
-            formData.append('bookid', $('#hiddenId').val());
-            formData.append('booktitle', $('#hiddentitle').val());
-            formData.append('profileImage0', profileImage);
-            formData.append('profileImage1', profileImage1);
-            formData.append('profileImage2', profileImage2);
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    toastr.error("Please select all three PDF files", {
+                        timeout: 45000
+                    });
+                    return;
                 }
-            });
-            $.ajax({
-                type: "post",
-                url: "/distributor/procurementbokkcopies",
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    if (response.success) {
-                        $('#ModalConfirmCenter').modal('hide');
-                        setTimeout(function() {
-                            window.location.href =
-                                "/distributor/procurement_samplebook";
-                        }, 3000);
-                        toastr.success(response.success, {
-                            timeout: 45000
-                        });
-                    } else {
-                        $('#sendbook').prop('disabled',false);
 
-                        toastr.error(response.error, {
-                            timeout: 45000
-                        });
+                if (!isPDF(profileImage.name)) {
+                    $('#sendbook').prop('disabled',false);
 
+                    toastr.error("Please select PDF files only", {
+                        timeout: 45000
+                    });
+                    return;
+                }
+
+                function isPDF(fileName) {
+                    return fileName.toLowerCase().endsWith('.pdf');
+                }
+
+                var datarec = [{
+                    'librarytype': $('#librarytype1').val(),
+                    'copies': $('#copies1').val(),
+                    'status': '0',
+                }];
+
+                var datarecJsonString = JSON.stringify(datarec);
+
+                var formData = new FormData();
+
+                formData.append('datarec', datarecJsonString);
+                formData.append('periodicalid', $('#hiddenId').val());
+                formData.append('periodicaltitle', $('#hiddentitle').val());
+                formData.append('profileImage0', profileImage);
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
-                }
-            });
-        }
+                });
+                $.ajax({
+                    type: "post",
+                    url: "/periodical_publisher/procurementperiodicalcopies",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            $('#ModalConfirmCenter').modal('hide');
+                            setTimeout(function() {
+                                window.location.href =
+                                    "/periodical_publisher/procurement_sampleperiodical";
+                            }, 3000);
+                            toastr.success(response.success, {
+                                timeout: 45000
+                            });
+                        } else {
+                            toastr.error(response.error, {
+                                timeout: 45000
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        toastr.error("An error occurred while processing your request.", {
+                            timeout: 45000
+                        });
+                    }
+                });
+            }
+        });
     });
-});
 </script>
+
 
 </html>

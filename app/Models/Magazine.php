@@ -64,6 +64,7 @@ class Magazine extends Model
        'ifsc_Code',
        'ban_Acc_Num',
        'acc_Hol_Nam',
-        'periodical_procurement_status'
+        'periodical_procurement_status',
+        'periodical_status'
     ];
 }

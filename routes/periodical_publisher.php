@@ -35,12 +35,17 @@ Route::prefix('periodical_publisher')->group(function () {
     // procurement
     Route::get('/procurement', [MagazineController::class, 'procurement']);
     Route::post('/applay_procurment',[MagazineController::class,'applay_procurment']);
+    Route::get('/procurement_sampleperiodical',[MagazineController::class,'procurement_sampleperiodical']);
+    Route::post('/procurementperiodicalcopies', [MagazineController::class, 'procurementperiodicalcopies']);
+    Route::get('/procurement_sampleperiodicalpending', [MagazineController::class, 'procurement_sampleperiodicalpending']);
+    Route::get('/procurement_sampleperiodicalcomplete', [MagazineController::class, 'procurement_sampleperiodicalcomplete']);
 
+    Route::post('/periodicalcopiesstatus', [MagazineController::class, 'periodicalcopiesstatus']);
 
     
-    Route::get('/procurement_samplemagazine',function(){ return view('periodical_publisher.procurement_samplemagazine');});
-    Route::get('/procurement_samplemagazinepending',function(){ return view('periodical_publisher.procurement_samplemagazinepending');});
-    Route::get('/procurement_samplemagazinecomplete',function(){ return view('periodical_publisher.procurement_samplemagazinecomplete');});
+    // Route::get('/procurement_sampleperiodical',function(){ return view('periodical_publisher.procurement_samplemagazine');});
+    // Route::get('/procurement_samplemagazinepending',function(){ return view('periodical_publisher.procurement_samplemagazinepending');});
+    // Route::get('/procurement_samplemagazinecomplete',function(){ return view('periodical_publisher.procurement_samplemagazinecomplete');});
 
     // payment
     Route::get('/procurement_payment_list',function(){ return view('periodical_publisher.procurement_payment_list');});

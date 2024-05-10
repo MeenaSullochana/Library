@@ -563,6 +563,8 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
     $('#sendbook').on('click', function() {
+        $('#sendbook').prop('disabled',true);
+
         var profileImage = $('#uplode1')[0].files[0];
         var profileImage1 = $('#uplode2')[0].files[0];
         var profileImage2 = $('#uplode3')[0].files[0];
@@ -572,11 +574,15 @@ $(document).ready(function() {
 
         var checkedCount = $('#ModalConfirmCenter input[type="checkbox"]:checked').length;
         if (checkedCount != 3) {
+            $('#sendbook').prop('disabled',false);
+
             toastr.error("Please Select All Checkbox", {
                 timeout: 45000
             });
         } else {
             if (!profileImage || !profileImage1 || !profileImage2) {
+                $('#sendbook').prop('disabled',false);
+
                 toastr.error("Please select all three PDF files", {
                     timeout: 45000
                 });
@@ -584,6 +590,8 @@ $(document).ready(function() {
             }
 
             if (!isPDF(profileImage) || !isPDF(profileImage1) || !isPDF(profileImage2)) {
+                $('#sendbook').prop('disabled',false);
+
                 toastr.error("Please select PDF files only", {
                     timeout: 45000
                 });
@@ -643,11 +651,13 @@ $(document).ready(function() {
                             window.location.href =
                                 "/publisher/procurement_samplebook";
                         }, 3000);
+                      
                         toastr.success(response.success, {
                             timeout: 45000
                         });
                     } else {
-                        // $('#ModalConfirmCenter').modal('hide');
+                        $('#sendbook').prop('disabled',false);
+
                         toastr.error(response.error, {
                             timeout: 45000
                         });
