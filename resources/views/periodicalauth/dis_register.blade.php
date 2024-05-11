@@ -1496,35 +1496,25 @@ if(password.length == 0){
       discheckPasswordMatch();
    });
 
-   function showLoading1() {
-      // Show loading bar
-      document.getElementById('loadingBar1').style.display = 'block';
-      // Add 'loading' class to the form to make it semi-transparent
-      document.getElementById('form_distriputor').classList.add('loading1');
-  }
 
-  function hideLoadingBar1() {
-    document.getElementById('loadingBar1').style.display = 'none';
-    document.getElementById('form_distriputor').classList.remove('loading1');
-}
    $('#btn_publisher_submit_form').on('click', function () {
 
       $("#magazine_publisher_register").submit(function (e) {
-         showLoading1();
+        
            //password
       var password = $("#dis_password").val();
       var confirmPassword = $("#dis_conform_password").val();
       if(password.length == 0){
-         hideLoadingBar1();
+         
          toastr.error("Password required!!");
          e.preventDefault();
       }else if(confirmPassword.length == 0){
-         hideLoadingBar1();
+         
          toastr.error("Confirm password required!!");
          e.preventDefault();
       }else{
          if(password != confirmPassword){
-            hideLoadingBar1();
+            
             toastr.error("Password and confirm password doesn't match!!");
             e.preventDefault();
          }
@@ -1533,13 +1523,13 @@ if(password.length == 0){
    //username
    var uname1 = $("#dis_user_name").val();
    if(uname1.length == 0){
-      hideLoadingBar1();
+      
       toastr.error("Username required!!!");
      e.preventDefault();
    }else{
       var username1 = $("#disusernameval").val();
       if(username1 && username1 == 0){
-           hideLoadingBar1();
+           
             toastr.error("Username already taken!!!");
            e.preventDefault();
         }
@@ -1548,18 +1538,18 @@ if(password.length == 0){
    //email
    var uemail1 = $("#pub_email_id").val();
    if(uemail1.length == 0){
-      hideLoadingBar1();
+      
       toastr.error('Email required!!');
      e.preventDefault();
    }else{
       var email = $("#disemailval").val();
       if(email == 0){
-         hideLoadingBar1();
+         
           toastr.error('Email already taken!!');
          e.preventDefault();
       }
       else if(email == 2){
-         hideLoadingBar1();
+         
           toastr.error('Invalid Email!!');
          e.preventDefault();
       }
@@ -1581,7 +1571,7 @@ if(password.length == 0){
          });
 
          if (errorOccurred) {
-             hideLoadingBar1();
+             
              e.preventDefault(); // Prevent form submission if an error occurred
          }
 
@@ -1597,24 +1587,24 @@ if (ownership == 'Partnership') {
     var pan_deed = $("[name='pan_deed']").prop('files')[0];
     var pan_tan = $("[name='pan_tan']").prop('files')[0];
          if (udayam.type !== 'application/pdf') {
-            hideLoadingBar1();
+            
              toastr.error('Udyam Certificate must be a PDF file.');
             e.preventDefault();
 
             }
          if (pan_deed.type !== 'application/pdf') {
-            hideLoadingBar1();
+            
           toastr.error('Partnership Deed must be a PDF file.');
          e.preventDefault();
             }
          if (gst.type !== 'application/pdf') {
-            hideLoadingBar1();
+            
              toastr.error('GST Certificate must be a PDF file.');
             e.preventDefault();
 
          }
          if (pan_tan.type !== 'application/pdf') {
-            hideLoadingBar1();
+            
              toastr.error('PAN / TAN must be a PDF file.');
             e.preventDefault();
 
@@ -1628,30 +1618,30 @@ else if (ownership == 'Private') {
    var gst = $("[name='gst']").prop('files')[0];
 
         if (certification_incon.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
             toastr.error('Certificate of incorporation must be a PDF file.');
            e.preventDefault();
 
         }
         if (moa.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
           toastr.error('MOA must be a PDF file.');
          e.preventDefault();
 
          }
       if (aoa.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
        toastr.error('AOA must be a PDF file.')
       e.preventDefault();
          }
         if (gst.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
           toastr.error('GST Certificate must be a PDF file.');
          e.preventDefault();
 
       }
         if (pan_tan.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
             toastr.error('PAN must be a PDF file.');
            e.preventDefault();
         }
@@ -1662,19 +1652,19 @@ else if (ownership == 'Publication') {
    var gst = $("[name='gst']").prop('files')[0];
 
         if (certification_incon.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
             toastr.error('Certificate of incorporation must be a PDF file.');
            e.preventDefault();
 
         }
         if (gst.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
           toastr.error('GST Certificate must be a PDF file.');
          e.preventDefault();
 
       }
         if (pan_tan.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
             toastr.error('PAN must be a PDF file.');
            e.preventDefault();
         }
@@ -1685,19 +1675,19 @@ else if (ownership == 'oneperson') {
    var gst = $("[name='gst']").prop('files')[0];
    var pan_tan = $("[name='pan_tan']").prop('files')[0];
         if (udayam.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
             toastr.error('Udyam Certificate must be a PDF file.');
            e.preventDefault();
 
            }
         if (gst.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
             toastr.error('GST Certificate must be a PDF file.');
            e.preventDefault();
 
         }
         if (pan_tan.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
             toastr.error('PAN / TAN must be a PDF file.');
            e.preventDefault();
 
@@ -1709,24 +1699,24 @@ else if (ownership == 'limited') {
    var gst = $("[name='gst']").prop('files')[0];
    var pan_tan = $("[name='pan_tan']").prop('files')[0];
            if (llp.type !== 'application/pdf') {
-            hideLoadingBar1();
+            
                toastr.error('LLP Agreement must be a PDF file.');
               e.preventDefault();
       }
         if (udayam.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
             toastr.error('Udyam Certificate must be a PDF file.');
            e.preventDefault();
 
            }
         if (gst.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
             toastr.error('GST Certificate must be a PDF file.');
            e.preventDefault();
 
         }
         if (pan_tan.type !== 'application/pdf') {
-         hideLoadingBar1();
+         
             toastr.error('PAN / TAN must be a PDF file.');
            e.preventDefault();
 
@@ -1738,18 +1728,18 @@ else if (ownership == 'trust') {
    var pan_tan = $("[name='pan_tan']").prop('files')[0];
            if (society.type !== 'application/pdf') {
               toastr.error('Private Trust Registration Certificate must be a PDF file.');
-              hideLoadingBar1();
+              
               e.preventDefault();
       }
         if (gst.type !== 'application/pdf') {
            toastr.error('GST Certificate must be a PDF file.');
-           hideLoadingBar1();
+           
            e.preventDefault();
 
         }
         if (pan_tan.type !== 'application/pdf') {
            toastr.error('PAN must be a PDF file.');
-           hideLoadingBar1();
+           
            e.preventDefault();
 
         }
@@ -1760,18 +1750,18 @@ else if (ownership == 'society') {
    var pan_tan = $("[name='pan_tan']").prop('files')[0];
            if (society.type !== 'application/pdf') {
               toastr.error('Private Society Registration Certificate must be a PDF file.');
-             hideLoadingBar1();
+             
               e.preventDefault();
       }
         if (gst.type !== 'application/pdf') {
            toastr.error('GST Certificate must be a PDF file.');
-          hideLoadingBar1();
+          
            e.preventDefault();
 
         }
         if (pan_tan.type !== 'application/pdf') {
            toastr.error('PAN must be a PDF file.');
-          hideLoadingBar1();
+          
            e.preventDefault();
 
         }
@@ -1782,18 +1772,18 @@ else if (ownership == 'institutional') {
    var pan_tan = $("[name='pan_tan']").prop('files')[0];
            if (society.type !== 'application/pdf') {
               toastr.error('Government Institutional Publication Registration Certificate must be a PDF file.');
-           hideLoadingBar1();
+           
               e.preventDefault();
       }
         if (gst.type !== 'application/pdf') {
            toastr.error('GST Certificate must be a PDF file.');
-        hideLoadingBar1();
+        
            e.preventDefault();
 
         }
         if (pan_tan.type !== 'application/pdf') {
            toastr.error('PAN must be a PDF file.');
-        hideLoadingBar1();
+        
            e.preventDefault();
 
         }
@@ -1804,18 +1794,18 @@ else if (ownership == 'trust-foundation') {
    var pan_tan = $("[name='pan_tan']").prop('files')[0];
            if (society.type !== 'application/pdf') {
               toastr.error('Government Trust/Foundation Publication Registration Certificate must be a PDF file.');
-             hideLoadingBar1();
+             
               e.preventDefault();
       }
         if (gst.type !== 'application/pdf') {
            toastr.error('GST Certificate must be a PDF file.');
-          hideLoadingBar1();
+          
            e.preventDefault();
 
         }
         if (pan_tan.type !== 'application/pdf') {
            toastr.error('PAN must be a PDF file.');
-          hideLoadingBar1();
+          
            e.preventDefault();
 
         }
@@ -1826,18 +1816,18 @@ else if (ownership == 'government-society') {
    var pan_tan = $("[name='pan_tan']").prop('files')[0];
            if (society.type !== 'application/pdf') {
               toastr.error('Government Society Publication Registration Certificate must be a PDF file.');
-             hideLoadingBar1();
+             
               e.preventDefault();
       }
         if (gst.type !== 'application/pdf') {
            toastr.error('GST Certificate must be a PDF file.');
-          hideLoadingBar1();
+          
            e.preventDefault();
 
         }
         if (pan_tan.type !== 'application/pdf') {
            toastr.error('PAN must be a PDF file.');
-          hideLoadingBar1();
+          
            e.preventDefault();
 
         }
@@ -1859,7 +1849,7 @@ if (doc_name === "yes") {
     });
 }
 if (arr.length !== 0) {
-   hideLoadingBar1();
+   
      toastr.error('Subsidiary Document must be a PDF file.');
     e.preventDefault();
 }

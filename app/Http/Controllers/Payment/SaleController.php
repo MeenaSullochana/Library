@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Payment;
 
+use App\Models\PaymentBook;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -21,12 +22,17 @@ class SaleController extends Controller
         $bookitem =[];
         foreach($data as $key=>$val){
          array_push($bookitem,$val->id);
-         }
-        $books= json_encode( $bookitem);
+        }
+        $books1= json_encode($bookitem);
+        $paymentbook = new PaymentBook();
+        $paymentbook->bookId = $books1;
+        $paymentbook->save();
+        $books = $paymentbook->id;
+        // dd($books);
         $user = Session::get('user');
         $amount = count($data) *500;
         $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
-       $merchantrefno= $randomCode;
+        $merchantrefno= $randomCode;
         return view('payment.payment', compact('user', 'amount','books','merchantrefno'));
     }
     public function processSale(Request $request)
