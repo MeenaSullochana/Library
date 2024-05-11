@@ -16,10 +16,10 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement</title>
-    <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_publisher/images/fevi.svg') }}">
+ 	<!-- PAGE TITLE HERE -->
+     <title>Government of Tamil Nadu - Book Procurement</title>
+	<!-- FAVICONS ICON -->
+	<link rel="shortcut icon" type="image/png" href="{{ asset('periodical_publisher/images/fevi.svg') }}">
     <?php
         include "periodical_publisher/plugin/plugin_css.php";
     ?>
@@ -56,12 +56,11 @@
         <div class="content-body">
             <div class="container-fluid">
                 <div class="card-body bg-white">
-                    <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-sm-flex align-items-center justify-content-between">
                         <h3 class="mb-0 bc-title">
                             <b>Create Feedback</b>
                         </h3>
-                        <a class="btn btn-primary  btn-sm" href="/index">
-                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Back </a>
+
                     </div>
                 </div>
                 <div class="row">
@@ -69,18 +68,18 @@
                         <div class="modal-header">
                             <h4 class="modal-title"> Create Feedback </h4>
                         </div>
-                        <form id="emailreply1"  method="POST" >
+                        <form id="emailreply1"  method="POST"  action="/periodical_publisher/feedbackadd" >
                         @csrf
                             <div class="modal-body">
                             <div class="form-group mb-2 ps-3">
                             <label class="form-label">Subject<span class="text-danger">*</span></label>
                              <textarea type="text" class="form-control" name="subject" value=""
-                           placeholder="Enter your subject" rows="3" autocomplete="off" required="">subject</textarea>
+                           placeholder="Enter your subject" rows="3" autocomplete="off" required="">{{ old('subject') }}</textarea>
                             </div>
                                 <div class="form-group">
                                     <label class="form-label">Description<span class="text-danger">*</span></label>
                                     <textarea class="form-control" name="description" value="" placeholder="Enter your description"  required
-                                        rows="10">Description</textarea>
+                                        rows="10">{{ old('description') }}</textarea>
                                 </div>
                             </div>
 

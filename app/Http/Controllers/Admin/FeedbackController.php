@@ -12,7 +12,7 @@ use App\Models\Distributor;
 use App\Models\Librarian;
 use App\Models\Reviewer;
 
-
+use App\Models\PeriodicalPublisher;
 use App\Models\PublisherDistributor; 
 class FeedbackController extends Controller
 {
@@ -155,6 +155,34 @@ class FeedbackController extends Controller
     $feedback->image=$reviewer->profileImage;
    
     return redirect('/admin/feedbackreviewer')->with('feedback',$feedback); 
+  
+    
+  }
+
+
+  public function  feedback_periodical_publisher(){
+    $feedback=Feedback::where('userType','=','periodical_publisher')->get();
+    $data=[];
+    foreach($feedback as $key=>$val){
+   $PeriodicalPublisher=PeriodicalPublisher::where('id','=',$val->userId)->first();
+    $val->firstname=$PeriodicalPublisher->name;
+    $val->email=$PeriodicalPublisher->email;
+    $val->phone=$PeriodicalPublisher->mobileNumber;
+    $feedback->image=$PeriodicalPublisher->profileImage;
+    array_push($data,$val);
+    }
+    // return $data;
+    return view('admin/feedback_periodical_publisher')->with('data',$data);  
+  }
+
+  
+  public function  feedback_periodicalpublisher($id){
+    $feedback=Feedback::where('id','=',$id)->first();
+     $PeriodicalPublisher=PeriodicalPublisher::where('id','=',$feedback->userId)->first();
+    $feedback->firstname=$PeriodicalPublisher->name;
+    $feedback->image=$PeriodicalPublisher->profileImage;
+   
+    return redirect('/admin/periodicalpublisher')->with('feedback',$feedback); 
   
     
   }

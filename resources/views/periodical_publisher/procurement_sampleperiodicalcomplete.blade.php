@@ -93,9 +93,8 @@
 
                                                 <td style="white-space:normal;" data-label="Title">
                                                     <h6><a class="text-left"
-                                                            href="/periodical_publisher/magazine_view/{{$val->id}}">{{$val->book_title}}</a>
+                                                            href="/periodical_publisher/magazine_view/{{$val->id}}">{{$val->title}}</a>
                                                     </h6>
-                                                    <span class="text-left">{{$val->subtitle}}</span>
                                                 </td>
                                                 <td data-label=""> {{$val->periodicity}}</td>
                                                  <td data-label="">{{$val->rni_details}}</td>

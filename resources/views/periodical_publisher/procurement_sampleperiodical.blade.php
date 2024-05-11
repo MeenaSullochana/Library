@@ -491,6 +491,8 @@ $(document).ready(function() {
                                 timeout: 45000
                             });
                         } else {
+                            $('#sendbook').prop('disabled',false);
+
                             toastr.error(response.error, {
                                 timeout: 45000
                             });

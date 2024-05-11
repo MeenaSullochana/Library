@@ -141,7 +141,7 @@
                                                 </tr> -->
                                                 <tr>
                                                     <td class="left"><strong>Total</strong></td>
-                                                    <td class="left"> <i class="fa fa-inr"></i> <strong>${{$data->totalAmount}}</strong><br>
+                                                    <td class="left"> <i class="fa fa-inr"></i> <strong>{{$data->totalAmount}}</strong><br>
                                                         <!-- <strong>0.15050000</strong></td> -->
                                                 </tr>
                                             </tbody>
