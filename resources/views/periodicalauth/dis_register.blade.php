@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Directorate of Public Libraries - Magazine Distributor - Register </title>
+    <title>Directorate of Public Libraries - Magazine Periodical - Register </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -77,7 +77,7 @@
         <div class="container mt-4">
 
             <div class="card">
-                <h5>Transparent Magazine Procurement-2024</h5>
+                <h5>Transparent Periodical Procurement - 2024</h5>
                 @if (Session::has('validation_error'))
     <div class="validation-errors">
         <div class="error-list">
@@ -651,7 +651,7 @@
                                 </div>
                             </div>
                             <div class="authorization_latter">
-                                <h6 class="fw-bold">Name of Periodical in your Distribution - <span class="mt-055">உங்கள் விநியோகத்தில்
+                                <h6 class="fw-bold">Name of Periodical in Your Distribution - <span class="mt-055">உங்கள் விநியோகத்தில்
                                     உள்ள வெளியீட்டாளர்களின் பெயர்</span>
                                  </h6>
                                 <div class="row mb-3 border border-0 p-2 m-2">
@@ -672,7 +672,7 @@
                                                  </tr>
                                                  <tr>
                                                     <td data-title="Periodical Name"><input type="text" name="publisher_name[]"
-                                                       placeholder="Enter  the Periodical name*"
+                                                       placeholder="Enter the periodical name*"
                                                        class="form-control name_list" required /></td>
                                                     <td data-title="Place"><input type="text" name="publisher_place[]"
                                                        placeholder="Enter the place*"
@@ -979,7 +979,7 @@
                     if (dstcounter < 10) {
                         $('#distribution_table').
                             append('<tr id="row' + m +
-                            '"><td><input type="text" name="publisher_name[]" placeholder="Enter the publisher name*" class="form-control name_list" required /></td><td><input type="text" name="publisher_place[]" placeholder="Enter the place*" class="form-control name_list" required/></td><td><input type="file" name="authorization_letter[]" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
+                            '"><td><input type="text" name="publisher_name[]" placeholder="Enter the periodical name*" class="form-control name_list" required /></td><td><input type="text" name="publisher_place[]" placeholder="Enter the place*" class="form-control name_list" required/></td><td><input type="file" name="authorization_letter[]" class="form-control name_list" required/></td><td><button type="button" name="remove" id="' +
                             m + '" class="btn btn-danger btn_remove_dist">X</button></td></tr>');
                     } else {
                         $('#distribution_book').prop('disabled', true);

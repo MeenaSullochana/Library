@@ -16,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
 
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Magazine Add</title>
+    <title>Government of Tamil Nadu - Book Procurement - Periodical Add</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_publisher/images/fevi.svg') }}">
     <?php include 'periodical_publisher/plugin/plugin_css.php'; ?>
@@ -61,9 +61,9 @@
                 <div class="card-body bg-white mb-5">
                     <div class="d-flex align-items-center justify-content-between">
                         <h3 class="mb-0 bc-title">
-                            <b>Magazine list</b>
+                            <b>Periodical list</b>
                         </h3>
-                        <a class="btn btn-primary  btn-sm" href="/index">
+                        <a class="btn btn-primary  btn-sm" href="/periodical_publisher/Magazine_add">
                             <i class="fa fa-plus"></i> Add </a>
                     </div>
                 </div>
