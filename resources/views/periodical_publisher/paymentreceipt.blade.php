@@ -86,33 +86,40 @@
                                 <p class="p-0 m-0">Date: 2024-05-07</p>
                             </div>
                         </div>
-                        <table class="table responsive mt-5">
-                            <thead>
-                                <tr role="row">
-                                    <th>S/No</th>
-                                    <th>Book Id</th>
-                                    <th>Title of the Book</th>
-                                    <th>ISBN Number</th>
-                                    <th>Quantity</th>
-                                    <th>Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                    <tr role="row" class="odd">
-                                        <td><span>1</span></td>
-                                        <td>25563424</td>
-                                        <td>இறுதிச் சொற்பொழிவு</td>
-                                        <td>9788183223584</td>
-                                        <td>1</td>
-                                        <td><i class="fa fa-inr ms-2"></i> 450</td>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <td class="fw-bold text-end" colspan="5">Total Amount</td>
-                                        <td class="fw-bold">: <i class="fa fa-inr ms-2"></i> 1234</td>
-                                    </tr>
-                                </tbody>
-                        </table>
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table responsive mt-5">
+                                        <thead>
+                                            <tr role="row">
+                                                <th>S/No</th>
+                                                <th>Book Id</th>
+                                                <th>Title of the Book</th>
+                                                <th>ISBN Number</th>
+                                                <th>Quantity</th>
+                                                <th>Amount</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr role="row" class="odd">
+                                                    <td><span>1</span></td>
+                                                    <td>25563424</td>
+                                                    <td>இறுதிச் சொற்பொழிவு</td>
+                                                    <td>9788183223584</td>
+                                                    <td>1</td>
+                                                    <td><i class="fa fa-inr ms-2"></i> 450</td>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td class="fw-bold text-end" colspan="5">Total Amount</td>
+                                                    <td class="fw-bold">: <i class="fa fa-inr ms-2"></i> 1234</td>
+                                                </tr>
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <p class="text-center"><span class="text-danger ">Note:</span> Review Fee for Book Selection is Non Refundable.</p>
                     </div>
                 </div>
@@ -157,4 +164,12 @@
         html2pdf().from(htmlElement).save('book_receipt.pdf');
     }
 </script>
+<style>
+    .table thead th {
+    text-transform: math-auto !important;
+    }
+    .table tbody tr td {
+        text-transform: lowercase !important;
+    }
+</style>
 </html>
