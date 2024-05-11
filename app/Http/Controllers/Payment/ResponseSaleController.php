@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\PaymentBook;
 use Illuminate\Support\Facades\Validator;
 use Throwable;
 use App\Models\Book;
@@ -92,7 +93,7 @@ class ResponseSaleController extends Controller
         $usertype= $utility->null2unknown("UDF01",$dataFromPostFromPG);	
         $email= $utility->null2unknown("UDF02",$dataFromPostFromPG);	
         $password= $utility->null2unknown("UDF03",$dataFromPostFromPG);	
-        $bookitem= $utility->null2unknown("UDF04",$dataFromPostFromPG);	
+        $bookitem1= $utility->null2unknown("UDF04",$dataFromPostFromPG);	
         $Currency= $utility->null2unknown("Currency",$dataFromPostFromPG);	
         $CardNum= $utility->null2unknown("CardNum",$dataFromPostFromPG);	
         $PaymentOption= $utility->null2unknown("PaymentOption",$dataFromPostFromPG);	
@@ -167,10 +168,13 @@ class ResponseSaleController extends Controller
               $paidstatus = 3;
         }
 
+        $bookdata = PaymentBook::find($bookitem1);
+        $bookitem = $bookdata->bookId;
+
         $pay = New Procurementpaymrnt();
         $pay->bookId =$bookitem;
         $pay->userId = $user->id;
-        $pay->amount = "500";
+        $pay->amount = "450";
         $pay->totalAmount =  $amount/100;
         $pay->userType =  $usertype;
         $pay->userName = $user->firstName . ' ' . $user->lastName ;
