@@ -110,7 +110,7 @@
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">RNI Attach proof<span class="text-danger"></span></label>
+                                                                for="validationCustomUsername">Proof<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
                                                                 <input type="file" accept="application/pdf,application/vnd.ms-excel" name="rni_attachment_proof" ID="rni_attachment_proof" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please Upload RNI Attachment_Proof PDF</div>
@@ -266,7 +266,7 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>The year of First Issue </h4>
+                                                <h4>The Year of First Issue </h4>
                                             </div>
                                             <div class="col-md-10">
                                             <p class="fs-4">Please provide the year of the first issue of the periodical.</p>
@@ -277,7 +277,7 @@
                                                                 for="validationCustomUsername">The Year of First Issue  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                             <input type="number" class="form-control" id="first_issue" name="first_issue" placeholder="Enter the year of first issue" required min="1000" max="9999">
-                                                                <div class="invalid-feedback"> Please enter The The year of first issue . </div>
+                                                                <div class="invalid-feedback"> Please enter the year of first issue . </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -450,7 +450,7 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Short Description About The Periodical</h4>
+                                                <h4>Short Description About the Periodical</h4>
                                             </div>
                                             <div class="col-md-10">
                                             
@@ -458,10 +458,10 @@
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Short Description About The Periodical<span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Short Description About the Periodical<span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <textarea type="number" class="form-control" id="periodical_short_info" name="periodical_short_info" rows="3" placeholder="Enter the short sescription about The periodical" required></textarea>
-                                                                <div class="invalid-feedback"> Please enter the short sescription about The periodical. </div>
+                                                                <div class="invalid-feedback"> Please enter the short description about the periodical. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -507,7 +507,7 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Size of The Magazine</h4>
+                                                <h4>Size of the Magazine</h4>
                                             </div>
                                             <div class="col-md-10">
                                                 <P class="fs-4">Size of the Periodical (Length x Breadth)(in Centimeters) </P>

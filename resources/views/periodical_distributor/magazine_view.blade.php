@@ -15,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
 
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Book Add</title>
+    <title>Government of Tamil Nadu - Book Procurement - Periodical View</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_distributor/images/fevi.svg') }}">
     <?php
@@ -60,10 +60,10 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>View Magazine</b>
+                                <b>View Periodical</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href=" {{ url('periodical_distributor/magazine_list') }}">
-                                <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Magazine </a>
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Periodical </a>
                         </div>
                     </div>
                 </div>
@@ -168,90 +168,244 @@
                                     <div class="magazine-title h3 fw-bold w-100 mt-4 mb-4">{{$data->title}}</div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-6 fw-bolder p-2">Frequency</div>
-                                        <div class="col-6">: {{$data->periodicity}}</div>
-                                        <div class="col-6 fw-bolder p-2">Language</div>
-                                        <div class="col-6">: {{$data->language}}</div>
-
-                                        <div class="col-6 fw-bolder p-2">Category </div>
-                                        <div class="col-6">: {{$data->category}}</div>
-                                        <div class="col-6 fw-bolder p-2">Single Issue Rate</div>
-                                        <div class="col-6">: {{$data->single_issue_rate}}</div>
-
-                                        <div class="col-6 fw-bolder p-2">Annual Subscription</div>
-                                        <div class="col-6">: {{$data->annual_subscription}}</div>
-
-                                        <div class="col-6 fw-bolder p-2">Discount %</div>
-                                        <div class="col-6">: {{$data->discount}}</div>
-
-                                        <div class="col-6 fw-bolder p-2">Single Issue After Discount </div>
-                                        <div class="col-6">: {{$data->single_issue_after_discount}}</div>
-
-                                        <div class="col-6 fw-bolder p-2">Annual Subscription After Discount </div>
-                                        <div class="col-6">: {{$data->annual_cost_after_discount}}</div>
-
-
-
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-5 col-5">
+                                        <p class="p-0 m-0"><span class="fs-6 fw-bold text-primary">Frequency </span></p>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p><span
+                                            class="item">: {{$data->periodicity}}</span> </p>
+                                    </div>
+                                    <div class="col-md-5 col-5">
+                                        <p class="p-0 m-0"><span
+                                            class="fs-6 fw-bold text-primary">Language  </span></p>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p><span
+                                            class="item">: {{$data->language}}</span> </p>
+                                    </div>
+                                    <div class="col-md-5 col-5">
+                                        <p class="p-0 m-0"><span
+                                            class="fs-6 fw-bold text-primary">Category  </span></p>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p><span
+                                            class="item">: {{$data->category}}</span> </p>
+                                    </div>
+                                    <div class="col-md-5 col-5">
+                                        <p class="p-0 m-0"><span class="fs-6 fw-bold text-primary">Single Issue Rate  </span></p>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p><span
+                                            class="item">: {{$data->single_issue_rate}}</span> </p>
+                                    </div>
+                                    <div class="col-md-5 col-5">
+                                        <p class="p-0 m-0"><span
+                                            class="fs-6 fw-bold text-primary">Annual Subscription  </span></p>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p><span
+                                            class="item">: {{$data->annual_subscription}}</span> </p>
+                                    </div>
+                                    <div class="col-md-5 col-5">
+                                        <p class="p-0 m-0"><span class="fs-6 fw-bold text-primary">Discount %</span></p>
+                                    </div>
+                                    <div class="col-md-7 col-7">
+                                        <p><span
+                                            class="item">: {{$data->discount}}</span> </p>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <!-- <div class="col-6 fw-bolder p-2">Difference in Amount :</div>
-                                        <div class="col-6">90</div> -->
-
-                                        <div class="col-6 fw-bolder p-2">RNI Details </div>
-                                        <div class="col-6">: {{$data->rni_details}}</div>
-
-                                        <!-- <div class="col-6 fw-bolder p-2">Paper Quality </div>
-                                        <div class="col-6">: {{$data->paper_quality}}</div> -->
-
-                                        <!-- <div class="col-6 fw-bolder p-2">Type of Library :</div>
-                                        <div class="col-6">90</div> -->
-
-                                        <div class="col-6 fw-bolder p-2">Total Number of Pages </div>
-                                        <div class="col-6">: {{$data->total_pages}}</div>
-
-                                        <div class="col-6 fw-bolder p-2">Number of Multicolour pages </div>
-                                        <div class="col-6">: {{$data->total_multicolour_pages}}</div>
-
-                                        <div class="col-6 fw-bolder p-2">Number of Monocolour Pages </div>
-                                        <div class="col-6">: {{$data->total_monocolour_pages}}</div>
-
-                                        <div class="col-6 fw-bolder p-2">Size of the Magazine </div>
-                                        <div class="col-6">: {{$data->magazine_size}}</div>
-                                        <div class="col-6 fw-bolder p-2">GSM </div>
-                                        <div class="col-6">: {{$data->gsm}}</div>
-
+                                <hr>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <h4>Read Sample PDF</h4>
+    
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle"
+                                            role="button">Read PDF</a>
+                                
+                                        <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle1"
+                                            role="button">Read PDF</a>
+                                   
+                                        <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle2"
+                                            role="button">Read PDF</a>
                                     </div>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="row mt-3">
-                                <div class="col-md-12">
-                                    <h4>Read Sample PDF</h4>
 
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-2">
+                    <h3 class="h3 p-3 bg-main text-white">Periodical Details</h3>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                
+                                    <div class="row">
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <div class="text-title text-danger">
+                                                <b style="font-size:14px"> Single Issue After Discount</b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <span style="font-size:14px">: {{$data->single_issue_after_discount}}</span>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <div class="text-title text-danger">
+                                                <b style="font-size:14px">Annual Subscription After Discount </b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <span style="font-size:14px">: {{$data->annual_cost_after_discount}}</span>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <div class="text-title text-danger">
+                                                <b style="font-size:14px">RNI Details </b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <span style="font-size:14px">: {{$data->rni_details}}</span>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <div class="text-title text-danger">
+                                                <b style="font-size:14px">Total Number of Pages </b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <span style="font-size:14px">: {{$data->total_pages}}</span>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <div class="text-title text-danger">
+                                                <b style="font-size:14px">Editor Name</b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <span style="font-size:14px">: Selva</span>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <div class="text-title text-danger">
+                                                <b style="font-size:14px">Periodicity</b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <span style="font-size:14px">: Yearly</span>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <div class="text-title text-danger">
+                                                <b style="font-size:14px">The Year of First Issue</b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <span style="font-size:14px">: Issue</span>
+                                        </div>
+                                        
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <div class="text-title text-danger">
+                                                <b style="font-size:14px">Total Number of Issues Per Year</b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <span style="font-size:14px">: 23</span>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- <h3 class="card-title">Book Location</h3> -->
+                                <div class="row">
+                                    
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <div class="text-title text-danger">
+                                            <b style="font-size:14px">Date of Publication of Every Issue</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <span style="font-size:14px">: Issue</span>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <div class="text-title text-danger">
+                                            <b style="font-size:14px">Number of Multicolour Pages </b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <span style="font-size:14px">: {{$data->total_multicolour_pages}}</span>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <div class="text-title text-danger">
+                                            <b style="font-size:14px">Number of Monocolour Pages </b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <span style="font-size:14px">: {{$data->total_monocolour_pages}}</span>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <div class="text-title text-danger">
+                                            <b style="font-size:14px">Size of the Magazine</b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <span style="font-size:14px">: {{$data->magazine_size}}</span>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <div class="text-title text-danger">
+                                            <b style="font-size:14px">GSM </b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <span style="font-size:14px">: {{$data->gsm}}</span>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <div class="text-title text-danger">
+                                            <b style="font-size:14px">Type of Paper </b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <span style="font-size:14px">: Full Color</span>
+                                    </div>
+                                    
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <div class="text-title text-danger">
+                                            <b style="font-size:14px">Paper Finishing </b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <span style="font-size:14px">: Matte Finish</span>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <div class="text-title text-danger">
+                                            <b style="font-size:14px">Total Number of Pages
+                                            </b>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-6 mt-4">
+                                        <span style="font-size:14px">: 565</span>
+                                    </div>
+                                
                                 </div>
-                                <div class="col-md-12 mb-3">
-                                    <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle"
-                                        role="button">Read PDF</a>
-                            
-                                    <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle1"
-                                        role="button">Read PDF</a>
-                               
-                                    <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle2"
-                                        role="button">Read PDF</a>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row card p-1">
+                    <p class="h3 p-3 bg-main text-white">Short Description About The Periodical</p>
+                    <hr>
+                    <div class="col-12">
+                        <p style="text-indent: 50px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    </div>
+                </div>
+                <div class="row card p-1">
                     <p class="h3 p-3 bg-main text-white">Contact Person Details with Address</p>
                     <hr>
-                    <div class="col-md-12">
+                    <div class="col-md-12 p-3">
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">Contact Person Name</div>
                             <div class="col-6">: {{$data->contact_person}}</div>
@@ -266,23 +420,23 @@
                         </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">Country </div>
-                            <div class="col-6">{{$data->country}} </div>
+                            <div class="col-6">: {{$data->country}} </div>
                         </div> 
                        <div class="row">
                             <div class="col-6 fw-bolder p-2">State </div>
-                            <div class="col-6">{{$data->state}} </div>
+                            <div class="col-6">: {{$data->state}} </div>
                         </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">District </div>
-                            <div class="col-6">{{$data->district}} </div>
+                            <div class="col-6">: {{$data->district}} </div>
                         </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">City </div>
-                            <div class="col-6">{{$data->city}} </div>
+                            <div class="col-6">: {{$data->city}} </div>
                         </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">Pincode </div>
-                            <div class="col-6">{{$data->pincode}} </div>
+                            <div class="col-6">: {{$data->pincode}} </div>
                         </div>
                         <div class="row">
                             <div class="col-6 fw-bolder p-2">Contact Person Address </div>
@@ -291,13 +445,26 @@
                     </div>
                     <p class="h2 bg-main text-white">Official Address</p>
                     <hr>
+                    
                     <div class="row">
+                        <div class="col-6 fw-bolder p-2">Official Address</div>
+                        <div class="col-6">: {{$data->official_address}} </div>
+                    </div>
+                    <div class="row card p-1">
+                        <p class="h3 p-3 bg-main text-white">Highlights Please mention some of the key highlights</p>
+                        <hr>
                         <div class="col-12">
-                            {{$data->official_address}}
+                            <p style="text-indent: 50px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        </div>
+                        <div class="row container ms-3 me-3 mt-3">
+
+                            <div class="col-8">
+                                <img class="center newbanner w-100" src="https://bookprocurement.tamilnadupubliclibraries.org/Books/banner/%E0%AE%9A%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AE%BF%E0%AE%AF%20%20%E0%AE%9A%E0%AF%8B%E0%AE%A4%E0%AE%A9%E0%AF%881715074604_download.jpg" alt="img" style="">
+                            </div>
+
+
                         </div>
                     </div>
-                    <p class="h2 bg-main text-white mt-3"></p>
-
                     <p class="h2 bg-main text-white mt-3">Bank Account Details</p>
                     <hr>
                                         </br>
@@ -318,6 +485,33 @@
                     <div class="row">
                         <div class="col-6 fw-bolder p-2">Account Holder Name </div>
                         <div class="col-6">: {{$data->acc_Hol_Nam}} </div>
+                    </div>
+                    <div class="row">
+                        <hr>
+                        <div class="card-header bg-main text-white h3 p-2">About Publisher/Editor</div>
+                        {{-- <h3>About The Author</h3> --}}
+                        <div class="col-12">
+                            <div class="d-flex mb-5">
+                                <div class="auth_details">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-auto mt-2">
+                                            <img src="/periodical_distributor/images/default.png"
+                                                class="avatar avatar-md rounded-circle" alt="author image">
+                                        </div>
+
+                                        <div class="col-md-8">
+
+                                            <div class="author_description">
+                                                <h3 class="mb-0 ms-2">Selva</h3>
+                                                <p style="text-indent:35px" class="author-info">
+                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -463,5 +657,9 @@
     <style>
     .bg-main {
         background-color: #222B40;
+    }
+    img.avatar.avatar-md.rounded-circle {
+        height: 75px !important;
+        width: 75px !important;
     }
     </style>
