@@ -16,7 +16,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Book Add</title>
+    <title>Government of Tamil Nadu - Book Procurement - Periodical  Add</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('periodical/images/fevi.svg') }}">
     <?php
@@ -60,10 +60,10 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Add Magazine</b>
+                                <b>Add Periodical </b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href=" {{ url('periodical_publisher/magazine_list') }}">
-                                <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Magazine </a>
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Periodical  </a>
                         </div>
                     </div>
                 </div>
@@ -77,12 +77,14 @@
 								<a class="btn btn-primary  btn-sm" href=" {{ url('admin/magazine_add') }}">
 									<i class="fa fa-angle-double-left" aria-hidden="true"></i> Bulk CV Upload  </a>
 							</div> -->
-							<hr>
+                            {{-- <p class="fs-4">The periodical added in "Periodicals in your distribution" with authorization from the respective publisher in the registration part are the only ones to be added for procurement. </p>
+							<hr> --}}
                             <div class="">
                                 <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data" action="/periodical_publisher/magazine/add">
                                     @csrf
                                     <section class="bg-light-new">
                                         <div class="row p-3">
+                                            
                                             <div class="col-md-2">
                                                 <h4>RNI Details</h4>
                                             </div>

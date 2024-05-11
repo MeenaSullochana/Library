@@ -105,7 +105,7 @@
         <div class="container mt-4">
 
             <div class="card">
-                <h5>Transparent Periodical Procurement-2024</h5>
+                <h5>Transparent Periodical Procurement - 2024</h5>
                 @if (Session::has('validation_error'))
     <div class="validation-errors">
         <div class="error-list">
@@ -761,7 +761,12 @@
                         <div class="card-footer text-muted text-end">
                             <button type="submit" class="btn btn-primary" id="btn_publisher_submit_form"> Submit</button>
                         </div>
-                  
+                        <!-- <div id="loadingBar" class="loading-bar" style="display: none;">
+                           <div class="spinner-border" role="status">
+                          <span class="sr-only">Loading...</span>
+                         </div>
+                <div class="loading-text">Loading...</div>
+                     </div> -->
                     </div>
                 </form>
             </div>

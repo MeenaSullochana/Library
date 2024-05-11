@@ -16,7 +16,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Book Add</title>
+    <title>Government of Tamil Nadu - Book Procurement - Periodical Add</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_distributor/images/fevi.svg') }}">
     <?php
@@ -60,10 +60,10 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Add Magazine</b>
+                                <b>Add Periodical</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href=" {{ url('periodical_distributor/magazine_list') }}">
-                                <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Magazine </a>
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Periodical </a>
                         </div>
                     </div>
                 </div>
@@ -77,6 +77,9 @@
 								<a class="btn btn-primary  btn-sm" href=" {{ url('admin/magazine_add') }}">
 									<i class="fa fa-angle-double-left" aria-hidden="true"></i> Bulk CV Upload  </a>
 							</div> -->
+                            <div class="alert alert-primary" role="alert">
+                                <p><b>Note : </b>The periodical added in "Periodicals in your distribution" with authorization from the respective publisher in the registration part are the only ones to be added for procurement. </p>
+                              </div>
 							<hr>
                             <div class="">
                                 <form class="needs-validation" novalidate method="POST" enctype="multipart/form-data" action="/periodical_distributor/magazine/add">
@@ -95,8 +98,8 @@
                                                                 for="validationCustomUsername">RNI Details<span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <div class="input-group">
-                                                                <input type="text" class="form-control" id="rni" name="rni" placeholder="Enter the RNI Details" required>
-                                                                <div class="invalid-feedback"> Please Enter RNI Details. </div>
+                                                                <input type="text" class="form-control" id="rni" name="rni" placeholder="Enter the RNI details" required>
+                                                                <div class="invalid-feedback"> Please enter RNI details. </div>
                          
                                                                 </div>
                                                             </div>
@@ -110,8 +113,8 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">RNI Attach proof<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="rni_attachment_proof" ID="rni_attachment_proof" class="form-control" aria-label="file example" required>
-                                                                <div class="invalid-feedback">Please Upload RNI Attachment_Proof PDF</div>
+                                                                <input type="file" accept="application/pdf,application/vnd.ms-excel" name="rni_attachment_proof" ID="rni_attachment_proof" class="form-control" aria-label="file example" required>
+                                                                <div class="invalid-feedback">Please upload RNI attachment proof PDF</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -195,7 +198,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Name of the Publisher  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" value="{{auth('periodical_distributor')->user()->distributionName}}" readonly>>
+                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" required > 
                                                                 <div class="invalid-feedback"> Please enter the name of the publisher. </div>
                                                             </div>
                                                         </div>
