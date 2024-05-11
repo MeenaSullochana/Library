@@ -765,7 +765,7 @@ jQuery(document).ready(function() {
 				className: 'btn btn-primary text-black'
 			},
 			{
-				extend: 'pdfHtml5',
+				extend: 'pdf',
 				text: '<i class="fas fa-file-pdf"></i> PDF',
 				className: 'btn btn-secondary text-black'
 			},
@@ -776,4 +776,12 @@ jQuery(document).ready(function() {
 			}
 		]
 	 });
+
+	//  $('#all-export tbody').on('click', 'td', function () {
+	// 	var idx = table.cell(this).index().column;
+	// 	var title = table.column(idx).header();
+	 
+	// 	alert('Column title clicked on: ' + $(title).html());
+	// });
+	 
 });
