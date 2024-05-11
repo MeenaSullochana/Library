@@ -59,6 +59,15 @@
                    </div>
                </div>
            </div>
+
+           <div class="col-xl-10 col-sm-6 mt-4 text-end">
+                        
+                        <a href="exportexcelpayment" class="btn btn-info">
+                            <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
+                            Export Excel
+                        </a>
+
+                    </div>
             <div class="card">
                <div class="card-body">
                @php

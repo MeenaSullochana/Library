@@ -738,7 +738,19 @@ Route::get('/feedbacklibrariant',function(){
 
 });
 
-// feedback_reviewer
+// eriodical_publisher
+Route::get('/feedback_periodical_publisher',[FeedbackController::class,'feedback_periodical_publisher']);
+Route::get('/feedback_periodicalpublisher_edit/{id}',[FeedbackController::class,'feedback_periodicalpublisher']);
+Route::get('/periodicalpublisher',function(){
+    $data = Session::get('feedback');
+    if($data !==null){
+        return view('admin.feedback_periodicalpublisher_edit')->with("data",$data);
+    }else{
+        return back();
+    }
+
+});
+
 Route::get('/feedback_reviewer_list',[FeedbackController::class,'feedbackreviewer']);
 Route::get('/feedback_reviewer_edit/{id}',[FeedbackController::class,'feedback_reviewer']);
 Route::get('/feedbackreviewer',function(){
@@ -750,6 +762,7 @@ Route::get('/feedbackreviewer',function(){
     }
 
 });
+
 Route::get('/booksubject_add',function(){ return view('admin.booksubject_add');});
 Route::post('/booksubjectadd',[LibraryTypeController::class,'booksubject']);
 Route::get('/booksubject_list',function(){ return view('admin.booksubject_list');});
@@ -1037,6 +1050,8 @@ Route::post('/order_complete_status',[MagazineController::class,'order_complete_
 Route::get('/subscription',[SubscriptionController::class,'subscription']);
 
 Route::get('/exportexcelmagazine ',[SettingController::class,'exportexcelmagazine']);
+Route::get('/exportexcelpayment ',[SettingController::class,'exportexcelpayment']);
+
 
 Route::get('/mailsend',[SettingController::class,'mailsend']);
 

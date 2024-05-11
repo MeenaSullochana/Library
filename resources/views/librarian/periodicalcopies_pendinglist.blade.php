@@ -271,7 +271,7 @@ $(document).on('click', '#submitButton1', function(e) {
                     timeout: 45000
                 });
                 setTimeout(function() {
-                    window.location.href = "/librarian/bookcopies_pendinglist"
+                    window.location.href = "/librarian/periodicalcopies_pendinglist"
                 }, 3000);
             }
 

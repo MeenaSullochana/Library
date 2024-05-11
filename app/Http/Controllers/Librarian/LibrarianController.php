@@ -813,10 +813,10 @@ public function librarianreturnmessage(Request $req){
 
   public function periodicalcopiesstatus(Request $req){
 
-    return $req;
-    $bookcopies = bookcopies::find($req->id);
 
-    $copies= json_decode($bookcopies->copies);
+    $periodicalcopies = periodicalcopies::find($req->id);
+
+    $copies= json_decode($periodicalcopies->copies);
     $rec=[];
    $count =0;
    $countdata = 0;
@@ -843,14 +843,14 @@ public function librarianreturnmessage(Request $req){
     }
 
      if($count == $countdata ){
-      $book = Book::find($bookcopies->bookid);
-      $book->book_procurement_status="1";
-      $book->save();
-      $bookcopies->status="0";
-      $bookcopies->save();
+      $periodical = Magazine::find($periodicalcopies->periodicalid);
+      $periodical->periodical_procurement_status="1";
+      $periodical->save();
+      $periodicalcopies->status="0";
+      $periodicalcopies->save();
      }
-     $bookcopies->copies=json_encode($rec);
-     if($bookcopies->save()){
+     $periodicalcopies->copies=json_encode($rec);
+     if($periodicalcopies->save()){
       return response()->json(['success' => 'copies status  change successfull']);
 
      }
@@ -898,5 +898,40 @@ public function librarianreturnmessage(Request $req){
 
   }
   // 
+  public function periodicalcopies_completelist(){
+
+  $periodicalcopies = periodicalcopies::where('status','=',"0")->get();
+   $data=[];
+    foreach($periodicalcopies as $val){
+      $copies= json_decode($val->copies);
+      foreach($copies as $val1){
+           if($val1->librarytype  ==  auth('librarian')->user()->libraryName && $val1->status  == "1"){
+            $val->copiesrec=$val1;
+            if($val->usertype == "publisher"){
+              $publisher=PeriodicalPublisher::find($val->userid);
+              if($publisher !=null){
+                $val->name=$publisher->publicationName;
+              }
+               
+            }elseif($val->usertype== "distributor"){
+        
+              $distributor=PeriodicalDistributor::find($val->userid);
+              if($distributor !=null){
+                $val->name=$distributor->distributionName;
+      
+              }
+            }
+               array_push($data,$val);
+
+        }
+     }
+
+    }
+
+    return view('librarian.periodicalcopies_completelist')->with('data',$data); 
+
+
+  }
+
     }
     

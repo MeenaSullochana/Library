@@ -231,8 +231,8 @@
         </div>
     </div>
     <!-- header-cart-end -->
-<style>
+<!-- <style>
         ul.d-flex {
     list-style: none;
 }
-</style>
+</style> -->

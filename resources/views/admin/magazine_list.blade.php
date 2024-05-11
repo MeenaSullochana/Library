@@ -158,18 +158,12 @@
                                 </select>
                             </div>
                             <div class="col-xl-6 col-sm-6 mt-4 text-end">
-                                <!-- <button type="button" class="btn btn-primary"><span
-                                        class="btn-icon-start text-primary"><i class="fa fa-file-pdf-o"></i>
-                                    </span>PDF</button> -->
+                        
                                 <a href="exportexcelmagazine" class="btn btn-info">
                                     <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
                                     Export Excel
                                 </a>
 
-                                <!-- <button type="button" class="btn  btn-warning"><span
-                                        class="btn-icon-start text-warning"><i
-                                            class="fa fa-download color-warning"></i>
-                                    </span>Download</button> -->
                             </div>
                         </div>
                         <hr>
