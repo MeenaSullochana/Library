@@ -346,7 +346,17 @@
 							<li><a href="/periodical_distributor/magazine_list">Magazine list</a></li>
                         </ul>
                     </li>
-                  
+					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                        <i class="bi bi-minecart-loaded"></i>
+                            <span class="nav-text">Manage Procurement</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/periodical_distributor/procurement">Apply For Procurement</a></li>
+							<li><a href="/periodical_distributor/procurement_sampleperiodical">Procurement Sample periodical Copies send list</a></li>
+							<li><a href="/periodical_distributor/procurement_sampleperiodicalpending">Procurement Sample periodical Copies pending list</a></li>
+							<li><a href="/periodical_distributor/procurement_sampleperiodicalcomplete">Procurement Sample periodical Copies Complete list</a></li>
+                        </ul>
+                    </li>
                     <!--
                         F-menu Setting End
                     -->

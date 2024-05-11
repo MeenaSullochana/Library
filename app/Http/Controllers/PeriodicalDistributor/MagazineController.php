@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Session;
  use App\Models\Subscription;
  use App\Models\District;
  use App\Models\State;
+ use App\Models\periodicalcopies;
 
  
  
@@ -841,6 +842,112 @@ if(isset($request->rni_attachment_proof)){
 
 
 
+  public function procurement(){
+    $id=auth('periodical_distributor')->user()->id;
+     $data=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"0")->get();
+     return view('periodical_distributor.procurement')->with('data',$data);
+ }
+   
+ public function applay_procurment(Request $request){
+   $validator = Validator::make($request->all(), [
+ 
+       'periodicalId'=> 'required|array|min:1',
+     
+   ]);
+ 
+   if ($validator->fails()) {
+       $data = [
+           'error' => $validator->errors()->first(),
+       ];
+       return response()->json($data);
+   }
+   $periodicalitem=[];
+   $periodicalIds = $request->input('periodicalId', []);
+   foreach($periodicalIds as $key=>$val){
+  
+       $periodicals = Magazine::find($val);
+       array_push($periodicalitem,$periodicals);
+ 
+   }
+ 
+   \Session::put('periodicalitem', $periodicalitem);
+   $user = auth('periodical_distributor')->user();
+   \Session::put('user',$user);
+   $data= [
+       'success' => 'Book Applied For Procurement',
+            ];
+   return response()->json($data);  
+ }
+ 
+ // 
+ 
+ public function procurement_sampleperiodical(){
+
+   $id=auth('periodical_distributor')->user()->id;
+   $data=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"5")->where('periodical_status','=',null)->get(); 
+   return view('periodical_distributor.procurement_sampleperiodical')->with('data',$data); 
+ }
+ 
+ public function procurementperiodicalcopies(Request $request){
+  
+   $datarec1=[];
+   
+   $datarecJson = json_decode($request->datarec);
+   foreach ($datarecJson as $key => $val) {
+    $pdfcopies = $request->file('profileImage'.$key);
+ 
+     $pdf_name = $request->librarytype . time() . '_' . $pdfcopies->getClientOriginalName();
+     $pdfcopies->move(('Magazine/copies'), $pdf_name);
+     $val->profileImage = $pdf_name;
+     
+     array_push($datarec1,$val);
+ }
+   
+     $periodicalcopies=new periodicalcopies();
+     $periodicalcopies->periodicalid =  $request->periodicalid;
+     $periodicalcopies->periodicaltitle =  $request->periodicaltitle;
+     $periodicalcopies->copies =  json_encode($datarec1);
+     $periodicalcopies->userid =  auth('periodical_distributor')->user()->id;
+     $periodicalcopies->usertype =  auth('periodical_distributor')->user()->usertype;
+     if($periodicalcopies->save()){
+ 
+         $Magazine =Magazine::find($request->periodicalid);
+         $Magazine->periodical_procurement_status="6";
+         $Magazine->save();
+         return response()->json(['success' => 'copies send successfull']);
+ 
+     }
+ 
+ 
+ }
+ 
+ public function procurement_sampleperiodicalpending(){
+ 
+  $id=auth('periodical_distributor')->user()->id;
+    $data1=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"6")->where('periodical_status','=',null)->get(); 
+    $data=[];
+    foreach($data1 as $key=>$val){
+        $periodicalcopies=periodicalcopies::where('periodicalid','=',$val->id)->first();
+          $copies=  json_decode($periodicalcopies->copies);
+          $val->copies=$copies;
+          array_push($data,$val);
+        }
+     
+   return view('periodical_distributor.procurement_sampleperiodicalpending')->with('data',$data); 
+ }
+ public function procurement_sampleperiodicalcomplete(){
+  return $id=auth('periodical_distributor')->user()->id;
+   return $data1=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"1")->where('periodical_status','=',null)->get(); 
+    $data=[];
+    foreach($data1 as $key=>$val){
+        $periodicalcopies=periodicalcopies::where('periodicalid','=',$val->id)->first();
+          $copies=  json_decode($periodicalcopies->copies);
+          $val->copies=$copies;
+          array_push($data,$val);
+        }
+   
+   return view('periodical_distributor.procurement_sampleperiodicalcomplete')->with('data',$data); 
+ }
 
 
 

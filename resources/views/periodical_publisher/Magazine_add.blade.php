@@ -1373,11 +1373,21 @@
         }
     });
 </script>
+
 <script>
 document.getElementById('every_issue').addEventListener('input', function(event) {
     let value = event.target.value;
+    
+    // If the value is empty, no need for further processing
+    if (value === "") {
+        return;
+    }
+
+    // Remove non-numeric characters and constrain between 1 and 31
     value = value.replace(/\D/g, '');
     value = Math.min(Math.max(parseInt(value), 1), 31);
+    
+    // Update the input field with the sanitized value
     event.target.value = value;
 });
 </script>

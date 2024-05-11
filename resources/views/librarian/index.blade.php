@@ -257,6 +257,196 @@
                                 </div>
                             </div>
 
+
+
+
+
+
+
+                            <h4>periodical</h4>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $periodicalcopies = DB::table('periodicalcopies')->get();
+                                            @endphp
+
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ count($periodicalcopies) }}</h3>
+                                                <span>Total Periodical</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $periodicalcopies1 = DB::table('periodicalcopies')->get();
+                                            $periodicalcountre=0;
+                                            foreach($periodicalcopies1 as $val){
+                                                $copies= json_decode($val->copies);
+                                            foreach($copies as $val1){
+                                             if($val1->librarytype  ==  auth('librarian')->user()->libraryName && $val1->status  == "1"){
+
+                                            $periodicalcountre = $periodicalcountre +1;
+                                             }
+                                            }
+                                            }
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $periodicalcountre }}</h3>
+                                                <span>Received Periodical </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
+                                                @php
+                                                $periodicalcopies3 = DB::table('periodicalcopies')->get();
+                                                $periodicalcountre1=0;
+                                                foreach($periodicalcopies3 as $val){
+                                                    $copies= json_decode($val->copies);
+                                                    foreach($copies as $val1){
+                                                if($val1->librarytype == auth('librarian')->user()->libraryName &&
+                                                $val1->status == "0"){
+
+                                                $periodicalcountre1 = $periodicalcountre1 +1;
+
+                                                }
+                                                }
+                                            }
+                                                @endphp
+                                            </div>
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-primary count">{{ $periodicalcountre1 }}</h3>
+                                                <span>Unreceived Periodical </span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <h4>Periodical Copies</h4>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $periodicalcopies4 = DB::table('periodicalcopies')->get();
+                                            $periodicalcopiescount = 0;
+                                            if(auth('librarian')->user()->libraryName == "Anna Centenary Library"){
+                                                $periodicalcopiescount = $periodicalcopiescount + 3;
+                                            }else{
+                                                $periodicalcopiescount = $periodicalcopiescount + 1;
+                                            }
+                                            @endphp
+
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{count($periodicalcopies4) * $periodicalcopiescount }}</h3>
+                                                <span>Total Periodical Copies</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $periodicalcopies1 = DB::table('periodicalcopies')->get();
+                                            $periodicalcopiescount1 = 0;
+                                            if(auth('librarian')->user()->libraryName == "Anna Centenary Library"){
+                                                $periodicalcopiescount1 = $periodicalcopiescount1 + 3;
+                                            }else{
+                                                $periodicalcopiescount1 = $periodicalcopiescount1 + 1;
+                                            }
+                                            $periodicalcountre=0;
+                                            foreach($periodicalcopies1 as $val){
+                                                $periodicalcopies= json_decode($val->copies);
+                                            foreach($periodicalcopies as $val1){
+                                             if($val1->librarytype  ==  auth('librarian')->user()->libraryName && $val1->status  == "1"){
+
+                                            $periodicalcountre = $periodicalcountre +1;
+                                             }
+                                            }
+                                            }
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $periodicalcountre * $periodicalcopiescount1 }}</h3>
+                                                <span>Received Periodical Copies</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
+                                                @php
+                                                $periodicalcopies3 = DB::table('periodicalcopies')->get();
+                                                $periodicalcopiescount11 = 0;
+                                            if(auth('librarian')->user()->libraryName == "Anna Centenary Library"){
+                                                $periodicalcopiescount11 = $periodicalcopiescount11 + 3;
+                                            }else{
+                                                $periodicalcopiescount11 = $periodicalcopiescount11 + 1;
+                                            }
+                                                $periodicalcountre1=0;
+                                                foreach($periodicalcopies3 as $val){
+                                                    $periodicalcopies= json_decode($val->copies);
+                                                    foreach($periodicalcopies as $val1){
+                                                if($val1->librarytype == auth('librarian')->user()->libraryName &&
+                                                $val1->status == "0"){
+
+                                                $periodicalcountre1 = $periodicalcountre1 +1;
+
+                                                }
+                                                }
+                                            }
+                                                @endphp
+                                            </div>
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-primary count">{{ $periodicalcountre1 * $periodicalcopiescount11}}</h3>
+                                                <span>Unreceived Periodical Copies</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             @endif
 
 
