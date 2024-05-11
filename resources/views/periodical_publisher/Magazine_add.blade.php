@@ -87,7 +87,7 @@
                                                 <h4>RNI Details</h4>
                                             </div>
                                             <div class="col-md-10">
-                                            
+                                                <p class="fs-4">Registration with the Registrar of Newspapers for India (RNI) is mandatory for applying for periodical registration on this portal. Periodicals with an ISSN (International Standard Serial Number) can also apply.</p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -95,8 +95,8 @@
                                                                 for="validationCustomUsername">RNI Details<span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <div class="input-group">
-                                                                <input type="text" class="form-control" id="rni" name="rni" placeholder="Enter the RNI Details" required>
-                                                                <div class="invalid-feedback"> Please Enter RNI Details. </div>
+                                                                <input type="text" class="form-control" id="rni" name="rni" placeholder="Enter the RNI details" required>
+                                                                <div class="invalid-feedback"> Please enter RNI details. </div>
                          
                                                                 </div>
                                                             </div>
@@ -110,7 +110,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">RNI Attach proof<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="rni_attachment_proof" ID="rni_attachment_proof" class="form-control" aria-label="file example" required>
+                                                                <input type="file" accept="application/pdf,application/vnd.ms-excel" name="rni_attachment_proof" ID="rni_attachment_proof" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please Upload RNI Attachment_Proof PDF</div>
                                                             </div>
                                                         </div>
@@ -126,6 +126,7 @@
                                                 <h4>Language</h4>
                                             </div>
                                             <div class="col-md-10">
+                                                <p class="fs-4">தமிழ் புத்தகங்களுக்கு தமிழில் மட்டுமே விவரங்கள் பதிவேற்றம் செய்ய வேண்டும்</p>
                                                 <div class="col-lg-12">
                                                 
                                                     <div class="basic-form">
@@ -140,6 +141,7 @@
 
                                                             </select>
                                                         </div>
+                                                        <p class="fs-4">Please select the category of the magazine from the provided list</p>
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername"> Category <span class="text-danger">*</span></label>
                                                             <select class="select wide form-control" id="categories" name="category" required>
@@ -161,17 +163,17 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Title of the Magazine</h4>
+                                                <h4>Magazine Title</h4>
                                             </div>
                                             <div class="col-md-10">
-                                            
+                                            <p class="fs-4">Enter the title of the Magazine</p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Title of the Magazine <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="title_of_magazine" name="title" placeholder="Enter the title of the Magazine" required>
+                                                                <input type="text" class="form-control" id="title_of_magazine" name="title" placeholder="Enter the title of the magazine" required>
                                                                 <div class="invalid-feedback"> Please enter a magazine title. </div>
                                                             </div>
                                                         </div>
@@ -185,17 +187,18 @@
                                         <div class="row p-3">
                                         
                                             <div class="col-md-2">
-                                                <h4>Name of the Publisher</h4>
+                                                <h4>Publisher Name </h4>
                                             </div>
                                             <div class="col-md-10">
                                             
+                                                <p class="fs-4">Enter the Name of publisher</p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Name of the Publisher  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter The Name of the Publisher" required>
+                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter the name of the publisher" value="{{auth('periodical_publisher')->user()->publicationName}}" readonly>>
                                                                 <div class="invalid-feedback"> Please enter the name of the publisher. </div>
                                                             </div>
                                                         </div>
@@ -208,9 +211,10 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Name of the Editor</h4>
+                                                <h4>Editor Name</h4>
                                             </div>
                                             <div class="col-md-10">
+                                                <p class="fs-4">Enter the Editor name if any</p>
                                             
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
@@ -218,7 +222,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Name of the Editor <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="name_of_editor" name="name_of_editor" placeholder="Enter the Name of the Editor" required>
+                                                                <input type="text" class="form-control" id="name_of_editor" name="name_of_editor" placeholder="Enter the name of the editor" required>
                                                                 <div class="invalid-feedback"> Please enter the name of the publisher. </div>
                                                             </div>
                                                         </div>
@@ -235,7 +239,7 @@
                                                 <h4>Periodicity</h4>
                                             </div>
                                             <div class="col-md-10">
-                                            
+                                            <p class="fs-4">Choose the periodicty from the list </p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
@@ -260,18 +264,18 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>The year of first issue </h4>
+                                                <h4>The year of First Issue </h4>
                                             </div>
                                             <div class="col-md-10">
-                                            
+                                            <p class="fs-4">Please provide the year of the first issue of the periodical.</p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">The year of first issue  <span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">The Year of First Issue  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                            <input type="number" class="form-control" id="first_issue" name="first_issue" placeholder="Enter The year of first issue" required min="1000" max="9999">
-                                                                <div class="invalid-feedback"> Please Enter The The year of first issue . </div>
+                                                            <input type="number" class="form-control" id="first_issue" name="first_issue" placeholder="Enter the year of first issue" required min="1000" max="9999">
+                                                                <div class="invalid-feedback"> Please enter The The year of first issue . </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -283,18 +287,18 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Total Number Of Issues Per Year</h4>
+                                                <h4>Total Number of Issues Per Year</h4>
                                             </div>
                                             <div class="col-md-10">
-                                            
+                                            <p class="fs-4">Please specify the annual issue count for the periodical.</p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Total Number Of Issues Per Year <span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Total Number of Issues Per Year <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="per_year" name="per_year" placeholder="Enter Total Number Of Issues Per Year" required>
-                                                                <div class="invalid-feedback"> Please Enter Total Number Of Issues Per Year. </div>
+                                                                <input type="number" class="form-control" id="per_year" name="per_year" placeholder="Enter total number of issues Per Year" required>
+                                                                <div class="invalid-feedback"> Please enter total number of issues per year. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -306,18 +310,18 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Date of Publication of every issue</h4>
+                                                <h4>Date of Publication of Every Issue</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Date of Publication of every issue ( eg : 1st /15th of every month)</P>
+                                                <P class="fs-4">Please specify the date of publication for each issue, which will aid in predicting its publication frequency pattern for the year.</P>
                                                 <div class="col-lg-12">
                                                 <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Date of Publication of every issue <span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Date of Publication of Every Issue <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                            <input type="text" class="form-control" id="every_issue" name="every_issue" placeholder="Enter Date of Publication of every issue (1-31)" required>
-                                                                <div class="invalid-feedback"> Please Enter Date of Publication of every issue. </div>
+                                                            <input type="text" class="form-control" id="every_issue" name="every_issue" placeholder="Enter the date of publication of every issue (1-31)" required>
+                                                                <div class="invalid-feedback"> Please enter date of publication of every issue. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -332,15 +336,15 @@
                                                 <h4>Single Issue Rate</h4>
                                             </div>
                                             <div class="col-md-10">
-                                            
+                                            <p class="fs-4">Provide the single issue cover price</p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Single Issue Rate <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="single_issue_rate" name="single_issue_rate" placeholder="Enter the Single Issue Rate" required>
-                                                                <div class="invalid-feedback"> Please select frequency. </div>
+                                                                <input type="number" class="form-control" id="single_issue_rate" name="single_issue_rate" placeholder="Enter the single issue rate" required>
+                                                                <div class="invalid-feedback"> Please enter the single issue rate. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -355,14 +359,14 @@
                                                 <h4>Annual Subscription</h4>
                                             </div>
                                             <div class="col-md-10">
-                                            
+                                            <p class="fs-4">Enter the annual subscription amount </p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Annual Subscription <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="annual_subscription" name="annual_subscription" placeholder="Enter the Annual Subscription" required>
+                                                                <input type="number" class="form-control" id="annual_subscription" name="annual_subscription" placeholder="Enter the annual subscription" required>
                                                                 <div class="invalid-feedback"> Please select annual subscription. </div>
                                                             </div>
                                                         </div>
@@ -378,15 +382,15 @@
                                                 <h4>Discount %</h4>
                                             </div>
                                             <div class="col-md-10">
-                                            
+                                            <p class="fs-4">Enter the percentage discount offered to public libraries.</p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Discount % <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="discount" name="discount" placeholder="Enter the Discount %" required>
-                                                                <div class="invalid-feedback"> Please Enter Discount. </div>
+                                                                <input type="number" class="form-control" id="discount" name="discount" placeholder="Enter the discount %" required>
+                                                                <div class="invalid-feedback"> Please enter discount. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -401,14 +405,14 @@
                                                 <h4>Single Issue After Discount</h4>
                                             </div>
                                             <div class="col-md-10">
-                                            
+                                            <p class="fs-4">Enter the discount percentage offered for a single issue</p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">Single Issue After Discount <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="single_issue_after_discount" name="single_issue_after_discount" placeholder="Enter the Single Issue after discount" required>
-                                                                <div class="invalid-feedback"> Please Enter Single Issue After Discount. </div>
+                                                                <input type="number" class="form-control" id="single_issue_after_discount" name="single_issue_after_discount" placeholder="Enter the single issue after discount" required>
+                                                                <div class="invalid-feedback"> Please enter single issue after discount. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -423,15 +427,15 @@
                                                 <h4>Annual Subscription After Discount</h4>
                                             </div>
                                             <div class="col-md-10">
-                                            
+                                            <p class="fs-4">Provide the annual subscription cost after applying the discount.</p>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Annual Subscription After Discount <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="annual_subscription_after_discount" name="annual_subscription_after_discount" placeholder="Enter the Annual Subscription After Discount" required>
-                                                                <div class="invalid-feedback"> Please Enter Annual Subscription After Discount. </div>
+                                                                <input type="number" class="form-control" id="annual_subscription_after_discount" name="annual_subscription_after_discount" placeholder="Enter the annual subscription After Discount" required>
+                                                                <div class="invalid-feedback"> Please enter annual subscription after discount. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -454,8 +458,8 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Short Description About The Periodical<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <textarea type="number" class="form-control" id="periodical_short_info" name="periodical_short_info" rows="3" placeholder="Enter the Short Description About The Periodical" required></textarea>
-                                                                <div class="invalid-feedback"> Please Enter Short Description About The Periodical. </div>
+                                                                <textarea type="number" class="form-control" id="periodical_short_info" name="periodical_short_info" rows="3" placeholder="Enter the short sescription about The periodical" required></textarea>
+                                                                <div class="invalid-feedback"> Please enter the short sescription about The periodical. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -476,7 +480,7 @@
                                                         <label class="text-label form-label text-black"
                                                             for="validationCustomUsername">Publisher/Editor Profile Image<span class="text-danger"></span></label>
                                                         <div class="small-12 medium-2 large-2 columns">
-                                                            <input type="file" name="editor_profile_image" id="editor_profile_image" class="form-control" aria-label="file example" required>
+                                                            <input type="file" name="editor_profile_image" id="editor_profile_image"  accept="image/png, image/jpeg, image/jpg" class="form-control" aria-label="file example" required>
                                                             <div class="invalid-feedback">Please upload Editor Profile Image</div>
                                                         </div>
                                                     </div>
@@ -487,8 +491,8 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">About Publisher/Editor<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <textarea type="number" class="form-control" id="about_editor" name="about_editor" rows="3" placeholder="Enter the About Publisher/Editor" required></textarea>
-                                                                <div class="invalid-feedback"> Please Enter About Publisher/Editor. </div>
+                                                                <textarea type="number" class="form-control" id="about_editor" name="about_editor" rows="3" placeholder="Enter the about publisher/editor" required></textarea>
+                                                                <div class="invalid-feedback"> Please enter the about publisher/editor. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -501,17 +505,17 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Size of the Magazine</h4>
+                                                <h4>Size of The Magazine</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Size of the periodical (Length x Breadth(in Centimeters) </P>
+                                                <P class="fs-4">Size of the Periodical (Length x Breadth)(in Centimeters) </P>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Size of the Magazine<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="magazine_size" name="magazine_size" placeholder="Enter the Size of the Magazine" required>
+                                                                <input type="text" class="form-control" id="magazine_size" name="magazine_size" placeholder="Enter the size of the magazine" required>
                                                                 <div class="invalid-feedback"> Please Enter the Size of the Magazine. </div>
                                                             </div>
                                                         </div>
@@ -601,8 +605,8 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Total Number of Pages <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="number_of_pages" name="number_of_pages" placeholder="Enter the Total Number of Pages" required>
-                                                                <div class="invalid-feedback"> Please Enter the Total Number of Pages. </div>
+                                                                <input type="number" class="form-control" id="number_of_pages" name="number_of_pages" placeholder="Enter the total number of pages" required>
+                                                                <div class="invalid-feedback"> Please enter the total number of pages. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -624,8 +628,8 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Number of Multicolour pages <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="multicolour_pages" name="multicolour_pages" placeholder="Enter the Number of Multicolour pages" required>
-                                                                <div class="invalid-feedback"> Please Enter Number of Multicolour pages. </div>
+                                                                <input type="number" class="form-control" id="multicolour_pages" name="multicolour_pages" placeholder="Enter the number of multicolour pages" required>
+                                                                <div class="invalid-feedback"> Please enter the number of multicolour pages </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -647,8 +651,8 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Number of Monocolour Pages <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="number" class="form-control" id="monocolour_pages" name="monocolour_pages" placeholder="Enter the Number of Monocolour Pages" required>
-                                                                <div class="invalid-feedback"> Please Enter Number of Monocolour Pages. </div>
+                                                                <input type="number" class="form-control" id="monocolour_pages" name="monocolour_pages" placeholder="Enter the number of nonocolour pages" required>
+                                                                <div class="invalid-feedback"> Please enter the number of nonocolour pages. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -672,8 +676,8 @@
                                                                 <label class="text-label form-label text-black"
                                                                     for="validationCustomUsername">Contact Person Name <span class="text-danger">*</span></label>
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" id="contact_person_name" name="contact_person_name" placeholder="Enter the Contact Person Name" required>
-                                                                    <div class="invalid-feedback"> Please Enter the Person Name. </div>
+                                                                    <input type="text" class="form-control" id="contact_person_name" name="contact_person_name" placeholder="Enter the contact person name" required>
+                                                                    <div class="invalid-feedback"> Please enter  the contact person name. </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -683,8 +687,8 @@
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black" for="validationCustomUsername"> Email Id <span class="text-danger">*</span></label>
                                                                 <div class="input-group">
-                                                                    <input type="email" class="form-control" id="email_id" name="email_id" placeholder="Enter the Email Id" required>
-                                                                    <div class="invalid-feedback"> Please Enter the Email Id. </div>
+                                                                    <input type="email" class="form-control" id="email_id" name="email_id" placeholder="Enter the email id" required>
+                                                                    <div class="invalid-feedback"> Please enter the email id. </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -696,8 +700,8 @@
                                                                     for="validationCustomUsername">
                                                                     Phone Number <span class="text-danger">*</span></label>
                                                                 <div class="input-group">
-                                                                    <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Enter the Phone Number" required>
-                                                                    <div class="invalid-feedback"> Please Enter the Phone Number. </div>
+                                                                    <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Enter the phone number" required>
+                                                                    <div class="invalid-feedback"> Please enter the phone number. </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -716,7 +720,7 @@
 
                                                             @endforeach
                                                                     </select>
-                                                                    <div class="invalid-feedback"> Please Select the Country. </div>
+                                                                    <div class="invalid-feedback"> Please select the country. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -734,7 +738,7 @@
 
                                                             @endforeach
                                                                     </select>
-                                                                    <div class="invalid-feedback"> Please Select the State. </div>
+                                                                    <div class="invalid-feedback"> Please select the state. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -746,7 +750,7 @@
                                                                         <option value="" selected>Select One</option>
                                                                       
                                                                     </select>
-                                                                    <div class="invalid-feedback"> Please Select the district. </div>
+                                                                    <div class="invalid-feedback"> Please select the district. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -755,8 +759,8 @@
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black" for="validationCustomUsername">City <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="city" name="city" placeholder="Enter the City" required>
-                                                                        <div class="invalid-feedback"> Please Select the City. </div>
+                                                                        <input type="text" class="form-control" id="city" name="city" placeholder="Enter the city" required>
+                                                                        <div class="invalid-feedback"> Please enter the city. </div>
                                                                     </div>
                                                             </div>
                                                         </div>
@@ -768,8 +772,8 @@
                                                                     for="validationCustomUsername">
                                                                     Pincode <span class="text-danger">*</span></label>
                                                                 <div class="input-group">
-                                                                    <input type="number" class="form-control" id="pincode" name="pincode" placeholder="Enter the Pincode" required>
-                                                                    <div class="invalid-feedback"> Please Enter the Pincode. </div>
+                                                                    <input type="number" class="form-control" id="pincode" name="pincode" placeholder="Enter the pincode" required>
+                                                                    <div class="invalid-feedback"> Please enter the pincode. </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -782,8 +786,8 @@
                                                                     for="validationCustomUsername">
                                                                     Contact Person Address <span class="text-danger">*</span></label>
                                                                 <div class="input-group">
-                                                                    <textarea type="text" class="form-control" id="contact_person_address" name="contact_person_address" placeholder="Enter the Contact Person Address " required></textarea>
-                                                                    <div class="invalid-feedback"> Please Enter Contact Person Address. </div>
+                                                                    <textarea type="text" class="form-control" id="contact_person_address" name="contact_person_address" placeholder="Enter the contact person Address " required></textarea>
+                                                                    <div class="invalid-feedback"> Please enter contact person address. </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -806,8 +810,8 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Official Address<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <textarea type="number" class="form-control" id="offcial_address" name="offcial_address" rows="3" placeholder="Enter the Official Address" required></textarea>
-                                                                <div class="invalid-feedback"> Please Enter Official Address. </div>
+                                                                <textarea type="number" class="form-control" id="offcial_address" name="offcial_address" rows="3" placeholder="Enter the official address" required></textarea>
+                                                                <div class="invalid-feedback"> Please enter official address. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -820,18 +824,18 @@
                                     <section class="bg-light-new">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Highlights Please mention some of the key highlights</h4>
+                                                <h4>Highlights Please Mention some of the key Highlights</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">Highlights Please mention some of the key highlights, Quotes, Phrases if any (Attachment)</P>
+                                                <P class="fs-4">Highlights Please Mention some of the key Highlights, Quotes, Phrases if any (Attachment)</P>
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Some Of The Key Highlights, Quotes, Phrases If Any<span class="text-danger">*</span></label>
+                                                                for="validationCustomUsername">Some of The Key Highlights, Quotes, Phrases If Any<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <textarea type="number" class="form-control" id="quotes_one" name="quotes_one" rows="3" placeholder=" Please Enter Highlights, Quotes, Phrases" required></textarea>
-                                                                <div class="invalid-feedback"> Please Enter Highlights, Quotes, Phrases. </div>
+                                                                <textarea type="number" class="form-control" id="quotes_one" name="quotes_one" rows="3" placeholder="Enter highlights, quotes, phrases" required></textarea>
+                                                                <div class="invalid-feedback"> Please enter highlights, quotes, phrases. </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -843,8 +847,8 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">File Attachment<span class="text-danger">*</span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="clip_attachment" id="clip_attachment" class="form-control" aria-label="file example" required>
-                                                                <div class="invalid-feedback">Please upload File Attachment PDF</div>
+                                                                <input type="file" name="clip_attachment" id="clip_attachment"  accept="image/png, image/jpeg, image/jpg"  class="form-control" aria-label="file example" accept="image/*" required>
+                                                                <div class="invalid-feedback">Please upload file attachment PDF</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -859,19 +863,34 @@
                                                 <h4>Add Magazine Images</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <P class="fs-4">You can provide up to 8 images including some key illustrations with a minimum of 3 compulsory cover images</p>
+                                                <P class="fs-4">You can provide up to 3 images including some key illustrations with a minimum of 3 compulsory cover images</p>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
+                                                                <div class="profile-pic">
+                                                                    <img style="max-height: 150px !important;" class="front_image_preview" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Picture_icon_BLACK.svg/149px-Picture_icon_BLACK.svg.png?20180309172929">
+                                                             
+                                                                </div>
+                                                                <div class="p-image">
+                                                                    <i class="fa fa-camera  upload-button"></i>
+                                                                        <input class="file-upload" name="front_img"  id="front_img" type="file" accept="image/png, image/jpeg, image/jpg" required/>
+                                                                        <div class="invalid-feedback"> Please upload front image. </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="basic-form">
+                                                            <div class="mb-3">
                                                                 <div class="circle">
-                                                                    <img class="front_image_preview" src=https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Picture_icon_BLACK.svg/149px-Picture_icon_BLACK.svg.png?20180309172929">
+                                                                    <img style="max-height: 150px !important;" class="profile-pic_back" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Picture_icon_BLACK.svg/149px-Picture_icon_BLACK.svg.png?20180309172929">
                                                              
                                                                   </div>
                                                                   <div class="p-image">
-                                                                    <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="front_img form-control" name="front_img"  id="front_img" type="file" accept="image/*" required/>
-                                                                     <div class="invalid-feedback"> Please Upload Front Image. </div>
+                                                                    <i class="fa fa-camera upload-button_back"></i>
+                                                                     <input class="file-upload_back" name="back_img" type="file" accept="image/png, image/jpeg, image/jpg" required/>
+                                                                     <div class="invalid-feedback"> Please upload back image. </div>
                                                                   </div>
                                                             </div>
                                                         </div>
@@ -880,28 +899,13 @@
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
-                                                                    <img class="back_image_preview" src=https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Picture_icon_BLACK.svg/149px-Picture_icon_BLACK.svg.png?20180309172929">
+                                                                    <img style="max-height: 150px !important;" class="profile-pic_other" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Picture_icon_BLACK.svg/149px-Picture_icon_BLACK.svg.png?20180309172929">
                                                              
                                                                   </div>
                                                                   <div class="p-image">
-                                                                    <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="back_img form-control" name="back_img" type="file" accept="image/*" required/>
-                                                                     <div class="invalid-feedback"> Please Upload Back Image. </div>
-                                                                  </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="basic-form">
-                                                            <div class="mb-3">
-                                                                <div class="circle">
-                                                                    <img class="full_image_preview" src=https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Picture_icon_BLACK.svg/149px-Picture_icon_BLACK.svg.png?20180309172929">
-                                                             
-                                                                  </div>
-                                                                  <div class="p-image">
-                                                                    <i class="fa fa-camera upload-button"></i>
-                                                                     <input class="full_img form-control" name="full_img" type="file" accept="image/*" / required>
-                                                                     <div class="invalid-feedback"> Please Upload Full Image. </div>
+                                                                    <i class="fa fa-camera  upload-button_other"></i>
+                                                                     <input class="file-upload_other" name="full_img" type="file" accept="image/png, image/jpeg, image/jpg" required>
+                                                                     <div class="invalid-feedback"> Please upload full image. </div>
                                                                   </div>
                                                             </div>
                                                         </div>
@@ -922,7 +926,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Sample PDF One<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="pdf_content_one" id="pdf_content_one" class="form-control" aria-label="file example" required>
+                                                                <input type="file" name="pdf_content_one" id="pdf_content_one" accept="application/pdf, application/vnd.ms-excel" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
                                                             </div>
                                                         </div>
@@ -932,7 +936,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Sample PDF Two<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="pdf_content_two" id="pdf_content_two" class="form-control" aria-label="file example" required>
+                                                                <input type="file" name="pdf_content_two" id="pdf_content_two" accept="application/pdf, application/vnd.ms-excel" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
                                                             </div>
                                                         </div>
@@ -942,7 +946,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Sample PDF Three<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
-                                                                <input type="file" name="pdf_content_three" id="pdf_content_three" class="form-control" aria-label="file example" required>
+                                                                <input type="file" name="pdf_content_three" id="pdf_content_three" accept="application/pdf, application/vnd.ms-excel" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
                                                             </div>
                                                         </div>
@@ -967,7 +971,7 @@
                                                                     <label class="text-label form-label text-black"
                                                                         for="validationCustomUsername">IFSC Code <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="ifsc_Code" name="ifsc_Code" placeholder="Enter the IFSC Code" required>
+                                                                        <input type="text"class="form-control" id="ifsc_Code" name="ifsc_Code" placeholder="Enter the IFSC code" required>
                                                                         <div class="invalid-feedback"> Please Enter IFSC Code. </div>
                                                                     </div>
                                                                 </div>
@@ -980,8 +984,8 @@
                                                                         for="validationCustomUsername">
                                                                         Bank Account Number <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="ban_Acc_Num" name="ban_Acc_Num" placeholder="Enter the Bank Account Number" required>
-                                                                        <div class="invalid-feedback"> Please Enter Account Number. </div>
+                                                                        <input type="text" class="form-control" id="ban_Acc_Num" name="ban_Acc_Num" placeholder="Enter the bank account number" required>
+                                                                        <div class="invalid-feedback"> Please enter account number. </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -994,8 +998,8 @@
                                                                         for="validationCustomUsername">
                                                                         Bank Name <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="bank_Name" name="bank_Name" placeholder="Enter the Bank Name" required>
-                                                                        <div class="invalid-feedback"> Please Enter Bank Name. </div>
+                                                                        <input type="text" class="form-control" id="bank_Name" name="bank_Name" placeholder="Enter the bank name" required>
+                                                                        <div class="invalid-feedback"> Please enter bank name. </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1007,7 +1011,7 @@
                                                                         for="validationCustomUsername">
                                                                        Account Holder Name <span class="text-danger">*</span></label>
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" id="acc_Hol_Nam" name="acc_Hol_Nam" placeholder="Enter the Account Holder Name" required>
+                                                                        <input type="text" class="form-control" id="acc_Hol_Nam" name="acc_Hol_Nam" placeholder="Enter the account holder name" required>
                                                                         <div class="invalid-feedback"> Please Enter Account Holder Name. </div>
                                                                     </div>
                                                                 </div>
@@ -1375,7 +1379,72 @@ document.getElementById('every_issue').addEventListener('input', function(event)
     event.target.value = value;
 });
 </script>
+<script>
+    // front
+    $(document).ready(function() {
+        var frontreadURL = function(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
+                reader.onload = function(e) {
+                    $('.front_image_preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(".file-upload").on('change', function() {
+            frontreadURL(this);
+        });
+
+        $(".upload-button").on('click', function() {
+            $(".file-upload").click();
+        });
+    });
+    // back
+    $(document).ready(function() {
+        var backreadURL = function(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.profile-pic_back').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(".file-upload_back").on('change', function() {
+            backreadURL(this);
+        });
+
+        $(".upload-button_back").on('click', function() {
+            $(".file-upload_back").click();
+        });
+    });
+    // other
+    $(document).ready(function() {
+
+        var otherreadURL = function(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('.profile-pic_other').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(".file-upload_other").on('change', function() {
+            otherreadURL(this);
+        });
+
+        $(".upload-button_other").on('click', function() {
+            $(".file-upload_other").click();
+        });
+    });
+</script>
 
 <script>
     document.getElementById("pdf_content_three").addEventListener("change", function() {
