@@ -44,6 +44,9 @@ Route::post('/getdistrict', [MagazineController::class, 'getDistricts']);
 Route::post('/feedbackadd',[FeedbackController::class,'feedbackadd']);
 Route::get('/feedback_add',function(){ return view('periodical_distributor.feedback_add');});
 
+ // profile
+ 
+ Route::get('/distributor_profile_view',function(){ return view('periodical_distributor.distributor_profile_view');});
 
 });
 

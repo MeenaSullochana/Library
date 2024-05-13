@@ -243,7 +243,7 @@
                                                 <h4>Periodicity</h4>
                                             </div>
                                             <div class="col-md-10">
-                                                <p class="fs-4">Choose the periodicty from the list </p>
+                                                <p class="fs-4">Choose the Periodicity from the list </p>
                                               
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
@@ -470,7 +470,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Short Description About the Periodical<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <textarea type="number" class="form-control" id="periodical_short_info" name="periodical_short_info" rows="3" placeholder="Enter the short description About The Periodical" required></textarea>
+                                                                <textarea type="number" class="form-control" id="periodical_short_info" name="periodical_short_info" rows="3" placeholder="Enter the short description about the periodical" required></textarea>
                                                                 <div class="invalid-feedback"> Please enter the short description about the periodical. </div>
                                                             </div>
                                                         </div>
