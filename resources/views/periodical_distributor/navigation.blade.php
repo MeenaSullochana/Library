@@ -357,6 +357,17 @@
 							<li><a href="/periodical_distributor/procurement_sampleperiodicalcomplete">Procurement Sample periodical Copies Complete list</a></li>
                         </ul>
                     </li>
+
+
+					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+					<i class="bi bi-chat-dots"></i>
+                            <span class="nav-text">Feedback Manage</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/periodical_distributor/feedback_add">Create Feedback</a></li>
+
+                        </ul>
+                    </li>
                     <!--
                         F-menu Setting End
                     -->

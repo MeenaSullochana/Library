@@ -55,9 +55,9 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>View Periodical Publixsher Feedback</b>
+                                <b>View Periodical Distributor Feedback</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="/admin/feedback_periodical_publisher">
+                            <a class="btn btn-primary  btn-sm" href="/admin/feedback_periodical_distributor">
                                 <i class="fa fa-chevron-left" aria-hidden="true"></i> Back </a>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                                         <div class="img-wrraper">
                                             <div class="">
                                                 @if($data->image != null)
-                                                <img src="{{ asset("periodical_publisher/images/profile/".$data->image) }}" class="rounded-circle">
+                                                <img src="{{ asset("periodical_distributor/images/profile/".$data->image) }}" class="rounded-circle">
                                                 @else
                                                 <img src="{{ asset("images/default.png") }}" class="rounded-circle">
                                                 @endif
@@ -86,7 +86,7 @@
                                                 <a target="_blank" href="">
                                                     <h4>{{$data->firstname}}  {{$data->lastname}}</h4>
                                                 </a>
-                                                <h6>Periodical Publisher</h6>
+                                                <h6>Periodical Distributor</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -164,3 +164,4 @@
         margin-left: 40px; /* Adjust the value based on your desired indentation */
     }
 </style>
+ 

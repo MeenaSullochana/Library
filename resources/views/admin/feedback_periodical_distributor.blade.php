@@ -58,7 +58,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>List Periodical Publisher Feedback</b>
+                                <b>List periodical distributor Feedback</b>
                             </h3>
 
                         </div>
@@ -105,7 +105,7 @@
                                                 <td>
                                                         <div class="d-flex align-items-center">
                                                         @if($val->image != null)
-                                                                <img src="{{ asset("periodical_publisher/images/profile/".$val->image) }}" class="rounded-lg me-2" width="24" alt="">
+                                                                <img src="{{ asset("periodical_distributor/images/profile/".$val->image) }}" class="rounded-lg me-2" width="24" alt="">
                                                             @else
                                                                 <img src="{{ asset("images/default.png") }}" class="rounded-lg me-2" width="24" alt="">
                                                             @endif
@@ -119,7 +119,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="d-flex">
-                                                    <a href="/admin/feedback_periodicalpublisher_edit/{{$val->id}}"
+                                                    <a href="/admin/feedback_periodicaldistributor_edit/{{$val->id}}"
                                                             class="btn btn-success shadow btn-xs sharp me-1">
                                                             <i class="fa fa-eye"></i>
                                                         </a>

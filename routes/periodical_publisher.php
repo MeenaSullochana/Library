@@ -59,7 +59,10 @@ Route::prefix('periodical_publisher')->group(function () {
     Route::get('/payment',function(){ return view('periodical_publisher.payment');});
 // feedback
     Route::post('/feedbackadd',[FeedbackController::class,'feedbackadd']);
+    Route::get('/publisher_profile_view',[PeriodicalPublisherController::class,'publisher_profile_view']);
+    Route::post('/pubbackgroundimg',[PeriodicalPublisherController::class,'pubbackgroundimg']);
+    Route::post('/pubprofileimg',[PeriodicalPublisherController::class,'pubprofileimg']);
 
-
+        
 });
 });
