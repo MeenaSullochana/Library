@@ -936,8 +936,8 @@ if(isset($request->rni_attachment_proof)){
    return view('periodical_distributor.procurement_sampleperiodicalpending')->with('data',$data); 
  }
  public function procurement_sampleperiodicalcomplete(){
-  return $id=auth('periodical_distributor')->user()->id;
-   return $data1=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"1")->where('periodical_status','=',null)->get(); 
+   $id=auth('periodical_distributor')->user()->id;
+    $data1=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"1")->where('periodical_status','=',null)->get(); 
     $data=[];
     foreach($data1 as $key=>$val){
         $periodicalcopies=periodicalcopies::where('periodicalid','=',$val->id)->first();

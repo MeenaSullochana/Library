@@ -71,7 +71,7 @@
                         <div class="profile card card-body px-3 pt-3 pb-0">
                             <div class="profile-head">
                                 <div class="photo-content">
-                                @if($data->backgroundImage == Null)
+                                     @if($data->backgroundImage == Null)
                                     <div class="cover-photo rounded" style="background: url('{{asset("images/default.png")}}'); background-size:cover;" id="output1" ></div>
                                     @else
                                     <div class="cover-photo rounded" style="background: url('{{asset("publisher/images/profile/".$data->backgroundImage)}}'); background-size:cover;" id="output1" ></div>

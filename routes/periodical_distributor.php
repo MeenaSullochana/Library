@@ -4,6 +4,7 @@ use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PeriodicalDistributor\MagazineController;
 use App\Http\Controllers\PeriodicalDistributor\PeriodicalDistributorController;
+use App\Http\Controllers\PeriodicalDistributor\FeedbackController;
 
 Route::middleware(['periodical_distributor'])->group(function () {
 
@@ -39,6 +40,9 @@ Route::post('/getdistrict', [MagazineController::class, 'getDistricts']);
 
  // payment
  Route::get('/payment',function(){ return view('periodical_distributor.payment');});
+// feedback
+Route::post('/feedbackadd',[FeedbackController::class,'feedbackadd']);
+Route::get('/feedback_add',function(){ return view('periodical_distributor.feedback_add');});
 
 
 });
