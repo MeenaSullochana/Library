@@ -41,36 +41,36 @@
 <body data-typography="poppins" data-theme-version="light" data-layout="vertical" data-nav-headerbg="black"
     data-headerbg="color_1">
 
-    <!--*******************
+    <!--*******
         Preloader start
-    ********************-->
+    ********-->
     <div id="preloader">
         <div class="text-center">
             <img src="{{ asset('periodical_publisher/images/goverment_loader.gif') }}" alt="" width="25%">
         </div>
     </div>
-    <!--*******************
+    <!--*******
         Preloader end
-    ********************-->
+    ********-->
 
-    <!--**********************************
+    <!--************
         Main wrapper start
-    ***********************************-->
+    *************-->
     <div id="main-wrapper">
 
-        <!--**********************************
+        <!--************
             Nav header start
-        ***********************************-->
+        *************-->
         @include('periodical_publisher.navigation')
-        <!--**********************************
+        <!--************
             Sidebar end
-        ***********************************-->
+        *************-->
 
 
 
-        <!--**********************************
+        <!--************
             Content body start
-        ***********************************-->
+        *************-->
         <div class="content-body">
             <div class="container-fluid">
                 <div class="row">
@@ -91,7 +91,7 @@
                                                 alt=""></h4>
 
 
-                                        <a href="/periodical_publisher/pub_profile_view"
+                                        <a href="/periodical_publisher/publisher_profile_view"
                                             class="btn btn-primary btn-sm mt-4">View
                                             Profile</a>
                                     </div>
@@ -155,9 +155,13 @@
                                             <div class="icon-box icon-box-md bg-danger-light me-1">
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
+                                            @php
+                                              $magazines = DB::table('magazines')->where('periodical_procurement_status','!=','0')
+                                              ->where('user_id','=',auth('periodical_publisher')->user()->firstName) ->get();
+                                            @endphp
                                             <div class="ms-2">
-                                                <h4>512</h4>
-                                                <p class="mb-0">Total Applied Magazine</p>
+                                                <h4>{{count($magazines)}}</h4>
+                                                <p class="mb-0">Total Applied Periodical</p>
                                             </div>
                                         </div>
                                         <a href="javascript:void(0)"><i
@@ -173,8 +177,8 @@
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
                                             <div class="ms-2">
-                                                <h4>98</h4>
-                                                <p class="mb-0">Pending Magazine</p>
+                                                <h4>0</h4>
+                                                <p class="mb-0">Pending Periodical</p>
                                             </div>
                                         </div>
                                         <a href="javascript:void(0)"><i
@@ -193,8 +197,8 @@
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
                                             <div class="ms-2">
-                                                <h4>54</h4>
-                                                <p class="mb-0">Rejected Magazine</p>
+                                                <h4>0</h4>
+                                                <p class="mb-0">Rejected Periodical</p>
                                             </div>
                                         </div>
                                         <a href="javascript:void(0)"><i
@@ -210,8 +214,8 @@
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
                                             <div class="ms-2">
-                                                <h4>34</h4>
-                                                <p class="mb-0">Selected Magazine</p>
+                                                <h4>0</h4>
+                                                <p class="mb-0">Selected Periodical</p>
                                             </div>
                                         </div>
                                         <a href="javascript:void(0)"><i
@@ -301,28 +305,34 @@
                             <div class="card">
                                 <div class="card-header border-0">
                                     <div>
-                                        <h4 class="heading mb-0">All Approved Magazine List</h4>
+                                        <h4 class="heading mb-0">All Approved Periodical List</h4>
                                     </div>
                                 </div>
                                 <div class="card-body p-0 pb-3">
                                     <ul class="country-sale dz-scroll">
-                                        <div class="text-center">No records found</div>
-                                            <li class="d-flex">
+                                    @if($magazines->isNotEmpty())
+                                           @foreach($magazines as $val)
+                                           <li class="d-flex">
                                                 <div class="">
-                                                    1.
+                                                  {{$loop->index +1}}
                                                 </div>
                                                 <div class="ms-3 country-flag">
-                                                    <img src="https://bookprocurement.tamilnadupubliclibraries.org/publisher/images/analytics/developer_male.png" alt="">
+                                                    <img src="{{ asset('Magazine/full/' . $val->full_img) }}" alt="">
                                                 </div>
                                                 <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
                                                     
                                                     <div class="ms-2">
-                                                        <h6 class="mb-0">Test</h6>
-                                                        <small>test one</small>
+                                                        <h6 class="mb-0">{{$val->title}}</h6>
+                                                        <!-- <small>test one</small> -->
                                                     </div>
-                                                    <span class="badge badge-primary  border-0 ms-2"><i class="fa fa-inr" aria-hidden="true"></i> 12</span>
+                                                    <span class="badge badge-primary  border-0 ms-2"><i class="fa fa-inr" aria-hidden="true"></i> {{$val->annual_cost_after_discount}}</span>
                                                 </div>
                                             </li>
+                                            @endforeach
+                                            @else
+                                            <div class="text-center">No records found</div>
+
+                                            @endif
                                         </div>
                                     </ul>
                                 </div>
@@ -333,35 +343,35 @@
             </div>
         </div>
 
-        <!--**********************************
+        <!--************
             Content body end
-        ***********************************-->
+        *************-->
 
-        <!--**********************************
+        <!--************
             Footer start
-        ***********************************-->
+        *************-->
         @include('periodical_publisher.footer')
-        <!--**********************************
+        <!--************
             Footer end
-        ***********************************-->
+        *************-->
 
-        <!--**********************************
+        <!--************
            Support ticket button start
-        ***********************************-->
+        *************-->
 
-        <!--**********************************
+        <!--************
            Support ticket button end
-        ***********************************-->
+        *************-->
 
 
     </div>
-    <!--**********************************
+    <!--************
         Main wrapper end
-    ***********************************-->
+    *************-->
 
-    <!--**********************************
+    <!--************
         Scripts
-    ***********************************-->
+    *************-->
     <!-- Required vendors -->
     <script src="{{ asset('vendor/global/global.min.js') }}"></script>
     <script src="{{ asset('vendor/chart.js/Chart.bundle.min.js') }}"></script>
@@ -402,7 +412,7 @@
     <!-- All init script -->
     <script src="{{ asset('js/plugins-init/toastr-init.js') }}"></script>
 
-    <script>
+    <!-- <script>
         $(document).ready(function(){
             toastr.success("This Is Success Message", "Top Full Width", {
                     positionClass: "toast-top-full-width",
@@ -423,7 +433,7 @@
                     tapToDismiss: !1
                 })
         });
-    </script>
+    </script> -->
 </body>
 <style>
     .scroll-view {

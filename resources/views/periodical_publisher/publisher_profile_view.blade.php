@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,32 +39,32 @@ table.dataTable thead th {
 </head>
 
 <body>
-    <!--*******************
+    <!--*******
          Preloader start
-         ********************-->
+         ********-->
     <div id="preloader">
         <div class="text-center">
             <img src="images/goverment_loader.gif" alt="" width="25%">
         </div>
     </div>
-    <!--*******************
+    <!--*******
          Preloader end
-         ********************-->
-    <!--**********************************
+         ********-->
+    <!--************
          Main wrapper start
-         ***********************************-->
+         *************-->
     <div id="main-wrapper">
-        <!--**********************************
+        <!--************
             Nav header start
-            ***********************************-->
+            *************-->
             @include ('periodical_publisher.navigation')
 
-        <!--**********************************
+        <!--************
             Sidebar end
-            ***********************************-->
-        <!--**********************************
+            *************-->
+        <!--************
             Content body start
-            ***********************************-->
+            *************-->
         <div class="content-body">
             <div class="container-fluid">
                 <!-- row -->
@@ -130,28 +129,28 @@ table.dataTable thead th {
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="profile-interest">
-                                        <h5 class="text-primary d-inline">Nature of Your Publication Ownership</h5>
+                                        <!-- <h5 class="text-primary d-inline">Nature of Your Publication Ownership</h5> -->
                                             <div class="row mt-4 sp4" id="lightgallery">
                                                 @if($data->pubOwnership == 'Publication')
-                                                <p>Public Limited</p>
+                                               <h5 class="text-primary d-inline">Public Limited</h5>
                                                 @elseif($data->pubOwnership =='Private' )
-                                                <p>Private Limited</p>
+                                               <h5 class="text-primary d-inline">Private Limited</h5>
                                                 @elseif($data->pubOwnership == 'limited')
-                                                <p>Limited Liability Partnership(LLP)</p>
+                                               <h5 class="text-primary d-inline">Limited Liability Partnership(LLP)</h5>
                                                 @elseif($data->pubOwnership == 'Partnership' )
-                                                <p>Partnership Firm</p>
+                                               <h5 class="text-primary d-inline">Partnership Firm</h5>
                                                 @elseif($data->pubOwnership == 'oneperson' )
-                                                <p>Proprietorship</p>
+                                               <h5 class="text-primary d-inline">Proprietorship</h5>
                                                 @elseif($data->pubOwnership == 'trust')
-                                                <p>Private Trust</p>
+                                               <h5 class="text-primary d-inline">Private Trust</h5>
                                                 @elseif($data->pubOwnership == 'society')
-                                                <p>Private Society</p>
+                                               <h5 class="text-primary d-inline">Private Society</h5>
                                                 @elseif($data->pubOwnership == 'institutional')
-                                                <p>Government Institutional Publication</p>
+                                               <h5 class="text-primary d-inline">Government Institutional Publication</h5>
                                                 @elseif($data->pubOwnership == 'trust-foundation')
-                                                <p>Government Trust/Foundation Publication</p>
+                                               <h5 class="text-primary d-inline">Government Trust/Foundation Publication</h5>
                                                 @elseif($data->pubOwnership == 'government-society')
-                                                <p>Government Society Publication</p>
+                                               <h5 class="text-primary d-inline">Government Society Publication</h5>
                                                 @endif
                                                  @if($data->gstProof != null)
                                                 <a href="#" data-exthumbimage="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
@@ -613,27 +612,27 @@ table.dataTable thead th {
                 </div>
             </div>
         </div>
-        <!--**********************************
+        <!--************
             Content body end
-            ***********************************-->
-        <!--**********************************
+            *************-->
+        <!--************
             Footer start
-            ***********************************-->
+            *************-->
             @include ("periodical_publisher.footer")
 
-        <!--**********************************
+        <!--************
             Footer end
-            ***********************************-->
-        <!--**********************************
+            *************-->
+        <!--************
             Support ticket button start
-            ***********************************-->
-        <!--**********************************
+            *************-->
+        <!--************
             Support ticket button end
-            ***********************************-->
+            *************-->
     </div>
-    <!--**********************************
+    <!--************
          Main wrapper end
-         ***********************************-->
+         *************-->
          <?php
         include "periodical_publisher/plugin/plugin_js.php";
         ?>
@@ -752,6 +751,7 @@ table.dataTable thead th {
              processData: false,
              contentType: false,
              success: function(response) {
+                console.log(response);
                 if(response.success){
                     toastr.success(response.success,{timeout:25000});
 
@@ -840,4 +840,3 @@ table.dataTable thead th {
 
 
 </html>
-
