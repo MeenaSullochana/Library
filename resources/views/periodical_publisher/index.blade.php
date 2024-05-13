@@ -26,10 +26,10 @@
     <link href="{{ asset('vendor/datatables/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css" rel="stylesheet">
     <link href="{{ asset('vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- tagify-css -->
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="{{ asset('vendor/toastr/css/toastr.min.css') }}">
+
     <link href="{{ asset('vendor/tagify/dist/tagify.css') }}" rel="stylesheet">
 
     <!-- Style css -->
@@ -396,9 +396,34 @@
     <script src="{{ asset('periodical_publisher/js/deznav-init.js') }}"></script>
     <script src="{{ asset('periodical_publisher/js/demo.js') }}"></script>
     <script src="{{ asset('periodical_publisher/js/styleSwitcher.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Toastr -->
+    <script src="{{ asset('vendor/toastr/js/toastr.min.js') }}"></script>
+
+    <!-- All init script -->
+    <script src="{{ asset('js/plugins-init/toastr-init.js') }}"></script>
+
+    <script>
+        $(document).ready(function(){
+            toastr.success("This Is Success Message", "Top Full Width", {
+                    positionClass: "toast-top-full-width",
+                    timeOut: 5e3,
+                    closeButton: !0,
+                    debug: !1,
+                    newestOnTop: !0,
+                    progressBar: !0,
+                    preventDuplicates: !0,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    tapToDismiss: !1
+                })
+        });
+    </script>
 </body>
 <style>
     .scroll-view {
