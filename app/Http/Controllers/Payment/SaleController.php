@@ -26,11 +26,32 @@ class SaleController extends Controller
         $books1= json_encode($bookitem);
         $paymentbook = new PaymentBook();
         $paymentbook->bookId = $books1;
+        $paymentbook->type = "Book";
         $paymentbook->save();
         $books = $paymentbook->id;
         // dd($books);
         $user = Session::get('user');
-        $amount = count($data) *500;
+        $amount = count($data) *450;
+        $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
+        $merchantrefno= $randomCode;
+        return view('payment.payment', compact('user', 'amount','books','merchantrefno'));
+    }
+
+    public function magazineindex(){
+        $data = Session::get('periodicalitem');
+        $bookitem =[];
+        foreach($data as $key=>$val){
+         array_push($bookitem,$val->id);
+        }
+        $books1= json_encode($bookitem);
+        $paymentbook = new PaymentBook();
+        $paymentbook->bookId = $books1;
+        $paymentbook->type = "Magazine";
+        $paymentbook->save();
+        $books = $paymentbook->id;
+        // dd($books);
+        $user = Session::get('user');
+        $amount = count($data) *450;
         $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
         $merchantrefno= $randomCode;
         return view('payment.payment', compact('user', 'amount','books','merchantrefno'));

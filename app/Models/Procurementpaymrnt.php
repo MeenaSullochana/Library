@@ -18,7 +18,8 @@ class Procurementpaymrnt extends Model
         'userType',
         'paymentType',
         'invoiceNumber',
-        'userName'
+        'userName',
+        'type'
    
     ];
 }
