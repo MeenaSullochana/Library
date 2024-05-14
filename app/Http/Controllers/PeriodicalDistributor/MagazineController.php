@@ -672,7 +672,7 @@ public function magazine_orderview($id){
       }
       if ($request->hasFile('clip_attachment')) {
           $front = $request->file('clip_attachment');
-          $front_name = $request->title . time() . '_' . $front->getClientOriginalName();
+          $front_name = time() . '_' . $front->getClientOriginalName();
           $front->move(('Magazine/highlightimg'), $front_name);
           $magazine->highlightimg = $front_name;
       }
@@ -686,7 +686,7 @@ public function magazine_orderview($id){
       }
       if ($request->hasFile('editor_profile_image')) {
           $front = $request->file('editor_profile_image');
-          $front_name = $request->title . time() . '_' . $front->getClientOriginalName();
+          $front_name =time() . '_' . $front->getClientOriginalName();
           $front->move(('Magazine/editorprofile'), $front_name);
           $magazine->editorprofile = $front_name;
       }
@@ -699,7 +699,7 @@ public function magazine_orderview($id){
     }
     if ($request->hasFile('front_img')) {
         $front = $request->file('front_img');
-        $front_name = $request->title . time() . '_' . $front->getClientOriginalName();
+        $front_name =time() . '_' . $front->getClientOriginalName();
         $front->move(('Magazine/front'), $front_name);
         $magazine->front_img = $front_name;
     }
@@ -713,7 +713,7 @@ public function magazine_orderview($id){
     }
     if ($request->hasFile('back_img')) {
         $back = $request->file('back_img');
-        $back_name = $request->title . time() . '_' . $back->getClientOriginalName();
+        $back_name = time() . '_' . $back->getClientOriginalName();
         $back->move(('Magazine/back'), $back_name);
         $magazine->back_img = $back_name;
     }
@@ -727,7 +727,7 @@ public function magazine_orderview($id){
         }
         if ($request->hasFile('full_img')) {
             $full = $request->file('full_img');
-            $full_name = $request->title . time() . '_' . $full->getClientOriginalName();
+            $full_name =time() . '_' . $full->getClientOriginalName();
             $full->move(public_path('Magazine/full'), $full_name);
             $magazine->full_img = $full_name;
         }
@@ -741,7 +741,7 @@ public function magazine_orderview($id){
       }
       if ($request->hasFile('pdf_content_one')) {
           $full = $request->file('pdf_content_one');
-          $full_name = $request->title . time() . '_' . $full->getClientOriginalName();
+          $full_name = time() . '_' . $full->getClientOriginalName();
           $full->move(public_path('Magazine/pdf1'), $full_name);
           $magazine->pdf1 = $full_name;
       }
@@ -753,7 +753,7 @@ public function magazine_orderview($id){
     }
     if ($request->hasFile('pdf_content_two')) {
         $full = $request->file('pdf_content_two');
-        $full_name = $request->title . time() . '_' . $full->getClientOriginalName();
+        $full_name = time() . '_' . $full->getClientOriginalName();
         $full->move(public_path('Magazine/pdf2'), $full_name);
         $magazine->pdf2 = $full_name;
     }
@@ -766,7 +766,7 @@ public function magazine_orderview($id){
   }
   if ($request->hasFile('pdf_content_three')) {
       $full = $request->file('pdf_content_three');
-      $full_name = $request->title . time() . '_' . $full->getClientOriginalName();
+      $full_name = time() . '_' . $full->getClientOriginalName();
       $full->move(public_path('Magazine/pdf3'), $full_name);
       $magazine->pdf3 = $full_name;
   }
@@ -779,7 +779,7 @@ if(isset($request->rni_attachment_proof)){
   }
   if ($request->hasFile('rni_attachment_proof')) {
       $full = $request->file('rni_attachment_proof');
-      $full_name = $request->title . time() . '_' . $full->getClientOriginalName();
+      $full_name = time() . '_' . $full->getClientOriginalName();
       $full->move(public_path('Magazine/rniproof'), $full_name);
       $magazine->rniproof = $full_name;
   }
@@ -874,7 +874,7 @@ if(isset($request->rni_attachment_proof)){
    $user = auth('periodical_distributor')->user();
    \Session::put('user',$user);
    $data= [
-       'success' => 'Book Applied For Procurement',
+       'success' => 'Periodical Applied For Procurement',
             ];
    return response()->json($data);  
  }

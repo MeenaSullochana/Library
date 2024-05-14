@@ -12,6 +12,7 @@ class PaymentBook extends Model
     use HasFactory;
     protected $table = 'payment_books';
     protected $fillable = [
-        'bookId'
+        'bookId',
+        'type'
     ];
 }

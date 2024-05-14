@@ -13,9 +13,9 @@
    <!-- PAGE TITLE HERE -->
    <title>Government of Tamil Nadu - Book Procurement - Payment Receipt List</title>
    <!-- FAVICONS ICON -->
-   <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_publisher/images/fevi.svg') }}">
+   <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_distributor/images/fevi.svg') }}">
     <?php
-        include "periodical_publisher/plugin/plugin_css.php";
+        include "periodical_distributor/plugin/plugin_css.php";
     ?>
     
    
@@ -40,7 +40,7 @@
       <!--**********************************
             Nav header start
             ***********************************-->
-            @include ('periodical_publisher.navigation')
+            @include ('periodical_distributor.navigation')
 
       <!--**********************************
             Sidebar end
@@ -62,7 +62,7 @@
 
                <div class="card-body">
                @php
-                        $payment = DB::table('procurement_paymrnts')->where('userId','=',auth('periodical_publisher')->user()->id)->get();
+                        $payment = DB::table('procurement_paymrnts')->where('userId','=',auth('periodical_distributor')->user()->id)->get();
                             @endphp
                   <div class="table-responsive">
                      <table id="all-export" class="display table" style="min-width: 845px">
@@ -101,7 +101,7 @@
          </td>
 
          <td>{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d ') }}</td>
-         <td><a href="/periodical_publisher/paymentreceipt/{{$val->id}}"><i class="fa fa-eye p-2"></i></a>
+         <td><a href="/periodical_distributor/paymentreceipt/{{$val->id}}"><i class="fa fa-eye p-2"></i></a>
 
          </td>
       </tr>
@@ -120,7 +120,7 @@
    <!--**********************************
          Footer start
          ***********************************-->
-         @include ("periodical_publisher.footer")
+         @include ("periodical_distributor.footer")
    <!--**********************************
          Footer end
          ***********************************-->
@@ -135,7 +135,7 @@
          Main wrapper end
          ***********************************-->
          <?php
-        include "periodical_publisher/plugin/plugin_js.php";
+        include "periodical_distributor/plugin/plugin_js.php";
     ?>
     </script>
 </body>

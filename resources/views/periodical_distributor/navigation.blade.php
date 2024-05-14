@@ -357,7 +357,15 @@
 							<li><a href="/periodical_distributor/procurement_sampleperiodicalcomplete">Procurement Sample periodical Copies Complete list</a></li>
                         </ul>
                     </li>
+					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                        <i class="bi bi-receipt"></i>
+                            <span class="nav-text">Procurement Receipt </span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/periodical_distributor/procurement_payment_list"> Payment Receipt List</a></li>
 
+                        </ul>
+                    </li>
 
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 					<i class="bi bi-chat-dots"></i>

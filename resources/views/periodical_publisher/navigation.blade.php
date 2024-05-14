@@ -326,6 +326,7 @@
 							<li><a href="/periodical_publisher/magazine_list">Magazine list</a></li>
                         </ul>
                     </li>
+				
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-minecart-loaded"></i>
                             <span class="nav-text">Manage Procurement</span>
@@ -356,6 +357,7 @@
 
                         </ul>
                     </li>
+					
 				</ul>
 			</div>
         </div>

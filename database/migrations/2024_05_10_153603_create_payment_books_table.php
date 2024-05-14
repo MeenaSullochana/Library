@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('payment_books', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->json('bookId');
+            $table->string('type');
             $table->timestamps();
         });
     }

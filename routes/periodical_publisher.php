@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PeriodicalPublisher\MagazineController;
 use App\Http\Controllers\PeriodicalPublisher\PeriodicalPublisherController;
 use App\Http\Controllers\PeriodicalPublisher\FeedbackController;
+use App\Http\Controllers\PeriodicalPublisher\PaymentController;
 
 
 Route::middleware(['periodical_publisher'])->group(function () {
@@ -60,8 +61,14 @@ Route::prefix('periodical_publisher')->group(function () {
 
     // payment
     Route::get('/procurement_payment_list',function(){ return view('periodical_publisher.procurement_payment_list');});
-    Route::get('/paymentreceipt',function(){ return view('periodical_publisher.paymentreceipt');});
+    Route::get('/paymentreceipt/{id}',[PaymentController::class,'payment_recept']);
+    Route::get('/paymentreceipt',function(){
+       $data = Session::get('paymrnt');
+         if($data !==null){
+             return view('periodical_publisher.paymentreceipt')->with("data",$data);
+         }
 
+     });
     // feedback
     Route::get('/feedback_add',function(){ return view('periodical_publisher.feedback_add');});
 

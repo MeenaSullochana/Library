@@ -110,7 +110,7 @@ if($request->volume_number[0] !=null && $request->volume_title[0] !=null && $req
         if($request->sample_file == "Pdf"){
             if ($request->hasFile('sample_pdf')) {
                 $samplepdf = $request->file('sample_pdf');
-               $samplepdf_name = $request->book_title . time() . '_' . $samplepdf->getClientOriginalName();
+               $samplepdf_name = time() . '_' . $samplepdf->getClientOriginalName();
                 $samplepdf->move(('Books/samplepdf'), $samplepdf_name);
                 $book->sample_pdf = $samplepdf_name;
                 $book->sample_file = $request->sample_file;
@@ -122,7 +122,7 @@ if($request->volume_number[0] !=null && $request->volume_title[0] !=null && $req
            
             if ($request->hasFile('sample_epub')) {
                 $sampleepub = $request->file('sample_epub');
-               $sampleepub_name = $request->book_title . time() . '_' . $sampleepub->getClientOriginalName();
+               $sampleepub_name = time() . '_' . $sampleepub->getClientOriginalName();
                 $sampleepub->move(('Books/sampleepub'), $sampleepub_name);
                 $book->sample_epub = $sampleepub_name;
                 $book->sample_file = $request->sample_file;
@@ -131,14 +131,14 @@ if($request->volume_number[0] !=null && $request->volume_title[0] !=null && $req
   
        if ($request->hasFile('front_img')) {
         $front = $request->file('front_img');
-        $front_name = $request->book_title . time() . '_' . $front->getClientOriginalName();
+        $front_name = time() . '_' . $front->getClientOriginalName();
         $front->move(('Books/front'), $front_name);
         $book->front_img = $front_name;
     }
   // Back Image
 if ($request->hasFile('back_img')) {
     $back = $request->file('back_img');
-    $back_name = $request->book_title . time() . '_' . $back->getClientOriginalName();
+    $back_name = time() . '_' . $back->getClientOriginalName();
     $back->move(('Books/back'), $back_name);
     $book->back_img = $back_name;
 }
@@ -146,7 +146,7 @@ if ($request->hasFile('back_img')) {
  if(isset($request->full_img)){
     if ($request->hasFile('full_img')) {
         $full = $request->file('full_img');
-        $full_name = $request->book_title . time() . '_' . $full->getClientOriginalName();
+        $full_name = time() . '_' . $full->getClientOriginalName();
         $full->move(public_path('Books/full'), $full_name);
         $book->full_img = $full_name;
     }
@@ -156,7 +156,7 @@ if ($request->hasFile('back_img')) {
         //Author Image
         if ($request->hasFile('author_img')) {
             $author_img = $request->file('author_img');
-            $author_img_name = $request->book_title . time() . '_' . $author_img->getClientOriginalName();
+            $author_img_name = time() . '_' . $author_img->getClientOriginalName();
             $author_img->move(('Books/author_img'), $author_img_name);
             $book->author_img = $author_img_name;
         }
@@ -181,7 +181,7 @@ if ($request->hasFile('back_img')) {
         //Banner Image
         // if ($request->hasFile('banner_img')) {
         //     $banner = $request->file('banner_img');
-        //     $banner_name = $request->book_title . time() . '_' . $banner->getClientOriginalName();
+        //     $banner_name = time() . '_' . $banner->getClientOriginalName();
         //     $banner->move(public_path('Books/banner'), $banner_name);
         //     $book->banner_img = $banner_name;
         // }
@@ -192,7 +192,7 @@ if ($request->hasFile('back_img')) {
 
             if ($request->hasFile('product_img')) {
                 $product = $request->file('product_img');
-                $product_name = $request->book_title . time() . '_' . $product->getClientOriginalName();
+                $product_name = time() . '_' . $product->getClientOriginalName();
                 $product->move(('Books/product'), $product_name);
                 $book->product_img = $product_name;
             }
@@ -757,7 +757,7 @@ if($oldfiletype == "Pdf"){
 if($request->sample_file == "Pdf"){
     if ($request->hasFile('sample_pdf')) {
         $samplepdf = $request->file('sample_pdf');
-       $samplepdf_name = $request->book_title . time() . '_' . $samplepdf->getClientOriginalName();
+       $samplepdf_name = time() . '_' . $samplepdf->getClientOriginalName();
         $samplepdf->move(('Books/samplepdf'), $samplepdf_name);
         $book->sample_pdf = $samplepdf_name;
         $book->sample_file = $request->sample_file;
@@ -766,7 +766,7 @@ if($request->sample_file == "Pdf"){
 }else{
     if ($request->hasFile('sample_epub')) {
         $sampleepub = $request->file('sample_epub');
-       $sampleepub_name = $request->book_title . time() . '_' . $sampleepub->getClientOriginalName();
+       $sampleepub_name = time() . '_' . $sampleepub->getClientOriginalName();
         $sampleepub->move(('Books/sampleepub'), $sampleepub_name);
         $book->sample_epub = $sampleepub_name;
         $book->sample_file = $request->sample_file;
@@ -782,7 +782,7 @@ if ($oldFilePath) {
 }
 if ($request->hasFile('front_img')) {
     $front = $request->file('front_img');
-    $front_name = $request->book_title . time() . '_' . $front->getClientOriginalName();
+    $front_name = time() . '_' . $front->getClientOriginalName();
     $front->move(('Books/front'), $front_name);
     $book->front_img = $front_name;
 }
@@ -796,7 +796,7 @@ if ($oldFilePath) {
 }
 if ($request->hasFile('back_img')) {
     $back = $request->file('back_img');
-    $back_name = $request->book_title . time() . '_' . $back->getClientOriginalName();
+    $back_name = time() . '_' . $back->getClientOriginalName();
     $back->move(('Books/back'), $back_name);
     $book->back_img = $back_name;
 }
@@ -810,7 +810,7 @@ if ($request->hasFile('back_img')) {
     }
     if ($request->hasFile('full_img')) {
         $full = $request->file('full_img');
-        $full_name = $request->book_title . time() . '_' . $full->getClientOriginalName();
+        $full_name = time() . '_' . $full->getClientOriginalName();
         $full->move(public_path('Books/full'), $full_name);
         $book->full_img = $full_name;
     }
@@ -824,7 +824,7 @@ if ($request->hasFile('back_img')) {
     }
     if ($request->hasFile('author_img')) {
         $author_img = $request->file('author_img');
-        $author_img_name = $request->book_title . time() . '_' . $author_img->getClientOriginalName();
+        $author_img_name = time() . '_' . $author_img->getClientOriginalName();
         $author_img->move(('Books/author_img'), $author_img_name);
         $book->author_img = $author_img_name;
     }
@@ -856,7 +856,7 @@ if(isset($request->product_img)){
     }
     if ($request->hasFile('product_img')) {
         $product = $request->file('product_img');
-        $product_name = $request->book_title . time() . '_' . $product->getClientOriginalName();
+        $product_name = time() . '_' . $product->getClientOriginalName();
         $product->move(('Books/product'), $product_name);
         $book->product_img = $product_name;
      }

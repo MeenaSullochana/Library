@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Periodicalauth;
+namespace App\Http\Controllers\PeriodicalAuth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -1175,6 +1175,7 @@ public function emailCheck(Request $request){
             'publisher_name.*' => ['required', 'nullable', 'string', 'max:255'],
             'publisher_place.*' => ['required', 'nullable', 'string', 'max:255'],
             'authorization_letter'                                   => ['required','array'],
+            'member_in_publishers_yes_old_asrmy'          => 'required',
             'specialized_category_magazine'             => 'required|array',
             'subsidiary_distributor_dis' => ['required'],
             'dis_ownership' => ['required'],
@@ -1221,6 +1222,7 @@ public function emailCheck(Request $request){
             'specialized_category_magazine.required'   => 'Specialized category magazine is required.',
             'subsidiary_distributor_dis.required' => 'Subsidiary distributor dis is required.',
             'dis_ownership.required' => 'Distribution ownership is required.',
+            'member_in_publishers_yes_old_asrmy.required'  => 'Please indicate if there are any awarded titles in your distribution',
             'declaration.required' => 'Declaration is required.',
             'declaration-two.required' => 'Second declaration is required.',
             'declaration-three.required' => 'Third declaration is required.',
@@ -1238,6 +1240,40 @@ public function emailCheck(Request $request){
             return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
            }
 
+             //Awarded Titles
+        if ($request->member_in_publishers_yes_old_asrmy == 'yes') {
+            
+            // Check if all fields are present and not empty
+            if ($request->has('trs_state_awarded_dis_pub') && $request->has('trs_central_awarded_dis_pub')  &&
+            count(array_filter($request->trs_state_awarded_dis_pub)) !=0  && count(array_filter($request->trs_central_awarded_dis_pub)) != 0 )  {
+               
+                    // Check if all fields have the same count
+                $stateCount = count(array_filter($request->trs_state_awarded_dis_pub));
+                $centralCount = count(array_filter($request->trs_central_awarded_dis_pub));
+                if ($stateCount == $centralCount) {
+                } else {
+                    if(Session::has('validation_error')){
+                        Session::forget('validation_error');
+                    }
+                    if(Session::has('error')){
+                        Session::forget('error');
+                    }
+                    Session::put('error', 'The number of elements in awarded titles in your distributions fields must be the same.');
+                    return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
+                }
+            } else {
+          
+                if(Session::has('validation_error')){
+                    Session::forget('validation_error');
+                }
+                if(Session::has('error')){
+                    Session::forget('error');
+                }
+                Session::put('error', 'All fields in awarded titles in your distributions are required and must not be empty.');
+                return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
+               
+            }
+        }
     //publisher in distribution
         if ($request->has('publisher_name') && $request->has('publisher_place')  && $request->has('authorization_letter') &&
         count(array_filter($request->publisher_name)) !=0  && count(array_filter($request->publisher_place)) != 0 && count(array_filter($request->authorization_letter)) != 0)  {
@@ -1708,6 +1744,44 @@ public function emailCheck(Request $request){
         }
     }
            $distributor=new PeriodicalDistributor();
+
+            //award
+         if($request->member_in_publishers_yes_old_asrmy == 'yes'){
+            if($request->trs_state_awarded_dis_pub && $request->trs_central_awarded_dis_pub){
+             $trs_state_awarded_dis_pub = $request->trs_state_awarded_dis_pub;
+            $trs_central_awarded_dis_pub = $request->trs_central_awarded_dis_pub;
+            $award_len = sizeof($trs_state_awarded_dis_pub);
+           
+            $awards=[];
+            for($i=0;$i<$award_len;$i++){
+                $obj=(Object)[
+                    "award_name"=> $trs_state_awarded_dis_pub[$i],
+                    "book_title"=>$trs_central_awarded_dis_pub[$i],
+                ];
+                array_push($awards,$obj);
+            }
+            $distributor->awardTitle  = json_encode($awards);
+         }
+         else{
+            if(Session::has('validation_error')){
+                Session::forget('validation_error');
+            }
+            if(Session::has('error')){
+                Session::forget('error');
+            }
+            Session::put('error', 'Awarded title details required');
+            return redirect()->route('periodical.register.form')->with('usertype', $request->usertype);
+         }
+           
+         }
+           
+         //special category
+         $special = $request->specialized_category_magazine;
+         foreach ($special as $key=>$val){
+         if($val == "Other If Any"){
+             $distributor->otherSpecial  = $request->other_specialized_category_books;
+         }
+         }
         //publisher
                     $pub_name = $request->publisher_name;
                     $pub_place = $request->publisher_place;
@@ -2009,10 +2083,13 @@ public function emailCheck(Request $request){
            $distributor->haveSubsidiary              =$request->subsidiary_distributor_dis;
            $distributor->declaration                 =$request->declaration;
            $distributor->dis_ownership                   = $request->dis_ownership;
+           $distributor->specialCategories            =json_encode($request->specialized_category_magazine);
+           $distributor->have_award_title                 = $request ->member_in_publishers_yes_old_asrmy; 
       
            $distributor->usertype                    = $request->usertype;
            $distributor->approved_status="approve";
            $distributor->status="1";
+        //    dd($distributor);
         //    dd($distributor);
           if ($distributor->save()) {
             $publisher=$distributor;
@@ -2074,5 +2151,3 @@ public function disemailCheck(Request $request){
       
     }
       
-
-
