@@ -621,7 +621,17 @@ Route::get('/procur_complete_view',function(){
 
  Route::get('/',function(){ return view('admin.payment_invoice');});
  Route::get('/payment_invoice/{id}',[PaymentController::class,'payment_invoice']);
+ Route::get('/procur_periodical_payment',function(){ return view('admin.procur_periodical_payment');});
+ Route::get('/payment_periodical_invoice/{id}',[PaymentController::class,'payment_periodical_invoice']);
+ Route::get('/periodical_paymentinvoice',function(){
 
+    $data = Session::get('paymrnt');
+      if($data !==null){
+ 
+          return view('admin.payment_periodical_invoice')->with("data",$data);
+      }
+ 
+  });
 
  Route::get('/announcements_virw/{id}',[notificationController::class,'announcements_virw']);
 
@@ -738,31 +748,6 @@ Route::get('/feedbacklibrariant',function(){
 
 });
 
-// eriodical_publisher
-Route::get('/feedback_periodical_publisher',[FeedbackController::class,'feedback_periodical_publisher']);
-Route::get('/feedback_periodicalpublisher_edit/{id}',[FeedbackController::class,'feedback_periodicalpublisher']);
-Route::get('/periodicalpublisher',function(){
-    $data = Session::get('feedback');
-    if($data !==null){
-        return view('admin.feedback_periodicalpublisher_edit')->with("data",$data);
-    }else{
-        return back();
-    }
-
-});
-// periodical_distributor feedback
-
-Route::get('/feedback_periodical_distributor',[FeedbackController::class,'feedback_periodical_distributor']);
-Route::get('/feedback_periodicaldistributor_edit/{id}',[FeedbackController::class,'feedback_periodicaldistributor']);
-Route::get('/periodicaldistributor',function(){
-    $data = Session::get('feedback');
-    if($data !==null){
-        return view('admin.feedback_periodicaldistributor_edit')->with("data",$data);
-    }else{
-        return back();
-    }
-
-});
 
 
 Route::get('/feedback_reviewer_list',[FeedbackController::class,'feedbackreviewer']);
@@ -1064,7 +1049,7 @@ Route::post('/order_complete_status',[MagazineController::class,'order_complete_
 Route::get('/subscription',[SubscriptionController::class,'subscription']);
 
 Route::get('/exportexcelmagazine ',[SettingController::class,'exportexcelmagazine']);
-Route::get('/exportexcelpayment ',[SettingController::class,'exportexcelpayment']);
+Route::get('/exportexcelpayment/{id}',[SettingController::class,'exportexcelpayment']);
 
 
 Route::get('/mailsend',[SettingController::class,'mailsend']);

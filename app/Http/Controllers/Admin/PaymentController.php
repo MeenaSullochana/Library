@@ -13,7 +13,7 @@ use App\Models\PublisherDistributor;
 use App\Models\Librarian;
 use App\Models\Procurementpaymrnt;
 use App\Models\Book;
-
+use App\Models\Magazine;
 
 
 class PaymentController extends Controller
@@ -34,6 +34,25 @@ class PaymentController extends Controller
     
         \Session::put('paymrnt', $paymrnt);
         return redirect('admin/paymentinvoice');   
+        
+    }
+    
+    public function payment_periodical_invoice($id){
+        $paymrnt = Procurementpaymrnt::find($id);
+        $record = json_decode($paymrnt->bookId);
+        $data1 = [];
+        foreach ($record as $item) {
+            $periodical = Magazine::find($item);
+            $object = [
+                "periodicalname" => $periodical->title,
+                'periodical'  =>$periodical->periodicity
+            ];
+            array_push($data1, $object);
+        }
+        $paymrnt['periodical'] = $data1; 
+    
+        \Session::put('paymrnt', $paymrnt);
+        return redirect('admin/periodical_paymentinvoice');   
         
     }
     
