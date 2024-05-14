@@ -2027,9 +2027,9 @@ public function reviewerbatchadd(Request $req){
      
     
      
-    public function exportexcelpayment(){
+    public function exportexcelpayment($type){
   
-        $Procurementpaymrnt1 = Procurementpaymrnt::get();
+        $Procurementpaymrnt1 = Procurementpaymrnt::where('type',$type)->get();
         $total = 0;
         $finaldata = [];
         $serialNumber = 1;
