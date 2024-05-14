@@ -943,7 +943,11 @@ public function procurement_sampleperiodicalcomplete(){
   return view('periodical_publisher.procurement_sampleperiodicalcomplete')->with('data',$data); 
 }
 
-
+public function magazine_edit($id){
+  $magazine = Magazine::find($id);
+  \Session::put('magazine', $magazine);
+  return redirect('periodical_publisher/magazineupdate'); 
+}
   }
 
   

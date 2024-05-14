@@ -46,7 +46,11 @@ Route::get('/feedback_add',function(){ return view('periodical_distributor.feedb
 
  // profile
  
- Route::get('/distributor_profile_view',function(){ return view('periodical_distributor.distributor_profile_view');});
+
+ Route::get('/distributor_profile_view',[PeriodicalDistributorController::class,'distributor_profile_view']);
+
+ Route::post('/distbackgroundimg',[PeriodicalDistributorController::class,'distbackgroundimg']);
+ Route::post('/distprofileimg',[PeriodicalDistributorController::class,'distprofileimg']);
 
 });
 

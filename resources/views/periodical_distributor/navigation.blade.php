@@ -216,7 +216,7 @@
                                                         <img  src="{{asset("images/default.png")}}"  alt="">
 
                                                         @else
-                                                        <img id="navprofileImage" src="{{asset("periodical_distributor/images/profile/".auth('publisher')->user()->profileImage)}}"  alt="">
+                                                        <img id="navprofileImage" src="{{asset("periodical_distributor/images/profile/".auth('periodical_distributor')->user()->profileImage)}}"  alt="">
 
                                                         @endif
 
