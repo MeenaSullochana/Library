@@ -1814,6 +1814,19 @@ input#other_img {
     document.getElementById('discount').addEventListener('keyup', calculateDiscount);
 </script>
 <script>
+    $(document).ready(function () {
+        $("#submitbutton").click(function (event) {
+            var discountedprice1 = $('#discountedprice1').val(); 
+          
+            if (discountedprice1 === '') { 
+                toastr.error('Discounted Price Field Is Required');
+                event.preventDefault(); 
+            }
+        });
+    });
+</script>
+
+<script>
 $("input[name='language']").change(function () {
 
    var lang = $(this).val();
