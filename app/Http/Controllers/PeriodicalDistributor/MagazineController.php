@@ -950,7 +950,11 @@ if(isset($request->rni_attachment_proof)){
  }
 
 
-
+ public function magazine_edit($id){
+  $magazine = Magazine::find($id);
+  \Session::put('magazine', $magazine);
+  return redirect('periodical_distributor/magazineupdate'); 
+}
 
 
   }
