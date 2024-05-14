@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,20 +22,21 @@
     <?php
         include "periodical_distributor/plugin/plugin_css.php";
     ?>
-<style>
+    <style>
     .table thead th {
-  border-bottom: 0.0625rem solid #E6E6E6;
-    border-bottom-color: rgb(230, 230, 230);
-  text-transform: full-size-kana !important;
-  font-size: 1rem;
-  white-space: nowrap;
-  font-weight: 500;
-  border-color: #E6E6E6 !important;
-}
-table.dataTable thead th {
-    text-transform: math-auto !important ;
-}
-</style>
+        border-bottom: 0.0625rem solid #E6E6E6;
+        border-bottom-color: rgb(230, 230, 230);
+        text-transform: full-size-kana !important;
+        font-size: 1rem;
+        white-space: nowrap;
+        font-weight: 500;
+        border-color: #E6E6E6 !important;
+    }
+
+    table.dataTable thead th {
+        text-transform: math-auto !important;
+    }
+    </style>
 </head>
 
 <body>
@@ -58,7 +58,7 @@ table.dataTable thead th {
         <!--**********************************
             Nav header start
             ***********************************-->
-            @include ('periodical_distributor.navigation')
+        @include ('periodical_distributor.navigation')
 
         <!--**********************************
             Sidebar end
@@ -72,99 +72,233 @@ table.dataTable thead th {
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="profile card card-body px-3 pt-3 pb-0">
-                            <div class="profile-head">
-                                <div class="photo-content">
-                                    <div class="cover-photo rounded" style="background: url('images/default.png'); background-size:cover;" id="output1" ></div>
+                            <div class="photo-content">
+                                @if($data->backgroundImage == Null)
+                                <div class="cover-photo rounded"
+                                    style="background: url('{{asset("images/default.png")}}'); background-size:cover;"
+                                    id="output1"></div>
+                                @else
+                                <div class="cover-photo rounded"
+                                    style="background: url('{{asset("periodical_distributor/images/profile/".$data->backgroundImage)}}'); background-size:cover;"
+                                    id="output1"></div>
 
-                                    <div class="b-image">
-                                        <i class="fa fa-camera banner-upload-button"></i>
-                                        <input class="banner-file-upload" type="file" id="backgroundImage" onchange="handleFileChange(event)" accept="image/*">
-                                    </div>
+                                @endif
+                                <div class="b-image">
+                                    <i class="fa fa-camera banner-upload-button"></i>
+                                    <input class="banner-file-upload" type="file" id="backgroundImage"
+                                        onchange="handleFileChange(event)" accept="image/*">
                                 </div>
-                                <div class="profile-info">
-                                    <div class="profile-photo">
-                                        <!-- User Profile Image -->
-                                        <div class="avatar">
+                            </div>
+                            <div class="profile-info">
+                                <div class="profile-photo">
 
-                                            <img src="images/default.png" class="img-fluid rounded-circle" id="output" alt="">
-                                       
-                                            <div class="p-image">
-                                                <i class="fa fa-camera upload-button"></i>
-                                                <input class="file-upload" type="file"  id="profileImage" onchange="loadFile(event)" accept="image/*" />
-                                            </div>
+                                    <div class="avatar">
+
+                                        @if($data->profileImage == Null)
+                                        <img src="{{asset("images/default.png")}}" class="img-fluid rounded-circle"
+                                            id="output" alt="">
+                                        @else
+                                        <img src="{{asset("periodical_distributor/images/profile/".$data->profileImage)}}"
+                                            class="img-fluid rounded-circle" id="output" alt="">
+                                        @endif
+                                        <div class="p-image">
+                                            <i class="fa fa-camera upload-button"></i>
+                                            <input class="file-upload" type="file" id="profileImage"
+                                                onchange="loadFile(event)" accept="image/*" />
                                         </div>
-
                                     </div>
-                                    <div class="profile-details">
-                                        <div class="profile-name px-3 pt-2">
-                                            <h4 class="text-primary mb-0">
-                                                Distribution Name
-                                            </h4>
-                                            <p>Selva A</p>
-                                        </div>
-                                        <div class="profile-email px-2 pt-2">
-                                            <h4 class="text-muted mb-0">Email
-                                            </h4>
-                                            <p>Selva@gmail.com </p>
-                                        </div>
-                                    </div> 
+
+                                </div>
+                                <div class="profile-details">
+                                    <div class="profile-name px-3 pt-2">
+                                        <h4 class="text-primary mb-0">
+                                            Name of the Publication
+                                        </h4>
+                                        <p>{{$data->publicationName}}</p>
+                                    </div>
+                                    <div class="profile-email px-2 pt-2">
+                                        <h4 class="text-muted mb-0">Email
+                                        </h4>
+                                        <p>{{$data->email}} </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
                 <div class="row">
                     <div class="col-xl-4">
 
                         <h4 class="text-primary d-inline mb-5 ">Nature of Your Publication Ownership</h4>
-                        
+
                         <div class="row mt-3">
                             <div class="col-xl-12">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="profile-interest">
+                                            <!-- <h5 class="text-primary d-inline">Nature of Your Publication Ownership</h5> -->
                                             <div class="row mt-4 sp4" id="lightgallery">
-                                                <p>Public Limited</p>
-                                                <a href="#" class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i>Public Limited</h3>
+                                                @if($data->pubOwnership == 'Publication')
+                                                <h5 class="text-primary d-inline">Public Limited</h5>
+                                                @elseif($data->pubOwnership =='Private' )
+                                                <h5 class="text-primary d-inline">Private Limited</h5>
+                                                @elseif($data->pubOwnership == 'limited')
+                                                <h5 class="text-primary d-inline">Limited Liability Partnership(LLP)
+                                                </h5>
+                                                @elseif($data->pubOwnership == 'Partnership' )
+                                                <h5 class="text-primary d-inline">Partnership Firm</h5>
+                                                @elseif($data->pubOwnership == 'oneperson' )
+                                                <h5 class="text-primary d-inline">Proprietorship</h5>
+                                                @elseif($data->pubOwnership == 'trust')
+                                                <h5 class="text-primary d-inline">Private Trust</h5>
+                                                @elseif($data->pubOwnership == 'society')
+                                                <h5 class="text-primary d-inline">Private Society</h5>
+                                                @elseif($data->pubOwnership == 'institutional')
+                                                <h5 class="text-primary d-inline">Government Institutional Publication
+                                                </h5>
+                                                @elseif($data->pubOwnership == 'trust-foundation')
+                                                <h5 class="text-primary d-inline">Government Trust/Foundation
+                                                    Publication
+                                                </h5>
+                                                @elseif($data->pubOwnership == 'government-society')
+                                                <h5 class="text-primary d-inline">Government Society Publication</h5>
+                                                @endif
+                                                @if($data->gstProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> GST Certificate</h3>
                                                 </a>
-                                                <p>Private Limited</p>
-                                                <a href="#" class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Private Limited</h3>
+                                                @endif
+                                                @if($data->panOrTanProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> PAN / TAN </h3>
                                                 </a>
-                                                <p>Limited Liability Partnership(LLP)</p>
-                                                <a href="#" class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Limited Liability Partnership(LLP)</h3>
+                                                @endif
+                                                @if($data->udyamProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> Udyam Certificate </h3>
                                                 </a>
-                                                <p>Partnership Firm</p>
-                                                <a href="#" class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Partnership Firm</h3>
+                                                @endif
+                                                @if($data->certificationIncorporationProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> Certificate of Incorporation
+                                                    </h3>
                                                 </a>
-                                                <p>Proprietorship</p>
-                                                <a href="#" class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Proprietorship</h3>
+                                                @endif
+                                                @if($data->certificationRegistrationProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> Certificate of Registration
+                                                    </h3>
                                                 </a>
-                                                <p>Private Trust</p>
-                                                <a href="#" class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Private Trust</h3>
+                                                @endif
+                                                @if($data->partnershipDeedProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> Partnership Deed </h3>
                                                 </a>
-                                                <p>Private Society</p>
-                                                <a href="#" class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Private Society</h3>
+                                                @endif
+                                                @if($data->moaProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/moa/".$data->moaProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/moa/".$data->moaProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> MOA </h3>
                                                 </a>
-                                                <p>Government Institutional Publication</p>
-                                                <a href="#" class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Government Institutional Publication</h3>
+                                                @endif
+                                                @if($data->llpProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> LLP Agreement </h3>
                                                 </a>
-                                                <p>Government Trust/Foundation Publication</p>
-                                                <a href="#" class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Government Trust/Foundation Publication</h3>
+                                                @endif
+                                                @if($data->aoaProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> AOA </h3>
                                                 </a>
-                                                <p>Government Society Publication</p>
-                                                <a href="#" class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
-                                                    <h3  class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Government Society Publication</h3>
+                                                @endif
+                                                @if($data->privateTrustProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> Private Trust Registration
+                                                        Certificate </h3>
                                                 </a>
-                                                     
+                                                @endif
+                                                @if($data->privateSocietyProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> Private Society Registration
+                                                        Certificate </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->institutionProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> Government Institutional
+                                                        Publication
+                                                        Registration Certificate </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->trustFoundationProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> Government Trust/Foundation
+                                                        Publication Registration Certificate </h3>
+                                                </a>
+                                                @endif
+                                                @if($data->societyProof != null)
+                                                <a href="#"
+                                                    data-exthumbimage="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
+                                                    data-src="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
+                                                    class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
+                                                    <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                            class="fa fa-download"></i> Government Society Publication
+                                                        Registration Certificate </h3>
+                                                </a>
+                                                @endif
 
 
                                             </div>
@@ -199,7 +333,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Selva</b></span>
+                                                            <span>: <b class="ms-3">{{$data->userName}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -209,7 +343,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Selva </b></span>
+                                                            <span>: <b class="ms-3">{{$data->firstName}} </b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -217,7 +351,7 @@ table.dataTable thead th {
                                                             <h5 class="f-w-500">Last Name </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">A</b></span>
+                                                            <span>: <b class="ms-3">{{$data->lastName}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -226,7 +360,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">selva@gmail.com</b></span>
+                                                            <span>: <b class="ms-3">{{$data->email}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -234,17 +368,17 @@ table.dataTable thead th {
                                                             <h5 class="f-w-500">Contact Number</h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">9988776655</b></span>
+                                                            <span>: <b class="ms-3">{{$data->email}}</b></span>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="row mb-2">
                                                         <div class="col-sm-3 col-5">
                                                             <h5 class="f-w-500">Country
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">India</b></span>
+                                                            <span>: <b class="ms-3">{{$data->country}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -253,7 +387,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Tamil Nadu</b></span>
+                                                            <span>: <b class="ms-3">{{$data->state}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -262,7 +396,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Chennai</b></span>
+                                                            <span>: <b class="ms-3">{{$data->District}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -271,7 +405,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Vadapalani</b></span>
+                                                            <span>: <b class="ms-3">{{$data->city}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -280,7 +414,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">600 003</b></span>
+                                                            <span>: <b class="ms-3">{{$data->postalCode}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -289,7 +423,8 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Vadapalani, Chennai - 600 003</b></span>
+                                                            <span>: <b
+                                                                    class="ms-3">{{$data->distributionAddress}}</b></span>
                                                         </div>
                                                     </div>
                                                     <h4 class="text-primary mb-4">Contact Person Information</h4>
@@ -301,7 +436,8 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Selva </b></span>
+                                                            <span>: <b
+                                                                    class="ms-3">{{$data->contactfirstName}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -309,7 +445,8 @@ table.dataTable thead th {
                                                             <h5 class="f-w-500">Last Name </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">A</b></span>
+                                                            <span>: <b
+                                                                    class="ms-3">{{$data->contactlastName}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -318,7 +455,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">selva@gmail.com</b></span>
+                                                            <span>: <b class="ms-3">{{$data->contactEmail}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -326,7 +463,8 @@ table.dataTable thead th {
                                                             <h5 class="f-w-500">Contact Number</h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">9988776655</b></span>
+                                                            <span>: <b
+                                                                    class="ms-3">{{$data->contactMobileNumber}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -335,7 +473,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">India</b></span>
+                                                            <span>: <b class="ms-3">{{$data->contactCountry}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -344,7 +482,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Tamil Nadu</b></span>
+                                                            <span>: <b class="ms-3">{{$data->contactState}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -352,7 +490,8 @@ table.dataTable thead th {
                                                             <h5 class="f-w-500">District</h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Chennai</b></span>
+                                                            <span>: <b
+                                                                    class="ms-3">{{$data->contactDistrict}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -360,7 +499,7 @@ table.dataTable thead th {
                                                             <h5 class="f-w-500">City<span class="pull-end"></h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Vadapalani</b></span>
+                                                            <span>: <b class="ms-3">{{$data->contactCity}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -369,7 +508,8 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">600232</b></span>
+                                                            <span>: <b
+                                                                    class="ms-3">{{$data->contactPostalCode}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
@@ -378,7 +518,7 @@ table.dataTable thead th {
                                                             </h5>
                                                         </div>
                                                         <div class="col-sm-9 col-7">
-                                                            <span>: <b class="ms-3">Vadapalani, Chennai - 600 006</b></span>
+                                                            <span>: <b class="ms-3">{{$data->contactAddress}}</b></span>
                                                         </div>
                                                     </div>
                                                     <h4 class="text-primary mb-4 mt-4">Other Details</h4>
@@ -388,23 +528,29 @@ table.dataTable thead th {
                                                             <h5 class="f-w-500">Year of Establishment</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
-                                                            <span>: <b class="ms-3">1998</b></span>
+                                                            <span>: <b
+                                                                    class="ms-3">{{$data->yearOfEstablishment}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
-                                                            <h5 class="f-w-500">Years of experience in Periodical/Magazine Distribution</h5>
+                                                            <h5 class="f-w-500">Years of experience in
+                                                                Periodical/Magazine
+                                                                Distribution</h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
-                                                            <span>: <b class="ms-3">56</b></span>
+                                                            <span>: <b class="ms-3">{{$data->yearOfExp}}</b></span>
                                                         </div>
                                                     </div>
                                                     <div class="row mb-2">
                                                         <div class="col-sm-6 col-5">
-                                                            <h5 class="f-w-500">Number of Periodical/Magazine Circulation Per Year </h5>
+                                                            <h5 class="f-w-500">Number of Periodical/Magazine
+                                                                Circulation
+                                                                Per Year </h5>
                                                         </div>
                                                         <div class="col-sm-6 col-7">
-                                                            <span>: <b class="ms-3">56</b></span>
+                                                            <span>: <b
+                                                                    class="ms-3">{{$data->numberOfMagazineYear}}</b></span>
                                                         </div>
                                                     </div>
 
@@ -414,21 +560,41 @@ table.dataTable thead th {
 
                                                 <div class="profile-skills mt-3 mb-3">
                                                     <h4 class="text-primary mb-2">Primary Language of Distribution</h4>
-                                                       <a href="javascript:void(0);"
-                                                        class="btn btn-primary light btn-xs mb-1">Academic</a>
+                                                    @foreach($data->language as $val)
+                                                    @if($val == "other")
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-primary light btn-xs mb-1">{{ $data->otherIndian }}</a>
+                                                    @elseif($val == "foreign languages")
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-primary light btn-xs mb-1">{{ $data->otherForeign }}</a>
+                                                    @else
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-primary light btn-xs mb-1">{{ $val }}</a>
+                                                    @endif
+                                                    @endforeach
                                                 </div>
-                                                
+
                                                 <div class="profile-skills mt-3 mb-3">
                                                     <h4 class="text-primary mb-2">Specialized Category Magazine</h4>
-                                                       <a href="javascript:void(0);"
-                                                        class="btn btn-primary light btn-xs mb-1">Academic</a>
+                                                    <a href="#" class="btn btn-primary light btn-xs mb-1">
+                                                        @php
+                                                        $categories = json_decode($data->specialCategories);
+                                                        @endphp
+
+                                                        @if(is_array($categories))
+                                                        @foreach($categories as $category)
+                                                        {{ $category }}
+                                                        @endforeach
+                                                        @endif
+                                                    </a>
+
                                                 </div>
                                                 <h4 class="text-primary mb-4">Awards if Any
                                                 </h4>
                                                 <hr>
-                                                
+
                                                 <div class="card-body">
-                                                    <h5 class="es-5">yes or no</h5>
+                                                    <h5 class="es-5">{{$data->have_award_title}}</h5>
                                                     <div class="table-responsive">
                                                         <table id="example3" class="display table">
                                                             <thead>
@@ -439,11 +605,25 @@ table.dataTable thead th {
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr>
-                                                                <td data-label="S.No"> S.No</td>
-                                                                <td data-label="Award Name"> selva</td>
-                                                                <td data-label="Book Title ">Kavithai</td>
-                                                            </tr>
+                                                                @if($data->have_award_title == "yes")
+                                                                @php
+                                                                $rec=json_decode($data->awardTitle)
+                                                                @endphp
+                                                                @foreach($rec as $val)
+                                                                <tr>
+                                                                    <td data-label="S.No"> {{$loop->index + 1}}</td>
+                                                                    <td data-label="Award Name"> {{$val->award_name}}
+                                                                    </td>
+                                                                    <td data-label="Book Title ">{{$val->book_title  }}
+                                                                    </td>
+                                                                </tr>
+
+                                                                @endforeach
+                                                                @else
+                                                                <tr>
+                                                                    <td colspan="4">No data available in table</td>
+                                                                </tr>
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -462,13 +642,15 @@ table.dataTable thead th {
                     <div class="col-md-12">
                         <div class="profile card">
                             <div class="card-header">
-                                <h4 class="text-primary mb-4">The periodical added in "Periodicals in your distribution" with authorization from the respective publisher in the registration part are the only ones to be added for procurement</h4>
+                                <h4 class="text-primary mb-4">The periodical added in "Periodicals in your distribution"
+                                    with authorization from the respective publisher in the registration part are the
+                                    only
+                                    ones to be added for procurement</h4>
                             </div>
                             <div class="card-body">
                                 <h5 class="es-5">yes or no</h5>
                                 <div class="table-responsive">
                                     <table class="display table" id="awarded-titles">
-                                    {{-- <table id="subsidiary-pub" class="display table"> --}}
                                         <thead>
                                             <tr>
                                                 <th class="fw-bold"> S.No</th>
@@ -478,16 +660,27 @@ table.dataTable thead th {
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @php
+                                            $rec1=json_decode($data->publisher)
+                                            @endphp
+                                            @foreach($rec1 as $val)
                                             <tr>
-                                                <td data-label="S.No"> S.No</td>
-                                                <td data-label="Periodical Name">Selva Periodical</td>
-                                                <td data-label="Place">Chennai</td>
-                                                <td data-label="Authorization Letter From Publisher">Authorization Letter</td>
-                                               
+                                                <td data-label="S.No"> {{$loop->index +1}}</td>
+                                                <td data-label="Periodical Name">{{$val->publisher_name}}</td>
+                                                <td data-label="Place">{{$val->publisher_place}}</td>
+                                                <td data-label="Document">
+                                                    <a href="{{asset("periodical_distributor/images/proof/authorization/".$val->authorization_letter)}}"
+                                                        class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
+                                                        <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                                class="fa fa-download"></i> Download</h3>
+                                                    </a>
+                                                </td>
+
                                             </tr>
-                                            <tr>
+                                            @endforeach
+                                            <!-- <tr>
                                                 <td class="text-center" colspan="4">No data available in table</td>
-                                            </tr>
+                                            </tr> -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -500,16 +693,18 @@ table.dataTable thead th {
                 <div class="row">
                     <div class="col-md-12">
                         <div class="profile card">
-                            
+
                             <div class="card-header">
-                                <h4 class="text-primary mb-4"><b>Subsidiary Publications</b> - Do you have any subsidiary publications? If yes, list the subsidiary Distribution</h4><br>
-                                
+                                <h4 class="text-primary mb-4"><b>Subsidiary Publications</b> - Do you have any
+                                    subsidiary
+                                    publications? If yes, list the subsidiary Distribution</h4><br>
+
                             </div>
                             <div class="card-body">
-                                <h5 class="es-5">yes or no</h5>
+                                <h5 class="es-5">{{$data->haveSubsidiary}}</h5>
                                 <div class="table-responsive">
                                     <table id="subsidiary-pub" class="display table">
-                                    {{-- <table id="subsidiary-pub" class="display table"> --}}
+                                        {{-- <table id="subsidiary-pub" class="display table"> --}}
                                         <thead>
                                             <tr>
                                                 <th class="fw-bold"> S.No</th>
@@ -520,21 +715,35 @@ table.dataTable thead th {
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @if($data->haveSubsidiary == "yes")
+                                            @php
+                                            $rec1=json_decode($data->subsidiary)
+                                            @endphp
+                                            @foreach($rec1 as $val)
+
                                             <tr>
-                                                <td data-label="S.No"> S.No</td>
-                                                <td data-label="Name of the Subsidiary Publication">Selva Publication</td>
-                                                <td data-label="Name of the Subsidiary Publisher">Selva</td>
-                                                <td data-label="Stack Holder Percentage">87</td>
+                                                <td data-label="S.No"> {{$loop-> index +1}}</td>
+                                                <td data-label="Name of the Subsidiary Publication">
+                                                    {{$val->subsidiary_distribution_name}}</td>
+                                                <td data-label="Name of the Subsidiary Publisher">
+                                                    {{$val->subsidiary_distributor_name}}</td>
+                                                <td data-label="Stack Holder Percentage">
+                                                    {{$val->stack_holder_percentage}}
+                                                </td>
                                                 <td data-label="Document">
-                                                    <a href="#"
+                                                    <a href="{{asset("periodical_distributor/images/proof/sub_doc/".$val->subsidiary_doc)}}"
                                                         class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
-                                                        <h3 class="btn btn-primary light btn-xs mb-1"> <i class="fa fa-download"></i> Download</h3>
+                                                        <h3 class="btn btn-primary light btn-xs mb-1"> <i
+                                                                class="fa fa-download"></i> Download</h3>
                                                     </a>
                                                 </td>
                                             </tr>
+                                            @endforeach
+                                            @else
                                             <tr>
-                                                <td class="text-center" colspan="4">No data available in table</td>
+                                                <td colspan="4">No data available in table</td>
                                             </tr>
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
@@ -550,7 +759,7 @@ table.dataTable thead th {
         <!--**********************************
             Footer start
             ***********************************-->
-            @include ("periodical_distributor.footer")
+        @include ("periodical_distributor.footer")
 
         <!--**********************************
             Footer end
@@ -565,77 +774,83 @@ table.dataTable thead th {
     <!--**********************************
          Main wrapper end
          ***********************************-->
-         <?php
+    <?php
         include "periodical_distributor/plugin/plugin_js.php";
         ?>
-        <script>
-            $(document).ready(function() {
-                $('#myTable').DataTable();
-        
-                $('#awarded-titles').DataTable();
-        
-                $('#subsidiary-pub').DataTable();
-            });
-        </script>
+    <script>
+    $(document).ready(function() {
+        $('#myTable').DataTable();
+
+        $('#awarded-titles').DataTable();
+
+        $('#subsidiary-pub').DataTable();
+    });
+    </script>
 </body>
 <style>
-    /* data table start */
-    /* data table end */
-    
-    .file-upload {
-        display: none;
-    }
-    .banner-file-upload {
-        display: none;
-    }
+/* data table start */
+/* data table end */
 
-    .circle {
-        border-radius: 1000px !important;
-        overflow: hidden;
-        width: 128px;
-        height: 128px;
-        border: 8px solid rgba(255, 255, 255, 0.7);
-        position: absolute;
-        top: 72px;
-    }
+.file-upload {
+    display: none;
+}
 
-    .avatar {
-        width: 120px;
-        height: 120px;
-        position: relative;
-        border: 8px solid rgba(255, 255, 255, 0.7);
-        border-radius: 50%;
-    }
+.banner-file-upload {
+    display: none;
+}
 
-    img.profile-pic.img-circle {
-        width: 120px;
-        height: 120px;
-    }
-    .b-image {
+.circle {
+    border-radius: 1000px !important;
+    overflow: hidden;
+    width: 128px;
+    height: 128px;
+    border: 8px solid rgba(255, 255, 255, 0.7);
+    position: absolute;
+    top: 72px;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    border: 8px solid rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+}
+
+img.profile-pic.img-circle {
+    width: 120px;
+    height: 120px;
+}
+
+.b-image {
     position: absolute;
     top: 10px;
     right: 22px;
     color: #666666;
     transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
-    }
-    .profile .profile-photo {
+}
+
+.profile .profile-photo {
     max-width: 6.25rem;
     position: relative;
     z-index: 1;
     margin-top: -4.5rem;
     margin-right: 6.625rem;
-    }
-    .p-image {
-        position: absolute;
-        top: 65px;
-        right: 2px;
-        color: #666666;
-        transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
-    }
+}
 
-    .photo-content {
-  position: relative; }
-  .photo-content .cover-photo {
+.p-image {
+    position: absolute;
+    top: 65px;
+    right: 2px;
+    color: #666666;
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+}
+
+.photo-content {
+    position: relative;
+}
+
+.photo-content .cover-photo {
     /* background: url('../images/banner/book-fair2.png'); */
     background-size: cover;
     background-position: center;
@@ -643,30 +858,145 @@ table.dataTable thead th {
     width: 100%;
     background-repeat: no-repeat !important;
     border-top-left-radius: 0.625rem;
-    border-top-right-radius: 0.625rem; }
-    .p-image:hover {
-        transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
-    }
-    .b-image:hover {
-        transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
-    }
+    border-top-right-radius: 0.625rem;
+}
 
-    .upload-button {
-        font-size: 1.2em;
-    }
+.p-image:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+}
 
-    .banner-upload-button {
-        font-size: 1.2em;
-    }
+.b-image:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+}
 
-    .banner-upload-button:hover {
-        transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
-        color: #999;
-    }
-    .upload-button:hover {
-        transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
-        color: #999;
-    }
+.upload-button {
+    font-size: 1.2em;
+}
+
+.banner-upload-button {
+    font-size: 1.2em;
+}
+
+.banner-upload-button:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+    color: #999;
+}
+
+.upload-button:hover {
+    transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
+    color: #999;
+}
 </style>
-</html>
 
+<script>
+$(document).ready(function() {
+
+
+
+
+    $(".banner-file-upload").on('change', function() {
+
+        var backgroundImage = $('#backgroundImage')[0].files;
+        let fd = new FormData();
+        fd.append('backgroundImage', backgroundImage[0])
+        console.log(backgroundImage);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: "/periodical_distributor/distbackgroundimg",
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log(response);
+                if (response.success) {
+                    toastr.success(response.success, {
+                        timeout: 25000
+                    });
+
+                } else {
+                    toastr.error(response.error, {
+                        timeout: 25000
+                    });
+                }
+            }
+        })
+    });
+
+    $(".banner-upload-button").on('click', function() {
+        $(".banner-file-upload").click();
+    });
+
+
+    $(".file-upload").on('change', function() {
+
+        var profileImage = $('#profileImage')[0].files;
+        let fd = new FormData();
+        fd.append('profileImage', profileImage[0])
+        console.log(profileImage);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "post",
+            url: "/periodical_distributor/distprofileimg",
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                if (response.success) {
+                    toastr.success(response.success, {
+                        timeout: 25000
+                    });
+                    // navprofileImage
+                    var newProfileImageFilename = response.profileImageFilename;
+                    var newProfileImageUrl =
+                        "{{ asset('periodical_distributor/images/profile/') }}/" +
+                        newProfileImageFilename;
+                    document.getElementById('navprofileImage').src = newProfileImageUrl;
+
+                } else {
+                    toastr.error(response.error, {
+                        timeout: 25000
+                    });
+                }
+            }
+        })
+    });
+
+    $(".upload-button").on('click', function() {
+        $(".file-upload").click();
+    });
+});
+</script>
+<script>
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function() {
+        URL.revokeObjectURL(output.src) // free memory
+    }
+};
+</script>
+
+<script>
+var handleFileChange = function(event) {
+    var output = document.getElementById('output1');
+
+    // Check if files are selected
+    if (event.target.files && event.target.files.length > 0) {
+        output.style.backgroundImage = "url('" + URL.createObjectURL(event.target.files[0]) + "')";
+        output.onload = function() {
+            URL.revokeObjectURL(output.src); // free memory
+        }
+    }
+};
+</script>
+
+</html>

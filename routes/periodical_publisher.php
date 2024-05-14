@@ -23,6 +23,16 @@ Route::prefix('periodical_publisher')->group(function () {
         }
     
     });
+
+    Route::get('/magazine_edit/{id}', [MagazineController::class, 'magazine_edit']);
+    Route::get('/magazineupdate',function(){
+        $data = Session::get('magazine');
+        if($data !==null){
+            return view('periodical_publisher.magazine_edit')->with("data",$data);
+        }
+    
+    });
+    
     Route::post('/changepassword',[PeriodicalPublisherController::class,'peripubchangepassword']);
     Route::get('/change_password',function(){ return view('periodical_publisher.change_password');});
     Route::post('/getcategory', [MagazineController::class, 'getcategory']);
@@ -63,6 +73,6 @@ Route::prefix('periodical_publisher')->group(function () {
     Route::post('/pubbackgroundimg',[PeriodicalPublisherController::class,'pubbackgroundimg']);
     Route::post('/pubprofileimg',[PeriodicalPublisherController::class,'pubprofileimg']);
 
-        
+    
 });
 });
