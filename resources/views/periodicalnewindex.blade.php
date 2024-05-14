@@ -200,6 +200,7 @@
                                 <form action="/periodical/userregister" class="p-2"  method="POST">
                                 @csrf
                                 <p id="tooltip-1" title="Please Select Who You are" class="fs-5 fw-bold">Please Select Who You are?</p>
+                                <h6 class=" text-danger"><b>Periodical</b></h6>
                                     <hr>
                                     <div class="row login_static">
                                         <div class="col-lg-6 col-md-6">

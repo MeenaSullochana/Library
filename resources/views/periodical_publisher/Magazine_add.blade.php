@@ -556,7 +556,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="basic-form">
                                                         <div class="mb-3">
-                                                            <label class="text-label form-label text-black" for="validationCustomUsername">Type Of Paper<span class="text-danger">*</span></label>
+                                                            <label class="text-label form-label text-black" for="validationCustomUsername">Type of Paper<span class="text-danger">*</span></label>
                                                                 <select class="form-select rounded-0" id="type_paper" name="type_paper" required>
                                                                 <option value="">Select One</option>
                                                         @php

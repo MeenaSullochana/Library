@@ -107,8 +107,8 @@
                                         <div class="col-xl-3 col-sm-6">
 											<label class="form-label">Frequency</label>
 											<select name="" id="" class="form-select bg-white p-2 border border-1">
-                                                <option value="tamil">monhly</option>
-                                                <option value="English">Year</option>
+                                                <option value="monthly">Monthly</option>
+                                                <option value="Year">Yearly</option>
                                             </select>
 										</div>
 										<div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">

@@ -180,6 +180,7 @@
                                     <img class="w-100" src="assets/img/logo/login-logo-welcom.jpeg" alt="">
                                 </div>
                                 <form action="/action_page.php" class="p-2" id="userloginForm" method="POST">
+                                    <h6 class=" text-center text-danger mb-3"><b>Book</b></h6>
                                 <div class="row login_static">
                                         <div class="col-lg-3 col-md-6">
                                             <div class="form-check">

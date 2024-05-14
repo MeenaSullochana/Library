@@ -220,6 +220,7 @@
                                 <form action="/login" class="p-2" id="userloginForm" method="POST">
                                     @csrf
                                     <p id="tooltip-1" title="Please Select Who You are" class="fs-5 fw-bold">Please select who you are?</p>
+                                    <h6 class=" text-danger"><b>Book</b></h6>
                                     <hr>
                                     <div class="row login_static">
                                         <div class="col-lg-3 col-md-6">
@@ -249,7 +250,7 @@
                                         <label for="inputEmail4" class="form-label">User Name / Email<span
                                                 class="text-danger maditory">*</span></label></label>
                                         <input type="text" class="form-control @error('user_name') is-invalid @enderror" id="user_name" name="user_name"
-                                            placeholder=" Enter your User Name" required>
+                                            placeholder=" Enter your user name / Email" required>
                                             @error('user_name')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -260,7 +261,7 @@
                                         <label for="inputPassword4" class="form-label">Password <span
                                                 class="text-danger maditory">*</span></label></label>
                                         <input type="password" class="form-control" id="password" name="password"
-                                            placeholder="Enter Password" required>
+                                            placeholder="Enter your password" required>
                                             <i class="toggle-password fa fa-fw fa-eye-slash"></i>
                                     </div>
                                     <p class="reg-redirect mt-3 p-0 m-0">

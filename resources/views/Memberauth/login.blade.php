@@ -73,17 +73,17 @@
                                 dir="ltr">
                                 <div class="login-form style-2">
                                     <div class="card-body">
- @if (Session::has('validation_error'))
-    <div class="validation-errors">
-        <div class="error-list">
-            <ul>
-                @foreach (Session::get('validation_error')->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-@endif
+                                        @if (Session::has('validation_error'))
+                                            <div class="validation-errors">
+                                                <div class="error-list">
+                                                    <ul>
+                                                        @foreach (Session::get('validation_error')->all() as $error)
+                                                            <li>{{ $error }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        @endif
                                     <div class="logo-header">
                                         <a href="" class="logo"><img src="/assets/img/logo/logo.png" alt="" class="light-logo"></a>
                                         <a href="" class="logo"><img src="/assets/img/logo/logo.png" alt="" class="dark-logo"></a>

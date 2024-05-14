@@ -336,6 +336,19 @@ Route::get('/aplication_fairview',function(){
      }
 
  });
+
+// Periodical Publisher List
+
+Route::get('/periodical_publisher_list',function(){ return view('admin.periodical_publisher_list');});
+Route::get('/periodical_publisher_active_list',function(){ return view('admin.periodical_publisher_active_list');});
+Route::get('/periodical_publisher_inactive_list',function(){ return view('admin.periodical_publisher_inactive_list');});
+
+// Periodical Publisher List
+
+Route::get('/periodical_distributor_list',function(){ return view('admin.periodical_distributor_list');});
+Route::get('/periodical_distributor_active_list',function(){ return view('admin.periodical_distributor_active_list');});
+Route::get('/periodical_distributor_inactive_list',function(){ return view('admin.periodical_distributor_inactive_list');});
+
 // publisherget
 Route::get('/publisher_list',[PublisherController::class,'publisherget']);
 Route::get('/publisher_active_list',[PublisherController::class,'publisheractive']);

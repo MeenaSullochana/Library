@@ -86,6 +86,7 @@
                                 <img src="assets/img/logo/gov-login-img.png" alt="0" title="0">
                             </div> --}}
                             <div class="container">
+                                
                                 <ul class="nav nav-pills mb-4 light justify-content-center">
                                     <li class=" nav-item">
                                         <a href="#navpills-1" class="nav-link active" data-bs-toggle="tab" aria-expanded="false"><i class="fa fa-user p-2 text-success"></i>Publisher</a>
@@ -239,6 +240,7 @@
                                 <form action="{{ route('userregister') }}" class="p-2"  method="POST">
                                 @csrf
                                 <p id="tooltip-1" title="Please Select Who You are" class="fs-5 fw-bold">Please Select Who You are?</p>
+                                <h6 class=" text-danger"><b>Book</b></h6>
                                     <hr>
                                     <div class="row login_static">
                                         <div class="col-lg-3 col-md-6">
