@@ -1071,5 +1071,10 @@ Route::get('/mailsend',[SettingController::class,'mailsend']);
 
 Route::get('/new-email',function(){ return view('admin.new-email');});
 
+Route::get('/report_download_bookadd',function(){ return view('admin.report_download_bookadd');});
+Route::post('/books_daycount ',[SettingController::class,'books_daycount']);
+
+
+
     });
 });

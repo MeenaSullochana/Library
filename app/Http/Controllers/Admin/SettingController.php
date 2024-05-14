@@ -45,7 +45,7 @@ use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\PublisherDistributor;
 use App\Models\Librarian;
-
+use App\Models\Book;
 
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\newmail;
@@ -2088,6 +2088,59 @@ public function reviewerbatchadd(Request $req){
     
       } 
 
+      public function books_daycount(Request $request){
+
+        $books = Book::whereBetween('created_at', [$request->fromDate, $request->toDate])
+                     ->selectRaw('DATE(created_at) as date, count(*) as count')
+                     ->groupBy('date')
+                     ->get();
+    
+        if($books->isNotEmpty()){
+            $total = 0;
+            $finaldata = [];
+            $serialNumber = 1;
+    
+            foreach ($books as $book) {
+                $finaldata[] = [
+                    'S.No' => $serialNumber++,
+                    'Date' => $book->date,
+                    'Total Book' => $book->count,
+                ];
+                $total += $book->count;
+            }
+            
+            // Add empty row
+            $finaldata[] = [
+                'S.No' => '',
+                'Date' => '',
+                'Total Book' => '',
+            ];
+    
+            // Add total count row
+            $finaldata[] = [
+                'S.No' => '',
+                'Date' => 'Total',
+                'Total Book' => $total,
+            ];
+    
+            $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+            $csvContent .=  "S.No,Date,Total Book\n"; 
+            foreach ($finaldata as $data) {
+                $csvContent .= '"' . implode('","', $data) . "\"\n";
+            }
+    
+            $headers = [
+                'Content-Type' => 'text/csv; charset=utf-8',
+                'Content-Disposition' => 'attachment; filename="bookReport.csv"',
+            ];
+    
+            return response()->make($csvContent, 200, $headers);
+        } else {
+            return back()->with('error', "No Records In The Date");
+        }
+    }
+    
+      
 }
 
 

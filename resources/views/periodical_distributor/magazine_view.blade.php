@@ -284,7 +284,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-6 mt-4">
-                                            <span style="font-size:14px">: Selva</span>
+                                            <span style="font-size:14px">:{{$data->editor_name}}</span>
                                         </div>
                                         <div class="col-md-6 col-6 mt-4">
                                             <div class="text-title text-danger">
@@ -292,7 +292,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-6 mt-4">
-                                            <span style="font-size:14px">: Yearly</span>
+                                            <span style="font-size:14px">: {{$data->periodicity}}</span>
                                         </div>
                                         <div class="col-md-6 col-6 mt-4">
                                             <div class="text-title text-danger">
@@ -300,7 +300,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-6 mt-4">
-                                            <span style="font-size:14px">: Issue</span>
+                                            <span style="font-size:14px">: {{$data->first_issue_year}}</span>
                                         </div>
                                         
                                         <div class="col-md-6 col-6 mt-4">
@@ -309,7 +309,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-6 mt-4">
-                                            <span style="font-size:14px">: 23</span>
+                                            <span style="font-size:14px">: {{$data->issue_per_year}}</span>
                                         </div>
                                     </div>
                             </div>
@@ -327,7 +327,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-6 mt-4">
-                                        <span style="font-size:14px">: Issue</span>
+                                        <span style="font-size:14px">: {{$data->every_issue_date}}</span>
                                     </div>
                                     <div class="col-md-6 col-6 mt-4">
                                         <div class="text-title text-danger">
@@ -368,7 +368,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-6 mt-4">
-                                        <span style="font-size:14px">: Full Color</span>
+                                        <span style="font-size:14px">: {{$data->papertype}}</span>
                                     </div>
                                     
                                     <div class="col-md-6 col-6 mt-4">
@@ -377,7 +377,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-6 mt-4">
-                                        <span style="font-size:14px">: Matte Finish</span>
+                                        <span style="font-size:14px">: {{$data->paperfinishing}}</span>
                                     </div>
                                     <div class="col-md-6 col-6 mt-4">
                                         <div class="text-title text-danger">
@@ -386,7 +386,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-6 mt-4">
-                                        <span style="font-size:14px">: 565</span>
+                                        <span style="font-size:14px">: {{$data->total_pages}}</span>
                                     </div>
                                 
                                 </div>
@@ -399,7 +399,7 @@
                     <p class="h3 p-3 bg-main text-white">Short Description About The Periodical</p>
                     <hr>
                     <div class="col-12">
-                        <p style="text-indent: 50px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                        <p style="text-indent: 50px;">{{$data->periodical_short_info}}.</p>
                     </div>
                 </div>
                 <div class="row card p-1">
@@ -454,12 +454,12 @@
                         <p class="h3 p-3 bg-main text-white">Highlights Please mention some of the key highlights</p>
                         <hr>
                         <div class="col-12">
-                            <p style="text-indent: 50px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                            <p style="text-indent: 50px;">{{$data->highlights}}.</p>
                         </div>
                         <div class="row container ms-3 me-3 mt-3">
 
                             <div class="col-8">
-                                <img class="center newbanner w-100" src="https://bookprocurement.tamilnadupubliclibraries.org/Books/banner/%E0%AE%9A%E0%AE%A4%E0%AF%8D%E0%AE%A4%E0%AE%BF%E0%AE%AF%20%20%E0%AE%9A%E0%AF%8B%E0%AE%A4%E0%AE%A9%E0%AF%881715074604_download.jpg" alt="img" style="">
+                                <img class="center newbanner w-100" src="{{ asset('Magazine/highlightimg/' . $data->highlightimg) }}" alt="img" style="">
                             </div>
 
 
@@ -495,16 +495,16 @@
                                 <div class="auth_details">
                                     <div class="row align-items-center">
                                         <div class="col-md-auto mt-2">
-                                            <img src="/periodical_distributor/images/default.png"
+                                            <img src="{{ asset('Magazine/editorprofile/' . $data->editorprofile) }}"
                                                 class="avatar avatar-md rounded-circle" alt="author image">
                                         </div>
 
                                         <div class="col-md-8">
 
                                             <div class="author_description">
-                                                <h3 class="mb-0 ms-2">Selva</h3>
+                                                <h3 class="mb-0 ms-2">{{$data->editor_name}}</h3>
                                                 <p style="text-indent:35px" class="author-info">
-                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                                   {{$data->about_editor}}.
                                                 </p>
                                             </div>
                                         </div>

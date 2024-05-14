@@ -153,7 +153,7 @@ public function magazine_orderview($id){
 
   }
   public function magazine_view($id){
-    $magazine = Magazine::find($id);
+     $magazine = Magazine::find($id);
 
  
     \Session::put('magazine', $magazine);
