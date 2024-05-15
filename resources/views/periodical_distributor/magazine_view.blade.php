@@ -238,7 +238,26 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="row card p-1">
+                    <p class="h3 p-3 bg-main text-white">RNI Details</p>
+                    <hr>
+                    <div class="col-12">
+                        <div class="row mt-4 mb-4">
+                            <div class="col-md-4 col-4">
+                                <div class="text-title text-danger">
+                                    <b style="font-size:14px">RNI Details </b>
+                                </div>
+                            </div>
+                            <div class="col-md-8 col-8">
+                                <span style="font-size:14px">: {{$data->rni_details}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalTogglerni"
+                            role="button">Read PDF</a>
+                    </div>
+                </div>
                 <div class="row mt-2">
                     <h3 class="h3 p-3 bg-main text-white">Periodical Details</h3>
                     <div class="col-md-6">
@@ -262,14 +281,7 @@
                                         <div class="col-md-6 col-6 mt-4">
                                             <span style="font-size:14px">: {{$data->annual_cost_after_discount}}</span>
                                         </div>
-                                        <div class="col-md-6 col-6 mt-4">
-                                            <div class="text-title text-danger">
-                                                <b style="font-size:14px">RNI Details </b>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-6 mt-4">
-                                            <span style="font-size:14px">: {{$data->rni_details}}</span>
-                                        </div>
+                                        
                                         <div class="col-md-6 col-6 mt-4">
                                             <div class="text-title text-danger">
                                                 <b style="font-size:14px">Total Number of Pages </b>
@@ -284,7 +296,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-6 mt-4">
-                                            <span style="font-size:14px">:{{$data->editor_name}}</span>
+                                            <span style="font-size:14px">: {{$data->editor_name}}</span>
                                         </div>
                                         <div class="col-md-6 col-6 mt-4">
                                             <div class="text-title text-danger">
@@ -311,6 +323,14 @@
                                         <div class="col-md-6 col-6 mt-4">
                                             <span style="font-size:14px">: {{$data->issue_per_year}}</span>
                                         </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <div class="text-title text-danger">
+                                                <b style="font-size:14px">Date of Publication of Every Issue</b>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-6 mt-4">
+                                            <span style="font-size:14px">: {{$data->every_issue_date}}</span>
+                                        </div>
                                     </div>
                             </div>
                         </div>
@@ -321,14 +341,6 @@
                                 <!-- <h3 class="card-title">Book Location</h3> -->
                                 <div class="row">
                                     
-                                    <div class="col-md-6 col-6 mt-4">
-                                        <div class="text-title text-danger">
-                                            <b style="font-size:14px">Date of Publication of Every Issue</b>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-6 mt-4">
-                                        <span style="font-size:14px">: {{$data->every_issue_date}}</span>
-                                    </div>
                                     <div class="col-md-6 col-6 mt-4">
                                         <div class="text-title text-danger">
                                             <b style="font-size:14px">Number of Multicolour Pages </b>
@@ -654,6 +666,36 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModalTogglerni" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">
+                    Read Rni Proof Sample
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+
+              
+
+                <iframe src="{{ asset('Magazine/rniproof/' . $data->rniproof) }}" style="width:100%; height:1000px;"
+                    frameborder="0"></iframe>
+               
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#exampleModalTogglerni" data-bs-toggle="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
     <style>
     .bg-main {
         background-color: #222B40;

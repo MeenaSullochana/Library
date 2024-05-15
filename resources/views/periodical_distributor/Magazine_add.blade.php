@@ -503,7 +503,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">About Publisher/Editor<span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <textarea type="number" class="form-control" id="about_editor" name="about_editor" rows="3" placeholder="Enter the about publisher/Editor" required></textarea>
+                                                                <textarea type="number" class="form-control" id="about_editor" name="about_editor" rows="3" placeholder="Enter the about publisher/editor" required></textarea>
                                                                 <div class="invalid-feedback"> Please enter the about publisher/editor. </div>
                                                             </div>
                                                         </div>
@@ -798,7 +798,7 @@
                                                                     for="validationCustomUsername">
                                                                     Contact Person Address <span class="text-danger">*</span></label>
                                                                 <div class="input-group">
-                                                                    <textarea type="text" class="form-control" id="contact_person_address" name="contact_person_address" placeholder="Enter the contact person Address " required></textarea>
+                                                                    <textarea type="text" class="form-control" id="contact_person_address" name="contact_person_address" placeholder="Enter the contact person address " required></textarea>
                                                                     <div class="invalid-feedback"> Please enter the contact person address. </div>
                                                                 </div>
                                                             </div>
