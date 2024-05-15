@@ -544,7 +544,7 @@ table.dataTable thead th {
                                                       @endforeach
                                                       @else
                                             <tr>
-                                                <td colspan="4">No data available in table</td>
+                                                <td class="text-center" colspan="4">No data available in table</td>
                                             </tr>
                                             @endif
                                                     </tbody>
@@ -600,7 +600,7 @@ table.dataTable thead th {
                                             @endforeach
                                             @else
                                             <tr>
-                                                <td colspan="4">No data available in table</td>
+                                                <td class="text-center" colspan="4">No data available in table</td>
                                             </tr>
                                             @endif
                                         </tbody>
@@ -726,6 +726,9 @@ table.dataTable thead th {
         transition: all .3s cubic-bezier(.175, .885, .32, 1.275);
         color: #999;
     }
+    .table thead th {
+    text-transform: unset !important;
+}
 </style>
 <script>
     $(document).ready(function () {

@@ -29155,7 +29155,7 @@ td.text-ov {
   .dataTables_wrapper .dataTables_paginate .paginate_button.previous, .dataTables_wrapper .dataTables_paginate .paginate_button.next {
     font-size: 13px;
     height: 24px;
-    width: 24px;
+    width: auto;
     background: transparent;
     border-radius: 0.375rem;
     padding: 0 0.45rem;
