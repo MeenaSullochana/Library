@@ -747,3 +747,45 @@ jQuery(window).on('resize',function () {
 jQuery(document).ready(function() {
 	$('#example4').DataTable();
 });
+/*  Window Resize END */
+jQuery(document).ready(function() {
+	$('#example4').DataTable();
+	$('#all-export').DataTable({
+		dom: 'Blfrtip',
+		buttons: [
+			{
+				extend: 'copy',
+				text: '<i class="fas fa-copy"></i> Copy',
+				className: 'btn btn-primary text-black'
+			},
+			{
+				extend: 'csv',
+				text: '<i class="fas fa-file-csv"></i> CSV',
+				className: 'btn btn-primary text-black'
+			},
+			{
+				extend: 'excel',
+				text: '<i class="fas fa-file-excel"></i> Excel',
+				className: 'btn btn-primary text-black'
+			},
+			{
+				extend: 'pdf',
+				text: '<i class="fas fa-file-pdf"></i> PDF',
+				className: 'btn btn-secondary text-black'
+			},
+			{
+				extend: 'print',
+				text: '<i class="fas fa-print"></i> Print',
+				className: 'btn btn-primary text-black'
+			}
+		]
+	 });
+
+	//  $('#all-export tbody').on('click', 'td', function () {
+	// 	var idx = table.cell(this).index().column;
+	// 	var title = table.column(idx).header();
+	 
+	// 	alert('Column title clicked on: ' + $(title).html());
+	// });
+	 
+});
