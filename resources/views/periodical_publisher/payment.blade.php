@@ -207,7 +207,7 @@
                                                 </svg> --}}
                                                 <img class="w-50" src="https://i.pinimg.com/564x/70/62/9b/70629b1aef11235e88d49ec90ed2a54e.jpg" alt="idbi logo">
                                                 <h4 class="my-2">IDBI Bank</h4>
-                                                <a href="/magazine/salesapi" class="btn my-2 btn-primary btn-lg px-4"
+                                                <a href="/periodical/salesapi" class="btn my-2 btn-primary btn-lg px-4"
                                                     id="idbi"> Pay Now</a>
                                             </div>
                                         </div>

@@ -16,7 +16,7 @@ use App\Http\Controllers\Payment\ResponseSaleController;
 
 // Route::get('/salesapi',function(){return view('payment.payment');});
 Route::get('/salesapi', [SaleController::class, 'index']);
-Route::get('/magazine/salesapi', [SaleController::class, 'magazineindex']);
+Route::get('/periodical/salesapi', [SaleController::class, 'magazineindex']);
 Route::get('/payment-responce/success',function(){return view('payment.success');});
 Route::get('/payment-responce/failure',function(){return view('payment.failure');});
 

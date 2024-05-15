@@ -80,6 +80,7 @@
                                                 <input class="textbox" type="text"  name="UDF02" id="UDF02" value="{{$user->email}}" size="40" maxlength="500" hidden/>
                                                 <input class="textbox" type="text"  name="UDF03" id="UDF03" value="{{$user->password}}" size="40" maxlength="500" hidden/>
                                                 <input class="textbox" type="text"  name="UDF04" id="UDF04" value="{{$books}}" hidden/>
+                                                <input class="textbox" type="text"  name="UDF05" id="UDF05" value="{{$type}}" hidden/>
                                                     <div class="mb-3 row">
                                                         <label class="col-lg-4 col-form-label required"
                                                             for="validationCustom01">

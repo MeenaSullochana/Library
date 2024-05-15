@@ -100,7 +100,7 @@ if($request->volume_number[0] !=null && $request->volume_title[0] !=null && $req
         $obj=(Object)[
             "volume_number"=>$volume_number[$i],
             "volume_title"=>$volume_title[$i],
-            "isbn_number"=>$isbn_number[$i],
+            "isbn_number"=>$isbn_number1[$i],
         ];
         array_push($volume,$obj);
     }
@@ -749,7 +749,7 @@ $user = auth('publisher')->user();
             $obj=(Object)[
                 "volume_number"=>$volume_number[$i],
                 "volume_title"=>$volume_title[$i],
-                "isbn_number"=>$isbn_number[$i],
+                "isbn_number"=>$isbn_number1[$i],
             ];
             array_push($volume,$obj);
         }
