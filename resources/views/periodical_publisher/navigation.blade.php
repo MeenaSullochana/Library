@@ -333,9 +333,9 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/periodical_publisher/procurement">Apply For Procurement</a></li>
-							<li><a href="/periodical_publisher/procurement_sampleperiodical">Procurement Sample periodical Copies send list</a></li>
-							<li><a href="/periodical_publisher/procurement_sampleperiodicalpending">Procurement Sample periodical Copies pending list</a></li>
-							<li><a href="/periodical_publisher/procurement_sampleperiodicalcomplete">Procurement Sample periodical Copies Complete list</a></li>
+							<li><a href="/periodical_publisher/procurement_sampleperiodical"> Sample periodical copies send list</a></li>
+							<li><a href="/periodical_publisher/procurement_sampleperiodicalpending"> Sample periodical copies pending list</a></li>
+							<li><a href="/periodical_publisher/procurement_sampleperiodicalcomplete"> Sample periodical copies complete list</a></li>
                         </ul>
                     </li>
 					

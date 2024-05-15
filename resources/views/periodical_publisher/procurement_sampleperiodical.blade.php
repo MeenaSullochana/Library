@@ -166,7 +166,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>procurement Send sample Periodical List</b>
+                                <b>Procurement Send sample Periodical List</b>
                             </h3>
 
                         </div>
@@ -176,8 +176,8 @@
                     <div class="card-body">
                         <h6 class="fw-bold">Copies to be Submitted for Review and Selection: 3 copies</h6>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong> Archiving purpose:</strong> To comply with the Delivery of periodicals (Public Libraries) Act, 1954, send one copy of all published periodicals to Anna Centenary Library,Chennai for archiving of periodicals.<br><br>
-                            <p><strong>Review purpose: </strong> Send two copies for review of periodicals to Anna Centenary Library, Chennai.</p>
+                            <!-- <strong> Archiving purpose:</strong> To comply with the Delivery of periodicals (Public Libraries) Act, 1954, send one copy of all published periodicals to Anna Centenary Library,Chennai for archiving of periodicals.<br><br> -->
+                            <p><strong>Review and selection:  </strong> Send the three latest issues of the periodical to the Anna Centenary Library, Chennai..</p>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
 
