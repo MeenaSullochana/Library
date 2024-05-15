@@ -17,9 +17,9 @@
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
     <?php
-        include "admin/plugin/plugin_css.php";
+        include "sub_admin/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -42,7 +42,7 @@
         <!--************
             Nav header start
             *************-->
-            @include ('admin.navigation')
+            @include ('sub_admin.navigation')
         <!--************
             Sidebar end
             *************-->
@@ -615,7 +615,7 @@
         <!--************
             Footer start
             *************-->
-            @include ("admin.footer")
+            @include ("sub_admin.footer")
         <!--************
             Footer end
             *************-->
@@ -630,7 +630,7 @@
          Main wrapper end
          *************-->
          <?php
-        include "admin/plugin/plugin_js.php";
+        include "sub_admin/plugin/plugin_js.php";
     ?>
     <script>
         $(document).ready(function() {

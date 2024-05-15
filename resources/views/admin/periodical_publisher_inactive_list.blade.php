@@ -52,7 +52,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Periodical Publisher List</b>
+                                <b>Periodical Publisher Inactive List</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="/admin/index">
                                 <i class="fas fa-chevron-left"></i> Dashboard </a>
@@ -61,7 +61,7 @@
                 </div>
 
                 @php
-                $publisher = DB::table('periodical_publishers')->get();
+                $publisher = DB::table('periodical_publishers')->where('status','0')->get();
                 @endphp
                 <div class="card">
                     <div class="card-body">

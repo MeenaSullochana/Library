@@ -23,7 +23,9 @@ use App\Http\Controllers\Admin\LibraryTypeController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\MagazineController;
 use App\Http\Controllers\Admin\SubscriptionController;
+use App\Http\Controllers\Admin\PeriodicalPublisherController;
 
+use App\Http\Controllers\Admin\PeriodicalDistributorController;
 
 
 Route::middleware(['admin'])->group(function () {
@@ -349,6 +351,50 @@ Route::get('/periodical_distributor_list',function(){ return view('admin.periodi
 Route::get('/periodical_distributor_active_list',function(){ return view('admin.periodical_distributor_active_list');});
 Route::get('/periodical_distributor_inactive_list',function(){ return view('admin.periodical_distributor_inactive_list');});
 
+Route::get('/periodical_publisher_view/{id}',[PeriodicalPublisherController::class,'periodical_publisher_view']);
+Route::get('/publisher_profileview',function(){
+    $data = Session::get('PeriodicalPublisher');
+    if($data !==null){
+        return view('admin.periodical_publisher_view')->with("data",$data);
+    }
+});
+Route::get('/periodical_distributor_view/{id}',[PeriodicalDistributorController::class,'periodical_distributor_view']);
+Route::get('/distriputor_profileview',function(){
+    $data = Session::get('PeriodicalDistributor');
+    if($data !==null){
+        return view('admin.periodical_distributor_view')->with("data",$data);
+    }
+});
+
+
+
+
+Route::get('/periodical_manage/{id}',[PeriodicalPublisherController::class,'periodical_manage']);
+
+
+Route::get('/periodical_manageview',function(){
+
+    $data = Session::get('Magazine');
+     if($data !==null){
+ 
+         return view('admin.periodical_manage')->with("data",$data);
+     }
+ 
+ });
+ Route::get('/periodical_manage_view/{id}',[PeriodicalPublisherController::class,'periodical_manage_view']);
+
+
+ Route::get('/periodical_manageviews',function(){
+ 
+     $data = Session::get('Magazines');
+      if($data !==null){
+  
+          return view('admin.periodical_manage_view')->with("data",$data);
+      }
+  
+  });
+
+ 
 // publisherget
 Route::get('/publisher_list',[PublisherController::class,'publisherget']);
 Route::get('/publisher_active_list',[PublisherController::class,'publisheractive']);

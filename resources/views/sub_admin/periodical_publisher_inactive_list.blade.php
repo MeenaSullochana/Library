@@ -14,9 +14,9 @@
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Periodical Procurement</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
     <?php
-        include "admin/plugin/plugin_css.php";
+        include "sub_admin/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -39,7 +39,7 @@
         <!--************
             Nav header start
             *************-->
-        @include ('admin.navigation')
+        @include ('sub_admin.navigation')
         <!--************
             Sidebar end
             *************-->
@@ -52,16 +52,16 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Periodical Publisher List</b>
+                                <b>Periodical Publisher Inactive List</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="/admin/index">
+                            <a class="btn btn-primary  btn-sm" href="/sub_admin/index">
                                 <i class="fas fa-chevron-left"></i> Dashboard </a>
                         </div>
                     </div>
                 </div>
 
                 @php
-                $publisher = DB::table('periodical_publishers')->get();
+                $publisher = DB::table('periodical_publishers')->where('status','0')->get();
                 @endphp
                 <div class="card">
                     <div class="card-body">
@@ -143,13 +143,13 @@
                                                 class="badge light badge-success">{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d') }}</span>
                                         </td>
                                         <td>
-                                            <a href="/admin/periodical_publisher_view/{{$val->id}}"><i class="fa fa-eye p-2"></i></a>
+                                            <a href="/sub_admin/periodical_publisher_view/{{$val->id}}"><i class="fa fa-eye p-2"></i></a>
                                             <!-- <i class="fa fa-pencil p-2"></i>
                                  <i class="fa fa-trash p-2"></i> -->
-                                            <!-- <a href="/admin/pub_payment_list"><i class="fa fa-list-check p-2"></i></a> -->
+                                            <!-- <a href="/sub_admin/pub_payment_list"><i class="fa fa-list-check p-2"></i></a> -->
 
 
-                                            <a href="/admin/periodical_manage/{{$val->id}}"><i class="fa fa-list-check p-2"></i></a>
+                                            <a href="/sub_admin/periodical_manage/{{$val->id}}"><i class="fa fa-list-check p-2"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -167,7 +167,7 @@
     <!--************
          Footer start
          *************-->
-    @include ("admin.footer")
+    @include ("sub_admin.footer")
     <!--************
          Footer end
          *************-->
@@ -203,7 +203,7 @@
         </div>
     </div>
     <?php
-        include "admin/plugin/plugin_js.php";
+        include "sub_admin/plugin/plugin_js.php";
          ?>
     <script>
     $('#example4').on('change', "select[name='user_approval']", function(e) {
@@ -222,7 +222,7 @@
             $.ajax({
                 type: "post",
                 dataType: "json",
-                url: '/admin/publisherapprovestatus',
+                url: '/sub_admin/publisherapprovestatus',
                 data: {
                     'status': approval_,
                     'publisherid': publisherid
@@ -231,7 +231,7 @@
 
                     if (response.success) {
                         setTimeout(function() {
-                            window.location.href = "/admin/publisher_list"
+                            window.location.href = "/sub_admin/publisher_list"
                         }, 3000);
                         toastr.success(response.success, {
                             timeout: 45000
@@ -241,7 +241,7 @@
                             timeout: 45000
                         });
                         setTimeout(function() {
-                            window.location.href = "/admin/publisher_list"
+                            window.location.href = "/sub_admin/publisher_list"
                         }, 3000);
                     }
 
@@ -271,19 +271,19 @@
     //          $.ajax({
     //             type: "post",
     //             dataType: "json",
-    //             url: '/admin/publisherapprovestatus',
+    //             url: '/sub_admin/publisherapprovestatus',
     //             data: {'status': approval_ , 'publisherid': publisherid},
     //             success: function(response) {
 
     //                if(response.success){
     //                setTimeout(function() {
-    //                   window.location.href ="/admin/publisher_list"
+    //                   window.location.href ="/sub_admin/publisher_list"
     //                      }, 3000);
     //                toastr.success(response.success,{timeout:45000});
     //                }else{
     //                toastr.error(response.error,{timeout:45000});
     //                setTimeout(function() {
-    //                   window.location.href ="/admin/publisher_list"
+    //                   window.location.href ="/sub_admin/publisher_list"
     //                      }, 3000);
     //                }
 
@@ -311,7 +311,7 @@ $(function() {
         $.ajax({
             type: "post",
             dataType: "json",
-            url: '/admin/publisherstatus',
+            url: '/sub_admin/publisherstatus',
             data: {
                 'status': status,
                 'publisherid': publisherid
@@ -319,7 +319,7 @@ $(function() {
             success: function(response) {
                 if (response.success) {
                     setTimeout(function() {
-                        window.location.href = "/admin/publisher_list"
+                        window.location.href = "/sub_admin/publisher_list"
                     }, 3000);
                     toastr.success(response.success, {
                         timeout: 45000
@@ -329,7 +329,7 @@ $(function() {
                         timeout: 45000
                     });
                     setTimeout(function() {
-                        window.location.href = "/admin/publisher_list"
+                        window.location.href = "/sub_admin/publisher_list"
                     }, 3000);
                 }
 
@@ -354,14 +354,14 @@ $(document).on('click', '#submitButton', function(e) {
     });
     $.ajax({
         type: "post",
-        url: "/admin/publisherrejectstatus",
+        url: "/sub_admin/publisherrejectstatus",
         data: data,
         dataType: "json",
         success: function(response) {
             console.log(response);
             if (response.success) {
                 setTimeout(function() {
-                    window.location.href = "/admin/publisher_list"
+                    window.location.href = "/sub_admin/publisher_list"
                 }, 3000);
                 toastr.success(response.success, {
                     timeout: 45000
@@ -371,7 +371,7 @@ $(document).on('click', '#submitButton', function(e) {
                     timeout: 45000
                 });
                 setTimeout(function() {
-                    window.location.href = "/admin/publisher_list"
+                    window.location.href = "/sub_admin/publisher_list"
                 }, 3000);
             }
 
