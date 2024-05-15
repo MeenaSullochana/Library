@@ -31,10 +31,11 @@ class SaleController extends Controller
         $books = $paymentbook->id;
         // dd($books);
         $user = Session::get('user');
+        $type = "Book";
         $amount = count($data) *450;
         $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
         $merchantrefno= $randomCode;
-        return view('payment.payment', compact('user', 'amount','books','merchantrefno'));
+        return view('payment.payment', compact('user', 'amount','books','type','merchantrefno'));
     }
 
     public function magazineindex(){
@@ -46,15 +47,16 @@ class SaleController extends Controller
         $books1= json_encode($bookitem);
         $paymentbook = new PaymentBook();
         $paymentbook->bookId = $books1;
-        $paymentbook->type = "Magazine";
+        $paymentbook->type = "Periodical";
         $paymentbook->save();
         $books = $paymentbook->id;
         // dd($books);
+        $type = "Periodical";
         $user = Session::get('user');
         $amount = count($data) *450;
         $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
         $merchantrefno= $randomCode;
-        return view('payment.payment', compact('user', 'amount','books','merchantrefno'));
+        return view('payment.payment', compact('user', 'amount','books','type','merchantrefno'));
     }
     public function processSale(Request $request)
     {
@@ -72,7 +74,12 @@ class SaleController extends Controller
 
         // Get inputs
         $data = $request->post();
-
+        if($request->UDF05 == "Book"){
+            $amount = $request->Amount * 100;
+        }else if($request->UDF05 == "Periodical"){
+            $amount = 1 * 100;
+        }
+      
         // Manipulate data as needed
         $data['Version'] = config('payment.VERSION');
         $data['PassCode'] = config('payment.PASSCODE');
@@ -81,7 +88,7 @@ class SaleController extends Controller
         $data['MCC'] = config('payment.MCC');
         $data['TerminalId'] = config('payment.TERMINALID');
         $data['ReturnURL'] = config('payment.RETURNURL');
-        $data['Amount'] = $data['Amount'] * 100;
+        $data['Amount'] = $amount;
 
         // Remove unwanted POST variables
         unset($data["SubButL"]);

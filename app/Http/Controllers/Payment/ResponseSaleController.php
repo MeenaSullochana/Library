@@ -161,7 +161,7 @@ class ResponseSaleController extends Controller
         }
         $url = "/publisher_and_distributor/index";
      }
-     }else if($type == "Magazine"){
+     }else if($type == "Periodical"){
         if($usertype == "publisher"){
             $user = PeriodicalPublisher::where('email',$email)->first();
            
@@ -254,7 +254,7 @@ class ResponseSaleController extends Controller
         $notifi->type=$usertype;
         $notifi->save();
     }
-   }else if($type == "Magazine"){
+   }else if($type == "Periodical"){
     if($paymentstatus == "Success"){
         $record = json_decode($bookitem);
         foreach($record as $val){
@@ -267,7 +267,7 @@ class ResponseSaleController extends Controller
         $notifi= new Notifications();
         $admin=Admin::first();
  
-        $notifi->message = "Magazine Applied For Procurement";
+        $notifi->message = "Periodical Applied For Procurement";
         $notifi->to= $admin->id;
         $notifi->from=$user->id;
         $notifi->type=$usertype;
