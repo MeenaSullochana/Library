@@ -52,7 +52,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Periodical Publisher List</b>
+                                <b>Periodical Distributor Active List</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="/admin/index">
                                 <i class="fas fa-chevron-left"></i> Dashboard </a>
@@ -61,7 +61,7 @@
                 </div>
 
                 @php
-                $publisher = DB::table('periodical_publishers')->get();
+                $publisher = DB::table('periodical_distributors')->where('status','1')->get();
                 @endphp
                 <div class="card">
                     <div class="card-body">
@@ -70,8 +70,8 @@
                                 <thead>
                                     <tr>
                                         <th>Roll No</th>
-                                        <th>Publisher Name</th>
-                                        <th>Publication Name</th>
+                                        <th>Distributor Name</th>
+                                        <th>Distribution Name</th>
                                         <th>Contact Number</th>
                                         <th>District </th>
                                         <th>Periodical count </th>
@@ -89,13 +89,13 @@
                                         <td style="white-space:normal;">
                                             {{$val->firstName}} {{$val->lastName}}
                                         </td>
-                                        <td style="white-space:normal;">{{$val->publicationName}} </td>
+                                        <td style="white-space:normal;">{{$val->distributionName}} </td>
                                         <td style="white-space:normal;">{{$val->mobileNumber}}</td>
                                         <td style="white-space:normal;">{{$val->District}}</td>
                                         @php
                                         $records = DB::table('magazines')
                                         ->where('user_id', '=', $val->id)
-                                      
+                                       
                                         ->count();
                                         $displayCount = $records ?? 0;
                                         @endphp
@@ -143,7 +143,7 @@
                                                 class="badge light badge-success">{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d') }}</span>
                                         </td>
                                         <td>
-                                            <a href="/admin/periodical_publisher_view/{{$val->id}}"><i class="fa fa-eye p-2"></i></a>
+                                            <a href="/admin/periodical_distributor_view/{{$val->id}}"><i class="fa fa-eye p-2"></i></a>
                                             <!-- <i class="fa fa-pencil p-2"></i>
                                  <i class="fa fa-trash p-2"></i> -->
                                             <!-- <a href="/admin/pub_payment_list"><i class="fa fa-list-check p-2"></i></a> -->

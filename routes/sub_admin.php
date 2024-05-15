@@ -24,6 +24,8 @@ use App\Http\Controllers\Subadmin\LibraryTypeController;
 use App\Http\Controllers\Subadmin\PaymentController;
 use App\Http\Controllers\Subadmin\MagazineController;
 
+use App\Http\Controllers\Subadmin\PeriodicalPublisherController;
+use App\Http\Controllers\Subadmin\PeriodicalDistributorController;
 
 
 
@@ -378,7 +380,60 @@ Route::get('/procur_complete_list',[BookController::class,'procur_complete_list'
 Route::get('/procur_reject_view',[BookController::class,'procur_reject_view']);
 
 
+// Periodical Publisher List
 
+Route::get('/periodical_publisher_list',function(){ return view('sub_admin.periodical_publisher_list');});
+Route::get('/periodical_publisher_active_list',function(){ return view('sub_admin.periodical_publisher_active_list');});
+Route::get('/periodical_publisher_inactive_list',function(){ return view('sub_admin.periodical_publisher_inactive_list');});
+
+// Periodical Publisher List
+
+Route::get('/periodical_distributor_list',function(){ return view('sub_admin.periodical_distributor_list');});
+Route::get('/periodical_distributor_active_list',function(){ return view('sub_admin.periodical_distributor_active_list');});
+Route::get('/periodical_distributor_inactive_list',function(){ return view('sub_admin.periodical_distributor_inactive_list');});
+
+Route::get('/periodical_publisher_view/{id}',[PeriodicalPublisherController::class,'periodical_publisher_view']);
+Route::get('/publisher_profileview',function(){
+    $data = Session::get('PeriodicalPublisher');
+    if($data !==null){
+        return view('sub_admin.periodical_publisher_view')->with("data",$data);
+    }
+});
+Route::get('/periodical_distributor_view/{id}',[PeriodicalDistributorController::class,'periodical_distributor_view']);
+Route::get('/distriputor_profileview',function(){
+    $data = Session::get('PeriodicalDistributor');
+    if($data !==null){
+        return view('sub_admin.periodical_distributor_view')->with("data",$data);
+    }
+});
+
+
+
+
+Route::get('/periodical_manage/{id}',[PeriodicalPublisherController::class,'periodical_manage']);
+
+
+Route::get('/periodical_manageview',function(){
+
+    $data = Session::get('Magazine');
+     if($data !==null){
+ 
+         return view('sub_admin.periodical_manage')->with("data",$data);
+     }
+ 
+ });
+ Route::get('/periodical_manage_view/{id}',[PeriodicalPublisherController::class,'periodical_manage_view']);
+
+
+ Route::get('/periodical_manageviews',function(){
+ 
+     $data = Session::get('Magazines');
+      if($data !==null){
+  
+          return view('sub_admin.periodical_manage_view')->with("data",$data);
+      }
+  
+  });
 
 
 

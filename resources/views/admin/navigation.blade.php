@@ -1686,9 +1686,9 @@
                             </li>
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="perio_distributor_list">List Distributor</a></li>
-                                    <li><a href="perio_distributor_active_list">Active Distributor</a></li>
-                                    <li><a href="perio_distributor_inactive_list">Inactive Distributor</a></li>
+                                    <li><a href="periodical_distributor_list">List Distributor</a></li>
+                                    <li><a href="periodical_distributor_active_list">Active Distributor</a></li>
+                                    <li><a href="periodical_distributor_inactive_list">Inactive Distributor</a></li>
                                 </ul>
                             </li>
                             {{-- <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Reviewer</a>
