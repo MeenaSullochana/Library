@@ -24,10 +24,7 @@ use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\MagazineController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\PeriodicalPublisherController;
-
 use App\Http\Controllers\Admin\PeriodicalDistributorController;
-
-
 Route::middleware(['admin'])->group(function () {
 Route::prefix('admin')->group(function () {
  
