@@ -167,8 +167,8 @@
                                                 @endif
                                                 @if($data->gstProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/gst/".$data->gstProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/gst/".$data->gstProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/gst/".$data->gstProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download>
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> GST Certificate</h3>
@@ -176,8 +176,8 @@
                                                 @endif
                                                 @if($data->panOrTanProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/pan_tan/".$data->panOrTanProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/pan_tan/".$data->panOrTanProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/pan_tan/".$data->panOrTanProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> PAN / TAN </h3>
@@ -185,8 +185,8 @@
                                                 @endif
                                                 @if($data->udyamProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/udayam/".$data->udyamProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/udayam/".$data->udyamProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/udayam/".$data->udyamProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> Udyam Certificate </h3>
@@ -194,8 +194,8 @@
                                                 @endif
                                                 @if($data->certificationIncorporationProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/certification_incon/".$data->certificationIncorporationProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> Certificate of Incorporation
@@ -204,8 +204,8 @@
                                                 @endif
                                                 @if($data->certificationRegistrationProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/cgReg/".$data->certificationRegistrationProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> Certificate of Registration
@@ -214,8 +214,8 @@
                                                 @endif
                                                 @if($data->partnershipDeedProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/pan_deed/".$data->partnershipDeedProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> Partnership Deed </h3>
@@ -223,8 +223,8 @@
                                                 @endif
                                                 @if($data->moaProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/moa/".$data->moaProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/moa/".$data->moaProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/moa/".$data->moaProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/moa/".$data->moaProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> MOA </h3>
@@ -232,8 +232,8 @@
                                                 @endif
                                                 @if($data->llpProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/llp_agre/".$data->llpProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/llp_agre/".$data->llpProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/llp_agre/".$data->llpProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> LLP Agreement </h3>
@@ -241,8 +241,8 @@
                                                 @endif
                                                 @if($data->aoaProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/aoa/".$data->aoaProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/aoa/".$data->aoaProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/aoa/".$data->aoaProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> AOA </h3>
@@ -250,8 +250,8 @@
                                                 @endif
                                                 @if($data->privateTrustProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/privatetrust/".$data->privateTrustProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/privatetrust/".$data->privateTrustProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/privatetrust/".$data->privateTrustProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> Private Trust Registration
@@ -260,8 +260,8 @@
                                                 @endif
                                                 @if($data->privateSocietyProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/privatesociety/".$data->privateSocietyProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/privatesociety/".$data->privateSocietyProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/privatesociety/".$data->privateSocietyProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> Private Society Registration
@@ -270,8 +270,8 @@
                                                 @endif
                                                 @if($data->institutionProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/institution/".$data->institutionProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/institution/".$data->institutionProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/institution/".$data->institutionProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> Government Institutional
@@ -281,8 +281,8 @@
                                                 @endif
                                                 @if($data->trustFoundationProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/trustfoundation/".$data->trustFoundationProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> Government Trust/Foundation
@@ -291,8 +291,8 @@
                                                 @endif
                                                 @if($data->societyProof != null)
                                                 <a href="#"
-                                                    data-exthumbimage="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
-                                                    data-src="{{asset("publisher/images/proof/society/".$data->societyProof)}}"
+                                                    data-exthumbimage="{{asset("periodical_distributor/images/proof/society/".$data->societyProof)}}"
+                                                    data-src="{{asset("periodical_distributor/images/proof/society/".$data->societyProof)}}"
                                                     class="mb-1 col-lg-12 col-xl-12 col-sm-12 col-12" download="true">
                                                     <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                             class="fa fa-download"></i> Government Society Publication
@@ -648,9 +648,10 @@
                                     ones to be added for procurement</h4>
                             </div>
                             <div class="card-body">
-                                <h5 class="es-5">yes or no</h5>
+                                @if()
+                                <!-- <h5 class="es-5">yes or no</h5> -->
                                 <div class="table-responsive">
-                                    <table class="display table" id="awarded-titles">
+                                    <table class="display table" id="awarded1">
                                         <thead>
                                             <tr>
                                                 <th class="fw-bold"> S.No</th>
@@ -661,26 +662,29 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                            $rec1=json_decode($data->publisher)
+                                            $rec1 = json_decode($data->publisher);
                                             @endphp
-                                            @foreach($rec1 as $val)
+
+                                            @if ($rec1)
+                                            @foreach ($rec1 as $val)
                                             <tr>
-                                                <td data-label="S.No"> {{$loop->index +1}}</td>
-                                                <td data-label="Periodical Name">{{$val->publisher_name}}</td>
-                                                <td data-label="Place">{{$val->publisher_place}}</td>
+                                                <td data-label="S.No">{{ $loop->index + 1 }}</td>
+                                                <td data-label="Periodical Name">{{ $val->publisher_name }}</td>
+                                                <td data-label="Place">{{ $val->publisher_place }}</td>
                                                 <td data-label="Document">
-                                                    <a href="{{asset("periodical_distributor/images/proof/authorization/".$val->authorization_letter)}}"
-                                                        class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download="true">
+                                                    @if (isset($val->authorization_letter))
+                                                    <a href="{{ asset("periodical_distributor/images/proof/authorization/".$val->authorization_letter) }}"
+                                                        class="mb-1 col-lg-4 col-xl-4 col-sm-4 col-6" download>
                                                         <h3 class="btn btn-primary light btn-xs mb-1"> <i
                                                                 class="fa fa-download"></i> Download</h3>
                                                     </a>
+                                                    @endif
                                                 </td>
-
                                             </tr>
                                             @endforeach
-                                            <!-- <tr>
-                                                <td class="text-center" colspan="4">No data available in table</td>
-                                            </tr> -->
+                                            @endif
+
+                                          
                                         </tbody>
                                     </table>
                                 </div>
@@ -781,7 +785,7 @@
     $(document).ready(function() {
         $('#myTable').DataTable();
 
-        $('#awarded-titles').DataTable();
+        $('#awarded1').DataTable();
 
         $('#subsidiary-pub').DataTable();
     });
