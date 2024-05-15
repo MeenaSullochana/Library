@@ -176,15 +176,15 @@
                     <div class="card-body">
                         <h6 class="fw-bold">Copies to be Submitted for Review and Selection: 3 copies</h6>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong> Archiving purpose:</strong> To comply with the Delivery of periodicals (Public Libraries) Act, 1954, send one copy of all published periodicals to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of periodicals.<br><br>
+                            <strong> Archiving purpose:</strong> To comply with the Delivery of periodicals (Public Libraries) Act, 1954, send one copy of all published periodicals to Anna Centenary Library,Chennai for archiving of periodicals.<br><br>
                             <p><strong>Review purpose: </strong> Send two copies for review of periodicals to Anna Centenary Library, Chennai.</p>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
 
                         <div class="row">
                             <div class="col-md-4">
-                                <b>Transparent Book Procurement</b> <br>
-                                Book Selection Committee<br>
+                                <b>Transparent Periodical Procurement</b> <br>
+                                Periodical Selection Committee<br>
                                 Anna Centenary Library <br>
                                 Kotturpuram , Chennai - 600 085<br>
                                 Tamil Nadu<br>
@@ -301,7 +301,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Are you send this book to book recurement Re-Appeal?</h5>
+                    <h5 class="modal-title">Are you send this periodical to periodical recurement Re-Appeal?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal">
                     </button>
                 </div>
