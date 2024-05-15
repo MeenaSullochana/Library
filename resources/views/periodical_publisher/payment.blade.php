@@ -64,7 +64,7 @@
                     <div class="col-md-12">
                         <div class="alert alert-danger" role="alert">
                             <h4 class="alert-heading">Important Notice!</h4>
-                            <p>Review Fee for Book Selection is<b> Non Refundable.</b></p>
+                            <p>Review Fee for Periodical Selection is<b> Non Refundable.</b></p>
                             <hr>
                             <p class="mb-0">Directorate of Public Library</p>
                         </div>

@@ -60,7 +60,7 @@
                   <div class="card-body">
                      <div class="d-sm-flex align-items-center justify-content-between">
                         <h3 class="mb-0 bc-title">
-                           <b>Apply For Procurement</b>
+                           <b>Apply For Periodical Procurement</b>
                         </h3>
                
                      </div>
@@ -168,7 +168,7 @@
             <div class="modal-content">
                <div class="modal-header">
                   <input type="hidden" name="bookid" id="hiddenInput">
-                  <h5 class="modal-title">Are you send this book to book recurement?</h5>
+                  <h5 class="modal-title">Are you send this periodical to periodical Precurement?</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal">
                   </button>
                </div>
@@ -185,7 +185,7 @@
             <div class="modal-content">
                <div class="modal-header">
                   <input type="hidden" name="bookid" id="hiddenInput">
-                  <h5 class="modal-title">Are you send this book to book recurement?</h5>
+                  <h5 class="modal-title">Are you send this periodical to periodical Precurement?</h5>
                   <button type="button" class="btn-close" >
                   </button>
                </div>

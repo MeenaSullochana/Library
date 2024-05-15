@@ -15,7 +15,7 @@
       <meta name="format-detection" content="telephone=no">
       <meta name="csrf-token" content="{{ csrf_token() }}">
       <!-- PAGE TITLE HERE -->
-      <title>Government of Tamil Nadu - Book Procurement - Apply For Procurement</title>
+      <title>Government of Tamil Nadu - prequrement Procurement - Apply For Procurement</title>
       <!-- FAVICONS ICON -->
       <link rel="shortcut icon" type="image/png" href="images/fevi.svg">
       <link href="
@@ -168,7 +168,7 @@
             <div class="modal-content">
                <div class="modal-header">
                   <input type="hidden" name="bookid" id="hiddenInput">
-                  <h5 class="modal-title">Are you send this book to book recurement?</h5>
+                  <h5 class="modal-title">Are you send this periodical to periodical precurement?</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal">
                   </button>
                </div>
@@ -185,7 +185,7 @@
             <div class="modal-content">
                <div class="modal-header">
                   <input type="hidden" name="bookid" id="hiddenInput">
-                  <h5 class="modal-title">Are you send this book to book recurement?</h5>
+                  <h5 class="modal-title">Are you send this periodical to periodical Precurement?</h5>
                   <button type="button" class="btn-close" >
                   </button>
                </div>
