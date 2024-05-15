@@ -1934,14 +1934,27 @@
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-bookshelf"></i>
-                            <span class="nav-text">Book Sample Copies </span>
+                            <span class="nav-text">Sample Copies </span>
                         </a>
+                        <ul>
+                        <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book</a>
                         <ul aria-expanded="false">
-                            <li><a href="procurement_samplebookpending">Sample Book Unreceive Copies </a></li>
-                            <li><a href="procurement_samplebookcomplete">Sample Book Receive  Copies </a></li>
+                            <li><a href="procurement_samplebookpending">Sample Book Unreceived Copies </a></li>
+                            <li><a href="procurement_samplebookcomplete">Sample Book Received  Copies </a></li>
 
                         </ul>
+                        </li>
+
+                        <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Periodical</a>
+                        <ul aria-expanded="false">
+                            <li><a href="procurement_sampleperiodicalpending">Sample Periodical Unreceived Copies </a></li>
+                            <li><a href="procurement_sampleperiodicalcomplete">Sample Periodical Received  Copies </a></li>
+
+                        </ul>
+                        </li>
+                        </ul>
                     </li>
+                            
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-upload"></i>

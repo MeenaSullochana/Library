@@ -356,7 +356,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h4>Publisher and Distributor</h4>
+                                        <h4>Publisher Cum Distributor</h4>
                                         <div class="row">
                                             <div class="col-xl-4 col-sm-4">
                                                 <div class="card">
@@ -364,7 +364,7 @@
                                                         <div
                                                             class="depostit-card-media d-flex justify-content-between style-1">
                                                             <div>
-                                                                <h6>Number of Publisher and Distributor</h6>
+                                                                <h6>Number of Publisher Cum Distributor</h6>
                                                                 <h3>{{$allpubdistcount}}</h3>
                                                             </div>
                                                             <div class="icon-box bg-secondary">
@@ -410,7 +410,7 @@
                                                         <div
                                                             class="depostit-card-media d-flex justify-content-between style-1">
                                                             <div>
-                                                                <h6>Active Publisher and Distributor</h6>
+                                                                <h6>Active Publisher Cum Distributor</h6>
                                                                 <h3>{{$activepubdistcount}}</h3>
                                                             </div>
                                                             <div class="icon-box bg-secondary">
@@ -456,7 +456,7 @@
                                                         <div
                                                             class="depostit-card-media d-flex justify-content-between style-1">
                                                             <div>
-                                                                <h6>Inactive Publisher and Distributor</h6>
+                                                                <h6>Inactive Publisher Cum Distributor</h6>
                                                                 <h3>{{$inactivepubdistcount}}</h3>
                                                             </div>
                                                             <div class="icon-box bg-secondary">
@@ -497,6 +497,298 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <h4>Periodical Publisher</h4>
+                                        <div class="row">
+                                            <div class="col-xl-4 col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body depostit-card">
+                                                        <div
+                                                            class="depostit-card-media d-flex justify-content-between style-1">
+                                                            <div>
+                                                                <h6>Number of Publisher</h6>
+                                                                <h3>{{$allperpubcount}}</h3>
+                                                            </div>
+                                                            <div class="icon-box bg-secondary">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_3_566)">
+                                                                        <path opacity="0.3" fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                            fill="#222B40" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_3_566">
+                                                                            <rect width="24" height="24" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-box mt-0">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="mb-0">Status </p>
+                                                                <p class="mb-0">{{$allperpubcount}}</p>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-secondary"
+                                                                    style="width:100%; height:5px; border-radius:4px;"
+                                                                    role="progressbar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body depostit-card">
+                                                        <div
+                                                            class="depostit-card-media d-flex justify-content-between style-1">
+                                                            <div>
+                                                                <h6>Active Publisher</h6>
+                                                                <h3>{{$activeperpubcount}}</h3>
+                                                            </div>
+                                                            <div class="icon-box bg-secondary">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_3_566)">
+                                                                        <path opacity="0.3" fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                            fill="#222B40" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_3_566">
+                                                                            <rect width="24" height="24" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-box mt-0">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="mb-0">Status</p>
+                                                                <p class="mb-0">{{$allperpubcount}}</p>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-secondary"
+                                                                    style="width:{{ $activepubcount != 0 ? ($activepubcount / $allpubcount * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                    role="progressbar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body depostit-card">
+                                                        <div
+                                                            class="depostit-card-media d-flex justify-content-between style-1">
+                                                            <div>
+                                                                <h6>Inactive Publisher</h6>
+                                                                <h3>{{$inactiveperpubcount}}</h3>
+                                                            </div>
+                                                            <div class="icon-box bg-secondary">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_3_566)">
+                                                                        <path opacity="0.3" fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                            fill="#222B40" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_3_566">
+                                                                            <rect width="24" height="24" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-box mt-0">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="mb-0">Status</p>
+                                                                <p class="mb-0">{{$allperpubcount}}</p>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-secondary"
+                                                                    style="width:{{ $inactivepubcount != 0 ? ($inactivepubcount / $allpubcount * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                    role="progressbar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4> Periodical Distributor </h4>
+                                        <div class="row">
+                                            <div class="col-xl-4 col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body depostit-card">
+                                                        <div
+                                                            class="depostit-card-media d-flex justify-content-between style-1">
+                                                            <div>
+                                                                <h6>Number of Distributor</h6>
+                                                                <h3>{{$allperdistcount}}</h3>
+                                                            </div>
+                                                            <div class="icon-box bg-secondary">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_3_566)">
+                                                                        <path opacity="0.3" fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                            fill="#222B40" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_3_566">
+                                                                            <rect width="24" height="24" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-box mt-0">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="mb-0">Status </p>
+                                                                <p class="mb-0">{{$allperdistcount}}</p>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-secondary"
+                                                                    style="width:100%; height:5px; border-radius:4px;"
+                                                                    role="progressbar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body depostit-card">
+                                                        <div
+                                                            class="depostit-card-media d-flex justify-content-between style-1">
+                                                            <div>
+                                                                <h6>Active Distributor</h6>
+                                                                <h3>{{$activeperdistcount}}</h3>
+                                                            </div>
+                                                            <div class="icon-box bg-secondary">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_3_566)">
+                                                                        <path opacity="0.3" fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                            fill="#222B40" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_3_566">
+                                                                            <rect width="24" height="24" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-box mt-0">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="mb-0">Status</p>
+                                                                <p class="mb-0">{{$allperdistcount}}</p>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-secondary"
+                                                                    style="width:{{ $activedistcount != 0 ? ($activedistcount / $alldistcount * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                    role="progressbar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-4">
+                                                <div class="card">
+                                                    <div class="card-body depostit-card">
+                                                        <div
+                                                            class="depostit-card-media d-flex justify-content-between style-1">
+                                                            <div>
+                                                                <h6>Inactive Distributor`</h6>
+                                                                <h3>{{$inactiveperdistcount}}</h3>
+                                                            </div>
+                                                            <div class="icon-box bg-secondary">
+                                                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_3_566)">
+                                                                        <path opacity="0.3" fill-rule="evenodd"
+                                                                            clip-rule="evenodd"
+                                                                            d="M8 3V3.5C8 4.32843 8.67157 5 9.5 5H14.5C15.3284 5 16 4.32843 16 3.5V3H18C19.1046 3 20 3.89543 20 5V21C20 22.1046 19.1046 23 18 23H6C4.89543 23 4 22.1046 4 21V5C4 3.89543 4.89543 3 6 3H8Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M10.875 15.75C10.6354 15.75 10.3958 15.6542 10.2042 15.4625L8.2875 13.5458C7.90417 13.1625 7.90417 12.5875 8.2875 12.2042C8.67083 11.8208 9.29375 11.8208 9.62917 12.2042L10.875 13.45L14.0375 10.2875C14.4208 9.90417 14.9958 9.90417 15.3792 10.2875C15.7625 10.6708 15.7625 11.2458 15.3792 11.6292L11.5458 15.4625C11.3542 15.6542 11.1146 15.75 10.875 15.75Z"
+                                                                            fill="#222B40" />
+                                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                            d="M11 2C11 1.44772 11.4477 1 12 1C12.5523 1 13 1.44772 13 2H14.5C14.7761 2 15 2.22386 15 2.5V3.5C15 3.77614 14.7761 4 14.5 4H9.5C9.22386 4 9 3.77614 9 3.5V2.5C9 2.22386 9.22386 2 9.5 2H11Z"
+                                                                            fill="#222B40" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_3_566">
+                                                                            <rect width="24" height="24" fill="white" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                            </div>
+                                                        </div>
+                                                        <div class="progress-box mt-0">
+                                                            <div class="d-flex justify-content-between">
+                                                                <p class="mb-0">Status</p>
+                                                                <p class="mb-0">{{$allperdistcount}}</p>
+                                                            </div>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-secondary"
+                                                                    style="width:{{ $inactivedistcount != 0 ? ($inactivedistcount / $alldistcount * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                    role="progressbar"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -953,7 +1245,7 @@
                                                                     class="depostit-card-media d-flex justify-content-between style-1">
                                                                     @php
 
-                                                                        $books = DB::table('books')->where('book_procurement_status','=',0)->count();
+                                                                        $books = DB::table('books')->count();
                                                                 
                                                                            @endphp
                                                                     <div>
@@ -1012,7 +1304,7 @@
                                                                     @php
 
                                                                       
-                                                                        $pubbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','publisher')->count();
+                                                                        $pubbooks= DB::table('books')->where('user_type','=','publisher')->count();
                                                                            @endphp
                                                                     <div>
                                                                         <h6>Total Publisher Books</h6>
@@ -1069,7 +1361,7 @@
                                                                     class="depostit-card-media d-flex justify-content-between style-1">
                                                                     @php
 
-                                                                    $distbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','distributor')->count();
+                                                                    $distbooks= DB::table('books')->where('user_type','=','distributor')->count();
 
                                                                            @endphp
                                                                     <div>
@@ -1127,11 +1419,11 @@
                                                                     class="depostit-card-media d-flex justify-content-between style-1">
                                                                     @php
 
-                                                                    $pubdistbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','publisher_distributor')->count();
+                                                                    $pubdistbooks= DB::table('books')->where('user_type','=','publisher_distributor')->count();
 
                                                                            @endphp
                                                                     <div>
-                                                                        <h6>Total Publisher Distributor Books </h6>
+                                                                        <h6>Total Publisher Cum Distributor Books </h6>
                                                                         <h3>
                                                                             {{$pubdistbooks}}</h3>
                                                                     </div>
@@ -1191,13 +1483,13 @@
                                                                     class="depostit-card-media d-flex justify-content-between style-1">
                                                                     @php
 
-                                                                        $books = DB::table('books')->where('book_procurement_status','=',0)->count();
-                                                                
-                                                                           @endphp
+                                                                          $magazines = DB::table('magazines')->where('user_type','=',"publisher")->orWhere('user_type','=',"distributor")->count();
+                                                                          
+                                                                    @endphp
                                                                     <div>
                                                                         <h6>Total Periodical</h6>
                                                                         <h3>
-                                                                            {{$books}}</h3>
+                                                                            {{$magazines}}</h3>
                                                                     </div>
                                                                     <div class="icon-box bg-secondary">
                                                                         <svg width="24" height="24" viewBox="0 0 24 24"
@@ -1229,7 +1521,7 @@
                                                                 <div class="progress-box mt-0">
                                                                     <div class="d-flex justify-content-between">
                                                                         <p class="mb-0">Total Periodical</p>
-                                                                        <p class="mb-0">{{$books}}</p>
+                                                                        <p class="mb-0">{{$magazines}}</p>
                                                                     </div>
                                                                     <div class="progress">
                                                                     <div class="progress-bar bg-secondary"
@@ -1249,13 +1541,13 @@
                                                                     class="depostit-card-media d-flex justify-content-between style-1">
                                                                     @php
 
-                                                                      
-                                                                        $pubbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','publisher')->count();
-                                                                           @endphp
+                                                                          $pubmagazines = DB::table('magazines')->where('user_type','=',"publisher")->count();
+                                                                          
+                                                                    @endphp
                                                                     <div>
                                                                         <h6>Total Publisher Periodical</h6>
                                                                         <h3>
-                                                                            {{$pubbooks}}</h3>
+                                                                            {{$pubmagazines}}</h3>
                                                                     </div>
                                                                     <div class="icon-box bg-secondary">
                                                                         <svg width="24" height="24" viewBox="0 0 24 24"
@@ -1287,7 +1579,7 @@
                                                                 <div class="progress-box mt-0">
                                                                     <div class="d-flex justify-content-between">
                                                                         <p class="mb-0">Publisher Periodical</p>
-                                                                        <p class="mb-0">{{$books}}/{{$pubbooks}}</p>
+                                                                        <p class="mb-0">{{$magazines}}/{{$pubmagazines}}</p>
                                                                     </div>
                                                                     <div class="progress">
                                                                     <div class="progress-bar bg-secondary"
@@ -1307,13 +1599,13 @@
                                                                     class="depostit-card-media d-flex justify-content-between style-1">
                                                                     @php
 
-                                                                    $distbooks= DB::table('books')->where('book_procurement_status','=',0)->where('user_type','=','distributor')->count();
+                                                                        $dismagazines = DB::table('magazines')->where('user_type','=',"distributor")->count();
 
-                                                                           @endphp
+                                                                        @endphp
                                                                     <div>
                                                                         <h6>Total Distributor Periodical</h6>
                                                                         <h3>
-                                                                            {{$distbooks}}</h3>
+                                                                            {{$dismagazines}}</h3>
                                                                     </div>
                                                                     <div class="icon-box bg-secondary">
                                                                         <svg width="24" height="24" viewBox="0 0 24 24"
@@ -1345,7 +1637,7 @@
                                                                 <div class="progress-box mt-0">
                                                                     <div class="d-flex justify-content-between">
                                                                         <p class="mb-0">Distbooks Periodical</p>
-                                                                        <p class="mb-0">{{$books}}/{{$distbooks}}</p>
+                                                                        <p class="mb-0">{{$magazines}}/{{$dismagazines}}</p>
                                                                     </div>
                                                                     <div class="progress">
                                                                     <div class="progress-bar bg-secondary"
@@ -3830,13 +4122,13 @@
                                 </div>
                             </div>
 
-                            <!-- Publisher And Distributor -->
+                            <!-- Publisher Cum Distributor -->
                             <div class="col-xl-12 col-xxl-12">
                                 <div class="card">
                                     <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
                                             <div class="tbl-caption">
-                                                <h4 class="heading mb-0">Publisher And Distributor</h4>
+                                                <h4 class="heading mb-0">Publisher Cum Distributor</h4>
                                             </div>
                                             <table id="example3" class="table" style="min-width: 100px">
                                             {{-- <table id="projects-tbl" class="table"> --}}
@@ -4156,10 +4448,10 @@ toastr.error("{{ Session::get('error') }}",{timeout:15000});
         animationEnabled: true,
         theme: "light2",
         title:{
-            text: "Publisher and Distributor Users"
+            text: "Publisher Cum Distributor Users"
         },
         axisY: {
-            title: "Overall Publisher and Distributor"
+            title: "Overall Publisher Cum Distributor"
         },
         data: [{
             type: "column",
