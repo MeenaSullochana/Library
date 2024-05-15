@@ -1118,7 +1118,9 @@ Route::get('/new-email',function(){ return view('admin.new-email');});
 Route::get('/report_download_bookadd',function(){ return view('admin.report_download_bookadd');});
 Route::post('/books_daycount ',[SettingController::class,'books_daycount']);
 
-
+//Periodical
+Route::get('/procurement_sampleperiodicalpending',[MagazineController::class,'procurement_sampleperiodicalpending']);
+Route::get('/procurement_sampleperiodicalcomplete',[MagazineController::class,'procurement_sampleperiodicalcomplete']);
 
     });
 });
