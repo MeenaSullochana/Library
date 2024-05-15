@@ -220,7 +220,7 @@
 
                                 <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
                                     {{-- empoloyees-tbl3 --}}
-                                    <table id="example3" class="table dataTable no-footer" role="grid"
+                                    <table id="example4" class="table dataTable no-footer" role="grid"
                                         aria-describedby="empoloyees-tbl3_info">
                                         <thead>
                                             <tr role="row">
@@ -344,7 +344,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Are you send periodical Copies?</h5>
+                    <h5 class="modal-title">Are you send periodical copies?</h5>
                     <button type="button" id="closedata" class="btn-close" data-bs-dismiss="modal">
                     </button>
                 </div>
@@ -352,7 +352,7 @@
                     <input type="hidden" id="hiddenId">
                     <input type="hidden" id="hiddentitle">
                     <h5 class="modal-title">
-                        <p id="periodicaltitle">periodical Title:</p>
+                        <p id="periodicaltitle">Periodical Title</p>
                     </h5>
                     </h5>
                     <br>
@@ -372,7 +372,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="inputNumberBooks1"> periodical copies</label>
+                                <label for="inputNumberBooks1"> Periodical Copies</label>
                                 <input type="text" class="form-control" id="copies1" value="3" name="inputNumberBooks1"
                                     readonly>
                             </div>
@@ -389,7 +389,7 @@
 
                 <div class="modal-footer">
                     <!-- <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">No</button> -->
-                    <button type="button" id="sendbook" class="btn btn-primary">Confirm to submit</button>
+                    <button type="button" id="sendbook" class="btn btn-primary">Confirm to Submit</button>
                 </div>
             </div>
         </div>

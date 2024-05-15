@@ -118,7 +118,7 @@
                                                 </tr>
                                             @endforeach
                                                 <tr>
-                                                    <td class="fw-bold text-end" colspan="4">Total Amount</td>
+                                                    <td style="text-transform: math-auto !important;" class="fw-bold text-end" colspan="4">Total Amount</td>
                                                     <td class="fw-bold">: <i class="fa fa-inr ms-2"></i>{{$data->totalAmount}}</td>
                                                 </tr>
                                             </tbody>

@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                            <b>procurement Copies Complete  Periodicals List</b>
+                            <b>Procurement Copies Complete  Periodicals List</b>
                             </h3>
 
                         </div>
@@ -72,7 +72,7 @@
 
                                 <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
                                     {{-- empoloyees-tbl3 --}}
-                                    <table id="example3" class="table dataTable no-footer" role="grid"
+                                    <table id="example4" class="table dataTable no-footer" role="grid"
                                         aria-describedby="empoloyees-tbl3_info">
                                         <thead>
                                             <tr role="row">
@@ -163,7 +163,7 @@
                     <input type="hidden" id="hiddenId">
                     <input type="hidden" id="hiddentitle">
                     <h5 class="modal-title">
-                        <p id="periodicaltitle">Periodical Title:</p>
+                        <p id="periodicaltitle">Periodical Title</p>
                     </h5>
                     </h5>
                     <br>
@@ -245,7 +245,7 @@ $(document).ready(function() {
         '<div class="col-md-2">' +
         '<div class="form-check">' +
         '<label for="inputNumberBooks1">Status</label>' +
-        '<input type="button" ' + (val.status == "0" ? 'value="Unverified"' : 'value="Verified"') + ' class="mt-4 btn btn-' + (val.status == "0" ? 'warning' : 'success') + '">' +
+        '<input type="button" ' + (val.status == "0" ? 'value="Unverified"' : 'value="Verified"') + ' class="btn btn-' + (val.status == "0" ? 'warning' : 'success') + '">' +
         '</div>' +
         '</div>' +
         '<div class="col-md-3">' +
