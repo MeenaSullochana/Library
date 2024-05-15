@@ -21,6 +21,11 @@
     <?php
         include "sub_admin/plugin/plugin_css.php";
     ?>
+    <style>
+        table.dataTable thead th {
+            text-transform: math-auto !important;
+        }
+    </style>
 </head>
 
 <body>
