@@ -26,8 +26,9 @@ use App\Models\Publisher;
 use Illuminate\Support\Facades\Session;
  
  use Illuminate\Support\Facades\Auth;
+ use App\Models\periodicalcopies;
 
-
+ 
 
  use Illuminate\Support\Facades\Notification;
 use App\Notifications\Member1detailNotification;
@@ -465,7 +466,37 @@ public function magazine_orderview($id){
    
 
   }
+  public function procurement_sampleperiodicalpending(){
+    $data1=Magazine::where('periodical_procurement_status','=',"6")->where('periodical_status','=',null)->get(); 
+     $data=[];
+     foreach($data1 as $key=>$val){
+         $bookcopies=periodicalcopies::where('periodicalid','=',$val->id)->first();
+         if($bookcopies != null){
+          $copies=  json_decode($bookcopies->copies);
+          $val->copies=$copies;
+          array_push($data,$val);
+         }
+          
+         }
+    
+    return view('sub_admin.procurement_sampleperiodicalpending')->with('data',$data); 
+}
+
+
+public function procurement_sampleperiodicalcomplete(){
+  $data1=Magazine::where('periodical_procurement_status','=',"1")->where('periodical_status','=',null)->get(); 
+   $data=[];
+   foreach($data1 as $key=>$val){
+       $bookcopies=periodicalcopies::where('periodicalid','=',$val->id)->first();
+       if($bookcopies != null){
+        $copies=  json_decode($bookcopies->copies);
+        $val->copies=$copies;
+        array_push($data,$val);
+       }
+       }
   
+  return view('sub_admin.procurement_sampleperiodicalcomplete')->with('data',$data); 
+}
 
 }
 

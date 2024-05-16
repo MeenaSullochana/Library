@@ -1519,17 +1519,23 @@
                             <span class="nav-text">User Management</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li class="menu-title ms-3">Book</li>
+                            <!-- <li class="menu-title ms-3"></li> -->
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Users </a>
+                            <ul aria-expanded="false">
+                            <!-- <li><a href="">Chat<span class="badge badge-danger badge-xs ms-1">NEW</span></a></li> -->
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher </a>
                                 <ul aria-expanded="false">
+                                    <!-- <li><a href="./user.html">Publisher List</a></li> -->
                                     <li><a href="/sub_admin/publisher_list">List Publisher</a></li>
                                     <li><a href="/sub_admin/publisher_active_list">Active Publisher</a></li>
                                     <li><a href="/sub_admin/publisher_inactive_list">Inactive Publisher</a></li>
-                                    <li><a href="/sub_admin/publisher_pending_list">Pending Publisher</a></li>
-                                    <li><a href="/sub_admin/publisher_reject_list">Reject Publisher</a></li>
+                                    <!-- <li><a href="publisher_pending_list">Pending Publisher</a></li>
+                                    <li><a href=" publisher_reject_list">Reject Publisher</a></li> -->
 
 
-                                  
+                                    <!-- <li><a href="./app-profile-2.html">Profile 2 <span class="badge badge-danger badge-xs ms-1">NEW</span></a></li>
+									<li><a href="./edit-profile.html">Edit Profile</a></li>
+									<li><a href="./post-details.html">Post Details</a></li> -->
                                 </ul>
                             </li>
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor</a>
@@ -1537,21 +1543,28 @@
                                     <li><a href="/sub_admin/distributor_list">List Distributor</a></li>
                                     <li><a href="/sub_admin/distributor_active_list">Active Distributor</a></li>
                                     <li><a href="/sub_admin/distributor_inactive_list">Inactive Distributor</a></li>
-                                    <li><a href="/sub_admin/distributor_pending_list">Pending Distributor</a></li>
-                                    <li><a href="/sub_admin/distributor_reject_list">Reject Distributor</a></li>
+                                    <!-- <li><a href="distributor_pending_list">Pending Distributor</a></li>
+                                    <li><a href="distributor_reject_list">Reject Distributor</a></li> -->
                                 </ul>
                             </li>
+                        
+
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher And
                                     Distributor</a>
                                 <ul aria-expanded="false">
                                     <li><a href="/sub_admin/publisher_and_dis_list"> List Pub & Dist</a></li>
                                     <li><a href="/sub_admin/publisher_and_dis_active_list">Active Pub & Dist</a></li>
                                     <li><a href="/sub_admin/publisher_and_dis_inactive_list">Inactive Pub & Dist</a></li>
-                                    <li><a href="/sub_admin/publisher_and_dis_pending_list">Pending Pub & Dist</a></li>
-                                    <li><a href="/sub_admin/publisher_and_dis_reject_list">Reject Pub & Dist</a></li>
+                                    <!-- <li><a href="publisher_and_dis_pending_list">Pending Pub & Dist</a></li>
+                                    <li><a href="publisher_and_dis_reject_list">Reject Pub & Dist</a></li> -->
                                 </ul>
                             </li>
-                            <li class="menu-title ms-3">Periodical</li>
+                            </ul>
+                            </li>
+
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Periodical Users </a>
+                            <ul aria-expanded="false">
+                         
                              <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher</a>
                                 <ul aria-expanded="false">
                                     <li><a href="/sub_admin/periodical_publisher_list">List Publisher</a></li>
@@ -1566,7 +1579,8 @@
                                     <li><a href="/sub_admin/periodical_distributor_inactive_list">Inactive Distributor</a></li>
                                 </ul>
                             </li>
-                        
+                            </ul>
+                            </li>
                         </ul>
                     </li>
                   
@@ -1579,9 +1593,9 @@
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
-                            <li><a href="member_list">List Reviewer </a></li>
-                            <li><a href="member_active">Active Reviewer </a></li>
-                            <li><a href="member_inactive">Inactive Reviewer </a></li>
+                            <li><a href="/sub_admin/member_list">List Reviewer </a></li>
+                            <li><a href="/sub_admin/member_active">Active Reviewer </a></li>
+                            <li><a href="/sub_admin/member_inactive">Inactive Reviewer </a></li>
                         </ul>
                     </li>
                     <li>
@@ -1591,20 +1605,32 @@
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
-                            <li><a href="library_list">List Library </a></li>
-                            <li><a href="library_active_list">Active Library </a></li>
-                            <li><a href="library_unactive_list">Inactive Library </a></li>
+                            <li><a href="/sub_admin/library_list">List Library </a></li>
+                            <li><a href="/sub_admin/library_active_list">Active Library </a></li>
+                            <li><a href="/sub_admin/library_unactive_list">Inactive Library </a></li>
                         </ul>
                     </li>
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-bookshelf"></i>
-                            <span class="nav-text">Book Sample Copies </span>
+                            <span class="nav-text">Sample Copies </span>
                         </a>
+                        <ul>
+                        <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book</a>
                         <ul aria-expanded="false">
-                            <li><a href="/sub_admin/procurement_samplebookpending">Sample Book Unreceive Copies </a></li>
-                            <li><a href="/sub_admin/procurement_samplebookcomplete">Sample Book Receive  Copies </a></li>
+                            <li><a href="/sub_admin/procurement_samplebookpending">Sample Book Unreceived Copies </a></li>
+                            <li><a href="/sub_admin/procurement_samplebookcomplete">Sample Book Received  Copies </a></li>
 
+                        </ul>
+                        </li>
+
+                        <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Periodical</a>
+                        <ul aria-expanded="false">
+                            <li><a href="/sub_admin/procurement_sampleperiodicalpending">Sample Periodical Unreceived Copies </a></li>
+                            <li><a href="/sub_admin/procurement_sampleperiodicalcomplete">Sample Periodical Received  Copies </a></li>
+
+                        </ul>
+                        </li>
                         </ul>
                     </li>
                     <li>
@@ -1613,12 +1639,10 @@
                             <span class="nav-text">Procurement Payment</span>
                         </a>
                         <ul aria-expanded="false">
-                            <!-- <li><a href="procur_book_list">Book List</a></li> -->
 
 
-                            <li><a href="/sub_admin/procurement_paymrnt">Payment List</a></li>
-                            <!-- <li><a href="procur_complete_list">Complete List</a></li>
-                            <li><a href="procur_reject_view">Unaccept list</a> </li> -->
+                            <li><a href="/sub_admin/procurement_payment">Book Payment List</a></li>
+                            <li><a href="/sub_admin/procur_periodical_payment">Periodical Payment List</a></li>
                         </ul>
                     </li>
                     <li>

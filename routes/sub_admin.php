@@ -197,10 +197,12 @@ Route::get('/magazineview',function(){
     }
 
 });
-// payment
-Route::get('/',function(){ return view('admin.payment_invoice');});
-Route::get('/payment_invoice/{id}',[PaymentController::class,'payment_invoice']);
 
+//Periodical
+Route::get('/procurement_sampleperiodicalpending',[MagazineController::class,'procurement_sampleperiodicalpending']);
+Route::get('/procurement_sampleperiodicalcomplete',[MagazineController::class,'procurement_sampleperiodicalcomplete']);
+
+// payment
 Route::get('/paymentinvoice',function(){
 
     $data = Session::get('paymrnt');
@@ -210,6 +212,23 @@ Route::get('/paymentinvoice',function(){
       }
  
   });
+ 
+ 
+  Route::get('/procurement_payment',function(){ return view('sub_admin.procurement_paymrnt');});
+ 
+  Route::get('/payment_invoice/{id}',[PaymentController::class,'payment_invoice']);
+  Route::get('/procur_periodical_payment',function(){ return view('sub_admin.procur_periodical_payment');});
+  Route::get('/payment_periodical_invoice/{id}',[PaymentController::class,'payment_periodical_invoice']);
+  Route::get('/periodical_paymentinvoice',function(){
+ 
+     $data = Session::get('paymrnt');
+       if($data !==null){
+  
+           return view('sub_admin.payment_periodical_invoice')->with("data",$data);
+       }
+  
+   });
+   Route::get('/exportexcelpayment/{id}',[SettingController::class,'exportexcelpayment']);
 
 // budget
 

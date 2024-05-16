@@ -23,6 +23,7 @@ use App\Models\Homepagebooks;
 use App\Models\Ordermagazine;
 use App\Models\MagazineCategory;
 
+
 use App\Models\Magazine;
 
 use File;
@@ -42,6 +43,7 @@ use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\PublisherDistributor;
 use App\Models\Librarian;
+use App\Models\Procurementpaymrnt;
 
 
 class SettingController extends Controller
@@ -1902,7 +1904,66 @@ public function reviewerbatchadd(Request $req){
    
    
      }   
-     
+     public function exportexcelpayment($type){
+  
+        $Procurementpaymrnt1 = Procurementpaymrnt::where('type',$type)->get();
+        $total = 0;
+        $finaldata = [];
+        $serialNumber = 1;
+        foreach ($Procurementpaymrnt1 as $val1) {
+       
+ 
+            $finaldata[] = [
+                'S.No' => $serialNumber++,
+                'User Name' => $val1->userName,
+                'User Type' => $val1->userTame,
+                'Amount' => $val1->amount,
+                "Total Book" => $val1->totalAmount / $val1->amount ,
+                'Total Amount' => $val1->totalAmount,
+                'Payment Status' =>$val1->paymentstatus,
+                
+            ];
+            $total =  $total + 1;
+        }
+        
+        $finaldata[] = [
+            'S.No'=> '',
+                'User Name'=> '',
+                'User Type'=> '',
+                'Amount' =>  '',
+                "Total Book"=> '',
+                'Total Amount' => '',
+                'Payment Status' => '',
+           
+        ];
+
+        $finaldata[] = [
+            'Total Amount' => '',
+                'User Name'=> '',
+                'User Type'=> '',
+                'Amount' => '',
+                "Total Book"=> '',
+                'Total Amount' => '',
+                'Address'=>$total,
+           
+        ];
+       
+    //  return $finaldata;
+        $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+        $csvContent .=  "S.No,User Name,User Type,Amount,Total Book,Total Amount,Payment Status\n"; 
+        foreach ($finaldata as $data) {
+            $csvContent .= '"' . implode('","', $data) . "\"\n";
+        }
+    
+        $headers = [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="paymentReport.csv"',
+        ];
+    
+        return response()->make($csvContent, 200, $headers);
+    
+    
+      } 
 }
 
 

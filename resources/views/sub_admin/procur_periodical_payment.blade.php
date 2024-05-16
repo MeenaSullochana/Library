@@ -52,17 +52,17 @@
                <div class="card-body">
                    <div class="d-flex align-items-center justify-content-between">
                        <h3 class="mb-0 bc-title">
-                           <b>Payment List</b>
+                           <b>Periodical Payment List</b>
                        </h3>
-                       <a class="btn btn-primary  btn-sm" href="member_create">
-                           <i class="fas fa-chevron-left"></i> Dashboard</a>
+                       <!-- <a class="btn btn-primary  btn-sm" href="member_create">
+                           <i class="fas fa-chevron-left"></i> Dashboard</a> -->
                    </div>
                </div>
            </div>
 
            <div class="col-xl-10 col-sm-6 mt-4 text-end">
                         
-                        <a href="/sub_admin/exportexcelpayment/Book" class="btn btn-info">
+                        <a href="/sub_admin/exportexcelpayment/Periodical" class="btn btn-info">
                             <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
                             Export Excel
                         </a>
@@ -71,7 +71,7 @@
             <div class="card">
                <div class="card-body">
                @php
-               $payment = DB::table('procurement_paymrnts')->where('type','Book')->get();
+                        $payment = DB::table('procurement_paymrnts')->where('type','Periodical')->get();
                @endphp
 
                   <div class="table-responsive">
@@ -83,7 +83,7 @@
                               <th>User Type</th>
                               <th>Invoice Number</th>
                               <th>Amount</th>
-                              <th>Total Book</th>
+                              <th>Total Periodical</th>
                               <th>Total Amount</th>
                               <th>Payment Status</th>
                               <th>Date</th>
@@ -103,7 +103,7 @@
                               <td> <i class="fa fa-inr"></i> {{$val->totalAmount}}</td>
                               <td>{{$val->paymentstatus}}</td>
                               <td>{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d ') }}</td>
-                              <td><a href="payment_invoice/{{$val->id}}"><i class="fa fa-eye p-2 text-primary"></i></a>
+                              <td><a href="payment_periodical_invoice/{{$val->id}}"><i class="fa fa-eye p-2 text-primary"></i></a>
 
                               </td>
                            </tr>

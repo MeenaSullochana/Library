@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use App\Models\Publisher;
 use App\Models\Distributor;
 use App\Models\PublisherDistributor;
+use App\Models\PeriodicalPublisher;
+use App\Models\PeriodicalDistributor;
 use App\Models\Specialcategories;
 use App\Models\Book;
 
@@ -195,9 +197,26 @@ foreach ($categoryCountsPerCategory as $category => &$countsPerMonth) {
    $activepubdistcount=count($activepubdist);
    $inactivepubdistcount=count($inactivepubdist);
 
+   //Periodical Users
+   $allperpub=PeriodicalPublisher::all();
+   $activeperpub=PeriodicalPublisher::where('status', '=', '1')->where('approved_status', '=', 'approve')->get();
+   $inactiveperpub=PeriodicalPublisher::where('status', '=', '0')->get();
+   $allperpubcount=count($allperpub);
+   $activeperpubcount=count($activeperpub);
+   $inactiveperpubcount=count($inactiveperpub);
+
+   $allperdist=PeriodicalDistributor::all();
+   $activeperdist=PeriodicalDistributor::where('status', '=', '1')->where('approved_status', '=', 'approve')->get();
+   $inactiveperdist=PeriodicalDistributor::where('status', '=', '0')->get();
+   $allperdistcount=count($allperdist);
+   $activeperdistcount=count($activeperdist);
+   $inactiveperdistcount=count($inactiveperdist);
+   
    return view('sub_admin.index',compact('allpub','activepub','inactivepub','allpubcount','activepubcount','inactivepubcount',
    'alldist','activedist','inactivedist', 'alldistcount','activedistcount','inactivedistcount',
-   'allpubdist','activepubdist','inactivepubdist','categoryCountsPerCategory', 'allpubdistcount','activepubdistcount','inactivepubdistcount')
+   'allpubdist','activepubdist','inactivepubdist','categoryCountsPerCategory', 'allpubdistcount','activepubdistcount','inactivepubdistcount',
+   'allperpub','activeperpub','inactiveperpub','allperpubcount','activeperpubcount','inactiveperpubcount','allperdist','activeperdist',
+   'inactiveperdist','allperdistcount','activeperdistcount','inactiveperdistcount')
    );
 }
 }

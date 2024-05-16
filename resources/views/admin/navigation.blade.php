@@ -1640,7 +1640,9 @@
                             <span class="nav-text">User Management</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li class="menu-title ms-3">Book</li>
+                            <!-- <li class="menu-title ms-3"></li> -->
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Users </a>
+                            <ul aria-expanded="false">
                             <!-- <li><a href="">Chat<span class="badge badge-danger badge-xs ms-1">NEW</span></a></li> -->
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher </a>
                                 <ul aria-expanded="false">
@@ -1648,8 +1650,8 @@
                                     <li><a href="publisher_list">List Publisher</a></li>
                                     <li><a href="publisher_active_list">Active Publisher</a></li>
                                     <li><a href="publisher_inactive_list">Inactive Publisher</a></li>
-                                    <li><a href="publisher_pending_list">Pending Publisher</a></li>
-                                    <li><a href=" publisher_reject_list">Reject Publisher</a></li>
+                                    <!-- <li><a href="publisher_pending_list">Pending Publisher</a></li>
+                                    <li><a href=" publisher_reject_list">Reject Publisher</a></li> -->
 
 
                                     <!-- <li><a href="./app-profile-2.html">Profile 2 <span class="badge badge-danger badge-xs ms-1">NEW</span></a></li>
@@ -1662,21 +1664,28 @@
                                     <li><a href="distributor_list">List Distributor</a></li>
                                     <li><a href="distributor_active_list">Active Distributor</a></li>
                                     <li><a href="distributor_inactive_list">Inactive Distributor</a></li>
-                                    <li><a href="distributor_pending_list">Pending Distributor</a></li>
-                                    <li><a href="distributor_reject_list">Reject Distributor</a></li>
+                                    <!-- <li><a href="distributor_pending_list">Pending Distributor</a></li>
+                                    <li><a href="distributor_reject_list">Reject Distributor</a></li> -->
                                 </ul>
                             </li>
+                        
+
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher And
                                     Distributor</a>
                                 <ul aria-expanded="false">
                                     <li><a href="publisher_and_dis_list"> List Pub & Dist</a></li>
                                     <li><a href="publisher_and_dis_active_list">Active Pub & Dist</a></li>
                                     <li><a href="publisher_and_dis_inactive_list">Inactive Pub & Dist</a></li>
-                                    <li><a href="publisher_and_dis_pending_list">Pending Pub & Dist</a></li>
-                                    <li><a href="publisher_and_dis_reject_list">Reject Pub & Dist</a></li>
+                                    <!-- <li><a href="publisher_and_dis_pending_list">Pending Pub & Dist</a></li>
+                                    <li><a href="publisher_and_dis_reject_list">Reject Pub & Dist</a></li> -->
                                 </ul>
                             </li>
-                            <li class="menu-title ms-3">Periodical</li>
+                            </ul>
+                            </li>
+
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Periodical Users </a>
+                            <ul aria-expanded="false">
+                         
                              <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Publisher</a>
                                 <ul aria-expanded="false">
                                     <li><a href="periodical_publisher_list">List Publisher</a></li>
@@ -1691,15 +1700,11 @@
                                     <li><a href="periodical_distributor_inactive_list">Inactive Distributor</a></li>
                                 </ul>
                             </li>
-                            {{-- <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Reviewer</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="reviewer_list">List Reviewer </a></li>
-                                    <li><a href="reviewer_active_list">Active Reviewer</a></li>
-                                    <li><a href="reviewer_inactive_list">Inactive Reviewer</a></li>
-                                </ul>
-                            </li> --}}
+                            </ul>
+                            </li>
                         </ul>
                     </li>
+                    
                     <!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <div class="menu-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
