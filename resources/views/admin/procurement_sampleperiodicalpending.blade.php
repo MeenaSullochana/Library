@@ -227,7 +227,7 @@ $(document).ready(function() {
 
         // Loop through each copy in the 'copies' array
         copies.forEach(function(val) {
-            var assetUrl = '<?php echo asset("Books/copies/") ?>' + '/' + val.profileImage;
+            var assetUrl = '<?php echo asset("Magazine/copies/") ?>' + '/' + val.profileImage;
 
     content += '<div class="row">' +
         '<div class="col-md-4">' +

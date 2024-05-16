@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                            <b>Procurement Copies Received  Books List</b>
+                            <b>Procurement Copies Not Received  Periodical List</b>
                             </h3>
 
                         </div>
@@ -78,8 +78,9 @@
                                             <tr role="row">
 
                                                 <th>S.No</th>
-                                                <th>Book ID</th>
+                                               
                                                 <th>Title</th>
+                                                <th>RNI</th>
                                                 <th>Issued Status</th>
                                                 <th> Action</th>
                                             </tr>
@@ -89,14 +90,14 @@
                                             <tr role="row" class="odd">
 
                                                 <td data-label="S/No">{{$loop->index+1}}</td>
-                                                <td data-label="Book ID">{{$val->product_code}}</td>
+                                              
                                                 <td style="white-space:normal;" data-label="Title">
                                                     <h6><a class="text-left"
-                                                            href="/sub_admin/book_manage_view/{{$val->id}}">{{$val->book_title}}</a>
+                                                            href="/sub_admin/book_manage_view/{{$val->id}}">{{$val->title}}</a>
                                                     </h6>
-                                                    <span class="text-left">{{$val->subtitle}}</span>
+                                                    
                                                 </td>
-
+                                                <td data-label="Book ID">{{$val->rni_details}}</td>             
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary text-white openModal"
                                                         data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
@@ -104,7 +105,7 @@
                                                 </td>
                                                 <td data-label="control">
 
-                                                    <a href="/sub_admin/book_manage_view/{{$val->id}}"
+                                                    <a href="/sub_admin/periodical_manage_view/{{$val->id}}"
                                                         class="btn btn-success shadow btn-xs sharp me-1">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
@@ -226,7 +227,7 @@ $(document).ready(function() {
 
         // Loop through each copy in the 'copies' array
         copies.forEach(function(val) {
-            var assetUrl = '<?php echo asset("Books/copies/") ?>' + '/' + val.profileImage;
+            var assetUrl = '<?php echo asset("Magazine/copies/") ?>' + '/' + val.profileImage;
 
     content += '<div class="row">' +
         '<div class="col-md-4">' +

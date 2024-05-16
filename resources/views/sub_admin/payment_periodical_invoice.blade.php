@@ -98,8 +98,8 @@
                                         <thead>
                                             <tr>
                                                 <th class="center">S.No</th>
-                                                <th>Book Name</th>
-                                                <th>Book Id</th>
+                                                <th>Periodical Name</th>
+                                                <th>Periodicity</th>
                                                 <th class="right">amount</th>
                                                 <th class="center">Qty</th>
                                                 <th class="right">Total Amount</th>
@@ -107,11 +107,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($data->bookdata as $val)
+                                        @foreach($data->periodical as $val)
     <tr>
         <td class="center">{{$loop->index+1}}</td>
-        <td class="left strong">{{$val['bookname']}}</td>
-        <td class="left">{{$val['booknum']}}</td>
+        <td class="left strong">{{$val['periodicalname']}}</td>
+        <td class="left">{{$val['periodical']}}</td>
        
         <td class="right"><i class="fa fa-inr"></i>{{$data->amount}}</td>
         <td class="right">{{$data->totalAmount /   $data->amount}}</td>
@@ -151,7 +151,7 @@
                                 <div class="row">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <a class="btn btn-primary btn-sm" href="procurement_payment"><i class="fas fa-arrow-left"></i> Back</a>
+                                            <a class="btn btn-primary btn-sm" href="procur_periodical_payment"><i class="fas fa-arrow-left"></i> Back</a>
                                         </div>
                                     </div>
                                 </div>

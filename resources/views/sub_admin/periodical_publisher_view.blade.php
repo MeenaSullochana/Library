@@ -638,27 +638,13 @@
         include "sub_admin/plugin/plugin_js.php";
     ?>
     <script>
-        $(document).ready(function() {
-            $('#myTable').DataTable({
-                "processing": true,
-                "serverSide": true,
+    $(document).ready(function() {
+        $('#myTable').DataTable();
 
-            });
-        });
-        $(document).ready(function() {
-            $('#awarded-titles').DataTable({
-                "processing": true,
-                "serverSide": true,
+        $('#awarded1').DataTable();
 
-            });
-        });
-        $(document).ready(function() {
-            $('#subsidiary-pub').DataTable({
-                "processing": true,
-                "serverSide": true,
-
-            });
-        });
+        $('#subsidiary-pub').DataTable();
+    });
     </script>
 </body>
 
