@@ -93,7 +93,7 @@
                                               
                                                 <td style="white-space:normal;" data-label="Title">
                                                     <h6><a class="text-left"
-                                                            href="/admin/book_manage_view/{{$val->id}}">{{$val->title}}</a>
+                                                            href="/admin/periodical_manage_view/{{$val->id}}">{{$val->title}}</a>
                                                     </h6>
                                                     
                                                 </td>
@@ -105,7 +105,7 @@
                                                 </td>
                                                 <td data-label="control">
 
-                                                    <a href="/admin/book_manage_view/{{$val->id}}"
+                                                    <a href="/admin/periodical_manage_view/{{$val->id}}"
                                                         class="btn btn-success shadow btn-xs sharp me-1">
                                                         <i class="fa fa-eye"></i>
                                                     </a>
