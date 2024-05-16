@@ -2293,6 +2293,8 @@
                             <li><a href="report_download_pub_revi">Publisher & Reviewer Report Download</a></li>
                             <li><a href="librarian_password_report">Librarian Change Password Report</a></li>
                             <li><a href="report_download_oedermagazine">Report Download Oedermagazine</a></li> 
+                            <li><a href="periodical_publisher_report">Report Download Periodical Publisher</a></li> 
+                            <li><a href="periodical_distributor_report">Report Download Periodical Distributor</a></li> 
 
                             
                         </ul>
