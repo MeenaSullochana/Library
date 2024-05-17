@@ -55,8 +55,8 @@
                         <h3 class="mb-0 bc-title">
                            <b>All Books List</b>
                         </h3>
-                        <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
-                        <i class="fas fa-plus"></i> Add Book</a>
+                        {{-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
+                        <i class="fas fa-plus"></i> Add Book</a> --}}
                         <!-- <nav aria-label="breadcrumb">
                            <ol class="breadcrumb">
                                <li class="breadcrumb-item"><a href="allocated_location_view.php">View Allocated Location</a></li>
@@ -123,9 +123,9 @@
                               </div>
                            </div>
                         </div>
-                        <div class="card">
+                        <div class="card p-3">
                            <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
-                              <table id="empoloyees-tbl3" class="table dataTable no-footer" role="grid"
+                              <table id="example4" class="table dataTable no-footer" role="grid"
                                  aria-describedby="empoloyees-tbl3_info">
                                  <thead>
                                     <tr role="row">

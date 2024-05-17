@@ -63,7 +63,9 @@
 									<div class="col-xl-2 col-xxl-3 col-lg-3">
 										<div class="email-left-box dz-scroll pt-3 ps-0" id="email-left">
 											<div class="mail-list rounded ">
-												
+												<a href="/sub_admin/magazinebudget_add" class="list-group-item">
+													<i class="fa-regular fa-envelope align-middle"></i>Create Library
+                                                    Magazine Budget </a>
 												<a href="/sub_admin/magazinebudget_list" class="list-group-item ">
 													<i class="fa-regular fa-paper-plane align-middle"></i>Library
                                                     Magazine Budget List</a>
@@ -128,9 +130,9 @@
 																</div>
 																<div class="read-content-body">
 
-																	<div class="card ms-2">
+																	<div class="card ms-2 p-2">
 																		<h3 class="text-gray">Total Amount</h3>
-																		<p class="fw-bold">Rs {{$data->totalAmount}}</p>
+																		<p class="fw-bold"><i class="fa fa-inr"></i> {{$data->totalAmount}}</p>
 																	</div>
 																	<h5 class="mb-2"><b>Description</b></h5>
 							<p style="text-indent: 34px;" class="mb-2">
@@ -144,11 +146,25 @@
 																	<section class="cart-item-leval text-center">
 																		<div class="container">
 																			<div class="row align-items-center">
-																				@foreach($data->CategorieAmount1 as $val)
+																				{{-- @foreach($data->CategorieAmount1 as $val)
 																				<div class="item col-md-4">
 																					<p>{{$val->name}}</p>
 																					<div class="pie animate no-round" style="--p:{{round($val->amount/$data->totalAmount*100)}}">{{round($val->amount/$data->totalAmount*100)}} %</div>
 																					<p clas="fw-bold">Rs{{$val->amount}}</p>
+																				</div>
+																				@endforeach --}}
+																				@foreach($data->CategorieAmount1 as $val)
+																				<div class="col-xl-4 col-xxl-4 col-sm-6">
+																					<div class="card">
+																						<div style="justify-content: space-around !important;"	 class="card-header">
+																							<h4 class="card-title ca-name" >{{ $val->name }}</h4>
+																						</div>
+																						<div class="card-body text-center">
+																							<div class="pie animate no-round" style="--p:{{round($val->amount/$data->totalAmount*100)}}">{{round($val->amount/$data->totalAmount*100)}} %</div>
+																							<p clas="fw-bold text-center"><i class="fa fa-inr" aria-hidden="true"></i>
+																								<b>{{ $val->amount }}</b></p>
+																						</div>
+																					</div>
 																				</div>
 																				@endforeach
 																				<!-- <div class="item col-md-4">
@@ -262,8 +278,7 @@
 	.pie:before {
 		inset: 0;
 		background:
-			radial-gradient(farthest-side, var(--c) 98%, #0000) top/var(--b) var(--b) no-repeat,
-			conic-gradient(var(--c) calc(var(--p)*1%), #0000 0);
+		radial-gradient(farthest-side, var(--c) 98%, #0000) top / var(--b) var(--b) no-repeat, conic-gradient(var(--c) calc(var(--p)* 1%), #12121224 0);
 		-webkit-mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
 		mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
 	}
@@ -273,7 +288,10 @@
 		background: var(--c);
 		transform: rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
 	}
-
+	.read-wapper {
+    height: 100%;
+    padding: 0 1.25rem;
+	}
 	.animate {
 		animation: p 1s .5s both;
 	}
