@@ -99,7 +99,7 @@
 
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary text-white openModal"
-                                                        data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
+                                                        data-title="{{$val->title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
                                                         id="openModal">View</a>
                                                 </td>
                                                 <td data-label="control">
@@ -162,7 +162,7 @@
                     <input type="hidden" id="hiddenId">
                     <input type="hidden" id="hiddentitle">
                     <h5 class="modal-title">
-                        <p id="booktitle">Book Title</p>
+                        <p id="booktitle">Periodical Title</p>
                     </h5>
                     </h5>
                     <br>
@@ -220,13 +220,13 @@ $(document).ready(function() {
         var title = $(this).data('title');
         var id = $(this).data('id');
         var copies = $(this).data('copies');
-        $('#booktitle').text('Book Title: ' + title);
+        $('#booktitle').text('Periodical Title : ' + title);
        
         var content = ""; // Initialize an empty string to store the generated HTML content
 
         // Loop through each copy in the 'copies' array
         copies.forEach(function(val) {
-            var assetUrl = '<?php echo asset("Books/copies/") ?>' + '/' + val.profileImage;
+            var assetUrl = '<?php echo asset("Magazine/copies/") ?>' + '/' + val.profileImage;
 
     content += '<div class="row">' +
         '<div class="col-md-4">' +
