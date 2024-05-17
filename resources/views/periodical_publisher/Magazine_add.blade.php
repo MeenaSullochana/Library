@@ -919,14 +919,14 @@
                                     <section class="bg-light-new mt-5">
                                         <div class="row p-3">
                                             <div class="col-md-2">
-                                                <h4>Sample Copy In PDF 3 Copies (Latest issue)</h4>
+                                                <h4>Three Most Recent Issues. (full pdf)</h4>
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Sample PDF One<span class="text-danger"></span></label>
+                                                                for="validationCustomUsername">Issue 1<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
                                                                 <input type="file" name="pdf_content_one" id="pdf_content_one" accept="application/pdf, application/vnd.ms-excel" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
@@ -936,7 +936,7 @@
                                                     <div class="col-md-4">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Sample PDF Two<span class="text-danger"></span></label>
+                                                                for="validationCustomUsername">Issue 2<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
                                                                 <input type="file" name="pdf_content_two" id="pdf_content_two" accept="application/pdf, application/vnd.ms-excel" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>
@@ -946,7 +946,7 @@
                                                     <div class="col-md-4">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
-                                                                for="validationCustomUsername">Sample PDF Three<span class="text-danger"></span></label>
+                                                                for="validationCustomUsername">Issue 3<span class="text-danger"></span></label>
                                                             <div class="small-12 medium-2 large-2 columns">
                                                                 <input type="file" name="pdf_content_three" id="pdf_content_three" accept="application/pdf, application/vnd.ms-excel" class="form-control" aria-label="file example" required>
                                                                 <div class="invalid-feedback">Please upload PDF</div>

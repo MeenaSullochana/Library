@@ -510,7 +510,7 @@
                                                 class="avatar avatar-md rounded-circle" alt="author image">
                                         </div>
 
-                                        <div class="col-md-8">
+                                        <div class="col-md-auto">
 
                                             <div class="author_description">
                                                 <h3 class="mb-0 ms-2">{{$data->editor_name}}</h3>

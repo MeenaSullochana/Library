@@ -1042,7 +1042,7 @@
       <h5 class="mb-0 ms-2">{{ $data->author_name }}</h5>	<br>
                         <p>{{ strip_tags($data->author_description) }}</p><br>
      </div> -->
-                                        <div class="col-md-8">
+                                        <div class="col-md-auto">
 
                                             <div class="author_description">
                                                 <h3 class="mb-0 ms-2">{{ $data->author_name }}</h3>

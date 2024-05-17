@@ -1141,26 +1141,68 @@
                         <section class="bg-light-new">
                             <div class="row p-3">
                                 <div class="col-md-2">
-                                    <h4>Sample Copy In PDF 3 Copies (Latest issue)</h4>
+                                    <h4>Three Most Recent Issues. (full pdf)</h4>
                                 </div>
                                 <div class="col-md-10">
                                     <div class="row">
                                         <div class="col-md-4">
+                                            <div class="basic-form">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label text-black"
+                                                        for="validationCustomUsername">PDF Upload<span
+                                                            class="text-danger"></span></label>
+                                                    <div class="small-12 medium-2 large-2 columns">
+                                                        <input type="file"
+                                                            accept="application/pdf,application/vnd.ms-excel"
+                                                            name="" id="" class="form-control"
+                                                            aria-label="file example" required>
+                                                        <div class="invalid-feedback">Please upload Most Recent Issues pdf</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <button type="button" class="btn btn-primary"
                                                         data-bs-toggle="modal" data-bs-target="#exampleModalone">
-                                                        Sample PDF One
+                                                       View Issue 1
                                             </button>
                                         </div>
                                         <div class="col-md-4">
+                                            <div class="basic-form">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label text-black"
+                                                        for="validationCustomUsername">PDF Upload<span
+                                                            class="text-danger"></span></label>
+                                                    <div class="small-12 medium-2 large-2 columns">
+                                                        <input type="file"
+                                                            accept="application/pdf,application/vnd.ms-excel"
+                                                            name="" id="" class="form-control"
+                                                            aria-label="file example" required>
+                                                        <div class="invalid-feedback">Please upload Most Recent Issues pdf</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <button type="button" class="btn btn-primary"
                                                         data-bs-toggle="modal" data-bs-target="#exampleModaltwo">
-                                                        Sample PDF Two
+                                                        View Issue 2
                                                     </button>
                                         </div>
                                         <div class="col-md-4">
+                                            <div class="basic-form">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label text-black"
+                                                        for="validationCustomUsername">PDF Upload<span
+                                                            class="text-danger"></span></label>
+                                                    <div class="small-12 medium-2 large-2 columns">
+                                                        <input type="file"
+                                                            accept="application/pdf,application/vnd.ms-excel"
+                                                            name="" id="" class="form-control"
+                                                            aria-label="file example" required>
+                                                        <div class="invalid-feedback">Please upload Most Recent Issues pdf</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <button type="button" class="btn btn-primary"
                                                         data-bs-toggle="modal" data-bs-target="#exampleModalthree">
-                                                        Sample PDF Three
+                                                        View Issue 3
                                                     </button>
                                         </div>
                                     </div>
@@ -1273,12 +1315,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="file" id="pdf-upload" accept="application/pdf" />
-                    <button id="zoom-in">Zoom In</button>
-                    <div id="zoom-percent">60</div>
-                    <button id="zoom-out">Zoom Out</button>
-                    <button id="zoom-reset">Reset Zoom</button>
-                    <div id="pages"></div>
+                    <iframe src="" style="width:100%; height:auto;" frameborder="0"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1294,12 +1331,11 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sample PDF One</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Most Recent Issues pdf view</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="file" id="fileInput" accept=".pdf">
-                    <div class="w-100" id="preview"></div>
+                    <iframe src="" style="width:100%; height:auto;" frameborder="0"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1316,12 +1352,11 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sample PDF Two</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Most Recent Issues pdf view</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="file" id="fileInputtwo" accept=".pdf">
-                    <div class="w-100" id="previewtwo"></div>
+                    <iframe src="" style="width:100%; height:auto;" frameborder="0"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1338,12 +1373,11 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sample PDF Three</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Most Recent Issues pdf view</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="file" id="fileInputthree" accept=".pdf">
-                    <div class="w-100" id="previewthree"></div>
+                    <iframe src="" style="width:100%; height:auto;" frameborder="0"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1399,114 +1433,6 @@
                 });
             }
         });
-
-        // sample pdf view code start
-        // sample pdf view code start one 
-        $(document).ready(function() {
-            $('#fileInput').on('change', function(e) {
-            var file = e.target.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                var buffer = e.target.result;
-                // Load PDF file
-                pdfjsLib.getDocument({data: new Uint8Array(buffer)}).promise.then(function(pdf) {
-                    // Render the first page
-                    pdf.getPage(1).then(function(page) {
-                    var scale = 1.5;
-                    var viewport = page.getViewport({scale: scale});
-
-                    var canvas = document.createElement('canvas');
-                    var context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-
-                    var renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-
-                    page.render(renderContext).promise.then(function() {
-                        $('#preview').html(canvas);
-                    });
-                    });
-                });
-                };
-                reader.readAsArrayBuffer(file);
-            }
-            });
-        });
-        // sample pdf view code start two 
-        $(document).ready(function() {
-            $('#fileInputtwo').on('change', function(e) {
-            var file = e.target.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                var buffer = e.target.result;
-                // Load PDF file
-                pdfjsLib.getDocument({data: new Uint8Array(buffer)}).promise.then(function(pdf) {
-                    // Render the first page
-                    pdf.getPage(1).then(function(page) {
-                    var scale = 1.5;
-                    var viewport = page.getViewport({scale: scale});
-
-                    var canvas = document.createElement('canvas');
-                    var context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-
-                    var renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-
-                    page.render(renderContext).promise.then(function() {
-                        $('#previewtwo').html(canvas);
-                    });
-                    });
-                });
-                };
-                reader.readAsArrayBuffer(file);
-            }
-            });
-        });
-        // sample pdf view code start three 
-        $(document).ready(function() {
-            $('#fileInputthree').on('change', function(e) {
-            var file = e.target.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                var buffer = e.target.result;
-                // Load PDF file
-                pdfjsLib.getDocument({data: new Uint8Array(buffer)}).promise.then(function(pdf) {
-                    // Render the first page
-                    pdf.getPage(1).then(function(page) {
-                    var scale = 1.5;
-                    var viewport = page.getViewport({scale: scale});
-
-                    var canvas = document.createElement('canvas');
-                    var context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-
-                    var renderContext = {
-                        canvasContext: context,
-                        viewport: viewport
-                    };
-
-                    page.render(renderContext).promise.then(function() {
-                        $('#previewthree').html(canvas);
-                    });
-                    });
-                });
-                };
-                reader.readAsArrayBuffer(file);
-            }
-            });
-        });
-        // sample pdf view end start
     </script>
     {{-- RNI PROOF CODE --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"></script>

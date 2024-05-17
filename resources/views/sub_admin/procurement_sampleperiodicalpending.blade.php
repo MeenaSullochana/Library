@@ -221,7 +221,7 @@ $(document).ready(function() {
         var title = $(this).data('title');
         var id = $(this).data('id');
         var copies = $(this).data('copies');
-        $('#booktitle').text('Book Title: ' + title);
+        $('#booktitle').text('Book Title ' + title);
        
         var content = ""; // Initialize an empty string to store the generated HTML content
 
@@ -245,7 +245,7 @@ $(document).ready(function() {
         '<div class="col-md-2">' +
         '<div class="form-check">' +
         '<label for="inputNumberBooks1">Status</label>' +
-        '<input type="button" ' + (val.status == "0" ? 'value="Unverified"' : 'value="Verified"') + ' class="mt-4 btn btn-' + (val.status == "0" ? 'warning' : 'success') + '">' +
+        '<input type="button" ' + (val.status == "0" ? 'value="Unverified"' : 'value="Verified"') + ' class="btn btn-' + (val.status == "0" ? 'warning' : 'success') + '">' +
         '</div>' +
         '</div>' +
         '<div class="col-md-3">' +

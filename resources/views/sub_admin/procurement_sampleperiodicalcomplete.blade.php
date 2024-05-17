@@ -163,7 +163,7 @@
                     <input type="hidden" id="hiddenId">
                     <input type="hidden" id="hiddentitle">
                     <h5 class="modal-title">
-                        <p id="booktitle">Book Title:</p>
+                        <p id="booktitle">Book Title</p>
                     </h5>
                     </h5>
                     <br>
@@ -245,7 +245,7 @@ $(document).ready(function() {
         '<div class="col-md-2">' +
         '<div class="form-check">' +
         '<label for="inputNumberBooks1">Status</label>' +
-        '<input type="button" ' + (val.status == "0" ? 'value="Unverified"' : 'value="Verified"') + ' class="mt-4 btn btn-' + (val.status == "0" ? 'warning' : 'success') + '">' +
+        '<input type="button" ' + (val.status == "0" ? 'value="Unverified"' : 'value="Verified"') + ' class=" btn btn-' + (val.status == "0" ? 'warning' : 'success') + '">' +
         '</div>' +
         '</div>' +
         '<div class="col-md-3">' +

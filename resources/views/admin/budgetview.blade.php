@@ -127,9 +127,9 @@
 																</div>
 																<div class="read-content-body">
 
-																	<div class="card ms-2">
+																	<div class="card ms-2 p-2">
 																		<h3 class="text-gray">Total Amount</h3>
-																		<p class="fw-bold">Rs {{$data->totalAmount}}</p>
+																		<p class="fw-bold"><i class="fa fa-inr" aria-hidden="true"></i>  {{$data->totalAmount}}</p>
 																	</div>
 																	<h3 class="text-gray">Categorie Amount</h3>
 																	<section class="cart-item-leval text-center">
@@ -139,7 +139,7 @@
 																				<div class="item col-md-4">
 																					<p>{{$val->name}}</p>
 																					<div class="pie animate no-round" style="--p:{{round($val->amount/$data->totalAmount*100)}}">{{round($val->amount/$data->totalAmount*100)}} %</div>
-																					<p clas="fw-bold">Rs{{$val->amount}}</p>
+																					<p clas="fw-bold"><i class="fa fa-inr" aria-hidden="true"></i> {{$val->amount}}</p>
 																				</div>
 																				@endforeach
 																				<!-- <div class="item col-md-4">
@@ -171,10 +171,10 @@
 																		</div>
 																	</section>
 																	<p class="mb-2"><strong>Description</strong>
-																	<p class="mb-2">{{$data->description}}
+																	<p style="text-indent: 25px;" class="mb-2">{{$data->description}}
 																	</p>
 																	<h5 class="pt-3">Kind Regards</h5>
-																	<p>Mr {{auth('admin')->user()->name}}</p>
+																	<p style="text-indent: 25px;"> {{auth('admin')->user()->name}}</p>
 																	<hr>
 																</div>
 															</div>
@@ -258,8 +258,7 @@
 	.pie:before {
 		inset: 0;
 		background:
-			radial-gradient(farthest-side, var(--c) 98%, #0000) top/var(--b) var(--b) no-repeat,
-			conic-gradient(var(--c) calc(var(--p)*1%), #0000 0);
+		radial-gradient(farthest-side, var(--c) 98%, #0000) top / var(--b) var(--b) no-repeat, conic-gradient(var(--c) calc(var(--p)* 1%), #0000003d 0);
 		-webkit-mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
 		mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
 	}
