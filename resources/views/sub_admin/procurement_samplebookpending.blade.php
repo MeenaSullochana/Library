@@ -220,7 +220,7 @@ $(document).ready(function() {
         var title = $(this).data('title');
         var id = $(this).data('id');
         var copies = $(this).data('copies');
-        $('#booktitle').text('Book Title: ' + title);
+        $('#booktitle').text('Book Title : ' + title);
        
         var content = ""; // Initialize an empty string to store the generated HTML content
 

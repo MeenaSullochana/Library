@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                            <b>Procurement Copies Not Received  Periodical List</b>
+                            <b>Procurement Copies Received Periodical List</b>
                             </h3>
 
                         </div>
@@ -101,7 +101,7 @@
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary text-white openModal"
                                                         data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
-                                                        id="openModal">Send Book Copies</a>
+                                                        id="openModal">View</a>
                                                 </td>
                                                 <td data-label="control">
 
@@ -221,7 +221,7 @@ $(document).ready(function() {
         var title = $(this).data('title');
         var id = $(this).data('id');
         var copies = $(this).data('copies');
-        $('#booktitle').text('Book Title: ' + title);
+        $('#booktitle').text('Book Title : ' + title);
        
         var content = ""; // Initialize an empty string to store the generated HTML content
 
