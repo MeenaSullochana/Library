@@ -131,7 +131,7 @@
 
 
                                                                             <p class="read-content-email">
-                                                                            {{$data->message}}</p>
+                                                                            {!!$data->message!!}</p>
 
 
 

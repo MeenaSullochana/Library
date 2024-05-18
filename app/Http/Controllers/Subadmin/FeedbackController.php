@@ -11,6 +11,8 @@ use App\Models\ApplicationApply;
 use App\Models\Distributor;
 use App\Models\Librarian;
 use App\Models\Reviewer;
+use App\Models\PeriodicalPublisher;
+use App\Models\PeriodicalDistributor;
 
 
 use App\Models\PublisherDistributor; 
@@ -159,4 +161,65 @@ class FeedbackController extends Controller
     
   }
   
+
+
+  public function  feedback_periodical_publisher(){
+    $feedback=Feedback::where('userType','=','periodical_publisher')->get();
+    $data=[];
+    foreach($feedback as $key=>$val){
+   $PeriodicalPublisher=PeriodicalPublisher::where('id','=',$val->userId)->first();
+    $val->firstname=$PeriodicalPublisher->name;
+    $val->email=$PeriodicalPublisher->email;
+    $val->phone=$PeriodicalPublisher->mobileNumber;
+    $feedback->image=$PeriodicalPublisher->profileImage;
+    array_push($data,$val);
+    }
+    // return $data;
+    return view('sub_admin/feedback_periodical_publisher')->with('data',$data);  
+  }
+
+  
+  public function  feedback_periodicalpublisher($id){
+    $feedback=Feedback::where('id','=',$id)->first();
+     $PeriodicalPublisher=PeriodicalPublisher::where('id','=',$feedback->userId)->first();
+    $feedback->firstname=$PeriodicalPublisher->name;
+    $feedback->image=$PeriodicalPublisher->profileImage;
+   
+    return redirect('/sub_admin/periodicalpublisher')->with('feedback',$feedback); 
+  
+    
+  }
+  
+
+
+  public function  feedback_periodical_distributor(){
+    $feedback=Feedback::where('userType','=','periodical_distributor')->get();
+    $data=[];
+    foreach($feedback as $key=>$val){
+   $PeriodicalDistributor=PeriodicalDistributor::where('id','=',$val->userId)->first();
+    $val->firstname=$PeriodicalDistributor->name;
+    $val->email=$PeriodicalDistributor->email;
+    $val->phone=$PeriodicalDistributor->mobileNumber;
+    $feedback->image=$PeriodicalDistributor->profileImage;
+    array_push($data,$val);
+    }
+    // return $data;
+    return view('sub_admin/feedback_periodical_distributor')->with('data',$data);  
+  }
+  public function  feedback_periodicaldistributor($id){
+    $feedback=Feedback::where('id','=',$id)->first();
+     $PeriodicalDistributor=PeriodicalDistributor::where('id','=',$feedback->userId)->first();
+    $feedback->firstname=$PeriodicalDistributor->name;
+    $feedback->image=$PeriodicalDistributor->profileImage;
+   
+    return redirect('/sub_admin/periodicaldistributor')->with('feedback',$feedback); 
+  
+    
+  }
+
+
+
+
+
+
 }

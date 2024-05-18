@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\PublisherAndDistributor;
+namespace App\Http\Controllers\PeriodicalPublisher;
 use App\Http\Controllers\Controller;
 use File;
 use Illuminate\Http\Request;
@@ -20,13 +20,14 @@ use Illuminate\Support\Facades\Hash;
 class notificationController extends Controller
 {
     public function notifi(){
-      $id=auth('publisher_distributor')->user()->id;
+      $id=auth('periodical_publisher')->user()->id;
+    
          $notification=Notifications::where('to','=',$id)->orderBy('created_at','DESC')->get();
          $notification1=Notifications::where('to','=',$id)->where('status','=','unread')->get();
          $count=count($notification1);
          $data=[];
          foreach($notification as $key=>$val){
-               if($val->type == "publisher_distributor"){
+               if($val->type == "periodical_publisher"){
                 $Admin=Admin::find($val->from);
               
                 if($Admin !=null){
@@ -75,13 +76,14 @@ class notificationController extends Controller
                 'record' =>  $data1,
                 'count' => $count
             ];
+      
             return response()->json($data);
          }
 
 
          public function notificationstatus(Request $req){
            
-          $id=auth('publisher_distributor')->user()->id;
+          $id=auth('periodical_publisher')->user()->id;
           $notification1=Notifications::where('to','=',$id)->where('status','=','unread')->get();
           foreach($notification1 as $key=>$val){
                $noti= Notifications::find($val->id);
@@ -105,7 +107,7 @@ class notificationController extends Controller
              $notification1->firstName=$Admin->name;
     
             \Session::put('notification1', $notification1);
-             return redirect('publisher_and_distributor/notificationview');    
+             return redirect('periodical_publisher/notificationview');    
        
          }
 

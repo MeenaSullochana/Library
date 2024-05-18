@@ -124,7 +124,7 @@
                                                  </li>
                                             </ul>
                                         </div>
-                                        <a class="all-notification" href="javascript:void(0);">See all notifications <i
+										<a class="all-notification" id="notificationLink">See all notifications <i
                                                 class="ti-arrow-end"></i></a>
                                     </div>
                                 </li>
@@ -259,7 +259,7 @@
 
 														<span class="ms-2">Change Password </span>
 													</a>
-													 <a href="/periodical_publisher/publisher_notification" class="dropdown-item ai-icon ">
+													 <a href="/periodical_publisher/notification" class="dropdown-item ai-icon ">
 														<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 															<path fill-rule="evenodd" clip-rule="evenodd" d="M12 17.8476C17.6392 17.8476 20.2481 17.1242 20.5 14.2205C20.5 11.3188 18.6812 11.5054 18.6812 7.94511C18.6812 5.16414 16.0452 2 12 2C7.95477 2 5.31885 5.16414 5.31885 7.94511C5.31885 11.5054 3.5 11.3188 3.5 14.2205C3.75295 17.1352 6.36177 17.8476 12 17.8476Z" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 															<path d="M14.3888 20.8572C13.0247 22.372 10.8967 22.3899 9.51947 20.8572" stroke="var(--primary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -366,7 +366,7 @@
             Sidebar end
         ***********************************-->
 
-  <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 
 
@@ -379,7 +379,7 @@ $(document).ready(function() {
         });
 
         $.ajax({
-            url: '/publisher/notifications',
+            url: '/periodical_publisher/notifications',
             type: 'GET',
             success: function(response) {
                 console.log(response);
@@ -420,7 +420,7 @@ $(document).ready(function() {
           $.ajax({
              type:"get",
 
-             url: "/publisher/notificationstatus",
+             url: "/periodical_publisher/notificationstatus",
              success: function(response) {
                 console.log(response);
            
@@ -430,4 +430,13 @@ $(document).ready(function() {
 
        });
 
-      </script> -->
+      </script>
+		<script>
+
+$(document).ready(function() {
+    $(".all-notification").click(function() {
+        window.location.href = "/periodical_publisher/notification"; 
+    });
+});
+
+</script>

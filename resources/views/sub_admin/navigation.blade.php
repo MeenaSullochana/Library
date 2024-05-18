@@ -1775,6 +1775,8 @@
                             <li><a href="/sub_admin/feedback_publisher_distributor_list">Pub & Dist Feedback</a></li>
                             <li><a href="/sub_admin/feedback_librarian_list">Librarian Feedback</a></li>
                             <li><a href="/sub_admin/feedback_reviewer_list">Reviewer Feedback</a></li>
+                            <li><a href="/sub_admin/feedback_periodical_publisher">Periodical Publisher Feedback</a></li>
+                            <li><a href="/sub_admin/feedback_periodical_distributor">Periodical Distributor Feedback</a></li>
 
 
                             <li><a href="/sub_admin/feedback_public_list">Public Feedback</a></li>
@@ -1794,6 +1796,8 @@
                             <li><a href="/sub_admin/report_download_order_districtmagazine">Report Download Order District Magazine</a></li> 
                             <li><a href="/sub_admin/report_download_nonoeder_magazine">Report Download  Non Order Magazine</a></li> 
                             <li><a href="/sub_admin/report_download_oedermagazine">Report Download Oedermagazine</a></li> 
+                            <li><a href="/sub_admin/periodical_publisher_report">Report Download Periodical Publisher</a></li> 
+                            <li><a href="/sub_admin/periodical_distributor_report">Report Download Periodical Distributor</a></li> 
 
                             
                         </ul>

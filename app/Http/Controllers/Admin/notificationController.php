@@ -14,7 +14,8 @@ use App\Models\PublisherDistributor;
 use App\Models\Librarian;
 use App\Models\Announcement;
 use App\Models\Reviewer;
-
+use App\Models\PeriodicalPublisher;
+use App\Models\PeriodicalDistributor;
 
 use Illuminate\Support\Facades\Validator;
 use Throwable;
@@ -163,7 +164,7 @@ class notificationController extends Controller
         return redirect('admin/notificationview');   
         }
         public function announcementsend(Request $req){
-        
+       
           if ( !($req->tag)) {
             $data= [
               'error' => 'To filed Is Required',
@@ -219,6 +220,21 @@ class notificationController extends Controller
                      
                       $type = "librarian";
                       break;
+
+
+                      case "periodical_publisher":
+                        $data = PeriodicalPublisher::where('status', '=', '1')->get();
+                       
+                        $type = "periodical_publisher";
+                        break;
+
+                      case "periodical_distributor":
+                      $data = PeriodicalDistributor::where('status', '=', '1')->get();
+                     
+                      $type = "periodical_distributor";
+                      break;
+
+            
                   default:
                       $data = null;
                       break;

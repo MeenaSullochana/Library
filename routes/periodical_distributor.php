@@ -6,7 +6,7 @@ use App\Http\Controllers\PeriodicalDistributor\MagazineController;
 use App\Http\Controllers\PeriodicalDistributor\PeriodicalDistributorController;
 use App\Http\Controllers\PeriodicalDistributor\FeedbackController;
 use App\Http\Controllers\PeriodicalDistributor\PaymentController;
-
+use App\Http\Controllers\PeriodicalDistributor\notificationController;
 
 Route::middleware(['periodical_distributor'])->group(function () {
 
@@ -64,6 +64,24 @@ Route::get('/feedback_add',function(){ return view('periodical_distributor.feedb
 
  Route::post('/distbackgroundimg',[PeriodicalDistributorController::class,'distbackgroundimg']);
  Route::post('/distprofileimg',[PeriodicalDistributorController::class,'distprofileimg']);
+
+
+
+
+ Route::get('/notifications',[notificationController::class,'notifi']);
+ Route::get('/notificationstatus',[notificationController::class,'notificationstatus']);
+ Route::get('/notification',function(){ return view('periodical_distributor.notification');});
+ Route::get('/Notification_virw/{id}',[notificationController::class,'Notification_virw']);
+ Route::post('/isbn',[BookController::class,'isbn']);
+
+ Route::get('/notificationview',function(){
+     $data = Session::get('notification1');
+      if($data !==null){
+          return view('periodical_distributor.notification_view')->with("data",$data);
+      }
+      
+  });
+
 
 });
 

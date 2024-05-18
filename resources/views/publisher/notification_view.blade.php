@@ -117,7 +117,8 @@
 
                                                                         @if($data->subject !=null)
                                                                         <p class="read-content-email">
-                                                                            {{$data->subject}}</p>
+                                                                            <!-- {{$data->subject}}</p> -->
+                                                                            {!!$data->subject!!}</p>
                                                                             @else
 
                                                                             <p class="read-content-email">

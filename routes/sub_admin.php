@@ -256,7 +256,31 @@ Route::get('/magazinebudgetview',function(){
   
  
  });
+// periodical_publisher
+Route::get('/feedback_periodical_publisher',[FeedbackController::class,'feedback_periodical_publisher']);
+Route::get('/feedback_periodicalpublisher_edit/{id}',[FeedbackController::class,'feedback_periodicalpublisher']);
+Route::get('/periodicalpublisher',function(){
+    $data = Session::get('feedback');
+    if($data !==null){
+        return view('sub_admin.feedback_periodicalpublisher_edit')->with("data",$data);
+    }else{
+        return back();
+    }
 
+});
+// periodical_distributor feedback
+
+Route::get('/feedback_periodical_distributor',[FeedbackController::class,'feedback_periodical_distributor']);
+Route::get('/feedback_periodicaldistributor_edit/{id}',[FeedbackController::class,'feedback_periodicaldistributor']);
+Route::get('/periodicaldistributor',function(){
+    $data = Session::get('feedback');
+    if($data !==null){
+        return view('sub_admin.feedback_periodicaldistributor_edit')->with("data",$data);
+    }else{
+        return back();
+    }
+
+});
 // magazine
 Route::get('/magazine_order',function(){ return view('sub_admin.magazine_order');});
 Route::get('/magazine_invoice_view',function(){return view('sub_admin.magazine_order_view');});
@@ -356,6 +380,14 @@ Route::get('/feedbackdelete/{id}',[FeedbackController::class,'feedbackdelete']);
 
 Route::get('/feedback_public_list',function(){ return view('sub_admin.feedback_public_list');});
 
+Route::post('/periodicalpub_excel ',[SettingController::class,'periodicalpub_excel']);
+
+Route::post('/periodicaldist_excel ',[SettingController::class,'periodicaldist_excel']);
+
+
+Route::get('/periodical_publisher_report',function(){ return view('sub_admin.periodical_publisher_report');});
+
+Route::get('/periodical_distributor_report',function(){ return view('sub_admin.periodical_distributor_report');});
 
 
 // feedback_librarian
