@@ -197,9 +197,9 @@
                <div class="col-md-6 text-center">
                   <img src="{{ asset('assets/img/magazine.png')}}" class="w-25">
                   <h6>Transparent Periodical Procurement Portal</h6>
-                  <small class="text-center">Don't have an account? <a class="text-danger" href="periodical/register">Click to Register</a></small>
+                  <small class="text-center">Don't have an account? <a class="text-danger" href="/periodical/register">Click to Register</a></small>
                   <div class="login-btn mt-2">
-                     <a href="periodical/login"><button class="btn btn-primary"><i class="fa fa-sign-in"></i> Login</button></a>
+                     <a href="/periodical/login"><button class="btn btn-primary"><i class="fa fa-sign-in"></i> Login</button></a>
                   </div>
                </div>
             </div>

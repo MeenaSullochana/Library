@@ -1112,7 +1112,7 @@
                                                  </li>
                                             </ul>
                                         </div>
-                                        <a class="all-notification" href="/distributor/notification">See all notifications <i
+                                        <a class="all-notification" id="notificationLink">See all notifications <i
                                                 class="ti-arrow-end"></i></a>
                                     </div>
                                 </li>
@@ -1529,3 +1529,12 @@ $(document).ready(function() {
        });
 
       </script>
+<script>
+
+$(document).ready(function() {
+    $(".all-notification").click(function() {
+        window.location.href = "/distributor/notification"; 
+    });
+});
+
+</script>

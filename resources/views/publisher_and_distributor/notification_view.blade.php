@@ -116,7 +116,9 @@
                                                                         <h5 class="my-1 text-primary">Message</h5>
                                                                         @if($data->subject !=null)
                                                                         <p class="read-content-email">
-                                                                            {{$data->subject}}</p>
+                                                                            <!-- {{$data->subject}}</p> -->
+                                                                             {!!$data->subject!!}</p>
+
                                                                             @else
 
                                                                             <p class="read-content-email">

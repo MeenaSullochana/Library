@@ -124,8 +124,8 @@
 														 </li>
 													</ul>
 												</div>
-												<a class="all-notification" href="javascript:void(0);">See all notifications <i
-														class="ti-arrow-end"></i></a>
+												<a class="all-notification" id="notificationLink">See all notifications <i
+                                                class="ti-arrow-end"></i></a>
 											</div>
 										</li>
 										<!-- <li class="nav-item dropdown notification_dropdown">
@@ -346,7 +346,6 @@
 									<li><a href="/periodical_distributor/magazine_list">Magazine list</a></li>
 								</ul>
 							</li>
-							@if(auth('periodical_distributor')->user()->userName == "Meena")
 							<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 								<i class="bi bi-minecart-loaded"></i>
 									<span class="nav-text">Manage Procurement</span>
@@ -390,7 +389,7 @@
 		
 								</ul>
 							</li> -->
-							@endif
+						
 						</ul>
 					</div>
 				</div>
@@ -399,7 +398,7 @@
 					Sidebar end
 				***********************************-->
 		
-		  <!-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+		  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 		<script>
 		
 		
@@ -412,7 +411,7 @@
 				});
 		
 				$.ajax({
-					url: '/publisher/notifications',
+					url: '/periodical_distributor/notifications',
 					type: 'GET',
 					success: function(response) {
 						console.log(response);
@@ -453,7 +452,7 @@
 				  $.ajax({
 					 type:"get",
 		
-					 url: "/publisher/notificationstatus",
+					 url: "/periodical_distributor/notificationstatus",
 					 success: function(response) {
 						console.log(response);
 				   
@@ -463,5 +462,13 @@
 		
 			   });
 		
-			  </script> -->
-		
+			  </script>
+		<script>
+
+$(document).ready(function() {
+    $(".all-notification").click(function() {
+        window.location.href = "/periodical_distributor/notification"; 
+    });
+});
+
+</script>

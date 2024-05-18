@@ -18,7 +18,7 @@ class NewMailMailable extends Mailable
     {
         return $this->view('new-email')
                     ->subject('Apply for Procurement')
-                    ->replyTo('replyto@example.com', 'Reply Name');
+                    ->replyTo('noreply@tnpubliclibraries.in', 'directorate tnpublic libraries');
 
     }
 }

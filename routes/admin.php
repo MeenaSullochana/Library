@@ -806,7 +806,31 @@ Route::get('/feedbacklibrariant',function(){
 
 });
 
+// periodical_publisher
+Route::get('/feedback_periodical_publisher',[FeedbackController::class,'feedback_periodical_publisher']);
+Route::get('/feedback_periodicalpublisher_edit/{id}',[FeedbackController::class,'feedback_periodicalpublisher']);
+Route::get('/periodicalpublisher',function(){
+    $data = Session::get('feedback');
+    if($data !==null){
+        return view('admin.feedback_periodicalpublisher_edit')->with("data",$data);
+    }else{
+        return back();
+    }
 
+});
+// periodical_distributor feedback
+
+Route::get('/feedback_periodical_distributor',[FeedbackController::class,'feedback_periodical_distributor']);
+Route::get('/feedback_periodicaldistributor_edit/{id}',[FeedbackController::class,'feedback_periodicaldistributor']);
+Route::get('/periodicaldistributor',function(){
+    $data = Session::get('feedback');
+    if($data !==null){
+        return view('admin.feedback_periodicaldistributor_edit')->with("data",$data);
+    }else{
+        return back();
+    }
+
+});
 
 Route::get('/feedback_reviewer_list',[FeedbackController::class,'feedbackreviewer']);
 Route::get('/feedback_reviewer_edit/{id}',[FeedbackController::class,'feedback_reviewer']);
@@ -1120,6 +1144,13 @@ Route::post('/books_daycount ',[SettingController::class,'books_daycount']);
 //Periodical
 Route::get('/procurement_sampleperiodicalpending',[MagazineController::class,'procurement_sampleperiodicalpending']);
 Route::get('/procurement_sampleperiodicalcomplete',[MagazineController::class,'procurement_sampleperiodicalcomplete']);
+
+
+Route::post('/periodicalpub_excel ',[SettingController::class,'periodicalpub_excel']);
+
+Route::post('/periodicaldist_excel ',[SettingController::class,'periodicaldist_excel']);
+
+
 
     });
 });

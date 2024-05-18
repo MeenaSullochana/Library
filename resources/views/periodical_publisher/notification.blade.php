@@ -18,9 +18,9 @@
 	<!-- PAGE TITLE HERE -->
 	<title>Government of Tamil Nadu - Book Procurement</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href= "{{ asset('distributor/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href= "{{ asset('periodical_publisher/images/fevi.svg') }}">
     <?php
-        include "distributor/plugin/plugin_css.php";
+        include "periodical_publisher/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -45,7 +45,7 @@
 		<!--**********************************
             Nav header start
         ***********************************-->
-		@include ('distributor.navigation')
+		@include ('periodical_publisher.navigation')
 
 		<!--**********************************
             Sidebar end
@@ -61,7 +61,7 @@
                         <h3>Notification List</h3>
                      </div>
                      <div class="item">
-                       <a href="index"> <button type="button" class="btn btn-primary"><i class="fa fa-backward" aria-hidden="true"></i> Back</button></a>
+                       <a href="index.php"> <button type="button" class="btn btn-primary"><i class="fa fa-backward" aria-hidden="true"></i> Back</button></a>
                      </div>
                   </div>
                </div>
@@ -113,7 +113,7 @@
                                                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                                     <div class="email-list dz-scroll" id="emails">
                                                         @php
-                                                            $notifications = DB::table('notifications')->where('to','=',auth('distributor')->user()->id)->paginate(10);
+                                                            $notifications = DB::table('notifications')->where('to','=',auth('periodical_publisher')->user()->id)->paginate(10);
                                                         @endphp
 
                                                         @forelse($notifications as $notification)
@@ -133,7 +133,7 @@
                                                                             </label>
                                                                         </div>
                                                                     </div>
-                                                                    <a href="/distributor/Notification_virw/{{$notification->id}}" class="col-mail col-mail-2">
+                                                                    <a href="/periodical_publisher/Notification_virw/{{$notification->id}}" class="col-mail col-mail-2">
                                                                     <div class="head">{{ substr($notification->message, 0, 19) }}</div>
 
 
@@ -151,7 +151,7 @@
                                                                 </div>
                                                             </div>
                                                         @empty
-                                                            <p class="text-center mt-5">No notifications found.</p>
+                                                            <p>No notifications found.</p>
                                                         @endforelse
                                                     </div>
                                                 </div>
@@ -201,7 +201,7 @@
 	<!--**********************************
             Footer start
         ***********************************-->
-        @include ("distributor.footer")
+        @include ("periodical_publisher.footer")
 
 	<!--**********************************
             Footer end
@@ -221,7 +221,7 @@
         Main wrapper end
     ***********************************-->
     <?php
-        include "distributor/plugin/plugin_js.php";
+        include "periodical_publisher/plugin/plugin_js.php";
     ?>
 </body>
 

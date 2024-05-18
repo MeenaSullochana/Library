@@ -27,7 +27,8 @@ use App\Mail\NewMailMailable;
 use App\Models\Magazine;
 use App\Models\Procurementpaymrnt;
 
-
+use App\Models\PeriodicalPublisher;
+use App\Models\PeriodicalDistributor;
 use File;
 use Illuminate\Support\Str;
 use App\Models\Homefooter;
@@ -2016,13 +2017,21 @@ public function reviewerbatchadd(Request $req){
         $distributors = Distributor::pluck('email')->toArray();
         $publisherDistributors = PublisherDistributor::pluck('email')->toArray();
         
-     return   $allEmails = array_unique(array_merge($publishers, $distributors, $publisherDistributors));
-        
-        $mail = new NewMailMailable();
-        $mail->bcc($allEmails);
-        
-        Mail::to('tndplbookprocure@gmail.com')
-            ->send($mail);
+        $allEmails = array_unique(array_merge($publishers, $distributors, $publisherDistributors));
+
+        $batchSize = 10;
+    
+        $emailBatches = array_chunk($allEmails, $batchSize);
+    
+        foreach ($emailBatches as $batch) {
+            $mail = new NewMailMailable();
+    
+            $mail->bcc($batch);
+    
+            Mail::to('directorate@tnpubliclibraries.in')->send($mail);
+        }
+    
+        return "Successfully sent mail in batches.";
     }
      
     
@@ -2139,9 +2148,168 @@ public function reviewerbatchadd(Request $req){
             return back()->with('error', "No Records In The Date");
         }
     }
+ 
     
-      
+// 
+public function periodicaldist_excel(Request $request){
+
+       $PublisherDistributor = PublisherDistributor::whereBetween('created_at', [$request->fromDate, $request->toDate])->get();
+
+
+    if($PublisherDistributor->isNotEmpty()){
+        $total = 0;
+        $finaldata = [];
+        $serialNumber = 1;
+        
+            foreach ($PublisherDistributor as $PublisherDistributor) {
+                $finaldata[] = [
+                    'S.No' =>  $serialNumber ++,
+                    'publication Distribution Name' =>   $PublisherDistributor->publicationDistributionName,
+                    'Distributor Name' =>  $PublisherDistributor->firstName." ".$PublisherDistributor->lastName,
+                    'Email' => $PublisherDistributor->email,
+                    'Mobile Number' =>  $PublisherDistributor->mobileNumber,
+                    'publication  Address' =>  $PublisherDistributor->publicationDistributionAddress,
+                    'Country' =>  $PublisherDistributor->country,
+                    'State' =>  $PublisherDistributor->state,
+                    'District' =>  $PublisherDistributor->District,
+                    'City' =>  $PublisherDistributor->city,
+                    'Postal Code' =>  $PublisherDistributor->postalCode,
+                ];
+
+                $total += $total + 1;
+            }
+    
+        
+     
+        $finaldata[] = [
+            'S.No' => '',
+            'publication Distribution Name' =>  '',
+            'Distributor Name' =>  '',
+            'Email' => '',
+            'Mobile Number' =>  '',
+            'publication  Address' =>  '',
+            'Country' =>  '',
+            'State' =>  '',
+            'District' =>  '',
+            'City' =>  '',
+            'Postal Code' =>  '',
+        ];
+
+     
+        $finaldata[] = [
+            'S.No' => '',
+            'publication Distribution Name' =>  '',
+            'Distributor Name' =>  '',
+            'Email' => '',
+            'Mobile Number' =>  '',
+            'publication  Address' =>  '',
+            'Country' =>  '',
+            'State' =>  '',
+            'District' =>  '',
+            'City' =>  '',
+            'Total' => $total,
+        ];
+
+        $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+        $csvContent .=  "S.No, publication Distribution Name, Distributor Name, Email, Mobile Number, publication Distribution Address, Country, State, District, City, Postal Code\n"; 
+        foreach ($finaldata as $data) {
+            $csvContent .= '"' . implode('","', $data) . "\"\n";
+        }
+
+        $headers = [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="periodicaldistributor.csv"',
+        ];
+
+        return response()->make($csvContent, 200, $headers);
+    } else {
+        return back()->with('error', "No Records In The Date");
+    }
 }
+
+
+
+
+
+
+public function periodicalpub_excel(Request $request){
+
+    $PeriodicalPublisher = PeriodicalPublisher::whereBetween('created_at', [$request->fromDate, $request->toDate])->get();
+
+
+ if($PeriodicalPublisher->isNotEmpty()){
+     $total = 0;
+     $finaldata = [];
+     $serialNumber = 1;
+     
+         foreach ($PeriodicalPublisher as $PeriodicalPublisher) {
+             $finaldata[] = [
+                 'S.No' =>  $serialNumber ++,
+                 'publication  Name' =>   $PeriodicalPublisher->publicationName,
+                 'Publisher Name' =>  $PeriodicalPublisher->firstName." ".$PeriodicalPublisher->lastName,
+                 'Email' => $PeriodicalPublisher->email,
+                 'Mobile Number' =>  $PeriodicalPublisher->mobileNumber,
+                 'publication  Address' =>  $PeriodicalPublisher->publicationAddress,
+                 'Country' =>  $PeriodicalPublisher->country,
+                 'State' =>  $PeriodicalPublisher->state,
+                 'District' =>  $PeriodicalPublisher->District,
+                 'City' =>  $PeriodicalPublisher->city,
+                 'Postal Code' =>  $PeriodicalPublisher->postalCode,
+             ];
+
+             $total += $total + 1;
+         }
+ 
+       $finaldata;
+  
+     $finaldata[] = [
+         'S.No' => '',
+         'publication  Name' =>  '',
+         'Publisher Name' =>  '',
+         'Email' => '',
+         'Mobile Number' =>  '',
+         'publication  Address' =>  '',
+         'Country' =>  '',
+         'State' =>  '',
+         'District' =>  '',
+         'City' =>  '',
+         'Postal Code' =>  '',
+     ];
+
+  
+     $finaldata[] = [
+         'S.No' => '',
+         'publication  Name' =>  '',
+         'Publisher Name' =>  '',
+         'Email' => '',
+         'Mobile Number' =>  '',
+         'publication  Address' =>  '',
+         'Country' =>  '',
+         'State' =>  '',
+         'District' =>  '',
+         'City' =>  '',
+         'Total' => $total,
+     ];
+
+     $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+     $csvContent .=  "S.No, publication  Name, Publisher Name, Email, Mobile Number, publication  Address, Country, State, District, City, Postal Code\n"; 
+     foreach ($finaldata as $data) {
+         $csvContent .= '"' . implode('","', $data) . "\"\n";
+     }
+
+     $headers = [
+         'Content-Type' => 'text/csv; charset=utf-8',
+         'Content-Disposition' => 'attachment; filename="periodicalpublisher.csv"',
+     ];
+
+     return response()->make($csvContent, 200, $headers);
+ } else {
+     return back()->with('error', "No Records In The Date");
+ }
+}
+}
+      
+
 
 
 

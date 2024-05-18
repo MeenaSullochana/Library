@@ -6,6 +6,7 @@ use App\Http\Controllers\PeriodicalPublisher\MagazineController;
 use App\Http\Controllers\PeriodicalPublisher\PeriodicalPublisherController;
 use App\Http\Controllers\PeriodicalPublisher\FeedbackController;
 use App\Http\Controllers\PeriodicalPublisher\PaymentController;
+use App\Http\Controllers\PeriodicalPublisher\notificationController;
 
 
 Route::middleware(['periodical_publisher'])->group(function () {
@@ -81,5 +82,30 @@ Route::prefix('periodical_publisher')->group(function () {
     Route::post('/pubprofileimg',[PeriodicalPublisherController::class,'pubprofileimg']);
 
     
+
+
+
+    Route::get('/notifications',[notificationController::class,'notifi']);
+    Route::get('/notificationstatus',[notificationController::class,'notificationstatus']);
+    Route::get('/notification',function(){ return view('periodical_publisher.notification');});
+    Route::get('/Notification_virw/{id}',[notificationController::class,'Notification_virw']);
+
+   
+    Route::get('/notificationview',function(){
+        $data = Session::get('notification1');
+         if($data !==null){
+             return view('periodical_publisher.notification_view')->with("data",$data);
+         }
+         
+     });
+
+
+
+
+
+
+
+
+
 });
 });

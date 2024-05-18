@@ -93,14 +93,14 @@
                                                
                                                 <td style="white-space:normal;" data-label="Title">
                                                     <h6><a class="text-left"
-                                                            href="/sub_admin/book_manage_view/{{$val->id}}">{{$val->title}}</a>
+                                                            href="/sub_admin/periodical_manage_view/{{$val->id}}">{{$val->title}}</a>
                                                     </h6>
                                             
                                                 </td>
                                                 <td data-label="Book ID">{{$val->rni_details}}</td>
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary text-white openModal"
-                                                        data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
+                                                        data-title="{{$val->title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
                                                         id="openModal">View</a>
                                                 </td>
                                                 <td data-label="control">
@@ -221,7 +221,7 @@ $(document).ready(function() {
         var title = $(this).data('title');
         var id = $(this).data('id');
         var copies = $(this).data('copies');
-        $('#booktitle').text('Book Title : ' + title);
+        $('#booktitle').text('Periodical Title : ' + title);
        
         var content = ""; // Initialize an empty string to store the generated HTML content
 
@@ -238,7 +238,7 @@ $(document).ready(function() {
         '</div>' +
         '<div class="col-md-3">' +
         '<div class="form-group">' +
-        '<label for="inputNumberBooks1">Book Copies</label>' +
+        '<label for="inputNumberBooks1">Periodical Copies</label>' +
         '<input type="text" class="form-control" id="copies1" value="' + val.copies + '" name="inputNumberBooks1" readonly>' +
         '</div>' +
         '</div>' +

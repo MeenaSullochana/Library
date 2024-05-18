@@ -19,9 +19,9 @@
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement - Periodical Publisher Report Download</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('sub_admin/images/fevi.svg') }}">
     <?php
-        include "admin/plugin/plugin_css.php";
+        include "sub_admin/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -46,7 +46,7 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        @include ('admin.navigation')
+        @include ('sub_admin.navigation')
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Periodical Distributor Report Download</b>
+                                <b>Periodical Publisher Report Download</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="index">
                                     <i class="fas fa-plus"></i> Dashboard </a>
@@ -70,11 +70,11 @@
                         <div class="col-xl-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Distributor Report Download</h4>
+                                    <h4 class="card-title">Publisher Report Download</h4>
 
                                 </div>
                                 <div class="card-body">
-                                <form    method="POST" enctype="multipart/form-data"  action="/admin/periodicaldist_excel">
+                                <form    method="POST" enctype="multipart/form-data"  action="/sub_admin/periodicalpub_excel">
                                             @csrf
                                     <div class="row">
                                         <div class="col-xl-4 mb-3">
@@ -113,7 +113,7 @@
         <!--**********************************
             Footer start
         ***********************************-->
-        @include ("admin.footer")
+        @include ("sub_admin.footer")
         <!--**********************************
             Footer end
         ***********************************-->
@@ -132,7 +132,7 @@
         Main wrapper end
     ***********************************-->
     <?php
-        include "admin/plugin/plugin_js.php";
+        include "sub_admin/plugin/plugin_js.php";
          ?>
 
 

@@ -625,7 +625,7 @@
                                                  </li>
                                             </ul>
                                         </div>
-                                        <a class="all-notification" href="javascript:void(0);">See all notifications <i
+                                        <a class="all-notification" id="notificationLink">See all notifications <i
                                                 class="ti-arrow-end"></i></a>
                                     </div>
                                 </li>
@@ -1556,3 +1556,12 @@ $(document).ready(function() {
        });
 
       </script>
+<script>
+
+$(document).ready(function() {
+    $(".all-notification").click(function() {
+        window.location.href = "/publisher/notification"; 
+    });
+});
+
+</script>

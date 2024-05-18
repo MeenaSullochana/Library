@@ -17,9 +17,9 @@
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('distributor/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_distributor/images/fevi.svg') }}">
     <?php
-        include "distributor/plugin/plugin_css.php";
+        include "periodical_distributor/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -44,7 +44,7 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-        @include ('distributor.navigation')
+        @include ('periodical_distributor.navigation')
 
         <!--**********************************
             Sidebar end
@@ -69,7 +69,7 @@
 
                                                 </div>
                                                 <div class="mail-list rounded " >
-                                                <a class="list-group-item " href="/distributor/notification">
+                                                <a class="list-group-item " href="/periodical_distributor/notification">
 													<i class="fa-regular fa-paper-plane align-middle"></i>Notification List</a>
 
                                                     <a href="email-inbox.html" class="list-group-item active"><i
@@ -114,10 +114,11 @@
                                                                 <div class="media mb-2 mt-3">
                                                                     <div class="media-body"><span class="pull-end">{{ \Carbon\Carbon::parse($data->created_at)->format('h:i A') }}</span>
                                                                         <h5 class="my-1 text-primary">Message</h5>
+
                                                                         @if($data->subject !=null)
                                                                         <p class="read-content-email">
-                                                                        {!!$data->subject!!}</p>
-
+                                                                            <!-- {{$data->subject}}</p> -->
+                                                                            {!!$data->subject!!}</p>
                                                                             @else
 
                                                                             <p class="read-content-email">
@@ -136,6 +137,7 @@
                                                                                    </div>
                                                                                 </div>
                                                                         @endif
+
                                                                     </div>
                                                                 </div>
 
@@ -161,7 +163,7 @@
         <!--**********************************
             Footer start
         ***********************************-->
-        @include ("distributor.footer")
+        @include ("periodical_distributor.footer")
 
         <!--**********************************
             Footer end
@@ -181,7 +183,7 @@
         Main wrapper end
     ***********************************-->
     <?php
-        include "distributor/plugin/plugin_js.php";
+        include "periodical_distributor/plugin/plugin_js.php";
     ?>
 </body>
 
