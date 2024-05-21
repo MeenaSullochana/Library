@@ -182,7 +182,11 @@
                         </div>
 
                         <div class="row">
+                            <div class="col-md-12">
+                                <p><b>Note :</b> Copies send proof, such as postal/courier receipts or acknowledgments (for direct submissions), should be attached as evidence in " Send Book Copies".</p>
+                            </div>
                             <div class="col-md-4">
+                                <h5 class="ms-3 mb-0"><strong class="text-primary">3 Copy</strong></h5><br>
                                 <b>Transparent Periodical Procurement</b> <br>
                                 Periodical Selection Committee<br>
                                 Anna Centenary Library <br>
@@ -247,7 +251,7 @@
                                                 <td data-label=""> {{$val->periodicity}}</td>
                                                  <td data-label="">{{$val->rni_details}}</td>
                                                 <td data-label="Status">
-                                                    <a href="#" class="badge bg-primary openModal"
+                                                    <a href="#" class="badge bg-primary text-white openModal"
                                                         data-title="{{$val->title}}" data-id="{{$val->id}}"
                                                         id="openModal">Send Periodical Copies</a>
                                                 </td>
@@ -352,7 +356,7 @@
                     <input type="hidden" id="hiddenId">
                     <input type="hidden" id="hiddentitle">
                     <h5 class="modal-title">
-                        <p id="periodicaltitle">periodical Title:</p>
+                        <p id="periodicaltitle">Periodical Title:</p>
                     </h5>
                     </h5>
                     <br>
@@ -372,14 +376,15 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="inputNumberBooks1"> periodical copies</label>
+                                <label for="inputNumberBooks1"> Periodical Copies</label>
                                 <input type="text" class="form-control" id="copies1" value="3" name="inputNumberBooks1"
                                     readonly>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="form-group mt-2">
-                                <label for="inputNumberBooks1">Upload Proof</label>
+                                <label for="inputNumberBooks1">Postal/Courier receipts
+                                    or Acknowledgment Proof</label>
                                 <input type="file" id="uplode1" name="" require>
                             </div>
                         </div>

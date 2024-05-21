@@ -177,13 +177,18 @@
                     <div class="card-body">
                         <h6 class="fw-bold">Copies to be Submitted for Review and Selection: 5 copies</h6>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong> Archiving purpose:</strong> To comply with the Delivery of Books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.<br><br>
-                            <p><strong>Review purpose: </strong> Send two copies for review of books to Anna Centenary Library, Chennai.</p>
+                            <strong> Archiving Purpose:</strong> To comply with the Delivery of Books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.<br><br>
+                            <p><strong>Review Purpose: </strong> Send two copies for review of books to Anna Centenary Library, Chennai.</p>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
 
                         <div class="row">
+                            <div class="col-md-12">
+                                
+                            <p><b>Note :</b> Copies send proof, such as postal/courier receipts or acknowledgments (for direct submissions), should be attached as evidence in " Send Book Copies".</p>
+                            </div>
                             <div class="col-md-4">
+                                <h5 class="ms-3 mb-0"><strong class="text-primary">3 Copy</strong></h5><br>
                                 <b>Transparent Book Procurement</b> <br>
                                 Book Selection Committee<br>
                                 Anna Centenary Library <br>
@@ -193,6 +198,7 @@
 
                             </div>
                             <div class="col-md-4 border-start">
+                                <h5 class="ms-3 mb-0"><strong class="text-primary">1 Copy</strong></h5><br>
                                 <b>Transparent Book Procurement</b> <br>
                                 Book Selection Committee<br>
                                 Connemara Public Library Chennai<br>
@@ -203,6 +209,7 @@
 
                             </div>
                             <div class="col-md-4 border-start">
+                                <h5 class="ms-3 mb-0"><strong class="text-primary">1 Copy</strong></h5><br>
                                 <b>Transparent Book Procurement</b><br> 
                                 Book Selection Committee<br>
                                 Kalaignar Centenary Library,<br>
@@ -248,7 +255,7 @@
                                                 </td>
 
                                                 <td data-label="Status">
-                                                    <a href="#" class="badge bg-primary openModal"
+                                                    <a href="#" class="badge bg-primary text-white openModal"
                                                         data-title="{{$val->book_title}}" data-id="{{$val->id}}"
                                                         id="openModal">Send Book Copies</a>
                                                 </td>
@@ -280,7 +287,8 @@
         <!--**********************************
             Footer start
             ***********************************-->
-
+           
+            @include ("publisher.footer")
         <!--**********************************
             Footer end
             ***********************************-->
@@ -353,90 +361,111 @@
                     <input type="hidden" id="hiddenId">
                     <input type="hidden" id="hiddentitle">
                     <h5 class="modal-title">
-                        <p id="booktitle">Book Title:</p>
+                        <p id="booktitle">Book Title :</p>
                     </h5>
                     </h5>
                     <br>
                     <div class="row">
-                        <div class="col-md-2">
+                        {{-- <div class="row">
+                            <div class="col-md-8"></div>
+                             <div class="col-md-4 col-sm-12">
+                                <p class="text-danger">Postal/Courier receipts <br> or Acknowledgment Proof</p>
+                            </div>
+                        </div> --}}
+                        <div class="col-md-2 col-sm-12">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox">
 
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="inputNumberBooks1">Library Type</label>
                                 <input type="text" class="form-control" value="Anna Centenary Library" id="librarytype1"
                                     name="inputNumberBooks1" readonly>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
                             <div class="form-group">
-                                <label for="inputNumberBooks1"> book copies</label>
+                                <label for="inputNumberBooks1"> Book Copies</label>
                                 <input type="text" class="form-control" id="copies1" value="3" name="inputNumberBooks1"
                                     readonly>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4 col-sm-12">
                             <div class="form-group mt-2">
-                                <label for="inputNumberBooks1">Upload Proof</label>
+                                <label for="inputNumberBooks1">Postal/Courier receipts
+                                    or Acknowledgment Proof</label>
                                 <input type="file" id="uplode1" name="" require>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-md-2">
+                        {{-- <div class="row">
+                            <div class="col-md-8"></div>
+                             <div class="col-md-4">
+                                <p class="text-danger">Postal/Courier receipts <br> or Acknowledgment Proof</p>
+                            </div>
+                        </div> --}}
+                        <div class="col-md-2 col-sm-12">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox">
 
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="inputNumberBooks1">Library Type</label>
                                 <input type="text" class="form-control" id="librarytype2"
                                     value="Kalaignar Centenary Library" name="inputNumberBooks1" readonly>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
                             <div class="form-group">
-                                <label for="inputNumberBooks1"> book copies</label>
+                                <label for="inputNumberBooks1">Book Copies</label>
                                 <input type="text" class="form-control" id="copies2" value="1" name="inputNumberBooks1"
                                     readonly>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4 col-sm-12">
                             <div class="form-group mt-2">
-                                <label for="inputNumberBooks1"> Upload Proof</label>
+                                <label for="inputNumberBooks1"> Postal/Courier receipts
+                                    or Acknowledgment Proof</label>
                                 <input type="file" id="uplode2" name="" require>
                             </div>
                         </div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-md-2">
+                        {{-- <div class="row">
+                            <div class="col-md-8"></div>
+                             <div class="col-md-3 col-sm-12">
+                                <p class="text-danger">Postal/Courier receipts <br> or Acknowledgment Proof</p>
+                            </div>
+                        </div> --}}
+                        <div class="col-md-2 col-sm-12">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox">
 
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-12">
                             <div class="form-group">
                                 <label for="inputNumberBooks1">Library Type</label>
                                 <input type="text" class="form-control" id="librarytype3"
                                     value="Connemara Public Library" name="inputNumberBooks1" readonly>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 col-sm-12">
                             <div class="form-group">
-                                <label for="inputNumberBooks1"> book copies</label>
+                                <label for="inputNumberBooks1"> Book Copies</label>
                                 <input type="text" class="form-control" id="copies3" value="1" name="inputNumberBooks1"
                                     readonly>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4 col-sm-12">
                             <div class="form-group mt-2">
-                                <label for="inputNumberBooks1"> Upload Proof</label>
+                                <label for="inputNumberBooks1"> Postal/Courier receipts
+                                    or Acknowledgment Proof</label>
                                 <input type="file" id="uplode3" name="" require>
                             </div>
                         </div>
@@ -464,7 +493,7 @@ $(document).ready(function() {
     $('.openModal').on('click', function() {
         var title = $(this).data('title');
         var id = $(this).data('id');
-        $('#booktitle').text('Book Title: ' + title);
+        $('#booktitle').text('Book Title : ' + title);
 
         $('#hiddenId').val(id);
         $('#hiddentitle').val(title);
