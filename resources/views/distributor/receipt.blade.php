@@ -94,7 +94,7 @@
                                             <tr role="row">
                                                 <th>S/No</th>
                                                 <th>Book Id</th>
-                                                <th>Title of the Book</th>
+                                                <th class="w-25">Title of the Book</th>
                                                 <th>ISBN Number</th>
                                                 <th>Quantity</th>
                                                 <th>Amount</th>
@@ -177,6 +177,9 @@
     }
     .table tbody tr td {
         text-transform: lowercase !important;
+    }
+    .table tbody tr td {
+    white-space: break-spaces !important;
     }
 </style>
 </html>

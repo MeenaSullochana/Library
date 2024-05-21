@@ -89,12 +89,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table responsive mt-5">
+                                    <table style="min-width: 200px" class="table responsive mt-5">
                                         <thead>
                                             <tr role="row">
                                                 <th>S/No</th>
                                                 <th>Book Id</th>
-                                                <th>Title of the Book</th>
+                                                <th class="w-25">Title of the Book</th>
                                                 <th>ISBN Number</th>
                                                 <th>Quantity</th>
                                                 <th>Amount</th>
@@ -109,25 +109,25 @@
                                             $books = DB::table('books')->find($val);
                                             @endphp
                                                 <tr role="row" class="odd">
-                                                    <td><span>{{$loop->index +1}}</span></td>
-                                                    <td> {{$books->product_code}}</td>
-                                                    <td>{{$books->book_title}}</td>
-                                                    <td>{{$books->isbn}}</td>
-                                                    <td>1</td>
-                                                    <td><i class="fa fa-inr ms-2"></i> 450</td>
+                                                    <td data-label="S/No"><span>{{$loop->index +1}}</span></td>
+                                                    <td data-label="Book ID"> {{$books->product_code}}</td>
+                                                    <td data-label="Title of the Book">{{$books->book_title}}</td>
+                                                    <td data-label="ISBN Number">{{$books->isbn}}</td>
+                                                    <td data-label="Quantity">1</td>
+                                                    <td data-label="Amount"><i class="fa fa-inr ms-2"></i> 450</td>
                                                 </tr>
                                             @endforeach
                                                 
                                                 <tr>
-                                                    <td class="fw-bold text-end" colspan="5">Total Amount</td>
-                                                    <td class="fw-bold">: <i class="fa fa-inr ms-2"></i> {{$data->totalAmount}}</td>
+                                                    <td data-label="Total Amount" class="fw-bold text-end" colspan="5">Total Amount</td>
+                                                    <td data-label="Total Amount" class="fw-bold">: <i class="fa fa-inr ms-2"></i> {{$data->totalAmount}}</td>
                                                 </tr>
                                             </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <p class="text-center"><span class="text-danger ">Note:</span>Review Fee for Book Selection is Non Refundable.</p>
+                        <p class="text-center"><span class="text-danger ">Note :</span> Review Fee for Book Selection is Non Refundable.</p>
                     </div>
                 </div>
             </div>
@@ -178,5 +178,8 @@
     .table tbody tr td {
         text-transform: lowercase !important;
     }
+    .table tbody tr td {
+    white-space: break-spaces !important;
+}
 </style>
 </html>

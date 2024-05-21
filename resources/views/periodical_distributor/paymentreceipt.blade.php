@@ -177,5 +177,8 @@
     .table tbody tr td {
         text-transform: lowercase !important;
     }
+    .table tbody tr td {
+    white-space: break-spaces !important;
+    }
 </style>
 </html>
