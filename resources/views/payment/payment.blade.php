@@ -61,7 +61,7 @@
                     <div class="authincation-content">
                         <div class="row no-gutters">
                             <div class="col-xl-12">
-                                <div class="row">
+                                <div class="row mb-5 mt-5 ">
                                     <div class="col-md-12 text-center">
                                         <img class="p-3" style="width: 150px;height:auto;"
                                             src="{{ asset('assets\img\logo\idbi_logo.png') }}" alt=""
@@ -69,18 +69,22 @@
                                         <small>Secure Payment gateway System</small>
                                     </div>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body text-center mt-5">
                                     <div class="form-validation">
                                         <form class="needs-validation" novalidate="" action="/process-sale"
                                             method="post" accept-charset="ISO-8859-1">
                                             @csrf
+
                                             <div class="row">
-                                                <div class="col-xl-6">
+                                                <div class="col-xl-12 text-center">
                                                 <input class="textbox" type="text"  name="UDF01" id="UDF01" value="{{$user->usertype}}" size="40" maxlength="500" hidden/>
                                                 <input class="textbox" type="text"  name="UDF02" id="UDF02" value="{{$user->email}}" size="40" maxlength="500" hidden/>
                                                 <input class="textbox" type="text"  name="UDF03" id="UDF03" value="{{$user->password}}" size="40" maxlength="500" hidden/>
                                                 <input class="textbox" type="text"  name="UDF04" id="UDF04" value="{{$books}}" hidden/>
                                                 <input class="textbox" type="text"  name="UDF05" id="UDF05" value="{{$type}}" hidden/>
+                                                <input class="textbox" type="text"  name="Currency" id="Currency" value="356" hidden/>
+                                                <input class="textbox" type="text"  name="TxnType" id="TxnType" value="Pay" hidden/>
+
                                                     <div class="mb-3 row">
                                                         <label class="col-lg-4 col-form-label required"
                                                             for="validationCustom01">
@@ -97,11 +101,11 @@
                                                     </div>
                                                     <div class="mb-3 row">
                                                         <label class="col-lg-4 col-form-label required"
-                                                            for="validationCustom02">Amount in rupees:<span
+                                                            for="validationCustom02">Amount in rupees<span
                                                                 class="text-danger"> *</span>
                                                         </label>
                                                         <div class="col-lg-6">
-                                                            <input type="text" class="form-control" name="Amount"
+                                                            : <input type="text" class="form-control" name="Amount"
                                                                 id="Amount" value="{{$amount}}" size="40"
                                                                 maxlength="12" placeholder="Your Amount.." required readonly>
                                                             <div class="invalid-feedback">
@@ -109,70 +113,8 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-lg-4 col-form-label required"
-                                                            for="validationCustom03">Currency Code:<span
-                                                                class="text-danger"> *</span></label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" class="form-control" name="Currency"
-                                                                id="Currency" value="356" size="40"
-                                                                maxlength="40" placeholder="Currency Code.." required readonly>
-                                                            <div class="invalid-feedback">
-                                                                Please Enter Currency Code
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-lg-4 col-form-label required"
-                                                            for="validationCustom04">Txn Type:<span class="text-danger">
-                                                                *</span></label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" class="form-control" name="TxnType"
-                                                                id="TxnType" value="Pay" size="40"
-                                                                maxlength="40" placeholder="Txn Type.." required
-                                                                readonly>
-                                                            <div class="invalid-feedback">Please enter Txn Type</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-lg-4 col-form-label required"
-                                                            for="validationCustom04">Order Info:</label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" class="form-control"
-                                                                name="OrderInfo" id="OrderInfo" size="40"
-                                                                maxlength="40" placeholder="Order Info.." required
-                                                                readonly>
-                                                            <div class="invalid-feedback">Please Order Info</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-lg-4 col-form-label required"
-                                                            for="validationCustom04">CardHolder Email:</label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" class="form-control" name="Email"
-                                                                id="Email" value="" size="40"
-                                                                maxlength="40" placeholder="CardHolder Email.."
-                                                                required readonly>
-                                                            <div class="invalid-feedback">Please Enter CardHolder Email
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <label class="col-lg-4 col-form-label required"
-                                                            for="validationCustom04">CardHolder Phone:</label>
-                                                        <div class="col-lg-6">
-                                                            <input type="text" class="form-control" name="Phone"
-                                                                id="Phone" value="" size="40"
-                                                                maxlength="40" placeholder="CardHolder Phone.."
-                                                                required readonly>
-                                                            <div class="invalid-feedback">Please enter CardHolder Phone
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="mb-3 row">
-                                                        <h3>PAYMENT METHOD: *</h3>
+                                                    {{-- <div class="mb-3 row p-5">
+                                                        <h3>PAYMENT METHOD </h3>
                                                         <div class="col-lg-12 payment_option">
                                                             <label for="one"><input type="radio"
                                                                     id="one" name="payOpt" value="cc"
@@ -194,131 +136,10 @@
                                                                     value="" onchange="showhide(this.value);" />
                                                                 3-Party</label>
                                                         </div>
-                                                    </div>
-
-                                                    <div id="CardNo">
-                                                        <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label required"
-                                                                for="validationCustom04">Card Number*:</label>
-                                                            <div class="col-lg-6">
-                                                                <input type="text" class="form-control"
-                                                                    name="CardNumber" id="CardNumber"
-                                                                    placeholder="66X 67XX 78XX 90XX" required>
-                                                                <div class="invalid-feedback">Invalid Card Number
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label required"
-                                                                for="validationCustom04">Expiry Date*: (MMYYYY)</label>
-                                                            <div class="col-lg-6">
-                                                                <input type="text" class="form-control"
-                                                                    name="ExpiryDate" id="ExpiryDate"
-                                                                    placeholder="MMYYYY" required>
-                                                                <div class="invalid-feedback">Please enter Expire Date
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div id="CVV">
-                                                        <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label required"
-                                                                for="validationCustom04">CVV2/CVD2 Number*:</label>
-                                                            <div class="col-lg-6">
-                                                                <input class="form-control" type="password"
-                                                                    name="CardSecurityCode" id="CardSecurityCode"
-                                                                    placeholder="Enter the CVV2/CVD2 Number.."
-                                                                    required>
-                                                                <div class="invalid-feedback">invalide CVV2/CVD2 Number
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div id="bankCodetr">
-                                                        <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label required"
-                                                                for="validationCustom04">Bank ID for
-                                                                NetBanking*:</label>
-                                                            <div class="col-lg-6">
-                                                                <input class="form-control" type="text"
-                                                                    name="bankCode" id="bankCode"
-                                                                    placeholder="Enter the Bank ID for NetBanking.."
-                                                                    required>
-                                                                <div class="invalid-feedback">invalide Bank ID for
-                                                                    NetBanking</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div id="Name">
-                                                        <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label required"
-                                                                for="validationCustom04">First name:</label>
-                                                            <div class="col-lg-6">
-                                                                <input class="form-control" type="text"
-                                                                    name="FirstName" id="FirstName"
-                                                                    placeholder="Enter the First Name.." required>
-                                                                <div class="invalid-feedback">Enter First name</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label required"
-                                                                for="validationCustom04">Last name:</label>
-                                                            <div class="col-lg-6">
-                                                                <input class="form-control" type="text"
-                                                                    name="LastName" id="LastName"
-                                                                    placeholder="Enter the Last Name.." required>
-                                                                <div class="invalid-feedback">Enter last name</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div id="Address">
-                                                        <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label required"
-                                                                for="validationCustom04">Street name*:</label>
-                                                            <div class="col-lg-6">
-                                                                <input class="form-control" type="text"
-                                                                    name="Street" id="Street"
-                                                                    placeholder="Enter the Street Name.." required>
-                                                                <div class="invalid-feedback">Enter Street name</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label required"
-                                                                for="validationCustom04">City name*:</label>
-                                                            <div class="col-lg-6">
-                                                                <input class="form-control" type="text"
-                                                                    name="City" id="City"
-                                                                    placeholder="Enter the City Name.." required>
-                                                                <div class="invalid-feedback">Enter City name</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label required"
-                                                                for="validationCustom04">Zip Code*:</label>
-                                                            <div class="col-lg-6">
-                                                                <input class="form-control" type="number"
-                                                                    name="ZIP" id="ZIP"
-                                                                    placeholder="Enter the Zip Code.." required>
-                                                                <div class="invalid-feedback">Enter Zip Code</div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3 row">
-                                                            <label class="col-lg-4 col-form-label required"
-                                                                for="validationCustom04">State name*:</label>
-                                                            <div class="col-lg-6">
-                                                                <input class="form-control" type="text"
-                                                                    name="State" id="State"
-                                                                    placeholder="Enter the Last Name.." required>
-                                                                <div class="invalid-feedback">Enter State</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3 row">
-                                                        <div class="col-lg-8 ms-auto">
+                                                    </div> --}}
+                                                    
+                                                    <div class="mb-3 row mt-5">
+                                                        <div class="col-lg-12 ms-auto">
                                                             <button class="btn btn-primary" type="submit"
                                                                 name="SubButL" value="Submit"><i class="fa fa-money"
                                                                     aria-hidden="true"></i> Paynow</button>
@@ -369,7 +190,7 @@
                 })
         })()
     </script>
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         window.onload = function() {
             showhide("");
         }
@@ -398,7 +219,7 @@
                 $('#bankCode,#FirstName,#LastName,#Street,#State,#City,#ZIP').prop('required', false);
             }
         }
-    </script>
+    </script> --}}
     <script type="text/javascript">
         document.onkeydown = function(e) {
             if (event.keyCode == 123) {

@@ -75,10 +75,10 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12">
-                                
-                            <p><b>Note :</b> Copies send proof, such as postal/courier receipts or acknowledgments (for direct submissions), should be attached as evidence in " Send Book Copies".</p>
-                            </div>
+                            <div class="col-md-12 border mb-3">
+                            <p class="mt-3"><b>Note 1 :</b> Copies send proof, such as postal/courier receipts or acknowledgments (for direct submissions), should be attached as evidence in " Send Book Copies".</p>
+                            <p><b>Note 2 :</b> Books should be send with the "Payment acknowledgement" which is downloadable at "Procurement Receipt".</p>    
+                        </div>
                             <div class="col-md-4">
                                 <h5 class="ms-3 mb-0"><strong class="text-primary">3 Copy</strong></h5><br>
                                 <b>Transparent Book Procurement</b> <br>
