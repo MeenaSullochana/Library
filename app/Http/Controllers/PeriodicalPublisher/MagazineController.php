@@ -542,8 +542,8 @@ public function magazine_orderview($id){
        $magazine->acc_Hol_Nam =$request->acc_Hol_Nam;
        $magazine->save();
        \Session::put('magazine', $magazine);
-       return redirect('periodical_publisher/magazineupdate'); 
-      //  return back()->with('success',"Magazine Create successfully");
+    
+       return back()->with('success',"Periodical Updated successfully");
     
   } 
   public function order_delete(Request $request){
@@ -1059,6 +1059,18 @@ public function magazine_edit($id){
   $magazine = Magazine::find($id);
   \Session::put('magazine', $magazine);
   return redirect('periodical_publisher/magazineupdate'); 
+}
+
+public function magazine_delete(Request $request){
+  $id = $request->id;
+
+  $magazine = Magazine::find($id);
+
+  $magazine->delete();
+  $data= [
+    'success' => 'Magazine deleted Successfully',
+         ];
+return response()->json($data);
 }
   }
 

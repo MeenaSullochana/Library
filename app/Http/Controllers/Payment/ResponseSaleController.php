@@ -67,7 +67,7 @@ class ResponseSaleController extends Controller
         
         // SecureHash got in reply
         $SecureHash=$dataFromPostFromPG['SecureHash'];
-                dd($SecureHash);
+                
         //remove SecureHash from data 	
         unset($dataFromPostFromPG['SecureHash']);
                 
@@ -119,7 +119,7 @@ class ResponseSaleController extends Controller
         $ucap=$utility->null2unknown("UCAP",$dataFromPostFromPG);
         $payopt=$utility->null2unknown("payOpt",$dataFromPostFromPG);
         $pgtxnid=$utility->null2unknown("pgTxnId",$dataFromPostFromPG);
-
+        $paymentstatus=$utility->null2unknown("pgTxnId",$dataFromPostFromPG);
 
         $hashValidated = 'Invalid Hash';
         if( $SecureHash_final == $SecureHash )
@@ -133,7 +133,7 @@ class ResponseSaleController extends Controller
      if($type == "Book"){
         if($usertype == "publisher"){
             $user = Publisher::where('email',$email)->first();
-           
+            $name = $user->publicationName;
             if ($user) {
                 if ($password == $user->password) {
                     Auth::guard('publisher')->login($user);
@@ -144,7 +144,7 @@ class ResponseSaleController extends Controller
      }else if($usertype == "distributor"){
        
         $user = Distributor::where('email',$email)->first();
-         
+        $name = $user->distributionName;
         if ($user) {
             if ($password == $user->password) {
                 Auth::guard('distributor')->login($user);
@@ -153,7 +153,7 @@ class ResponseSaleController extends Controller
         $url = "/distributor/index";
      }else{
         $user = PublisherDistributor::where('email',$email)->first();
-         
+        $name = $user->publicationDistributionName;
         if ($user) {
             if ($password == $user->password) {
                 Auth::guard('publisher_distributor')->login($user);
@@ -164,7 +164,7 @@ class ResponseSaleController extends Controller
      }else if($type == "Periodical"){
         if($usertype == "publisher"){
             $user = PeriodicalPublisher::where('email',$email)->first();
-           
+            $name = $user->publicationName;
             if ($user) {
                 if ($password == $user->password) {
                     Auth::guard('periodical_publisher')->login($user);
@@ -175,7 +175,7 @@ class ResponseSaleController extends Controller
      }else if($usertype == "distributor"){
        
         $user = PeriodicalDistributor::where('email',$email)->first();
-         
+        $name = $user->distributionName;
         if ($user) {
             if ($password == $user->password) {
                 Auth::guard('periodical_distributor')->login($user);
@@ -186,11 +186,11 @@ class ResponseSaleController extends Controller
      }
         
    
-       if ($hashValidated == 'CORRECT' && $responseCode == 'CAN'){
+       if ($responseCode == 'CAN'){
                     $route = 'payment.cancel';
                     $paymentstatus = 'Cancel';
                     $paidstatus = 2;
-        }else if($hashValidated == 'CORRECT' && $responseCode == '00'){
+        }else if($responseCode == '00'){
             $route = 'payment.success';
               $paymentstatus = 'Success';
               $paidstatus = 1;
@@ -209,7 +209,7 @@ class ResponseSaleController extends Controller
         $pay->amount = "450";
         $pay->totalAmount =  $amount/100;
         $pay->userType =  $usertype;
-        $pay->userName = $user->firstName . ' ' . $user->lastName ;
+        $pay->userName = $name ;
         $pay->paymentType = $PaymentOption;
         $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
         $pay->invoiceNumber =       $randomCode ;

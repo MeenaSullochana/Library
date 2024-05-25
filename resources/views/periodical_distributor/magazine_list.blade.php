@@ -145,9 +145,9 @@
                                          <a href="magazine_edit/{{$magazine->id}}"
                                                 class="btn btn-primary shadow btn-xs sharp me-1"><i
                                                     class="fa fa-pencil"></i></a>
-                                                <!--<a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
+                                                    <a class="btn btn-danger shadow btn-xs sharp delete-btn" data-id="{{ $magazine->id }}">
                                                 <i class="fa fa-trash"></i>
-                                            </a> -->
+                                            </a>
                                         </td>
                                     </tr>
                                     @empty
@@ -205,7 +205,19 @@
     <!--************
             Support ticket button end
             *************-->
-
+            <div class="modal fade" id="basicModal" tabindex="-1" aria-labelledby="basicModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <p>Do you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="confirmDeleteBtn" class="btn btn-primary">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     </div>
     <!--************
@@ -253,6 +265,39 @@ $(document).ready(function() {
     });
 });
 </script>
+<script>
+    $(document).ready(function () {
+        var deleteId;
 
+        $('.delete-btn').on('click', function () {
+            deleteId = $(this).data('id');
+            $('#basicModal').modal('show');
+        });
+
+        $('#confirmDeleteBtn').on('click', function () {
+            $('#basicModal').modal('hide');
+            $.ajax({
+                url: '/periodical_distributor/magazine_delete',
+                method: 'POST',
+                data: { '_token': '{{ csrf_token() }}', 'id': deleteId },
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.success, { timeout: 2000 });
+                        $('#basicModal').modal('hide');
+                        setTimeout(function () {
+                            window.location.href = "/periodical_distributor/magazine_list"
+                        }, 3000);
+                    } else {
+                        toastr.error(response.error, { timeout: 2000 });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+    });
+</script>
 
 </html>
