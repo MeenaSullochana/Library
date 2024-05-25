@@ -60,14 +60,14 @@
                </div>
            </div>
 
-           <div class="col-xl-10 col-sm-6 mt-4 text-end">
+           <div class="col-xl-10 col-sm-6 mt-4 mb-4 text-end">
                         
-                        <a href="exportexcelpayment/Book" class="btn btn-info">
-                            <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
-                            Export Excel
-                        </a>
+               <a href="exportexcelpayment/Book" class="btn btn-info">
+                     <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
+                     Export Excel
+               </a>
 
-                    </div>
+            </div>
             <div class="card">
                <div class="card-body">
                @php
@@ -79,7 +79,7 @@
                         <thead>
                            <tr>
                               <th>S/No</th>
-                              <th>User Name</th>
+                              <th>Name of Publication</th>
                               <th>User Type</th>
                               <th>Invoice Number</th>
                               <th>Amount</th>
@@ -99,11 +99,11 @@
                               <td>{{$val->userType}}</td>
                               <td>{{$val->invoiceNumber}}</td>
                               <td> <i class="fa fa-inr"></i> {{$val->amount}}</td>
-                              <td >  {{$val->totalAmount /$val->amount }}</td>
+                              <td>  {{$val->totalAmount /$val->amount }}</td>
                               <td> <i class="fa fa-inr"></i> {{$val->totalAmount}}</td>
                               <td>{{$val->paymentstatus}}</td>
                               <td>{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d ') }}</td>
-                              <td><a href="payment_invoice/{{$val->id}}"><i class="fa fa-eye p-2 text-primary"></i></a>
+                              <td><a href="payment_invoice/{{$val->id}}" class="btn btn-primary shadow btn-sm  m-0 me-1" ><i class="fa fa-eye p-2 text-white"></i></a>
 
                               </td>
                            </tr>
@@ -151,4 +151,7 @@
 .active-projects tbody tr td:last-child {
        text-align: center;
    }
+   table.dataTable thead th {
+    text-transform: math-auto !important;
+}
 </style>

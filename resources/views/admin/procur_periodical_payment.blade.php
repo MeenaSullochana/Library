@@ -60,7 +60,7 @@
                </div>
            </div>
 
-           <div class="col-xl-10 col-sm-6 mt-4 text-end">
+           <div class="col-xl-10 col-sm-6 mt-4 text-end mb-4">
                         
                         <a href="exportexcelpayment/Periodical" class="btn btn-info">
                             <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
@@ -103,7 +103,7 @@
                               <td> <i class="fa fa-inr"></i> {{$val->totalAmount}}</td>
                               <td>{{$val->paymentstatus}}</td>
                               <td>{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d ') }}</td>
-                              <td><a href="payment_periodical_invoice/{{$val->id}}"><i class="fa fa-eye p-2 text-primary"></i></a>
+                              <td><a href="payment_periodical_invoice/{{$val->id}}" class="btn btn-primary shadow btn-sm  m-0 me-1"><i class="fa fa-eye p-2 text-white"></i></a>
 
                               </td>
                            </tr>
