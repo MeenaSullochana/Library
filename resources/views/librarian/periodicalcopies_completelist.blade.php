@@ -59,7 +59,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>sample Complete Periodicals List</b>
+                                <b>Sample Complete Periodicals List</b>
                             </h3>
 
                         </div>

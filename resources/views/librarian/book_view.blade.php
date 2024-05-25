@@ -488,7 +488,7 @@
                                                         data-bs-target="#reviewModal">Write a review?</a>
                                                 </div> -->
                                                 <div class="row">
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <p>
                                                             @if ($data->type == 'Paperback')
                                                             <span class="fs-30 text-danger">{{ $data->type }}
@@ -502,7 +502,7 @@
                                                             @endif
                                                         </p>
                                                     </div>
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="row">
                                                             <div class="col-md-5 col-5">
                                                                 <p class="p-0 m-0"><span
@@ -540,10 +540,10 @@
                                                                         </select>
                                                                     </span> </p>
                                                                     @else 
-                                                                    <div class="col-md-5 col-5">
-                                                                <p class="p-0 m-0"> {{ $data->category }}</p>
-                                                            </div>
-                                                         @endif
+                                                                    {{-- <div class="col-md-5 col-5"> --}}
+                                                                <p class="p-0 m-0">: {{ $data->category }}</p>
+                                                            
+                                                                @endif
                                                             </div>
                                                             <div class="col-md-5 col-5">
                                                                 <p class="p-0 m-0"><span
@@ -587,9 +587,7 @@
                                                                     </span> 
                                                                 </p>
                                                              @else 
-                                                                    <div class="col-md-5 col-5">
-                                                                <p class="p-0 m-0"> {{$data->subject }}</p>
-                                                            </div>
+                                                             <p class="p-0 m-0">: {{$data->subject }}</p>
                                                          @endif
                                                             </div>
                                                             <div class="col-md-5 col-5">
@@ -605,16 +603,7 @@
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="card-header">
-                                                            <h4 class="text-primary fw-bold fs-18">Description</h4>
-                                                        </div>
-                                                        <p class="short_desc" style="text-indent: 25px">
-                                                            {{ $data->description }}
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                               
                                                 <div class="seven">
                                                     <h1>Read Sample Here</h1>
                                                 </div>
@@ -625,6 +614,14 @@
                                                 </button>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="card-header bg-main text-white h3 p-2">Description</div>
+                                    <div class="col-12">
+                                        <p class="short_desc mt-3" style="text-indent: 25px">
+                                            {{ $data->description }}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
@@ -1113,7 +1110,7 @@
       <h5 class="mb-0 ms-2">{{ $data->author_name }}</h5>	<br>
                         <p>{{ strip_tags($data->author_description) }}</p><br>
      </div> -->
-                                        <div class="col-md-8">
+                                        <div class="col-md-auto">
 
                                             <div class="author_description">
                                                 <h3 class="mb-0 ms-2">{{ $data->author_name }}</h3>
