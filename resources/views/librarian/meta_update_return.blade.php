@@ -171,7 +171,7 @@
                             <div class="card-body p-3">
                                 <div class="table-responsive active-projects task-table">
                                     <div class="tbl-caption">
-                                        <h4 class="heading mb-0"><i class="fa fa-trash p-2" aria-hidden="true"></i></h4>
+                                        <!-- <h4 class="heading mb-0"><i class="fa fa-trash p-2" aria-hidden="true"></i></h4> -->
                                     </div>
                                     <table id="example4" class="table">
                                         <thead>
@@ -299,7 +299,31 @@
             </div>
             <div class="modal-body">
             <label>Are you sure you want to approve? </label>
+            <br>
+            <br>
+            <br>
                <input type="hidden" name="userid" id="hiddenInput1">
+
+
+               <div class="row">
+                
+      
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label>DDC</label>
+                        <input type="text" placeholder="Enter The ddc" class="form-control"  id="ddc"
+                        Required >
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                        <label for=""> CC</label>
+                        <input type="text" placeholder="Enter The cc"  class="form-control" id="cc"  Required
+                            >
+                    </div>
+                </div>
+            
+            </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -443,9 +467,35 @@
 <script>
       $(document).on('click','#submitButton1',function(e){
         e.preventDefault();
+        var ddc= $("#ddc").val();
+        if (!ddc ) {
+             
+                toastr.error("Please Enter ddc", {
+                    timeout: 45000
+                });
+                return;
+            }
+
+            var cc= $("#cc").val();
+            if (!cc ) {
+             
+             toastr.error("Please Enter cc", {
+                 timeout: 45000
+             });
+             return;
+         }
+         $('#submitButton1').prop('disabled',true);
+
+     
+  
         var data={
            'id':$('#hiddenInput1').val(),
+           'ddc':ddc,
+           'cc':cc,
         }
+        // var data={
+        //    'id':$('#hiddenInput1').val(),
+        // }
         console.log(data);
         $('#staticBackdrop1').modal('hide');
 

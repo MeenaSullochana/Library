@@ -212,7 +212,9 @@ Route::prefix('librarian')->group(function () {
 
     Route::get('/bookcopies_pendinglist',[LibrarianController::class,'bookcopies_pendinglist']);
     Route::post('/bookcopiesstatus',[LibrarianController::class,'bookcopiesstatus']);
+    Route::post('/multibookcopiesstatus',[LibrarianController::class,'multibookcopiesstatus']);
 
+    
     Route::get('/bookcopies_completelist',[LibrarianController::class,'bookcopies_completelist']);
 
     Route::get('/magazine-view-freq/{id}/{orderid}',[OrderController::class,'magazine_view_freq']);
@@ -260,5 +262,15 @@ Route::prefix('librarian')->group(function () {
 
     Route::get('/periodicalcopies_completelist',[LibrarianController::class,'periodicalcopies_completelist']);
 
+
+
+    Route::get('/magazine_views/{id}',[LibrarianController::class,'magazine_views']);
+    Route::get('/magazineview',function(){
+        $data = \Session::get('magazine');
+        if($data !==null){
+            return view('librarian.magazine_views')->with("data",$data);
+        }
+    
+    });
 });
 });

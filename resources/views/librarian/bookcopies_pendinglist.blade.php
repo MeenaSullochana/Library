@@ -65,6 +65,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                                    <div class="col-md-10"></div>
+                                    <div class="col-md-2">
+                                        <div class="d-sm-flex align-items-center justify-content-between">
+
+                                            <button class="btn btn-info mb-5 justify-content-between"  id="sendcopies">Book Copies Received</button>
+                                        </div>
+                                    </div>
+                                </div>
                 <div class="row bg-white p-2">
                     <div class="col-xl-12">
                         <div class="card-body p-0">
@@ -76,14 +85,24 @@
                                         aria-describedby="empoloyees-tbl3_info">
                                         <thead>
                                             <tr role="row">
+                                         
 
+                                                    <th>
+                                                    <div class="form-check custom-checkbox ms-0">
+                                                        <input type="checkbox" class="form-check-input checkAllInput"
+                                                            id="checkAll2" required="">
+                                                        <label class="form-check-label" for="checkAll2"></label>
+                                                    </div>
+                                                </th>
                                                 <th>S.No</th>
                                                 <th>Book Title</th>
                                                 <th>User Type</th>
                                                 <th>Name</th>
+                                                <th>Mobile Number</th>
                                                 <th>Total Book Copies</th>
                                                 <th>Issued Status</th>
                                                 <th>Book Copies Send Date</th>
+                                                <th>View</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -91,7 +110,15 @@
                                             @foreach($data as $key=>$val)
 
                                             <tr role="row" class="odd">
-
+                                            <td class="sorting_1">
+                                                        <div class="form-check custom-checkbox">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                id="customCheckBox100" data-book-id="{{ $val->id }}"  data-book-title="{{ $val->book_title }}"
+                                                                required="">
+                                                            <label class="form-check-label"
+                                                                for="customCheckBox100"></label>
+                                                        </div>
+                                                    </td>
                                                 <td data-label="">{{$loop->index+1}}</td>
                                                 <td data-label="">{{$val->booktitle}}</td>
                                                 @if($val->usertype == "publisher_distributor")
@@ -101,6 +128,7 @@
 
                                                 @endif
                                                 <td data-label="">{{$val->name}}</td>
+                                                <td data-label="">{{$val->phone}}</td>
                                                 <td data-label="">{{$val->copiesrec->copies}}</td>
 
                                                 <td>
@@ -125,7 +153,9 @@
                                                         data-bs-toggle="modal" data-bs-target="#modalId">View Copies
                                                         Proof</button>
                                                 </td>
-
+                                                <td>
+                                                    <a href="/librarian/book_view/{{$val->bookid}}"> <i class="fa fa-eye p-2"></i></a>
+                                                </td>
                                                 <!-- <td>
                                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                                         data-target="#modalId" data-id="{{ asset('Books/copies/' . $val->profileUmage) }}">
@@ -218,6 +248,29 @@
         </div>
     </div>
 
+
+
+
+    <div class="modal fade" id="staticbook" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Copies Approve </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label>Are you sure you want to approve? </label>
+                  
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="sendbooks">submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 
@@ -329,7 +382,79 @@ $(document).on('click', '#submitButton1', function(e) {
         loadFile(dataId);
     });
     </script>
+<script>
+    $(document).ready(function() {
 
+        $('#checkAll2').click(function() {
+            $('.customCheckBox100').prop('checked', this.checked);
+        });
+    });
+</script>
+<script>
+$(document).ready(function() {
+    $('#sendcopies').on('click', function() {
+
+
+        $('#staticbook').modal('show');
+      
+    });
+});
+</script>
+
+
+<script>
+$(document).ready(function() {
+    $('#sendbooks').on('click', function() {
+     
+        $('#sendbooks').prop('disabled',true);
+    
+           
+            var checkebook = $('#customCheckBox100:checked').map(function() {
+            return $(this).data('book-id');
+        }).get();
+
+
+        var data = {
+            'book': checkebook,
+          
+        };
+         console.log(data);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                 type: "post",
+                 dataType: "json",
+                 url: "/librarian/multibookcopiesstatus",
+                 data: data,
+                success: function(response) {
+                    if (response.success) {
+                        $('#staticbook').modal('hide');
+                        setTimeout(function() {
+                            window.location.href =
+                                "/librarian/bookcopies_pendinglist";
+                        }, 3000);
+                      
+                        toastr.success(response.success, {
+                            timeout: 45000
+                        });
+                    } else {
+                        $('#sendbooks').prop('disabled',false);
+
+                        toastr.error(response.error, {
+                            timeout: 45000
+                        });
+
+                    }
+                }
+            });
+        
+    });
+});
+</script>
 </html>
 <style>
 table {

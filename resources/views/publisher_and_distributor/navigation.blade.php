@@ -1316,6 +1316,21 @@
                             <li><a href="/publisher_and_distributor/procurement_reject">Reject List </a></li> --}}
                         </ul>
                     </li>
+
+					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+					<i class="bi bi-basket"></i>
+
+                            <span class="nav-text">Metacheck Review Management </span>
+                        </a>
+                        <ul aria-expanded="false">
+						 <li><a href="/publisher_and_distributor/procurement_list">Pending List </a></li>
+							<li><a href="/publisher_and_distributor/book_updatelist">Return Correction Book List</a></li>
+
+							<li><a href="/publisher_and_distributor/procurement_completed">Screened List </a></li>
+                            <li><a href="/publisher_and_distributor/procurement_reject">Reject List </a></li> 
+                 
+                        </ul>
+                    </li>
                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-receipt"></i>
                             <span class="nav-text">Procurement Receipt</span>

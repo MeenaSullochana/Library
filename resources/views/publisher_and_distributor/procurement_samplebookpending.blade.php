@@ -100,7 +100,7 @@
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary text-white openModal"
                                                         data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
-                                                        id="openModal">Send Book Copies</a>
+                                                        id="openModal">View Status</a>
                                                 </td>
                                                 <td data-label="control">
 
@@ -270,7 +270,7 @@ $(document).ready(function() {
     });
 });
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>

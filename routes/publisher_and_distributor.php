@@ -206,6 +206,7 @@ Route::post('/multibookdelete',[BookController::class,'multibookdelete']);
            Route::post('/remove-image-highlights', [BookController::class,'removeImageHighlights']);
 
            Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
+           Route::post('/procurementbokkcopies-send',[BookController::class,'procurementbokkcopies_send']);
 
 });
 });

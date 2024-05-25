@@ -1912,7 +1912,7 @@ public function reviewerbatchadd(Request $req){
      
      public function exportexcelmagazine(){
   
-       $magazine1 = Magazine::get();
+       $magazine1 = Magazine::where('status', '=', '1')->get();
        $total = 0;
        $finaldata = [];
        $serialNumber = 1;
@@ -1940,7 +1940,7 @@ public function reviewerbatchadd(Request $req){
                'Phone'=>$val1->phone,
                'Email'=>$val1->email,
                'Address'=>$val1->address,
-            
+                
    
                  
            ];

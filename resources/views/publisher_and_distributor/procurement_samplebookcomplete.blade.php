@@ -100,7 +100,7 @@
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary text-white openModal"
                                                         data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
-                                                        id="openModal">Send Book Copies</a>
+                                                        id="openModal">View Status</a>
                                                 </td>
                                                 <td data-label="control">
 

@@ -174,7 +174,7 @@
                             <div class="card-body p-3">
                                 <div class="table-responsive active-projects task-table">
                                     <div class="tbl-caption">
-                                        <h4 class="heading mb-0"><i class="fa fa-trash p-2" aria-hidden="true"></i></h4>
+                                        <!-- <h4 class="heading mb-0"><i class="fa fa-trash p-2" aria-hidden="true"></i></h4> -->
                                     </div>
                                     <table id="example4" class="table">
                                         <thead>
@@ -296,7 +296,7 @@
     </div>
     <div class="modal fade" id="staticBackdrop22" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog  modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Correction</h1>
@@ -305,7 +305,7 @@
                 <div class="modal-body">
                     <input type="hidden" name="userid" id="hiddenInput22">
                     <label for="return_message">Please Enter Any Correction </label>
-                    <textarea name="return_message" id="return_message" cols="800" rows="30"
+                    <textarea name="return_message" id="return_message" cols="1000" rows="20"
                         class="form-control"></textarea>
                 </div>
                 <div class="modal-footer">
@@ -328,7 +328,23 @@
                 </div>
                 <div class="modal-body">
                     <label>Are you sure you want to approve? </label>
-                    <input type="hidden" name="userid" id="hiddenInput1">
+                    <br>
+                    <br>
+                    <br>
+                    <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label>DDC</label>
+                                <input type="text" placeholder="Enter The ddc" class="form-control"  id="ddc"
+                                Required >
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <div class="form-group">
+                                <label for=""> CC</label>
+                                <input type="text" placeholder="Enter The cc"  class="form-control" id="cc"  Required
+                                    >
+                            </div>
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -471,12 +487,34 @@ $(document).on('click', '#submitButton', function(e) {
 
 <script>
 $(document).on('click', '#submitButton1', function(e) {
-    e.preventDefault();
-    var data = {
-        'id': $('#hiddenInput1').val(),
-    }
-    console.log(data);
-    $('#staticBackdrop1').modal('hide');
+    var ddc= $("#ddc").val();
+        if (!ddc ) {
+             
+                toastr.error("Please Enter ddc", {
+                    timeout: 45000
+                });
+                return;
+            }
+
+            var cc= $("#cc").val();
+            if (!cc ) {
+             
+             toastr.error("Please Enter cc", {
+                 timeout: 45000
+             });
+             return;
+         }
+         $('#submitButton1').prop('disabled',true);
+
+     
+        e.preventDefault();
+        var data={
+           'id':$('#hiddenInput1').val(),
+           'ddc':ddc,
+           'cc':cc,
+        }
+        console.log(data);
+        $('#staticBackdrop1').modal('hide');
 
     $.ajaxSetup({
         headers: {

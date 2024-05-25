@@ -81,9 +81,11 @@
                                                 <th>Book Title</th>
                                                 <th>User Type</th>
                                                 <th>Name</th>
+                                                <th>Mobile Number</th>
                                                 <th>Total Book Copies</th>
                                                 <th>Issued Status</th>
                                                 <th>Book Copies Send Date</th>
+                                                <th>View</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -101,6 +103,8 @@
 
                                                 @endif
                                                 <td data-label="">{{$val->name}}</td>
+                                                <td data-label="">{{$val->phone}}</td>
+
                                                 <td data-label="">{{$val->copiesrec->copies}}</td>
 
                                              
@@ -116,6 +120,9 @@
                                                         data-id="{{ asset('Books/copies/' . $val->copiesrec->profileImage) }}"
                                                         data-bs-toggle="modal" data-bs-target="#modalId">View Copies
                                                         Proof</button>
+                                                </td>
+                                                <td>
+                                                    <a href="/librarian/book_view/{{$val->bookid}}"> <i class="fa fa-eye p-2"></i></a>
                                                 </td>
                                             </tr>
                                     
@@ -309,6 +316,9 @@ $(document).on('click', '#submitButton1', function(e) {
         loadFile(dataId);
     });
     </script>
+
+
+
 </html>
 <style>
 table {

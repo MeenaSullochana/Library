@@ -1252,28 +1252,30 @@ return response()->json($data);
         return redirect('admin/book_manageview');  
   }
   public function procurement_samplebookpending(){
-    $data1=Book::where('book_procurement_status','=',"6")->where('book_status','=',null)->get(); 
-     $data=[];
-     foreach($data1 as $key=>$val){
-         $bookcopies=bookcopies::where('bookid','=',$val->id)->first();
-           $copies=  json_decode($bookcopies->copies);
-           $val->copies=$copies;
-           array_push($data,$val);
-         }
+    $data1=bookcopies::where('status','=','1')->get(); 
+    $data=[];
+    foreach($data1 as $key=>$val){
+    $bookcopies=bookcopies::where('bookid','=',$val->bookid)->first();
+          $copies=  json_decode($bookcopies->copies);
+          $data2=Book::find($val->bookid);
+          $data2->copies=$copies;
+          array_push($data,$data2);
+        }
     
     return view('admin.procurement_samplebookpending')->with('data',$data); 
 }
 
 
 public function procurement_samplebookcomplete(){
-  $data1=Book::where('book_procurement_status','=',"1")->where('book_status','=',null)->get(); 
-   $data=[];
-   foreach($data1 as $key=>$val){
-       $bookcopies=bookcopies::where('bookid','=',$val->id)->first();
-         $copies=  json_decode($bookcopies->copies);
-         $val->copies=$copies;
-         array_push($data,$val);
-       }
+  $data1=bookcopies::where('status','=','0')->get(); 
+  $data=[];
+  foreach($data1 as $key=>$val){
+  $bookcopies=bookcopies::where('bookid','=',$val->bookid)->first();
+        $copies=  json_decode($bookcopies->copies);
+        $data2=Book::find($val->bookid);
+        $data2->copies=$copies;
+        array_push($data,$data2);
+      }
   
   return view('admin.procurement_samplebookcomplete')->with('data',$data); 
 }

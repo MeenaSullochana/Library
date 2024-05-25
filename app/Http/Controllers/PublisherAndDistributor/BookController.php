@@ -327,13 +327,14 @@ public function procurement_samplebook(){
 }
 public function procurement_samplebookpending(){
     $id=auth('publisher_distributor')->user()->id;
-     $data1=Book::where('user_id','=',$id)->where('book_procurement_status','=',"6")->where('book_status','=',null)->get(); 
-     $data=[];
+    $data1=bookcopies::where('status','=','1')->where('userid','=',$id)->get(); 
+    $data=[];
      foreach($data1 as $key=>$val){
-         $bookcopies=bookcopies::where('bookid','=',$val->id)->first();
-           $copies=  json_decode($bookcopies->copies);
-           $val->copies=$copies;
-           array_push($data,$val);
+        $bookcopies=bookcopies::where('bookid','=',$val->bookid)->first();
+        $copies=  json_decode($bookcopies->copies);
+        $data2=Book::find($val->bookid);
+        $data2->copies=$copies;
+        array_push($data,$data2);
          }
     
     return view('publisher_and_distributor.procurement_samplebookpending')->with('data',$data); 
@@ -1011,16 +1012,65 @@ public function procurementbokkcopies(Request $request){
 
 public function procurement_samplebookcomplete(){
   $id=auth('publisher_distributor')->user()->id;
-   $data1=Book::where('user_id','=',$id)->where('book_procurement_status','=',"1")->where('book_status','=',null)->get(); 
-   $data=[];
+  $data1=bookcopies::where('status','=','0')->where('userid','=',$id)->get(); 
+  $data=[];
    foreach($data1 as $key=>$val){
-       $bookcopies=bookcopies::where('bookid','=',$val->id)->first();
-         $copies=  json_decode($bookcopies->copies);
-         $val->copies=$copies;
-         array_push($data,$val);
+      $bookcopies=bookcopies::where('bookid','=',$val->bookid)->first();
+      $copies=  json_decode($bookcopies->copies);
+      $data2=Book::find($val->bookid);
+      $data2->copies=$copies;
+      array_push($data,$data2);
        }
   
   return view('publisher_and_distributor.procurement_samplebookcomplete')->with('data',$data); 
 }
+public function procurementbokkcopies_send(Request $request){
 
+    $datarec1=[];
+  
+    $datarecJson = json_decode($request->datarec);
+    foreach ($datarecJson as $key => $val) {
+     $pdfcopies = $request->file('profileImage'.$key);
+
+      $pdf_name = $request->librarytype . time() . '_' . $pdfcopies->getClientOriginalName();
+      $pdfcopies->move(('Books/copies'), $pdf_name);
+      $val->profileImage = $pdf_name;
+      
+      array_push($datarec1,$val);
+  }
+  $count=0;
+  $bookJson = json_decode($request->book);
+  $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
+
+  foreach($bookJson as $index => $val){
+
+        $book =Book::find($val);
+
+        $bookcopies=new bookcopies();
+        $bookcopies->bookid =  $book->id;
+        $bookcopies->booktitle =  $book->book_title;
+        $bookcopies->copies =  json_encode($datarec1);
+        $bookcopies->userid =  auth('publisher_distributor')->user()->id;
+        $bookcopies->usertype =  auth('publisher_distributor')->user()->usertype;
+
+        $bookcopies->copiesnum =  $randomCode;
+
+        
+        if($bookcopies->save()){
+            
+            $book->book_procurement_status="6";
+            $book->save();
+            $count= $count +1;
+        }
+      
+    
+    }
+
+    if($count == count($bookJson)){
+        return response()->json(['success' => 'copies send successfull']);
+
+    }
+ 
+
+}
 }
