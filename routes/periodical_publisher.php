@@ -36,6 +36,7 @@ Route::prefix('periodical_publisher')->group(function () {
     });
     Route::post('/magazine/update/{id}',[MagazineController::class,'magazineupdate']);
     Route::post('/getlanguage', [MagazineController::class, 'getcategory']);
+    Route::post('/magazine_delete', [MagazineController::class, 'magazine_delete']);
     Route::post('/changepassword',[PeriodicalPublisherController::class,'peripubchangepassword']);
     Route::get('/change_password',function(){ return view('periodical_publisher.change_password');});
     Route::post('/getcategory', [MagazineController::class, 'getcategory']);

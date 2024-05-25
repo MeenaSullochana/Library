@@ -622,7 +622,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="avatar-preview">
-                                                    <img class="w-75" id="uploadedImage1"  src="{{ asset('Magazine/highlightimg/' . $data->highlightimg) }}"
+                                                    <img class="w-75" id="uploadedImage1"  src="{{ asset('Magazine/editorprofile/' . $data->editorprofile) }}"
                                                         alt="Uploaded Image"
                                                         accept="image/png, image/jpg, image/jpeg">
                                                 </div>
@@ -1931,6 +1931,22 @@
         }
     });
 </script>
+
+
+
+@if (Session::has('success'))
+    <script>
+        toastr.success("{{ Session::get('success') }}", {
+            timeout: 15000
+        });
+    </script>
+@elseif (Session::has('error'))
+    <script>
+        toastr.error("{{ Session::get('error') }}", {
+            timeout: 15000
+        });
+    </script>
+@endif
 </body>
 
 <style>
