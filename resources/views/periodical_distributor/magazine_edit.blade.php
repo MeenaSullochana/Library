@@ -17,9 +17,9 @@
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement - Periodical Edit</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_publisher/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('periodical_distributor/images/fevi.svg') }}">
     <?php
-    include 'periodical_publisher/plugin/plugin_css.php';
+    include 'periodical_distributor/plugin/plugin_css.php';
     ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
@@ -46,7 +46,7 @@
         <!--**********************************
                 Nav header start
             ***********************************-->
-        @include ('periodical_publisher.navigation')
+        @include ('periodical_distributor.navigation')
         <!--**********************************
                 Sidebar end
             ***********************************-->
@@ -61,7 +61,7 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Edit Magazine</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href=" {{ url('periodical_publisher/magazine_list') }}">
+                            <a class="btn btn-primary  btn-sm" href=" {{ url('periodical_distributor/magazine_list') }}">
                                 <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Magazine </a>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                         <div class="card-body">
                             <div class="">
                                 <form method="POST"
-                                    action="/periodical_publisher/magazine/update/{{ $data->id }}"
+                                    action="/periodical_distributor/magazine/update/{{ $data->id }}"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <section class="bg-light-new">
@@ -234,9 +234,9 @@
                                                                 <span class="text-danger">*</span></label>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control"
-                                                                    id="" name="name_of_publisher" value="{{auth('periodical_publisher')->user()->publicationName}}"
+                                                                    id="" name="name_of_publisher" value="{{auth('periodical_distributor')->user()->publicationName}}"
                                                                     placeholder="Enter the name of the publisher"
-                                                                    readonly>
+                                                                    >
 
                                                             </div>
                                                         </div>
@@ -1307,7 +1307,7 @@
     <!--**********************************
                     Footer start
                 ***********************************-->
-    @include ('periodical_publisher.footer')
+    @include ('periodical_distributor.footer')
     <!--**********************************
                     Footer end
                 ***********************************-->
@@ -1400,7 +1400,7 @@
             Main wrapper end
         ***********************************-->
     <?php
-    include 'periodical_publisher/plugin/plugin_js.php';
+    include 'periodical_distributor/plugin/plugin_js.php';
     ?>
 
     <!-- <script src="./vendor/toastr/js/toastr.min.js"></script> -->
@@ -1441,7 +1441,7 @@
    $.ajax({
       type: "post",
       dataType: "json",
-      url: '/periodical_publisher/getdistrict',
+      url: '/periodical_distributor/getdistrict',
       data: {'state_id':stateId},
        success: function(response) {
            var districts = response.districts;
@@ -1582,7 +1582,7 @@
             $.ajax({
                 type: "post",
                 dataType: "json",
-                url: '/periodical_publisher/getlanguage',
+                url: '/periodical_distributor/getlanguage',
                 data: {
                     'lang': lang
                 },

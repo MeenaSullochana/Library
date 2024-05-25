@@ -268,7 +268,7 @@ public function magazine_orderview($id){
   public function magazineedit($id){
     $magazine = Magazine::find($id);
     \Session::put('magazine', $magazine);
-    return redirect('admin/magazineupdate'); 
+    return redirect('periodical_publisher/magazineupdate'); 
   }
   public function getcategory(Request $request){
     $lang = $request->lang;
@@ -281,158 +281,270 @@ public function magazine_orderview($id){
   }
   
   public function magazineupdate(Request $request , $id){
-  
-    $validator = Validator::make($request->all(), [
-      'language' => 'required',
-      'category' => 'required',
-      'title' => 'required',
-      'periodicity' => 'required',
-      'single_issue_rate' => 'required',
-      'annual_subscription' => 'required',
-      'discount' => 'required',
-      'single_issue_after_discount' => 'required',
-      'annual_cost_after_discount' => 'required',
-      'rni_details' => 'required',
-      'paper_quality' => 'required',
-      'total_pages' => 'required',
-      'total_multicolour_pages' => 'required',
-      'total_monocolour_pages' => 'required',
-      'magazine_size' => 'required',
-      'contact_person' => 'required',
-      'email' => 'required|email',
-      'phone' => 'required',
-      'address' => 'required',
-      'front_img' => 'required|image',
-      'back_img' => 'required|image',
-      'full_img' => 'required|image',
-      'sample_pdf' => 'required|mimes:pdf',
- 
-  ], [
-      'language.required' => 'The language field is required.',
-      'category.required' => 'The category field is required.',
-      'title.required' => 'The title field is required.',
-      'periodicity.required' => 'The periodicity field is required.',
-      'single_issue_rate.required' => 'The single issue rate field is required.',
-      'annual_subscription.required' => 'The annual subscription field is required.',
-      'discount.required' => 'The discount field is required.',
-      'single_issue_after_discount.required' => 'The single issue after discount field is required.',
-      'annual_cost_after_discount.required' => 'The annual cost after discount field is required.',
-      'rni_details.required' => 'The RNI details field is required.',
-      'paper_quality.required' => 'The paper quality field is required.',
-      'total_pages.required' => 'The total pages field is required.',
-      'total_multicolour_pages.required' => 'The total multicolour pages field is required.',
-      'total_monocolour_pages.required' => 'The total monocolour pages field is required.',
-      'magazine_size.required' => 'The magazine size field is required.',
-      'contact_person.required' => 'The contact person field is required.',
-      'email.required' => 'The email field is required.',
-      'email.email' => 'The email must be a valid email address.',
-      'phone.required' => 'The phone field is required.',
-      'address.required' => 'The address field is required.',
-      'front_img.required' => 'The front image field is required.',
-      'front_img.image' => 'The front image must be an image file.',
-      'back_img.required' => 'The back image field is required.',
-      'back_img.image' => 'The back image must be an image file.',
-      'full_img.required' => 'The full image field is required.',
-      'full_img.image' => 'The full image must be an image file.',
-      'sample_pdf.required' => 'The sample PDF field is required.',
-      'sample_pdf.mimes' => 'The sample PDF must be a PDF file.',
-
-
-  ]);
-  if ($validator->fails()) {
-    $errors = $validator->errors();
-    if(Session::has('validation_error')){
-        Session::forget('validation_error');
-    }
-    if(Session::has('error')){
-        Session::forget('error');
-    }
-    Session::put('validation_error',$errors);
-  dd('error');
-  }
-  $admin = auth('admin')->user();
-  
-     $magazine = Magazine::find($id);
-  
-  
-     //Front Img
-  if(isset($request->front_img)){
-    $oldFilePath = $magazine->front_img;
-    if ($oldFilePath) {
-        File::delete(public_path('Magazine/front/' . $oldFilePath));
-    }
-    if ($request->hasFile('front_img')) {
-        $front = $request->file('front_img');
-        $front_name = $request->title . time() . '_' . $front->getClientOriginalName();
-        $front->move(('Magazine/front'), $front_name);
-        $magazine->front_img = $front_name;
-    }
-  }
-  
-  // Back Image
-  if(isset($request->back_img)){
-    $oldFilePath = $magazine->back_img;
-    if ($oldFilePath) {
-        File::delete(public_path('Magazine/back/' . $oldFilePath));
-    }
-    if ($request->hasFile('back_img')) {
-        $back = $request->file('back_img');
-        $back_name = $request->title . time() . '_' . $back->getClientOriginalName();
-        $back->move(('Magazine/back'), $back_name);
-        $magazine->back_img = $back_name;
-    }
-  }
-  
-  //Other Image
-     if(isset($request->full_img)){
-        $oldFilePath = $magazine->full_img;
-        if ($oldFilePath) {
-            File::delete(public_path('Magazine/full/' . $oldFilePath));
-        }
-        if ($request->hasFile('full_img')) {
-            $full = $request->file('full_img');
-            $full_name = $request->title . time() . '_' . $full->getClientOriginalName();
-            $full->move(public_path('Magazine/full'), $full_name);
-            $magazine->full_img = $full_name;
-        }
-     } 
-  
-     //pdf 
-     if(isset($request->sample_pdf)){
-      $oldFilePath = $magazine->sample_pdf;
-      if ($oldFilePath) {
-          File::delete(public_path('Magazine/pdf/' . $oldFilePath));
+    // dd($request->all());
+      $validator = Validator::make($request->all(), [
+        'rni_details' => 'required',
+        'language' => 'required',
+        'category' => 'required',
+        'title' => 'required',
+        'name_of_publisher'=>'required',
+        'name_of_editor'=>'required',
+        'frequency' => 'required',
+        'first_issue' => 'required',
+        'per_year' => 'required',
+        'every_issue' => 'required',
+        'single_issue_rate' => 'required',
+        'annual_subscription' => 'required',
+        'discount' => 'required',
+        'single_issue_after_discount' => 'required',
+        'annual_cost_after_discount' => 'required',
+        'quotes_one' => 'required',
+        'periodical_short_info' => 'required',
+        'about_editor' => 'required',
+        'magazine_size' => 'required',
+        'gsm' => 'required',
+        'type_paper' => 'required',
+        'paper_finishing' => 'required',
+        'total_pages' => 'required',
+        'total_multicolour_pages' => 'required',
+        'total_monocolour_pages' => 'required',
+        'contact_person' => 'required',
+        'email' => 'required|email',
+        'phone' => 'required',
+        'country' => 'required',
+        'state' => 'required',
+        'district' => 'required',
+        'city' => 'required',
+        'pincode' => 'required',
+        'address' => 'required',
+        'official_address' => 'required',
+        'bank_Name' => 'required',
+        'ifsc_Code' => 'required',
+        'ban_Acc_Num' => 'required',
+        'acc_Hol_Nam' => 'required',
+    
+    ], [
+        'rni_details.required' => 'The RNI details field is required.',
+        'language.required' => 'The language field is required.',
+        'category.required' => 'The category field is required.',
+        'title.required' => 'The title field is required.',
+        'name_of_publisher.required' => 'The Name of Publisher field is required.',
+        'name_of_editor.required' => 'The Name of Editor field is required.',
+        'frequency.required' => 'The periodicity field is required.',
+        'first_issue.required' =>  'The year of first issue field is required.',
+        'per_year.required' =>  'Total number of issue per year field is required.',
+        'every_issue.required' =>  'Date of publication of every issue field is required.',
+        'single_issue_rate.required' => 'The single issue rate field is required.',
+        'annual_subscription.required' => 'The annual subscription field is required.',
+        'discount.required' => 'The discount field is required.',
+        'single_issue_after_discount.required' => 'The single issue after discount field is required.',
+        'annual_cost_after_discount.required' => 'The annual cost after discount field is required.',
+        'quotes_one.required' => 'Highlights field is required',
+        'periodical_short_info.required' => 'Short description about periodical is required',
+        'about_editor.required' => 'About publisher / editor field is required',
+        'gsm.required' => 'GSM field is required',
+        'magazine_size.required' => 'Magazine size field is required',
+        'type_paper.required' => 'Paper type field is required',
+        'paper_finishing.required' => 'Paper finishing field is required',
+        'total_pages.required' => 'The number of pages field is required.',
+        'total_multicolour_pages.required' => 'The number of multicolour pages field is required.',
+        'total_monocolour_pages.required' => 'The number of monocolour pages field is required.',
+        'contact_person.required' => 'The contact person name field is required.',
+        'email.required' => 'The contact person email is required.',
+        'email.email' => 'The email must be a valid email address.',
+        'phone.required' => 'The contact person phone number field is required.',
+        'country.required' => 'The country field is required.',
+        'state.required' => 'The state field is required.',
+        'district.required' => 'The district field is required.',
+        'city.required' => 'The city field is required.',
+        'pincode.required' => 'The pincode field is required.',
+        'address.required' => 'The contact person address field is required.',
+        'official_address.required' => 'The offcial address field is required.',
+        'bank_Name.required' => 'The bank Name field is required.',
+        'ifsc_Code.required' => 'The ifsc code field is required.',
+        'ban_Acc_Num.required' => 'The bank Account Number field is required.',
+        'acc_Hol_Nam.required' => 'The Account Holder name field is required.',
+    ]);
+    if ($validator->fails()) {
+      $errors = $validator->errors();
+      if(Session::has('validation_error')){
+          Session::forget('validation_error');
       }
-      if ($request->hasFile('sample_pdf')) {
-          $full = $request->file('sample_pdf');
-          $full_name = $request->title . time() . '_' . $full->getClientOriginalName();
-          $full->move(public_path('Magazine/pdf'), $full_name);
-          $magazine->sample_pdf = $full_name;
+      if(Session::has('error')){
+          Session::forget('error');
+      }
+      Session::put('validation_error',$errors);
+    }
+    $user = auth('periodical_publisher')->user();
+    
+       $magazine = Magazine::find($id);
+  
+       //highlights image
+       if(isset($request->clip_attachment)){
+        $oldFilePath = $magazine->clip_attachment;
+        if ($oldFilePath) {
+            File::delete(public_path('Magazine/highlightimg/' . $oldFilePath));
+        }
+        if ($request->hasFile('clip_attachment')) {
+            $front = $request->file('clip_attachment');
+            $front_name =time() . '_' . $front->getClientOriginalName();
+            $front->move(('Magazine/highlightimg'), $front_name);
+            $magazine->highlightimg = $front_name;
+        }
+      }
+    
+      //editor profile
+      if(isset($request->editor_profile_image)){
+        $oldFilePath = $magazine->editor_profile_image;
+        if ($oldFilePath) {
+            File::delete(public_path('Magazine/editorprofile/' . $oldFilePath));
+        }
+        if ($request->hasFile('editor_profile_image')) {
+            $front = $request->file('editor_profile_image');
+            $front_name =time() . '_' . $front->getClientOriginalName();
+            $front->move(('Magazine/editorprofile'), $front_name);
+            $magazine->editorprofile = $front_name;
+        }
+      }
+       //Front Img
+    if(isset($request->front_img)){
+      $oldFilePath = $magazine->front_img;
+      if ($oldFilePath) {
+          File::delete(public_path('Magazine/front/' . $oldFilePath));
+      }
+      if ($request->hasFile('front_img')) {
+          $front = $request->file('front_img');
+          $front_name =time() . '_' . $front->getClientOriginalName();
+          $front->move(('Magazine/front'), $front_name);
+          $magazine->front_img = $front_name;
+      }
+    }
+    
+    // Back Image
+    if(isset($request->back_img)){
+      $oldFilePath = $magazine->back_img;
+      if ($oldFilePath) {
+          File::delete(public_path('Magazine/back/' . $oldFilePath));
+      }
+      if ($request->hasFile('back_img')) {
+          $back = $request->file('back_img');
+          $back_name =time() . '_' . $back->getClientOriginalName();
+          $back->move(('Magazine/back'), $back_name);
+          $magazine->back_img = $back_name;
+      }
+    }
+    
+    //Other Image
+       if(isset($request->full_img)){
+          $oldFilePath = $magazine->full_img;
+          if ($oldFilePath) {
+              File::delete(public_path('Magazine/full/' . $oldFilePath));
+          }
+          if ($request->hasFile('full_img')) {
+              $full = $request->file('full_img');
+              $full_name =time() . '_' . $full->getClientOriginalName();
+              $full->move(public_path('Magazine/full'), $full_name);
+              $magazine->full_img = $full_name;
+          }
+       } 
+    
+       //pdf 
+       if(isset($request->pdf_content_one)){
+        $oldFilePath = $magazine->pdf_content_one;
+        if ($oldFilePath) {
+            File::delete(public_path('Magazine/pdf1/' . $oldFilePath));
+        }
+        if ($request->hasFile('pdf_content_one')) {
+            $full = $request->file('pdf_content_one');
+            $full_name = time() . '_' . $full->getClientOriginalName();
+            $full->move(public_path('Magazine/pdf1'), $full_name);
+            $magazine->pdf1 = $full_name;
+        }
+     }  
+     if(isset($request->pdf_content_two)){
+      $oldFilePath = $magazine->pdf_content_two;
+      if ($oldFilePath) {
+          File::delete(public_path('Magazine/pdf2/' . $oldFilePath));
+      }
+      if ($request->hasFile('pdf_content_two')) {
+          $full = $request->file('pdf_content_two');
+          $full_name =time() . '_' . $full->getClientOriginalName();
+          $full->move(public_path('Magazine/pdf2'), $full_name);
+          $magazine->pdf2 = $full_name;
       }
    }  
-     $magazine->language =$request->language;
-     $magazine->category =  $request->category;
-     $magazine->title =  $request->title;
-     $magazine->periodicity =  $request->periodicity;
-     $magazine->single_issue_rate = $request->single_issue_rate;
-     $magazine->annual_subscription = $request->annual_subscription;
-     $magazine->discount = $request->discount;
-     $magazine->single_issue_after_discount =  $request->single_issue_after_discount;
-     $magazine->annual_cost_after_discount =  $request->annual_cost_after_discount;
-     $magazine->rni_details = $request->rni_details;
-     $magazine->total_pages = $request->total_page;
-     $magazine->total_multicolour_pages = $request->total_multicolour_pages;
-     $magazine->total_monocolour_pages =  $request->total_monocolour_pages; 
-     $magazine->paper_quality = $request->paper_quality; 
-     $magazine->magazine_size = $request->magazine_size; 
-     $magazine->contact_person = $request->contact_person; 
-     $magazine->phone =  $request->phone; 
-     $magazine->email =$request->email; 
-     $magazine->address = $request->address; 
-     $magazine->user_type = "admin";
-     $magazine->user_id = $admin->id;
-     $magazine->save();
-     return back()->with('success',"Magazine updated successfully");
+  
+   if(isset($request->pdf_content_three)){
+    $oldFilePath = $magazine->pdf_content_three;
+    if ($oldFilePath) {
+        File::delete(public_path('Magazine/pdf3/' . $oldFilePath));
+    }
+    if ($request->hasFile('pdf_content_three')) {
+        $full = $request->file('pdf_content_three');
+        $full_name =time() . '_' . $full->getClientOriginalName();
+        $full->move(public_path('Magazine/pdf3'), $full_name);
+        $magazine->pdf3 = $full_name;
+    }
+  }  
+  
+  if(isset($request->rni_attachment_proof)){
+    $oldFilePath = $magazine->rni_attachment_proof;
+    if ($oldFilePath) {
+        File::delete(public_path('Magazine/rniproof/' . $oldFilePath));
+    }
+    if ($request->hasFile('rni_attachment_proof')) {
+        $full = $request->file('rni_attachment_proof');
+        $full_name =time() . '_' . $full->getClientOriginalName();
+        $full->move(public_path('Magazine/rniproof'), $full_name);
+        $magazine->rniproof = $full_name;
+    }
+  }
+       $magazine->rni_details = $request->rni_details;
+       $magazine->language =$request->language;
+       $magazine->category =  $request->category;
+       $magazine->title =  $request->title;
+       $magazine->publisher_name = $request->name_of_publisher;
+       $magazine->editor_name = $request->name_of_editor;
+       $magazine->periodicity =  $request->frequency;
+       $magazine->first_issue_year = $request->first_issue;
+       $magazine->issue_per_year = $request->per_year;
+       $magazine->every_issue_date = $request->every_issue;
+       $magazine->single_issue_rate = $request->single_issue_rate;
+       $magazine->annual_subscription = $request->annual_subscription;
+       $magazine->discount = $request->discount;
+       $magazine->single_issue_after_discount =  $request->single_issue_after_discount;
+       $magazine->annual_cost_after_discount =  $request->annual_cost_after_discount;
+       $magazine->periodical_short_info = $request->periodical_short_info;
+       $magazine->about_editor = $request->about_editor;
+       $magazine->magazine_size = $request->magazine_size; 
+       $magazine->gsm = $request->gsm;
+       $magazine->papertype = $request->type_paper;
+       $magazine->paperfinishing = $request->paper_finishing;
+       $magazine->total_pages = $request->total_pages;
+       $magazine->total_multicolour_pages = $request->total_multicolour_pages;
+       $magazine->total_monocolour_pages =  $request->total_monocolour_pages; 
+       $magazine->contact_person = $request->contact_person; 
+       $magazine->email =$request->email; 
+       $magazine->phone =  $request->phone; 
+       $magazine->country = $request->country;
+       $magazine->state = $request->state;
+       $magazine->district = $request->district;
+       $magazine->city = $request->city;
+       $magazine->pincode = $request->pincode;
+       $magazine->address = $request->address; 
+       $magazine->highlights = $request->quotes_one;
+       $magazine->official_address = $request->official_address;
+       $magazine->user_type = "publisher";
+       $magazine->user_id = $user->id;
+       $magazine->bank_Name =$request->bank_Name;
+       $magazine->ifsc_Code = $request->ifsc_Code;
+       $magazine->ban_Acc_Num = $request->ban_Acc_Num;
+       $magazine->acc_Hol_Nam =$request->acc_Hol_Nam;
+       $magazine->save();
+       \Session::put('magazine', $magazine);
+       return redirect('periodical_publisher/magazineupdate'); 
+      //  return back()->with('success',"Magazine Create successfully");
+    
   } 
   public function order_delete(Request $request){
     

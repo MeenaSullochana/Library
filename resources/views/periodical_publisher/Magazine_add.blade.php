@@ -200,7 +200,7 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Name of the Publisher  <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter the name of the publisher" value="{{auth('periodical_publisher')->user()->publicationName}}" readonly>>
+                                                                <input type="text" class="form-control" id="name_of_publisher" name="name_of_publisher" placeholder="Enter the name of the publisher" value="{{auth('periodical_publisher')->user()->publicationName}}" readonly>
                                                                 <div class="invalid-feedback"> Please enter the name of the publisher. </div>
                                                             </div>
                                                         </div>
@@ -1027,7 +1027,7 @@
                                     </section>
                                     <div class="row">
                                         <div class="col-md-12 text-end mt-5">
-                                            <button type="submit" class="btn me-2 btn-primary" id="submitbutton">Submit</button>
+                                            <button type="submit" class="btn me-2 btn-primary">Submit</button>
                                         </div>
                                     </div>
                                 </form>

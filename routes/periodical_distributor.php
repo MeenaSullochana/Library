@@ -24,6 +24,16 @@ Route::prefix('periodical_distributor')->group(function () {
         }
     
     });
+    Route::get('/magazine_edit/{id}', [MagazineController::class, 'magazine_edit']);
+    Route::get('/magazineupdate',function(){
+        $data = Session::get('magazine');
+        if($data !==null){
+            return view('periodical_distributor.magazine_edit')->with("data",$data);
+        }
+    
+    });
+    Route::post('/magazine/update/{id}',[MagazineController::class,'magazineupdate']);
+    Route::post('/getlanguage', [MagazineController::class, 'getcategory']);
     Route::post('/changepassword',[PeriodicalDistributorController::class,'peridistchangepassword']);
 Route::get('/change_password',function(){ return view('periodical_distributor.change_password');});
 Route::post('/magazine/add',[MagazineController::class,'createmagazine']);

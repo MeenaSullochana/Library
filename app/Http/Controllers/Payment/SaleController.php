@@ -75,7 +75,7 @@ class SaleController extends Controller
         // Get inputs
         $data = $request->post();
         if($request->UDF05 == "Book"){
-            $amount = $request->Amount * 100;
+            $amount = 1 * 100;
         }else if($request->UDF05 == "Periodical"){
             $amount = 1 * 100;
         }
