@@ -171,7 +171,7 @@
                             <div class="card-body p-3">
                                 <div class="table-responsive active-projects task-table">
                                     <div class="tbl-caption">
-                                        <h4 class="heading mb-0"><i class="fa fa-trash p-2 text-danger" aria-hidden="true"></i></h4>
+                                        <!-- <h4 class="heading mb-0"><i class="fa fa-trash p-2 text-danger" aria-hidden="true"></i></h4> -->
                                     </div>
                                     <table id="example4" class="table">
                                         <thead>

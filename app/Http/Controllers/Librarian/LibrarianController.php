@@ -86,6 +86,8 @@ foreach($book as $key=>$val){
    public function librarianapprovestatus(Request $req){
     $book = Book::find($req->id);
     $book->book_status="1";
+    $book->ddc=$req->ddc;
+    $book->cc=$req->cc;
     $book->save();
     $data= [
         'success' => 'Book review status change Successfully',
@@ -699,22 +701,24 @@ public function librarianreturnmessage(Request $req){
            if($val1->librarytype  ==  auth('librarian')->user()->libraryName && $val1->status  == "0"){
             $val->copiesrec=$val1;
             if($val->usertype == "publisher"){
-              $publisher=Publisher::find($val->userid);
+               $publisher=Publisher::find($val->userid);
               if($publisher !=null){
                 $val->name=$publisher->publicationName;
+                $val->phone=$publisher->mobileNumber;
               }
                
             }elseif($val->usertype== "distributor"){
         
-              $distributor=Distributor::find($val->userid);
+                $distributor=Distributor::find($val->userid);
               if($distributor !=null){
                 $val->name=$distributor->distributionName;
-      
+                $val->phone=$distributor->mobileNumber;
               }
             }else{
               $pubdist=PublisherDistributor::find($val->userid);
               if($pubdist !=null){
                 $val->name=$pubdist->publicationDistributionName;
+                $val->phone=$pubdist->mobileNumber;
               }
             }
                array_push($data,$val);
@@ -732,7 +736,7 @@ public function librarianreturnmessage(Request $req){
   }
   
   public function periodicalcopies_pendinglist(){
-    $periodicalcopies = periodicalcopies::where('status','=',"1")->get();
+   $periodicalcopies = periodicalcopies::where('status','=',"1")->get();
    $data=[];
     foreach($periodicalcopies as $val){
       $copies= json_decode($val->copies);
@@ -740,9 +744,12 @@ public function librarianreturnmessage(Request $req){
            if($val1->librarytype  ==  auth('librarian')->user()->libraryName && $val1->status  == "0"){
             $val->copiesrec=$val1;
             if($val->usertype == "publisher"){
-              $publisher=PeriodicalPublisher::find($val->userid);
+            $publisher=PeriodicalPublisher::find($val->userid);
               if($publisher !=null){
                 $val->name=$publisher->publicationName;
+                $val->phone=$publisher->mobileNumber;
+
+                
               }
                
             }elseif($val->usertype== "distributor"){
@@ -750,7 +757,8 @@ public function librarianreturnmessage(Request $req){
               $distributor=PeriodicalDistributor::find($val->userid);
               if($distributor !=null){
                 $val->name=$distributor->distributionName;
-      
+                $val->phone=$distributor->mobileNumber;
+
               }
             }
                array_push($data,$val);
@@ -776,8 +784,13 @@ public function librarianreturnmessage(Request $req){
     foreach($copies as $val1){
       if($val1->status  == "0"){
         if($val1->librarytype  ==  auth('librarian')->user()->libraryName){
-             $val1->status="1";
-        
+              if($val1->librarytype == "Anna Centenary Library"){
+                $book = Book::find($bookcopies->bookid);
+                $book->book_procurement_status="1";
+                $book->save();
+              }
+          
+            $val1->status="1";
             $count =$count + 1;
             array_push($rec,$val1);
           
@@ -796,9 +809,7 @@ public function librarianreturnmessage(Request $req){
     }
 
      if($count == $countdata ){
-      $book = Book::find($bookcopies->bookid);
-      $book->book_procurement_status="1";
-      $book->save();
+
       $bookcopies->status="0";
       $bookcopies->save();
      }
@@ -809,7 +820,7 @@ public function librarianreturnmessage(Request $req){
      }
 
   }
-  
+   
 
   public function periodicalcopiesstatus(Request $req){
 
@@ -869,6 +880,8 @@ public function librarianreturnmessage(Request $req){
               $publisher=Publisher::find($val->userid);
               if($publisher !=null){
                 $val->name=$publisher->publicationName;
+                $val->phone=$publisher->mobileNumber;
+
               }
                
             }elseif($val->usertype == "distributor"){
@@ -876,12 +889,14 @@ public function librarianreturnmessage(Request $req){
               $distributor=Distributor::find($val->userid);
               if($distributor !=null){
                 $val->name=$distributor->distributionName;
-      
+                $val->phone=$distributor->mobileNumber;
+
               }
             }else{
               $pubdist=PublisherDistributor::find($val->userid);
               if($pubdist !=null){
                 $val->name=$pubdist->publicationDistributionName;
+                $val->phone=$pubdist->mobileNumber;
               }
             }
                array_push($data,$val);
@@ -932,6 +947,71 @@ public function librarianreturnmessage(Request $req){
 
 
   }
+  public function magazine_views($id){
+    $magazine = Magazine::find($id);
 
+
+   \Session::put('magazine', $magazine);
+   return redirect('librarian/magazineview');    
+
+ }
+
+
+
+ 
+
+
+ public function multibookcopiesstatus(Request $req){
+  $datacount =0;
+  foreach($req->book as $bookval){
+  $bookcopies = bookcopies::find($bookval);
+
+  $copies= json_decode($bookcopies->copies);
+  $rec=[];
+ $count =0;
+ $countdata = 0;
+  foreach($copies as $val1){
+    if($val1->status  == "0"){
+      if($val1->librarytype  ==  auth('librarian')->user()->libraryName){
+            if($val1->librarytype == "Anna Centenary Library"){
+              $book = Book::find($bookcopies->bookid);
+              $book->book_procurement_status="1";
+              $book->save();
+            }
+        
+          $val1->status="1";
+          $count =$count + 1;
+          array_push($rec,$val1);
+        
+      }else{
+        array_push($rec,$val1);
+
+      }
+   
+    
+    }else if($val1->status  == "1"){
+      $count =$count +1;
+      array_push($rec,$val1);
+    }
+    $countdata = $countdata +1;
+
+  }
+
+   if($count == $countdata ){
+
+    $bookcopies->status="0";
+    $bookcopies->save();
+   }
+   $bookcopies->copies=json_encode($rec);
+   if($bookcopies->save()){
+    $datacount=$datacount + 1;
+
+   }
+  }
+    if($datacount == count($req->book)){
+          return response()->json(['success' => 'copies status  change successfull']);
+
+    }
+}
     }
     

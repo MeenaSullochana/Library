@@ -20,6 +20,15 @@
     <?php
         include "periodical_publisher/plugin/plugin_css.php";
         ?>
+   <style>
+        .tamil-font {
+            font-family: 'Latha', sans-serif;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+
 </head>
 <body>
 
@@ -162,14 +171,34 @@
     ?>
 </body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
 <script>
-    function generatePdf() {
-        let htmlElement = document.getElementById('print-pdf');
-        html2pdf().from(htmlElement).save('book_receipt.pdf');
-    }
-</script>
+        async function generatePdf() {
+            const { jsPDF } = window.jspdf;
+
+            try {
+                const content = document.getElementById('print-pdf');
+
+                if (!content) {
+                    throw new Error("Content element not found");
+                }
+
+                const canvas = await html2canvas(content, { scale: 2 });
+
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF('p', 'mm', 'a4');
+
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                pdf.save('book_receipt.pdf');
+            } catch (error) {
+                console.error("Error generating PDF:", error);
+            }
+        }
+    </script>
 <style>
     .table thead th {
     text-transform: math-auto !important;

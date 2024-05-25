@@ -81,9 +81,11 @@
                                                 <th>Periodical Title</th>
                                                 <th>User Type</th>
                                                 <th>Name</th>
+                                                <th>Mobikle Number</th>
                                                 <th>Total Periodical Copies</th>
                                                 <th>Issued Status</th>
                                                 <th>Periodical Copies Send Date</th>
+                                                <th>View</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -99,6 +101,8 @@
 
                                            
                                                 <td data-label="">{{$val->name}}</td>
+                                                <td data-label="">{{$val->phone}}</td>
+
                                                 <td data-label="">{{$val->copiesrec->copies}}</td>
 
                                                 <td>
@@ -123,7 +127,9 @@
                                                         data-bs-toggle="modal" data-bs-target="#modalId">View Copies
                                                         Proof</button>
                                                 </td>
-
+                                                <td>
+                                                    <a href="/librarian/magazine_views/{{$val->periodicalid}}"> <i class="fa fa-eye p-2"></i></a>
+                                                </td>
                                             </tr>
 
                                             @endforeach

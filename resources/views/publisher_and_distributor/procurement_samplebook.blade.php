@@ -69,16 +69,23 @@
                     <div class="card-body">
                         <h6 class="fw-bold">Copies to be Submitted for Review and Selection: 5 copies</h6>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <strong> Archiving Purpose:</strong> To comply with the Delivery of Books (Public Libraries) Act, 1954, send one copy of all published books to Connemara Public Library. Additionally, send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar Centenary Library in Madurai for archiving of Books.<br><br>
-                            <p><strong>Review Purpose: </strong> Send two copies for review of books to Anna Centenary Library, Chennai.</p>
+                            <strong> Archiving Purpose:</strong> To comply with the Delivery of Books (Public Libraries)
+                            Act, 1954, send one copy of all published books to Connemara Public Library. Additionally,
+                            send one copy to state libraries such as Anna Centenary Library,Chennai and Kalaignar
+                            Centenary Library in Madurai for archiving of Books.<br><br>
+                            <p><strong>Review Purpose: </strong> Send two copies for review of books to Anna Centenary
+                                Library, Chennai.</p>
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12 border mb-3">
-                            <p class="mt-3"><b>Note 1 :</b> Copies send proof, such as postal/courier receipts or acknowledgments (for direct submissions), should be attached as evidence in " Send Book Copies".</p>
-                            <p><b>Note 2 :</b> Books should be send with the "Payment acknowledgement" which is downloadable at "Procurement Receipt".</p>    
-                        </div>
+                                <p class="mt-3"><b>Note 1 :</b> Copies send proof, such as postal/courier receipts or
+                                    acknowledgments (for direct submissions), should be attached as evidence in " Send
+                                    Book Copies".</p>
+                                <p><b>Note 2 :</b> Books should be send with the "Payment acknowledgement" which is
+                                    downloadable at "Procurement Receipt".</p>
+                            </div>
                             <div class="col-md-4">
                                 <h5 class="ms-3 mb-0"><strong class="text-primary">3 Copy</strong></h5><br>
                                 <b>Transparent Book Procurement</b> <br>
@@ -102,7 +109,7 @@
                             </div>
                             <div class="col-md-4 border-start">
                                 <h5 class="ms-3 mb-0"><strong class="text-primary">1 Copy</strong></h5><br>
-                                <b>Transparent Book Procurement</b><br> 
+                                <b>Transparent Book Procurement</b><br>
                                 Book Selection Committee<br>
                                 Kalaignar Centenary Library,<br>
                                 Reserve Line, Madurai - 625 002<br>
@@ -110,6 +117,17 @@
                                 Ph. No. : 0452-2535400 <br>
 
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <div class="d-sm-flex align-items-center justify-content-between">
+
+                            <button class="btn btn-info mb-5 justify-content-between" id="sendcopies">Send Book Copies
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -124,7 +142,13 @@
                                         aria-describedby="empoloyees-tbl3_info">
                                         <thead>
                                             <tr role="row">
-
+                                                <th>
+                                                    <div class="form-check custom-checkbox ms-0">
+                                                        <input type="checkbox" class="form-check-input checkAllInput"
+                                                            id="checkAll2" required="">
+                                                        <label class="form-check-label" for="checkAll2"></label>
+                                                    </div>
+                                                </th>
                                                 <th>S.No</th>
                                                 <th>Book ID</th>
                                                 <th>Title</th>
@@ -135,7 +159,14 @@
                                         <tbody>
                                             @foreach($data as $key=>$val)
                                             <tr role="row" class="odd">
-
+                                                <td class="sorting_1">
+                                                    <div class="form-check custom-checkbox">
+                                                        <input type="checkbox" class="form-check-input"
+                                                            id="customCheckBox100" data-book-id="{{ $val->id }}"
+                                                            data-book-title="{{ $val->book_title }}" required="">
+                                                        <label class="form-check-label" for="customCheckBox100"></label>
+                                                    </div>
+                                                </td>
                                                 <td data-label="S/No">{{$loop->index+1}}</td>
                                                 <td data-label="Book ID">{{$val->product_code}}</td>
                                                 <td style="white-space:normal;" data-label="Title">
@@ -351,114 +382,252 @@
             </div>
         </div>
     </div>
+
+
+
+
+    <div class="modal fade" id="ModalConfirmCenter11">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you send book Copies?</h5>
+                    <button type="button" id="closedata" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- <input type="hidden" id="hiddenId"> -->
+                    <!-- <input type="hidden" id="hiddentitle"> -->
+                    <h5 class="modal-title">
+                        <!-- <p id="booktitle">Book Title :</p> -->
+                    </h5>
+                    </h5>
+                    <br>
+                    <div class="row">
+                        {{-- <div class="row">
+                            <div class="col-md-8"></div>
+                             <div class="col-md-4 col-sm-12">
+                                <p class="text-danger">Postal/Courier receipts <br> or Acknowledgment Proof</p>
+                            </div>
+                        </div> --}}
+                        <div class="col-md-2 col-sm-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox">
+
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label for="inputNumberBooks1">Library Type</label>
+                                <input type="text" class="form-control" value="Anna Centenary Library" id="librarytype1"
+                                    name="inputNumberBooks1" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <div class="form-group">
+                                <label for="inputNumberBooks1"> Book Copies</label>
+                                <input type="text" class="form-control" id="copies1" value="3" name="inputNumberBooks1"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group mt-2">
+                                <label for="inputNumberBooks1">Postal/Courier receipts
+                                    or Acknowledgment Proof</label>
+                                <input type="file" id="uplode4" name="" require>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        {{-- <div class="row">
+                            <div class="col-md-8"></div>
+                             <div class="col-md-4">
+                                <p class="text-danger">Postal/Courier receipts <br> or Acknowledgment Proof</p>
+                            </div>
+                        </div> --}}
+                        <div class="col-md-2 col-sm-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox">
+
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label for="inputNumberBooks1">Library Type</label>
+                                <input type="text" class="form-control" id="librarytype2"
+                                    value="Kalaignar Centenary Library" name="inputNumberBooks1" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <div class="form-group">
+                                <label for="inputNumberBooks1">Book Copies</label>
+                                <input type="text" class="form-control" id="copies2" value="1" name="inputNumberBooks1"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group mt-2">
+                                <label for="inputNumberBooks1"> Postal/Courier receipts
+                                    or Acknowledgment Proof</label>
+                                <input type="file" id="uplode5" name="" require>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        {{-- <div class="row">
+                            <div class="col-md-8"></div>
+                             <div class="col-md-3 col-sm-12">
+                                <p class="text-danger">Postal/Courier receipts <br> or Acknowledgment Proof</p>
+                            </div>
+                        </div> --}}
+                        <div class="col-md-2 col-sm-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox">
+
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group">
+                                <label for="inputNumberBooks1">Library Type</label>
+                                <input type="text" class="form-control" id="librarytype3"
+                                    value="Connemara Public Library" name="inputNumberBooks1" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-sm-12">
+                            <div class="form-group">
+                                <label for="inputNumberBooks1"> Book Copies</label>
+                                <input type="text" class="form-control" id="copies3" value="1" name="inputNumberBooks1"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="form-group mt-2">
+                                <label for="inputNumberBooks1"> Postal/Courier receipts
+                                    or Acknowledgment Proof</label>
+                                <input type="file" id="uplode6" name="" require>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">No</button> -->
+                    <button type="button" id="sendbooks" class="btn btn-primary">Confirm to submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 </body>
 <style>
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+}
+
+table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
+}
+
+table th,
+table td {
+    padding: .625em;
+    text-align: center;
+}
+
+table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
     table {
-        border: 1px solid #ccc;
-        border-collapse: collapse;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        table-layout: fixed;
+        border: 0;
     }
 
     table caption {
-        font-size: 1.5em;
-        margin: .5em 0 .75em;
+        font-size: 1.3em;
+    }
+
+    table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+
+    .form-check.mt-p00.form-switch {
+        display: flex;
+        justify-content: flex-end;
     }
 
     table tr {
-        background-color: #f8f8f8;
-        border: 1px solid #ddd;
-        padding: .35em;
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
     }
 
-    table th,
     table td {
-        padding: .625em;
-        text-align: center;
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
     }
 
-    table th {
-        font-size: .85em;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-    }
-
-    @media screen and (max-width: 600px) {
-        table {
-            border: 0;
-        }
-
-        table caption {
-            font-size: 1.3em;
-        }
-
-        table thead {
-            border: none;
-            clip: rect(0 0 0 0);
-            height: 1px;
-            margin: -1px;
-            overflow: hidden;
-            padding: 0;
-            position: absolute;
-            width: 1px;
-        }
-
-        .form-check.mt-p00.form-switch {
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        table tr {
-            border-bottom: 3px solid #ddd;
-            display: block;
-            margin-bottom: .625em;
-        }
-
-        table td {
-            border-bottom: 1px solid #ddd;
-            display: block;
-            font-size: .8em;
-            text-align: right;
-        }
-
-        table td::before {
-            /*
+    table td::before {
+        /*
    * aria-label has no advantage, it won't be read inside a table
    content: attr(aria-label);
    */
-            content: attr(data-label);
-            float: left;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        table td:last-child {
-            border-bottom: 0;
-        }
-
-        .d-flex.mt-p0 {
-            display: flex;
-            justify-content: flex-end;
-        }
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
     }
 
-    /* general styling */
-    body {
-        font-family: "Open Sans", sans-serif;
-        line-height: 1.25;
+    table td:last-child {
+        border-bottom: 0;
     }
 
-    .active-projects.style-1 .dt-buttons .dt-button {
-        top: -50px;
-        right: 0 !important;
+    .d-flex.mt-p0 {
+        display: flex;
+        justify-content: flex-end;
     }
+}
 
-    .active-projects tbody tr td:last-child {
-        text-align: center;
-    }
-    </style>
+/* general styling */
+body {
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.25;
+}
+
+.active-projects.style-1 .dt-buttons .dt-button {
+    top: -50px;
+    right: 0 !important;
+}
+
+.active-projects tbody tr td:last-child {
+    text-align: center;
+}
+</style>
 <script>
 $(document).ready(function() {
     $('#closedata').on('click', function() {
@@ -571,7 +740,7 @@ $(document).ready(function() {
 <script>
 $(document).ready(function() {
     $('#sendbook').on('click', function() {
-        $('#sendbook').prop('disabled',true);
+        $('#sendbook').prop('disabled', true);
         var profileImage = $('#uplode1')[0].files[0];
         var profileImage1 = $('#uplode2')[0].files[0];
         var profileImage2 = $('#uplode3')[0].files[0];
@@ -584,11 +753,11 @@ $(document).ready(function() {
             toastr.error("Please Select All Checkbox", {
                 timeout: 45000
             });
-            $('#sendbook').prop('disabled',false);
+            $('#sendbook').prop('disabled', false);
 
         } else {
             if (!profileImage || !profileImage1 || !profileImage2) {
-                $('#sendbook').prop('disabled',false);
+                $('#sendbook').prop('disabled', false);
 
                 toastr.error("Please select all three PDF files", {
                     timeout: 45000
@@ -597,7 +766,7 @@ $(document).ready(function() {
             }
 
             if (!isPDF(profileImage) || !isPDF(profileImage1) || !isPDF(profileImage2)) {
-                $('#sendbook').prop('disabled',false);
+                $('#sendbook').prop('disabled', false);
 
                 toastr.error("Please select PDF files only", {
                     timeout: 45000
@@ -613,19 +782,19 @@ $(document).ready(function() {
                 'librarytype': $('#librarytype1').val(),
                 'copies': $('#copies1').val(),
                 'status': '0',
-                
+
             };
             var data2 = {
                 'librarytype': $('#librarytype2').val(),
                 'copies': $('#copies2').val(),
                 'status': '0',
-               
+
             };
             var data3 = {
                 'librarytype': $('#librarytype3').val(),
                 'copies': $('#copies3').val(),
                 'status': '0',
-                
+
             };
             datarec.push(data1, data2, data3);
 
@@ -662,7 +831,7 @@ $(document).ready(function() {
                             timeout: 45000
                         });
                     } else {
-                        $('#sendbook').prop('disabled',false);
+                        $('#sendbook').prop('disabled', false);
 
                         toastr.error(response.error, {
                             timeout: 45000
@@ -672,6 +841,142 @@ $(document).ready(function() {
                 }
             });
         }
+    });
+});
+</script>
+<script>
+$(document).ready(function() {
+
+    $('#checkAll2').click(function() {
+        $('.customCheckBox100').prop('checked', this.checked);
+    });
+});
+</script>
+
+
+
+
+<script>
+$(document).ready(function() {
+    $('#sendbooks').on('click', function() {
+        $('#sendbooks').prop('disabled', true);
+
+        var profileImage = $('#uplode4')[0].files[0];
+        var profileImage1 = $('#uplode5')[0].files[0];
+        var profileImage2 = $('#uplode6')[0].files[0];
+
+
+
+
+        var checkedCount = $('#ModalConfirmCenter11 input[type="checkbox"]:checked').length;
+        if (checkedCount != 3) {
+            $('#sendbooks').prop('disabled', false);
+
+            toastr.error("Please Select All Checkbox", {
+                timeout: 45000
+            });
+        } else {
+            if (!profileImage || !profileImage1 || !profileImage2) {
+                $('#sendbooks').prop('disabled', false);
+
+                toastr.error("Please select all three PDF files", {
+                    timeout: 45000
+                });
+                return;
+            }
+
+            if (!isPDF(profileImage) || !isPDF(profileImage1) || !isPDF(profileImage2)) {
+                $('#sendbooks').prop('disabled', false);
+
+                toastr.error("Please select PDF files only", {
+                    timeout: 45000
+                });
+                return;
+            }
+
+            function isPDF(file) {
+                return file.type === 'application/pdf';
+            }
+            var datarec = [];
+            var data1 = {
+                'librarytype': $('#librarytype1').val(),
+                'copies': $('#copies1').val(),
+                'status': '0',
+
+            };
+            var data2 = {
+                'librarytype': $('#librarytype2').val(),
+                'copies': $('#copies2').val(),
+                'status': '0',
+
+            };
+            var data3 = {
+                'librarytype': $('#librarytype3').val(),
+                'copies': $('#copies3').val(),
+                'status': '0',
+
+            };
+            datarec.push(data1, data2, data3);
+
+            var datarecJsonString = JSON.stringify(datarec);
+            var checkebook = $('#customCheckBox100:checked').map(function() {
+                return $(this).data('book-id');
+            }).get();
+
+            var bookJsonString = JSON.stringify(checkebook);
+
+            var formData = new FormData();
+            formData.append('book', bookJsonString);
+
+            formData.append('datarec', datarecJsonString);
+
+            formData.append('profileImage0', profileImage);
+            formData.append('profileImage1', profileImage1);
+            formData.append('profileImage2', profileImage2);
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: "post",
+                url: "/publisher_and_distributor/procurementbokkcopies-send",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    if (response.success) {
+                        $('#ModalConfirmCenter11').modal('hide');
+                        setTimeout(function() {
+                            window.location.href =
+                                "/publisher_and_distributor/procurement_samplebook";
+                        }, 3000);
+
+                        toastr.success(response.success, {
+                            timeout: 45000
+                        });
+                    } else {
+                        $('#sendbook').prop('disabled', false);
+
+                        toastr.error(response.error, {
+                            timeout: 45000
+                        });
+
+                    }
+                }
+            });
+        }
+    });
+});
+</script>
+<script>
+$(document).ready(function() {
+    $('#sendcopies').on('click', function() {
+
+
+        $('#ModalConfirmCenter11').modal('show');
+
     });
 });
 </script>

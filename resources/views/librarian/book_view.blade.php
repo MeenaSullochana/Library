@@ -519,6 +519,7 @@
                                                                     </span></p>
                                                             </div>
                                                             <div class="col-md-7 col-7">
+                                                            @if(auth('librarian')->user()->metaChecker == 'yes')
                                                                 <p> <span class="item">
                                                                         <select class="form-select small" id="Category"
                                                                             data-id="{{ $data->id }}" name="Category"
@@ -538,6 +539,11 @@
                                                                             @endforeach
                                                                         </select>
                                                                     </span> </p>
+                                                                    @else 
+                                                                    <div class="col-md-5 col-5">
+                                                                <p class="p-0 m-0"> {{ $data->category }}</p>
+                                                            </div>
+                                                         @endif
                                                             </div>
                                                             <div class="col-md-5 col-5">
                                                                 <p class="p-0 m-0"><span
@@ -545,7 +551,9 @@
                                                                     </span></p>
                                                             </div>
                                                             <div class="col-md-7 col-7">
+                                                            @if(auth('librarian')->user()->metaChecker == 'yes')
                                                                 <p> <span class="item">
+                                                              
                                                                         <select class="form-select small" id="subject"
                                                                             data-id="{{ $data->id }}" name="subjrct"
                                                                             style="font-size: 12px;">
@@ -553,20 +561,36 @@
                                                                                 {{$data->subject }}
 
                                                                             </option>
-                                                                            @if(auth('librarian')->user()->metaChecker == 'yes')
+                                                                           
                                                                             @php
-                                                                            $categori =
-                                                                            DB::table('book_subject')->where('status','=','1')->where('name','!=',$data->subject)->get();
+                                                                            $book_subject =
+                                                                            DB::table('book_subject')->where('type','=','Tamil')->where('status','=','1')->where('name','!=',$data->subject)->get();
 
 
                                                                             @endphp
-                                                                            @foreach($categori as $val)
+                                                                            @foreach($book_subject as $val)
+                                                                            <option value="{{$val->name}}">
+                                                                                {{$val->name}}</option>
+                                                                            @endforeach
+                                                                            @php
+                                                                            $book_subject1 =
+                                                                            DB::table('book_subject')->where('type','=','English')->where('status','=','1')->where('name','!=',$data->subject)->get();
+
+
+                                                                            @endphp
+                                                                            @foreach($book_subject1 as $val)
                                                                             <option value="{{$val->name}}">
                                                                                 {{$val->name}}</option>
                                                                             @endforeach
                                                                         </select>
-                                                                        @endif
-                                                                    </span> </p>
+                                                                       
+                                                                    </span> 
+                                                                </p>
+                                                             @else 
+                                                                    <div class="col-md-5 col-5">
+                                                                <p class="p-0 m-0"> {{$data->subject }}</p>
+                                                            </div>
+                                                         @endif
                                                             </div>
                                                             <div class="col-md-5 col-5">
                                                                 <p class="p-0 m-0"><span
@@ -1282,13 +1306,15 @@
 
                 </div>
                 <div class="modal-footer" style="display: flex; justify-content: space-between;">
-                    <div>
+                @if(auth('librarian')->user()->metaChecker == 'yes')
+                <div>
                         <a id="prev" href="#prev" class="arrow">Previous</a>
                         <a id="next" href="#next" class="arrow">Next</a>
                     </div>
+                    @endif
                     <div>
                         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button> -->
+                                <button type="button" class="btn btn-primary">Save</button> -->
                     </div>
                 </div>
 

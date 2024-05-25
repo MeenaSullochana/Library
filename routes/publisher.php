@@ -214,6 +214,9 @@ Route::prefix('publisher')->group(function () {
      Route::post('/procurementbokkcopies',[BookController::class,'procurementbokkcopies']);
      Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
 
-     
+     Route::post('/procurementbokkcopies-send',[BookController::class,'procurementbokkcopies_send']);
+
+
+    //  
     });
 });
