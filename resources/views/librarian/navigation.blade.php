@@ -240,7 +240,7 @@
                                                                 stroke-linecap="round" stroke-linejoin="round" />
                                                         </svg>
 
-                                                        <span class="ms-2">change Password </span>
+                                                        <span class="ms-2">Change Password </span>
                                                     </a>
                                                     <!-- <a href="app-profile-2.html" class="dropdown-item ai-icon ">
 														<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
@@ -338,7 +338,7 @@
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-book"></i>
-                            <span class="nav-text">book Copies Management </span>
+                            <span class="nav-text">Manage Book Copies </span>
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
@@ -351,7 +351,7 @@
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-book"></i>
-                            <span class="nav-text">Periodical Copies Management </span>
+                            <span class="nav-text"> Periodical Copies  </span>
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="library_manage_create">Create Library   </a></li> -->

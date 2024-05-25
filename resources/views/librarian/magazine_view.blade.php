@@ -15,7 +15,7 @@
     <meta name="format-detection" content="telephone=no">
 
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Book Add</title>
+    <title>Government of Tamil Nadu - Book Procurement - Book view</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
     <?php

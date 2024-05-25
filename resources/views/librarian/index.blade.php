@@ -78,8 +78,8 @@
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
-                                            <div class="icon-box icon-box-lg bg-success-light rounded">
-                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa fa-book text-primary"></i>
                                             </div>
 
                                             @php
@@ -87,7 +87,7 @@
                                             @endphp
 
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-success count">{{ count($bookcopies) }}</h3>
+                                                <h3 class="text-primary count">{{ count($bookcopies) }}</h3>
                                                 <span>Total Book</span>
                                             </div>
                                         </div>
@@ -99,9 +99,8 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-lg bg-success-light rounded">
-                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                                <i class="fa fa-book-open text-success"></i>
                                             </div>
-
                                             @php
                                             $bookcopies1 = DB::table('bookcopies')->get();
                                             $countre=0;
@@ -127,8 +126,8 @@
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
-                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
-                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
+                                            <div class="icon-box icon-box-lg bg-danger-light rounded">
+                                                <i class="fa-solid fa-book-skull text-danger"></i>
                                                 @php
                                                 $bookcopies3 = DB::table('bookcopies')->get();
                                                 $countre1=0;
@@ -146,7 +145,7 @@
                                                 @endphp
                                             </div>
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-primary count">{{ $countre1 }}</h3>
+                                                <h3 class="text-danger count">{{ $countre1 }}</h3>
                                                 <span>Unreceived Book </span>
 
                                             </div>
@@ -162,8 +161,8 @@
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
-                                            <div class="icon-box icon-box-lg bg-success-light rounded">
-                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa-solid fa-book-bible text-primary"></i>
                                             </div>
 
                                             @php
@@ -177,7 +176,7 @@
                                             @endphp
 
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-success count">{{count($bookcopies4) * $copiescount }}</h3>
+                                                <h3 class="text-primary count">{{count($bookcopies4) * $copiescount }}</h3>
                                                 <span>Total Book Copies</span>
                                             </div>
                                         </div>
@@ -189,7 +188,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-lg bg-success-light rounded">
-                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                                <i class="fa-solid fa-book-bookmark text-success"></i>
                                             </div>
 
                                             @php
@@ -223,8 +222,8 @@
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
-                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
-                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
+                                            <div class="icon-box icon-box-lg bg-danger-light rounded">
+                                                <i class="fa-solid fa-book-skull text-danger"></i>
                                                 @php
                                                 $bookcopies3 = DB::table('bookcopies')->get();
                                                 $copiescount11 = 0;
@@ -248,7 +247,7 @@
                                                 @endphp
                                             </div>
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-primary count">{{ $countre1 * $copiescount11}}</h3>
+                                                <h3 class="text-danger count">{{ $countre1 * $copiescount11}}</h3>
                                                 <span>Unreceived Book Copies</span>
 
                                             </div>
@@ -263,13 +262,13 @@
 
 
 
-                            <h4>periodical</h4>
+                            <h4>Periodical</h4>
                             <div class="col-xl-4 col-sm-6">
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
-                                            <div class="icon-box icon-box-lg bg-success-light rounded">
-                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa fa-book text-primary"></i>
                                             </div>
 
                                             @php
@@ -277,7 +276,7 @@
                                             @endphp
 
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-success count">{{ count($periodicalcopies) }}</h3>
+                                                <h3 class="text-primary count">{{ count($periodicalcopies) }}</h3>
                                                 <span>Total Periodical</span>
                                             </div>
                                         </div>
@@ -289,7 +288,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-lg bg-success-light rounded">
-                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                                <i class="fa fa-book-open text-success"></i>
                                             </div>
 
                                             @php
@@ -317,8 +316,8 @@
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
-                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
-                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
+                                            <div class="icon-box icon-box-lg bg-danger-light rounded">
+                                                <i class="fa-solid fa-book-skull text-danger"></i>
                                                 @php
                                                 $periodicalcopies3 = DB::table('periodicalcopies')->get();
                                                 $periodicalcountre1=0;
@@ -336,7 +335,7 @@
                                                 @endphp
                                             </div>
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-primary count">{{ $periodicalcountre1 }}</h3>
+                                                <h3 class="text-danger count">{{ $periodicalcountre1 }}</h3>
                                                 <span>Unreceived Periodical </span>
 
                                             </div>
@@ -352,8 +351,8 @@
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
-                                            <div class="icon-box icon-box-lg bg-success-light rounded">
-                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa-solid fa-book-bible text-primary"></i>
                                             </div>
 
                                             @php
@@ -367,7 +366,7 @@
                                             @endphp
 
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-success count">{{count($periodicalcopies4) * $periodicalcopiescount }}</h3>
+                                                <h3 class="text-primary count">{{count($periodicalcopies4) * $periodicalcopiescount }}</h3>
                                                 <span>Total Periodical Copies</span>
                                             </div>
                                         </div>
@@ -379,7 +378,7 @@
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
                                             <div class="icon-box icon-box-lg bg-success-light rounded">
-                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                                <i class="fa-solid fa-book-bookmark text-success"></i>
                                             </div>
 
                                             @php
@@ -413,8 +412,8 @@
                                 <div class="card box-hover">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center">
-                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
-                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
+                                            <div class="icon-box icon-box-lg bg-danger-light rounded">
+                                                <i class="fa-solid fa-book-skull text-danger"></i>
                                                 @php
                                                 $periodicalcopies3 = DB::table('periodicalcopies')->get();
                                                 $periodicalcopiescount11 = 0;
@@ -438,7 +437,7 @@
                                                 @endphp
                                             </div>
                                             <div class="total-projects ms-3">
-                                                <h3 class="text-primary count">{{ $periodicalcountre1 * $periodicalcopiescount11}}</h3>
+                                                <h3 class="text-danger count">{{ $periodicalcountre1 * $periodicalcopiescount11}}</h3>
                                                 <span>Unreceived Periodical Copies</span>
 
                                             </div>
