@@ -6,18 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Magazine;
-use App\Models\MagazineCategory;
-
-
 use Illuminate\Http\Request;
 use App\Models\Budget;
+use App\Models\MagazineCategory;
+use DB;
 use App\Models\Specialcategories;
 use Illuminate\Support\Facades\Session;
 class ProductController extends Controller
 {
     //
     public function product_two(){
-     
+
         $librarian = auth('librarian')->user();
 
         $magazinebudget = Budget::where('type', 'magazinebudget')
@@ -88,16 +87,11 @@ class ProductController extends Controller
         }
     
         Session::put('bud_arr', $bud_arr);
-    
-            $magazines = Magazine::where('status', '=', '1')->orderBy('sNo', 'Asc')->paginate(12);
-      
-
         
+            $magazines = Magazine::paginate(10);
             $min = Magazine::where('status', '=', '1')->where('status', '=', '1')->min(\DB::raw('CAST(annual_cost_after_discount AS UNSIGNED)'));
 
             $max = Magazine::where('status', '=', '1')->max(\DB::raw('CAST(annual_cost_after_discount AS UNSIGNED)'));
-            
-          
             
             return view('product-two', compact('magazines','min','max'));
     }
@@ -108,31 +102,39 @@ class ProductController extends Controller
         // Check if category parameter is provided and not empty
         if ($request->has('category')) {
             $categoryParam = $request->input('category');
-          
-
             if (!empty($categoryParam)) {
                 if ($categoryParam != 'all') {
                     $categories = explode(',', $categoryParam);
+                    foreach($categories as $val){
+                        if($val == "இளைஞர் நலன்"){
+                            array_push($categories , 'இளைஞர் நலன், விளையாட்டு, அறிவியல் & தொழில்நுட்பம்');
+                        }
+                        if($val == "Youth"){
+                            array_push($categories , 'Youth, Sports Science & Technology');
+                        }
+                    }
                     $query->whereIn('category', $categories);
                 }
             }
         }
-    
+
         // Apply search filter if provided
         if ($request->has('search')) {
             $searchQuery = $request->input('search');
             $query->where(function ($query) use ($searchQuery) {
                 $query->where('title', 'like', "%{$searchQuery}%")
-                    ->orWhere('category', 'like', "%{$searchQuery}%");
+                    ->orWhere('category', 'like', "%{$searchQuery}%")
+                    ->orWhere('annual_cost_after_discount', 'like', "%{$searchQuery}%")
+                    ->orWhere('periodicity', 'like', "%{$searchQuery}%");
             });
         }
 
     // Apply price range filter if provided
-    if ($request->has('minPrice') && $request->has('maxPrice')) {
-        $minPrice = $request->input('minPrice');
-        $maxPrice = $request->input('maxPrice');
-        $query->whereBetween('annual_cost_after_discount', [$minPrice, $maxPrice]);
-    }
+    // if ($request->has('minPrice') && $request->has('maxPrice')) {
+    //     $minPrice = $request->input('minPrice');
+    //     $maxPrice = $request->input('maxPrice');
+    //     $query->whereBetween('annual_cost_after_discount', [$minPrice, $maxPrice]);
+    // }
         
     $perPage = 10;   
     // Apply search filter if provided

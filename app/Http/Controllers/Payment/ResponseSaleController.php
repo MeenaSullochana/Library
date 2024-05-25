@@ -67,7 +67,7 @@ class ResponseSaleController extends Controller
         
         // SecureHash got in reply
         $SecureHash=$dataFromPostFromPG['SecureHash'];
-                
+                dd($SecureHash);
         //remove SecureHash from data 	
         unset($dataFromPostFromPG['SecureHash']);
                 
@@ -119,7 +119,7 @@ class ResponseSaleController extends Controller
         $ucap=$utility->null2unknown("UCAP",$dataFromPostFromPG);
         $payopt=$utility->null2unknown("payOpt",$dataFromPostFromPG);
         $pgtxnid=$utility->null2unknown("pgTxnId",$dataFromPostFromPG);
-        $paymentstatus=$utility->null2unknown("pgTxnId",$dataFromPostFromPG);
+
 
         $hashValidated = 'Invalid Hash';
         if( $SecureHash_final == $SecureHash )

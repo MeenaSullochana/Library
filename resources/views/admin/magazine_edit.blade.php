@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -152,7 +153,21 @@
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black" for="validationCustomUsername">Periodicity <span class="text-danger">*</span></label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control" id="" name="periodicity" value="{{$data->periodicity}}" placeholder="Enter the Periodicity" required>
+                                                                <select class="default-select wide form-control"
+                                                                id="select-lang" name="periodicity" required>
+                                                                @php
+                                                                $periodicity = DB::table('magazine_periodicities')->where('status','=','1')->get();
+                                                                @endphp
+                        
+                                                                @foreach($periodicity as $val)
+                                                                  @if($data->periodicity == $val->name)
+                                                                     <option value="{{$val->name}}" selected>{{$val->name}}</option>
+                                                                  @else
+                                                                     <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                  @endif
+                                                              
+                                                                @endforeach
+                                                            </select>
 
                                                             </div>
                                                         </div>
@@ -175,19 +190,14 @@
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Frequency <span class="text-danger">*</span></label>
                                                                 <select class="default-select wide form-control"
-                                                                id="select-lang" name="" required>
-                                                                <option value="">Select One</option>
-                                                                <option value="">Monthly</option>
-                                                                <option value="">Quarterly</option>
-                                                                <option value="">Annual</option>
-                                                                <option value="">Weekly</option>
-                                                                <option value="">Bi Monthly</option>
-                                                                <option value="">Fortnight</option>
-                                                                <option value="">BiMonthly</option>
-                                                                <option value="">Bi weekly</option>
-                                                                <option value="">Half yearly</option>
-                                                                <option value="">Yearly</option>
-                                                                <option value="">Bimonthly</option>
+                                                                id="select-lang" name="frequency" required>
+                                                                @php
+                                                                $periodicity = DB::table('magazine_periodicities')->where('status','=','1')->get();
+                                                                @endphp
+                                                                <option value="">Select Periodicity</option>
+                                                                @foreach($periodicity as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
@@ -246,6 +256,7 @@
             <div class="row p-3">
                 <div class="col-md-2">
                     <h4>Discount %</h4>
+                  
                 </div>
                 <div class="col-md-10">
                     <P class="fs-4">Enter the book title as it appears on the title page. This cannot be changed after the book is submitted for procurement.</P>
@@ -254,7 +265,8 @@
                             <div class="mb-3">
                                 <label class="text-label form-label text-black" for="validationCustomUsername">Discount % <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="" name="discount" value="{{$data->discount}}" placeholder="Enter the Discount %" required>
+                                <input type="text" class="form-control" id="" name="discount" value="{{ $data->discount}}" placeholder="Enter the Discount %" required>
+
 
                                 </div>
                             </div>
@@ -462,7 +474,7 @@
                             <div class="mb-3">
                                 <label class="text-label form-label text-black" for="validationCustomUsername">Total Number of Pages <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="" name="total_pages" value="{{$data->total_pages}}" placeholder="Enter the Total Number of Pages" required>
+                                    <input type="text" class="form-control" id="" name="total_pages" value="{{$data->total_pages}}" placeholder="Enter the Total Number of Pages" required>
 
                                 </div>
                             </div>
@@ -484,7 +496,7 @@
                             <div class="mb-3">
                                 <label class="text-label form-label text-black" for="validationCustomUsername">Number of Multicolour pages <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="" name="total_multicolour_pages" value="{{$data->total_multicolour_pages}}" placeholder="Enter the Number of Multicolour pages" required>
+                                    <input type="text" class="form-control" id="" name="total_multicolour_pages" value="{{$data->total_multicolour_pages}}" placeholder="Enter the Number of Multicolour pages" required>
 
                                 </div>
                             </div>
@@ -506,7 +518,7 @@
                             <div class="mb-3">
                                 <label class="text-label form-label text-black" for="validationCustomUsername">Number of Monocolour Pages <span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="" name="total_monocolour_pages" value="{{$data->total_monocolour_pages}}" placeholder="Enter the Number of Monocolour Pages" required>
+                                    <input type="text" class="form-control" id="" name="total_monocolour_pages" value="{{$data->total_monocolour_pages}}" placeholder="Enter the Number of Monocolour Pages" required>
 
                                 </div>
                             </div>
@@ -528,7 +540,7 @@
                             <div class="mb-3">
                                 <label class="text-label form-label text-black" for="validationCustomUsername">Size of the Magazine<span class="text-danger">*</span></label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" id="" name="magazine_size" value="{{$data->magazine_size}}" placeholder="Enter the Size of the Magazine" required>
+                                    <input type="text" class="form-control" id="" name="magazine_size" value="{{$data->magazine_size}}" placeholder="Enter the Size of the Magazine" required>
 
                                 </div>
                             </div>

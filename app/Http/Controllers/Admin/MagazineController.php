@@ -87,8 +87,8 @@ public function importFile(Request $request){
 
 public function list(){
     try{
-      $magazines = Magazine::where('status', '=', '1')->get();
- 
+      $magazines = Magazine::where('user_type','=','admin')->where('status','=','1')->get();
+
       return view('admin.magazine_list',compact('magazines'));
     }catch(\Throwable $e){
         return redirect()->back()->with('errorlist', 'An error occurred while listing magazine details.');
@@ -277,7 +277,7 @@ public function magazine_orderview($id){
   }
   
   public function magazineupdate(Request $request , $id){
-  
+
     $validator = Validator::make($request->all(), [
       'language' => 'required',
       'category' => 'required',
@@ -298,10 +298,6 @@ public function magazine_orderview($id){
       'email' => 'required|email',
       'phone' => 'required',
       'address' => 'required',
-      'front_img' => 'required|image',
-      'back_img' => 'required|image',
-      'full_img' => 'required|image',
-      'sample_pdf' => 'required|mimes:pdf'
   ], [
       'language.required' => 'The language field is required.',
       'category.required' => 'The category field is required.',
@@ -322,15 +318,7 @@ public function magazine_orderview($id){
       'email.required' => 'The email field is required.',
       'email.email' => 'The email must be a valid email address.',
       'phone.required' => 'The phone field is required.',
-      'address.required' => 'The address field is required.',
-      'front_img.required' => 'The front image field is required.',
-      'front_img.image' => 'The front image must be an image file.',
-      'back_img.required' => 'The back image field is required.',
-      'back_img.image' => 'The back image must be an image file.',
-      'full_img.required' => 'The full image field is required.',
-      'full_img.image' => 'The full image must be an image file.',
-      'sample_pdf.required' => 'The sample PDF field is required.',
-      'sample_pdf.mimes' => 'The sample PDF must be a PDF file.'
+      'address.required' => 'The address field is required.'
   ]);
   if ($validator->fails()) {
     $errors = $validator->errors();
@@ -341,7 +329,7 @@ public function magazine_orderview($id){
         Session::forget('error');
     }
     Session::put('validation_error',$errors);
-  dd('error');
+    dd($errors);
   }
   $admin = auth('admin')->user();
   
@@ -425,7 +413,9 @@ public function magazine_orderview($id){
      $magazine->user_type = "admin";
      $magazine->user_id = $admin->id;
      $magazine->save();
-     return back()->with('success',"Magazine updated successfully");
+     \Session::put('magazine', $magazine);
+     return redirect('admin/magazineupdate')->with('success',"Magazine updated successfully");; 
+    
   } 
   public function order_delete(Request $request){
     
