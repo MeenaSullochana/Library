@@ -60,7 +60,12 @@
                         <div class="card mt-3">
                             <!-- <div class="card-header"> Invoice <strong><span class="badge bg-primary"><i class="fa fa-print"></i></span><span class="badge bg-primary"><i class="bi bi-file-excel"></i></span> </strong> <span class="float-end"> -->
                                     <!-- <strong>Status:</strong> Pending</span> </div> -->
-                                    <div class="card-header">Status:   {{$data->paymentstatus}}</span> </div>
+                                    <div class="card-header">
+                                            <div class="d-flex">
+                                                <p>Status :  <span class="text-danger"> {{$data->paymentstatus}}</span> </p>
+                                            </div>
+                                        <button class="btn btn-primary print-button" onclick="printDiv()">Print</button>
+                                    </div>
                                     <div class="card-body">
                                 <!-- <div class="row mb-5">
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
@@ -93,59 +98,63 @@
                                         </div>
                                     </div>
                                 </div> -->
-                                <div class="table-responsive">
-                                    <table class="table table-border">
-                                        <thead>
-                                            <tr>
-                                                <th class="center">S.No</th>
-                                                <th>Book Name</th>
-                                                <th>Book Id</th>
-                                                <th class="right">amount</th>
-                                                <th class="center">Qty</th>
-                                                <th class="right">Total Amount</th>
+                                <div id="printableArea">
+                                    <div class="table-responsive">
+                                        <table class="table table-border">
+                                            <thead>
+                                                <tr>
+                                                    <th class="center">S.No</th>
+                                                    <th>Name of Publication</th>
+                                                    <th>Book Name</th>
+                                                    <th>Book Id</th>
+                                                    <th class="right">amount</th>
+                                                    <th class="center">Qty</th>
+                                                    <th class="right">Total Amount</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($data->bookdata as $val)
-    <tr>
-        <td class="center">{{$loop->index+1}}</td>
-        <td class="left strong">{{$val['bookname']}}</td>
-        <td class="left">{{$val['booknum']}}</td>
-       
-        <td class="right"><i class="fa fa-inr"></i>{{$data->amount}}</td>
-        <td class="right">{{$data->totalAmount /   $data->amount}}</td>
-        <td class="right"> <i class="fa fa-inr"></i> {{$data->totalAmount }}</td>
-    </tr>
-@endforeach
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-4 col-sm-5"> </div>
-                                    <div class="col-lg-4 col-sm-5 ms-auto">
-                                        <table class="table table-clear">
+                                                </tr>
+                                            </thead>
                                             <tbody>
-                                                <!-- <tr>
-                                                    <td class="left"><strong>Subtotal</strong></td>
-                                                    <td class="right">$8.497,00</td>
-                                                </tr>
+                                            @foreach($data->bookdata as $val)
                                                 <tr>
-                                                    <td class="left"><strong>Discount (20%)</strong></td>
-                                                    <td class="right">$1,699,40</td>
+                                                    <td class="center">{{$loop->index+1}}</td>
+
+                                                    <td class="left strong">{{$val['bookname']}}</td>
+                                                    <td class="left">{{$val['booknum']}}</td>
+                                                
+                                                    <td class="right"><i class="fa fa-inr"></i>{{$data->amount}}</td>
+                                                    <td class="right">{{$data->totalAmount /   $data->amount}}</td>
+                                                    <td class="right"> <i class="fa fa-inr"></i> {{$data->totalAmount }}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td class="left"><strong>VAT (10%)</strong></td>
-                                                    <td class="right">$679,76</td>
-                                                </tr> -->
-                                                <tr>
-                                                    <td class="left"><strong>Total</strong></td>
-                                                    <td class="left"> <i class="fa fa-inr"></i> <strong>{{$data->totalAmount}}</strong><br>
-                                                        <!-- <strong>0.15050000</strong></td> -->
-                                                </tr>
+                                            @endforeach
+
                                             </tbody>
                                         </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-5"> </div>
+                                        <div class="col-lg-4 col-sm-5 ms-auto">
+                                            <table class="table table-clear">
+                                                <tbody>
+                                                    <!-- <tr>
+                                                        <td class="left"><strong>Subtotal</strong></td>
+                                                        <td class="right">$8.497,00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="left"><strong>Discount (20%)</strong></td>
+                                                        <td class="right">$1,699,40</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="left"><strong>VAT (10%)</strong></td>
+                                                        <td class="right">$679,76</td>
+                                                    </tr> -->
+                                                    <tr>
+                                                        <td class="left"><strong>Total</strong></td>
+                                                        <td class="left"> <i class="fa fa-inr"></i> <strong>{{$data->totalAmount}}</strong><br>
+                                                            <!-- <strong>0.15050000</strong></td> -->
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -189,5 +198,24 @@
     <?php
         include "admin/plugin/plugin_js.php";
     ?>
+        <script>
+        function printDiv() {
+            var printContents = document.getElementById('printableArea').innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+            location.reload(); // Reload the page to restore the original content
+        }
+    </script>
+    
 </body>
 </html>
+<style>
+    .table thead th {
+     text-transform: math-auto !important;
+ }
+ </style>
