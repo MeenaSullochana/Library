@@ -877,7 +877,7 @@
                                             <div class="col-md-10">
                                                 <P class="fs-4">You can provide up to 3 images including some key illustrations with a minimum of 3 compulsory cover images</p>
                                                 <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 mt-4">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -892,7 +892,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 mt-4">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -901,13 +901,13 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button_back"></i>
-                                                                     <input class="file-upload_back" name="back_img" type="file"  accept="image/png, image/jpeg, image/jpg" required/>
+                                                                     <input class="file-upload_back" name="back_img" id="back_img" type="file"  accept="image/png, image/jpeg, image/jpg" required/>
                                                                      <div class="invalid-feedback"> Please enter the upload back image. </div>
                                                                   </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 mt-4">
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <div class="circle">
@@ -916,7 +916,7 @@
                                                                   </div>
                                                                   <div class="p-image">
                                                                     <i class="fa fa-camera upload-button_other"></i>
-                                                                     <input class="file-upload_other" name="full_img" type="file" accept="image/png, image/jpeg, image/jpg"  required>
+                                                                     <input class="file-upload_other" name="full_img" id="full_img" type="file" accept="image/png, image/jpeg, image/jpg"  required>
                                                                      <div class="invalid-feedback"> Please enter upload full image. </div>
                                                                   </div>
                                                             </div>
@@ -933,7 +933,7 @@
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 mt-2">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Issue 1<span class="text-danger"></span></label>
@@ -943,7 +943,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 mt-2">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Issue 2<span class="text-danger"></span></label>
@@ -953,7 +953,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-4 mt-2">
                                                         <div class="mb-3">
                                                             <label class="text-label form-label text-black"
                                                                 for="validationCustomUsername">Issue 3<span class="text-danger"></span></label>

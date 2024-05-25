@@ -116,7 +116,7 @@
                                                             <div class="small-12 medium-2 large-2 columns">
                                                                 <input type="file"
                                                                     accept="application/pdf,application/vnd.ms-excel"
-                                                                    name="rni_attachment_proof" id="" class="form-control"
+                                                                    name="rni_attachment_proof" id="rni_attachment_proof" class="form-control"
                                                                     aria-label="file example" >
                                                                 <div class="invalid-feedback">Please upload RNI
                                                                     attachment proof PDF</div>
@@ -1161,7 +1161,7 @@
                                                                 <div class="small-12 medium-2 large-2 columns">
                                                                     <input type="file"
                                                                         accept="application/pdf,application/vnd.ms-excel"
-                                                                        name="pdf_content_one" id="" class="form-control"
+                                                                        name="pdf_content_one" id="pdf_content_one" class="form-control"
                                                                         aria-label="file example" >
                                                                     <div class="invalid-feedback">Please upload Most Recent Issues pdf</div>
                                                                 </div>
@@ -1181,7 +1181,7 @@
                                                                 <div class="small-12 medium-2 large-2 columns">
                                                                     <input type="file"
                                                                         accept="application/pdf,application/vnd.ms-excel"
-                                                                        name="pdf_content_two" id="" class="form-control"
+                                                                        name="pdf_content_two" id="pdf_content_two" class="form-control"
                                                                         aria-label="file example" >
                                                                     <div class="invalid-feedback">Please upload Most Recent Issues pdf</div>
                                                                 </div>
@@ -1201,7 +1201,7 @@
                                                                 <div class="small-12 medium-2 large-2 columns">
                                                                     <input type="file"
                                                                         accept="application/pdf,application/vnd.ms-excel"
-                                                                        name="pdf_content_three" id="" class="form-control"
+                                                                        name="pdf_content_three" id="pdf_content_three" class="form-control"
                                                                         aria-label="file example" >
                                                                     <div class="invalid-feedback">Please upload Most Recent Issues pdf</div>
                                                                 </div>
@@ -1291,7 +1291,7 @@
                                         </div>
                                     </section>
                                     <div class="row">
-                                        <div class="col-md-12 text-end">
+                                        <div class="col-md-12 text-end mb-5">
                                             <button type="submit" class="btn me-2 btn-primary" id="submitbutton">Submit</button>
                                         </div>
                                     </div>
@@ -1335,14 +1335,14 @@
     {{-- sample one start--}}
     <div class="modal fade" id="exampleModalone" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-lg h-100">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Most Recent Issues pdf view</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <iframe src="{{ asset('Magazine/pdf1/'.$data->pdf1) }}" style="width:100%; height:auto;" frameborder="0"></iframe>
+                    <iframe src="{{ asset('Magazine/pdf1/'.$data->pdf1) }}" style="width:100%; height:600px;" frameborder="0"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1363,7 +1363,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <iframe src="{{ asset('Magazine/pdf2/'.$data->pdf2) }}" style="width:100%; height:auto;" frameborder="0"></iframe>
+                    <iframe src="{{ asset('Magazine/pdf2/'.$data->pdf2) }}" style="width:100%; height:600px;" frameborder="0"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1384,7 +1384,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <iframe src="{{ asset('Magazine/pdf3/'.$data->pdf3) }}" style="width:100%; height:auto;" frameborder="0"></iframe>
+                    <iframe src="{{ asset('Magazine/pdf3/'.$data->pdf3) }}" style="width:100%; height:600px;" frameborder="0"></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1417,18 +1417,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js"></script>
     {{-- About Publisher/Editor --}}
     <script src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
-    <script>
-        document.getElementById('img_pro').addEventListener('change', function() {
-            if (this.files[0]) {
-                var picture = new FileReader();
-                picture.readAsDataURL(this.files[0]);
-                picture.addEventListener('load', function(event) {
-                    document.getElementById('uploadedImage1').setAttribute('src', event.target.result);
-                    document.getElementById('uploadedImage1').style.display = 'block';
-                });
-            }
-        });
-    </script>
+
     <script>
     $('#state').on('change', function() {
    // alert('asfasd');
@@ -1457,18 +1446,6 @@
    });
 });
 </script>
-    <script>
-        document.getElementById('readUrl').addEventListener('change', function() {
-            if (this.files[0]) {
-                var picture = new FileReader();
-                picture.readAsDataURL(this.files[0]);
-                picture.addEventListener('load', function(event) {
-                    document.getElementById('uploadedImage').setAttribute('src', event.target.result);
-                    document.getElementById('uploadedImage').style.display = 'block';
-                });
-            }
-        });
-    </script>
     {{-- RNI PROOF CODE --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.2.2/pdf.js"></script>
     <script>
@@ -1760,7 +1737,200 @@
                 })
         })()
     </script>
+<script>
+    document.getElementById("rni_attachment_proof").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
 
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("readUrl").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }else{
+            if (this.files[0]) {
+                var picture = new FileReader();
+                picture.readAsDataURL(this.files[0]);
+                picture.addEventListener('load', function(event) {
+                    document.getElementById('uploadedImage').setAttribute('src', event.target.result);
+                    document.getElementById('uploadedImage').style.display = 'block';
+                });
+            }
+        }
+    });
+</script>
+<script>
+    document.getElementById("img_pro").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }else{
+            if (this.files[0]) {
+                var picture = new FileReader();
+                picture.readAsDataURL(this.files[0]);
+                picture.addEventListener('load', function(event) {
+                    document.getElementById('uploadedImage1').setAttribute('src', event.target.result);
+                    document.getElementById('uploadedImage1').style.display = 'block';
+                });
+            }
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("front_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("back_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("full_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+
+<script>
+    document.getElementById("pdf_content_one").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("pdf_content_two").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+<script>
+    document.getElementById("pdf_content_three").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
 </body>
 
 <style>

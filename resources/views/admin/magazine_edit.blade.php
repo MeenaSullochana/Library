@@ -775,7 +775,7 @@
                     <h4>Add Magazine Images</h4>
                 </div>
                 <div class="col-md-10">
-    <p class="fs-4">You can provide up to 8 images including some key illustrations with a minimum of 3 compulsory cover images</p>
+    <p class="fs-4">You can provide up to 3 images including some key illustrations with a minimum of 3 compulsory cover images</p>
     <div class="row">
         <!-- Front Image Upload -->
         <div class="col-lg-3">
@@ -1063,6 +1063,59 @@
             $(".upload-button_other").on('click', function() {
                 $(".file-upload_other").click();
             });
+        });
+    </script>
+    <script>
+        document.getElementById("front_img").addEventListener("change", function() {
+            var fileInput = this;
+            var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+            if (!allowedExtensions.exec(fileInput.value)) {
+                toastr.error('Please upload JPG, PNG, or JPEG files only.');
+                fileInput.value = '';
+                return false;
+            }
+            var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+            if (fileInput.files[0].size > maxSize) {
+                toastr.error('File size exceeds the limit of 5MB.');
+                fileInput.value = '';
+                return false;
+            }
+        });
+    </script>
+    
+    <script>
+        document.getElementById("back_img").addEventListener("change", function() {
+            var fileInput = this;
+            var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+            if (!allowedExtensions.exec(fileInput.value)) {
+                toastr.error('Please upload JPG, PNG, or JPEG files only.');
+                fileInput.value = '';
+                return false;
+            }
+            var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+            if (fileInput.files[0].size > maxSize) {
+                toastr.error('File size exceeds the limit of 5MB.');
+                fileInput.value = '';
+                return false;
+            }
+        });
+    </script>
+    
+    <script>
+        document.getElementById("full_img").addEventListener("change", function() {
+            var fileInput = this;
+            var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+            if (!allowedExtensions.exec(fileInput.value)) {
+                toastr.error('Please upload JPG, PNG, or JPEG files only.');
+                fileInput.value = '';
+                return false;
+            }
+            var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+            if (fileInput.files[0].size > maxSize) {
+                toastr.error('File size exceeds the limit of 5MB.');
+                fileInput.value = '';
+                return false;
+            }
         });
     </script>
     <script>
