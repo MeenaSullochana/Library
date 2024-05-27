@@ -2631,6 +2631,132 @@ function numberOnly(id) {
     });
 });
 </script>
+<script>
+    document.getElementById("front").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+<script>
+    document.getElementById("back_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+<script>
+    document.getElementById("full_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("other_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("author_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("banner_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+<script>
+    document.getElementById("sample_pdf").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
 </html>
 <style>
     section.bg-light-new {

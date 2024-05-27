@@ -1781,7 +1781,7 @@ $bookdescription = $data->bookdescription1;
                                     </div>
                                     <div class="col-md-12">
                                 <div class="basic-form">
-                                    <div class="mb-3">
+                                    <div class="mb-3 mt-5">
                                         <label class="text-label form-label text-black"
                                             for="validationCustomUsername">Other (Optional and Upload 8 Other
                                             Images)<span class="text-danger"></span></label>
@@ -1912,7 +1912,7 @@ $bookdescription = $data->bookdescription1;
 
                                                 {{-- <input class="bg-white p-1" type="file" id="banner_img"
                                                             name="banner_img[]" accept="image/*" multiple required> --}}
-                                                <input type="file" id="files" name="banner_img[]" multiple />
+                                                <input accept="image/*" type="file" id="files" name="banner_img[]" multiple />
                                                 @if (!empty($bookhighlights))
                                                     @forelse ($bookhighlights as $highlighImages)
                                                         <span class="pip" data-bookid="{{ $data->id }}" data-filename="{{ $highlighImages }}"><img class="imageThumb"
@@ -2086,7 +2086,7 @@ $bookdescription = $data->bookdescription1;
                                         id="fileInputNo" class="hidden">
                                         <label for="fname">Upload PDF file <span
                                                 class="text-danger ms-2">*</span></label><br>
-                                        <input type="file" id="sample_pdf" name="sample_pdf">
+                                        <input type="file" id="sample_pdf" accept="application/pdf,application/vnd.ms-excel" value="Pdf" name="sample_pdf">
                                     </div>
                                 </div>
 
@@ -2193,7 +2193,149 @@ $bookdescription = $data->bookdescription1;
         return true;
     }
 </script> -->
+<script>
+    document.getElementById("front").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+<script>
+    document.getElementById("back_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+<script>
+    document.getElementById("full_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
 
+<script>
+    document.getElementById("other_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("author_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
+<script>
+    document.getElementById("files").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+<script>
+    document.getElementById("banner_img").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i; // Allow JPG, PNG, and JPEG files
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload JPG, PNG, or JPEG files only.');
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+<script>
+    document.getElementById("sample_pdf").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.pdf)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload PDF files only.');
+
+            // alert("Please upload PDF files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
 <script>
     // JavaScript code
     function calculateDiscount() {
@@ -3209,6 +3351,8 @@ $('.highlights_delete').on('click', function() {
         });
     });
 </script>
+
+
 
 </html>
 
