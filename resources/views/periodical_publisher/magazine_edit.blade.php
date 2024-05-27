@@ -1156,7 +1156,7 @@
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black"
-                                                                    for="validationCustomUsername">PDF Upload<span
+                                                                    for="validationCustomUsername">Issue 1<span
                                                                         class="text-danger"></span></label>
                                                                 <div class="small-12 medium-2 large-2 columns">
                                                                     <input type="file"
@@ -1176,7 +1176,7 @@
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black"
-                                                                    for="validationCustomUsername">PDF Upload<span
+                                                                    for="validationCustomUsername">Issue 2<span
                                                                         class="text-danger"></span></label>
                                                                 <div class="small-12 medium-2 large-2 columns">
                                                                     <input type="file"
@@ -1196,7 +1196,7 @@
                                                         <div class="basic-form">
                                                             <div class="mb-3">
                                                                 <label class="text-label form-label text-black"
-                                                                    for="validationCustomUsername">PDF Upload<span
+                                                                    for="validationCustomUsername">Issue 3<span
                                                                         class="text-danger"></span></label>
                                                                 <div class="small-12 medium-2 large-2 columns">
                                                                     <input type="file"
