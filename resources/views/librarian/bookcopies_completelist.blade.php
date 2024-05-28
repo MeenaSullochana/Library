@@ -79,6 +79,7 @@
 
                                                 <th>S.No</th>
                                                 <th>Book Title</th>
+                                                <th>ISBN number</th>
                                                 <th>User Type</th>
                                                 <th>Name</th>
                                                 <th>Mobile Number</th>
@@ -96,6 +97,12 @@
 
                                                 <td data-label="">{{$loop->index+1}}</td>
                                                 <td data-label="">{{$val->booktitle}}</td>
+                                                @php
+                                                $datas=DB::table('books')->find($val->bookid);
+
+                                                 
+                                                @endphp
+                                                <td data-label="">{{$datas->isbn}}</td>
                                                 @if($val->usertype == "publisher_distributor")
                                                 <td data-label="">publisher cum distributor</td>
                                                 @else
@@ -104,7 +111,7 @@
                                                 @endif
                                                 <td data-label="">{{$val->name}}</td>
                                                 <td data-label="">{{$val->phone}}</td>
-
+                                  
                                                 <td data-label="">{{$val->copiesrec->copies}}</td>
 
                                              

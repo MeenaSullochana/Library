@@ -213,7 +213,7 @@ class ReviewerController extends Controller
         $reviewer=new Reviewer();
         $reviewer->reviewerType = $req->reviewerType;
         $reviewer->name = $req->name;
-        $reviewer->subject = $req->subject;
+        $reviewer->subject = json_encode($req->subject);
         $reviewer->designation = $req->designation;
         $reviewer->organisationDetails = $req->organisationDetails;
         $reviewer->email = $req->email;
@@ -302,11 +302,11 @@ class ReviewerController extends Controller
     
          $reviewer->save();
      
-         $user =  $reviewer->email;
-         $record =  $reviewer;
-         $password = $req->password;
-         $url = "http://127.0.0.1:8000/member/login";
-         Notification::route('mail',$reviewer->email)->notify(new MemberdetailNotification($user, $url,$record,$password));  
+        //  $user =  $reviewer->email;
+        //  $record =  $reviewer;
+        //  $password = $req->password;
+        //  $url = "http://127.0.0.1:8000/member/login";
+        //  Notification::route('mail',$reviewer->email)->notify(new MemberdetailNotification($user, $url,$record,$password));  
          $data= [
             'success' => 'Reviewer Create Successfully',
                  ];
@@ -577,7 +577,7 @@ public function editreviewer(Request $req){
             $reviewer->libraryType = $req->libraryType;
             $reviewer->libraryName = $req->libraryName;
   
-            $reviewer->subject = $req->subject;
+            $reviewer->subject =json_encode($req->subject);
             $reviewer->district = $req->district;
             $reviewer->phoneNumber = $req->phoneNumber; 
             if ($reviewer->email == $req->email) {
@@ -649,7 +649,7 @@ public function editreviewer(Request $req){
             $reviewer->libraryType = $req->libraryType;
             $reviewer->libraryName = $req->libraryName;
   
-            $reviewer->subject = $req->subject;
+            $reviewer->subject = json_encode($req->subject);
             $reviewer->district = $req->district;
             $reviewer->phoneNumber = $req->phoneNumber; 
                 if ($reviewer->email == $req->email) {
@@ -734,7 +734,7 @@ public function editreviewer(Request $req){
           
             $reviewer = Reviewer::find($req->id);
             $reviewer->name = $req->name;
-            $reviewer->subject = $req->subject;
+            $reviewer->subject = json_encode($req->subject);
             $reviewer->designation = $req->designation;
             $reviewer->bankName = $req->bankName;
             $reviewer->accountNumber = $req->accountNumber;
@@ -801,7 +801,7 @@ public function editreviewer(Request $req){
                 $Admin=auth('admin')->user()->first();
                 $reviewer = Reviewer::find($req->id);
                 $reviewer->name = $req->name;
-                $reviewer->subject = $req->subject;
+                $reviewer->subject = json_encode($req->subject);
                 $reviewer->designation = $req->designation;
                 $reviewer->bankName = $req->bankName;
                 $reviewer->accountNumber = $req->accountNumber;

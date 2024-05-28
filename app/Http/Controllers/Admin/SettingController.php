@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\NewMailMailable;
 use App\Models\Magazine;
 use App\Models\Procurementpaymrnt;
-
+use DB;
 use App\Models\PeriodicalPublisher;
 use App\Models\PeriodicalDistributor;
 use File;
@@ -2307,6 +2307,46 @@ public function periodicalpub_excel(Request $request){
      return back()->with('error', "No Records In The Date");
  }
 }
+
+
+public function publication()
+{
+    $procurementPayments = Procurementpaymrnt::get();
+
+    foreach ($procurementPayments as $payment) {
+      $userName = 'N/A';
+      if($payment->type == "Book"){
+        
+          if ($payment->userType == 'publisher') {
+              $user = DB::table('publishers')->find($payment->userId);
+              $userName = $user->publicationName ?? 'N/A';
+          } elseif ($payment->userType == 'distributor') {
+              $user = DB::table('distributors')->find($payment->userId);
+              $userName = $user->distributionName ?? 'N/A';
+          } else {
+              $user = DB::table('publisher_distributors')->find($payment->userId);
+              $userName = $user->publicationDistributionName ?? 'N/A';
+          }
+      }else if($payment->type == "Periodical"){
+        
+          if ($payment->userType == 'publisher') {
+              $user = DB::table('periodical_publishers')->find($payment->userId);
+              $userName = $user->publicationName ?? 'N/A';
+          } elseif ($payment->userType == 'distributor') {
+              $user = DB::table('periodical_distributors')->find($payment->userId);
+              $userName = $user->distributionName ?? 'N/A';
+          } 
+      }
+       
+
+        $payment->userName = $userName;
+        $payment->save();
+    }
+}
+
+
+
+
 }
       
 
