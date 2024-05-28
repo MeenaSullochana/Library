@@ -244,7 +244,7 @@
                                  <th>S.No</th>
                                  <th>Librarian Name </th>
                                  <th>Library Name </th>
-                                 <th>Subject </th>
+                                 <th>Category </th>
 
                            </tr>
                         </thead>

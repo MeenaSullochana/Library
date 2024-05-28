@@ -1151,6 +1151,7 @@ Route::post('/periodicalpub_excel ',[SettingController::class,'periodicalpub_exc
 Route::post('/periodicaldist_excel ',[SettingController::class,'periodicaldist_excel']);
 
 
+Route::get('/publication',[SettingController::class,'publication']);
 
     });
 });

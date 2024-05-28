@@ -711,11 +711,11 @@ public function get_books($id)
     }
   
     if (count($reviewers) <= 0){
-    
-        $htmldata = '<tr><td colspan="3">No expert reviewers found.</td></tr>';
+
+        $htmldata = '<tr><td colspan="3">No external reviewers found.</td></tr>';
     } else
      {
-     
+  
 
         foreach ($reviewers as $key => $val) {
         
@@ -726,7 +726,7 @@ public function get_books($id)
                 <div class="form-check custom-checkbox checkbox-success check-lg me-3">
                 <input type="checkbox" class="form-check-input externel" id="checkItem_' . $val->id . '" data-externel-id="' . $val->id . '" required="">
                 <label class="form-check-label" for="customCheckBox2" value="' . $val->id . '"></label>
-            </div>
+                </div>
                 </td>
                 <td>' . ($key + 1) . '</td>
                 <td>' . $val->name . '</td>
@@ -738,28 +738,37 @@ public function get_books($id)
    
     $tbodyHtml2 = ''; 
     $index1 = 1; 
-    $internals1 = Reviewer::where('reviewerType', '=', 'internal')->where('status', '=', 1)->get();
 
-    $internals=[];          
-    foreach($internals1 as $key=>$val){
-     $subjects = json_decode($val->subject);
-     $subjectsArray = explode(',', $subjects);
-     $revin= in_array($id, $subjectsArray);
-     if($revin){
-       array_push($internals,$val);
+    // $internals1 = Reviewer::where('reviewerType', '=', 'internal')->where('status', '=', 1)->get();
+    $cat=$books[0]->category;
+    $categories = [$cat]; 
+   
+     $internalsdat = Reviewer::whereJsonContains('Category', $cat)       
+      ->where('reviewerType', '=', 'internal')
+        ->where('status', '=', 1)
+        ->get();
  
-     }
+
+//     $internals=[];          
+//     foreach($internals1 as $key=>$val){
+//      $subjects = json_decode($val->Category);
+//      $subjectsArray = explode(',', $subjects);
+//      $revin= in_array($id, $subjectsArray);
+//      if($revin){
+//        array_push($internals,$val);
  
- }
+//      }
+ 
+//  }
 
     if 
-    (count($internals) <= 0) {
+    ($internalsdat->isEmpty()) {
         $tbodyHtml2 = '<tr><td colspan="3">No Librarian reviewers found.</td></tr>';
     } else
      {
-    foreach ($internals as $key => $val) {    
-      $subjects = json_decode($val->subject);
-     
+    foreach ($internalsdat as $key => $val) {    
+      // $subjects = json_decode($val->subject);
+
             $tbodyHtml2 .= '<tr>';
             $tbodyHtml2 .= '<td>';
             $tbodyHtml2 .= '<div class="form-check custom-checkbox checkbox-success check-lg me-3">';
@@ -770,7 +779,7 @@ public function get_books($id)
             $tbodyHtml2 .= '<td>' . $index1 . '</td>';
             $tbodyHtml2 .= '<td><span>' . $val->name . '</span></td>';
             $tbodyHtml2 .= '<td><span>' . $val->libraryName . '</span></td>';
-            $tbodyHtml2 .= '<td><span>' . $subjects . '</span></td>';
+            $tbodyHtml2 .= '<td><span>' . $val->Category . '</span></td>';
            
             $tbodyHtml2 .= '</tr>';
             $index1++; 
@@ -786,13 +795,13 @@ public function get_books($id)
   $tbodyHtml3 = ''; 
   $index1 = 1; 
   $cat=$books[0]->category;
-  $internals = Reviewer::where('Category','=',$cat)->where('reviewerType', '=', 'public')->where('status', '=', 1)->get();
+  $internals11 = Reviewer::where('Category','=',$cat)->where('reviewerType', '=', 'public')->where('status', '=', 1)->get();
   if 
-  ($internals->isEmpty()) {
+  ($internals11->isEmpty()) {
       $tbodyHtml3 = '<tr><td colspan="3">No external reviewers found.</td></tr>';
   } else
    {
-  foreach ($internals as $key => $val) {         
+  foreach ($internals11 as $key => $val) {         
           $tbodyHtml3 .= '<tr>';
           $tbodyHtml3 .= '<td>';
           $tbodyHtml3 .= '<div class="form-check custom-checkbox checkbox-success check-lg me-3">';
