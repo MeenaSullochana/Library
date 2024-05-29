@@ -85,7 +85,7 @@
                                                                 <i class="fa fa-inr text-success"></i>
                                                             </div>
                                                             <div class="total-projects ms-3">
-                                                                <h3 class="text-success count">5,652k</h3> 
+                                                                <h3 class="text-success count">{{$total_book_pay}}</h3> 
                                                                 <span>Total Book Payment</span>
                                                             </div>
                                                         </div>
@@ -101,7 +101,7 @@
                         
                                                             </div>
                                                             <div class="total-projects ms-3">
-                                                                <h3 class="text-primary count">585k</h3> 
+                                                                <h3 class="text-primary count">{{$pub_book_pay}}</h3> 
                                                                 <span>Total Publisher Payment</span>
                                                             </div>
                                                         </div>
@@ -116,7 +116,7 @@
                                                                 <i class="fa fa-inr text-warning"></i>
                                                             </div>
                                                             <div class="total-projects ms-3">
-                                                                <h3 class="text-warning count">5282k</h3> 
+                                                                <h3 class="text-warning count">{{$dis_book_pay}}</h3> 
                                                                 <span>Total Distributor Payment</span>
                                                             </div>
                                                         </div>
@@ -131,7 +131,7 @@
                                                                 <i class="fa fa-inr text-danger"></i>
                                                             </div>
                                                             <div class="total-projects ms-3">
-                                                                <h3 class="text-danger count">5,855k</h3> 
+                                                                <h3 class="text-danger count">{{$pubdis_book_pay}}</h3> 
                                                                 <span>Total Publisher Cum Distributor Payment</span>
                                                             </div>
                                                         </div>
@@ -149,7 +149,7 @@
                                                                 <i class="fa fa-inr text-success"></i>
                                                             </div>
                                                             <div class="total-projects ms-3">
-                                                                <h3 class="text-success count">5,652k</h3> 
+                                                                <h3 class="text-success count">{{$total_periodical_pay}}</h3> 
                                                                 <span>Total Periodical Payment</span>
                                                             </div>
                                                         </div>
@@ -165,7 +165,7 @@
                         
                                                             </div>
                                                             <div class="total-projects ms-3">
-                                                                <h3 class="text-primary count">585k</h3> 
+                                                                <h3 class="text-primary count">{{$pub_periodical_pay}}</h3> 
                                                                 <span>Total Periodical Publisher Payment</span>
                                                             </div>
                                                         </div>
@@ -180,7 +180,7 @@
                                                                 <i class="fa fa-inr text-warning"></i>
                                                             </div>
                                                             <div class="total-projects ms-3">
-                                                                <h3 class="text-warning count">5282k</h3> 
+                                                                <h3 class="text-warning count">{{$dis_periodical_pay}}</h3> 
                                                                 <span>Total Periodical Distributor Payment</span>
                                                             </div>
                                                         </div>

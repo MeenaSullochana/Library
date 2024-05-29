@@ -81,6 +81,7 @@
                               <th>S/No</th>
                               <th>User Name</th>
                               <th>User Type</th>
+                              <th>Merchant Ref Number</th>
                               <th>Invoice Number</th>
                               <th>Amount</th>
                               <th>Total Periodical</th>
@@ -97,6 +98,7 @@
                               <td>{{$loop->index +1}}</td>
                               <td>{{$val->userName}}</td>
                               <td>{{$val->userType}}</td>
+                              <td>{{$val->txnrefno}}</td>
                               <td>{{$val->invoiceNumber}}</td>
                               <td> <i class="fa fa-inr"></i> {{$val->amount}}</td>
                               <td >  {{$val->totalAmount /$val->amount }}</td>
