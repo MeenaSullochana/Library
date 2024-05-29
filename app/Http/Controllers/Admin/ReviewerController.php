@@ -853,17 +853,20 @@ public function importFile(Request $request)
                 $librarianId = [];
                 foreach ($chunk as $line) {
                     $data = str_getcsv($line);
-
-                    $reviewer = Reviewer::where('email', $data[7])->exists();
-                    if ($reviewer ) {
-                        return redirect()->back()->with('errorlib', $data[7] . " already exists");
-                    }
-
-                    if (in_array($data[7], $librarianId)) {
-                        return redirect()->back()->with('errorlib', $data[7] . " Duplicate entry");
-                    } else {
-                        array_push($librarianId, $data[7]);
-                    }
+                     $email = $data[9] ?? null;
+                     if($email != null){
+                        $reviewer = Reviewer::where('email', $data[9])->exists();
+                        if ($reviewer ) {
+                            return redirect()->back()->with('errorlib', $data[9] . " already exists");
+                        }
+    
+                        if (in_array($data[7], $librarianId)) {
+                            return redirect()->back()->with('errorlib', $data[9] . " Duplicate entry");
+                        } else {
+                            array_push($librarianId, $data[9]);
+                        }
+                     }
+                  
                 }
                 
                 foreach ($chunk as $line) {
@@ -872,26 +875,27 @@ public function importFile(Request $request)
                     $reviewer = new Reviewer();
                     $reviewer->reviewerType = $data[0];
                     $reviewer->libraryType = $data[1]??null;
-                    $reviewer->libraryName =$data[2]??null;
-                    $reviewer->district = $data[3]??null;
+                    $reviewer->reviewerId= $data[2]??$randomCode;
+                    $reviewer->libraryName =$data[3]??null;
                     $reviewer->name = $data[4]??null;
-                    $reviewer->subject = $data[5]??null;
-                    $reviewer->phoneNumber =$data[6]??null; 
-                    $reviewer->email = $data[7]??null;
-                    $reviewer->password=Hash::make($data[8]);
-                    $reviewer->designation = $data[9]??null;
-                    $reviewer->organisationdetails = $data[10] ?? null;
-                    $reviewer->profileImage = $data[11] ?? null;
-                    $reviewer->bankName = $data[12] ?? null;
-                    $reviewer->accountNumber = $data[13]??null;
-                    $reviewer->batch = $data[14] ?? null;
-                    $reviewer->category = $data[15] ?? null;
-                    $reviewer->branch = $data[16] ?? null;
-                    $reviewer->ifscNumber = $data[17] ?? null;
-                    $reviewer->membershipId = $data[18] ?? null;
+                    $reviewer->designation = $data[5]??null;
+                    $reviewer->district = $data[6]??null;
+                    $reviewer->category = $data[7] ?? null;
+                    $reviewer->phoneNumber =$data[8]??null; 
+                    $reviewer->email = $data[9]??null;
+                    $reviewer->password=Hash::make('12345678');
+                    $reviewer->subject = $data[11]??null;
+                    $reviewer->organisationdetails = $data[12] ?? null;
+                    $reviewer->profileImage = $data[13] ?? null;
+                    $reviewer->bankName = $data[14] ?? null;
+                    $reviewer->accountNumber = $data[15]??null;
+                    $reviewer->batch = $data[16] ?? null;
+                    $reviewer->branch = $data[17] ?? null;
+                    $reviewer->ifscNumber = $data[18] ?? null;
+                    $reviewer->membershipId = $data[19] ?? null;
                     $reviewer->role = "reviewer";
                     $reviewer->creater = $admin->id; 
-                    $reviewer->reviewerId= $randomCode;
+
                     $reviewer->save();
                 }
             }

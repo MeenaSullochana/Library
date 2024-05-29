@@ -2048,24 +2048,30 @@ public function reviewerbatchadd(Request $req){
             $finaldata[] = [
                 'S.No' => $serialNumber++,
                 'User Name' => $val1->userName,
-                'User Type' => $val1->userTame,
+                'User Type' => $val1->userType,
+                'Merchant Ref Number' => $val1->txnrefno,
+                'Invoice Number'=>$val1->invoiceNumber,
                 'Amount' => $val1->amount,
                 "Total Book" => $val1->totalAmount / $val1->amount ,
                 'Total Amount' => $val1->totalAmount,
                 'Payment Status' =>$val1->paymentstatus,
+                'Date'=>\Carbon\Carbon::parse($val1->created_at)->format('Y-m-d ') 
                 
             ];
-            $total =  $total + 1;
+            $total =  $total + $val1->totalAmount;
         }
         
         $finaldata[] = [
             'S.No'=> '',
                 'User Name'=> '',
                 'User Type'=> '',
+                'Merchant Ref Number'=>'',
+                'Invoice Number'=>'',
                 'Amount' =>  '',
                 "Total Book"=> '',
                 'Total Amount' => '',
                 'Payment Status' => '',
+                'Date'=>''
            
         ];
 
@@ -2073,16 +2079,19 @@ public function reviewerbatchadd(Request $req){
             'Total Amount' => '',
                 'User Name'=> '',
                 'User Type'=> '',
+                'Merchant Ref Number'=>'',
+                'Invoice Number'=>'',
                 'Amount' => '',
                 "Total Book"=> '',
                 'Total Amount' => '',
+                'Payment Status' => '',
                 'Address'=>$total,
            
         ];
        
     //  return $finaldata;
         $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
-        $csvContent .=  "S.No,User Name,User Type,Amount,Total Book,Total Amount,Payment Status\n"; 
+        $csvContent .=  "S.No,User Name,User Type,Merchant Ref Number,Invoice Number,Amount,Total Book,Total Amount,Payment Status,Date\n"; 
         foreach ($finaldata as $data) {
             $csvContent .= '"' . implode('","', $data) . "\"\n";
         }
