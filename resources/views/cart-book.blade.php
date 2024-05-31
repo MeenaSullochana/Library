@@ -123,7 +123,7 @@
                                 <span class="dvdr">/</span>
                                 <a href="/librarian/index">Dashborad</a></span>
                                 <span class="dvdr">/</span>
-                                <a href="/product-two"><span>Website Home</span></a>
+                                <a href="/product"><span>Website Home</span></a>
 
                             </div>
                         </div>
@@ -136,8 +136,8 @@
         <section class="budget-chat-data pb-80">
             <div class="container">
                 <div class="row">
-                    @if ($bud_arr != null)
-                        @foreach ($bud_arr as $val)
+                    @if ($bud_arr1 != null)
+                        @foreach ($bud_arr1 as $val)
                             <div class="col-xl-3 col-xxl-4 col-sm-6 mt-3">
                                 <a href="/product-two">
                                     <div class="card">
@@ -210,7 +210,7 @@
                                             <td class="product-thumbnail">
                                                 <a href="#">
                                                     <img style="width:75px;hight:75px;"
-                                                        src="{{ asset('Magazine/front/' . $val->image) }}"
+                                                        src="{{ asset('Books/front/' . $val->image) }}"
                                                         alt="">
                                                 </a>
                                             </td>
@@ -224,11 +224,11 @@
                                                 <span class="amount">₹{{ $val->amount }}</span>
                                             </td>
                                             <td class="product-quantity">
-                                                <!-- <span class="cart-minus">-</span> -->
+                                                <span class="cart-minus">-</span>
                                                 <input class="cart-input" value="{{ $val->quantity }}"
-                                                    data-id="{{ $val->id }}" disabled>
+                                                    data-id="{{ $val->id }}" id="catval" disabled>
 
-                                                <!-- <span class="cart-plus">+</span> -->
+                                                <span class="cart-plus">+</span>
                                             </td>
                                             <td class="product-subtotal">
                                                 <span class="amount">₹{{ $val->totalAmount }}</span>
@@ -260,9 +260,9 @@
                         <div class="col-lg-6 col-md-12 col-sm-12 col-12">
                             <div class="coupon-all">
                                 <div class="coupon2">
-                                    <a href="/cartpdfview"> <button class="btn btn-info mt-2" type="submit"><i
+                                    <a href="/cartbookpdfview"> <button class="btn btn-info mt-2" type="submit"><i
                                                 class="fa fa-file-pdf"></i> Generate PDF</button> </a>
-                                    <a href="/report_downl_cart"> <button class="btn btn-dark mt-2" type="submit"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Download Excel</button> </a>
+                                    <a href="/report_downl_bookcart"> <button class="btn btn-dark mt-2" type="submit"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Download Excel</button> </a>
                                 </div>
                             </div>
                         </div>
@@ -976,7 +976,7 @@
                 var id = $(this).data('id');
                 console.log(id);
                 $.ajax({
-                    url: '/delete-to-cart',
+                    url: '/delete_to_bookcart',
                     method: 'POST',
                     data: {
                         '_token': '{{ csrf_token() }}',
@@ -989,8 +989,8 @@
                             toastr.success(response.success, {
                                 timeout: 2000
                             });
-                            $('#magazinecartcount').text(response.magazinecartcount != 0 ?
-                                response.magazinecartcount : '0');
+                            $('#bookcartcount').text(response.bookcartcount != 0 ?
+                                response.bookcartcount : '0');
                             $('#cartdatacount').text(response.cartdatacount != 0 ? response
                                 .cartdatacount : '0');
                             var totalBudgetParagraph = $('<p>').addClass('p-0 m-0').attr('id',
@@ -1054,8 +1054,14 @@
                 var input = $(this).siblings('.cart-input');
                 var quantity = parseInt(input.val());
                 var itemId = input.data('id');
-                updateCart(itemId, quantity, input);
+                    if(quantity == 1 || quantity == 2){
+                        updateCart(itemId, quantity, input);
 
+                    }
+                else{
+                    quantity -= 1;
+                    input.val(quantity);
+                }
             });
 
             $('.cart-minus').click(function() {
@@ -1065,11 +1071,11 @@
                 var itemId = input.data('id');
                 updateCart(itemId, quantity, input);
             });
-
+      
             function updateCart(itemId, quantity, input) {
                 $.ajax({
                     type: "POST",
-                    url: "/updateQuantity",
+                    url: "/updatebookQuantity",
                     data: {
                         '_token': '{{ csrf_token() }}',
                         'id': itemId,
@@ -1077,14 +1083,54 @@
                     },
                     success: function(response) {
                         if (response.error) {
+                         
                             toastr.error(response.error, {
                                 timeout: 2000
                             });
                         } else {
                             $('#row_' + itemId + ' .product-subtotal .amount').text('₹' + response
                                 .totalAmount);
+                                $('#bookcartcount').text(response.bookcartcount != 0 ?
+                                response.bookcartcount : '0');
                             $('#cartdatacount').text(response.cartdatacount != 0 ? response
                                 .cartdatacount : '0');
+                            var totalBudgetParagraph = $('<p>').addClass('p-0 m-0').attr('id',
+                                'TotalBudget').html(
+                                'Total Budget Allocated Amount: <i class="fa fa-rupee"></i><b>' +
+                                response.budgetcount + '</b>');
+
+
+                            var selectedAmountParagraph = $('<p>').addClass('p-0 m-0').attr(
+                                'id', 'SelectedAmount').html(
+                                'Selected Amount: <i class="fa fa-rupee"></i><b>' + response
+                                .cartdatacount + '</b>');
+
+
+                            var remainingAmountParagraph = $('<p>').addClass('p-0 m-0').attr(
+                                'id', 'RemainingAmount').html(
+                                'Remaining  Amount: <i class="fa fa-rupee"></i><b>' + (
+                                    response.budgetcount - response.cartdatacount) + '</b>');
+                            $('#amountdata').empty().append(totalBudgetParagraph,
+                                selectedAmountParagraph, remainingAmountParagraph);
+
+                                var totalBudgetParagraph1 = $('<p>').addClass('p-0 m-0').attr('id',
+                                'TotalBudget1').html(
+                                'Total Budget Allocated Amount: <i class="fa fa-rupee"></i><b>' +
+                                response.budgetcount + '</b>');
+
+
+                            var selectedAmountParagraph1 = $('<p>').addClass('p-0 m-0').attr(
+                                'id', 'SelectedAmount1').html(
+                                'Selected Amount: <i class="fa fa-rupee"></i><b>' + response
+                                .cartdatacount + '</b>');
+
+
+                            var remainingAmountParagraph1 = $('<p>').addClass('p-0 m-0').attr(
+                                'id', 'RemainingAmount1').html(
+                                'Remaining  Amount: <i class="fa fa-rupee"></i><b>' + (
+                                    response.budgetcount - response.cartdatacount) + '</b>');
+                            $('#amountdata1').empty().append(totalBudgetParagraph1,
+                                selectedAmountParagraph1, remainingAmountParagraph1);
 
                         }
 

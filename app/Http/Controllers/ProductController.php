@@ -12,6 +12,10 @@ use App\Models\MagazineCategory;
 use DB;
 use App\Models\Specialcategories;
 use Illuminate\Support\Facades\Session;
+use App\Models\Book;
+use App\Models\Cartbooks;
+
+
 class ProductController extends Controller
 {
     //
@@ -188,4 +192,180 @@ class ProductController extends Controller
         ]);
     }
 
+
+    public function product(){
+
+        $librarian = auth('librarian')->user();
+
+        $bookbudget = Budget::where('type', 'bookbudget')
+            ->where(function ($query) use ($librarian) {
+                $query->whereNotIn('purchaseid', [$librarian->id])
+                    ->whereJsonDoesntContain('purchaseid', $librarian->id);
+            })
+            ->where('libraryType', $librarian->libraryType)
+            ->orderBy('created_at', 'ASC')
+            ->first();
+      
+        if ($bookbudget) {
+            $cartdata = Cartbooks::where('librarianid', '=', $librarian->id) 
+                ->where('budgetid', '=', $bookbudget->id)
+                ->where('status', '=', '1')
+                ->get();
+    
+            if (Session::has('bookcartcount')) {
+                Session::forget('bookcartcount');
+            }
+            $bookcartcount = count($cartdata);
+            Session::put('bookcartcount', $bookcartcount);
+    
+            $bud_arr1 = [];
+            $bookbudget->CategorieAmount1 = json_decode($bookbudget->CategorieAmount); 
+    
+        foreach ($bookbudget->CategorieAmount1 as $val) {
+            $cartdata1 = Cartbooks::where('librarianid', '=', $librarian->id)
+                              ->where('category', '=', $val->name)
+                              ->where('budgetid', '=', $bookbudget->id)
+                              ->where('status', '=', '1')
+                              ->sum('totalAmount');
+        
+                              $percentage = $val->amount !== 0 ? round(($cartdata1 / max(1, $val->amount)) * 100) : 0;
+            
+            $obj = (object)[
+                "category" => $val->name,
+                "budget_price" => $val->amount,
+                "cart_price" => $cartdata1,
+                "percentage" => $percentage
+                
+            ];
+            array_push($bud_arr1, $obj);
+        }
+    
+    }else{
+        
+        $bookcartcount=0;
+        Session::put('bookcartcount', $bookcartcount);
+        $bud_arr1 = [];
+        $bookbudget1 = Specialcategories::where('status', '=', '1')
+        ->orderBy('created_at', 'ASC')
+        ->get();
+    
+            foreach ($bookbudget1 as $val) {
+                $obj = (object)[
+                    "category" => $val->name,
+                    "budget_price" =>0,
+                    "cart_price" => 0,
+                    "percentage" => 0,
+                ];
+                array_push($bud_arr1, $obj);
+            }
+        }
+    
+        if (Session::has('bud_arr1')) {
+            Session::forget('bud_arr1');
+        }
+    
+        Session::put('bud_arr1', $bud_arr1);
+        
+            $books = Book::paginate(10);
+            $min = Book::where('book_status', '=', '1')->min(\DB::raw('CAST(final_price AS UNSIGNED)'));
+
+            $max = Book::where('book_status', '=', '1')->max(\DB::raw('CAST(final_price AS UNSIGNED)'));
+         
+            return view('product', compact('books','min','max'));
+    }
+
+    // productfilter
+    public function productfilter(Request $request)
+    {
+        $query = Book::query();
+      
+        // Check if category parameter is provided and not empty
+        if ($request->has('category')) {
+            $categoryParam = $request->input('category');
+            if (!empty($categoryParam)) {
+                if ($categoryParam != 'all') {
+                    $categories = explode(',', $categoryParam);
+                    // foreach($categories as $val){
+                    //     if($val == "இளைஞர் நலன்"){
+                    //         array_push($categories , 'இளைஞர் நலன், விளையாட்டு, அறிவியல் & தொழில்நுட்பம்');
+                    //     }
+                    //     if($val == "Youth"){
+                    //         array_push($categories , 'Youth, Sports Science & Technology');
+                    //     }
+                    // }
+                    $query->whereIn('category', $categories);
+                }
+            }
+        }
+     
+        // Apply search filter if provided
+        if ($request->has('search')) {
+            $searchQuery = $request->input('search');
+            $query->where(function ($query) use ($searchQuery) {
+                $query->where('book_title', 'like', "%{$searchQuery}%")
+                    ->orWhere('category', 'like', "%{$searchQuery}%")
+                    ->orWhere('final_price', 'like', "%{$searchQuery}%")
+                    ->orWhere('subject', 'like', "%{$searchQuery}%");
+            });
+        }
+
+    // Apply price range filter if provided
+    // if ($request->has('minPrice') && $request->has('maxPrice')) {
+    //     $minPrice = $request->input('minPrice');
+    //     $maxPrice = $request->input('maxPrice');
+    //     $query->whereBetween('annual_cost_after_discount', [$minPrice, $maxPrice]);
+    // }
+        
+    $perPage = 10;   
+    // Apply search filter if provided
+    if ($request->has('showrecord')) {
+        $perPage = $request->input('showrecord');
+        
+    }else{
+         // Retrieve paginated records
+         $perPage = 10;
+        //  dd($perPage);
+    }
+    // dd($perPage);
+    
+        $items = $query->paginate($perPage);
+
+        if ($items->isEmpty()) {
+            // Return response indicating no data found
+            return response()->json(['message' => 'No records found.']);
+        }
+
+        $books = new LengthAwarePaginator(
+            $items->items(),
+            $items->total(),
+            $items->perPage(),
+            $items->currentPage(),
+            [
+                'path' => Paginator::resolveCurrentPath(),
+                'pageName' => 'page',
+            ]
+        );
+
+        $eight = view('book.book-eight', compact('books'))->render();
+        $four = view('book.book-four', compact('books'))->render();
+        $single = view('book.book-single', compact('books'))->render();
+
+        // Combine the rendered views into one
+        $viewCombined = $eight . $four . $single;
+
+        // Get the pagination links separately and customize the URLs
+        $pagination = $books->render();
+        $pagination = str_replace($books->url(1), '/tesproduct?page=1', $pagination); // Customize first page URL
+        $pagination = str_replace($books->url($books->lastPage()), '/products?page=' . $books->lastPage(), $pagination); // Customize last page URL
+      
+        return response()->json([
+            'html' => [
+                'eight' => $eight,
+                'four' => $four,
+                'single' => $single,
+            ],
+            'pagination' => $pagination
+        ]);
+       
+    }
 }
