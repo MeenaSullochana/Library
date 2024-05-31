@@ -740,33 +740,39 @@ public function get_books($id)
     $index1 = 1; 
 
     // $internals1 = Reviewer::where('reviewerType', '=', 'internal')->where('status', '=', 1)->get();
-    $cat=$books[0]->category;
-    $categories = [$cat]; 
+    // $categories = [$cat]; 
+  
+    
+    if 
+    ($books[0]->category == null) {
+        $tbodyHtml2 = '<tr><td colspan="3">No Librarian reviewers found.</td></tr>';
+    }else{
+
+    
    
-     $internalsdat = Reviewer::whereJsonContains('Category', $cat)       
-      ->where('reviewerType', '=', 'internal')
+    //  $internalsdat = Reviewer::whereJsonContains('Category', $cat)       
+    //   ->where('reviewerType', '=', 'internal')
+    //     ->where('status', '=', 1)
+    //     ->get();
+    $cat = $books[0]->category;
+    $internalsdat = Reviewer::where('reviewerType', '=', 'internal')
         ->where('status', '=', 1)
         ->get();
- 
+    $internalsdat1 = [];          
+    foreach ($internalsdat as $val) {
+        $categories = json_decode($val->Category, true);
 
-//     $internals=[];          
-//     foreach($internals1 as $key=>$val){
-//      $subjects = json_decode($val->Category);
-//      $subjectsArray = explode(',', $subjects);
-//      $revin= in_array($id, $subjectsArray);
-//      if($revin){
-//        array_push($internals,$val);
- 
-//      }
- 
-//  }
+        if (is_array($categories) && in_array($cat, $categories)) {
+            $internalsdat1[] = $val;
+        }
+    }
 
     if 
-    ($internalsdat->isEmpty()) {
+    (count($internalsdat1) <= 0) {
         $tbodyHtml2 = '<tr><td colspan="3">No Librarian reviewers found.</td></tr>';
     } else
      {
-    foreach ($internalsdat as $key => $val) {    
+    foreach ($internalsdat1 as $key => $val) {    
       // $subjects = json_decode($val->subject);
 
             $tbodyHtml2 .= '<tr>';
@@ -779,14 +785,30 @@ public function get_books($id)
             $tbodyHtml2 .= '<td>' . $index1 . '</td>';
             $tbodyHtml2 .= '<td><span>' . $val->name . '</span></td>';
             $tbodyHtml2 .= '<td><span>' . $val->libraryName . '</span></td>';
-            $tbodyHtml2 .= '<td><span>' . $val->Category . '</span></td>';
-           
+            // $tbodyHtml2 .= '<td><span>' . $val->Category . '</span></td>';
+          
+            
+            $categories = json_decode($val->Category, true);
+
+            $recdata = ''; 
+            
+            if (is_array($categories)) {
+                foreach ($categories as $category) {
+                    $recdata .= htmlspecialchars($category) . ' ,'; 
+                }
+            }
+            
+            $tbodyHtml2 .= '<td><span>' . trim($recdata) . '</span></td>';
+
+   
+            
+    
             $tbodyHtml2 .= '</tr>';
             $index1++; 
         
     }
   }
- 
+}
   if 
   (count($books) <= 0) {
       $tbodyHtml3 = '<tr><td colspan="3">No Public reviewers found.</td></tr>';
@@ -794,7 +816,13 @@ public function get_books($id)
    {
   $tbodyHtml3 = ''; 
   $index1 = 1; 
-  $cat=$books[0]->category;
+
+  if 
+  ($books[0]->category == null) {
+      $tbodyHtml3 = '<tr><td colspan="3">No external reviewers found.</td></tr>';
+  } else
+   {
+    $cat=$books[0]->category;
   $internals11 = Reviewer::where('Category','=',$cat)->where('reviewerType', '=', 'public')->where('status', '=', 1)->get();
   if 
   ($internals11->isEmpty()) {
@@ -819,6 +847,7 @@ public function get_books($id)
       
   }
 }
+   }
    }
 
     $data = [

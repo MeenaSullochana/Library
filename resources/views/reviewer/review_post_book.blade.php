@@ -525,7 +525,9 @@
                                     <input type="hidden" name="bookid" value={{$book->id}}>
                                     <input type="hidden" name="rev" value={{$rev->id}}>
                                     <label class="form-label text-left">Your Score <span class="text-danger maditory">*</span></label>
-                                    <select class="form-control mb-3" name="review">
+                                    <select class="form-control mb-3" name="review"  required>
+                                    <option value="">Select Anyone</option>
+
                                        <option value="Highly Recommended">Highly Recommended</option>
                                        <option value="May Be Considered">May be Considered</option>
                                        <option value="Not Recommended">Not Recommended</option>

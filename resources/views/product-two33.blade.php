@@ -367,7 +367,7 @@
                                       {{-- single Board --}}
                                    </div>
                                 </div>
-                            </div> 
+                             </div> 
                             <div id="pagination-two">
                                 <ul>
                                    {{ $magazines->links() }}
@@ -994,3 +994,4 @@
  </body>
 
 </html>
+ 

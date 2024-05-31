@@ -198,15 +198,18 @@
                                                                         style="width:100%; height:1000px;"
                                                                         frameborder="0"></iframe>
                                                                     @else
-                                                                    <iframe
-                                                                    src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
-                                                                        style="width:100%; height:1000px;"
-                                                                        frameborder="0"></iframe>
+                                                                     @if(file_exists(public_path('Magazine/pdf/' . $data->sample_pdf)))
+                                                                            <iframe src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
+                                                                                    style="width:100%; height:1000px;" frameborder="0"></iframe>
+                                                                     @else
+                                                                                <iframe
+                                                                                src=""
+                                                                                    style="width:100%; height:1000px;"
+                                                                                    frameborder="0"></iframe>
+                                                                     @endif
+                                                                  
                                                                     @endif
-                                                                    <iframe
-                                                                    src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
-                                                                        style="width:100%; height:1000px;"
-                                                                        frameborder="0"></iframe>
+                                            
 
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -547,8 +550,7 @@
 <script>
 $(document).ready(function(){
     $('.Add-to-cart1').click(function(){
-        $('.Add-to-cart1').prop('disabled', true);
-
+        $('.Add-to-cart1').prop('disabled',true);
         var id = $(this).data('id1');
         $.ajax({
             url: '/add-to-cart', 
@@ -563,21 +565,19 @@ $(document).ready(function(){
 
                 }
                 if(response.success){
-                    $('.Add-to-cart1').prop('disabled', false);
-
+                    $('.Add-to-cart1').prop('disabled',false);
                     toastr.success(response.success, { timeout: 2000 });
 
                 }
                 else{
-                    $('.Add-to-cart1').prop('disabled', false);
-
+                    $('.Add-to-cart1').prop('disabled',false);
                     toastr.error(response.error, { timeout: 2000 });
 
                 }
                
             },
             error: function(xhr, status, error) {
-              
+                $('.Add-to-cart1').prop('disabled',false);
                 console.error('AJAX request failed:', status, error);
             }
         });
@@ -589,8 +589,7 @@ $(document).ready(function(){
 <script>
 $(document).ready(function(){
     $('.Add-to-cart').click(function(){
-        $('.Add-to-cart').prop('disabled', true);
-
+        $('.Add-to-cart').prop('disabled',true);
         var id = $(this).data('id');
         $.ajax({
             url: '/add-to-cart', 
@@ -605,21 +604,19 @@ $(document).ready(function(){
 
                 }
                 if(response.success){
-                    $('.Add-to-cart').prop('disabled', false);
-
+                    $('.Add-to-cart').prop('disabled',false);
                     toastr.success(response.success, { timeout: 2000 });
 
                 }
                 else{
-                    $('.Add-to-cart').prop('disabled', false);
-
+                    $('.Add-to-cart').prop('disabled',false);
                     toastr.error(response.error, { timeout: 2000 });
 
                 }
                
             },
             error: function(xhr, status, error) {
-              
+                $('.Add-to-cart').prop('disabled',false);
                 console.error('AJAX request failed:', status, error);
             }
         });

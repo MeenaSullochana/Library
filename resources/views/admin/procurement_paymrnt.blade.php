@@ -59,16 +59,27 @@
                    </div>
                </div>
            </div>
-
+  
            <div class="col-xl-10 col-sm-6 mt-4 mb-4 text-end">
-                        
+
                <a href="exportexcelpayment/Book" class="btn btn-info">
                      <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
                      Export Excel
                </a>
 
             </div>
+       
             <div class="card">
+            <div class="col-xl-3 col-sm-6 mt-4 mb-4 text-center">
+                   <label class="form-label"> Transection Type</label>
+                    <select name="category_filter" id="category_filter"
+                     class="form-select bg-white p-2 border border-1 mb-3">
+                      <option value="">All Type</option>
+                       <option value="Success">Success</option>
+                       <option value="Failed">Failed</option>
+                        <option value="Cancel">Cancel</option>
+                    </select>
+           </div>
                <div class="card-body">
                @php
                $payment = DB::table('procurement_paymrnts')->where('type','Book')->get();
@@ -142,7 +153,26 @@
         include "admin/plugin/plugin_js.php";
     ?>
 </body>
+<script>
+    $(document).ready(function() {
+        var table = $('#example4').DataTable();
 
+        function filterCategory(paymentstatus) {
+            if (paymentstatus === "") {
+                table.column(8).search("").draw();
+            } else {
+                table.column(8).search(paymentstatus).draw();
+            }
+        }
+
+        $('#category_filter').on('change', function() {
+            var paymentstatus = $(this).val();
+            filterCategory(paymentstatus);
+        });
+
+      
+    });
+    </script>
 </html>
 <style>
    .active-projects.style-1 .dt-buttons .dt-button {

@@ -93,8 +93,35 @@
                             </a>
                             @endif
                             @endif
-
+                          
                         </div>
+
+                        <div class="header__info-cart tpcolor__oasis ml-10 ">
+                            @php
+                            $user = auth('librarian')->user();
+                            @endphp
+                        @if($user && $user->metaChecker =="no")
+                            @if(Session::has('bookcartcount'))
+                            <a href="/cart-book">
+                                <button id="bookcartcountId">
+                                    <i><img src="assets/img/icon/cart-1.svg" alt=""></i>
+                                    <span id='bookcartcount'>{{ Session::get('bookcartcount') }}</span>
+                                </button>
+
+                            </a>
+                            @else
+                            <a href="#">
+                                <button>
+                                    <i><img src="assets/img/icon/cart-1.svg" alt=""></i>
+                                    <!-- <span>
+                                 </span> -->
+                                </button>
+                            </a>
+                            @endif
+                            @endif
+
+
+                            </div>
                     </div>
                 </div>
             </div>
