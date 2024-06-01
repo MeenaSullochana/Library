@@ -167,60 +167,15 @@
                                                         <li>Subject : <span>{{$data->subject}}</span></li>
                                                     </ul>
                                                 </div>
-                                                <div class="product__details-payment text-center">
+                                                <div class="col-6 pt-2 ps-2 pe-2">
                                                     <!-- <img src="https://cdn.shopify.com/s/files/1/0280/8365/0642/files/Add_a_heading_480x480.png"
                                                         alt=""> -->
-                                                    <button class="btn btn-primary">
-                                                        <span class="btn-primary" data-bs-toggle="modal"
-                                                            data-bs-target="#modalId"><i class="fa fa-book"></i> Read Sample PDF</span></button>
+                                                        <button type="button" class="btn btn-outline-primary w-100"
+                                                        data-bs-toggle="modal" id="openModalBtn"
+                                                        data-bs-target="#modalId">
+                                                        Read Sample
+                                                    </button>
 
-                                                    <!-- Modal Body -->
-                                                    <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                                                    <div class="modal fade" id="modalId" tabindex="-1"
-                                                        data-bs-backdrop="static" data-bs-keyboard="false"
-                                                        role="dialog" aria-labelledby="modalTitleId"
-                                                        aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl"
-                                                            role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="modalTitleId">
-                                                                        Read Sample Pdf
-                                                                    </h5>
-                                                                    <button type="button" class="btn-close"
-                                                                        data-bs-dismiss="modal"
-                                                                        aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    @if($data->sample_pdf == null)
-                                                                    <iframe
-                                                                    src=""
-                                                                        style="width:100%; height:1000px;"
-                                                                        frameborder="0"></iframe>
-                                                                    @else
-                                                                     @if(file_exists(public_path('Magazine/pdf/' . $data->sample_pdf)))
-                                                                            <iframe src="{{ asset('Magazine/pdf/' . $data->sample_pdf) }}"
-                                                                                    style="width:100%; height:1000px;" frameborder="0"></iframe>
-                                                                     @else
-                                                                                <iframe
-                                                                                src=""
-                                                                                    style="width:100%; height:1000px;"
-                                                                                    frameborder="0"></iframe>
-                                                                     @endif
-                                                                  
-                                                                    @endif
-                                            
-
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary"
-                                                                        data-bs-dismiss="modal">
-                                                                        Close
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -695,7 +650,38 @@
             </div>
         </section>
         <!-- product-area-end -->
+        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+            role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <!-- Add your modal header content here -->
+                        <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i
+                                class="fa fa-chevron-left"></i>Back to</button>
+                        <!-- <h5 class="modal-title" id="modalTitleId">THREE THOUSAND STITCHES: ORDINARY PEOPLE, EXTRAORDINARY
+                        LIVES</h5> -->
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
 
+                        <div id="viewer" class="spreads"></div>
+
+                    </div>
+                    <div class="modal-footer" style="display: flex; justify-content: space-between;">
+                        <div>
+                            <a id="prev" href="#prev" class="arrow">Previous</a>
+                            <a id="next" href="#next" class="arrow">Next</a>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <!-- <button type="button" id="saveButton" data-dataid="{{ $data->id }}"
+                            data-revid="{{$data->revid }}" class="btn btn-primary">Review</button> -->
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
     </main>
 
    
@@ -781,6 +767,297 @@ $(document).ready(function(){
     });
 });
 </script>
+
+
+<script>
+    const myModal = new bootstrap.Modal(document.getElementById('modalId'), options)
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+    <script src="https://unpkg.com/epubjs@0.3.93/dist/epub.legacy.js"></script>
+    <script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: "auto",
+        centeredSlides: true,
+        spaceBetween: 30,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+    });
+    </script>
+    <script>
+    function showMore(link) {
+        var shortNotes = link.parentNode.querySelector('.short_notes');
+        var longNotes = link.parentNode.querySelector('.long_notes');
+        var dots = link.parentNode.querySelector('.dots');
+
+        if (shortNotes.style.display === "none") {
+            shortNotes.style.display = "inline";
+            longNotes.style.display = "none";
+            dots.style.display = "inline";
+            link.innerHTML = "See more";
+        } else {
+            shortNotes.style.display = "none";
+            longNotes.style.display = "inline";
+            dots.style.display = "none";
+            link.innerHTML = "See less";
+        }
+    }
+    </script>
+
+    <script>
+    var params = URLSearchParams && new URLSearchParams(document.location.search.substring(1));
+    var url = params && params.get("url") && decodeURIComponent(params.get("url"));
+    var currentSectionIndex = (params && params.get("loc")) ? params.get("loc") : undefined;
+
+    var openModalBtn = document.getElementById('openModalBtn');
+    var epubModal = document.getElementById('modalId');
+
+    openModalBtn.addEventListener('click', function() {
+        epubModal.style.display = 'flex';
+        var data = @json($data -> sample_file);
+        var data1 = @json($data -> sample_pdf);
+        var data2 = @json($data -> sample_epub);
+
+        var bookSource = data2;
+
+        var book = ePub("{{ asset('Books/sampleepub') }}/" + bookSource);
+        // Load the opf
+        // var book = ePub("{{ asset('Books/sampleepub/Around the World in 28 Languages.epub') }}" || "https://s3.amazonaws.com/moby-dick/moby-dick.epub");
+        var rendition = book.renderTo("viewer", {
+            width: "100%",
+            height: 600,
+            spread: "always"
+        });
+
+        rendition.display(currentSectionIndex);
+
+        book.ready.then(function() {
+            var next = document.getElementById("next");
+
+            next.addEventListener("click", function(e) {
+                book.package.metadata.direction === "rtl" ? rendition.prev() : rendition
+                    .next();
+                e.preventDefault();
+            }, false);
+
+            var prev = document.getElementById("prev");
+            prev.addEventListener("click", function(e) {
+                book.package.metadata.direction === "rtl" ? rendition.next() : rendition
+                    .prev();
+                e.preventDefault();
+            }, false);
+
+            var keyListener = function(e) {
+                // Left Key
+                if ((e.keyCode || e.which) == 37) {
+                    book.package.metadata.direction === "rtl" ? rendition.next() : rendition
+                        .prev();
+                }
+
+                // Right Key
+                if ((e.keyCode || e.which) == 39) {
+                    book.package.metadata.direction === "rtl" ? rendition.prev() : rendition
+                        .next();
+                }
+            };
+
+            rendition.on("keyup", keyListener);
+            document.addEventListener("keyup", keyListener, false);
+        });
+
+        var title = document.getElementById("title");
+
+        rendition.on("rendered", function(section) {
+            var current = book.navigation && book.navigation.get(section.href);
+
+            if (current) {
+                var $select = document.getElementById("toc");
+                var $selected = $select.querySelector("option[selected]");
+                if ($selected) {
+                    $selected.removeAttribute("selected");
+                }
+
+                var $options = $select.querySelectorAll("option");
+                for (var i = 0; i < $options.length; ++i) {
+                    let selected = $options[i].getAttribute("ref") === current.href;
+                    if (selected) {
+                        $options[i].setAttribute("selected", "");
+                    }
+                }
+            }
+        });
+
+        rendition.on("relocated", function(location) {
+            var next = book.package.metadata.direction === "rtl" ? document.getElementById("prev") :
+                document.getElementById("next");
+            var prev = book.package.metadata.direction === "rtl" ? document.getElementById("next") :
+                document.getElementById("prev");
+
+            if (location.atEnd) {
+                next.style.visibility = "hidden";
+            } else {
+                next.style.visibility = "visible";
+            }
+
+            if (location.atStart) {
+                prev.style.visibility = "hidden";
+            } else {
+                prev.style.visibility = "visible";
+            }
+        });
+
+        rendition.on("layout", function(layout) {
+            let viewer = document.getElementById("viewer");
+
+            if (layout.spread) {
+                viewer.classList.remove('single');
+            } else {
+                viewer.classList.add('single');
+            }
+        });
+
+        window.addEventListener("unload", function() {
+            console.log("unloading");
+            this.book.destroy();
+        });
+
+        book.loaded.navigation.then(function(toc) {
+            var $select = document.getElementById("toc"),
+                docfrag = document.createDocumentFragment();
+
+            toc.forEach(function(chapter) {
+                var option = document.createElement("option");
+                option.textContent = chapter.label;
+                option.setAttribute("ref", chapter.href);
+
+                docfrag.appendChild(option);
+            });
+
+            $select.appendChild(docfrag);
+
+            $select.onchange = function() {
+                var index = $select.selectedIndex,
+                    url = $select.options[index].getAttribute("ref");
+                rendition.display(url);
+                return false;
+            };
+        });
+    });
+
+    // Close modal when clicking outside the modal content
+    window.addEventListener('click', function(e) {
+        if (e.target === epubModal) {
+            epubModal.style.display = 'none';
+        }
+    });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script>
+    var openModalBtn = document.getElementById('openModalBtn');
+    var pdfModal = document.getElementById('modalId');
+
+    openModalBtn.addEventListener('click', function() {
+        pdfModal.style.display = 'flex';
+        var data1 = @json($data -> sample_pdf); // Assuming $data->sample_pdf contains the PDF file name
+        var pdfUrl = "{{ asset('Books/samplepdf') }}/" + data1; // Adjust the path as necessary
+
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js'; // Adjust the path to the PDF.js worker script
+
+        var loadingTask = pdfjsLib.getDocument(pdfUrl);
+        loadingTask.promise.then(function(pdf) {
+            var totalPages = pdf.numPages;
+            var currentPage = 1;
+
+            var pdfViewer = document.getElementById('viewer');
+
+            function renderPage(pageNumber) {
+                pdf.getPage(pageNumber).then(function(page) {
+                    var scale = 1.5;
+                    var viewport = page.getViewport({
+                        scale: scale
+                    });
+
+                    var canvas = document.createElement('canvas');
+                    var context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    var renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+
+                    page.render(renderContext).promise.then(function() {
+                        pdfViewer.innerHTML = ''; // Clear previous content
+                        pdfViewer.appendChild(canvas);
+                    });
+                });
+            }
+
+            renderPage(currentPage);
+
+            var nextBtn = document.getElementById('next');
+            var prevBtn = document.getElementById('prev');
+
+            nextBtn.addEventListener('click', function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderPage(currentPage);
+                }
+            });
+
+            prevBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderPage(currentPage);
+                }
+            });
+        });
+    });
+
+    window.addEventListener('click', function(e) {
+        if (e.target === pdfModal) {
+            pdfModal.style.display = 'none';
+        }
+    });
+    </script>
+    <script>
+    var $affectedElements = $("p, h1, h2, h3, h4, h5, h6"); // Can be extended, ex. $("div, p, span.someClass")
+
+    // Storing the original size in a data attribute so size can be reset
+    $affectedElements.each(function() {
+        var $this = $(this);
+        $this.data("orig-size", $this.css("font-size"));
+    });
+
+    $("#btn-increase").click(function() {
+        changeFontSize(1);
+    })
+
+    $("#btn-decrease").click(function() {
+        changeFontSize(-1);
+    })
+
+    $("#btn-orig").click(function() {
+        $affectedElements.each(function() {
+            var $this = $(this);
+            $this.css("font-size", $this.data("orig-size"));
+        });
+    })
+
+    function changeFontSize(direction) {
+        $affectedElements.each(function() {
+            var $this = $(this);
+            $this.css("font-size", parseInt($this.css("font-size")) + direction);
+        });
+    }
+    </script>
+
 </body>
 
 <style>
@@ -807,5 +1084,40 @@ $(document).ready(function(){
         width: 100px;
     }
 </style>
+<style>
+/* Style for the 'previous' button */
+#prev {
+    display: inline-block;
+    padding: 10px;
+    margin-right: 10px;
+    color: white;
+    background-color: blue;
+    /* Change to your desired color for 'previous' button */
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
+#prev:hover {
+    background-color: darkblue;
+    /* Change to your desired hover color for 'previous' button */
+}
+
+/* Style for the 'next' button */
+#next {
+    display: inline-block;
+    padding: 10px;
+    color: white;
+    background-color: green;
+    /* Change to your desired color for 'next' button */
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#next:hover {
+    background-color: darkgreen;
+    /* Change to your desired hover color for 'next' button */
+}
+</style>
 </html>
