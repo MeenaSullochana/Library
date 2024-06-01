@@ -213,7 +213,7 @@
 <script>
 $(document).ready(function() {
     // Initialize DataTable
-    var table = $('#example3').DataTable();
+    var table = $('#example4').DataTable();
 
     // Function to handle category filter
     function filterCategory(category) {

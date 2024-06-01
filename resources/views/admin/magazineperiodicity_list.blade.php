@@ -207,7 +207,7 @@
 </body>
 <script>
     $(document).ready(function() {
-        $('#refresh').on('click', '.change-status', function() {
+        $('#example3').on('click', '.change-status', function() {
 
 
             e.preventDefault();
@@ -240,7 +240,7 @@
 <script>
 
 
-    $('#refresh').on('click', '.delete-btn', function() {
+    $('#example3').on('click', '.delete-btn', function() {
 
         var id = $(this).data('id');
          console.log(id);
