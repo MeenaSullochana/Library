@@ -89,7 +89,12 @@
                                                         <input type="text" class="form-control" id="name" name="name" placeholder="Enter the Magazine Periodicity Name" Required>
                                                     </div>
                                                 </div>
-                                               
+                                                <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                        <label for="slug">Magazine Frequency  <span class="text-danger">*</span></label>
+                                                        <input type="text" class="form-control" id="frequency" name="frequency" placeholder="Eg: 6" Required>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-4" id="adding">
                                                     <label for="slug">Status  <span class="text-danger">*</span></label>
                                                     <div class="dropdown bootstrap-select default-select form-control wide form-control-sm">
@@ -156,7 +161,7 @@
           console.log(formData);
             var formData = {
                 name: $("#name").val(),
-
+                frequency: $("#frequency").val(),
                 status: $("#status").val()
             };
             $.ajaxSetup({

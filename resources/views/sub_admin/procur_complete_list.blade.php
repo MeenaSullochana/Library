@@ -56,8 +56,8 @@
                         <h3 class="mb-0 bc-title">
                            <b>Completed Books List</b>
                         </h3>
-                        <a class="btn btn-primary  btn-sm" href="/sub_admin/procur_book_assign">
-                            <i class="fas fa-chevron-left"></i> Back</a>
+                        <!-- <a class="btn btn-primary  btn-sm" href="/sub_admin/procur_book_assign">
+                            <i class="fas fa-chevron-left"></i> Back</a> -->
                         <!-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
                         <i class="fas fa-plus"></i> Add Book</a> -->
                         <!-- <nav aria-label="breadcrumb">

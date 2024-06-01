@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('magazine_periodicities', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->String('name');
+            $table->String('frequency');
             $table->enum('status',['1','0'])->default('1');
             $table->timestamps();
         });

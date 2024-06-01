@@ -13,6 +13,7 @@ class MagazinePeriodicity extends Model
     protected $table = 'magazine_periodicities';
     protected $fillable = [
         'name',
+        'frequency',
         'status',
     ];
 }
