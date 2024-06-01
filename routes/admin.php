@@ -217,6 +217,7 @@ Route::get('/report_download_pub_revi',function(){ return view('admin.report_dow
 Route::get('/report_download_publisher',function(){ return view('admin.report_download_publisher');});
 Route::get('/report_download_reviwer',function(){ return view('admin.report_download_reviwer');});
 Route::get('/report_download',function(){ return view('admin.report_download');});
+Route::get('/meta_checking_book_list',function(){ return view('admin.meta_checking_book_list');});
 
 
 Route::get('/ticker_reply',function(){ return view('admin.ticker_reply');});
