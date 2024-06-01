@@ -14,6 +14,7 @@ use App\Models\PublisherDistributor;
 use App\Models\PeriodicalPublisher;
 use App\Models\PeriodicalDistributor;
 use App\Models\Specialcategories;
+use App\Models\Procurementpaymrnt;
 use App\Models\Book;
 
 
@@ -212,11 +213,25 @@ foreach ($categoryCountsPerCategory as $category => &$countsPerMonth) {
    $activeperdistcount=count($activeperdist);
    $inactiveperdistcount=count($inactiveperdist);
    
+
+    //Procurement Payments
+   //Book
+   $total_book_pay = Procurementpaymrnt::where('type','Book')->where('paymentstatus','Success')->where('responsecode','00')->sum('totalAmount');
+   $pub_book_pay = Procurementpaymrnt::where('type','Book')->where('userType','publisher')->where('paymentstatus','Success')->where('responsecode','00')->sum('totalAmount');
+   $dis_book_pay = Procurementpaymrnt::where('type','Book')->where('userType','distributor')->where('paymentstatus','Success')->where('responsecode','00')->sum('totalAmount');
+   $pubdis_book_pay = Procurementpaymrnt::where('type','Book')->where('userType','publisher_distributor')->where('paymentstatus','Success')->where('responsecode','00')->sum('totalAmount');
+//    dd($total_book_pay,$pub_book_pay,$dis_book_pay,$pubdis_book_pay);
+
+   //Periodical
+    $total_periodical_pay = Procurementpaymrnt::where('type','Periodical')->where('paymentstatus','Success')->where('responsecode','00')->sum('totalAmount');
+    $pub_periodical_pay = Procurementpaymrnt::where('type','Periodical')->where('userType','publisher')->where('paymentstatus','Success')->where('responsecode','00')->sum('totalAmount');
+    $dis_periodical_pay = Procurementpaymrnt::where('type','Periodical')->where('userType','distributor')->where('paymentstatus','Success')->where('responsecode','00')->sum('totalAmount');
+   
    return view('sub_admin.index',compact('allpub','activepub','inactivepub','allpubcount','activepubcount','inactivepubcount',
    'alldist','activedist','inactivedist', 'alldistcount','activedistcount','inactivedistcount',
    'allpubdist','activepubdist','inactivepubdist','categoryCountsPerCategory', 'allpubdistcount','activepubdistcount','inactivepubdistcount',
    'allperpub','activeperpub','inactiveperpub','allperpubcount','activeperpubcount','inactiveperpubcount','allperdist','activeperdist',
-   'inactiveperdist','allperdistcount','activeperdistcount','inactiveperdistcount')
+   'inactiveperdist','allperdistcount','activeperdistcount','inactiveperdistcount','total_periodical_pay','pub_periodical_pay','dis_periodical_pay','total_book_pay','pub_book_pay','dis_book_pay','pubdis_book_pay')
    );
 }
 }

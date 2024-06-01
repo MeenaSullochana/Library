@@ -57,8 +57,8 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Meta Complete Book List</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="/sub_admin/meta_book_list">
-                                <i class="fas fa-plus"></i> Meta Book List</a>
+                           <!-- <a class="btn btn-primary  btn-sm" href="/sub_admin/meta_book_list">
+                                <i class="fas fa-plus"></i> Meta Book List</a>-->
                             <!-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
                         <i class="fas fa-plus"></i> Add Book</a> -->
                             <!-- <nav aria-label="breadcrumb">

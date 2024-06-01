@@ -122,13 +122,20 @@
                                                 </th> --}}
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">Book No</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Book Title</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Meta Checker</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">User Type</th>
+                                               
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Status</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 87.4688px;"> Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                          @foreach($data as $key=>$val)
+                                         @php
+                                         $metachecker = DB::table('librarians')->where('id', $val->book_reviewer_id)->first();
+
+
+                                         @endphp
 
                                             <tr role="row" class="odd">
                                                 {{-- <td class="sorting_1">
@@ -147,10 +154,14 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <span>{{$val->user_type}}</span>
+                                                    <span>{{$metachecker->librarianName}}</span>
                                                 </td>
                                                 <td>
-                                                    <span> <span class="badge bg-warining">Pending</span></span>
+                                                    <span>{{$val->user_type}}</span>
+                                                </td>
+                                              
+                                                <td>
+                                                    <span> <span class="badge bg-warning">Pending</span></span>
                                                 </td>
                                                 <td data-label="controlq">
                                                     <div class="d-flex mt-p0 justify-content-center">

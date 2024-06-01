@@ -734,6 +734,7 @@ class LibraryTypeController extends Controller
     
         $validator = Validator::make($req->all(),[
             'name'=>'required|string',
+            'frequency'=>'required|string',
             'status'=>'required|string',
             
            
@@ -749,6 +750,7 @@ class LibraryTypeController extends Controller
       
              $MagazinePeriodicity= New MagazinePeriodicity();
              $MagazinePeriodicity->name=$req->name;
+             $MagazinePeriodicity->frequency=$req->frequency;
              $MagazinePeriodicity->status=$req->status;
              $MagazinePeriodicity->save();
              $data= [
@@ -786,6 +788,7 @@ class LibraryTypeController extends Controller
         $validator = Validator::make($req->all(),[
             'status'=>'required|string',
             'name'=>'required|string',
+            'frequency'=>'required|string'
            
 
         ]);
@@ -799,6 +802,7 @@ class LibraryTypeController extends Controller
        
              $MagazinePeriodicity=MagazinePeriodicity::find($req->id);
              $MagazinePeriodicity->name=$req->name;
+             $MagazinePeriodicity->frequency=$req->frequency;
              $MagazinePeriodicity->status=$req->status;
              $MagazinePeriodicity->save();
              $data= [

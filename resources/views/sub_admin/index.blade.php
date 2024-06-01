@@ -74,6 +74,119 @@
                             <div class="col-xl-12">
                                 <div class="row">
                                     <div class="col-xl-12">
+                                         <h4>Book Payment </h4>
+                                        <div class="row">
+                                            <div class="col-xl-3 col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="icon-box icon-box-lg bg-success-light rounded-circle">
+                                                                <i class="fa fa-inr text-success"></i>
+                                                            </div>
+                                                            <div class="total-projects ms-3">
+                                                                <h3 class="text-success count">{{$total_book_pay}}</h3> 
+                                                                <span>Total Book Payment</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="icon-box icon-box-lg bg-primary-light rounded-circle">
+                                                                <i class="fa fa-inr text-primary"></i>
+                        
+                                                            </div>
+                                                            <div class="total-projects ms-3">
+                                                                <h3 class="text-primary count">{{$pub_book_pay}}</h3> 
+                                                                <span>Total Publisher Payment</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="icon-box icon-box-lg bg-warning-light rounded-circle">
+                                                                <i class="fa fa-inr text-warning"></i>
+                                                            </div>
+                                                            <div class="total-projects ms-3">
+                                                                <h3 class="text-warning count">{{$dis_book_pay}}</h3> 
+                                                                <span>Total Distributor Payment</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="icon-box icon-box-lg bg-danger-light rounded-circle">
+                                                                <i class="fa fa-inr text-danger"></i>
+                                                            </div>
+                                                            <div class="total-projects ms-3">
+                                                                <h3 class="text-danger count">{{$pubdis_book_pay}}</h3> 
+                                                                <span>Total Publisher Cum Distributor Payment</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h4>Periodical Payment </h4>
+                                        <div class="row">
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="icon-box icon-box-lg bg-success-light rounded-circle">
+                                                                <i class="fa fa-inr text-success"></i>
+                                                            </div>
+                                                            <div class="total-projects ms-3">
+                                                                <h3 class="text-success count">{{$total_periodical_pay}}</h3> 
+                                                                <span>Total Periodical Payment</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="icon-box icon-box-lg bg-primary-light rounded-circle">
+                                                                <i class="fa fa-inr text-primary"></i>
+                        
+                                                            </div>
+                                                            <div class="total-projects ms-3">
+                                                                <h3 class="text-primary count">{{$pub_periodical_pay}}</h3> 
+                                                                <span>Total Periodical Publisher Payment</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="icon-box icon-box-lg bg-warning-light rounded-circle">
+                                                                <i class="fa fa-inr text-warning"></i>
+                                                            </div>
+                                                            <div class="total-projects ms-3">
+                                                                <h3 class="text-warning count">{{$dis_periodical_pay}}</h3> 
+                                                                <span>Total Periodical Distributor Payment</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <h4>Publisher</h4>
                                         <div class="row">
                                             <div class="col-xl-4 col-sm-4">

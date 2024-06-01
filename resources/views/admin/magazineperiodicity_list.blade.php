@@ -88,6 +88,9 @@
                                                         <strong>Name</strong>
                                                     </th>
                                                     <th>
+                                                        <strong>Frequency</strong>
+                                                    </th>
+                                                    <th>
                                                         <strong>Status</strong>
                                                     </th>
                                                    
@@ -121,7 +124,12 @@
                                                             <span class="w-space-no">{{$val->name}}</span>
                                                         </div>
                                                     </td>
-                                               
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                           
+                                                            <span class="w-space-no">{{$val->frequency}}</span>
+                                                        </div>
+                                                    </td>
                                                     
                                                     <td>
     @if($val->status == 1)                                     <div class="dropdown">
