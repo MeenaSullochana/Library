@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,10 +13,10 @@
     <meta property="og:description" content="">
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
-	<!-- PAGE TITLE HERE -->
-	<title>Government of Tamil Nadu - Book Procurement Book Subject List</title>
+    <!-- PAGE TITLE HERE -->
+    <title>Government of Tamil Nadu - Book Procurement Book Subject List</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href= "{{ asset('admin/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
         include "admin/plugin/plugin_css.php";
     ?>
@@ -88,6 +87,9 @@
                                                         <strong>Name</strong>
                                                     </th>
                                                     <th>
+                                                        <strong>Language</strong>
+                                                    </th>
+                                                    <th>
                                                         <strong>Status</strong>
                                                     </th>
                                                     <th>
@@ -96,10 +98,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            @php
-                                             $categori = DB::table('book_subject')->get();
-                                             @endphp
-                                             @foreach($categori as $val)
+                                                @php
+                                                $categori = DB::table('book_subject')->get();
+                                                @endphp
+                                                @foreach($categori as $val)
                                                 <tr>
                                                     <td>
                                                         <div
@@ -121,25 +123,37 @@
                                                         </div>
                                                     </td>
                                                     <td>
-    @if($val->status == 1)                                     <div class="dropdown">
-    <button type="button" class="btn btn-success light sharp btn-sm btn-rounded dropdown-toggle"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Active
-    </button>
-    @else
-    <button type="button" class="btn btn-danger light sharp btn-sm btn-rounded dropdown-toggle"
-            data-bs-toggle="dropdown" aria-expanded="false">
-            Inactive
-    </button>
-    @endif
-    <div class="dropdown-menu">
-        @if($val->status == 1)
-            <a class="dropdown-item change-status"  data-status="0" data-id="{{ $val->id }}">Inactive</a>
-        @else
-            <a class="dropdown-item change-status"  data-status="1" data-id="{{ $val->id }}">Active</a>
-        @endif
-    </div>
-</div>
+                                                        <div class="d-flex align-items-center">
+                                                            <!-- <img src="images\avatar\1.png" class="rounded-lg me-2"
+                                                                width="24" alt=""> -->
+                                                            <span class="w-space-no">{{$val->type}}</span>
+                                                        </div>
+                                                    </td>
+                                                    
+                                                    <td>
+                                                        @if($val->status == 1) <div class="dropdown">
+                                                            <button type="button"
+                                                                class="btn btn-success light sharp btn-sm btn-rounded dropdown-toggle"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                Active
+                                                            </button>
+                                                            @else
+                                                            <button type="button"
+                                                                class="btn btn-danger light sharp btn-sm btn-rounded dropdown-toggle"
+                                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                                Inactive
+                                                            </button>
+                                                            @endif
+                                                            <div class="dropdown-menu">
+                                                                @if($val->status == 1)
+                                                                <a class="dropdown-item change-status" data-status="0"
+                                                                    data-id="{{ $val->id }}">Inactive</a>
+                                                                @else
+                                                                <a class="dropdown-item change-status" data-status="1"
+                                                                    data-id="{{ $val->id }}">Active</a>
+                                                                @endif
+                                                            </div>
+                                                        </div>
 
 
 
@@ -152,7 +166,8 @@
                                                                 class="btn btn-primary shadow btn-xs sharp me-1">
                                                                 <i class="fa fa-pencil"></i>
                                                             </a>
-                                                            <a  class="btn btn-danger shadow btn-xs sharp delete-btn"  id="delete" data-id="{{ $val->id }}">
+                                                            <a class="btn btn-danger shadow btn-xs sharp delete-btn"
+                                                                id="delete" data-id="{{ $val->id }}">
                                                                 <i class="fa fa-trash"></i>
                                                             </a>
                                                         </div>
@@ -195,62 +210,77 @@
     ?>
 </body>
 <script>
-    $(document).ready(function() {
-        $('.change-status').on('click', function(e) {
-            e.preventDefault();
-            var status = $(this).data('status');
-            var id = $(this).data('id');
-
-
-            $.ajax({
-                type: 'POST',
-                url: '/admin/booksubject_statuschange',
-                data: { '_token': '{{ csrf_token() }}', 'status': status, 'id': id },
-                success: function(response) {
-                    if (response.success) {
-                        toastr.success(response.success, { timeout: 2000 });
-                        setTimeout(function() {
-                            window.location.href = "/admin/booksubject_list"
-                        }, 3000);
-
-                    } else {
-                        toastr.error(response.error, { timeout: 2000 });
-                    }
-                },
-                error: function(error) {
-                    toastr.error('Error occurred', { timeout: 2000 });
-                }
-            });
-        });
-    });
-</script>
-<script>
-
-    $('.delete-btn').on('click', function () {
-
+$(document).ready(function() {
+    $('.change-status').on('click', function(e) {
+        e.preventDefault();
+        var status = $(this).data('status');
         var id = $(this).data('id');
-         console.log(id);
+
+
         $.ajax({
-            url: '/admin/booksubject_delete',
-            method: 'POST',
-            data: { '_token': '{{ csrf_token() }}', 'id': id },
-            success: function (response) {
+            type: 'POST',
+            url: '/admin/booksubject_statuschange',
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'status': status,
+                'id': id
+            },
+            success: function(response) {
                 if (response.success) {
-                    toastr.success(response.success, { timeout: 2000 });
-                    setTimeout(function () {
+                    toastr.success(response.success, {
+                        timeout: 2000
+                    });
+                    setTimeout(function() {
                         window.location.href = "/admin/booksubject_list"
                     }, 3000);
+
                 } else {
-                    toastr.error(response.error, { timeout: 2000 });
+                    toastr.error(response.error, {
+                        timeout: 2000
+                    });
                 }
             },
-            error: function (xhr, status, error) {
-
-                console.log('Error:', error);
+            error: function(error) {
+                toastr.error('Error occurred', {
+                    timeout: 2000
+                });
             }
         });
     });
+});
+</script>
+<script>
+$('.delete-btn').on('click', function() {
 
+    var id = $(this).data('id');
+    console.log(id);
+    $.ajax({
+        url: '/admin/booksubject_delete',
+        method: 'POST',
+        data: {
+            '_token': '{{ csrf_token() }}',
+            'id': id
+        },
+        success: function(response) {
+            if (response.success) {
+                toastr.success(response.success, {
+                    timeout: 2000
+                });
+                setTimeout(function() {
+                    window.location.href = "/admin/booksubject_list"
+                }, 3000);
+            } else {
+                toastr.error(response.error, {
+                    timeout: 2000
+                });
+            }
+        },
+        error: function(xhr, status, error) {
+
+            console.log('Error:', error);
+        }
+    });
+});
 </script>
 
 </html>

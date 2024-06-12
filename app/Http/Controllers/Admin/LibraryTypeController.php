@@ -108,7 +108,9 @@ class LibraryTypeController extends Controller
         $validator = Validator::make($req->all(),[
             'name'=>'required|string',
             'status'=>'required|string',
-          
+            'language'=>'required|string',
+
+            
            
         ]);
         if($validator->fails()){
@@ -123,6 +125,9 @@ class LibraryTypeController extends Controller
              $Booksubject= New Booksubject();
              $Booksubject->name=$req->name;
              $Booksubject->status=$req->status;
+             $Booksubject->type=$req->language;
+
+             
              $Booksubject->save();
              $data= [
                 'success' => 'Booksubject  Create Successfully',
@@ -166,7 +171,9 @@ class LibraryTypeController extends Controller
         $validator = Validator::make($req->all(),[
             'status'=>'required|string',
             'name'=>'required|string',
-           
+            'language'=>'required|string',
+
+            
         ]);
         if($validator->fails()){
             $data= [
@@ -179,6 +186,8 @@ class LibraryTypeController extends Controller
              $Booksubject=Booksubject::find($req->id);
              $Booksubject->name=$req->name;
              $Booksubject->status=$req->status;
+             $Booksubject->type=$req->language;
+
              $Booksubject->save();
              $data= [
                 'success' => 'Book subject  Update Successfully',

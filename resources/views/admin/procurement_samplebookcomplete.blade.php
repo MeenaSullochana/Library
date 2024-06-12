@@ -80,6 +80,9 @@
                                                 <th>S.No</th>
                                                 <th>Book ID</th>
                                                 <th>Title</th>
+                                                <th>Name Of Publication</th>
+
+                                                
                                                 <th>Issued Status</th>
                                                 <th> Action</th>
                                             </tr>
@@ -96,7 +99,9 @@
                                                     </h6>
                                                     <span class="text-left">{{$val->subtitle}}</span>
                                                 </td>
+                                                <td data-label="nameOfPublisher">{{$val->nameOfPublisher}}</td>
 
+                                                
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary text-white openModal"
                                                         data-title="{{$val->book_title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"
@@ -216,7 +221,7 @@ $(document).ready(function() {
 
 <script>
 $(document).ready(function() {
-    $('.openModal').on('click', function() {
+    $('#example3').on('click', '.openModal', function() {
         var title = $(this).data('title');
         var id = $(this).data('id');
         var copies = $(this).data('copies');

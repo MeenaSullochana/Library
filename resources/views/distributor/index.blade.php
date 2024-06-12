@@ -193,7 +193,7 @@
                                             </div>
                                             @php
                                                 $id = auth('distributor')->user()->id;
-                                                $books = DB::table('books')->where('user_id', '=', $id)->where('book_procurement_status', '=', 1)->count();
+                                                $books = DB::table('books')->where('user_id', '=', $id)->where('book_procurement_status', '!=', 0)->count();
                                             @endphp
                                             <div class="ms-2">
                                                 <h4>{{$books}}</h4>

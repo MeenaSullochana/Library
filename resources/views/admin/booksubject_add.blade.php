@@ -100,6 +100,16 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-4" id="adding">
+                                                    <label for="slug">Language  <span class="text-danger">*</span></label>
+                                                    <div class="dropdown bootstrap-select default-select form-control wide form-control-sm">
+                                                        <select id="language" name="language" class="default-select form-control wide form-control-sm" required>
+                                                            <option value="">Choose any one </option>
+                                                            <option value="Tamil">Tamil </option>
+                                                            <option value="English">English</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group mt-4">
                                                         <button type="button" class="btn btn-secondary" id="submitbutton">Submit</button>
@@ -156,7 +166,10 @@
           console.log(formData);
             var formData = {
                 name: $("#name").val(),
-                status: $("#status").val()
+                status: $("#status").val(),
+                language: $("#language").val(),
+
+                
             };
             $.ajaxSetup({
                 headers:{
