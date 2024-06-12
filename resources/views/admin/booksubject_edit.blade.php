@@ -107,6 +107,24 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-4" id="adding">
+                                                    <label for="slug">Language  <span class="text-danger">*</span></label>
+                                                    <div class="dropdown bootstrap-select default-select form-control wide form-control-sm">
+                                                        <select id="language" name="language" class="default-select form-control wide form-control-sm" required>
+                                                        @if($data->status == "Tamil")
+                                                        <option value="Tamil">Tamil </option>
+                                                            @else
+                                                            <option value="English">English</option>
+                                                            @endif
+                                                            @if($data->status == "English")
+                                                            <option value="English">English</option>
+                                                            @else
+                                                            <option value="Tamil">Tamil </option>
+
+                                                            @endif
+                                                        </select>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group mt-4">
                                                         <button type="button" class="btn btn-secondary" data-id="{{$data->id}}" id="submitbutton">Submit</button>
@@ -162,7 +180,9 @@
         var formData = {
             id: $(this).data('id'),
             name: $("#name").val(),
-            status: $("#status").val()
+            status: $("#status").val(),
+            language: $("#language").val(),
+
         };
 
         console.log(formData);

@@ -11,6 +11,7 @@ use App\Models\Reviewer;
 use App\Models\BookReviewStatus;
 use App\Models\Book;
 use App\Models\Mailurl;
+use App\Models\Specialcategories;
 
 
 use Illuminate\Support\Facades\Hash;
@@ -235,7 +236,7 @@ public function reviewerstatus(Request $req){
    public function memberedit($id){
     $reviewer= Reviewer::find($id);
     $reviewer->subject= json_decode($reviewer->subject, true);
-
+      
     return redirect('/admin/revieweredit')->with('reviewer',$reviewer); 
 
    }
@@ -257,9 +258,11 @@ public function reviewerstatus(Request $req){
             'reviewerType'=>'required|string',
             'libraryType'=>'required',
             'libraryName'=>'required|string',
+            'designation'=>'required|string',
+
             'district'=>'required|string',
             'librarianName'=>'required|string',
-            'subject'=>'required',
+            'Category'=>'required',
             'phoneNumber'=>'required|string|min:10|max:10',
             'email'=>'required',
            
@@ -278,11 +281,13 @@ public function reviewerstatus(Request $req){
             $reviewer = Reviewer::find($req->id);
             $reviewer->reviewerType = $req->reviewerType;
             $reviewer->name = $req->librarianName;
-         
+            $reviewer->designation = $req->designation;
+
+            
             $reviewer->libraryType = $req->libraryType;
             $reviewer->libraryName = $req->libraryName;
   
-            $reviewer->subject = json_encode($req->subject);
+            $reviewer->Category = $req->Category;
             $reviewer->district = $req->district;
             $reviewer->phoneNumber = $req->phoneNumber; 
             if ($reviewer->email == $req->email) {
@@ -315,13 +320,13 @@ public function reviewerstatus(Request $req){
               }
        
              $reviewer->save();
-             $user =  $reviewer->email;
-             $record =  $reviewer;
-             $password = "Your Old Password";
-             $rev =Mailurl::first();
-             $url = $rev->name . "/member/login";
+            //  $user =  $reviewer->email;
+            //  $record =  $reviewer;
+            //  $password = "Your Old Password";
+            //  $rev =Mailurl::first();
+            //  $url = $rev->name . "/member/login";
             //  $url = "http://127.0.0.1:8000/member/login";
-             Notification::route('mail',$reviewer->email)->notify(new MemberupdateNotification($user, $url,$record,$password));  
+            //  Notification::route('mail',$reviewer->email)->notify(new MemberupdateNotification($user, $url,$record,$password));  
              $data = [
                 'success' => 'Reviewer update Successfully',
                 'type' => asset("reviewer/ProfileImage/" . $reviewer->profileImage)
@@ -350,11 +355,12 @@ public function reviewerstatus(Request $req){
                 $Admin=auth('admin')->user()->first();
                 $reviewer = Reviewer::find($req->id);
             $reviewer->name = $req->librarianName;
-         
+            $reviewer->designation = $req->designation;
+
             $reviewer->libraryType = $req->libraryType;
             $reviewer->libraryName = $req->libraryName;
   
-            $reviewer->subject = json_encode($req->subject);
+            $reviewer->Category = $req->Category;
             $reviewer->district = $req->district;
             $reviewer->phoneNumber = $req->phoneNumber; 
                 if ($reviewer->email == $req->email) {
@@ -385,13 +391,13 @@ public function reviewerstatus(Request $req){
                   }
            
                  $reviewer->save();
-                 $user =  $reviewer->email;
-                 $record =  $reviewer;
-                 $password = $req->newpassword;
+                //  $user =  $reviewer->email;
+                //  $record =  $reviewer;
+                //  $password = $req->newpassword;
                 //  $url = "http://127.0.0.1:8000/member/login";
-                $rev =Mailurl::first();
-                $url = $rev->name . "/member/login";
-                 Notification::route('mail',$reviewer->email)->notify(new MemberupdateNotification($user, $url,$record,$password));  
+                // $rev =Mailurl::first();
+                // $url = $rev->name . "/member/login";
+                //  Notification::route('mail',$reviewer->email)->notify(new MemberupdateNotification($user, $url,$record,$password));  
                  $data = [
                     'success' => 'Reviewer update Successfully',
                     'type' => asset("reviewer/ProfileImage/" . $reviewer->profileImage)
@@ -576,7 +582,19 @@ public function reviewerstatus(Request $req){
 
 
 public function editreviewerrecord($id){
-    $reviewer= Reviewer::find($id);
+
+    $reviewer = Reviewer::find($id);
+
+     $selectedSubjects = explode(',', $reviewer->Category);
+    
+    $Specialcategories = Specialcategories::where('status', '1')
+        ->whereNotIn('name', $selectedSubjects)
+        ->get();
+    
+    return $Specialcategories;
+    
+
+   
     \Session::put('reviewer', $reviewer);
     return redirect('/admin/editreviewer'); 
 
@@ -913,4 +931,4 @@ public function importFile(Request $request)
 }
 
 	
-									
+		

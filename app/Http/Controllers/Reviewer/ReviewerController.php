@@ -144,7 +144,7 @@ class ReviewerController extends Controller
     }
 
     public function reviewerchangepassword(Request $req){
-    
+
       $validator = Validator::make($req->all(),[
           'currentPassword'=>'required|string',
           'newPassword'=>'required|string',
@@ -274,50 +274,58 @@ class ReviewerController extends Controller
         return response()->json($data);  
        
     }
+    $Admin=auth('reviewer')->user()->id;
+    $Reviewer=Reviewer::where('creater',$Admin)->where('status','1')->get();
 
-    if($req->profileImage !="undefined"){
+    if( count($Reviewer)  <="10"){
+   
      
-        $Admin=auth('reviewer')->user()->id;
-        $reviewer=new Reviewer();
-    
-        $reviewer->name = $req->publicreviewername;
-        $reviewer->Category = $req->Category;
-        $reviewer->membershipId = $req->membershipId;
-        $reviewer->email = $req->email;
-        $reviewer->district = $req->district;
-        $reviewer->phoneNumber = $req->phoneNumber; 
-        $reviewer->password=Hash::make($req->password);
-        $reviewer->role = "reviewer";
-        $reviewer->reviewerType = "public";
 
-        $reviewer->creater = $Admin; 
-
-        $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
-        $reviewer->reviewerId= $randomCode;
-        $image = $req->file('profileImage');
-        $imagename = $req->name . time() . '.' . $image->getClientOriginalExtension();
-        $image->move('reviewer/ProfileImage', $imagename);
-       
-        $reviewer->profileImage = $imagename;
+            $reviewer=new Reviewer();
     
-         $reviewer->save();
-     
-        //  $user =  $reviewer->email;
-        //  $record =  $reviewer;
-        //  $password = $req->password;
-        //  $url = "http://127.0.0.1:8000/member/login";
-        //  Notification::route('mail',$reviewer->email)->notify(new MemberdetailNotification($user, $url,$record,$password));  
-         $data= [
-            'success' => 'Reviewer Create Successfully',
-                 ];
-        return response()->json($data);   
-    }
-       else{
+            $reviewer->name = $req->publicreviewername;
+            $reviewer->Category = $req->Category;
+            $reviewer->membershipId = $req->membershipId;
+            $reviewer->email = $req->email;
+            $reviewer->district = $req->district;
+            $reviewer->phoneNumber = $req->phoneNumber; 
+            $reviewer->password=Hash::make($req->password);
+            $reviewer->role = "reviewer";
+            $reviewer->reviewerType = "public";
+    
+            $reviewer->creater = $Admin; 
+         
+
+            $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
+            $reviewer->reviewerId= $randomCode;
+            if($req->profileImage !="undefined"){
+            $image = $req->file('profileImage');
+            $imagename = $req->name . time() . '.' . $image->getClientOriginalExtension();
+            $image->move('reviewer/ProfileImage', $imagename);
+           
+            $reviewer->profileImage = $imagename;
+            }
+             $reviewer->save();
+         
+            //  $user =  $reviewer->email;
+            //  $record =  $reviewer;
+            //  $password = $req->password;
+            //  $url = "http://127.0.0.1:8000/member/login";
+            //  Notification::route('mail',$reviewer->email)->notify(new MemberdetailNotification($user, $url,$record,$password));  
+             $data= [
+                'success' => 'Reviewer Create Successfully',
+                     ];
+            return response()->json($data);   
+    
+
+ 
+
+    }else{
         $data= [
-            'error' => 'ProfileImage Filed Is Required',
+            'error' => 'Maximum Limit Is 10 Public Reviewer',
                  ];
-        return response()->json($data);   
-       } 
+        return response()->json($data); 
+     }
     }
 
     
@@ -358,12 +366,35 @@ public function reviewer_edit($id){
 public function reviewerstatus(Request $req){
           
     $reviewer= Reviewer::find($req->id);
+   if($req->status == "1"){
+    $Admin=auth('reviewer')->user()->id;
+    $Reviewer=Reviewer::where('creater',$Admin)->where('status','1')->get();
+
+    if( count($Reviewer)  <="10"){
+        $reviewer->status =$req->status;
+        $reviewer->save();
+        $data= [
+            'success' => 'Status Change Sucessfully',
+                 ];
+        return response()->json($data);  
+    }else{
+        $data= [
+            'error' => 'Maximum Limit Is 10 Public Reviewer',
+                 ];
+        return response()->json($data); 
+     }
+
+    
+   }else{
     $reviewer->status =$req->status;
     $reviewer->save();
     $data= [
         'success' => 'Status Change Sucessfully',
              ];
-    return response()->json($data);   
+    return response()->json($data);  
+   }
+
+ 
    } 
    public function reviewer_view($id){
           
@@ -385,6 +416,7 @@ public function editpublicreviewer(Request $req){
         'phoneNumber'=>'required|string|min:10|max:10',
         'email'=>'required',
 
+        
     ]);
 
  
@@ -554,10 +586,11 @@ public function editreviewer(Request $req){
             'libraryName'=>'required|string',
             'district'=>'required|string',
             'librarianName'=>'required|string',
-            'subject'=>'required',
             'phoneNumber'=>'required|string|min:10|max:10',
             'email'=>'required',
-           
+            'designation'=>'required',
+
+            
         ]);
         if($validator->fails()){
             $data= [
@@ -573,7 +606,9 @@ public function editreviewer(Request $req){
             $reviewer = Reviewer::find($req->id);
             $reviewer->reviewerType = $req->reviewerType;
             $reviewer->name = $req->librarianName;
-         
+            $reviewer->designation = $req->designation;
+
+            
             $reviewer->libraryType = $req->libraryType;
             $reviewer->libraryName = $req->libraryName;
   
@@ -648,7 +683,8 @@ public function editreviewer(Request $req){
          
             $reviewer->libraryType = $req->libraryType;
             $reviewer->libraryName = $req->libraryName;
-  
+            $reviewer->designation = $req->designation;
+
             $reviewer->subject = json_encode($req->subject);
             $reviewer->district = $req->district;
             $reviewer->phoneNumber = $req->phoneNumber; 

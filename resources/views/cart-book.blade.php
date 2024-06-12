@@ -139,7 +139,7 @@
                     @if ($bud_arr1 != null)
                         @foreach ($bud_arr1 as $val)
                             <div class="col-xl-3 col-xxl-4 col-sm-6 mt-3">
-                                <a href="/product-two">
+                                <a href="/product">
                                     <div class="card">
                                         <div class="card-header">
                                             <p style="font-size:14px;" class="card-title text-center">

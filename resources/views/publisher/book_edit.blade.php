@@ -2336,6 +2336,29 @@ $bookdescription = $data->bookdescription1;
         }
     });
 </script>
+
+<script>
+    document.getElementById("sample_epub").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.epub)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload EPUB files only.');
+
+            // alert("Please upload EPUB files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
+
 <script>
     // JavaScript code
     function calculateDiscount() {

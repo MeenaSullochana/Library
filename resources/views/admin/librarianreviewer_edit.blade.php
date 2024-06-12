@@ -21,8 +21,15 @@
     <?php
         include "admin/plugin/plugin_css.php";
     ?>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
-
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+    <style>
+        .profile-form .form-control, .profile-form .bootstrap-select .dropdown-toggle {
+            height: 36px !important;
+            font-size: 1rem;
+            border-radius: 0.375rem;
+            border-color: #E6E6E6;
+        }
+    </style>
 </head>
 
 <body>
@@ -89,8 +96,8 @@
                                                                     <option value="internal">Librarian Reviewer</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="col-sm-12 mb-3" id="basic9"
-                                                                style="display: none;">
+                                                            <div class="col-sm-12 mb-3""
+                                                                >
                                                                 <label class="form-label">District</label>
                                                                 <select name="district" class="form-select"
                                                                     id="district" Required>
@@ -121,7 +128,7 @@
                                                                     Required>
                                                             </div>
 
-                                                            <div class="col-sm-12 mb-3">
+                                                      <!-- <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Subject<span
                                                                     class="text-danger maditory">*</span></label>
                                                             <select id="limit-selection" name="subject[]" multiple
@@ -149,10 +156,33 @@
                                                                 <option value="{{$val->name}}">{{$val->name}}</option>
                                                                 @endforeach
                                                             </select>
-                                                            </div>
-
-
+                                                        </div> -->
+                                                        <div class="col-sm-12 mb-3">
+                                                            <label class="form-label">Category<span
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <select id="limit-selection" name="Category[]" multiple
+                                                                class="select2">
+                                                                @php
+                                                                $book_subject2 = DB::table('special_categories')
+                                                                ->where('status', '=', '1')
+                                        
+                                                                ->get();
+                                                       
+                                                                @endphp
+                                                                @php
+                                                                $selectedSubjects = explode(',', $data->Category);
+                                                                @endphp
+                                                                @foreach ($selectedSubjects as $subject)
+                                                                <option value="{{ $subject }}" selected>{{ $subject }}</option>
+                                                                 @endforeach
+                                                                <!-- @foreach($book_subject2 as $val)
+                                                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                                                @endforeach -->
+                                                          
+                                                            </select>
                                                         </div>
+
+                                                       
                                                         <div class="col-md-6">
 
                                                             <div class="col-sm-12 mb-3">
@@ -181,8 +211,15 @@
                                                                     value="{{$data->libraryName}}" id="libraryName"
                                                                     Required>
                                                             </div>
-
-
+                                                            <div class="col-sm-12 mb-3">
+                                                                <label class="form-label">Designation<span
+                                                                        class="text-danger maditory">*</span></label>
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="EnterLibrary Name"
+                                                                    value="{{$data->designation}}" id="designation"
+                                                                    Required>
+                                                            </div>
+                                                            
                                                             <div class="col-sm-12 mb-3">
                                                                 <label class="form-label">Phone number<span
                                                                         class="text-danger maditory">*</span></label>
@@ -304,15 +341,15 @@
     <?php
         include "admin/plugin/plugin_js.php";
     ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-    <script>
+<script>
     $(document).ready(function() {
         $('#limit-selection').select2({
             minimumInputLength: 0 // Disable minimum input length
         });
     });
-    </script>
+</script>
 
 </body>
 
@@ -324,21 +361,27 @@ $(document).on('click', '#submitButton', function(e) {
     var password = $('#password').val();
     var email = $('#email').val();
     var phoneNumber = $('#phoneNumber').val();
-    var subject = $('select[name="subject[]"]').val();
+    var Category = $('select[name="Category[]"]').val();
     var reviewerType = $('#reviewerType').val();
     var libraryType = $('#libraryType').val();
     var libraryName = $('#libraryName').val();
     var librarianname = $('#Librarian_Name').val();
     var district = $('#district').val();
+    var designation = $('#designation').val();
+
+    
     var profileImage = $('#profileImage')[0].files;
     var id = $(this).data('id');
     var Confirmpassword = $('#Confirmpassword').val();
 
     let fd = new FormData();
     fd.append('newpassword', password);
+    fd.append('designation', designation);
+
+    
     fd.append('email', email);
     fd.append('phoneNumber', phoneNumber);
-    fd.append('subject', subject);
+    fd.append('Category', Category);
     fd.append('reviewerType', reviewerType);
     fd.append('libraryType', libraryType);
     fd.append('libraryName', libraryName);

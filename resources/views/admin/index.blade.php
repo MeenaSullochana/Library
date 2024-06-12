@@ -1126,7 +1126,7 @@
                                                                     <div class="progress">
 
                                                                     <div class="progress-bar bg-secondary"
-                                                                       style="width:{{ $revinactive != 0 ? ($revinactive / $revr * 100) : 0 }}%; height:5px; border-radius:4px;"
+                                                                       style="width:{{ $revinactive != 0 ? ($revinactive / $rev * 100) : 0 }}%; height:5px; border-radius:4px;"
                                                                             role="progressbar">
                                                                                     </div>
                                                                     </div>

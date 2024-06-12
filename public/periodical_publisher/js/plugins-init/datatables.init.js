@@ -465,12 +465,14 @@ let dataSet = [
 		
 	// table row
 	var table = $('#dataTable1, #dataTable2, #dataTable3, #dataTable4,  #example3, #example4').DataTable({
+		pageLength: 10,
+		lengthMenu: [[10, 25, 50, 100, 500, 1000, -1], [10, 25, 50, 100, 500, 1000, "All"]],
 		language: {
 			paginate: {
-			  next: '<i class="fa-solid fa-angle-right"></i>',
-			  previous: '<i class="fa-solid fa-angle-left"></i>' 
+				next: '<i class="fa-solid fa-angle-right"></i>',
+				previous: '<i class="fa-solid fa-angle-left"></i>'
 			}
-		  }
+    }
 	});
 	$('#example tbody').on('click', 'tr', function () {
 		var data = table.row( this ).data();

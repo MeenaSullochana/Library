@@ -209,7 +209,12 @@
                                   <select  class="col-sm-12 m-b30"  name="user_approval" id="user_approval"   data-id="{{$val->id}}">
                                   <option style="color: red;" value="Pending">Pending</option>
                                  <option style="color: green;" value="Approve">Approve</option>
-                         
+                                 <option style="color: orange;" value="return">Return To
+                                                                @if($val->user_type == "publisher_distributor")
+                                                                publisher cum distributor
+                                                                @else
+                                                                {{$val->user_type}}
+                                                                @endif </option>
                                  <option style="color: blue;" value="Reject">Reject</option>
                                   </select>
                                   </div>
@@ -268,26 +273,28 @@
       </div>
 
       </div>
-      <div class="modal fade" id="staticBackdrop22" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Correction</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal fade" id="staticBackdrop22" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Correction</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="userid" id="hiddenInput22">
+                    <label for="return_message">Please Enter Any Correction </label>
+                    <textarea name="return_message" id="return_message" cols="1000" rows="20"
+                        class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitButton33">submit</button>
+                </div>
             </div>
-            <div class="modal-body">
-               <input type="hidden" name="userid" id="hiddenInput22">
-               <label for="return_message">Please Enter Any Correction </label>
-               <textarea name="return_message" id="return_message" cols="800" rows="30" class="form-control"></textarea>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="submitButton33" >submit</button>
-            </div>
-         </div>
-      </div>
+        </div>
 
-      </div>
+    </div>
 
 
       <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

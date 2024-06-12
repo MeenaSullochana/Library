@@ -234,6 +234,10 @@
                                                         @else
                                                         {{$val->user_type}}
                                                         @endif </span></td>
+                                                @elseif($val->book_status=='3')
+
+                                                <td> <span class="badge bg-danger text-white">Book Update To Return
+                                                       </span></td>
                                                 @else
                                                 <td> <span class="badge bg-danger text-white">Rejected</span></td>
                                                 @endif
@@ -332,19 +336,17 @@
                     <br>
                     <br>
                     <div class="col-md-6 col-sm-12">
-                            <div class="form-group">
-                                <label>DDC</label>
-                                <input type="text" placeholder="Enter The ddc" class="form-control"  id="ddc"
-                                Required >
-                            </div>
+                        <div class="form-group">
+                            <label>DDC</label>
+                            <input type="text" placeholder="Enter The ddc" class="form-control" id="ddc" Required>
                         </div>
-                        <div class="col-md-6 col-sm-12">
-                            <div class="form-group">
-                                <label for=""> CC</label>
-                                <input type="text" placeholder="Enter The cc"  class="form-control" id="cc"  Required
-                                    >
-                            </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for=""> CC</label>
+                            <input type="text" placeholder="Enter The cc" class="form-control" id="cc" Required>
                         </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -487,34 +489,34 @@ $(document).on('click', '#submitButton', function(e) {
 
 <script>
 $(document).on('click', '#submitButton1', function(e) {
-    var ddc= $("#ddc").val();
-        if (!ddc ) {
-             
-                toastr.error("Please Enter ddc", {
-                    timeout: 45000
-                });
-                return;
-            }
+    var ddc = $("#ddc").val();
+    if (!ddc) {
 
-            var cc= $("#cc").val();
-            if (!cc ) {
-             
-             toastr.error("Please Enter cc", {
-                 timeout: 45000
-             });
-             return;
-         }
-         $('#submitButton1').prop('disabled',true);
+        toastr.error("Please Enter ddc", {
+            timeout: 45000
+        });
+        return;
+    }
 
-     
-        e.preventDefault();
-        var data={
-           'id':$('#hiddenInput1').val(),
-           'ddc':ddc,
-           'cc':cc,
-        }
-        console.log(data);
-        $('#staticBackdrop1').modal('hide');
+    var cc = $("#cc").val();
+    if (!cc) {
+
+        toastr.error("Please Enter cc", {
+            timeout: 45000
+        });
+        return;
+    }
+    $('#submitButton1').prop('disabled', true);
+
+
+    e.preventDefault();
+    var data = {
+        'id': $('#hiddenInput1').val(),
+        'ddc': ddc,
+        'cc': cc,
+    }
+    console.log(data);
+    $('#staticBackdrop1').modal('hide');
 
     $.ajaxSetup({
         headers: {

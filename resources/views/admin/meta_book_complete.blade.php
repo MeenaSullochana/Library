@@ -161,8 +161,14 @@
                                                 <td>
                                                     @if($val->book_status == 1)
                                                     <span> <span class="badge bg-success">Approved</span></span>
-                                                    @else
+                                                    @elseif($val->book_status == 2)
+                                                    <span> <span class="badge bg-danger">Return To Publisher</span></span>
+
+                                                    @elseif($val->book_status == 3)
+                                                    <span> <span class="badge bg-danger">Book Update To Return</span></span>
+                                                            @else
                                                     <span> <span class="badge bg-danger">Rejected</span></span>
+
                                                     @endif
                                                 </td>
                                                 <td data-label="controlq">

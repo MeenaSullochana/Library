@@ -90,7 +90,9 @@
                                 <p><b>Name </b>	: {{$data->userName}}</p>
                             </div>
                             <div class="col-6 text-left">
+
                                 <p class="p-0 m-0"><b>Acknowledgement  No:</b>{{$data->txnrefno}}</p>
+                                <p class="p-0 m-0">Payment Status  : {{$data->paymentstatus}}</p>
                                 <p class="p-0 m-0">Date: {{ \Carbon\Carbon::parse($data->created_at)->format('d-m-Y') }}</p>
                             </div>
                         </div>
@@ -170,7 +172,6 @@
 
     ?>
 </body>
-
 <script>
         async function generatePdf() {
             const { jsPDF } = window.jspdf;
@@ -182,16 +183,27 @@
                     throw new Error("Content element not found");
                 }
 
+                // Estimate the required page height
+                const recordCount = 300;
+                const recordHeight = 10; // Height of each record in mm
+                const pageHeight = recordCount * recordHeight; // Total height of the page
+
+                // Create the PDF with the custom page height
+                const pdf = new jsPDF('p', 'mm', [210, pageHeight]);
+
+                // Capture the content as an image using html2canvas
                 const canvas = await html2canvas(content, { scale: 2 });
-
                 const imgData = canvas.toDataURL('image/png');
-                const pdf = new jsPDF('p', 'mm', 'a4');
 
+                // Get the image properties
                 const imgProps = pdf.getImageProperties(imgData);
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
+                // Add the image to the PDF
                 pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+
+                // Save the PDF
                 pdf.save('book_receipt.pdf');
             } catch (error) {
                 console.error("Error generating PDF:", error);
