@@ -83,13 +83,42 @@ class ReviewerController extends Controller
      
         $rev->save();
        
-       if($rev->reviewertype == "external"){
-            // $rmark = 2 * $mark;
-            $rmark = $mark;
-       }else{
-           $rmark = $mark;
+        //Mark calculation
+        $avginternal=0;
+        $avgexternal=0;
+        $avgpublic=0;
+    
+        $data1 = BookReviewStatus::where('book_id',$req->bookid)->where('mark','!=',null)->get();
+        if(sizeof($data1) != 0){
+           $book = Book::find($req->bookid);
+           $internalcount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','internal')->count();
+           $externalcount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','external')->count();
+           $publiccount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','public')->count();
+           $rinternalcount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','internal')->where('mark','!=',null)->count();
+           $rexternalcount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','external')->where('mark','!=',null)->count();
+           $rpubliccount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','public')->where('mark','!=',null)->count();
+           $suminternal= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','internal')->where('mark','!=',null)->sum('mark');
+           $sumexternal= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','external')->where('mark','!=',null)->sum('mark');
+           $sumpublic= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','public')->where('mark','!=',null)->sum('mark');
+           if(($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+                     $mark = ($sumexternal/($externalcount * 20))*100;
+           }else if(($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+                     $mark = ($suminternal/($internalcount * 20))*100;
+           }else if(($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)){
+                      $mark = ($sumpublic/($publiccount * 20))*100;
+           }else if($externalcount == 0 || $rexternalcount == 0){
+                    $mark = (($suminternal/($internalcount * 20))*50)+(($sumpublic/($publiccount * 20))*50);
+           }else if($internalcount == 0 || $rinternalcount == 0){
+                    $mark = (($sumexternal/($externalcount * 20))*70)+(($sumpublic/($publiccount * 20))*30);
+           }else if($publiccount == 0 || $rpubliccount == 0){
+                  $mark = (($sumexternal/($externalcount * 20))*70)+(($suminternal/($internalcount * 20))*30);
+           }else{
+                  $mark = (($sumexternal/($externalcount * 20))*60)+(($suminternal/($internalcount * 20))*20)+(($sumpublic/($publiccount * 20))*20);
+           }
        }
-        $book->marks = $book->marks + $rmark;
+      
+
+        $book->marks = $mark;
         $book->save();
       
         return redirect('reviewer/review_book_list');

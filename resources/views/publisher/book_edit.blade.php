@@ -2097,7 +2097,7 @@ $bookdescription = $data->bookdescription1;
                 <div class="row container d-flex justify-content-between">
                     {{-- {{ $data->sample_pdf }} --}}
                     @isset($data->sample_pdf)
-                    <div class="d-flex text-left"> Download here <a href="{{url('/Books/samplepdf/'.$data->sample_pdf)}}" class="p-2" target="_blank" rel="noopener noreferrer" download="true">{{ $data->sample_pdf }}</a></div>
+                    <div class="d-flex text-left"> Download here <a href="{{url('/Books/samplepdf/'.$data->sample_pdf)}}" class="p-2" target="_blank" rel="noopener noreferrer" download>{{ $data->sample_pdf }}</a></div>
                         <!-- <iframe src="https://docs.google.com/viewer?url={{url('/Books/samplepdf/'.$data->sample_pdf)}}&embedded=true" frameborder="0" height="500px" width="100%"></iframe> -->
                     @endisset
 
@@ -3226,10 +3226,31 @@ $('.highlights_delete').on('click', function() {
             readURL(this);
         });
     </script>
+<script>
+    document.getElementById("sample_epub").addEventListener("change", function() {
+        var fileInput = this;
+        var allowedExtensions = /(\.epub)$/i;
+        if (!allowedExtensions.exec(fileInput.value)) {
+            toastr.error('Please upload EPUB files only.');
 
+            // alert("Please upload EPUB files only.");
+            fileInput.value = '';
+            return false;
+        }
+        var maxSize = 5 * 1024 * 1024; // 5 MB in bytes
+        if (fileInput.files[0].size > maxSize) {
+            toastr.error('File size exceeds the limit of 5MB.');
+
+            // alert("File size exceeds the limit of 5MB.");
+            fileInput.value = '';
+            return false;
+        }
+    });
+</script>
     <script>
         $(document).ready(function() {
-            $("#submitbutton").click(function(event) {        
+            $("#submitbutton").click(function(event) {      
+             
                 const selectedFormat = document.querySelector('input[name="sample_file"]:checked').value;
                 if (selectedFormat === 'Epub') {
                     const epubFileInput = document.getElementById('samle_epub');
