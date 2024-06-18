@@ -82,7 +82,7 @@
                                                 <th>Title</th>
                                                 <th>RNI</th>
                                                 <th>Name Of Publication</th>
-
+                                                <th>Mobile Number</th>
                                                 <th>Issued Status</th>
                                                 <th> Action</th>
                                             </tr>
@@ -100,8 +100,27 @@
                                                     
                                                 </td>
                                                 <td data-label="Book ID">{{$val->rni_details}}</td>        
-                                                <td data-label="nameOfPublisher">{{$val->nameOfPublisher}}</td>
-     
+                                                <td data-label="nameOfPublisher">{{$val->publisher_name}}</td>
+                                                @if($val->user_type == "publisher")
+                                                @php
+                                                $data1= DB::table('periodical_publishers')->find($val->user_id);
+
+                                                
+                                               @endphp
+                                                <td>
+                                                    <span>{{$data1->mobileNumber}}</span>
+                                                </td>
+                                                @elseif($val->user_type == "distributor")
+                                                @php
+                                                $data2= DB::table('periodical_distributors')->find($val->user_id);
+
+                                                
+                                                @endphp
+                                                <td>
+                                                <span>{{$data2->mobileNumber}}</span>
+                                                </td>
+                                           
+                                                @endif
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary text-white openModal"
                                                         data-title="{{$val->title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"

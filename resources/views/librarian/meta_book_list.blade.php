@@ -184,6 +184,11 @@
                                                 <th>S.No</th>
                                                 <th>Book Name</th>
                                                 <th>Book Number</th>
+                                                <th>Publication Name</th>
+
+                                                <th>Mobile Number</th>
+
+                                                
                                                 <th>Meta Check</th>
                                                 <th class="text-end">Control</th>
                                             </tr>
@@ -204,6 +209,37 @@
                                                 <td>
                                                     <span>{{$val->product_code}}</span>
                                                 </td>
+                                                <td>
+                                                    <span>{{$val->nameOfPublisher}}</span>
+                                                </td>
+                                                @if($val->user_type == "publisher")
+                                                @php
+                                                $data1= DB::table('publishers')->find($val->user_id);
+
+                                                
+                                               @endphp
+                                                <td>
+                                                    <span>{{$data1->mobileNumber}}</span>
+                                                </td>
+                                                @elseif($val->user_type == "distributor")
+                                                @php
+                                                $data2= DB::table('distributors')->find($val->user_id);
+
+                                                
+                                                @endphp
+                                                <td>
+                                                <span>{{$data2->mobileNumber}}</span>
+                                                </td>
+                                                @else
+                                                @php
+                                                $data3= DB::table('publisher_distributors')->find($val->user_id);
+
+                                                
+                                                @endphp
+                                                <td>
+                                                <span>{{$data3->mobileNumber}}</span>
+                                                </td>
+                                                @endif
 
                                                 @if($val->book_status==Null)
                                                 <td>

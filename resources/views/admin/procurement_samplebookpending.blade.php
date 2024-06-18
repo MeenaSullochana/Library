@@ -81,6 +81,7 @@
                                                 <th>Book ID</th>
                                                 <th>Title</th>
                                                 <th>Name Of Publication</th>
+                                                <th>Mobile Number</th>
 
                                                 <th>Issued Status</th>
                                                 <th> Action</th>
@@ -99,7 +100,34 @@
                                                     <span class="text-left">{{$val->subtitle}}</span>
                                                 </td>
                                                 <td data-label="nameOfPublisher">{{$val->nameOfPublisher}}</td>
+                                                @if($val->user_type == "publisher")
+                                                @php
+                                                $data1= DB::table('publishers')->find($val->user_id);
 
+                                                
+                                               @endphp
+                                                <td>
+                                                    <span>{{$data1->mobileNumber}}</span>
+                                                </td>
+                                                @elseif($val->user_type == "distributor")
+                                                @php
+                                                $data2= DB::table('distributors')->find($val->user_id);
+
+                                                
+                                                @endphp
+                                                <td>
+                                                <span>{{$data2->mobileNumber}}</span>
+                                                </td>
+                                                @else
+                                                @php
+                                                $data3= DB::table('publisher_distributors')->find($val->user_id);
+
+                                                
+                                                @endphp
+                                                <td>
+                                                <span>{{$data3->mobileNumber}}</span>
+                                                </td>
+                                                @endif
                                                 <td data-label="Status">
                                                     <a href="#" class="badge bg-primary text-white openModal"
                                                         data-title="{{$val->title}}" data-id="{{$val->id}}"  data-copies="{{ json_encode($val->copies) }}"

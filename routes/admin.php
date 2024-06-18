@@ -1153,6 +1153,12 @@ Route::post('/periodicaldist_excel ',[SettingController::class,'periodicaldist_e
 
 
 Route::get('/publication',[SettingController::class,'publication']);
+Route::get('/master_book_data',[BookController::class,'master_book_data']);
+
+Route::get('/publicreviewercount',[SettingController::class,'publicreviewercount']);
+
+
+
 
     });
 });

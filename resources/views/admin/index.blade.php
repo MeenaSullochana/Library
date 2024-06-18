@@ -1288,7 +1288,7 @@
                                                                         $reviewerinactive3= DB::table('reviewer')->where('status','=',0)->where('reviewerType','=','public')->count();
                                                                            @endphp
                                                                     <div>
-                                                                        <h6>Total Librarian Reviewer</h6>
+                                                                        <h6>Total Public Reviewer</h6>
                                                                         <h3>
                                                                             {{$reviewer3}}</h3>
                                                                     </div>

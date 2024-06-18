@@ -68,6 +68,14 @@
                     </div>
 
                 </div>
+                <div class="col-xl-12 col-sm-12 mt-4 text-end">
+                        
+                        <a href="publicreviewercount" class="btn btn-info">
+                            <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
+                            Export  librarian reviewerwise public reviewer count 
+                        </a>
+
+                    </div>
                 <div>
                     <span>
                         <button class="btn btn-info assignPro mb-5 justify-content-between active-btn"

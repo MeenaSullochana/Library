@@ -47,6 +47,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\PublisherDistributor;
 use App\Models\Librarian;
 use App\Models\Book;
+use App\Models\Reviewer;
+
 
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\newmail;
@@ -2353,6 +2355,92 @@ public function publication()
     }
 }
 
+
+public function publicreviewercount(Request $request){
+
+   
+      $Reviewer = Reviewer::where('reviewerType','=','internal')->where('rev_status','=','1')->get();
+  
+
+ if($Reviewer->isNotEmpty()){
+    
+     $actotal = 0;
+     $inactotal = 0;
+     $finaldata = [];
+     $serialNumber = 1;
+     foreach ($Reviewer as $val) {
+          
+           $Reviewerac = Reviewer::where('reviewerType','=','public')->where('creater','=',$val->id)->where('status','=','1')->get();
+           $Reviewerinac = Reviewer::where('reviewerType','=','public')->where('creater','=',$val->id)->where('status','=','0')->get();
+         $finaldata[] = [
+            'S.No' =>  $serialNumber ++,
+            'Library Name' =>    $val->libraryName,
+            'Library Type' =>   $val->libraryType,
+            'Reviwer Name' =>  $val->name,
+            'Email' =>   $val->email,
+            'Mobile Number' =>   $val->phoneNumber,
+            'Active Public Reviwer' =>   count( $Reviewerac),
+            'Inactive Public Reviwer' =>  count( $Reviewerinac),
+        ];
+      
+        $actotal = $actotal + count( $Reviewerac);
+
+        $inactotal = $inactotal + count($Reviewerinac);
+
+      
+     }
+     
+
+     $finaldata[] = [
+        'S.No' => '',
+        'Library Name' =>   '',
+        'Library Type' =>   '',
+        'Reviwer Name' =>  '',
+        'Email' =>   '',
+        'Mobile Number' =>   '',
+        'Active Public Reviwer' =>   '',
+        'Inactive Public Reviwer' =>  '',
+     ];
+     $finaldata[] = [
+        'S.No' => '',
+        'Library Name' =>   '',
+        'Library Type' =>   '',
+        'Reviwer Name' =>  '',
+        'Email' =>   '',
+        'Mobile Number' =>   '',
+     
+         'Active Reviewer Total' => $actotal,
+         'Inactive Reviewer Total' => $inactotal,
+     ];
+ 
+     $finaldata[] = [
+        'S.No' => '',
+        'Library Name' =>   '',
+        'Library Type' =>   '',
+        'Reviwer Name' =>  '',
+        'Email' =>   '',
+        'Mobile Number' =>   '',
+        'Active Public Reviwer' =>   '',
+        'Inactive Public Reviwer' =>  '',
+         'Total' => $actotal + $inactotal,
+     ];
+
+     $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+     $csvContent .=  "S.No, Library Name, Library Type,Reviwer Name, Email, Mobile Number,Active Public Reviwer, Inactive Public Reviwer\n"; 
+     foreach ($finaldata as $data) {
+         $csvContent .= '"' . implode('","', $data) . "\"\n";
+     }
+
+     $headers = [
+         'Content-Type' => 'text/csv; charset=utf-8',
+         'Content-Disposition' => 'attachment; filename="publicrev.csv"',
+     ];
+
+     return response()->make($csvContent, 200, $headers);
+ } else {
+     return back()->with('error', "No Records In The Date");
+ }
+}
 
 
 

@@ -1318,4 +1318,50 @@ public function procurement_samplebookcomplete(){
   return view('admin.procurement_samplebookcomplete')->with('data',$data); 
 }
 
+public function master_book_data(){
+  $book = Book::get();
+  $data=[];
+  foreach($book as $key=>$val){
+    if($val->book_reviewer_id != null){
+      $Librarian  =Librarian::find($val->book_reviewer_id);  
+      if($Librarian !=null){
+        $val->reviewername= $Librarian->librarianName;
+      }else{
+        $val->reviewername="No Review";
+      }
+   
+     }else{
+      $val->reviewername="No Review";
+    }
+   if($val->book_procurement_status == "1" || $val->book_procurement_status == "5" ||  $val->book_procurement_status == "6"){
+    $val->paystatus= "Success";
+   }else{
+    $val->paystatus= "No Payment";
+   }
+   
+
+   if($val->book_status == "1" ){
+    $val->revstatus= "Success";
+   }elseif($val->book_status == "0" ){
+    $val->revstatus= "Reject";
+   }elseif($val->book_status == "2" ){
+   
+
+    $val->revstatus= "Returned To User Correction";
+   }
+   elseif($val->book_status == "3" ){
+    $val->revstatus= "Book Update To Return";
+   }else{
+    $val->revstatus= "No Review";
+   }
+
+array_push($data,$val);
+
+  }
+
+  return view('admin.master_book_data')->with('data',$data); 
+
+}
+
+
     } 

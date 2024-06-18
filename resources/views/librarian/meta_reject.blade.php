@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +19,7 @@
     <title>Government of Tamil Nadu - Book Procurement - Reject Meta Book Check List</title>
 
     <!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
     <?php
         include "librarian/plugin/plugin_css.php";
     ?>
@@ -84,11 +83,12 @@
                                             <div class="d-flex align-items-baseline">
                                                 <h2 class="text-primary count">
 
-                                                @php
-                                                 $id=auth('librarian')->user()->id;
-                                                 $recordCount = DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','!=','Null')->count();
-                                                  @endphp
-                                                  {{ $recordCount }}
+                                                    @php
+                                                    $id=auth('librarian')->user()->id;
+                                                    $recordCount =
+                                                    DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','!=','Null')->count();
+                                                    @endphp
+                                                    {{ $recordCount }}
                                                 </h2>
                                                 <span>Total Review Books</span>
                                             </div>
@@ -100,13 +100,14 @@
                                             <div class="d-flex align-items-baseline">
                                                 <h2 class="text-purple count">
 
-                                                @php
-                                                $id=auth('librarian')->user()->id;
-                                                 $recordCount = DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=',Null)->count();
-                                                  @endphp
-                                                  {{ $recordCount }}
+                                                    @php
+                                                    $id=auth('librarian')->user()->id;
+                                                    $recordCount =
+                                                    DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=',Null)->count();
+                                                    @endphp
+                                                    {{ $recordCount }}
 
-                                                  </h2>
+                                                </h2>
                                                 <span>Pending Review Books</span>
                                             </div>
                                             <p>Pending </p>
@@ -117,11 +118,12 @@
                                             <div class="d-flex align-items-baseline">
                                                 <h2 class="text-warning count">
 
-                                                @php
-                                                 $id=auth('librarian')->user()->id;
-                                                 $recordCount = DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=','1')->count();
-                                                  @endphp
-                                                  {{ $recordCount }}
+                                                    @php
+                                                    $id=auth('librarian')->user()->id;
+                                                    $recordCount =
+                                                    DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=','1')->count();
+                                                    @endphp
+                                                    {{ $recordCount }}
                                                 </h2>
                                                 <span>Completed Review Books</span>
                                             </div>
@@ -133,11 +135,12 @@
                                             <div class="d-flex align-items-baseline">
                                                 <h2 class="text-danger count">
 
-                                                @php
-                                                 $id=auth('librarian')->user()->id;
-                                                 $recordCount = DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=','0')->count();
-                                                  @endphp
-                                                  {{ $recordCount }}
+                                                    @php
+                                                    $id=auth('librarian')->user()->id;
+                                                    $recordCount =
+                                                    DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=','0')->count();
+                                                    @endphp
+                                                    {{ $recordCount }}
                                                 </h2>
                                                 <span>Rejected Review Books</span>
                                             </div>
@@ -176,19 +179,22 @@
                                     <table id="example4" class="table">
                                         <thead>
                                             <tr>
-                                               
+
                                                 <th>S.No</th>
                                                 <th>Book Name</th>
                                                 <th>Book Number</th>
+                                                <th>Publication Name</th>
+
+                                                <th>Mobile Number</th>
                                                 <th>Meta Check</th>
                                                 <th class="text-end">Control</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($book as $key=>$val)
+                                            @foreach($book as $key=>$val)
 
                                             <tr>
-                                              
+
                                                 <td><span>{{$loop->index +1}}</span></td>
                                                 <td>
                                                     <div class="products">
@@ -202,19 +208,52 @@
                                                     <span>{{$val->product_code}}</span>
                                                 </td>
 
+                                                <td>
+                                                    <span>{{$val->nameOfPublisher}}</span>
+                                                </td>
+                                                @if($val->user_type == "publisher")
+                                                @php
+                                                $data1= DB::table('publishers')->find($val->user_id);
 
-                           @if($val->book_status=='1')
 
-                          <td> <span class="badge bg-success text-white">Approved</span></td>
+                                                @endphp
+                                                <td>
+                                                    <span>{{$data1->mobileNumber}}</span>
+                                                </td>
+                                                @elseif($val->user_type == "distributor")
+                                                @php
+                                                $data2= DB::table('distributors')->find($val->user_id);
 
-                            @else
-                           <td> <span class="badge bg-danger text-white">Rejected</span></td>
-                           @endif
+
+                                                @endphp
+                                                <td>
+                                                    <span>{{$data2->mobileNumber}}</span>
+                                                </td>
+                                                @else
+                                                @php
+                                                $data3= DB::table('publisher_distributors')->find($val->user_id);
+
+
+                                                @endphp
+                                                <td>
+                                                    <span>{{$data3->mobileNumber}}</span>
+                                                </td>
+                                                @endif
+                                                @if($val->book_status=='1')
+
+                                                <td> <span class="badge bg-success text-white">Approved</span></td>
+
+                                                @else
+                                                <td> <span class="badge bg-danger text-white">Rejected</span></td>
+                                                @endif
 
                                                 <td>
-                                                    <a href="/librarian/book_view/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
+                                                    <a href="/librarian/book_view/{{$val->id}}"> <i
+                                                            class="fa fa-eye p-2"></i></a>
 
-                                                    <a class="btn btn-primary mb-2" data-bs-toggle="modal" data-id="{{$val->reject_message}}" data-bs-target="#myModal">View</a>
+                                                    <a class="btn btn-primary mb-2" data-bs-toggle="modal"
+                                                        data-id="{{$val->reject_message}}"
+                                                        data-bs-target="#myModal">View</a>
 
                                                 </td>
                                             </tr>
@@ -235,7 +274,7 @@
     <!--**********************************
             Footer start
         ***********************************-->
-        @include ("librarian.footer")
+    @include ("librarian.footer")
     <!--**********************************
             Footer end
         ***********************************-->
@@ -252,49 +291,49 @@
     </div>
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Reject Message</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body" id="modalBodyContent"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reject Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBodyContent"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!--**********************************
         Main wrapper end
     ***********************************-->
-   <?php
+    <?php
         include "librarian/plugin/plugin_js.php";
     ?>
 </body>
 <script>
-    $(document).ready(function () {
-        $('#myModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var rejectMessage = button.data('id');
-            var modal = $(this);
+$(document).ready(function() {
+    $('#myModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var rejectMessage = button.data('id');
+        var modal = $(this);
 
-            // Update modal body with the reject message
-            modal.find('#modalBodyContent').html(rejectMessage);
-        });
+        // Update modal body with the reject message
+        modal.find('#modalBodyContent').html(rejectMessage);
     });
+});
 </script>
 
 
 </html>
 <style>
-      .active-projects.style-1 .dt-buttons .dt-button {
-        top: -50px;
-        right: 0 !important;
-    }
+.active-projects.style-1 .dt-buttons .dt-button {
+    top: -50px;
+    right: 0 !important;
+}
 
-    .active-projects tbody tr td:last-child {
-        text-align: center;
-    }
+.active-projects tbody tr td:last-child {
+    text-align: center;
+}
 </style>
