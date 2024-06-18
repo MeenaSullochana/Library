@@ -764,15 +764,22 @@ if(isset($request->sample_file)){
     if($oldfiletype == "Pdf"){
         $oldFilePath = $book->sample_pdf;
         if ($oldFilePath) {
-            // Delete the old file
-            File::delete(public_path('Books/samplepdf/' . $oldFilePath));
+            if (File::exists(public_path('Books/samplepdf/' . $oldFilePath))) {
+                File::delete(public_path('Books/samplepdf/' . $oldFilePath));
+            }
+           
+          
+           
         }
         $book->sample_pdf = null;
     } else {
         $oldFilePath = $book->sample_epub;
         if ($oldFilePath) {
-            // Delete the old file
-            File::delete(public_path('Books/sampleepub/' . $oldFilePath));
+            if (File::exists(public_path('Books/sampleepub/' . $oldFilePath))) {
+                File::delete(public_path('Books/sampleepub/' . $oldFilePath));
+            }
+           
+          
         }
         $book->sample_epub = null;
     }
@@ -800,7 +807,10 @@ if(isset($request->sample_file)){
 if(isset($request->front_img)){
     $oldFilePath = $book->front_img;
     if ($oldFilePath) {
-        File::delete(public_path('Books/front/' . $oldFilePath));
+        if (File::exists(public_path('Books/front/' . $oldFilePath))) {
+            File::delete(public_path('Books/front/' . $oldFilePath));
+        }
+       
     }
     if ($request->hasFile('front_img')) {
         $front = $request->file('front_img');
@@ -814,7 +824,10 @@ if(isset($request->front_img)){
 if(isset($request->back_img)){
     $oldFilePath = $book->back_img;
     if ($oldFilePath) {
-        File::delete(public_path('Books/back/' . $oldFilePath));
+        if (File::exists(public_path('Books/back/' . $oldFilePath))) {
+               File::delete(public_path('Books/back/' . $oldFilePath));
+        }
+       
     }
     if ($request->hasFile('back_img')) {
         $back = $request->file('back_img');
@@ -828,7 +841,10 @@ if(isset($request->back_img)){
      if(isset($request->full_img)){
         $oldFilePath = $book->full_img;
         if ($oldFilePath) {
-            File::delete(public_path('Books/full/' . $oldFilePath));
+            if (File::exists(public_path('Books/full/' . $oldFilePath))) {
+                File::delete(public_path('Books/full/' . $oldFilePath));
+            }
+           
         }
         if ($request->hasFile('full_img')) {
             $full = $request->file('full_img');
@@ -842,7 +858,10 @@ if(isset($request->back_img)){
       if(isset($request->author_img)){
         $oldFilePath = $book->author_img;
         if ($oldFilePath) {
-            File::delete(public_path('Books/author_img/' . $oldFilePath));
+            if (File::exists(public_path('Books/author_img/' . $oldFilePath))) {
+                File::delete(public_path('Books/author_img/' . $oldFilePath));
+            }
+         
         }
         if ($request->hasFile('author_img')) {
             $author_img = $request->file('author_img');
@@ -874,7 +893,10 @@ if(isset($request->back_img)){
     if(isset($request->product_img)){
         $oldFilePath = $book->product_img;
         if ($oldFilePath) {
-            File::delete(public_path('Books/product/' . $oldFilePath));
+            if (File::exists(public_path('Books/product/' . $oldFilePath))) {
+                File::delete(public_path('Books/product/' . $oldFilePath));
+            }
+           
         }
         if ($request->hasFile('product_img')) {
             $product = $request->file('product_img');

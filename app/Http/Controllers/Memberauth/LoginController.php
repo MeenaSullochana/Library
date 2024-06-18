@@ -133,6 +133,17 @@ class LoginController extends Controller
                         $guard = 'reviewer';
                         return $this->usercheck($login_user,$redirect_route,$guard);
                     }
+                else{
+                    $user = "phoneNumber";
+                    $credentials = [$user => $request->email, 'password' => $request->password];
+                    if (\Auth::guard('reviewer')->attempt($credentials)){
+                        $login_user = auth('reviewer')->user();
+                        $redirect_route = '/reviewer/index';
+                        $guard = 'reviewer';
+                        return $this->usercheck($login_user,$redirect_route,$guard);
+                    }
+                    return back()->withInput($request->only('email', 'remember'))->with('error',"Invalid Credentials");
+                }
                 return back()->withInput($request->only('email', 'remember'))->with('error',"Invalid Credentials");
             }
            else if($request->usertype == "librarian"){
