@@ -21,14 +21,15 @@
     <?php
         include "admin/plugin/plugin_css.php";
     ?>
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet">
     <style>
-        .profile-form .form-control, .profile-form .bootstrap-select .dropdown-toggle {
-            height: 36px !important;
-            font-size: 1rem;
-            border-radius: 0.375rem;
-            border-color: #E6E6E6;
-        }
+    .profile-form .form-control,
+    .profile-form .bootstrap-select .dropdown-toggle {
+        height: 36px !important;
+        font-size: 1rem;
+        border-radius: 0.375rem;
+        border-color: #E6E6E6;
+    }
     </style>
 </head>
 
@@ -98,7 +99,7 @@
                                                             </div>
                                                             <div class="col-sm-12 mb-3""
                                                                 >
-                                                                <label class="form-label">District</label>
+                                                                <label class=" form-label">District</label>
                                                                 <select name="district" class="form-select"
                                                                     id="district" Required>
                                                                     <option value="$data->district">{{$data->district}}
@@ -128,7 +129,7 @@
                                                                     Required>
                                                             </div>
 
-                                                      <!-- <div class="col-sm-12 mb-3">
+                                                            <!-- <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Subject<span
                                                                     class="text-danger maditory">*</span></label>
                                                             <select id="limit-selection" name="subject[]" multiple
@@ -157,154 +158,158 @@
                                                                 @endforeach
                                                             </select>
                                                         </div> -->
-                                                        <div class="col-sm-12 mb-3">
-                                                            <label class="form-label">Category<span
-                                                                    class="text-danger maditory">*</span></label>
-                                                            <select id="limit-selection" name="Category[]" multiple
-                                                                class="select2">
-                                                                @php
-                                                                $book_subject2 = DB::table('special_categories')
-                                                                ->where('status', '=', '1')
-                                        
-                                                                ->get();
-                                                       
-                                                                @endphp
-                                                                @php
-                                                                $selectedSubjects = explode(',', $data->Category);
-                                                                @endphp
-                                                                @foreach ($selectedSubjects as $subject)
-                                                                <option value="{{ $subject }}" selected>{{ $subject }}</option>
-                                                                 @endforeach
-                                                                <!-- @foreach($book_subject2 as $val)
-                                                                <option value="{{$val->name}}">{{$val->name}}</option>
-                                                                @endforeach -->
-                                                          
-                                                            </select>
-                                                        </div>
-
-                                                       
-                                                        <div class="col-md-6">
-
                                                             <div class="col-sm-12 mb-3">
-                                                                <label class="form-label">Library Type<span
+                                                                <label class="form-label">Category<span
                                                                         class="text-danger maditory">*</span></label>
-                                                                <select name="library_type" id="libraryType"
-                                                                    class="form-select" Required>
-                                                                    <option value="{{$data->libraryType}}">
-                                                                        {{$data->libraryType}}</option>
+                                                                <select id="limit-selection" name="Category[]" multiple
+                                                                    class="select2">
+
                                                                     @php
-                                                                    $categori =
-                                                                    DB::table('library_types')->where('status','=','1')->get();
+                                                                    $selectedSubjects = explode(',', $data->Category);
                                                                     @endphp
-                                                                    @foreach($categori as $val)
+                                                                    @foreach ($data->selectedSubjects as $key =>
+                                                                    $subject)
+                                                                    <option value="{{ $subject }}" selected>
+                                                                        {{ $subject }}
+                                                                    </option>
+                                                                    @endforeach
+
+
+                                                                    @foreach($data->Specialcategories as $val)
                                                                     <option value="{{$val->name}}">{{$val->name}}
                                                                     </option>
-
                                                                     @endforeach
+
                                                                 </select>
                                                             </div>
-                                                            <div class="col-sm-12 mb-3">
-                                                                <label class="form-label">Library Name<span
-                                                                        class="text-danger maditory">*</span></label>
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="EnterLibrary Name"
-                                                                    value="{{$data->libraryName}}" id="libraryName"
-                                                                    Required>
-                                                            </div>
-                                                            <div class="col-sm-12 mb-3">
-                                                                <label class="form-label">Designation<span
-                                                                        class="text-danger maditory">*</span></label>
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="EnterLibrary Name"
-                                                                    value="{{$data->designation}}" id="designation"
-                                                                    Required>
-                                                            </div>
-                                                            
-                                                            <div class="col-sm-12 mb-3">
-                                                                <label class="form-label">Phone number<span
-                                                                        class="text-danger maditory">*</span></label>
-                                                                <input type="number" class="form-control"
-                                                                    placeholder="Enter  Phonenumber"
-                                                                    value="{{$data->phoneNumber}}" id="phoneNumber"
-                                                                    Required>
-                                                            </div>
 
+
+                                                            <div class="col-md-6">
+
+                                                                <div class="col-sm-12 mb-3">
+                                                                    <label class="form-label">Library Type<span
+                                                                            class="text-danger maditory">*</span></label>
+                                                                    <select name="library_type" id="libraryType"
+                                                                        class="form-select" Required>
+                                                                        <option value="{{$data->libraryType}}">
+                                                                            {{$data->libraryType}}</option>
+                                                                        @php
+                                                                        $categori =
+                                                                        DB::table('library_types')->where('status','=','1')->get();
+                                                                        @endphp
+                                                                        @foreach($categori as $val)
+                                                                        <option value="{{$val->name}}">{{$val->name}}
+                                                                        </option>
+
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-sm-12 mb-3">
+                                                                    <label class="form-label">Library Name<span
+                                                                            class="text-danger maditory">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="EnterLibrary Name"
+                                                                        value="{{$data->libraryName}}" id="libraryName"
+                                                                        Required>
+                                                                </div>
+                                                                <div class="col-sm-12 mb-3">
+                                                                    <label class="form-label">Designation<span
+                                                                            class="text-danger maditory">*</span></label>
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="EnterLibrary Name"
+                                                                        value="{{$data->designation}}" id="designation"
+                                                                        Required>
+                                                                </div>
+
+                                                                <div class="col-sm-12 mb-3">
+                                                                    <label class="form-label">Phone number<span
+                                                                            class="text-danger maditory">*</span></label>
+                                                                    <input type="number" class="form-control"
+                                                                        placeholder="Enter  Phonenumber"
+                                                                        value="{{$data->phoneNumber}}" id="phoneNumber"
+                                                                        Required>
+                                                                </div>
+
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-xl-4 col-lg-4">
-                                                    <div class="clearfix">
-                                                        <div class="card card-bx profile-card author-profile m-b30">
-                                                            <div class="card-body">
-                                                                <div class="p-5">
-                                                                    <div class="author-profile">
-                                                                        <div class="author-media">
-                                                                            @if($data->profileImage == null)
-                                                                            <img src="{{ asset('reviewer/images/default.png') }}"
-                                                                                alt="" id="output">
-                                                                            @else
-                                                                            <img src="{{ asset('reviewer/ProfileImage/' . $data->profileImage) }}"
-                                                                                alt="" id="output">
-                                                                            @endif
-                                                                            <div class="upload-link" title=""
-                                                                                data-toggle="tooltip"
-                                                                                data-placement="right"
-                                                                                data-original-title="update">
-                                                                                <input type="file" class="update-flie"
-                                                                                    id="profileImage"
-                                                                                    onchange="loadFile(event)" Required>
-                                                                                <i class="fa fa-camera"></i>
+                                                    <div class="col-xl-4 col-lg-4">
+                                                        <div class="clearfix">
+                                                            <div class="card card-bx profile-card author-profile m-b30">
+                                                                <div class="card-body">
+                                                                    <div class="p-5">
+                                                                        <div class="author-profile">
+                                                                            <div class="author-media">
+                                                                                @if($data->profileImage == null)
+                                                                                <img src="{{ asset('reviewer/images/default.png') }}"
+                                                                                    alt="" id="output">
+                                                                                @else
+                                                                                <img src="{{ asset('reviewer/ProfileImage/' . $data->profileImage) }}"
+                                                                                    alt="" id="output">
+                                                                                @endif
+                                                                                <div class="upload-link" title=""
+                                                                                    data-toggle="tooltip"
+                                                                                    data-placement="right"
+                                                                                    data-original-title="update">
+                                                                                    <input type="file"
+                                                                                        class="update-flie"
+                                                                                        id="profileImage"
+                                                                                        onchange="loadFile(event)"
+                                                                                        Required>
+                                                                                    <i class="fa fa-camera"></i>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                        <div class="author-info">
-                                                                            <h6 class="title">Add Profile</h6>
+                                                                            <div class="author-info">
+                                                                                <h6 class="title">Add Profile</h6>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
 
-                                            </div>
-                                            <div class="row">
-
-
-                                                <h3 class="">Login Details</h3>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="col-sm-12 mb-6">
-                                                            <label class="form-label">Email</label>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Enter Email" value="{{$data->email}}"
-                                                                id="email" Required>
-                                                        </div>
-                                                        <div class="col-sm-12 mb-6">
-                                                            <label class="form-label">New Password<span
-                                                                    class="text-danger maditory">*</span></label>
-                                                            <input type="password" class="form-control"
-                                                                placeholder="Enter New Password" id="password" Required>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="col-sm-12 mb-6">
-                                                            <label class="form-label">Confirm Password</label>
-                                                            <input type="password" class="form-control"
-                                                                placeholder="Enter Confirm Password"
-                                                                id="Confirmpassword">
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-12 text-end">
-                                                        <button type="submit" class="btn btn-primary"
-                                                            data-id="{{$data->id}}" id="submitButton">Submit</button>
-                                                    </div>
-                                                </div>
 
+
+                                                    <h3 class="">Login Details</h3>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="col-sm-12 mb-6">
+                                                                <label class="form-label">Email</label>
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Enter Email" value="{{$data->email}}"
+                                                                    id="email" Required>
+                                                            </div>
+                                                            <div class="col-sm-12 mb-6">
+                                                                <label class="form-label">New Password<span
+                                                                        class="text-danger maditory">*</span></label>
+                                                                <input type="password" class="form-control"
+                                                                    placeholder="Enter New Password" id="password"
+                                                                    Required>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="col-sm-12 mb-6">
+                                                                <label class="form-label">Confirm Password</label>
+                                                                <input type="password" class="form-control"
+                                                                    placeholder="Enter Confirm Password"
+                                                                    id="Confirmpassword">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 text-end">
+                                                            <button type="submit" class="btn btn-primary"
+                                                                data-id="{{$data->id}}"
+                                                                id="submitButton">Submit</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
                                             </div>
-                                        </div>
                                     </form>
                                 </div>
 
@@ -341,15 +346,15 @@
     <?php
         include "admin/plugin/plugin_js.php";
     ?>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
-<script>
+    <script>
     $(document).ready(function() {
         $('#limit-selection').select2({
             minimumInputLength: 0 // Disable minimum input length
         });
     });
-</script>
+    </script>
 
 </body>
 
@@ -369,7 +374,7 @@ $(document).on('click', '#submitButton', function(e) {
     var district = $('#district').val();
     var designation = $('#designation').val();
 
-    
+
     var profileImage = $('#profileImage')[0].files;
     var id = $(this).data('id');
     var Confirmpassword = $('#Confirmpassword').val();
@@ -378,7 +383,7 @@ $(document).on('click', '#submitButton', function(e) {
     fd.append('newpassword', password);
     fd.append('designation', designation);
 
-    
+
     fd.append('email', email);
     fd.append('phoneNumber', phoneNumber);
     fd.append('Category', Category);

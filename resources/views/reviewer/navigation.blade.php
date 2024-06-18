@@ -1365,8 +1365,8 @@
                           
                    
                             <li><a href="/reviewer/reviewer_list">Public Reviewer list</a></li>
-							<li><a href="/reviewer/reviewer_active">Public Reviewer Active list</a></li>
-							<li><a href="/reviewer/reviewer_inactive">Public Reviewer Inactive list</a></li>
+							<!-- <li><a href="/reviewer/reviewer_active">Public Reviewer Active list</a></li> -->
+							<!-- <li><a href="/reviewer/reviewer_inactive">Public Reviewer Inactive list</a></li> -->
 
 							
                         </ul>
@@ -1374,7 +1374,7 @@
 					
 					@endif
                        @if(auth('reviewer')->user()->reviewerType == "external")
-					<li class="menu-title">Payment Management</li>
+					<!-- <li class="menu-title">Payment Management</li>
 					<li><a href="/reviewer/payment_list" class="" aria-expanded="false">
 						<i class="bi bi-bookmarks"></i>
                             <span class="nav-text">List Payment</span>
@@ -1394,7 +1394,7 @@
 						<i class="bi bi-bookmark-check"></i>
                             <span class="nav-text">Complete Payment</span>
                         </a>
-                    </li>
+                    </li> -->
 					<!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 						<i class="bi bi-gear-wide-connected"></i>		
 							<span class="nav-text">Setting</span>

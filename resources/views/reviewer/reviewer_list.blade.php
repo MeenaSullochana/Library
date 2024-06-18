@@ -114,10 +114,10 @@
                                                     rowspan="1" colspan="1"
                                                     aria-label="Role Type: activate to sort column ascending"
                                                     style="width: 65.3594px;">Role Type</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Status: activate to sort column ascending"
-                                                    style="width: 72.7031px;"> Active Status</th>
+                                                    style="width: 72.7031px;"> Active Status</th> -->
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Status: activate to sort column ascending"
@@ -183,7 +183,7 @@
                                                     <td>
                                                         <span>{{ $val->reviewerType }}</span>
                                                     </td>
-                                                    <td class="sorting_1">
+                                                    <!-- <td class="sorting_1">
                                                         <div class="form-check form-switch id="load">
                                                             <input class="form-check-input toggle-class" type="checkbox"
                                                                 data-id="{{ $val->id }}" name="featured_status"
@@ -194,7 +194,7 @@
                                                             <label class="form-check-label"
                                                                 for="flexSwitchCheckDefault"></label>
                                                         </div>
-                                                    </td>
+                                                    </td> -->
                                                     @if ($val->status == 1)
                                                         <td>
                                                             <span

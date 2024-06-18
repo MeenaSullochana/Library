@@ -1864,6 +1864,17 @@
                             <li><a href="library_unactive_list">Inactive Library </a></li>
                         </ul>
                     </li>
+                    <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span class="nav-text">Master Book Management </span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
+                            <li><a href="master_book_data">Master Book Data</a></li>
+                          
+                        </ul>
+                    </li>
                     <!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <div class="menu-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

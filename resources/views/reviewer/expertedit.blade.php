@@ -113,8 +113,7 @@
                                                                 placeholder="Enter name" id="name"
                                                                 value="{{$data->name}}" Required>
                                                         </div>
-                                                        @if($data->reviewerType != "internal")
-                                                        <div class="col-sm-12 mb-3">
+                                                        <!-- <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Subject<span
                                                                     class="text-danger maditory">*</span></label>
                                                             <select id="limit-selection" name="subject[]" multiple
@@ -137,18 +136,55 @@
                                                                 @endforeach
                                                             </select>
 
-                                                        </div>
-                                                        @else
+                                                        </div> -->
                                                         <div class="col-sm-12 mb-3">
-
-                                                            <label class="form-label">Category<span
+                                                            <label class="form-label">Subject<span
                                                                     class="text-danger maditory">*</span></label>
-                                                            <input type="text" class="form-control"
-                                                                placeholder="Enter Category" id="Category"
-                                                                value="{{$data->Category}}" Required>
-                                                        </div>
+                                                            <select id="limit-selection" name="subject[]" multiple
+                                                                class="select2" disabled>
+                                                                    @php
+                                                                   
+                                                                    $categori = DB::table('book_subject')->where('status',
+                                                                '=', '1')->get();
 
-                                                        @endif
+                                                                   $subject1 = json_decode($data->subject, true);
+                                                                    $selectedSubjects = explode(',', $subject1);
+                                                                    @endphp
+
+                                                                    @foreach ($selectedSubjects as $subject)
+                                                                    <option value="{{ $subject }}" selected>
+                                                                        {{ $subject }}</option>
+                                                                    @endforeach
+                                                                </select>
+
+                                                                <style>
+                                                                /* Custom styling for disabled select to make it look readonly */
+                                                                .select2-container--default .select2-selection--multiple {
+                                                                    background-color: #e9ecef;
+                                                                    /* Light gray background */
+                                                                    border: 1px solid #ced4da;
+                                                                    /* Border similar to enabled state */
+                                                                    cursor: not-allowed;
+                                                                    /* Show not-allowed cursor */
+                                                                    color: #6c757d;
+                                                                    /* Text color for the disabled select */
+                                                                }
+
+                                                                .select2-container--default .select2-selection--multiple .select2-selection__choice {
+                                                                    background-color: #6c757d;
+                                                                    /* Darker gray for selected options */
+                                                                    border: 1px solid #ced4da;
+                                                                    /* Border for selected options */
+                                                                    padding: 0.25rem 0.5rem;
+                                                                    /* Padding inside selected options */
+                                                                    cursor: default;
+                                                                    /* Default cursor */
+                                                                    color: #ffffff;
+                                                                    /* Text color for selected options */
+                                                                }
+                                                                </style>
+
+                                                            </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="col-sm-12 mb-3">
@@ -156,7 +192,7 @@
                                                                     class="text-danger maditory">*</span></label>
                                                             <input type="text" class="form-control"
                                                                 placeholder="Enter designation" id="designation"
-                                                                value="{{$data->designation}}" Required>
+                                                                value="{{$data->designation}}" Required disabled>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Organisation Details <span
@@ -164,7 +200,7 @@
                                                             <input type="text" class="form-control"
                                                                 placeholder="Enter organisation details"
                                                                 id="organisationDetails"
-                                                                value="{{$data->organisationDetails}}" Required>
+                                                                value="{{$data->organisationDetails}}" Required disabled>
                                                         </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Phone Number<span

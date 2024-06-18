@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +19,7 @@
     <title>Government of Tamil Nadu - Book Procurement - All Meta Book Check List</title>
 
     <!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
     <?php
         include "librarian/plugin/plugin_css.php";
     ?>
@@ -84,11 +83,12 @@
                                             <div class="d-flex align-items-baseline">
                                                 <h2 class="text-primary count">
 
-                                                @php
-                                                 $id=auth('librarian')->user()->id;
-                                                 $recordCount = DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','!=','Null')->count();
-                                                  @endphp
-                                                  {{ $recordCount }}
+                                                    @php
+                                                    $id=auth('librarian')->user()->id;
+                                                    $recordCount =
+                                                    DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','!=','Null')->count();
+                                                    @endphp
+                                                    {{ $recordCount }}
                                                 </h2>
                                                 <span>Total Review Books</span>
                                             </div>
@@ -100,11 +100,12 @@
                                             <div class="d-flex align-items-baseline">
                                                 <h2 class="text-purple count">
 
-                                                @php
-                                                $id=auth('librarian')->user()->id;
-                                                 $recordCount = DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=',Null)->count();
-                                                  @endphp
-                                                  {{ $recordCount }}
+                                                    @php
+                                                    $id=auth('librarian')->user()->id;
+                                                    $recordCount =
+                                                    DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=',Null)->count();
+                                                    @endphp
+                                                    {{ $recordCount }}
 
                                                 </h2>
                                                 <span>Pending Review Books</span>
@@ -117,11 +118,12 @@
                                             <div class="d-flex align-items-baseline">
                                                 <h2 class="text-warning count">
 
-                                                @php
-                                                 $id=auth('librarian')->user()->id;
-                                                 $recordCount = DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=','1')->count();
-                                                  @endphp
-                                                  {{ $recordCount }}
+                                                    @php
+                                                    $id=auth('librarian')->user()->id;
+                                                    $recordCount =
+                                                    DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=','1')->count();
+                                                    @endphp
+                                                    {{ $recordCount }}
                                                 </h2>
                                                 <span>Completed Review Books</span>
                                             </div>
@@ -133,11 +135,12 @@
                                             <div class="d-flex align-items-baseline">
                                                 <h2 class="text-danger count">
 
-                                                @php
-                                                 $id=auth('librarian')->user()->id;
-                                                 $recordCount = DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=','0')->count();
-                                                  @endphp
-                                                  {{ $recordCount }}
+                                                    @php
+                                                    $id=auth('librarian')->user()->id;
+                                                    $recordCount =
+                                                    DB::table('books')->where('book_reviewer_id','=',$id)->where('book_status','=','0')->count();
+                                                    @endphp
+                                                    {{ $recordCount }}
                                                 </h2>
                                                 <span>Rejected Review Books</span>
                                             </div>
@@ -177,18 +180,21 @@
                                         <thead>
 
                                             <tr>
-                                               
+
                                                 <th>S.No</th>
                                                 <th>Book Name</th>
                                                 <th>Book Number</th>
+                                                <th>Publication Name</th>
+
+                                                <th>Mobile Number</th>
                                                 <th>Meta Check</th>
                                                 <th class="text-end">Control</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($book as $key=>$val)
+                                            @foreach($book as $key=>$val)
                                             <tr>
-                                              
+
                                                 <td><span>{{$loop->index +1}}</span></td>
                                                 <td>
                                                     <div class="products">
@@ -201,42 +207,77 @@
                                                 <td>
                                                     <span>{{$val->product_code}}</span>
                                                 </td>
+                                                <td>
+                                                    <span>{{$val->nameOfPublisher}}</span>
+                                                </td>
+                                                @if($val->user_type == "publisher")
+                                                @php
+                                                $data1= DB::table('publishers')->find($val->user_id);
 
-                                                 @if($val->book_status==Null)
-                          <td>
-                              <div class="col-sm-12 m-b30">
-                                  <select  class="col-sm-12 m-b30"  name="user_approval" id="user_approval"   data-id="{{$val->id}}">
-                                  <option style="color: red;" value="Pending">Pending</option>
-                                 <option style="color: green;" value="Approve">Approve</option>
-                                 <option style="color: orange;" value="return">Return To 
-                                 @if($val->user_type == "publisher_distributor") 
-                                 publisher cum distributor
-                                @else
-                                {{$val->user_type}}
-                            @endif    </option>
-                                 <option style="color: blue;" value="Reject">Reject</option>
-                                  </select>
-                                  </div>
-                           </td>
-                           @elseif($val->book_status=='1')
 
-                          <td> <span class="badge bg-success text-white">Approved</span></td>
-                          @elseif($val->book_status=='2')
+                                                @endphp
+                                                <td>
+                                                    <span>{{$data1->mobileNumber}}</span>
+                                                </td>
+                                                @elseif($val->user_type == "distributor")
+                                                @php
+                                                $data2= DB::table('distributors')->find($val->user_id);
 
-                          <td> <span class="badge bg-danger text-white">Returned To 
-                                 @if($val->user_type == "publisher_distributor") 
-                                 publisher cum distributor
-                                @else
-                                {{$val->user_type}}
-                            @endif </span></td>
-                            @else
-                           <td> <span class="badge bg-danger text-white">Rejected</span></td>
-                           @endif
+
+                                                @endphp
+                                                <td>
+                                                    <span>{{$data2->mobileNumber}}</span>
+                                                </td>
+                                                @else
+                                                @php
+                                                $data3= DB::table('publisher_distributors')->find($val->user_id);
+
+
+                                                @endphp
+                                                <td>
+                                                    <span>{{$data3->mobileNumber}}</span>
+                                                </td>
+                                                @endif
+                                                @if($val->book_status==Null)
+                                                <td>
+                                                    <div class="col-sm-12 m-b30">
+                                                        <select class="col-sm-12 m-b30" name="user_approval"
+                                                            id="user_approval" data-id="{{$val->id}}">
+                                                            <option style="color: red;" value="Pending">Pending</option>
+                                                            <option style="color: green;" value="Approve">Approve
+                                                            </option>
+                                                            <option style="color: orange;" value="return">Return To
+                                                                @if($val->user_type == "publisher_distributor")
+                                                                publisher cum distributor
+                                                                @else
+                                                                {{$val->user_type}}
+                                                                @endif </option>
+                                                            <option style="color: blue;" value="Reject">Reject</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                @elseif($val->book_status=='1')
+
+                                                <td> <span class="badge bg-success text-white">Approved</span></td>
+                                                @elseif($val->book_status=='2')
+
+                                                <td> <span class="badge bg-danger text-white">Returned To
+                                                        @if($val->user_type == "publisher_distributor")
+                                                        publisher cum distributor
+                                                        @else
+                                                        {{$val->user_type}}
+                                                        @endif </span></td>
+                                                @else
+                                                <td> <span class="badge bg-danger text-white">Rejected</span></td>
+                                                @endif
 
                                                 <td>
-                                                    <a href="/librarian/book_view/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
+                                                    <a href="/librarian/book_view/{{$val->id}}"> <i
+                                                            class="fa fa-eye p-2"></i></a>
                                                     @if($val->book_status=='0')
-                                                    <a class="btn btn-primary mb-2" data-bs-toggle="modal" data-id="{{$val->reject_message}}" data-bs-target="#myModal">View</a>
+                                                    <a class="btn btn-primary mb-2" data-bs-toggle="modal"
+                                                        data-id="{{$val->reject_message}}"
+                                                        data-bs-target="#myModal">View</a>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -257,7 +298,7 @@
     <!--**********************************
             Footer start
         ***********************************-->
-        @include ("librarian.footer")
+    @include ("librarian.footer")
     <!--**********************************
             Footer end
         ***********************************-->
@@ -265,88 +306,90 @@
     <!--**********************************
            Support ticket button start
         ***********************************-->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Application Reject</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Application Reject</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="userid" id="hiddenInput">
+                    <label for="Reject remark">Please Enter Any Remark </label>
+                    <textarea name="remark" id="reject_remark" cols="30" rows="10" class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitButton">submit</button>
+                </div>
             </div>
-            <div class="modal-body">
-               <input type="hidden" name="userid" id="hiddenInput">
-               <label for="Reject remark">Please Enter Any Remark </label>
-               <textarea name="remark" id="reject_remark" cols="30" rows="10" class="form-control"></textarea>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="submitButton" >submit</button>
-            </div>
-         </div>
-      </div>
+        </div>
 
-      </div>
-      <div class="modal fade" id="staticBackdrop22" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog modal-xl">
-         <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Correction</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal fade" id="staticBackdrop22" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Correction</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="userid" id="hiddenInput22">
+                    <label for="return_message">Please Enter Any Correction </label>
+                    <textarea name="return_message" id="return_message" cols="1000" rows="20"
+                        class="form-control"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitButton33">submit</button>
+                </div>
             </div>
-            <div class="modal-body">
-               <input type="hidden" name="userid" id="hiddenInput22">
-               <label for="return_message">Please Enter Any Correction </label>
-               <textarea name="return_message" id="return_message" cols="1000" rows="20" class="form-control"></textarea>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="submitButton33" >submit</button>
-            </div>
-         </div>
-      </div>
+        </div>
 
-      </div>
+    </div>
 
 
-      <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Approve </h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <label>Are you sure you want to approve? </label>
-            <br>
-            <br>
-            <br>
-               <input type="hidden" name="userid" id="hiddenInput1">
-               <div class="row">
-                
-      
+    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Book Approve </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label>Are you sure you want to approve? </label>
+                    <br>
+                    <br>
+                    <br>
+                    <input type="hidden" name="userid" id="hiddenInput1">
+                    <div class="row">
+
+
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label>DDC</label>
-                                <input type="text" placeholder="Enter The ddc" class="form-control"  id="ddc"
-                                Required >
+                                <input type="text" placeholder="Enter The ddc" class="form-control" id="ddc" Required>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             <div class="form-group">
                                 <label for=""> CC</label>
-                                <input type="text" placeholder="Enter The cc"  class="form-control" id="cc"  Required
-                                    >
+                                <input type="text" placeholder="Enter The cc" class="form-control" id="cc" Required>
                             </div>
                         </div>
-                    
+
                     </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="submitButton1">submit</button>
+                </div>
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="submitButton1" >submit</button>
-            </div>
-         </div>
-      </div>
-      </div>
+        </div>
+    </div>
     <!--**********************************
            Support ticket button end
         ***********************************-->
@@ -354,213 +397,217 @@
 
     </div>
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Reject Message</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body" id="modalBodyContent"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reject Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBodyContent"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
     <!--**********************************
         Main wrapper end
     ***********************************-->
-   <?php
+    <?php
         include "librarian/plugin/plugin_js.php";
     ?>
 </body>
 <script>
-                 $('#example4').on( 'change', "select[name='user_approval']", function (e) {
-                  var approval_ = $(this).val();
+$('#example4').on('change', "select[name='user_approval']", function(e) {
+    var approval_ = $(this).val();
 
-                  var id = $(this).data('id');
-                  if(approval_ == 'Reject'){
-                     $('#hiddenInput').val(id);
-                     $('#staticBackdrop').modal('show');
-                  }else if(approval_ == 'Approve'){
-                    $('#hiddenInput1').val(id);
-                     $('#staticBackdrop1').modal('show');
+    var id = $(this).data('id');
+    if (approval_ == 'Reject') {
+        $('#hiddenInput').val(id);
+        $('#staticBackdrop').modal('show');
+    } else if (approval_ == 'Approve') {
+        $('#hiddenInput1').val(id);
+        $('#staticBackdrop1').modal('show');
 
-                  }else if(approval_ == 'return'){
-                    $('#hiddenInput22').val(id);
-                     $('#staticBackdrop22').modal('show');
+    } else if (approval_ == 'return') {
+        $('#hiddenInput22').val(id);
+        $('#staticBackdrop22').modal('show');
 
-                  }
-                  });
-                  </script>
-
-<script>
-      $(document).on('click','#submitButton33',function(e){
-        e.preventDefault();
-        var data={
-           'id':$('#hiddenInput22').val(),
-           'returnmessage':$('#return_message').val(),
-
-        }
-         console.log(data);
-        $('#staticBackdrop22').modal('hide');
-        $.ajaxSetup({
-           headers:{
-              'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-           }
-        });
-        $.ajax({
-           type:"post",
-           url:"/librarian/librarianreturnmessage",
-           data:data,
-           dataType:"json",
-           success: function(response) {
-              console.log(response);
-              if(response.success){
-                setTimeout(function() {
-                    window.location.href ="/librarian/meta_pending"
-                     }, 3000);
-                toastr.success(response.success,{timeout:45000});
-               }else{
-                toastr.error(response.error,{timeout:45000});
-                setTimeout(function() {
-                    window.location.href ="/librarian/meta_pending"
-                     }, 3000);
-               }
-
-        }
-      });
-  })
-
-
-
-    </script>
-<script>
-      $(document).on('click','#submitButton',function(e){
-        e.preventDefault();
-        var data={
-           'id':$('#hiddenInput').val(),
-           'rejectmessage':$('#reject_remark').val(),
-
-        }
-        console.log(data);
-        $('#staticBackdrop').modal('hide');
-        $.ajaxSetup({
-           headers:{
-              'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-           }
-        });
-        $.ajax({
-           type:"post",
-           url:"/librarian/librarianrejectstatus",
-           data:data,
-           dataType:"json",
-           success: function(response) {
-              console.log(response);
-              if(response.success){
-                setTimeout(function() {
-                    window.location.href ="/librarian/meta_pending"
-                     }, 3000);
-                toastr.success(response.success,{timeout:45000});
-               }else{
-                toastr.error(response.error,{timeout:45000});
-                setTimeout(function() {
-                    window.location.href ="/librarian/meta_pending"
-                     }, 3000);
-               }
-
-        }
-      });
-  })
-
-
-
-    </script>
+    }
+});
+</script>
 
 <script>
-      $(document).on('click','#submitButton1',function(e){
-       
-        var ddc= $("#ddc").val();
-        if (!ddc ) {
-             
-                toastr.error("Please Enter ddc", {
+$(document).on('click', '#submitButton33', function(e) {
+    e.preventDefault();
+    var data = {
+        'id': $('#hiddenInput22').val(),
+        'returnmessage': $('#return_message').val(),
+
+    }
+    console.log(data);
+    $('#staticBackdrop22').modal('hide');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: "post",
+        url: "/librarian/librarianreturnmessage",
+        data: data,
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            if (response.success) {
+                setTimeout(function() {
+                    window.location.href = "/librarian/meta_pending"
+                }, 3000);
+                toastr.success(response.success, {
                     timeout: 45000
                 });
-                return;
+            } else {
+                toastr.error(response.error, {
+                    timeout: 45000
+                });
+                setTimeout(function() {
+                    window.location.href = "/librarian/meta_pending"
+                }, 3000);
             }
 
-            var cc= $("#cc").val();
-            if (!cc ) {
-             
-             toastr.error("Please Enter cc", {
-                 timeout: 45000
-             });
-             return;
-         }
-         $('#submitButton1').prop('disabled',true);
-
-     
-        e.preventDefault();
-        var data={
-           'id':$('#hiddenInput1').val(),
-           'ddc':ddc,
-           'cc':cc,
         }
-        console.log(data);
-        $('#staticBackdrop1').modal('hide');
+    });
+})
+</script>
+<script>
+$(document).on('click', '#submitButton', function(e) {
+    e.preventDefault();
+    var data = {
+        'id': $('#hiddenInput').val(),
+        'rejectmessage': $('#reject_remark').val(),
 
-                  $.ajaxSetup({
-                        headers:{
-                           'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-                        }
-                     });
-                     $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: '/librarian/librarianapprovestatus',
-                        data: data,
-                        success: function(response) {
+    }
+    console.log(data);
+    $('#staticBackdrop').modal('hide');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: "post",
+        url: "/librarian/librarianrejectstatus",
+        data: data,
+        dataType: "json",
+        success: function(response) {
+            console.log(response);
+            if (response.success) {
+                setTimeout(function() {
+                    window.location.href = "/librarian/meta_pending"
+                }, 3000);
+                toastr.success(response.success, {
+                    timeout: 45000
+                });
+            } else {
+                toastr.error(response.error, {
+                    timeout: 45000
+                });
+                setTimeout(function() {
+                    window.location.href = "/librarian/meta_pending"
+                }, 3000);
+            }
 
-                           if(response.success){
-                           setTimeout(function() {
-                              window.location.href ="/librarian/meta_pending"
-                                 }, 3000);
-                           toastr.success(response.success,{timeout:45000});
-                           }else{
-                           toastr.error(response.error,{timeout:45000});
-                           setTimeout(function() {
-                              window.location.href ="/librarian/meta_pending"
-                                 }, 3000);
-                           }
-
-                        }
-                  });
-  })
-
-
-
-    </script>
+        }
+    });
+})
+</script>
 
 <script>
-    $(document).ready(function () {
-        $('#myModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            var rejectMessage = button.data('id');
-            var modal = $(this);
+$(document).on('click', '#submitButton1', function(e) {
 
-            // Update modal body with the reject message
-            modal.find('#modalBodyContent').html(rejectMessage);
+    var ddc = $("#ddc").val();
+    if (!ddc) {
+
+        toastr.error("Please Enter ddc", {
+            timeout: 45000
         });
+        return;
+    }
+
+    var cc = $("#cc").val();
+    if (!cc) {
+
+        toastr.error("Please Enter cc", {
+            timeout: 45000
+        });
+        return;
+    }
+    $('#submitButton1').prop('disabled', true);
+
+
+    e.preventDefault();
+    var data = {
+        'id': $('#hiddenInput1').val(),
+        'ddc': ddc,
+        'cc': cc,
+    }
+    console.log(data);
+    $('#staticBackdrop1').modal('hide');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: '/librarian/librarianapprovestatus',
+        data: data,
+        success: function(response) {
+
+            if (response.success) {
+                setTimeout(function() {
+                    window.location.href = "/librarian/meta_pending"
+                }, 3000);
+                toastr.success(response.success, {
+                    timeout: 45000
+                });
+            } else {
+                toastr.error(response.error, {
+                    timeout: 45000
+                });
+                setTimeout(function() {
+                    window.location.href = "/librarian/meta_pending"
+                }, 3000);
+            }
+
+        }
+    });
+})
 </script>
+
+<script>
+$(document).ready(function() {
+    $('#myModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var rejectMessage = button.data('id');
+        var modal = $(this);
+
+        // Update modal body with the reject message
+        modal.find('#modalBodyContent').html(rejectMessage);
+    });
+});
+</script>
+
 </html>
 <style>
-      .active-projects.style-1 .dt-buttons .dt-button {
-        top: -50px;
-        right: 0 !important;
-    }
+.active-projects.style-1 .dt-buttons .dt-button {
+    top: -50px;
+    right: 0 !important;
+}
 
-    .active-projects tbody tr td:last-child {
-        text-align: center;
-    }
+.active-projects tbody tr td:last-child {
+    text-align: center;
+}
 </style>

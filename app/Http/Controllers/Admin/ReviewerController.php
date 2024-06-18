@@ -286,8 +286,19 @@ public function reviewerstatus(Request $req){
             
             $reviewer->libraryType = $req->libraryType;
             $reviewer->libraryName = $req->libraryName;
-  
-            $reviewer->Category = $req->Category;
+            $categories = [];
+
+            // Explode the string by commas to create an array of category strings
+            $categoryArray = explode(',', $req->Category);
+            
+            // Trim each category string to remove any leading/trailing whitespace
+            $categoryArray = array_map('trim', $categoryArray);
+            
+            // Push each category string into the $categories array
+            foreach ($categoryArray as $category) {
+                $categories[] = $category;
+            }
+            $reviewer->Category =$categories ;
             $reviewer->district = $req->district;
             $reviewer->phoneNumber = $req->phoneNumber; 
             if ($reviewer->email == $req->email) {
@@ -360,7 +371,19 @@ public function reviewerstatus(Request $req){
             $reviewer->libraryType = $req->libraryType;
             $reviewer->libraryName = $req->libraryName;
   
-            $reviewer->Category = $req->Category;
+            $categories = [];
+
+            // Explode the string by commas to create an array of category strings
+            $categoryArray = explode(',', $req->Category);
+            
+            // Trim each category string to remove any leading/trailing whitespace
+            $categoryArray = array_map('trim', $categoryArray);
+            
+            // Push each category string into the $categories array
+            foreach ($categoryArray as $category) {
+                $categories[] = $category;
+            }
+            $reviewer->Category =$categories ;
             $reviewer->district = $req->district;
             $reviewer->phoneNumber = $req->phoneNumber; 
                 if ($reviewer->email == $req->email) {
@@ -583,16 +606,31 @@ public function reviewerstatus(Request $req){
 
 public function editreviewerrecord($id){
 
-    $reviewer = Reviewer::find($id);
+     $reviewer = Reviewer::find($id);
 
-     $selectedSubjects = explode(',', $reviewer->Category);
     
-    $Specialcategories = Specialcategories::where('status', '1')
-        ->whereNotIn('name', $selectedSubjects)
-        ->get();
-    
-    return $Specialcategories;
-    
+  
+    //  if (is_array($reviewer->Category)){
+        // return "hi";
+      $selectedSubjects = json_decode( $reviewer->Category);
+        $Specialcategories = Specialcategories::where('status', '1')
+       ->whereNotIn('name', $selectedSubjects)
+       ->get();
+
+     $reviewer->Specialcategories =$Specialcategories;
+     $reviewer->selectedSubjects =$selectedSubjects;
+    //  }else{
+    //       return "bye";
+    //      $Specialcategories = Specialcategories::where('status', '1')
+    //     ->whereNotIn('name', $categories)
+    //     ->get();
+
+    //   $reviewer->Specialcategories =$Specialcategories;
+    //   $reviewer->selectedSubjects =$categories;
+    //  }
+     
+    //  $selectedSubjects1 = explode(',', $reviewer->Category);
+      
 
    
     \Session::put('reviewer', $reviewer);

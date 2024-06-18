@@ -277,7 +277,7 @@ class ReviewerController extends Controller
     $Admin=auth('reviewer')->user()->id;
     $Reviewer=Reviewer::where('creater',$Admin)->where('status','1')->get();
 
-    if( count($Reviewer)  <"10"){
+    if( count($Reviewer)  <="10"){
    
      
 
@@ -370,7 +370,7 @@ public function reviewerstatus(Request $req){
     $Admin=auth('reviewer')->user()->id;
     $Reviewer=Reviewer::where('creater',$Admin)->where('status','1')->get();
 
-    if( count($Reviewer)  <"10"){
+    if( count($Reviewer)  <="10"){
         $reviewer->status =$req->status;
         $reviewer->save();
         $data= [
