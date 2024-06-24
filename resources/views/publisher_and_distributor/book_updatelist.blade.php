@@ -80,36 +80,20 @@
                               aria-describedby="empoloyees-tbl3_info">
                               <thead>
                                  <tr role="row">
-                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                    colspan="1" aria-label="ERoll No: activate to sort column ascending"
-                                    style="width: 97.5156px;">S.No</th>
-                                    <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1" aria-label="ERoll No: activate to sort column ascending"
-                                       style="width: 97.5156px;">Book ID</th>
-                                    <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1"
-                                       aria-label="Books: activate to sort column ascending"
-                                       style="width: 145.219px;">Title</th>
+                                 <th>S.No</th>
+                                    <th>Book ID</th>
+                                    <th>Title</th>
                                     {{-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                        colspan="1"
                                        aria-label="Stock: activate to sort column ascending"
                                        style="width: 109.984px;">Stock</th> --}}
-                                    <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1"
-                                       aria-label="ISBN(10/13): activate to sort column ascending"
-                                       style="width: 126.609px;">Issued Status</th>
+                                    <th>Issued Status</th>
                                     {{-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                        colspan="1" aria-label="Quantity: activate to sort column ascending"
                                        style="width: 65.3594px;">Quantity</th> --}}
-                                       <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1" aria-label="Action: activate to sort column ascending"
-                                       style="width: 87.4688px;">Return Applay</th>
-                                       <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1" aria-label="Action: activate to sort column ascending"
-                                       style="width: 87.4688px;">  Correction</th>
-                                    <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1" aria-label="Action: activate to sort column ascending"
-                                       style="width: 87.4688px;">  Action</th>
+                                       <th>Return Apply</th>
+                                       <th>  Correction</th>
+                                       <th>  Action</th>
                                  </tr>
                               </thead>
                               <tbody>

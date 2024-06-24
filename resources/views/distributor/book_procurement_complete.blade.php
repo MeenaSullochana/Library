@@ -70,15 +70,13 @@
                 </div>
                 <div class="card">
                     <div class="card-head p-3">
-                        <span class="h5"><span class="h5 text-danger">Note: Your books are screened and is being
-                                processed</span></span>
+                        <span class="h5"><span class="h5 text-danger">Note : Meta checking completed</span></span>
                     </div>
                     <div class="col-xl-12">
                         <div class="card-body p-3">
                             <div class="table-responsive active-projects style-1 ItemsCheckboxSec shorting ">
                                 <div class="tbl-caption">
-                                    <span class="h5"><span class="h5 text-danger">Note:</span> Your applied books
-                                        are under screening process.</span>
+                                    <span class="h5"><span class="h5 text-danger">Note :</span> Your books are under Review process</span>
                                 </div>
                                 <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
                                     <table id="example3" class="table dataTable no-footer" role="grid"

@@ -4120,11 +4120,12 @@
                                 
                                         <div class="table-responsive active-projects" >
                                         <div class="tbl-caption text-center">
-    <h4 class="heading mb-6">Directorate of Public Libraries</h4>
-    <h4 class="heading mb-6">Chennai - 2</h4>
-</div>
+                                            <img class="w-50" src="/assets/img/logo/logo.png" alt="logo">
+                                            <h4 class="heading mb-6">Directorate of Public Libraries</h4>
+                                            <h4 class="heading mb-6">Chennai - 2</h4>
+                                        </div>
 
-                                            <div class="tbl-caption d-flex justify-content-between"">
+                                            <div class="tbl-caption d-flex justify-content-between">
                                                 <h4 class="heading mb-6">Transparent Book Procurement Report</h4>
                                                 <h4 class="heading mb-6">Date: <?php echo date('Y-m-d'); ?></h4>
 

@@ -1864,6 +1864,19 @@
                             <li><a href="library_unactive_list">Inactive Library </a></li>
                         </ul>
                     </li>
+
+                    <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-book"></i>
+                            <span class="nav-text">Reviewer Data Manage </span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
+                            <li><a href="metacheck_data">Metacheck Report</a></li>
+                            <li><a href="reviwer_data">Reviewer Report</a></li>
+
+                        </ul>
+                    </li>
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-book"></i>
