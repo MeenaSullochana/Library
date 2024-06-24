@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -72,7 +71,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <form form="" class="profile-form" id="formId1">
-                                @csrf
+                                    @csrf
                                     <div class="form-validation">
                                         <h3 class="">Library Details </h3>
                                         <hr>
@@ -81,13 +80,16 @@
                                                 <div class="row">
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Library Type<span
-                                                          class="text-danger maditory">*</span></label>
-                                                        <select name="library_type" id="libraryType" class="form-select" Required>
-                                                        <option value="{{$data->libraryType}}">{{$data->libraryType}}</option>
-                                                        @php
-                                                          $categori = DB::table('library_types')->where('name','!=',$data->libraryType)->where('status','=','1')->get();
-                                                          @endphp
-                                                          @foreach($categori as $val)
+                                                                class="text-danger maditory">*</span></label>
+                                                        <select name="library_type" id="libraryType" class="form-select"
+                                                            Required>
+                                                            <option value="{{$data->libraryType}}">
+                                                                {{$data->libraryType}}</option>
+                                                            @php
+                                                            $categori =
+                                                            DB::table('library_types')->where('name','!=',$data->libraryType)->where('status','=','1')->get();
+                                                            @endphp
+                                                            @foreach($categori as $val)
                                                             <option value="{{$val->name}}">{{$val->name}}</option>
 
                                                             @endforeach
@@ -96,66 +98,83 @@
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Library Name<span
-                                                       class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Library Name" value="{{$data->libraryName}}" id="libraryName" Required>
-                                          </div>
-
-                                          
-                                          <div class="col-sm-6 mb-3">
-                                                     <label class="form-label">Subject<span
                                                                 class="text-danger maditory">*</span></label>
-                                          <select id="limit-selection" name="subject[]" multiple class="select2">
-    @php
-        $categori = DB::table('book_subject')->where('status','=','1')->get();
-        $selectedSubjects = is_array($data->subject1) ? $data->subject1 : [$data->subject1];
-    @endphp
-    <option value="">Select Subject</option>
-    @foreach($categori as $val)
-        <option value="{{$val->name}}" {{in_array($val->name, $selectedSubjects) ? 'selected' : ''}}>{{$val->name}}</option>
-    @endforeach
-</select>
-</div>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Enter Library Name"
+                                                            value="{{$data->libraryName}}" id="libraryName" Required>
+                                                    </div>
+
+
                                                     <div class="col-sm-6 mb-3">
-                                                     <label class="form-label">State<span
+                                                        <label class="form-label">Subject<span
                                                                 class="text-danger maditory">*</span></label>
-                                                        <select name="library_type" class="form-select" id="state" Required>
-                                                           <option value="{{$data->state}}">{{$data->state}}</option>
-
-                                                          @php
-                                                             $states = DB::table('states')->where('name', '!=', $data->state)->where('status', '=', 1)->get();
-                                                           @endphp
-
-                                                          @foreach($states as $state)
-                                                            <option value="{{ $state->name }}">{{ $state->name }}</option>
+                                                        <select id="limit-selection" name="subject[]" multiple
+                                                            class="select2">
+                                                            @php
+                                                            $categori =
+                                                            DB::table('book_subject')->where('status','=','1')->get();
+                                                            $selectedSubjects = is_array($data->subject1) ?
+                                                            $data->subject1 : [$data->subject1];
+                                                            @endphp
+                                                            <option value="">Select Subject</option>
+                                                            @foreach($categori as $val)
+                                                            <option value="{{$val->name}}"
+                                                                {{in_array($val->name, $selectedSubjects) ? 'selected' : ''}}>
+                                                                {{$val->name}}</option>
                                                             @endforeach
-                                                            </select>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-6 mb-3">
+                                                        <label class="form-label">State<span
+                                                                class="text-danger maditory">*</span></label>
+                                                        <select name="library_type" class="form-select" id="state"
+                                                            Required>
+                                                            <option value="{{$data->state}}">{{$data->state}}</option>
+
+                                                            @php
+                                                            $states = DB::table('states')->where('name', '!=',
+                                                            $data->state)->where('status', '=', 1)->get();
+                                                            @endphp
+
+                                                            @foreach($states as $state)
+                                                            <option value="{{ $state->name }}">{{ $state->name }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
 
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">District<span
-                                                     class="text-danger maditory">*</span></label>
-                                                        <select name="library_type" class="form-select" id="district" Required>
-                                                        <option value="{{$data->district}}">{{$data->district}}</option>
+                                                                class="text-danger maditory">*</span></label>
+                                                        <select name="library_type" class="form-select" id="district"
+                                                            Required>
+                                                            <option value="{{$data->district}}">{{$data->district}}
+                                                            </option>
 
-                                                               @php
-                                                                $districts = DB::table('districts')->where('name', '!=',$data->district)->where('status', '=', 1)->get();
-                                                                @endphp
+                                                            @php
+                                                            $districts = DB::table('districts')->where('name',
+                                                            '!=',$data->district)->where('status', '=', 1)->get();
+                                                            @endphp
 
                                                             @foreach($districts as $state)
-                                                             <option value="{{ $state->name }}">{{ $state->name }}</option>
-                                                             @endforeach
+                                                            <option value="{{ $state->name }}">{{ $state->name }}
+                                                            </option>
+                                                            @endforeach
                                                         </select>
 
                                                     </div>
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">City<span
-                                                         class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter City" value="{{$data->city}}" id="city" Required>
+                                                                class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control" placeholder="Enter City"
+                                                            value="{{$data->city}}" id="city" Required>
                                                     </div>
                                                     <div class="col-sm-6 mb-3">
                                                         <label class="form-label">Village<span
-                                                          class="text-danger maditory">*</span></label>
-                                                        <input type="text" class="form-control" placeholder="Enter Village" value="{{$data->Village}}" id="Village" Required>
+                                                                class="text-danger maditory">*</span></label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Enter Village" value="{{$data->Village}}"
+                                                            id="Village" Required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -168,14 +187,14 @@
                                                     <label class="form-label">librarian Name<span
                                                             class="text-danger maditory">*</span></label>
                                                     <input type="text" class="form-control"
-                                                        placeholder="Enter librarian Name" id="librarianName" value="{{$data->librarianName}}"
-                                                        required="">
+                                                        placeholder="Enter librarian Name" id="librarianName"
+                                                        value="{{$data->librarianName}}" required="">
                                                 </div>
                                                 <div class="col-sm-6 mb-3">
                                                     <label class="form-label">Are You Meta Checker<span
                                                             class="text-danger maditory">*</span></label>
                                                     <select name="" id="metaChecker" class="form-select" required="">
-                                                       @if($data->metaChecker == "yes")
+                                                        @if($data->metaChecker == "yes")
                                                         <option value="yes">Yes</option>
                                                         <option value="no">No</option>
                                                         @else
@@ -191,14 +210,16 @@
                                                     <label class="form-label">librarian Designation<span
                                                             class="text-danger maditory">*</span></label>
                                                     <input type="text" class="form-control"
-                                                        placeholder="Enter librarian Designation" value="{{$data->librarianDesignation}}"
+                                                        placeholder="Enter librarian Designation"
+                                                        value="{{$data->librarianDesignation}}"
                                                         id="librarianDesignation" required="">
                                                 </div>
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Phone number<span
                                                             class="text-danger maditory">*</span></label>
                                                     <input type="number" class="form-control"
-                                                        placeholder="Enter Phone number" id="mobileNumber"  value="{{$data->phoneNumber}}" required="">
+                                                        placeholder="Enter Phone number" id="mobileNumber"
+                                                        value="{{$data->phoneNumber}}" required="">
                                                 </div>
 
                                             </div>
@@ -209,29 +230,32 @@
                                                 <div class="col-sm-12 mb-3">
                                                     <label class="form-label">Email<span
                                                             class="text-danger maditory">*</span></label>
-                                                    <input type="email" class="form-control" placeholder="Enter Email" value="{{$data->email}}"
-                                                        id="email" required="">
+                                                    <input type="email" class="form-control" placeholder="Enter Email"
+                                                        value="{{$data->email}}" id="email" required="">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
-                                                    <div class="col-sm-12 mb-3">
-                                                        <label class="form-label">New Password<span
-                                                          class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter New Password" id="newpassword" >
-                                                    </div>
+                                                <div class="col-sm-12 mb-3">
+                                                    <label class="form-label">New Password<span
+                                                            class="text-danger maditory">*</span></label>
+                                                    <input type="password" class="form-control"
+                                                        placeholder="Enter New Password" id="newpassword">
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="col-sm-12 mb-3">
-                                                        <label class="form-label">Confirm Password<span
-                                                          class="text-danger maditory">*</span></label>
-                                                        <input type="password" class="form-control" placeholder="Enter Confirm Password" id="confirmpassword"  >
-                                                    </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="col-sm-12 mb-3">
+                                                    <label class="form-label">Confirm Password<span
+                                                            class="text-danger maditory">*</span></label>
+                                                    <input type="password" class="form-control"
+                                                        placeholder="Enter Confirm Password" id="confirmpassword">
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12 text-end">
-                                            <button type="submit" class="btn btn-primary "   data-id="{{$data->id}}" id="submit">Submit</button>
+                                            <button type="submit" class="btn btn-primary " data-id="{{$data->id}}"
+                                                id="submit">Submit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -249,7 +273,7 @@
     <!--**********************************
             Footer start
         ***********************************-->
-        @include ("admin.footer")
+    @include ("admin.footer")
     <!--**********************************
             Footer end
         ***********************************-->
@@ -274,61 +298,64 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#limit-selection').select2({
-            minimumInputLength: 0 // Disable minimum input length
-        });
+$(document).ready(function() {
+    $('#limit-selection').select2({
+        minimumInputLength: 0 // Disable minimum input length
     });
+});
 </script>
 <script>
+$(document).on('click', '#submit', function(e) {
+    e.preventDefault();
+    var data = {
 
-$(document).on('click','#submit',function(e){
-   e.preventDefault();
-   var data={
+        'id': $(this).data('id'),
+        'libraryType': $('#libraryType').val(),
+        'metaChecker': $('#metaChecker').val(),
+        'libraryName': $('#libraryName').val(),
+        'state': $('#state').val(),
+        'district': $('#district').val(),
+        'city': $('#city').val(),
+        'Village': $('#Village').val(),
+        'librarianName': $('#librarianName').val(),
+        'librarianDesignation': $('#librarianDesignation').val(),
+        'phoneNumber': $('#mobileNumber').val(),
+        'email': $('#email').val(),
+        'subject': $('select[name="subject[]"]').val(),
+        'newpassword': $('#newpassword').val(),
+        'confirmpassword': $('#confirmpassword').val(),
 
-        'id':$(this).data('id'),
-      'libraryType':$('#libraryType').val(),
-      'metaChecker':$('#metaChecker').val(),
-      'libraryName':$('#libraryName').val(),
-      'state':$('#state').val(),
-      'district':$('#district').val(),
-      'city':$('#city').val(),
-      'Village':$('#Village').val(),
-      'librarianName':$('#librarianName').val(),
-      'librarianDesignation':$('#librarianDesignation').val(),
-      'phoneNumber':$('#mobileNumber').val(),
-      'email':$('#email').val(),
-      'subject': $('select[name="subject[]"]').val(),
-      'newpassword':$('#newpassword').val(),
-      'confirmpassword':$('#confirmpassword').val(),
+    }
 
-   }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: "post",
+        url: "/admin/librarianedit",
+        data: data,
+        dataType: "json",
+        success: function(response) {
+            if (response.success) {
+                toastr.success(response.success, {
+                    timeout: 25000
+                });
+                $('#formId1')[0].reset();
+                setTimeout(function() {
+                    window.location.href = "/admin/library_list"
+                }, 3000);
+            } else {
+                toastr.error(response.error, {
+                    timeout: 25000
+                });
+            }
 
-   $.ajaxSetup({
-      headers:{
-         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-      }
-   });
-   $.ajax({
-      type:"post",
-      url:"/admin/librarianedit",
-      data:data,
-      dataType:"json",
-      success: function(response) {
-         if(response.success){
-             toastr.success(response.success,{timeout:25000});
-             $('#formId1')[0].reset();
-             setTimeout(function() {
-                        window.location.href = "/admin/library_list"
-                    }, 3000);
-         }else{
-             toastr.error(response.error,{timeout:25000});
-         }
-
-     }
-   })
+        }
+    })
 
 })
-
 </script>
+
 </html>

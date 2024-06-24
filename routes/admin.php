@@ -1157,7 +1157,9 @@ Route::get('/master_book_data',[BookController::class,'master_book_data']);
 
 Route::get('/publicreviewercount',[SettingController::class,'publicreviewercount']);
 
+Route::get('/get_datarec',[BookController::class,'get_datarec']);
 
+    
 
 
     });

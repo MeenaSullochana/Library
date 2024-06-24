@@ -162,7 +162,8 @@
                                             </tr>
                                             <tr>
                                                 <th scope="row">Subject</th>
-                                                <td>: {{$data->subject}}</td>
+                                                <td>: {{ implode(', ', $data->subject) }}</td>
+
                                             </tr>
                                             @endif
 
@@ -180,8 +181,10 @@
                                                 <td> : {{$data->district}}</td>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Subject</th>
-                                                <td>: {{$data->subject}}</td>
+                                                <th scope="row">Category</th>
+                                                <td>: {{ is_array($data->Category) ? implode(', ', $data->Category) : $data->Category }}</td>
+
+                                              
                                             </tr>
                                             @endif
                                             @if($data->reviewerType == "public")
@@ -280,18 +283,7 @@
                                                 <th scope="row">Name</th>
                                                 <td>: {{$data->name}}</td>
                                             </tr>
-                                            <!-- <tr>
-                                                <th scope="row">Designation:</th>
-                                                <td> {{$data->designation}} </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Organisation Details:</th>
-                                                <td> {{$data->organisationDetails}} </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">Subject:</th>
-                                                <td> {{$data->subject}}</td>
-                                            </tr> -->
+                                       
                                             <tr>
                                                 <th scope="row">Email</th>
                                                 <td>:  {{$data->email}} </td>

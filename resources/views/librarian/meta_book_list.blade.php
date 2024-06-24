@@ -371,16 +371,24 @@
                     <br>
                     <br>
                     <br>
-                    <div class="col-md-6 col-sm-12">
+                    <input type="hidden" name="userid" id="hiddenInput1">
+
+                    <div class="col-md-12 col-sm-12">
                         <div class="form-group">
                             <label>DDC</label>
                             <input type="text" placeholder="Enter The ddc" class="form-control" id="ddc" Required>
                         </div>
                     </div>
-                    <div class="col-md-6 col-sm-12">
+                    <div class="col-md-12 col-sm-12">
                         <div class="form-group">
                             <label for=""> CC</label>
                             <input type="text" placeholder="Enter The cc" class="form-control" id="cc" Required>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="">Issue Comment</label>
+                            <input type="text" placeholder="Enter The Issue Comment" rows="4" cols="5" class="form-control" id="issueComment" Required>
                         </div>
                     </div>
                 </div>
@@ -542,6 +550,9 @@ $(document).on('click', '#submitButton1', function(e) {
         });
         return;
     }
+    var issueComment = $("#issueComment").val();
+
+    
     $('#submitButton1').prop('disabled', true);
 
 
@@ -550,6 +561,7 @@ $(document).on('click', '#submitButton1', function(e) {
         'id': $('#hiddenInput1').val(),
         'ddc': ddc,
         'cc': cc,
+        'issueComment' :issueComment
     }
     console.log(data);
     $('#staticBackdrop1').modal('hide');

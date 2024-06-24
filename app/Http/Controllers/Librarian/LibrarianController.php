@@ -88,6 +88,7 @@ foreach($book as $key=>$val){
     $book->book_status="1";
     $book->ddc=$req->ddc;
     $book->cc=$req->cc;
+    $book->issueCommentc=$req->issueComment;
     $book->save();
     $data= [
         'success' => 'Book review status change Successfully',

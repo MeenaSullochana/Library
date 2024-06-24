@@ -103,9 +103,9 @@
                                                 <th>Category</th>
                                                 <th>Title of the Magazine</th>
                                                 <th>Periodicity</th>
-                                                <th>Type of Library</th>
+                                                <!-- <th>Type of Library</th> -->
                                                 <!-- <th>District</th> -->
-                                                <th>No.of Subscription</th>
+                                                <!-- <th>No.of Subscription</th> -->
                                                 <th>Cover Price</th>
                                                 <th>Annual Subscription</th>
                                                 <th>Discount</th>
@@ -117,6 +117,10 @@
                                                 <th>Total No.of Monocolour Pages</th>
                                                 <th>Paper Quality</th>
                                                 <th>Size of Magazine</th>
+                                                <th>Total Order Qty</th>
+                                                <th>Received Qty</th>
+												<th>Not Received Qty</th>
+												<th>Not Arrived Qty</th>
                                                 <th>Status</th>
 												<th>Control</th>
 											</tr>
@@ -129,9 +133,9 @@
                                                 <td class="py-2">{{$val1->category}}</td>
                                                 <td class="py-2">{{ $val1->title}}</td>
                                                 <td class="py-2">{{$val1->periodicity}}</td>
-                                                <td class="py-2">{{ $val1->librarytype }}</td>
+                                                <!-- <td class="py-2">{{ $val1->librarytype }}</td> -->
                                                 <!-- <td class="py-2">{{$val1->district }}</td> -->
-                                                <td class="py-2">{{ $val1->count}}</td>
+                                                <!-- <td class="py-2">{{ $val1->count}}</td> -->
                                                 <td class="py-2">{{ $val1->single_issue_rate}}</td>
                                                 <td class="py-2">{{ $val1->annual_subscription}}</td>
                                                 <td class="py-2">{{  $val1->discount}}</td>
@@ -141,8 +145,14 @@
                                                 <td class="py-2">{{ $val1->total_pages}}</td>
                                                 <td class="py-2">{{  $val1->total_multicolour_pages}}</td>
                                                 <td class="py-2">{{  $val1->total_monocolour_pages}}</td>
-                                                <td class="py-2">{{  $val1->paper_qualitity}}</td>
+                                                <td class="py-2">{{  $val1->paper_quality}}</td>
                                                 <td class="py-2">{{  $val1->magazine_size}}</td>
+
+                                                <td><span>{{$val1->totalorder}}</span></td>
+                                                <td><span>{{$val1->recived}}</span></td>
+											
+												<td><span>{{$val1->notrecived}}</span></td>
+												<td><span>{{$val1->totalorder   -$val1->recived -$val1->notrecived }}</span></td>
                                                 <td>
 													<span class="badge bg-success">Approved</span>
 													<!-- <span class="badge bg-warning">Pending</span>

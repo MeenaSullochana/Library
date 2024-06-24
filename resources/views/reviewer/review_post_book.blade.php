@@ -111,7 +111,7 @@
                            </div>
                            
                            <div class="card-footer">
-                              <form method="POST" action="/reviewer/review">
+                           <form onsubmit="return validateWordCount(this)" method="POST" action="/reviewer/review">
                                  @csrf
                                <div class="card p-5">
                                <input type="hidden" name="category" value={{$book->category}}>
@@ -528,9 +528,9 @@
                                     <select class="form-control mb-3" name="review"  required>
                                     <option value="">Select Anyone</option>
 
-                                       <option value="Highly Recommended">Highly Recommended</option>
-                                       <option value="May Be Considered">May be Considered</option>
-                                       <option value="Not Recommended">Not Recommended</option>
+                                    <option value="Highly Recommended">Highly Recommended - மிகச்சிறந்த நூல்</option>
+                                       <option value="May Be Considered">May be Considered - பரிசீலிக்கலாம்</option>
+                                       <option value="Not Recommended">Not Recommended - பரிந்துரைக்கப்படவில்லை</option>
                                     </select>
                                     <label class="form-label text-left">Remark <span class="text-danger maditory">*</span></label>
                                     <textarea class="form-control" name="about_book" rows="4" cols="5" required></textarea>
@@ -593,6 +593,20 @@
    <!--**********************************
          Main wrapper end
          ***********************************-->
+         <script>
+        function validateWordCount(form) {
+            const textarea = form.elements["about_book"].value.trim();
+            const words = textarea.split(/\s+/);
+            if (words.length < 10) {
+               toastr.error("Please enter at least 10 words in the 'About Book' field.", {
+                            timeout: 45000
+                        });
+             
+                return false;
+            }
+            return true;
+        }
+    </script>
    <style>
       /*** Portfolio page
          ==============================================================================*/

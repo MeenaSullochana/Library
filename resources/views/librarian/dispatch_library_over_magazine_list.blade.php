@@ -79,11 +79,11 @@
                         </div>
                         </div>
                         <div class="col-md-6 filter-elecment-two text-right">
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-outline-success m-2"><i class="fa fa-file-excel"></i> Export Excel</button>
+                            <!-- <div class="d-flex justify-content-end"> -->
+                                <!-- <button class="btn btn-outline-success m-2"><i class="fa fa-file-excel"></i> Export Excel</button> -->
                                 <!-- <button class="btn btn-outline-light m-2"><i class="fa fa-file-pdf"></i> PDF Export</button>
                                 <button class="btn btn-outline-danger m-2"><i class="fa fa-print"></i> Print</button> -->
-                            </div>
+                            <!-- </div> -->
                         </div>
                     </div>
                 </div>
@@ -147,13 +147,22 @@
 											
 												<td><span>{{$val->notrecived}}</span></td>
 												<td><span>{{$val->totalorder   -$val->recived -$val->notrecived }}</span></td>
-                                                <td>
+                                               @if($val->totalorde  == $val->recived)
+											   <td>
 													<!-- <span class="badge bg-success">Approved</span> -->
-													<span class="badge bg-warning">Pending</span>
+													<span class="badge bg-success">Completed</span>
 													<!-- <span class="badge bg-danger">Cencelled</span> -->
 												</td>
+											   @else
+											   <td>
+													<!-- <span class="badge bg-success">Approved</span> -->
+													<span class="badge bg-danger">Pending</span>
+													<!-- <span class="badge bg-danger">Cencelled</span> -->
+												</td>
+											   @endif
+											
 												<td>
-                                                    <a href="/librarian/magazine-over-library-list"> <i class="fa fa-eye p-2"></i></a>
+												<a href="/librarian/dispatch_magazine_view/{{$val->magazineid}}/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
 													<!-- <a href="#"><i class="fa fa-edit p-2"></i></a>
 													<i class="fa fa-trash-o p-2" aria-hidden="true"></i> -->
 												</td>

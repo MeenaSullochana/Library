@@ -653,20 +653,29 @@ public function get_books($id)
     $books = Book::where('subject', $id)->where('book_procurement_status', '=', '1')->where('book_status', '=', '1')->get();
 
 }
-    $reviewers1 = Reviewer::where('reviewerType', '=', 'external')
+ $reviewers1 = Reviewer::where('reviewerType', '=', 'external')
                       ->where('status', '=', 1)
                       ->get();
+ 
   $reviewers=[];          
-   foreach($reviewers1 as $key=>$val){
+  foreach ($reviewers1 as $key => $val) {
     $subjects = json_decode($val->subject);
-    $subjectsArray = explode(',', $subjects);
-    $revin= in_array($id, $subjectsArray);
-    if($revin){
-      array_push($reviewers,$val);
 
+    if (is_string($subjects)) {
+        $subjectsArray = explode(',', $subjects);
+    } elseif (is_array($subjects)) {
+        $subjectsArray = $subjects;
+    } else {
+        $subjectsArray = [];
     }
 
+    $revin = in_array($id, $subjectsArray);
+
+    if ($revin) {
+        array_push($reviewers, $val);
+    }
 }
+
 
  
     $html = '';
@@ -709,7 +718,7 @@ public function get_books($id)
             }
         }
     }
-  
+   
     if (count($reviewers) <= 0){
 
         $htmldata = '<tr><td colspan="3">No external reviewers found.</td></tr>';
@@ -719,8 +728,18 @@ public function get_books($id)
 
         foreach ($reviewers as $key => $val) {
         
-          $subjects = json_decode($val->subject);
+          $subjects = json_decode($val->subject,true);
+
    
+          $recdata = ''; 
+            
+          if (is_array($subjects)) {
+              foreach ($subjects as $subject) {
+                  $recdata .= htmlspecialchars($subject) . ' ,'; 
+              }
+          }
+          
+     
             $htmldata .= '<tr>
                 <td>
                 <div class="form-check custom-checkbox checkbox-success check-lg me-3">
@@ -730,7 +749,7 @@ public function get_books($id)
                 </td>
                 <td>' . ($key + 1) . '</td>
                 <td>' . $val->name . '</td>
-                <td>' .$subjects . '</td>
+                <td>' .trim($recdata) . '</td>
 
             </tr>';
         }
@@ -1363,5 +1382,23 @@ array_push($data,$val);
 
 }
 
+
+public function get_datarec(){
+ $reviewers1 = Reviewer::where('reviewerType', '=', 'external')
+               ->where('status', '=', 1)
+                  ->get();
+
+  foreach($reviewers1 as $key=>$val){
+    $reviewers = Reviewer::find($val->id);
+    $subjects = json_decode($val->subject,true);
+    $subjectsArray = json_decode($subjects, true);
+ 
+    $reviewers->subject=    json_encode($subjectsArray);
+    $reviewers->save();
+
+
+   }
+
+}
 
     } 
