@@ -263,7 +263,7 @@
                                             @endphp
                                             <div class="ms-2">
                                                 <h4>{{ $books3}}</h4>
-                                                <p class="mb-0">Selected Books</p>
+                                                <p class="mb-0">Meta Check Completed</p>
                                             </div>
                                         </div>
                                         <a href="javascript:void(0)"><i

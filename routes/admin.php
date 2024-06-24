@@ -252,6 +252,9 @@ Route::get('/editreviewer',function(){
 
 
 
+Route::get('/metacheck_data',function(){ return view('admin.metacheck_data');});
+Route::get('/reviwer_data',function(){ return view('admin.reviwer_data');});
+
 
 
 Route::get('/sub_admin_forgot_password',function(){ return view('admin.sub_admin_forgot_password');});
