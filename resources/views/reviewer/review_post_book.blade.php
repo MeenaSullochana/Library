@@ -68,7 +68,8 @@
                </div>
                <section class="col-md-12">
                   <div class="row">
-                     @if($rev->mark == null)
+                   
+                  @if($rev->mark === null)
                      <div class="col-sm-12 col-md-12">
                         <div class="card">
                            <div class="card-header">

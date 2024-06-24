@@ -127,7 +127,7 @@
 
                                                  
                                                 @endphp
-                                                <td data-label="">{{$datas->isbn}}</td>
+                                                <td data-label="">{{$val->isbn}}</td>
                                                 @if($val->usertype == "publisher_distributor")
                                                 <td data-label="">publisher cum distributor</td>
                                                 @else

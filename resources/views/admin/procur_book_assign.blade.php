@@ -462,7 +462,7 @@
 
         $('#books-sort').change(function () {
             var selectedCategory = $(this).val();
-
+                console.log("asdfsdf",selectedCategory);
             // Make an AJAX request to get books based on the selected category
             $.ajax({
                 url: '/admin/get-books/' + selectedCategory,

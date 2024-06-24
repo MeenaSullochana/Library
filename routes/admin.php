@@ -1159,7 +1159,7 @@ Route::get('/publicreviewercount',[SettingController::class,'publicreviewercount
 
 Route::get('/get_datarec',[BookController::class,'get_datarec']);
 
-    
+Route::get('/dup ',[SettingController::class,'dup']);
 
 
     });
