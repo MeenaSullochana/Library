@@ -859,7 +859,18 @@ public function importFile(Request $request)
                     $reviewer->phoneNumber =$data[8]??null; 
                     $reviewer->email = $data[9]??null;
                     $reviewer->password=Hash::make('12345678');
-                    $reviewer->subject = json_encode($data[11])??null;
+
+                    $subjects1 = $data[11]??null;
+                    if($subjects1 != null){
+                        $subjects = json_encode($subjects1);
+                        $sub = json_decode($subjects,true);
+                        $sub1 = json_decode($sub,true);
+                        $reviewer->subject = json_encode($sub1);
+                    }else{
+                        $reviewer->subject = $subjects1; 
+                    }
+                
+
                     $reviewer->organisationdetails = $data[12] ?? null;
                     $reviewer->profileImage = $data[13] ?? null;
                     $reviewer->bankName = $data[14] ?? null;
@@ -881,7 +892,7 @@ public function importFile(Request $request)
             return redirect()->back()->with('errorlib', 'No file uploaded');
         }
     } catch (\Throwable $e) {
-
+         return $e;
         // Handle the exception (e.g., log it)
         return redirect()->back()->with('errorlib', 'An error occurred while importing.');
     }

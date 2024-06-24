@@ -429,7 +429,7 @@
 <script>
 $('#example4').on('change', "select[name='user_approval']", function(e) {
     var approval_ = $(this).val();
-
+   
     var id = $(this).data('id');
     if (approval_ == 'Reject') {
         $('#hiddenInput').val(id);

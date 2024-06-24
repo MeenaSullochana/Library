@@ -54,6 +54,7 @@ class ReviewerController extends Controller
             'book'=>$book,
             'rev'=>$rev
           ];
+       
         return redirect('reviewer/review_post_book')->with('data',$data);  
     }
 

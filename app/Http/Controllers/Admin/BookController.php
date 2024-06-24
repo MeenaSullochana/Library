@@ -608,19 +608,37 @@ public function procur_complete_list(){
        $suminternal= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','internal')->where('mark','!=',null)->sum('mark');
        $sumexternal= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','external')->where('mark','!=',null)->sum('mark');
        $sumpublic= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','public')->where('mark','!=',null)->sum('mark');
-     if($rinternalcount != 0){
-      $avginternal = $suminternal/$rinternalcount;
-     }
-      if($rexternalcount != 0){
-        // $avgexternal = $sumexternal/$rexternalcount;
-        $avgexternal = ($externalcount/$rexternalcount) * $sumexternal;
-      }
-      if($rpubliccount != 0){
-        $avgpublic = $sumpublic/$rpubliccount;
-      }
+       if(($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+        $avgexternal = ($sumexternal/($externalcount * 20))*100;
+        $mark = ($sumexternal/($externalcount * 20))*100;
+    
+}else if(($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+        $avginternal  = ($suminternal/($internalcount * 20))*100;
+        $mark = ($suminternal/($internalcount * 20))*100;
+}else if(($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)){
+        $avgpublic  = ($sumpublic/($publiccount * 20))*100;
+        $mark = ($sumpublic/($publiccount * 20))*100;
+}else if($externalcount == 0 || $rexternalcount == 0){
+        $avginternal  = ($suminternal/($internalcount * 20))*50;
+        $avgpublic  = ($sumpublic/($publiccount * 20))*50;
+        $mark = (($suminternal/($internalcount * 20))*50)+(($sumpublic/($publiccount * 20))*50);
+}else if($internalcount == 0 || $rinternalcount == 0){
+        $avgexternal = ($sumexternal/($externalcount * 20))*70;
+        $avgpublic  =($sumpublic/($publiccount * 20))*30;
+        $mark = (($sumexternal/($externalcount * 20))*70)+(($sumpublic/($publiccount * 20))*30);
+}else if($publiccount == 0 || $rpubliccount == 0){
+        $avgexternal = ($sumexternal/($externalcount * 20))*70;
+        $avginternal  =($suminternal/($internalcount * 20))*30;
+        $mark = (($sumexternal/($externalcount * 20))*70)+(($suminternal/($internalcount * 20))*30);
+}else{
+
+      $avgexternal = ($sumexternal/($externalcount * 20))*60;
+      $avginternal  =($suminternal/($internalcount * 20))*20;
+      $avgpublic  =($sumpublic/($publiccount * 20))*20;
+     $mark = (($sumexternal/($externalcount * 20))*60)+(($suminternal/($internalcount * 20))*20)+(($sumpublic/($publiccount * 20))*20);
+}
      
-      // $total = (2*$avgexternal) + $avginternal + $avgpublic;
-      $total = ($avgexternal) + $avginternal + $avgpublic;
+     
        $obj=(Object)[
            'book'=>$book,
            'internalcount'=>$internalcount,
@@ -632,7 +650,7 @@ public function procur_complete_list(){
            'avginternal'=>$avginternal,
            'avgexternal'=>$avgexternal,
            'avgpublic'=>$avgpublic,
-           'total'=>$total
+           'total'=>$mark
       ];
       array_push($record,$obj);
    }
