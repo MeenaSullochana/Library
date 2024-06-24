@@ -106,28 +106,18 @@
                                                                     class="text-danger maditory">*</span></label>
                                                             <select id="limit-selection" name="subject[]" multiple
                                                                 class="select2">
-                                                                @php
-                                                                $book_subject2 = DB::table('book_subject')
-                                                                ->where('status', '=', '1')
-                                                                ->where('type', '=', 'Tamil')
-                                                                ->get();
-                                                                $book_subject3 = DB::table('book_subject')
-                                                                ->where('status', '=', '1')
-                                                                ->where('type', '=', 'English')
-                                                                ->get();
-                                                                @endphp
-                                                                @php
-                                                                $selectedSubjects = explode(',', $data->subject);
-                                                                @endphp
-                                                                @foreach ($selectedSubjects as $subject)
-                                                                <option value="{{ $subject }}" selected>{{ $subject }}</option>
-                                                                 @endforeach
-                                                                @foreach($book_subject2 as $val)
-                                                                <option value="{{$val->name}}">{{$val->name}}</option>
-                                                                @endforeach
-                                                                @foreach($book_subject3 as $val)
-                                                                <option value="{{$val->name}}">{{$val->name}}</option>
-                                                                @endforeach
+                                                                @foreach ($data->selectedSubjects as $key =>
+                                                                    $subject)
+                                                                    <option value="{{ $subject }}" selected>
+                                                                        {{ $subject }}
+                                                                    </option>
+                                                                    @endforeach
+
+
+                                                                    @foreach($data->SpecialSubjects as $val)
+                                                                    <option value="{{$val->name}}">{{$val->name}}
+                                                                    </option>
+                                                                    @endforeach
                                                             </select>
                                                         </div>
 
@@ -303,7 +293,6 @@
         include "admin/plugin/plugin_js.php";
     ?>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 

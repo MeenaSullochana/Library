@@ -70,7 +70,7 @@
                   <div class="col-md-10"></div>
                   <div class="col-md-2">
                      <div class="d-sm-flex align-items-center justify-content-between">
-                        <button class="btn btn-info assignPro mb-5 justify-content-between" data-bs-toggle="modal"  data-bs-target="#basicModal">Assign</button>
+                        <button class="btn btn-info assignPro mb-5 justify-content-between" data-bs-toggle="modal"  id="assign" data-bs-target="#basicModal">Assign</button>
                         <!-- <button class="btn btn-info mb-5 justify-content-between"  id="assign">Assign</button> -->
                      </div>
                   </div>
@@ -527,7 +527,10 @@
 
 <script>
     $('.submitbutton11').click(function () {
+      $('.submitbutton11').prop('disabled',true);
+      $('#assign').prop('disabled',true);
 
+      
         var checkepublic = $('.publiclitem:checked').map(function () {
          return $(this).data('public-id');
         }).get();
@@ -564,7 +567,9 @@
             method: 'POST',
             data: requestData,
             success: function (response) {
-              console.log(response.data);
+               $('.submitbutton11').prop('disabled',false);
+               $('#assign').prop('disabled',false);
+
               if(response.success){
                $('#basicModal').modal('hide');
 

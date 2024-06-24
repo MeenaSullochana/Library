@@ -1991,14 +1991,22 @@
                             <span class="nav-text">Procurement</span>
                         </a>
                         <ul aria-expanded="false">
+                        <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Metacheck Management </a>
+                        <ul aria-expanded="false">
                             <li><a href="/admin/meta_book_list">Meta Book List</a></li>
                             <li><a href="/admin/meta_pending_book">Meta pending Book List</a></li>
                             <li><a href="/admin/meta_book_complete">Meta Complete Book List</a></li>
+                            </ul>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Reviewer Management</a>
+                        <ul aria-expanded="false">
                             <li><a href="/admin/procur_book_assign">Book List</a></li>
                             <!-- <li><a href="/admin/procur_book_list">Book List</a></li> -->
                             <li><a href="/admin/procur_pending_list">Pending List</a></li>
                             <li><a href="/admin/procur_complete_list">Complete List</a></li>
                             {{-- <li><a href="/admin/procur_reject_view">Unaccept list</a> </li> --}}
+                            </ul>
+                    </li>
                         </ul>
                     </li>
                     <li>

@@ -934,8 +934,8 @@
                                                     <tr>
                                                         <td>
                                                             <div class="d-flex align-items-center">
-                                                                <img src="{{ asset('Books/front/' . $val->front_img) }}"
-                                                                    class="avatar avatar-md rounded-circle" alt="">
+                                                                <!-- <img src="{{ asset('Books/front/' . $val->front_img) }}"
+                                                                    class="avatar avatar-md rounded-circle" alt=""> -->
                                                                 <p class="mb-0 ms-2">{{ $val->book_title }}
                                                                 </p>
 

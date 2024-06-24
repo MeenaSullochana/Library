@@ -38,17 +38,84 @@ class OrderController extends Controller
       $balanceAmount =json_decode($Ordermagazine->balanceAmount);
      $magazineProduct =json_decode($Ordermagazine->magazineProduct);
      $dispatch_magazin=[];
+     $dispatch_magazin1=[];
+
      foreach($balanceAmount  as $val1){
     foreach($magazineProduct  as $val){
+       
         $magazinesrec = Magazine::find($val->magazineid);
+    
         $magazinesrec->orderid=$Ordermagazine->id;
+        // if($val1->category == $magazinesrec->category){
+        //     array_push($dispatch_magazin1,$magazinesrec);
+        // }
         if($val1->category == $magazinesrec->category){
-            array_push($dispatch_magazin,$magazinesrec);
-        }
+            $ldate = date('Y-m-d');
+           $Subscription = Subscription::where('magazine_id' ,'=',$magazinesrec->id)->whereDate('issue_date','<=',$ldate)->where('end_date','>=',$ldate)->first();
+            $total=0;
+            $recived=0;
+            $notrecived=0;
+        
+            if($Subscription !=null){
+                $Dispatchdata = Dispatch::where('magazine_id', '=', $magazinesrec->id)    
+                 ->where(function ($query) use ($Ordermagazine) {
+                         $query->whereJsonContains('library_id', $Ordermagazine->librarianid)
+                              ->orWhereJsonContains('library_id', (string) $Ordermagazine->librarianid); 
+         
+                 })
+                 ->where(function ($query) use ($Ordermagazine) {
+                     $query->whereJsonContains('order_id', $Ordermagazine->id)
+                           ->orWhereJsonContains('order_id', (string) $Ordermagazine->id); 
+                 })
+                 ->orderBy('expected_date','ASC')
+                 ->where('subscription_id','=',$Subscription->id)
+                 ->get();
+          if($Dispatchdata->isNotEmpty()){
+                 $total= count($Dispatchdata);
+              foreach($Dispatchdata  as $val){
+                 $received_id = json_decode($val->received_id);
+                 $received_id1=[];
+                 array_push($received_id1, $Ordermagazine->librarianid);
+                 $result = array_filter($received_id1, function($element) use ($received_id) {
+                     return in_array($element, $received_id);
+                     });
+                  
+                 $not_received_id = json_decode($val->not_received_id);
+                 $not_received_id1=[];
+                 array_push($not_received_id1,  $Ordermagazine->librarianid);
+                 $result2 = array_filter($not_received_id1, function($element) use ($not_received_id) {
+                     return in_array($element, $not_received_id);
+                     });
+             
+             
+                if(count($result) !=0){
+                 $recived=$recived + 1;
+                
+                }elseif(count($result2) !=0){
+              
+                 $notrecived = $notrecived + 1;
+        
+                }
+                
+        
+                $magazinesrec->totalorder=$total;
+                $magazinesrec->recived=$recived;
+                $magazinesrec->notrecived=$notrecived;
+                $magazinesrec->orderid=$Ordermagazine->id;
+              }
+             }
+          }
+        
+        
+        
+        
+              array_push($dispatch_magazin,$magazinesrec);
+          }
     }
 
 }
-  
+
+
 
 
     \Session::put('dispatch_magazin', $dispatch_magazin);
@@ -235,6 +302,7 @@ public function dispatch_overview(Request $req){
   $magazineCounts = [];
   
   foreach ($orders as $order) {
+  
       $magazineProducts = json_decode($order->magazineProduct, true);
   
       foreach ($magazineProducts as $magazineProduct) {
@@ -361,6 +429,7 @@ public function dispatch_library_over_magazine_list($id,$orderid){
  
      array_push($rec,$Ordermagazine);
     }
+
       $dispatchlibrary = $rec ;
     \Session::put('dispatchlibrary', $dispatchlibrary);
 
@@ -398,7 +467,7 @@ $datas=[];
          ->orderBy('expected_date','ASC')
          ->where('subscription_id','=',$Subscription->id)
          ->get();
-      if($Dispatchdata->isNotEmpty()){
+  if($Dispatchdata->isNotEmpty()){
          $total= count($Dispatchdata);
       foreach($Dispatchdata  as $val){
          $received_id = json_decode($val->received_id);
@@ -447,7 +516,6 @@ $datas=[];
 
 
 
-
 \Session::put('datas', $datas);
 return redirect('librarian/order_library_item_list');   
 }
@@ -457,6 +525,7 @@ return redirect('librarian/order_library_item_list');
 
 
 public function dispatch_magazine_view($id,$orderid){
+
     $Ordermagazine=Ordermagazine::find($orderid);
     $ldate = date('Y-m-d');
     $Subscription = Subscription::where('magazine_id' ,'=',$id)->whereDate('issue_date','<=',$ldate)->where('end_date','>=',$ldate)->first();
@@ -536,7 +605,8 @@ public function dispatch_magazine_view($id,$orderid){
  
     }
  }
- $fredata= $data;
+
+     $fredata= $data;
     \Session::put('fredata', $fredata);
  
     return redirect('librarian/dispatch-magazine-view');    

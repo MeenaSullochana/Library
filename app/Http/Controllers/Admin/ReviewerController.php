@@ -12,6 +12,8 @@ use App\Models\BookReviewStatus;
 use App\Models\Book;
 use App\Models\Mailurl;
 use App\Models\Specialcategories;
+use App\Models\Booksubject;
+
 
 
 use Illuminate\Support\Facades\Hash;
@@ -229,14 +231,33 @@ public function reviewerstatus(Request $req){
         array_push($data,$val);
     }
     $reviewer->record= $data;
-// return $reviewer;
+
     return redirect('/admin/reviewerdata')->with('reviewer',$reviewer); 
 
    }
    public function memberedit($id){
     $reviewer= Reviewer::find($id);
-    $reviewer->subject= json_decode($reviewer->subject, true);
+    
+    if (json_decode($reviewer->subject, true) !== null) {
+
+        $selectedSubjects = json_decode( $reviewer->subject);
+        $SpecialSubjects = Booksubject::where('status', '1')
+       ->whereNotIn('name', $selectedSubjects)
+       ->get();
+    
+                $reviewer->SpecialSubjects =$SpecialSubjects;
+                $reviewer->selectedSubjects =$selectedSubjects;
+     }else{
       
+        $SpecialSubjects = Booksubject::where('status', '1')
+      
+       ->get();
+        $reviewer->SpecialSubjects = $SpecialSubjects;
+                $reviewer->selectedSubjects =[];
+     }
+
+
+
     return redirect('/admin/revieweredit')->with('reviewer',$reviewer); 
 
    }
@@ -288,13 +309,10 @@ public function reviewerstatus(Request $req){
             $reviewer->libraryName = $req->libraryName;
             $categories = [];
 
-            // Explode the string by commas to create an array of category strings
             $categoryArray = explode(',', $req->Category);
             
-            // Trim each category string to remove any leading/trailing whitespace
             $categoryArray = array_map('trim', $categoryArray);
             
-            // Push each category string into the $categories array
             foreach ($categoryArray as $category) {
                 $categories[] = $category;
             }
@@ -373,13 +391,10 @@ public function reviewerstatus(Request $req){
   
             $categories = [];
 
-            // Explode the string by commas to create an array of category strings
             $categoryArray = explode(',', $req->Category);
             
-            // Trim each category string to remove any leading/trailing whitespace
             $categoryArray = array_map('trim', $categoryArray);
             
-            // Push each category string into the $categories array
             foreach ($categoryArray as $category) {
                 $categories[] = $category;
             }
@@ -468,7 +483,20 @@ public function reviewerstatus(Request $req){
           
             $reviewer = Reviewer::find($req->id);
             $reviewer->name = $req->name;
-            $reviewer->subject = json_encode($req->subject);
+            $subjects = [];
+
+            $subjectArray = explode(',', $req->subject);
+            
+            $subjectArray = array_map('trim', $subjectArray);
+            
+            foreach ($subjectArray as $subject) {
+                $subjects[] = $subject;
+            }
+
+        
+            $reviewer->subject = json_encode($subjects);
+
+
             $reviewer->designation = $req->designation;
             $reviewer->bankName = $req->bankName;
             $reviewer->accountNumber = $req->accountNumber;
@@ -505,12 +533,12 @@ public function reviewerstatus(Request $req){
               }
        
              $reviewer->save();
-             $user =  $reviewer->email;
-             $record =  $reviewer;
-             $password = "Your Old Password";
-             $rev =Mailurl::first();
-             $url = $rev->name . "/member/login";
-             Notification::route('mail',$reviewer->email)->notify(new MemberupdateNotification($user, $url,$record,$password));  
+            //  $user =  $reviewer->email;
+            //  $record =  $reviewer;
+            //  $password = "Your Old Password";
+            //  $rev =Mailurl::first();
+            //  $url = $rev->name . "/member/login";
+            //  Notification::route('mail',$reviewer->email)->notify(new MemberupdateNotification($user, $url,$record,$password));  
              $data = [
                 'success' => 'Reviewer update Successfully',
             ];
@@ -535,7 +563,18 @@ public function reviewerstatus(Request $req){
                 $Admin=auth('admin')->user()->first();
                 $reviewer = Reviewer::find($req->id);
                 $reviewer->name = $req->name;
-                $reviewer->subject = json_encode($req->subject);
+                $subjects = [];
+
+                $subjectArray = explode(',', $req->subject);
+                
+                $subjectArrays = array_map('trim', $subjectArray);
+                
+                foreach ($subjectArrays as $subject) {
+                    $subjects[] = $subject;
+                }
+    
+                $reviewer->subject = json_encode($subjects);
+
                 $reviewer->designation = $req->designation;
                 $reviewer->bankName = $req->bankName;
                 $reviewer->accountNumber = $req->accountNumber;
@@ -571,12 +610,12 @@ public function reviewerstatus(Request $req){
                   }
            
                  $reviewer->save();
-                 $user =  $reviewer->email;
-                 $record =  $reviewer;
-                 $password = $req->newpassword;
-                 $rev =Mailurl::first();
-                 $url = $rev->name . "/member/login";
-                 Notification::route('mail',$reviewer->email)->notify(new MemberupdateNotification($user, $url,$record,$password));  
+                //  $user =  $reviewer->email;
+                //  $record =  $reviewer;
+                //  $password = $req->newpassword;
+                //  $rev =Mailurl::first();
+                //  $url = $rev->name . "/member/login";
+                //  Notification::route('mail',$reviewer->email)->notify(new MemberupdateNotification($user, $url,$record,$password));  
                  $data = [
                     'success' => 'Reviewer update Successfully',
                 ];

@@ -148,6 +148,7 @@
 												<th>S.No</th>
 												<th>Book No</th>
 												<th>Book Title</th>
+												<th>ISBN</th>
 												<th>Date</th>
 												{{-- <th class="text-end">Priority</th> --}}
 												<th>Control</th>
@@ -167,6 +168,9 @@
 												<td style="white-space:normal;" data-label="Book Title">
 													<h6>{{$val->book->book_title}}</h6>
 													<!-- <span>INV-100023456</span> -->
+												</td>
+												<td data-label="isbn">
+													<span>{{ $val->book->isbn }}</span>
 												</td>
 												<td data-label="Date">
 													<span>{{ $val->created_at->format('d-m-Y') }}</span>

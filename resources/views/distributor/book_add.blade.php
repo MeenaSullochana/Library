@@ -1389,7 +1389,7 @@
                                 <input type="radio" id="lang2" name="language" class="custom-control-input" value="English" required>
                                 <label class="custom-control-label" for="lang2">English</label>
                             </div>
-                            <div class="custom-control custom-radio">
+                            <!-- <div class="custom-control custom-radio">
                                 <input type="radio" id="book_primary_language_new" name="language" class="custom-control-input" value="Other_Indian" required>
                                 <label class="custom-control-label" for="book_primary_language_new">Other Indian Languages (please specify)</label>
                             </div>
@@ -1402,7 +1402,7 @@
                             </div>
                             <div class="col-md-12 book_primary_lang_forein mb-2">
                                 <input type="text" class="form-control" id="other2" name="Other_Foreign" placeholder="Enter Other Foreign Languages (please specify)">
-                            </div>
+                            </div> -->
                         </div>
 
                         </div>

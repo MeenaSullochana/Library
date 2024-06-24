@@ -35,6 +35,12 @@
         a.canvasjs-chart-credit {
             display: none;
         }
+        .active-projects tbody tr td {
+    font-size: 13px;
+    font-weight: 400;
+    padding: 0.625rem 1.25rem;
+    border-bottom: 1px solid #000 !important;
+}
     </style>
 </head>
 
@@ -4100,8 +4106,204 @@
     @endphp
     <div id="reviewerListChart" style="height: 370px; width: 100%;"></div>
 </div>
+ <!-- new -->
+
+    <div class="col-xl-12 col-xxl-12 mt-5">
+
+                                <div class="card">
+                                    
+                    <div class="card-header d-flex justify-content-between"> 
+                    <h4 class="heading mb-0">Book Report</h4>
+                                  <button type="button" class="btn btn-primary" id="print_invoice" onclick="generatePdf()"><span class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
+                               </div>
+                                    <div class="card-body p-3" id='print-pdf'>
+                                
+                                        <div class="table-responsive active-projects" >
+                                        <div class="tbl-caption text-center">
+    <h4 class="heading mb-6">Directorate of Public Libraries</h4>
+    <h4 class="heading mb-6">Chennai - 2</h4>
+</div>
+
+                                            <div class="tbl-caption d-flex justify-content-between"">
+                                                <h4 class="heading mb-6">Transparent Book Procurement Report</h4>
+                                                <h4 class="heading mb-6">Date: <?php echo date('Y-m-d'); ?></h4>
+
+                                            </div>
+                                            <table style="width: 100%; border-collapse: collapse;" >
+    <thead>
+        <tr>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Category</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Details</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Count</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">All Books</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+                Tamil: {{ $bookTotals['TamilBooktotal'] }}<br>
+                English: {{ $bookTotals['EnglishBooktotal'] }}<br>
+                Other Indian: {{ $bookTotals['Other_IndianBooktotal'] }}<br>
+                Other Foreign: {{ $bookTotals['Other_ForeignBooktotal'] }}
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['Booktotal'] }}</td>
+
+        </tr>
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Publisher Books</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+                Tamil: {{ $bookTotals['publisherTamilBooktotal'] }}<br>
+                English: {{ $bookTotals['publisherEnglishBooktotal'] }}<br>
+                Other Indian: {{ $bookTotals['publisherOther_IndianBooktotal'] }}<br>
+                Other Foreign: {{ $bookTotals['publisherOther_ForeignBooktotal'] }}
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['publisherBooktotal'] }}</td>
+
+        </tr>
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Distributor Books</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+                Tamil: {{ $bookTotals['distributorTamilBooktotal'] }}<br>
+                English: {{ $bookTotals['distributorEnglishBooktotal'] }}<br>
+                Other Indian: {{ $bookTotals['distributorOther_IndianBooktotal'] }}<br>
+                Other Foreign: {{ $bookTotals['distributorOther_ForeignBooktotal'] }}
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['distributorBooktotal'] }}</td>
+
+        </tr>
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Publisher-Distributor Books</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+                Tamil: {{ $bookTotals['publisher_distributorTamilBooktotal'] }}<br>
+                English: {{ $bookTotals['publisher_distributorEnglishBooktotal'] }}<br>
+                Other Indian: {{ $bookTotals['publisher_distributorOther_IndianBooktotal'] }}<br>
+                Other Foreign: {{ $bookTotals['publisher_distributorOther_ForeignBooktotal'] }}
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['publisher_distributorBooktotal'] }}</td>
+
+        </tr>
+        <tr>
+        <td><strong>Procurement Books</strong></td>
+            </tr>
+            <tr>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Category</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Details</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Count</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Amount</th>
+
+        </tr>
+
+
+         
+
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Publisher Paid Books</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+          
+                Publisher Tamil: {{ $bookTotals['paypublisherTamilBooktotal'] }}<br>
+                Publisher English: {{ $bookTotals['paypublisherEnglishBooktotal'] }}<br>
+                Publisher Other Indian: {{ $bookTotals['paypublisherOther_IndianBooktotal'] }}<br>
+                Publisher Other Foreign: {{ $bookTotals['paypublisherOther_ForeignBooktotal'] }}<br>
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;"> {{ $bookTotals['paypublisherBooktotal'] }}</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['paypublisherBooktotal'] *450 }}</td>
+
+        </tr>
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Distributor Paid Books</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+        
+                Distributor Tamil: {{ $bookTotals['paydistributorTamilBooktotal'] }}<br>
+                Distributor English: {{ $bookTotals['paydistributorEnglishBooktotal'] }}<br>
+                Distributor Other Indian: {{ $bookTotals['paydistributorOther_IndianBooktotal'] }}<br>
+                Distributor Other Foreign: {{ $bookTotals['paydistributorOther_ForeignBooktotal'] }}
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['paydistributorBooktotal'] }}</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['paydistributorBooktotal'] *450 }}</td>
+
+        </tr>
+
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Publisher-Distributor Paid Books</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+                Tamil: {{ $bookTotals['paypublisher_distributorTamilBooktotal'] }}<br>
+                English: {{ $bookTotals['paypublisher_distributorEnglishBooktotal'] }}<br>
+                Other Indian: {{ $bookTotals['paypublisher_distributorOther_IndianBooktotal'] }}<br>
+                Other Foreign: {{ $bookTotals['paypublisher_distributorOther_ForeignBooktotal'] }}
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['paypublisher_distributorBooktotal'] }}</td>
+            
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['paypublisher_distributorBooktotal'] *450 }}</td>
+
+        </tr>
+ <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Paid Books</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+                Tamil: {{ $bookTotals['payTamilBooktotal'] }}<br>
+                English: {{ $bookTotals['payEnglishBooktotal'] }}<br>
+                Other Indian: {{ $bookTotals['payOther_IndianBooktotal'] }}<br>
+                Other Foreign: {{ $bookTotals['payOther_ForeignBooktotal'] }}<br>
+             
+              
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['payBooktotal'] }}</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['payBooktotal'] *450 }}</td>
+
+        </tr>
+        <tr>
+        <td><strong> Book Copies</strong></td>
+            </tr>
+            <tr>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Category</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Details</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Count</th>
+
+        </tr>
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Book copies received at ACL</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+                Tamil: {{ $bookTotals['copyTamilBooktotal'] }}<br>
+                English: {{ $bookTotals['copyEnglishBooktotal'] }}<br>
+                Other Indian: {{ $bookTotals['copyOther_IndianBooktotal'] }}<br>
+                Other Foreign: {{ $bookTotals['copyOther_ForeignBooktotal'] }}
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['copyBooktotal'] }}</td>
+
+        </tr>
+
+        <tr>
+        <td><strong> Meta Checking Book</strong></td>
+            </tr>
+            <tr>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Category</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Details</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Count</th>
+
+        </tr>
+            
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Metacheck Books</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+                Assigned: {{ $bookTotals['metassignooktotal'] }}<br>
+                Completed: {{ $bookTotals['metcomooktotal'] }}<br>
+                Not Completed: {{ $bookTotals['metnotcomooktotal'] }}
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['metBooktotal'] }}</td>
+
+        </tr>
+    </tbody>
+</table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+
+
+
                             <!-- publisher -->
-                            <div class="col-xl-12 col-xxl-12 mt-5">
+                            <!-- <div class="col-xl-12 col-xxl-12 mt-5">
                                 <div class="card">
                                     <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
@@ -4166,10 +4368,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- Distributor -->
-                            <div class="col-xl-12 col-xxl-12">
+                            <!-- <div class="col-xl-12 col-xxl-12">
                                 <div class="card">
                                     <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
@@ -4235,10 +4437,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- Publisher Cum Distributor -->
-                            <div class="col-xl-12 col-xxl-12">
+                            <!-- <div class="col-xl-12 col-xxl-12">
                                 <div class="card">
                                     <div class="card-body p-3">
                                         <div class="table-responsive active-projects">
@@ -4303,7 +4505,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-xl-6 col-xxl-8 col-lg-7">
                             <div class="card h-auto">
@@ -4635,3 +4837,11 @@ toastr.error("{{ Session::get('error') }}",{timeout:15000});
     }
     }
     </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+<script>
+    function generatePdf() {
+        let htmlElement = document.getElementById('print-pdf');
+        html2pdf().from(htmlElement).save('book_report.pdf');
+    }
+</script>
