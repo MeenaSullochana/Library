@@ -346,6 +346,8 @@ Route::get('/periodical_publisher_list',function(){ return view('admin.periodica
 Route::get('/periodical_publisher_active_list',function(){ return view('admin.periodical_publisher_active_list');});
 Route::get('/periodical_publisher_inactive_list',function(){ return view('admin.periodical_publisher_inactive_list');});
 Route::get('/periodical_publisher_report',function(){ return view('admin.periodical_publisher_report');});
+Route::get('/magazine_dispatch_report',function(){ return view('admin.magazine_dispatch_report');});
+Route::get('/lbrary_dispatch_report',function(){ return view('admin.lbrary_dispatch_report');});
 
 // Periodical distributor List
 
