@@ -4284,13 +4284,37 @@
         </tr>
             
         <tr>
-            <td style="border: 1px solid black; padding: 10px; text-align: left;">Metacheck Books</td>
+<td style="border: 1px solid black; padding: 10px; text-align: left;">Metacheck Books</td>
+<td style="border: 1px solid black; padding: 10px; text-align: left;">
+Total Book: {{ $bookTotals['metBooktotal'] }}<br>
+
+Assigned: {{ $bookTotals['metassignooktotal'] }}<br>
+Completed: {{ $bookTotals['metcomooktotal'] }}<br>
+Reject: {{ $bookTotals['metrejooktotal'] }}<br>
+Not Completed: {{ $bookTotals['metnotcomooktotal'] }}
+</td>
+<td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['metassignooktotal'] }}</td>
+
+</tr>
+
+
+        <td><strong>  Reviewer Manage Books</strong></td>
+            </tr>
+            <tr>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Category</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Details</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Count</th>
+
+        </tr>
+            
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Total Books</td>
             <td style="border: 1px solid black; padding: 10px; text-align: left;">
-                Assigned: {{ $bookTotals['metassignooktotal'] }}<br>
-                Completed: {{ $bookTotals['metcomooktotal'] }}<br>
-                Not Completed: {{ $bookTotals['metnotcomooktotal'] }}
+                Assigned: {{ $reviewerCompleteCount }}<br>
+               
+                Not Assigned: {{ $bookTotals['metcomooktotal'] -  $reviewerCompleteCount }}
             </td>
-            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['metBooktotal'] }}</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['metcomooktotal'] }}</td>
 
         </tr>
     </tbody>
@@ -4516,15 +4540,15 @@
                                 </div>
                                 <div class="card-body pt-0">
                                 @php
-                                $records = DB::table('books')
+$records = DB::table('books')
     ->select('books.*')
-    ->where('book_active_status', '=', '1')
-    ->where('marks', '>=', '40')
+    ->where('book_active_status', '=', 1)
+    ->where('marks', '>=', 40)
     ->orderBy('marks', 'desc')
+    ->limit(15)
     ->get();
+@endphp
 
-
-                                            @endphp
 
                                     <div class="swiper mySwiper">
                                         <div class="swiper-wrapper">

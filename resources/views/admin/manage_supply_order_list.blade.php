@@ -61,8 +61,9 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Librarian order</b>
+                                <b>Supply Librarian order</b>
                             </h3>
+                            
                             <!-- <a class="btn btn-primary  btn-sm" href="javascript:history.back()">
                                 <i class="fas fa-chevron-left"></i> Back </a> -->
                         </div>
@@ -143,10 +144,10 @@
                         <div class="card">
                             <div class="card-body p-3">
                                 <div class="d-flex justify-content-between align-items-end">
-                                    <h6>Librarian order</h6>
-                                    <button type="button" class="btn btn-primary"><span
+                                    <h6>Supply Librarian order</h6>
+                                    <!-- <button type="button" class="btn btn-primary"><span
                                             class="btn-icon-start text-primary"><i class="fa fa-plus"></i>
-                                        </span>Add order</button>
+                                        </span>Add order</button> -->
                                 </div>
                                 <hr>
                                 <div class="row mb-4 d-flex">
@@ -176,7 +177,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-xl-3 col-sm-6 mt-4 text-end">
+                                    <!-- <div class="col-xl-3 col-sm-6 mt-4 text-end">
 
                                         <a href="/admin/report_downl_order">
                                             <button class="btn btn-primary">
@@ -199,22 +200,22 @@
 
 
 
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="row">
 
-
+<!-- 
                                     <div class="d-sm-flex align-items-center justify-content-between">
                                         <button class="btn btn-info assignPro mb-5 justify-content-between"
-                                            data-bs-toggle="modal" data-bs-target="#basicModal">Supply Order</button>
+                                            data-bs-toggle="modal" data-bs-target="#basicModal">Complete Order</button>
 
 
-                                    </div>
+                                    </div> -->
                                     <hr>
                                     @php
 
                                     $records = DB::table('ordermagazines')
-                                    ->where('status', '=', '1')
+                                    ->where('status', '=', '0')
                                     ->orderBy('created_at', 'asc')
                                     ->get();
 
@@ -284,7 +285,7 @@
                                                     <td class="py-2"><i class="fa fa-rupee"></i>
                                                         {{$val->totalPurchased}}
                                                     </td>
-                                                    <td class="py-2"> <span class="badge bg-primary">Pending</span></td>
+                                                    <td class="py-2"> <span class="badge bg-primary">Supply</span></td>
                                                     <td class="py-2">
                                                         {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}
                                                     </td>
@@ -329,11 +330,11 @@
                                                                         href="/admin/magazine_invoice_view/{{$val->id}}"><i
                                                                             class="fa fa-pencil p-2"></i> View Order
                                                                         Invoice</a>
-                                                                    <a class="dropdown-item text-danger delete-status"
+                                                                    <!-- <a class="dropdown-item text-danger delete-status"
                                                                         data-id="{{$val->id}}"
                                                                         data-name="{{$librarians->libraryName}}"
                                                                         data-libid="{{$val->libraryid}}"><i
-                                                                            class="fa fa-trash p-2"></i>Delete</a>
+                                                                            class="fa fa-trash p-2"></i>Delete</a> -->
                                                                 </div>
                                                             </div>
                                                         </div>

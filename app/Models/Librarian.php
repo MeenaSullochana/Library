@@ -38,4 +38,5 @@ class Librarian extends Authenticatable
         'dlo_id',
         'checkstatus'
     ];
+
 }

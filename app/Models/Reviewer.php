@@ -8,6 +8,7 @@ use App\Traits\UUID;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\BookReviewStatus;
 class Reviewer extends Authenticatable
 {
     use HasFactory,Notifiable;
@@ -35,5 +36,12 @@ class Reviewer extends Authenticatable
         'libraryName',
         'Category'
     ];
+
+
+
+public function bookReviews()
+{
+    return $this->hasMany(BookReviewStatus::class, 'reviewer_id', 'id');
+}
 }
 

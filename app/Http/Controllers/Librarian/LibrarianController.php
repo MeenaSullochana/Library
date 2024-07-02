@@ -39,50 +39,90 @@ class LibrarianController extends Controller
      
 //    }
 
-   public function metabooklist(){
+//    public function metabooklist(){
 
-      $id=auth('librarian')->user()->id; 
-      $book = Book::where('book_reviewer_id','=',$id)->get();
-foreach($book as $key=>$val){
-      $check = $this->checkBookTitle($val);
-      $val->check = $check;
+//       $id=auth('librarian')->user()->id; 
+//       $book = Book::where('book_reviewer_id','=',$id)->get();
+// foreach($book as $key=>$val){
+//       $check = $this->checkBookTitle($val);
+//       $val->check = $check;
         
-     }
-      return view('librarian/meta_book_list')->with('book',$book); 
+//      }
+//       return view('librarian/meta_book_list')->with('book',$book); 
      
-   }
+//    }
 
- public function checkBookTitle($data)
+//  public function checkBookTitle($data)
+// {
+//   $newBookTitle = trim($data->book_title);
+
+//   $processedNewTitle = preg_replace('/[^a-zA-Z0-9]/', '', strtolower(preg_replace('/\s+/', '', preg_replace('/(?<!^)[A-Z]/', '_$0', $newBookTitle))));
+
+//   $existingTitles = Book::pluck('book_title')->where("book_procurement_status",'=',1)->map(function ($title) {
+//       return preg_replace('/[^a-zA-Z0-9]/', '', strtolower(trim($title)));
+//   });
+//   $c=0;
+//   foreach($existingTitles as $key=>$val){
+//     if($val == $processedNewTitle){
+//       $c = $c+1;
+//     }
+//     else{
+//       $c= $c;
+//     }
+//   }
+//   $isbn = Book::where('isbn',"=",$data->isbn)->get();
+//  $count = count($isbn);
+//  if($c >1){
+//   return "duplicate"; 
+//  }else if($count >1){
+//        return "repeated";
+//  }else{
+//        return "unique";
+//  }
+
+
+// }
+public function metabooklist()
 {
-  $newBookTitle = trim($data->book_title);
+    $id = auth('librarian')->user()->id;
+    $books = Book::where('book_reviewer_id', '=', $id)->get();
 
-  $processedNewTitle = preg_replace('/[^a-zA-Z0-9]/', '', strtolower(preg_replace('/\s+/', '', preg_replace('/(?<!^)[A-Z]/', '_$0', $newBookTitle))));
+    // Get all existing titles and ISBNs to reduce database queries
+    $existingTitles = Book::where('book_procurement_status', '=', 1)->pluck('book_title')->map(function ($title) {
+        return preg_replace('/[^a-zA-Z0-9]/', '', strtolower(trim($title)));
+    })->toArray();
 
-  $existingTitles = Book::pluck('book_title')->where("book_procurement_status",'=',1)->map(function ($title) {
-      return preg_replace('/[^a-zA-Z0-9]/', '', strtolower(trim($title)));
-  });
-  $c=0;
-  foreach($existingTitles as $key=>$val){
-    if($val == $processedNewTitle){
-      $c = $c+1;
+    $existingIsbns = Book::pluck('isbn')->toArray();
+
+    foreach ($books as $book) {
+        $check = $this->checkBookTitle($book, $existingTitles, $existingIsbns);
+        $book->check = $check;
     }
-    else{
-      $c= $c;
-    }
-  }
-  $isbn = Book::where('isbn',"=",$data->isbn)->get();
- $count = count($isbn);
- if($c >1){
-  return "duplicate"; 
- }else if($count >1){
-       return "repeated";
- }else{
-       return "unique";
- }
 
-
+    return view('librarian/meta_book_list')->with('book', $books);
 }
 
+public function checkBookTitle($book, $existingTitles, $existingIsbns)
+{
+    $newBookTitle = trim($book->book_title);
+    $processedNewTitle = preg_replace('/[^a-zA-Z0-9]/', '', strtolower(preg_replace('/\s+/', '', preg_replace('/(?<!^)[A-Z]/', '_$0', $newBookTitle))));
+
+    // Check for duplicate titles
+    $titleCount = array_count_values($existingTitles);
+    $isDuplicate = isset($titleCount[$processedNewTitle]) && $titleCount[$processedNewTitle] > 1;
+
+    // Check for repeated ISBNs
+    $isbnCount = array_count_values($existingIsbns);
+    $isRepeated = isset($isbnCount[$book->isbn]) && $isbnCount[$book->isbn] > 1;
+
+    if ($isDuplicate) {
+        return "duplicate";
+    } elseif ($isRepeated) {
+        return "repeated";
+    } else {
+        return "unique";
+    }
+}
    public function librarianapprovestatus(Request $req){
     $book = Book::find($req->id);
     $book->book_status="1";

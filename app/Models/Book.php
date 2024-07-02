@@ -4,6 +4,8 @@ namespace App\Models;
 use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Librarian;
+
 
 class Book extends Model
 {
@@ -73,5 +75,7 @@ class Book extends Model
        'sample_file'
         
     ];
-
+    public function librarian() {
+        return $this->belongsTo(Librarian::class, 'book_reviewer_id');
+    }
 }

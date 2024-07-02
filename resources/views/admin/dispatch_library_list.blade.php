@@ -17,9 +17,9 @@
 	<!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement</title>
 	<!-- FAVICONS ICON -->
-	<link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
+	<link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
-        include "librarian/plugin/plugin_css.php";
+        include "admin/plugin/plugin_css.php";
     ?>
 </head>
 <body>
@@ -43,7 +43,7 @@
         <!--**********************************
             Nav header start
         ***********************************-->
-		@include ('librarian.navigation')
+		@include ('admin.navigation')
 		<!--**********************************
             Sidebar end
         ***********************************-->
@@ -162,7 +162,7 @@
                                             ->where('librarianId', '=', $val->libraryid)
                                             ->first();
                                             @endphp
-                                            @if(auth('librarian')->user()->librarianId == $librarians->dlo_id )
+                                         
                                             <tr class="btn-reveal-trigger">
                                                 <td class="py-2">{{$loop->index + 1}}</td>
                                                 <td class="py-2">{{$val->libraryid}}</td>
@@ -180,13 +180,13 @@
                                                 <td class="py-2">
                                                     {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}</td>
                                                     <td>
-                                                    <a href="/librarian/order-library-item-list/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
+                                                    <a href="/admin/order-library-item-list/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
 
 												</td>
 
                                            
                                             </tr>
-                                            @endif
+                                        
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -203,7 +203,7 @@
         <!--**********************************
             Footer start
         ***********************************-->
-		@include ("librarian.footer")
+		@include ("admin.footer")
         <!--**********************************
             Footer end
         ***********************************-->
@@ -222,7 +222,7 @@
         Main wrapper end
     ***********************************-->
 	<?php
-        include "librarian/plugin/plugin_js.php";
+        include "admin/plugin/plugin_js.php";
     ?>
 </body>
 <script>

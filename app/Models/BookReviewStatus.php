@@ -5,6 +5,9 @@ use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Reviewer;
+
+
 class BookReviewStatus extends Model
 {
     use HasFactory;
@@ -19,4 +22,9 @@ class BookReviewStatus extends Model
         'review_type',
         
     ];
+
+    public function reviewer()
+    {
+        return $this->belongsTo(Reviewer::class, 'reviewer_id', 'id');
+    }
 }

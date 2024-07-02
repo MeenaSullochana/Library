@@ -252,8 +252,9 @@
 <script>
     $(document).ready(function () {
         var deleteId;
+        $('#example4').on('click', '.delete-btn', function() {
 
-        $('.delete-btn').on('click', function () {
+   
             deleteId = $(this).data('id');
             $('#basicModal').modal('show');
         });

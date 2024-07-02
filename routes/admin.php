@@ -25,6 +25,8 @@ use App\Http\Controllers\Admin\MagazineController;
 use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\PeriodicalPublisherController;
 use App\Http\Controllers\Admin\PeriodicalDistributorController;
+
+use App\Http\Controllers\Admin\OrderController;
 Route::middleware(['admin'])->group(function () {
 Route::prefix('admin')->group(function () {
  
@@ -156,9 +158,7 @@ Route::get('/magazineupdate',function(){
 
 //For DLO
 Route::get('/library-magazine-list',function(){ return view('admin.dispatch_library_magazine_list');});
-Route::get('/magazine-overview',function(){ return view('admin.dispatch_overview');});
 Route::get('/magazine-overview-list',function(){ return view('admin.dispatch_magazine_over_list');});
-Route::get('/magazine-over-library-list',function(){ return view('admin.dispatch_library_over_magazine_list');});
 
 
 Route::post('/magazine/update/{id}',[MagazineController::class,'magazineupdate']);
@@ -169,6 +169,7 @@ Route::get('/magazine_invoice',function(){return view('admin.magazine_order_invo
 Route::get('/magazine_order_pending',function(){ return view('admin.magazine_order_pending');});
 Route::get('/magazine_order_reject',function(){ return view('admin.magazine_reject_list');});
 Route::get('/magazine_order_complete',function(){ return view('admin.magazine_complete_list');});
+
 
 
 //magazine Subscritpion
@@ -251,9 +252,10 @@ Route::get('/editreviewer',function(){
 });
 
 
+Route::get('/metacheck_data',[BookController::class,'reviewer_reviewrec']);
+Route::get('/reviwer_data',[BookController::class,'reviwer_datarec']);
 
-Route::get('/metacheck_data',function(){ return view('admin.metacheck_data');});
-Route::get('/reviwer_data',function(){ return view('admin.reviwer_data');});
+
 
 
 
@@ -348,6 +350,7 @@ Route::get('/periodical_publisher_inactive_list',function(){ return view('admin.
 Route::get('/periodical_publisher_report',function(){ return view('admin.periodical_publisher_report');});
 Route::get('/magazine_dispatch_report',function(){ return view('admin.magazine_dispatch_report');});
 Route::get('/lbrary_dispatch_report',function(){ return view('admin.lbrary_dispatch_report');});
+
 
 // Periodical distributor List
 
@@ -1111,6 +1114,8 @@ Route::get('/magazinebudgetview',function(){
 
 Route::get('/magazine_order_list',[MagazineController::class,'magazine_order_list']);
 
+
+
 Route::get('/report_downl_order ',[SettingController::class,'report_downl_order']);
 Route::get('report_download_oedermagazine',function(){ return view('admin.report_download_oedermagazine');});
 Route::POST('/magazineorder_down',[SettingController::class,'magazineorder_down']);
@@ -1165,7 +1170,57 @@ Route::get('/publicreviewercount',[SettingController::class,'publicreviewercount
 Route::get('/get_datarec',[BookController::class,'get_datarec']);
 
 Route::get('/dup ',[SettingController::class,'dup']);
+Route::get('/manage_supply_order_list',function(){ return view('admin.manage_supply_order_list');});
 
+
+
+Route::get('/dispatch_overview',[OrderController::class,'dispatch_overview']);
+Route::get('/dispatch_library_magazine/{id}/{orderid}',[OrderController::class,'dispatch_library_over_magazine_list']);
+    
+Route::get('/dispatch_library',function(){
+    $data = Session::get('dispatchlibrary');
+    if($data !==null){
+      
+          return view('admin.dispatch_library_over_magazine_list')->with("data",$data);
+      }
+      
+  }); 
+
+  Route::get('/dispatch_magazine_view/{id}/{orderid}',[OrderController::class,'dispatch_magazine_view']);
+  Route::get('/dispatch-magazine-view',function(){
+      $data = Session::get('fredata');
+      if($data !==null){
+          return view('admin.dispatch_magazine_view')->with("data",$data);
+      }
+      
+  });
+
+
+  Route::get('/order-library-list',function(){
+    return view('admin.dispatch_library_list');
+});
+Route::get('/order-library-item-list/{id}',[OrderController::class,'order_library_item_list']);
+
+Route::get('/order_library_item_list',function(){
+    $data = Session::get('datas');
+    if($data !==null){
+        return view('admin.dispatch_order_library_item_list')->with("data",$data);
+    }
+    
+});
+
+Route::post('/Dispatch_magazinereport ',[SettingController::class,'Dispatch_magazinereport']);
+
+Route::post('/Dispatch_libraryreport ',[SettingController::class,'Dispatch_libraryreport']);
+
+
+
+Route::get('/master_book_datareport',[BookController::class,'master_book_datareport']);
+
+Route::get('/meta_finalized_books',function(){ return view('admin.meta_finalized_books');});
+Route::post('/categoryupdate',[BookController::class,'categoryupdate']);
+
+Route::post('/subjectupdate',[BookController::class,'subjectupdate']);
 
     });
 });

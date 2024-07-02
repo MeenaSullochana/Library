@@ -81,6 +81,7 @@
                                                 <th>Book ID</th>
                                                 <th>Title</th>
                                                 <th>Name Of Publication</th>
+                                                <th> Name Of The Vendor</th>
                                                 <th>Mobile Number</th>
 
                                                 <th>Issued Status</th>
@@ -106,6 +107,9 @@
 
                                                 
                                                @endphp
+                                               <td>
+                                                    <span>{{$data1->publicationName}}</span>
+                                                </td>
                                                 <td>
                                                     <span>{{$data1->mobileNumber}}</span>
                                                 </td>
@@ -116,6 +120,9 @@
                                                 
                                                 @endphp
                                                 <td>
+                                                <span>{{$data2->distributionName}}</span>
+                                                </td>
+                                                <td>
                                                 <span>{{$data2->mobileNumber}}</span>
                                                 </td>
                                                 @else
@@ -124,6 +131,9 @@
 
                                                 
                                                 @endphp
+                                                <td>
+                                                <span>{{$data3->publicationDistributionName}}</span>
+                                                </td>
                                                 <td>
                                                 <span>{{$data3->mobileNumber}}</span>
                                                 </td>

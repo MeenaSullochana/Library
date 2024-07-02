@@ -201,7 +201,7 @@
                                                 <th>Book Name</th>
                                                 <th>Book Number</th>
                                                 <th>Publication Name</th>
-
+                                                <th> Name Of The Vendor</th>
                                                 <th>Mobile Number</th>
                                                 <th>Meta Check</th>
                                                 <th class="text-end">Control</th>
@@ -231,8 +231,11 @@
                                                 @php
                                                 $data1= DB::table('publishers')->find($val->user_id);
 
-
-                                                @endphp
+                                                
+                                               @endphp
+                                               <td>
+                                                    <span>{{$data1->publicationName}}</span>
+                                                </td>
                                                 <td>
                                                     <span>{{$data1->mobileNumber}}</span>
                                                 </td>
@@ -240,19 +243,25 @@
                                                 @php
                                                 $data2= DB::table('distributors')->find($val->user_id);
 
-
+                                                
                                                 @endphp
                                                 <td>
-                                                    <span>{{$data2->mobileNumber}}</span>
+                                                <span>{{$data2->distributionName}}</span>
+                                                </td>
+                                                <td>
+                                                <span>{{$data2->mobileNumber}}</span>
                                                 </td>
                                                 @else
                                                 @php
                                                 $data3= DB::table('publisher_distributors')->find($val->user_id);
 
-
+                                                
                                                 @endphp
                                                 <td>
-                                                    <span>{{$data3->mobileNumber}}</span>
+                                                <span>{{$data3->publicationDistributionName}}</span>
+                                                </td>
+                                                <td>
+                                                <span>{{$data3->mobileNumber}}</span>
                                                 </td>
                                                 @endif
 

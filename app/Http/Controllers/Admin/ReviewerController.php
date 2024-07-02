@@ -490,7 +490,20 @@ public function reviewerstatus(Request $req){
             $subjectArray = array_map('trim', $subjectArray);
             
             foreach ($subjectArray as $subject) {
-                $subjects[] = $subject;
+                if($subject == "Sports"){
+                    $subjects[] = "Sports, Games";
+                   }else  if($subject == "Games" ||  $subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
+                   
+                   }else  if($subject == "அகராதிகள்"){
+                    $subjects[] = "அகராதிகள், கலைக்களஞ்சியங்கள், நிகண்டுகள்";
+                    
+
+                   }
+                   
+                   else{
+                    $subjects[] = $subject;
+    
+                   }
             }
 
         
@@ -569,8 +582,23 @@ public function reviewerstatus(Request $req){
                 
                 $subjectArrays = array_map('trim', $subjectArray);
                 
+
+
                 foreach ($subjectArrays as $subject) {
-                    $subjects[] = $subject;
+                    if($subject == "Sports"){
+                        $subjects[] = "Sports, Games";
+                       }else  if($subject == "Games" ||  $subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
+                       
+                       }else  if($subject == "அகராதிகள்"){
+                        $subjects[] = "அகராதிகள், கலைக்களஞ்சியங்கள், நிகண்டுகள்";
+                        
+
+                       }
+                       
+                       else{
+                        $subjects[] = $subject;
+        
+                       }
                 }
     
                 $reviewer->subject = json_encode($subjects);

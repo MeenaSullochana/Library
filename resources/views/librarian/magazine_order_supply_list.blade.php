@@ -58,7 +58,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Library Complete Orders</b>
+                                <b>Library Supply Orders</b>
                             </h3>
                             <!-- <a class="btn btn-primary  btn-sm" href="javascript:history.back()">
                                 <i class="fas fa-chevron-left"></i> Back </a> -->
@@ -169,7 +169,7 @@
                                     $id = auth('librarian')->user()->id;
                                       $records = DB::table('ordermagazines')
                                         ->where('librarianid', '=', $id)
-                                          ->where('status', '=', '3')
+                                          ->where('status', '=', '0')
                                          ->orderBy('created_at', 'asc')
                                          ->get();
                                       
@@ -212,7 +212,7 @@
                                                 <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalBudget}}</td>
 
                                                 <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalPurchased}}</td>
-                                                <td class="py-2"> <span class="badge bg-primary">Completed</span></td>
+                                                <td class="py-2"> <span class="badge bg-primary">Supply</span></td>
                                                 <td class="py-2"> {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}</td>
                                                 <td class="py-2 text-end">
                                                     <div class="dropdown"><button

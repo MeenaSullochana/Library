@@ -131,10 +131,9 @@
                                         <tbody>
                                             @foreach($data as $key=>$val)
                                             @php
-                                         $metachecker = DB::table('librarians')->where('id', $val->book_reviewer_id)->first();
-
-
+                                         $metachecker = DB::table('librarians')->find($val->book_reviewer_id);
                                          @endphp
+                                           @if( $metachecker != null)
 
                                             <tr role="row" class="odd">
                                                 <td class="sorting_1">
@@ -182,6 +181,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            @endif
                                             @endforeach
                                         </tbody>
                                     </table>

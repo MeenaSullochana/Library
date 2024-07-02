@@ -80,7 +80,7 @@
                         </div>
                         <div class="col-md-6 filter-elecment-two text-right">
                             <div class="d-flex justify-content-end">
-                                <button class="btn btn-outline-success m-2"><i class="fa fa-file-excel"></i> Export Excel</button>
+                                <!-- <button class="btn btn-outline-success m-2"><i class="fa fa-file-excel"></i> Export Excel</button> -->
                                 <!-- <button class="btn btn-outline-light m-2"><i class="fa fa-file-pdf"></i> PDF Export</button>
                                 <button class="btn btn-outline-danger m-2"><i class="fa fa-print"></i> Print</button> -->
                             </div>
@@ -142,8 +142,8 @@
                                                     {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}</td>
 												<td>
                                                     <a href="/librarian/dispatch-magazine-list/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
-													<a href="#"><i class="fa fa-trash p-2"></i></a>
-													<i class="fa fa-trash-o p-2" aria-hidden="true"></i>
+													<!-- <a href="#"><i class="fa fa-trash p-2"></i></a>
+													<i class="fa fa-trash-o p-2" aria-hidden="true"></i> -->
 												</td>
                                             </tr>
                                            
