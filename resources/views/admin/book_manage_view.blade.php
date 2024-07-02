@@ -509,19 +509,81 @@
                                                             </div>
                                                             <div class="col-md-5 col-5">
                                                                 <p class="p-0 m-0"><span
-                                                                    class="fs-6 fw-bold text-primary">Category  </span></p>
+                                                                        class="fs-6 fw-bold text-primary">Category
+                                                                    </span></p>
                                                             </div>
                                                             <div class="col-md-7 col-7">
-                                                                <p><span
-                                                                    class="item">: {{ $data->category }}</span> </p>
+                                                               
+                                                            @if( $data->book_procurement_status ="1"  && $data->book_status ="1")
+                                                                <p> <span class="item">
+                                                                        <select class="form-select small" id="Category"
+                                                                            data-id="{{ $data->id }}" name="Category"
+                                                                            required style="font-size: 12px;">
+                                                                            <option value="{{ $data->category }}">
+                                                                                {{ $data->category }}
+                                                                            </option>
+                                                                            @php
+                                                                            $categori = DB::table('special_categories')
+                                                                            ->where('status','=','1')
+                                                                            ->where('name','!=',$data->category)
+                                                                            ->get();
+                                                                            @endphp
+                                                                            @foreach($categori as $val)
+                                                                            <option value="{{$val->name}}">
+                                                                                {{$val->name}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </span> </p>
+                                                                    @else 
+                                                                    {{-- <div class="col-md-5 col-5"> --}}
+                                                                <p class="p-0 m-0">: {{ $data->category }}</p>
+                                                            
+                                                                @endif
                                                             </div>
                                                             <div class="col-md-5 col-5">
                                                                 <p class="p-0 m-0"><span
-                                                                    class="fs-6 fw-bold text-primary">Subject  </span></p>
+                                                                        class="fs-6 fw-bold text-primary">Subject
+                                                                    </span></p>
                                                             </div>
                                                             <div class="col-md-7 col-7">
-                                                                <p><span
-                                                                    class="item">: {{ $data->subject }}</span> </p>
+                                                            @if( $data->book_procurement_status ="1"  && $data->book_status ="1")
+                                                                <p> <span class="item">
+                                                              
+                                                                        <select class="form-select small" id="subject"
+                                                                            data-id="{{ $data->id }}" name="subjrct"
+                                                                            style="font-size: 12px;">
+                                                                            <option value="{{ $data->subject }}">
+                                                                                {{$data->subject }}
+
+                                                                            </option>
+                                                                           
+                                                                            @php
+                                                                            $book_subject =
+                                                                            DB::table('book_subject')->where('type','=','Tamil')->where('status','=','1')->where('name','!=',$data->subject)->get();
+
+
+                                                                            @endphp
+                                                                            @foreach($book_subject as $val)
+                                                                            <option value="{{$val->name}}">
+                                                                                {{$val->name}}</option>
+                                                                            @endforeach
+                                                                            @php
+                                                                            $book_subject1 =
+                                                                            DB::table('book_subject')->where('type','=','English')->where('status','=','1')->where('name','!=',$data->subject)->get();
+
+
+                                                                            @endphp
+                                                                            @foreach($book_subject1 as $val)
+                                                                            <option value="{{$val->name}}">
+                                                                                {{$val->name}}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                       
+                                                                    </span> 
+                                                                </p>
+                                                             @else 
+                                                             <p class="p-0 m-0">: {{$data->subject }}</p>
+                                                         @endif
                                                             </div>
                                                             <div class="col-md-5 col-5">
                                                                 <p class="p-0 m-0"><span class="fs-6 fw-bold text-primary">Book
@@ -604,10 +666,10 @@
                                                     <p>{{ $data->place }}</p>
                                                 </div>
                                                 <div class="item p-1 text-center">
-                                                    <p class="text-danger fw-bold"> Print length </p>
+                                                    <p class="text-danger fw-bold">Paper Size </p>
                                                     <img src="https://img.icons8.com/?size=50&id=1408&format=png"
                                                         style="width:50px">
-                                                    <p>{{ $data->pages }}</p>
+                                                    <p>{{ $data->size }}</p>
                                                 </div>
                                                 <div class="item p-1 text-center">
 
@@ -1047,11 +1109,7 @@
                                             <div class="author_description">
                                                 <h3 class="mb-0 ms-2">{{ $data->author_name }}</h3>
                                                 <p style="text-indent:35px" class="author-info">
-                                                    @php
-                                                    // Truncate the text to a certain length
-                                                    $truncatedText = Str::limit($data->author_description, 300);
-                                                    @endphp
-                                                    {{ strip_tags($truncatedText) }}</p>
+                                                {!! $data->author_description !!}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -1551,6 +1609,86 @@
         }
     })
     </script>
+
+    
+<script>
+    document.getElementById("Category").addEventListener("change", function(e) {
+        e.preventDefault(); // Prevent the default action of the event
+
+        var id = this.getAttribute("data-id");
+        var category = this.value;
+        
+        var data = {
+            'id': id,
+            'category': category
+        };
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "/admin/categoryupdate",
+            data: data,
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                if (response.success) {
+                   
+                    toastr.success(response.success, { timeout: 45000 });
+                } else {
+                    toastr.error(response.error, { timeout: 45000 });
+                  
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+</script>
+<script>
+    document.getElementById("subject").addEventListener("change", function(e) {
+        e.preventDefault(); 
+
+        var id = this.getAttribute("data-id");
+        var subjrct = this.value;
+         
+        var data = {
+            'id': id,
+            'subject': subjrct
+        };
+ console.log(data);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "/admin/subjectupdate",
+            data: data,
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                if (response.success) {
+                   
+                    toastr.success(response.success, { timeout: 45000 });
+                } else {
+                    toastr.error(response.error, { timeout: 45000 });
+                  
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

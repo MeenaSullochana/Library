@@ -17,9 +17,9 @@
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement - Book Add</title>
     <!-- FAVICONS ICON -->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('librarian/images/fevi.svg') }}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
-    include 'librarian/plugin/plugin_css.php';
+    include 'admin/plugin/plugin_css.php';
     ?>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
@@ -52,7 +52,7 @@
         <!--**********************************
                 Nav header start
             ***********************************-->
-        @include ('librarian.navigation')
+        @include ('admin.navigation')
         <!--**********************************
                 Sidebar end
             ***********************************-->
@@ -197,7 +197,7 @@
                                 @elseif($val->status == "2")
                                 <span class="badge bg-success badge-default m-2"> Arrived</span>
                                 @elseif($val->status == "0")
-                                <span class="badge bg-danger badge-default m-2"> pending</span>
+                                <span class="badge bg-danger badge-default m-2"> Pending</span>
                                 @else
                                 <span class="badge bg-danger badge-default m-2"> Not Arrived</span>
                                 @endif
@@ -310,7 +310,7 @@
     <!--**********************************
                 Footer start
             ***********************************-->
-    @include ('librarian.footer')
+    @include ('admin.footer')
     <!--**********************************
                 Footer end
             ***********************************-->
@@ -329,7 +329,7 @@
             Main wrapper end
         ***********************************-->
     <?php
-    include 'librarian/plugin/plugin_js.php';
+    include 'admin/plugin/plugin_js.php';
     ?>
 </body>
 <script>
@@ -348,7 +348,7 @@ $(document).ready(function() {
 
         console.log(data);
         $.ajax({
-            url: '/librarian/magazinestatuschange',
+            url: '/admin/magazinestatuschange',
             type: 'POST',
             data: data,
             success: function(response) {

@@ -59,8 +59,8 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Magazine Dispatch Report</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="/admin/index">
-                                <i class="fas fa-plus"></i> Dashboard </a>
+                            <!-- <a class="btn btn-primary  btn-sm" href="/admin/index">
+                                <i class="fas fa-plus"></i> Dashboard </a> -->
                         </div>
                     </div>
                 </div>
@@ -72,95 +72,95 @@
 
                             </div>
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label for="slug">Magazine </label>
-                                        <div
-                                            class="dropdown bootstrap-select default-select form-control wide form-control-sm">
+                                <form class="needs-validation" novalidate method="POST"
+                                    action="/admin/Dispatch_magazinereport" enctype="multipart/form-data">
+                                    @csrf
+                                    <!-- Ensure CSRF token is generated -->
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="id">Magazine</label>
                                             <div
                                                 class="dropdown bootstrap-select default-select form-control wide form-control-sm">
-                                                <select id="status" name="status"
-                                                    class="default-select form-control wide form-control-sm"
-                                                    required="" tabindex="null">
+                                                <select id="id" name="id"
+                                                    class="default-select form-control wide form-control-sm" >
                                                     <option value="">Choose any one</option>
-                                                    <option value="">1</option>
-                                                    <option value="">2</option>
-                                                    <option value="">3</option>
+                                                    @php
+                                            $magazines = DB::table('magazines')->where('status','=','1')->get();
+                                            @endphp
+                                                    @foreach($magazines as $val)
+                                                    <option value="{{$val->id}}">{{$val->title}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-xl-4 mb-3">
-                                        <div class="mb-3 row">
-                                            <p class="mb-1"> Month and Year</p>
+                                        <div class="col-md-4">
+                                            <label for="monthyear">Month and Year</label>
                                             <input class="form-control input-daterange-datepicker" type="month"
-                                                name="daterange"min="1918-03" value="01/01/2015 - 01/31/2015">
+                                                id="monthyear" name="monthyear" min="1918-03" required>
                                         </div>
-                                    </div>
-
-                                    <div class="col-md-4">
-                                        <label for="slug">Library Type </label>
-                                        <div
-                                            class="dropdown bootstrap-select default-select form-control wide form-control-sm">
+                                        <div class="col-md-4">
+                                            <label for="Frequency">Frequency</label>
                                             <div
                                                 class="dropdown bootstrap-select default-select form-control wide form-control-sm">
-                                                <select id="" name=""
-                                                    class="default-select form-control wide form-control-sm"
-                                                    required="" tabindex="null">
-                                                    <option value=""> Choose any one</option>
-                                                    <option value="1">1 </option>
-                                                    <option value="0">2</option>
+                                                <select id="Frequency" name="Frequency"
+                                                    class="default-select form-control wide form-control-sm" >
+                                                    <option value="">Choose any one</option>
+                                                    @php
+                                                    $periodicities = DB::table('magazine_periodicities')
+                                                        ->where('status', '=', 1)
+                                                          ->orderBy('created_at', 'Asc')
+                                                           ->get();
+                                                            @endphp
+                                                    @foreach($periodicities as $val)
+                                                    <option value="{{$val->name}}">{{$val->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    
-                                    <div class="col-md-6">
-                                        <label for="slug">Frequency </label>
-                                        <div
-                                            class="dropdown bootstrap-select default-select form-control wide form-control-sm">
+                                        <!-- <div class="col-md-4">
+                                            <label for="librarytype">Library Type</label>
                                             <div
                                                 class="dropdown bootstrap-select default-select form-control wide form-control-sm">
-                                                <select id="" name=""
-                                                    class="default-select form-control wide form-control-sm"
-                                                    required="" tabindex="null">
-                                                    <option value=""> Choose any one</option>
-                                                    <option value="1">1 </option>
-                                                    <option value="0">2</option>
+                                                <select id="librarytype" name="librarytype"
+                                                    class="default-select form-control wide form-control-sm" >
+                                                    <option value="">Choose any one</option>
+                                                    @php
+                                                        $categories = DB::table('library_types')->get();
+                                                        @endphp
+                                                    @foreach($categories as $val)
+                                                    <option value="{{$val->name}}">{{$val->name}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div> -->
 
-                                    
-                                    <div class="col-md-6">
-                                        <label for="slug">Status </label>
-                                        <div
-                                            class="dropdown bootstrap-select default-select form-control wide form-control-sm">
+                              
+
+                                        <!-- <div class="col-md-6">
+                                            <label for="status">Status</label>
                                             <div
                                                 class="dropdown bootstrap-select default-select form-control wide form-control-sm">
                                                 <select id="status" name="status"
-                                                    class="default-select form-control wide form-control-sm"
-                                                    required="" tabindex="null">
-                                                    <option value=""> Choose any one</option>
-                                                    <option value="1">Received </option>
+                                                    class="default-select form-control wide form-control-sm" >
+                                                    <option value="">Choose any one</option>
+                                                    <option value="1">Received</option>
                                                     <option value="0">Not Received</option>
-                                                    <option value="0"> Pending</option>
+                                                  
                                                 </select>
                                             </div>
+                                        </div> -->
+
+                                        <div class="col-xl-12 mt-3 text-end">
+                                            <button type="submit"
+                                                class="dt-button buttons-excel buttons-html5 bg-primary text-white btn btn-sm border-0 mt-3">
+                                                <span><i class="fa-solid fa-file-excel"></i> Export Report
+                                                    download</span>
+                                            </button>
                                         </div>
                                     </div>
+                                </form>
 
-                                    <div class="col-xl-12 mt-3 text-end">
-                                        <button
-                                            class="dt-button buttons-excel buttons-html5 bg-primary text-white btn btn-sm border-0 mt-3"
-                                            tabindex="0" aria-controls="projects-tbl" type="button"><span><i
-                                                    class="fa-solid fa-file-excel"></i> Export Report
-                                                download</span></button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -196,5 +196,19 @@
     include 'admin/plugin/plugin_js.php';
     ?>
 </body>
+@if (Session::has('success'))
 
+<script>
+
+toastr.success("{{ Session::get('success') }}",{timeout:15000});
+
+</script>
+@elseif (Session::has('error'))
+<script>
+
+toastr.error("{{ Session::get('error') }}",{timeout:15000});
+
+</script>
+
+@endif
 </html>

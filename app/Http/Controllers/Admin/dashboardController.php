@@ -16,6 +16,7 @@ use App\Models\PeriodicalDistributor;
 use App\Models\Procurementpaymrnt;
 use App\Models\Specialcategories;
 use App\Models\Book;
+use App\Models\BookReviewStatus;
 
 
 class dashboardController extends Controller
@@ -350,24 +351,36 @@ foreach ($categoryCountsPerCategory as $category => &$countsPerMonth) {
     // Additional metrics for 'metBook'
     $bookTotals['metBooktotal'] = Book::where('book_procurement_status', '=', '1')->count();
     $bookTotals['metassignooktotal'] = Book::where('book_reviewer_id', '!=', null)
-                                            ->where('book_status', '!=', null)
+                                           
                                             ->where('book_procurement_status', '=', '1')
                                             ->count();
     $bookTotals['metcomooktotal'] = Book::where('book_reviewer_id', '!=', null)
                                          ->where('book_status', '=', '1')
                                          ->where('book_procurement_status', '=', '1')
                                          ->count();
-    $bookTotals['metnotcomooktotal'] = Book::where('book_reviewer_id', '!=', null)
-                                            ->where('book_status', '!=', '1')
-                                            ->where('book_procurement_status', '=', '1')
-                                            ->count();
+    $bookTotals['metrejooktotal'] = Book::whereNotNull('book_reviewer_id')
+                                         ->where('book_status', '=', '0')
+                                         ->where('book_procurement_status', '=', '1')
+                                         ->count();                                    
+   
+     $bookTotals['metnotcomooktotal'] = Book::where('book_procurement_status', 1)
+    ->whereNotNull('book_reviewer_id')
+    ->where(function ($query) {
+        $query->whereNull('book_status')
+              ->orWhere('book_status', 2)
+              ->orWhere('book_status', 3);
+    })
+    ->count();
     
 
     
     
-
-
-
+   $metacompletecount = Book::where('book_reviewer_id','!=',Null)->where('book_status','=',1)->where('book_procurement_status','=','1')->count();
+     
+    $reviewerCompleteCount = BookReviewStatus::
+         distinct('book_id')
+         ->count();
+   
 
 
 
@@ -380,7 +393,7 @@ foreach ($categoryCountsPerCategory as $category => &$countsPerMonth) {
    'allpubdist','activepubdist','inactivepubdist','categoryCountsPerCategory', 'allpubdistcount','activepubdistcount','inactivepubdistcount',
    'allperpub','activeperpub','inactiveperpub','allperpubcount','activeperpubcount','inactiveperpubcount','allperdist','activeperdist',
    'inactiveperdist','allperdistcount','activeperdistcount','inactiveperdistcount','total_periodical_pay','pub_periodical_pay','dis_periodical_pay','total_book_pay','pub_book_pay','dis_book_pay','pubdis_book_pay'
-   ,'bookTotals')
+   ,'bookTotals','reviewerCompleteCount')
    );
 }
 }

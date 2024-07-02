@@ -1,36 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="keywords" content="">
-	<meta name="author" content="">
-	<meta name="robots" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta property="og:title" content="">
-	<meta property="og:description" content="">
-	<meta property="og:image" content="">
-	<meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <meta name="format-detection" content="telephone=no">
 
-	<!-- PAGE TITLE HERE -->
+    <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement - paymet Invoice</title>
-	<!-- FAVICONS ICON -->
+    <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
         include "admin/plugin/plugin_css.php";
     ?>
 </head>
+
 <body>
 
     <!--*******************
         Preloader start
     ********************-->
     <div id="preloader">
-		<div class="text-center">
-			<img src="images/goverment_loader.gif" alt="" width="25%">
-		</div>
+        <div class="text-center">
+            <img src="images/goverment_loader.gif" alt="" width="25%">
+        </div>
     </div>
     <!--*******************
         Preloader end
@@ -45,28 +46,28 @@
         ***********************************-->
         @include ('admin.navigation')
 
-		<!--**********************************
+        <!--**********************************
             Sidebar end
         ***********************************-->
-		<!--**********************************
+        <!--**********************************
             Content body start
         ***********************************-->
         <div class="content-body">
-        <div class="container-fluid">
+            <div class="container-fluid">
 
                 <div class="row">
                     <div class="col-lg-12">
 
                         <div class="card mt-3">
                             <!-- <div class="card-header"> Invoice <strong><span class="badge bg-primary"><i class="fa fa-print"></i></span><span class="badge bg-primary"><i class="bi bi-file-excel"></i></span> </strong> <span class="float-end"> -->
-                                    <!-- <strong>Status:</strong> Pending</span> </div> -->
-                                    <div class="card-header">
-                                            <div class="d-flex">
-                                                <p>Status :  <span class="text-danger"> {{$data->paymentstatus}}</span> </p>
-                                            </div>
-                                        <button class="btn btn-primary print-button" onclick="printDiv()">Print</button>
-                                    </div>
-                                    <div class="card-body">
+                            <!-- <strong>Status:</strong> Pending</span> </div> -->
+                            <div class="card-header">
+                                <div class="d-flex">
+                                    <p>Status : <span class="text-danger"> {{$data->paymentstatus}}</span> </p>
+                                </div>
+                                <button class="btn btn-primary print-button" onclick="printDiv()">Print</button>
+                            </div>
+                            <div class="card-body">
                                 <!-- <div class="row mb-5">
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                         <h6>From:</h6>
@@ -104,9 +105,13 @@
                                             <thead>
                                                 <tr>
                                                     <th class="center">S.No</th>
-                                                    <th>Name of Publication</th>
+                                                    <!-- <th>Name of Publication</th> -->
                                                     <th>Book Name</th>
                                                     <th>Book Id</th>
+                                                    <th>Name of Publication</th>
+                                                    <th>User Type</th>
+                                                    <th>Merchant Ref Number</th>
+                                                    <th>Invoice Number</th>
                                                     <th class="right">amount</th>
                                                     <th class="center">Qty</th>
                                                     <th class="right">Total Amount</th>
@@ -114,18 +119,22 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($data->bookdata as $val)
+                                                @foreach($data->bookdata as $val)
                                                 <tr>
                                                     <td class="center">{{$loop->index+1}}</td>
 
                                                     <td class="left strong">{{$val['bookname']}}</td>
                                                     <td class="left">{{$val['booknum']}}</td>
-                                                
+                                                    <td>{{$data->userName}}</td>
+                                                    <td>{{$data->userType}}</td>
+                                                    <td>{{$data->txnrefno}}</td>
+                                                    <td>{{$data->invoiceNumber}}</td>
                                                     <td class="right"><i class="fa fa-inr"></i>{{$data->amount}}</td>
                                                     <td class="right">{{$data->totalAmount /   $data->amount}}</td>
-                                                    <td class="right"> <i class="fa fa-inr"></i> {{$data->totalAmount }}</td>
+                                                    <td class="right"> <i class="fa fa-inr"></i> {{$data->totalAmount }}
+                                                    </td>
                                                 </tr>
-                                            @endforeach
+                                                @endforeach
 
                                             </tbody>
                                         </table>
@@ -149,7 +158,8 @@
                                                     </tr> -->
                                                     <tr>
                                                         <td class="left"><strong>Total</strong></td>
-                                                        <td class="left"> <i class="fa fa-inr"></i> <strong>{{$data->totalAmount}}</strong><br>
+                                                        <td class="left"> <i class="fa fa-inr"></i>
+                                                            <strong>{{$data->totalAmount}}</strong><br>
                                                             <!-- <strong>0.15050000</strong></td> -->
                                                     </tr>
                                                 </tbody>
@@ -160,7 +170,8 @@
                                 <div class="row">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <a class="btn btn-primary btn-sm" href="procurement_payment"><i class="fas fa-arrow-left"></i> Back</a>
+                                            <a class="btn btn-primary btn-sm" href="procurement_payment"><i
+                                                    class="fas fa-arrow-left"></i> Back</a>
                                         </div>
                                     </div>
                                 </div>
@@ -169,53 +180,54 @@
                     </div>
                 </div>
             </div>
-            </div>
         </div>
-        <!--**********************************
+    </div>
+    <!--**********************************
             Content body end
         ***********************************-->
-        <!--**********************************
+    <!--**********************************
             Footer start
         ***********************************-->
-        @include ("admin.footer")
-        <!--**********************************
+    @include ("admin.footer")
+    <!--**********************************
             Footer end
         ***********************************-->
 
-		<!--**********************************
+    <!--**********************************
            Support ticket button start
         ***********************************-->
 
-        <!--**********************************
+    <!--**********************************
            Support ticket button end
         ***********************************-->
 
 
-	</div>
+    </div>
     <!--**********************************
         Main wrapper end
     ***********************************-->
     <?php
         include "admin/plugin/plugin_js.php";
     ?>
-        <script>
-        function printDiv() {
-            var printContents = document.getElementById('printableArea').innerHTML;
-            var originalContents = document.body.innerHTML;
+    <script>
+    function printDiv() {
+        var printContents = document.getElementById('printableArea').innerHTML;
+        var originalContents = document.body.innerHTML;
 
-            document.body.innerHTML = printContents;
+        document.body.innerHTML = printContents;
 
-            window.print();
+        window.print();
 
-            document.body.innerHTML = originalContents;
-            location.reload(); // Reload the page to restore the original content
-        }
+        document.body.innerHTML = originalContents;
+        location.reload(); // Reload the page to restore the original content
+    }
     </script>
-    
+
 </body>
+
 </html>
 <style>
-    .table thead th {
-     text-transform: math-auto !important;
- }
- </style>
+.table thead th {
+    text-transform: math-auto !important;
+}
+</style>

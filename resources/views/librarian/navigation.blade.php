@@ -481,10 +481,13 @@
                                 </a>
                                 <ul aria-expanded="false">
                                     <li><a href="/librarian/magazine-order-list">Order List </a></li>
+                                    <li><a href="/librarian/magazine_order_supply_list">Supply Order List</a></li>
+
+                                    <li><a href="/librarian/magazine_complete_list">Completed Order List</a></li>
                                     <li><a href="/librarian/magazine_order_reject">Cancelled Order List</a></li>
 
+                            
                                     <!-- <li><a href="/librarian/magazine_order_pending">Pending Order List</a></li>
-                                        <li><a href="/librarian/manage_completed_order_list">Completed Order List</a></li>
                                         <li><a href="/librarian/magazine_order_reject">Rejected Order List</a></li> -->
                                 </ul>
                             </li>

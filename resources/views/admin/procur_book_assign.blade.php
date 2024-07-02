@@ -125,6 +125,7 @@
                                  <th>S.No</th>
                                  <th>Book Name</th>
                                  <th>Language</th>
+                                 <th>Category</th>
                                  <th>Subject</th>
                                  <th>Publication Name</th>
                                         
@@ -170,6 +171,7 @@
             @else 
                 <td>{{ $val->language }}</td>
             @endif
+            <td>{{ $val->category }}</td>
             <td>{{ $val->subject }}</td>
             <td>{{$val->nameOfPublisher}}</td>
     </tr>

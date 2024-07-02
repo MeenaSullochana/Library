@@ -427,10 +427,10 @@
                                                     <p>{{ $data->place }}</p>
                                                 </div>
                                                 <div class="item p-1 text-center">
-                                                    <p class="text-danger fw-bold"> Print length </p>
+                                                    <p class="text-danger fw-bold">Paper Size </p>
                                                     <img src="https://img.icons8.com/?size=50&id=1408&format=png"
                                                         style="width:50px">
-                                                    <p>{{ $data->pages }}</p>
+                                                    <p>{{ $data->size }}</p>
                                                 </div>
                                                 <div class="item p-1 text-center">
 
@@ -873,11 +873,7 @@
                                                 <div class="author_description">
                                                     <h3 class="mb-0 ms-2">{{ $data->author_name }}</h3>
                                                     <p style="text-indent:35px" class="author-info">
-                                                        @php
-                                                            // Truncate the text to a certain length
-                                                                $truncatedText = Str::limit($data->author_description, 300);
-                                                        @endphp
-                                                        {{ strip_tags($truncatedText) }}</p>
+                                                    {!! $data->author_description !!} </p>
                                                 </div>
                                             </div>
                                         </div>

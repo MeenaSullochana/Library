@@ -82,6 +82,7 @@
                                                 <th>Title</th>
                                                 <th>RNI</th>
                                                 <th>Name Of Publication</th>
+                                                <th> Name Of The Vendor</th>
                                                 <th>Mobile Number</th>
                                                 <th>Issued Status</th>
                                                 <th> Action</th>
@@ -107,6 +108,9 @@
 
                                                 
                                                @endphp
+                                               <td>
+                                                    <span>{{$data1->publicationName}}</span>
+                                                </td>
                                                 <td>
                                                     <span>{{$data1->mobileNumber}}</span>
                                                 </td>
@@ -116,6 +120,9 @@
 
                                                 
                                                 @endphp
+                                                <td>
+                                                <span>{{$data2->distributionName}}</span>
+                                                </td>
                                                 <td>
                                                 <span>{{$data2->mobileNumber}}</span>
                                                 </td>

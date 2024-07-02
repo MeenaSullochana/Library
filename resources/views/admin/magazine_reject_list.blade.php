@@ -174,7 +174,7 @@
                                              @endforeach
                                             </select>
                             </div>
-                            <div class="col-xl-3 col-sm-6 mt-4 text-end">
+                            <!-- <div class="col-xl-3 col-sm-6 mt-4 text-end">
                                 
                             <a href="/admin/report_downl_order">
             <button class="btn btn-primary">
@@ -184,7 +184,7 @@
                                     
                                         
                                         
-                                    </div>
+                                    </div> -->
                              
                          </div>
                                 <hr>

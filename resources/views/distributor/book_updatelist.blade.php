@@ -253,7 +253,8 @@
     $(document).ready(function () {
         var deleteId;
 
-        $('.delete-btn').on('click', function () {
+        $('#example4').on('click', '.delete-btn', function() {
+
             deleteId = $(this).data('id');
             $('#basicModal').modal('show');
         });

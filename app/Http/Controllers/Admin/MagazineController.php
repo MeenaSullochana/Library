@@ -548,6 +548,19 @@ public function procurement_sampleperiodicalcomplete(){
   return view('admin.procurement_sampleperiodicalcomplete')->with('data',$data); 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   

@@ -24,7 +24,7 @@ use App\Models\ApplicationApply;
 use App\Models\Distributor;
 use App\Models\PublisherDistributor; 
 use App\Models\bookcopies;
-
+use DB;
 
 class BookController extends Controller
 {
@@ -33,9 +33,15 @@ class BookController extends Controller
 public function bookmanageall(){
       
   $data = Book::
-  where('book_active_status', '=', '1')
+  where('book_active_status', '=', 1)
+  ->where('marks', '>=', 40)
   ->orderBy('marks', 'desc')
+ 
   ->get();
+
+
+
+
       return view('admin.book_manage_all')->with('data',$data);   
 }
 
@@ -79,52 +85,112 @@ public function bookmanageview($id){
 
 
 
+public function meta_book_list() {
+  $data = Book::where("book_procurement_status", '=', 1)
+              ->whereNull("book_reviewer_id")
+              ->get();
+  
+  $existingBooks = Book::where("book_procurement_status", '=', 1)
+                       ->pluck('book_title', 'isbn');
+
+  $existingTitles = $existingBooks->map(function ($title) {
+      return [
+          'english' => $this->processBookTitle($title),
+          'tamil' => $this->processBookTitle($this->translateToTamil($title)) // Assuming a translate function
+      ];
+  });
+
+  // Check each book for title and ISBN uniqueness
+  foreach ($data as $val) {
+      $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks);
+  }
+  
+  // Return view with the processed data
+  return view('admin.meta_book_list')->with('data', $data);
+}
+
+private function processBookTitle($title) {
+  $title = trim($title);
+  $title = preg_replace('/(?<!^)[A-Z]/', '_$0', $title);
+  $title = preg_replace('/\s+/', '', $title);
+  $title = strtolower($title);
+  return preg_replace('/[^a-zA-Z0-9]/', '', $title);
+}
+
+private function translateToTamil($title) {
+  // Implement your translation logic here
+  // Example: return translated title
+}
+
+public function checkBookTitle($data, $existingTitles, $existingBooks) {
+  // Process new book title for comparison
+  $newBookTitle = $this->processBookTitle($data->book_title);
+  
+  // Count occurrences of the processed title in existing titles
+  $titleCount = $existingTitles->filter(function ($titles) use ($newBookTitle) {
+      return $titles['english'] === $newBookTitle || $titles['tamil'] === $newBookTitle;
+  })->count();
+  
+  // Count occurrences of the ISBN in existing ISBNs
+  $isbnCount = $existingBooks->filter(function ($isbn) use ($data) {
+      return $isbn === $data->isbn;
+  })->count();
+  
+  // Determine uniqueness based on counts
+  if ($titleCount > 1) {
+      return "duplicate";
+  } elseif ($isbnCount > 1) {
+      return "repeated";
+  } else {
+      return "unique";
+  }
+}
 
 
 
   
 
-public function meta_book_list(){
- $data=Book::where("book_procurement_status",'=',1)->where("book_reviewer_id",'=',null)->get();
- $arrdata=[];
- foreach($data as $key=>$val){
-  $check = $this->checkBookTitle($val);
-  $val->check = $check;
+// public function meta_book_list(){
+//  $data=Book::where("book_procurement_status",'=',1)->where("book_reviewer_id",'=',null)->get();
+//  $arrdata=[];
+//  foreach($data as $key=>$val){
+//   $check = $this->checkBookTitle($val);
+//   $val->check = $check;
     
- }
-  return view('admin.meta_book_list')->with('data',$data);
-}
+//  }
+//   return view('admin.meta_book_list')->with('data',$data);
+// }
 
-public function checkBookTitle($data)
-{
-    $newBookTitle = trim($data->book_title);
+// public function checkBookTitle($data)
+// {
+//     $newBookTitle = trim($data->book_title);
 
-    $processedNewTitle = preg_replace('/[^a-zA-Z0-9]/', '', strtolower(preg_replace('/\s+/', '', preg_replace('/(?<!^)[A-Z]/', '_$0', $newBookTitle))));
+//     $processedNewTitle = preg_replace('/[^a-zA-Z0-9]/', '', strtolower(preg_replace('/\s+/', '', preg_replace('/(?<!^)[A-Z]/', '_$0', $newBookTitle))));
 
-    $existingTitles = Book::pluck('book_title')->where("book_procurement_status",'=',1)->map(function ($title) {
-        return preg_replace('/[^a-zA-Z0-9]/', '', strtolower(trim($title)));
-    });
-    $c=0;
-    foreach($existingTitles as $key=>$val){
-      if($val == $processedNewTitle){
-        $c = $c+1;
-      }
-      else{
-        $c= $c;
-      }
-    }
-    $isbn = Book::where('isbn',"=",$data->isbn)->get();
-   $count = count($isbn);
-   if($c >1){
-    return "duplicate"; 
-   }else if($count >1){
-         return "repeated";
-   }else{
-         return "unique";
-   }
+//     $existingTitles = Book::pluck('book_title')->where("book_procurement_status",'=',1)->map(function ($title) {
+//         return preg_replace('/[^a-zA-Z0-9]/', '', strtolower(trim($title)));
+//     });
+//     $c=0;
+//     foreach($existingTitles as $key=>$val){
+//       if($val == $processedNewTitle){
+//         $c = $c+1;
+//       }
+//       else{
+//         $c= $c;
+//       }
+//     }
+//     $isbn = Book::where('isbn',"=",$data->isbn)->get();
+//    $count = count($isbn);
+//    if($c >1){
+//     return "duplicate"; 
+//    }else if($count >1){
+//          return "repeated";
+//    }else{
+//          return "unique";
+//    }
 
 
-}
+// }
   public function metabooks($role){
   $query = Book::where("book_procurement_status", '=', 1)
       ->where("book_reviewer_id", '=', null);
@@ -134,11 +200,20 @@ public function checkBookTitle($data)
   }
 
   $data = $query->get();
-  foreach($data as $key=>$val){
-    $check = $this->checkBookTitle($val);
-    $val->check = $check;
-      
-   }
+  $existingBooks = Book::where("book_procurement_status", '=', 1)
+                       ->pluck('book_title', 'isbn');
+
+  $existingTitles = $existingBooks->map(function ($title) {
+      return [
+          'english' => $this->processBookTitle($title),
+          'tamil' => $this->processBookTitle($this->translateToTamil($title)) // Assuming a translate function
+      ];
+  });
+
+  // Check each book for title and ISBN uniqueness
+  foreach ($data as $val) {
+      $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks);
+  }
   $tbodyHtml = '';
 
   if ($data->isEmpty()) {
@@ -730,6 +805,7 @@ public function get_books($id)
                     <td>' . ($i) . '</td>
                     <td><small>' . $val->book_title . '</small></td>
                     <td>' .$language . '</td>
+                       <td>' .$val->category . '</td>
                     <td>' .$val->subject . '</td>
                     <td>' .$val->nameOfPublisher . '</td>
                 </tr>';
@@ -1355,68 +1431,458 @@ public function procurement_samplebookcomplete(){
   return view('admin.procurement_samplebookcomplete')->with('data',$data); 
 }
 
-public function master_book_data(){
-  $book = Book::get();
-  $data=[];
-  foreach($book as $key=>$val){
-    if($val->book_reviewer_id != null){
-      $Librarian  =Librarian::find($val->book_reviewer_id);  
-      if($Librarian !=null){
-        $val->reviewername= $Librarian->librarianName;
-      }else{
-        $val->reviewername="No Review";
-      }
+// public function master_book_data(){
+//   $data = Book::get();
+//   // $data=[];
+//   foreach($data as $key=>$val){
+//     if($val->book_reviewer_id != null){
+//       $Librarian  =Librarian::find($val->book_reviewer_id);  
+//       if($Librarian !=null){
+//         $val->reviewername= $Librarian->librarianName;
+//       }else{
+//         $val->reviewername="No Review";
+//       }
    
-     }else{
-      $val->reviewername="No Review";
-    }
-   if($val->book_procurement_status == "1" || $val->book_procurement_status == "5" ||  $val->book_procurement_status == "6"){
-    $val->paystatus= "Success";
-   }else{
-    $val->paystatus= "No Payment";
-   }
-   
-
-   if($val->book_status == "1" ){
-    $val->revstatus= "Success";
-   }elseif($val->book_status == "0" ){
-    $val->revstatus= "Reject";
-   }elseif($val->book_status == "2" ){
+//      }else{
+//       $val->reviewername="No Review";
+//     }
+//    if($val->book_procurement_status == "1" || $val->book_procurement_status == "5" ||  $val->book_procurement_status == "6"){
+//     $val->paystatus= "Success";
+//    }else{
+//     $val->paystatus= "No Payment";
+//    }
    
 
-    $val->revstatus= "Returned To User Correction";
-   }
-   elseif($val->book_status == "3" ){
-    $val->revstatus= "Book Update To Return";
-   }else{
-    $val->revstatus= "No Review";
-   }
+//    if($val->book_status == "1" ){
+//     $val->revstatus= "Success";
+//    }elseif($val->book_status == "0" ){
+//     $val->revstatus= "Reject";
+//    }elseif($val->book_status == "2" ){
+   
 
-array_push($data,$val);
+//     $val->revstatus= "Returned To User Correction";
+//    }
+//    elseif($val->book_status == "3" ){
+//     $val->revstatus= "Book Update To Return";
+//    }else{
+//     $val->revstatus= "No Review";
+//    }
 
+// // array_push($data,$val);
+
+//   }
+
+//   return view('admin.master_book_data')->with('data',$data); 
+
+// }
+public function master_book_data(Request $request) {
+  // Use eager loading to reduce the number of queries
+  $query = Book::with('librarian');
+
+  // Apply filters
+  if ($request->has('language_filter') && $request->language_filter != '') {
+      $query->where('language', $request->language_filter);
   }
 
-  return view('admin.master_book_data')->with('data',$data); 
+  if ($request->has('subject_filter') && $request->subject_filter != '') {
+      $query->where('subject', $request->subject_filter);
+  }
 
+  if ($request->has('category_filter') && $request->category_filter != '') {
+      $query->where('category', $request->category_filter);
+  }
+
+  if ($request->has('payment_filter') && $request->payment_filter != '') {
+      if ($request->payment_filter == 'Success') {
+          $query->whereIn('book_procurement_status', ['1', '5', '6']);
+      } else {
+          $query->whereNotIn('book_procurement_status', ['1', '5', '6']);
+      }
+  }
+
+  if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
+  
+
+    switch ($request->metachecking_filter) {
+        case 'Success':
+            $query->where('book_status', '1');
+            break;
+        case 'Reject':
+            $query->where('book_status', '0');
+            break;
+        case 'Returned To User Correction':
+            $query->where('book_status', '2');
+            break;
+        case 'Book Update To Return':
+            $query->where('book_status', '3');
+            break;
+        case 'No Review':
+            $query->where('book_status', null);
+            break;
+    }
 }
 
 
-public function get_datarec(){
- $reviewers1 = Reviewer::where('reviewerType', '=', 'external')
-               ->where('status', '=', 1)
-                  ->get();
+  if ($request->has('search') && $request->search != '') {
+      $query->where('book_title', 'like', '%' . $request->search . '%')
+            ->orWhere('isbn', 'like', '%' . $request->search . '%');
+  }
 
-  foreach($reviewers1 as $key=>$val){
-    $reviewers = Reviewer::find($val->id);
-    $subjects = json_decode($val->subject,true);
-    $subjectsArray = json_decode($subjects, true);
+  $data = $query->paginate(15); // Adjust the number of records per page as needed
+
+  $procurementStatuses = ["1", "5", "6"];
+  $bookStatusLabels = [
+      "1" => "Success",
+      "0" => "Reject",
+      "2" => "Returned To User Correction",
+      "3" => "Book Update To Return"
+  ];
+
+  foreach ($data as $val) {
+      $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+      $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+      $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+  }
+
+  return view('admin.master_book_data', compact('data'));
+}
+
+
+public function reviewer_reviewrec(){
+  $metBooktotal = Book::where('book_procurement_status','=','1')->count();
+  $metassignooktotal = Book::where('book_reviewer_id','!=',Null)->where('book_procurement_status','=','1')->count();
+  $metcomooktotal = Book::whereNotNull('book_reviewer_id')->where('book_status','=','1')->where('book_procurement_status','=','1')->count();
+  $metnotcomooktotal =Book::where('book_procurement_status', 1)
+  ->whereNotNull('book_reviewer_id')
+  ->where(function ($query) {
+      $query->whereNull('book_status')
+            ->orWhere('book_status', 2)
+            ->orWhere('book_status', 3);
+  })
+  ->count();
+  $reviewer=(Object)[
+   'metBooktotal'=>$metBooktotal,
+   'metassignooktotal'=>$metassignooktotal,
+   'metcomooktotal'=>$metcomooktotal,
+   'metnotcomooktotal'=>$metnotcomooktotal,
+ ];
+ $data=[];
+ $reviewers = Librarian::where('metaChecker','yes')->where('status','1')->get();
+
+ foreach($reviewers as $key=>$val){
+  
+  $BookReview = Book::where('book_reviewer_id','=',$val->id)->where('book_procurement_status','=','1')->count();
+  $BookReviewcom = Book::where('book_reviewer_id','=',$val->id)->where('book_procurement_status','=','1')->where('book_status','=','1')->count();
+  $BookReviewpen =Book::where('book_procurement_status', 1)
+  ->where('book_reviewer_id','=',$val->id)
+  ->where(function ($query) {
+      $query->whereNull('book_status')
+            ->orWhere('book_status', 2)
+            ->orWhere('book_status', 3);
+  })  ->count();
+
+
+  // $BookReview= BookReviewStatus::where('reviewer_id',$val->id)->get();
+  // $BookReviewcom= BookReviewStatus::where('reviewer_id',$val->id)->where('mark','!=',Null)->get();
+  // $BookReviewpen= BookReviewStatus::where('reviewer_id',$val->id)->where('mark','=',Null)->get();
+   
+  $val->BookReview       =$BookReview;
+  $val->BookReviewcom    =$BookReviewcom;
+  $val->BookReviewpen    =$BookReviewpen;
+
+
+
+  array_push($data,$val);
+
+ }
+
+ return view('admin.metacheck_data',compact('data','reviewer')
+ );
+
+
+
  
-    $reviewers->subject=    json_encode($subjectsArray);
-    $reviewers->save();
+}
 
 
-   }
+// public function reviwer_datarec(){
+
+//   $reviewers= Reviewer::where('reviewerType', '=', 'external')
+//   ->where('status', '=', 1)
+//      ->get();
+//      $data=[];
+//   foreach($reviewers as $key=>$val){
+//    $BookReview= BookReviewStatus::where('reviewer_id',$val->id)->get();
+//   $BookReviewcom= BookReviewStatus::where('reviewer_id',$val->id)->where('mark','!=',Null)->get();
+//   $BookReviewpen= BookReviewStatus::where('reviewer_id',$val->id)->where('mark','=',Null)->get();
+//   $val->BookReview       =count($BookReview);
+//   $val->BookReviewcom    =count($BookReviewcom);
+//   $val->BookReviewpen    =count($BookReviewpen);
+//   array_push($data,$val);
+
+// }
+
+// $reviewers1= Reviewer::where('reviewerType', '=', 'internal')
+// ->where('status', '=', 1)
+//    ->get();
+//    $data1=[];
+// foreach($reviewers1 as $key=>$val){
+//  $BookReview= BookReviewStatus::where('reviewer_id',$val->id)->get();
+// $BookReviewcom= BookReviewStatus::where('reviewer_id',$val->id)->where('mark','!=',Null)->get();
+// $BookReviewpen= BookReviewStatus::where('reviewer_id',$val->id)->where('mark','=',Null)->get();
+// $val->BookReview       =count($BookReview);
+// $val->BookReviewcom    =count($BookReviewcom);
+// $val->BookReviewpen    =count($BookReviewpen);
+// array_push($data1,$val);
+
+// }
+
+// $reviewers2= Reviewer::where('reviewerType', '=', 'public')
+// ->where('status', '=', 1)
+//    ->get();
+//    $data2=[];
+// foreach($reviewers2 as $key=>$val){
+//  $BookReview= BookReviewStatus::where('reviewer_id',$val->id)->get();
+// $BookReviewcom= BookReviewStatus::where('reviewer_id',$val->id)->where('mark','!=',Null)->get();
+// $BookReviewpen= BookReviewStatus::where('reviewer_id',$val->id)->where('mark','=',Null)->get();
+// $val->BookReview       =count($BookReview);
+// $val->BookReviewcom    =count($BookReviewcom);
+// $val->BookReviewpen    =count($BookReviewpen);
+// array_push($data2,$val);
+
+// }
+
+// $metacompletecount = Book::where('book_reviewer_id','!=',Null)->where('book_status','=',1)->where('book_procurement_status','=','1')->count();
+     
+// $reviewerassignCount = BookReviewStatus::
+//      distinct('book_id')
+//      ->count();
+ 
+//     $count = count( $reviewers) + count( $reviewers1)+count( $reviewers2);
+// return view('admin.reviwer_data',compact('data','data1','data','metacompletecount','reviewerassignCount')
+// );
+
+
+
+// }
+public function reviwer_datarec() {
+  $results = DB::table('reviewer as r')
+      ->select(
+          'r.id',
+          'r.name',
+          'r.subject',
+          'r.reviewerType',
+          DB::raw('COUNT(br.reviewer_id) AS book_reviews_count '),
+          DB::raw('COUNT(CASE WHEN br.mark IS NOT NULL THEN 1 END) AS BookReviewcom'),
+          DB::raw('COUNT(CASE WHEN br.mark IS NULL THEN 1 END) AS BookReviewpen')
+      )
+      ->leftJoin('book_review_statuses as br', 'r.id', '=', 'br.reviewer_id')
+      ->where('r.status', 1)
+      ->whereIn('r.reviewerType', ['external', 'internal', 'public'])
+      ->groupBy('r.id', 'r.name', 'r.subject', 'r.reviewerType')
+      ->get();
+
+  // Ensure $results is not null or empty
+  if ($results->isEmpty()) {
+      // Handle empty results if needed
+      return view('admin.reviwer_data', [
+          'data' => collect(),
+          'data1' => collect(),
+          'data2' => collect(),
+          'metacompletecount' => 0,
+          'reviewerassignCount' => 0,
+          'count' => 0
+      ]);
+  }
+
+  // Filter the results based on reviewer type
+  $data = $results->filter(function ($item) {
+      return $item->reviewerType == 'external';
+  });
+
+  $data1 = $results->filter(function ($item) {
+      return $item->reviewerType == 'internal';
+  });
+
+  $data2 = $results->filter(function ($item) {
+      return $item->reviewerType == 'public';
+  });
+
+  $metacompletecount = Book::whereNotNull('book_reviewer_id')
+                          ->where('book_status', 1)
+                          ->where('book_procurement_status', 1)
+                          ->count();
+
+  $reviewerassignCount = BookReviewStatus::distinct('book_id')->count();
+
+  $count = $data->count() + $data1->count() + $data2->count();
+
+  return view('admin.reviwer_data', compact('data', 'data1', 'data2', 'metacompletecount', 'reviewerassignCount', 'count'));
+}
+
+
+
+
+public function master_book_datareport(Request $request) {
+
+  // Use eager loading to reduce the number of queries
+  $query = Book::with('librarian');
+
+  // Apply filters
+  if ($request->has('language_filter') && $request->language_filter != '') {
+      $query->where('language', $request->language_filter);
+  }
+
+  if ($request->has('subject_filter') && $request->subject_filter != '') {
+      $query->where('subject', $request->subject_filter);
+  }
+
+  if ($request->has('category_filter') && $request->category_filter != '') {
+      $query->where('category', $request->category_filter);
+  }
+
+  if ($request->has('payment_filter') && $request->payment_filter != '') {
+      if ($request->payment_filter == 'Success') {
+          $query->whereIn('book_procurement_status', ['1', '5', '6']);
+      } else {
+          $query->whereNotIn('book_procurement_status', ['1', '5', '6']);
+      }
+  }
+
+  if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
+  
+
+    switch ($request->metachecking_filter) {
+        case 'Success':
+            $query->where('book_status', '1');
+            break;
+        case 'Reject':
+            $query->where('book_status', '0');
+            break;
+        case 'Returned To User Correction':
+            $query->where('book_status', '2');
+            break;
+        case 'Book Update To Return':
+            $query->where('book_status', '3');
+            break;
+        case 'No Review':
+            $query->where('book_status', null);
+            break;
+    }
+}
+
+
+  if ($request->has('search') && $request->search != '') {
+      $query->where('book_title', 'like', '%' . $request->search . '%')
+            ->orWhere('isbn', 'like', '%' . $request->search . '%');
+  }
+
+  $data = $query->get(); // Adjust the number of records per page as needed
+
+  $procurementStatuses = ["1", "5", "6"];
+  $bookStatusLabels = [
+      "1" => "Success",
+      "0" => "Reject",
+      "2" => "Returned To User Correction",
+      "3" => "Book Update To Return"
+  ];
+
+  foreach ($data as $val) {
+      $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+      $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+      $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+  }
+
+
+
+  $actotal = 0;
+     $inactotal = 0;
+     $finaldata = [];
+     $serialNumber = 1;
+     foreach ($data as $val) {
+  
+      
+
+    
+         $finaldata[] = [
+            'S.No' =>  $serialNumber ++,
+            "Book ID"=> $val->product_code,
+            "Book Title"=> $val->book_title,
+            "Book ISBN"=> $val->isbn,
+            "Language of the Book"=> $val->language,
+            "Author Details"=> $val->author_name,
+            "Edition Number"=> $val->edition_number,
+            "Name of Publisher"=> $val->nameOfPublisher,
+            "Year of Publication"=> $val->yearOfPublication,
+            "Place of Publication"=> $val->place,
+            "Subject"=> $val->subject,
+            "Category"=> $val->category,
+            "Binding"=> $val->type,
+            "Size "=> $val->size,
+            "Length x Breadth(in Centimeters)"=> $val->length  *  $val->breadth,
+            "Width(in Centimeters) "=> $val->width,
+            "Weight(in grams)"=> $val->weight,
+            "GSM (Number)"=> $val->gsm,
+            "Type of Paper"=> $val->quality,
+            "Paper Finishing"=> $val->paper_finishing,
+            "Total Number of Pages"=> $val->pages,
+            "Number of Multicolor Pages"=> $val->multicolor,
+            "Number of Mono Color Pages"=> $val->monocolor,
+            "Currency Type"=> $val->currency_type,
+            "Price"=> $val->price,
+            "Discount Offer(%)"=>$val->discount ,
+            "Discounted Price"=> $val->discountedprice,
+            "Payment Status "=> $val->paystatus,
+            "Meta checking Status "=> $val->revstatus,
+            "Meta checker Name"=> $val->reviewername,
+                                      
+        ];
+      
+
+
+      
+     }
+     
+     $csvContent ="\xEF\xBB\xBF"; 
+     $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status ,Meta checking Status,Meta checker Name\n"; 
+     foreach ($finaldata as $data) {
+         $csvContent .= '"' . implode('","', $data) ."\"\n";
+     }
+
+     $headers = [
+         'Content-Type' => 'text/csv; charset=utf-8',
+         'Content-Disposition' => 'attachment; filename="masterbookdata.csv"',
+     ];
+
+     return response()->make($csvContent, 200, $headers);
+
+ 
+}
+
+public function categoryupdate(Request $req){
+  $book = Book::find($req->id);
+  $book->category=$req->category;
+  $book->update();
+
+  $data= [
+    'success' => 'Category Updated Successfully',
+         ];
+return response()->json($data);  
+
 
 }
+public function subjectupdate(Request $req){
+  
+  $book = Book::find($req->id);
+  $book->subject=$req->subject;
+  $book->update();
+    $data= [
+    'success' => 'Subject Updated Successfully',
+         ];
+return response()->json($data);   
+
+
+}
+
 
     } 

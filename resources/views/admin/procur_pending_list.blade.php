@@ -133,7 +133,7 @@
                                 <thead>
                                     <tr role="row">
                                         {{-- <th class="sorting_asc" tabindex="0" aria-controls="empoloyees-tbl3"
-                                        rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column descending" style="width: 25.375px;">
+                                        rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column descending" style="min-width: 100px">
                                         <div class="form-check custom-checkbox ms-0">
                                             <input type="checkbox" class="form-check-input checkAllInput"
                                                 id="checkAll2" required="">
@@ -150,6 +150,16 @@
                                         colspan="1"
                                         aria-label="Books: activate to sort column ascending"
                                         style="width: 145.219px;">Book Title</th>
+                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
+                                        colspan="1"
+                                        aria-label="ISBN(10/13): activate to sort column ascending"
+                                        style="width: 126.609px;">Caegory</th>     
+                                         <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
+                                        colspan="1"
+                                        aria-label="ISBN(10/13): activate to sort column ascending"
+                                        style="width: 126.609px;">Subject</th>
+
+
                                         <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                         colspan="1"
                                         aria-label="ISBN(10/13): activate to sort column ascending"
@@ -194,13 +204,18 @@
                                         </td> --}}
                                         <td>{{$loop->index+1}}</td>
                                         <td><span>{{$val->book->product_code}}</span></td>
-                                        <td>
-                                        <div class="products">
-                                            <div>
-                                                <h6><a class="text-left" href="/admin/book_manage_view/{{$val->book->id}}">{{$val->book->book_title}}</a></h6>
-                                                <span class="text-left">{{$val->book->subtitle}}</span>
+                                        <td style="white-space:normal;">
+                                        <div class="products"  style="white-space:normal;">
+                                            <div style="white-space:normal;">
+                                                <h6 style="white-space:normal;"><a  style="white-space:normal;"class="text-left" href="/admin/book_manage_view/{{$val->book->id}}">{{$val->book->book_title}}</a></h6>
+                                                <span class="text-left"  style="white-space:normal;">{{$val->book->subtitle}}</span>
                                             </div>
                                         </div>
+                                        </td>
+                                        <span>{{$val->book->category}}</span>
+                                        </td>
+                                        <td>
+                                        <span>{{$val->book->subject}}</span>
                                         </td>
                                         <td>
                                         <span>{{$val->book->user_type}}</span>

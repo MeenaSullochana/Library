@@ -210,7 +210,14 @@
                                 @if($val->status == "1")
                                 <span class="badge bg-warning badge-default m-2">Expected</span>
                                 @elseif($val->status == "2")
-                                <span class="badge bg-success badge-default m-2">Arrived</span>
+                                <select class="form-select rounded-0 changestatus" aria-label="Default select example"
+                                    data-id="{{$val->id}}" data-orderid="{{$val->order}}"
+                                    data-magazineid="{{$val->magazine_id}}">
+                                    <option value="Arrived">Arrived</option>
+                                    <option value="Not Arrived">Not Arrived</option>
+                                  
+                                  
+                                </select>
                                 @elseif($val->status == "3")
                                 <select class="form-select rounded-0 changestatus" aria-label="Default select example"
                                     data-id="{{$val->id}}" data-orderid="{{$val->order}}"

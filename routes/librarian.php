@@ -272,5 +272,11 @@ Route::prefix('librarian')->group(function () {
         }
     
     });
+
+    Route::get('/magazine_complete_list',function(){ return view('librarian.magazine_complete_list');});
+
+    Route::get('/magazine_order_supply_list',function(){ return view('librarian.magazine_order_supply_list');});
+
+    
 });
 });

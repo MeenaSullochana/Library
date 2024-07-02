@@ -22,10 +22,10 @@
     include 'admin/plugin/plugin_css.php';
     ?>
     <style>
-        .table thead th {
-            text-transform: math-auto !important;
-           
-        }
+    .table thead th {
+        text-transform: math-auto !important;
+
+    }
     </style>
 </head>
 
@@ -72,58 +72,67 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="card p-5">
+                    <div class=" d-flex justify-content-end">
+
+                        <button type="button" class="btn btn-primary" id="" onclick="generatePdf()"><span
+                                class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
+                    </div>
+                    <div class="card p-5" id="print-pdf">
                         <div class="table-responsive">
                             <table class="table table-bordered">
-                                <div class=" d-flex justify-content-end"> 
-                                    
-                                            <button type="button" class="btn btn-primary" id="" onclick="generatePdf()"><span class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
-                                               </div>
+
                                 <div class="tbl-caption text-center">
                                     <img class="w-50" src="/assets/img/logo/logo.png" alt="logo">
                                     <h4 class="heading mb-6">Directorate of Public Libraries</h4>
                                     <h4 class="heading mb-6">Chennai - 2</h4>
                                 </div>
 
-                                    <div class="tbl-caption d-flex justify-content-between">
-                                        <h4 class="heading mb-6">Transparent Book Procurement Report</h4>
-                                        <h4 class="heading mb-6">Date: <?php echo date('Y-m-d'); ?></h4>
+                                <div class="tbl-caption d-flex justify-content-between">
+                                    <h4 class="heading mb-6">Transparent Book Procurement Report</h4>
+                                    <h4 class="heading mb-6">Date: <?php echo date('Y-m-d'); ?></h4>
 
-                                    </div>
+                                </div>
                                 <thead class="bg-primary text-white">
-                                   
-                                  <tr>
-                                    <th>Total No. of Publishers</th>
-                                    <th>Total No. of Books Assigned</th>
-                                    <th>Total No. of Books Completed</th>
-                                    <th>Total No. of Books Balance</th>
-                                  </tr>
+
+                                    <tr>
+                                        <th>No. of Books</th>
+                                        <th>No. of Books Assigned</th>
+                                        <th>No. of Books Completed</th>
+                                        <th>No. of Books Balance</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>188</td>
-                                    <td>3903</td>
-                                    <td>2975 </td>
-                                    <td>928</td>
-                                  </tr>
+                                    <tr>
+                                        <td>{{$reviewer->metBooktotal}}</td>
+                                        <td>{{$reviewer->metassignooktotal}}</td>
+                                        <td>{{$reviewer->metcomooktotal}} </td>
+                                        <td>{{$reviewer->metnotcomooktotal}}</td>
+                                    </tr>
                                 </tbody>
-                                 <thead class="">
+
+                                <thead class="">
+
                                     <tr>
-                                      <th>Total No. of Publishers</th>
-                                      <th>Total No. of Books Assigned</th>
-                                      <th>Total No. of Books Completed</th>
-                                      <th>Total No. of Books Balance</th>
+                                        <th colspan="4" class="text-center">Metachecker Details</th>
                                     </tr>
-                                  </thead>
-                                  <tbody>
                                     <tr>
-                                      <td>188</td>
-                                      <td>3903</td>
-                                      <td>2975 </td>
-                                      <td>928</td>
+                                        <th style="font-weight: bold;">Metachecker Name</th>
+                                        <th style="font-weight: bold;">No. of Books Assigned</th>
+                                        <th style="font-weight: bold;">No. of Books Completed</th>
+                                        <th style="font-weight: bold;">No. of Books Balance</th>
                                     </tr>
-                                  </tbody>
-                              </table>
+                                </thead>
+                                <tbody>
+                                    @foreach($data as $val)
+                                    <tr>
+                                        <td>{{$val->librarianName}}</td>
+                                        <td>{{$val->BookReview}}</td>
+                                        <td>{{$val->BookReviewcom}} </td>
+                                        <td>{{$val->BookReviewpen}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -158,5 +167,13 @@
     include 'admin/plugin/plugin_js.php';
     ?>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
+<script>
+function generatePdf() {
+    let htmlElement = document.getElementById('print-pdf');
+    html2pdf().from(htmlElement).save('book_report.pdf');
+}
+</script>
 
 </html>

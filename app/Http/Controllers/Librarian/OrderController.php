@@ -148,8 +148,9 @@ class OrderController extends Controller
        $data=[];
     foreach($Dispatchdata  as $val){
     $datedata =  $val->expected_date;
-    $ldate = date('Y-m-d');
-   if($datedata >= $ldate){
+   $ldate = date('Y-m-d');
+   if($datedata > $ldate){
+
     $val->status="1";
     $val->order=$Ordermagazine->id;
     array_push($data,$val);
@@ -213,71 +214,49 @@ class OrderController extends Controller
 
    
 }
+
 public function magazinestatuschange(Request $req){
-    if($req->selectval == "Arrived"){
-             $Dispatchdata = Dispatch::find($req->id);
-             $not_received_id = json_decode($Dispatchdata->not_received_id);
-             $not_received_id1=[];
-             array_push($not_received_id1, auth('librarian')->user()->id);
-             $result = array_filter($not_received_id1, function($element) use ($not_received_id) {
-                 return in_array($element, $not_received_id);
-                 });
-              
-           if(count($result) == 0){
-            $dataarr = [];
-            array_push($dataarr,auth('librarian')->user()->id );
-            $received_id = json_decode($Dispatchdata->received_id);
-           $merged = array_merge($dataarr,$received_id);
-           $Dispatchdata->received_id=json_encode($merged);
-           if($Dispatchdata->save()){
-            $data= [
-                'success' => 'Status change Successfully',
-                'url' => '/librarian/magazine-view-freq/' . $req->magazineid . '/' . $req->orderid
-            ];
-            return response()->json($data); 
-           }
-           }else{
-            $Dispatchdata = Dispatch::find($req->id);
-            $not_received_id = json_decode($Dispatchdata->not_received_id);
-            $not_received_id1=[];
-            array_push($not_received_id1, auth('librarian')->user()->id);
-            $merged = array_diff($not_received_id1,$not_received_id);
-           
-            $Dispatchdata->not_received_id=json_encode($merged);
-        
-            $dataarr = [];
-            array_push($dataarr,auth('librarian')->user()->id );
-            $received_id = json_decode($Dispatchdata->received_id);
-           $merged1 = array_merge($dataarr,$received_id);
-           $Dispatchdata->received_id=json_encode($merged1);
-           if($Dispatchdata->save()){
-            $data= [
-                'success' => 'Status change Successfully',
-                'url' => '/librarian/magazine-view-freq/' . $req->magazineid . '/' . $req->orderid
-            ];
-            return response()->json($data); 
-        }
-           
-           }
-
-            
-          
-    }else{
-        $Dispatchdata = Dispatch::find($req->id);
-        $dataarr = [];
-       array_push($dataarr,auth('librarian')->user()->id );
-       $not_received_id = json_decode($Dispatchdata->not_received_id);
-      $merged = array_merge($dataarr,$not_received_id);
-      $Dispatchdata->not_received_id=json_encode($merged);
-      if($Dispatchdata->save()){
-       $data= [
-           'success' => 'Status change Successfully',
-           'url' => '/librarian/magazine-view-freq/' . $req->magazineid . '/' . $req->orderid
-       ];
-       return response()->json($data); 
-      }
+    $librarianId = auth('librarian')->user()->id;
+    $Dispatchdata = Dispatch::find($req->id);
+    
+    if (!$Dispatchdata) {
+        return response()->json(['error' => 'Dispatch not found'], 404);
     }
-
+    
+    $not_received_id = json_decode($Dispatchdata->not_received_id, true);
+    $received_id = json_decode($Dispatchdata->received_id, true);
+    
+    if ($req->selectval == "Arrived") {
+        if (!in_array($librarianId, $not_received_id)) {
+            $received_id[] = $librarianId;
+            $Dispatchdata->received_id = json_encode($received_id);
+        } else {
+            $not_received_id = array_diff($not_received_id, [$librarianId]);
+            $Dispatchdata->not_received_id = json_encode(array_values($not_received_id));
+            $received_id[] = $librarianId;
+            $Dispatchdata->received_id = json_encode($received_id);
+        }
+    } else {
+        if (!in_array($librarianId, $received_id)) {
+            $not_received_id[] = $librarianId;
+            $Dispatchdata->not_received_id = json_encode($not_received_id);
+        } else {
+            $received_id = array_diff($received_id, [$librarianId]);
+            $Dispatchdata->received_id = json_encode(array_values($received_id));
+            $not_received_id[] = $librarianId;
+            $Dispatchdata->not_received_id = json_encode($not_received_id);
+        }
+    }
+    
+    if ($Dispatchdata->save()) {
+        $data = [
+            'success' => 'Status changed successfully',
+            'url' => '/librarian/magazine-view-freq/' . $req->magazineid . '/' . $req->orderid
+        ];
+        return response()->json($data);
+    } else {
+        return response()->json(['error' => 'Failed to change status'], 500);
+    }
 }
 
 
@@ -362,7 +341,7 @@ public function dispatch_library_over_magazine_list($id,$orderid){
         // return $val;
         $Ordermagazine = Ordermagazine::find($val);
         $ldate = date('Y-m-d');
-       $Subscription = Subscription::where('magazine_id' ,'=',$id)->whereDate('issue_date','<=',$ldate)->where('end_date','>=',$ldate)->first();
+        $Subscription = Subscription::where('magazine_id' ,'=',$id)->whereDate('issue_date','<=',$ldate)->where('end_date','>=',$ldate)->first();
        $total=0;
        $recived=0;
        $notrecived=0;
@@ -417,10 +396,11 @@ public function dispatch_library_over_magazine_list($id,$orderid){
         $Ordermagazine->magazinetitle=$magazine->title;
         $Ordermagazine->periodicity=$magazine->periodicity;
         $Ordermagazine->magazineid=$magazine->id;
-        $librarian = Librarian::find($Ordermagazine->librarianid);
+      $librarian = Librarian::find($Ordermagazine->librarianid);
         $Ordermagazine->librarytype=$librarian->libraryType;
         $Ordermagazine->libraryid=$librarian->librarianId;
         $Ordermagazine->libraryname=$librarian->libraryName;
+        $Ordermagazine->district=$librarian->district;
         $Ordermagazine->totalorder=$total;
         $Ordermagazine->recived=$recived;
         $Ordermagazine->notrecived=$notrecived;
@@ -549,7 +529,7 @@ public function dispatch_magazine_view($id,$orderid){
      foreach($Dispatchdata  as $val){
      $datedata =  $val->expected_date;
      $ldate = date('Y-m-d');
-    if($datedata >= $ldate){
+    if($datedata > $ldate){
      $val->status="1";
      $val->order=$Ordermagazine->id;
      array_push($data,$val);

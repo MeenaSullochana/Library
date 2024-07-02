@@ -71,6 +71,8 @@
                               <th>Contact Number</th>
                               <th>District </th>
                               <th>Book count </th>
+                              <th>Paid Book count </th>
+                              <th>Unpaid Book count </th>
                               <th>Status </th>
                             
                               <!-- <th>Update Status</th> -->
@@ -89,41 +91,22 @@
                               <td style="white-space:normal;">{{$val->mobileNumber}}</td>
                               <td style="white-space:normal;">{{$val->District}}</td>
                               @php
-                                                           $records = DB::table('books')
-                                                           ->where('user_id', '=', $val->id)
-                                                            ->where('book_active_status', '=', '1')
-                                                             ->count();
-                                                           $displayCount = $records ?? 0; 
-                                                              @endphp
-                                                        <td>{{ $displayCount }}</td>
-                              <!-- <td style="white-space:normal;" class="sorting_1">
-                                 <div class="form-check form-switch" id="load">
-                                    <input class="form-check-input toggle-class" type="checkbox"
-                                          data-id="{{$val->id}}" name="featured_status"
-                                          data-isprm="1" data-onstyle="success"
-                                          data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $val->status ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="flexSwitchCheckDefault"></label>
-                                 </div>
-                              </td> -->
+                                   $records = DB::table('books')
+                                    ->where('user_id', '=', $val->id)
+                                   ->where('book_active_status', '=', '1')
+                                   ->count();
+                                   $displayCount = $records ?? 0; 
 
-
-                          <!-- @if($val->approved_status=='pending')
-                          <td style="white-space:normal;">
-                              <div class="col-sm-12 m-b30">
-                                  <select  class="col-sm-12 m-b30"  name="user_approval" id="user_approval"   data-id="{{$val->id}}">
-                                  <option style="color: red;" value="Pending">Pending</option>
-                                 <option style="color: green;" value="Approve">Approve</option>
-                                 <option style="color: blue;" value="Reject">Reject</option>
-                                  </select>
-                                  </div>
-                           </td>
-                           @elseif($val->approved_status=='approve')
-
-                          <td style="white-space:normal;"> <span class="badge bg-success text-white">Approve</span></td>
-
-                            @else
-                           <td style="white-space:normal;"> <span class="badge bg-danger text-white">Reject</span></td>
-                           @endif -->
+                                   $records1 = DB::table('books')
+                                    ->where('user_id', '=', $val->id)
+                                   ->where('book_procurement_status', '!=', '0')
+                                   ->count();
+                                   $displayCount1 = $records1 ?? 0; 
+                            @endphp
+                           <td>{{ $displayCount }}</td>
+                           <td>{{ $displayCount1 }}</td>
+                           <td>{{ $displayCount -  $displayCount1}}</td>
+                          
                            @if($val->status == 1)
 
                            <td style="white-space:normal;"> <span class="badge bg-success text-white">Active</span></td>

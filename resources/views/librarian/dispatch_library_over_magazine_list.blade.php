@@ -62,7 +62,7 @@
 									</div>
 									<div class="total-projects ms-3">
 										<h3 class="text-success count text-start">Library List</h3>
-										 <span class="text-start">Magazine Name-<b>Frequency</b></span>
+										 <!-- <span class="text-start">Magazine Name-<b>Frequency</b></span> -->
 									</div>
 								</div>
 							</div>
@@ -71,13 +71,13 @@
 				</div>
 				<div class="row">
                     <div class="row">
-                        <div class="col-md-6 filter-elecment-one">
+                        <!-- <div class="col-md-6 filter-elecment-one">
 						<div class="col-md-6 filter-elecment-one">
                            <select name="" id="" class="form-select bg-white p-3">
 								<option>Name Of Library</option>
 						   </select>
                         </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-6 filter-elecment-two text-right">
                             <!-- <div class="d-flex justify-content-end"> -->
                                 <!-- <button class="btn btn-outline-success m-2"><i class="fa fa-file-excel"></i> Export Excel</button> -->
@@ -90,13 +90,20 @@
 				<div class="row">
                     <div class="row">
                     
-                        <!-- <div class="col-md-6 filter-elecment-two text-right">
-                            <div class="d-flex justify-content-end">
-								<input type="date" class="form-control m-2" name="from-date">
-                                <input type="date" class="form-control m-2" name="from-date">
-								<input type="button" class="btn btn-danger m-2" name="from-date" value="Check Now ">
-                            </div>
-                        </div> -->
+					<div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                                        <label class="form-label">Select Library Types</label>
+                                        <select name="LibraryTypes_filter" id="LibraryTypes_filter"
+                                            class="form-select bg-white p-2 border border-1 mb-3">
+                                            <option value="">All Library Type</option>
+                                            @php
+                                            $categori = DB::table('library_types')->get();
+                                            @endphp
+                                            @foreach($categori as $val)
+                                            <option value="{{$val->name}}">{{$val->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                   
                     </div>
                 </div>
 				<!--End Total Leval For Buy item -->
@@ -114,6 +121,7 @@
 												<th>Library id</th>
 												<th>Library Type</th>
 												<th>Library Name</th>
+												<th>District</th>
                                                 <th>Total Order Qty</th>
                                                 <th>Received Qty</th>
 												<th>Not Received Qty</th>
@@ -142,12 +150,14 @@
 												</td>
 												<td><span>{{$val->libraryType}}</span></td>
 												<td><span>{{$val->libraryname}}</span></td>
+												<td><span>{{$val->district}}</span></td>
+
                                                 <td><span>{{$val->totalorder}}</span></td>
                                                 <td><span>{{$val->recived}}</span></td>
 											
 												<td><span>{{$val->notrecived}}</span></td>
 												<td><span>{{$val->totalorder   -$val->recived -$val->notrecived }}</span></td>
-                                               @if($val->totalorde  == $val->recived)
+                                               @if($val->totalorder  == $val->recived)
 											   <td>
 													<!-- <span class="badge bg-success">Approved</span> -->
 													<span class="badge bg-success">Completed</span>
@@ -207,4 +217,27 @@
         include "librarian/plugin/plugin_js.php";
     ?>
 </body>
+<script>
+    $(document).ready(function() {
+        // Initialize DataTable
+        var table = $('#example3').DataTable();
+
+        // Function to handle category filter
+        function filterCategory(libraryType) {
+            if (libraryType === "") {
+                table.column(3).search("").draw();
+            } else {
+                table.column(3).search(libraryType).draw();
+            }
+        }
+
+        // Call filterCategory function on change event of the select element
+        $('#LibraryTypes_filter').on('change', function() {
+            var libraryType = $(this).val();
+            filterCategory(libraryType);
+        });
+
+      
+    });
+    </script>
 </html>

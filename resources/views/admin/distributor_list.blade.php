@@ -72,6 +72,8 @@
                               <th>Contact Number</th>
                               <th>District </th>
                               <th>Book Count </th>
+                              <th>Paid Book count </th>
+                              <th>Unpaid Book count </th>
                               <th>Status </th>
                               <!-- <th>Update Status</th> -->
                               <th>Date</th>
@@ -87,13 +89,21 @@
                               <td>{{$val->mobileNumber}}</td>
                               <td>{{$val->District}}</td>
                               @php
-                                                           $records = DB::table('books')
-                                                           ->where('user_id', '=', $val->id)
-                                                            ->where('book_active_status', '=', '1')
-                                                             ->count();
-                                                           $displayCount = $records ?? 0; 
-                                                              @endphp
-                                                        <td>{{ $displayCount }}</td>
+                                   $records = DB::table('books')
+                                    ->where('user_id', '=', $val->id)
+                                   ->where('book_active_status', '=', '1')
+                                   ->count();
+                                   $displayCount = $records ?? 0; 
+
+                                   $records1 = DB::table('books')
+                                    ->where('user_id', '=', $val->id)
+                                   ->where('book_procurement_status', '!=', '0')
+                                   ->count();
+                                   $displayCount1 = $records1 ?? 0; 
+                            @endphp
+                           <td>{{ $displayCount }}</td>
+                           <td>{{ $displayCount1 }}</td>
+                           <td>{{ $displayCount -  $displayCount1}}</td>
                               <!-- <td class="sorting_1">
                                  <div class="form-check form-switch" id="load">
                                     <input class="form-check-input toggle-class" type="checkbox"

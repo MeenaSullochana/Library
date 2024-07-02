@@ -166,8 +166,10 @@
 												<td data-label="S.No">{{$loop->index+1}}</td>
 												<td data-label="Book No"><span>{{$val->book->product_code}}</span></td>
 												<td style="white-space:normal;" data-label="Book Title">
-													<h6>{{$val->book->book_title}}</h6>
-													<!-- <span>INV-100023456</span> -->
+												<a href="/reviewer/book_view/{{$val->book->id}}/{{$val->id}}"> 
+												<h6>{{$val->book->book_title}}</h6> </a>
+															<!-- <span>INV-100023456</span> -->
+													</div>
 												</td>
 												<td data-label="isbn">
 													<span>{{ $val->book->isbn }}</span>

@@ -1867,7 +1867,7 @@
 
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                            <i class="bi bi-book"></i>
+                        <i class="bi bi-star"></i>
                             <span class="nav-text">Reviewer Data Manage </span>
                         </a>
                         <ul aria-expanded="false">
@@ -2013,6 +2013,10 @@
                     </li>
                     <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Reviewer Management</a>
                         <ul aria-expanded="false">
+
+                        
+                        <li><a href="/admin/meta_finalized_books">Meta Finalized Books List</a></li>
+
                             <li><a href="/admin/procur_book_assign">Book List</a></li>
                             <!-- <li><a href="/admin/procur_book_list">Book List</a></li> -->
                             <li><a href="/admin/procur_pending_list">Pending List</a></li>
@@ -2099,7 +2103,7 @@
                             <span class="nav-text">Order Management</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Book Orders
+                            <!-- <li><a class="has-arrow" href="#" aria-expanded="false">Book Orders
                                 </a>
                                     <ul aria-expanded="false">
                                         <li><a href="manage_order_list">Order List </a></li>
@@ -2107,22 +2111,23 @@
                                         <li><a href="manage_completed_order_list">Completed Order List</a></li>
                                         <li><a href="manage_rejected_order_list">Rejected Order List</a></li>
                                     </ul>
-                            </li>
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Order
-                                </a>
-                                    <ul aria-expanded="false">
-                                        <li><a href="magazine_order">Order List </a></li>
-                                        <li><a href="magazine_order_pending">Pending Order List</a></li>
-                                        <li><a href="manage_completed_order_list">Completed Order List</a></li>
-                                        <li><a href="magazine_order_reject">Cancelled Order List</a></li>
-                                    </ul>
-                            </li>
+                            </li> -->
                             <li><a class="has-arrow" href="#" aria-expanded="false">Magazines</a>
                                 <ul aria-expanded="false">
                                     <li><a href="magazine_order_list">Magazine Order List </a></li>
                                 </ul>
                             </li>
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Subscription
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Order
+                                </a>
+                                    <ul aria-expanded="false">
+                                        <li><a href="magazine_order">Order List </a></li>
+                                        <li><a href="manage_supply_order_list">Supply Order List</a></li>
+                                        <li><a href="manage_completed_order_list">Completed Order List</a></li>
+                                        <li><a href="magazine_order_reject">Cancelled Order List</a></li>
+                                    </ul>
+                            </li>
+                        
+                            <!-- <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Subscription
                                 </a>
                                     <ul aria-expanded="false">
                                         <li><a href="magazine_order_subscritpion">Order List </a></li>
@@ -2131,7 +2136,7 @@
                                         <li><a href="magazine_order_reject">Rejected Order List</a></li>
                                     </ul>
 
-                            </li>
+                            </li> -->
                         </ul>
                     </li>
                         <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
@@ -2157,6 +2162,11 @@
                                     <li><a href="magazine-overview">Overview</a></li>
                                 </ul>
                             </li>
+
+                
+
+
+                            
                             {{-- <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Distributor And Publisher Application</a>
                                 <ul aria-expanded="false">
                                     <li><a href="dist_pub_application_list.php">List Application</a></li>
@@ -2166,7 +2176,17 @@
                             </li>  --}}
                         </ul>
                     </li>
-             
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                        <i class="bi bi-blockquote-left"></i>
+                        <span class="nav-text">Dispatch Magazine</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/admin/dispatch_overview">Overview</a></li>
+                            <li><a href="/admin/order-library-list"> Frequency of order magazine </a></li>
+
+                            
+                        </ul>
+                    </li>
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-cash-stack"></i>
