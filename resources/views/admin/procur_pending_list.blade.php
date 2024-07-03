@@ -212,6 +212,7 @@
                                             </div>
                                         </div>
                                         </td>
+                                        <td>
                                         <span>{{$val->book->category}}</span>
                                         </td>
                                         <td>

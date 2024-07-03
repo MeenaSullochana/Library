@@ -560,7 +560,7 @@ foreach($req->bookId as $key=>$val){
 }
 
 $notifi= new Notifications();
-$notifi->message = "Book Assengend For Metacheck";
+$notifi->message = "Book Assigned For Metacheck";
 $notifi->to=$req->metaLibraianId[0];
 $notifi->from=auth('admin')->user()->id;
 $notifi->type="librarian";
@@ -1027,7 +1027,7 @@ public function reviewpost($bookid){
     
    foreach($mergedArray as $key=>$val){
    $notifi= new Notifications();
-      $notifi->message = "Book Assengend For Review";
+      $notifi->message = "Book Assigned For Review";
       $notifi->to=$val;
       $notifi->from=auth('admin')->user()->id;
       $notifi->type="reviewer";

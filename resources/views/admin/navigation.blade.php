@@ -1834,7 +1834,12 @@
                             <span class="nav-text">Role Management </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="member_create">Create Member </a></li>
+                            <!-- <li><a href="member_create">Create Member </a></li> -->
+                            <li><a href="librarian_reviewer_create">Create Librarian Reviewer </a></li>
+                            <li><a href="expert_reviewer_create">Create Expert Reviewer </a></li>
+
+                
+                            
                             <li><a href="multimember_create">Create Multi Member </a></li>
                         </ul>
 
