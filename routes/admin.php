@@ -1222,5 +1222,19 @@ Route::post('/categoryupdate',[BookController::class,'categoryupdate']);
 
 Route::post('/subjectupdate',[BookController::class,'subjectupdate']);
 
+Route::get('/librarian_reviewer_create',function(){ return view('admin.librarian_reviewer_create');});
+Route::post('/create_reviewer',[ReviewerController::class,'create_reviewer']);
+Route::get('/expert_reviewer_create',function(){ return view('admin.expert_reviewer_create');});
+Route::get('/publicedit/{id}',[ReviewerController::class,'public_edit']);
+
+Route::get('/public_edit',function(){
+    $data = Session::get('publicedit');
+    if($data !==null){
+        return view('admin.publicedit')->with("data",$data);
+    }
+    
+});
+Route::post('/editpublicreviewer',[ReviewerController::class,'editpublicreviewer']);
+
     });
 });

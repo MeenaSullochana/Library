@@ -887,7 +887,7 @@ document.getElementById('reviewerType').addEventListener('change', function() {
     if (this.value === 'internal') {
         bankDetailsFields.style.display = 'none';
         // basic1.style.display = 'none';
-        basic2.style.display = 'none';
+      
         basic3.style.display = 'none';
         basic4.style.display = 'block';
         basic5.style.display = 'none';

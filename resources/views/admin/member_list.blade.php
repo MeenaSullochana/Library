@@ -224,10 +224,10 @@
                                                                     <i class="fa fa-edit"></i>
                                                                 </a>
                                                             @else
-                                                                <!-- <a href="/admin/member_publicedit/{{ $val->id }}"
+                                                                <a href="/admin/publicedit/{{ $val->id }}"
                                                                     class="btn btn-warning shadow btn-xs sharp me-1">
                                                                     <i class="fa fa-edit"></i>
-                                                                </a> -->
+                                                                </a>
                                                             @endif
 
 
