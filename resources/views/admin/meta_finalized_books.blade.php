@@ -83,8 +83,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card  p-3 bg-white">
-                                <div >
+                            <div class="card-body">
+                            <div class="table-responsive">
                                     <table id="example4" >
                                         <thead>
                                             <tr>

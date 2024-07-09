@@ -1172,6 +1172,7 @@ Route::post('/periodicaldist_excel ',[SettingController::class,'periodicaldist_e
 Route::get('/publication',[SettingController::class,'publication']);
 Route::get('/master_book_data',[BookController::class,'master_book_data']);
 
+
 Route::get('/publicreviewercount',[SettingController::class,'publicreviewercount']);
 
 Route::get('/get_datarec',[BookController::class,'get_datarec']);
@@ -1182,7 +1183,7 @@ Route::get('/manage_supply_order_list',function(){ return view('admin.manage_sup
 
 
 Route::get('/dispatch_overview',[OrderController::class,'dispatch_overview']);
-Route::get('/dispatch_library_magazine/{id}/{orderid}',[OrderController::class,'dispatch_library_over_magazine_list']);
+Route::post('/dispatch_library_magazine/{id}', [OrderController::class, 'dispatch_library_over_magazine_list']);
     
 Route::get('/dispatch_library',function(){
     $data = Session::get('dispatchlibrary');
@@ -1242,6 +1243,26 @@ Route::get('/public_edit',function(){
     
 });
 Route::post('/editpublicreviewer',[ReviewerController::class,'editpublicreviewer']);
+Route::get('/book_edit/{id}',[BookController::class,'book_edit']);
+Route::get('/bookedit',function(){
+    $data = Session::get('book');
+     if($data !==null){
+         return view('admin.book_edit')->with("data",$data);
+     }
 
+ });
+ Route::post('/getlanguage', [BookController::class, 'getlanguage']);
+ Route::post('/remove-image', [BookController::class,'removeImage']);
+ Route::post('/remove-image-highlights', [BookController::class,'removeImageHighlights']);
+ Route::post('/update/book',[BookController::class,'update']);
+ Route::post('/delete-reviewer-data',[BookController::class,'delete_reviewer_data']);
+
+ Route::get('/librarian_user_create',function(){ return view('admin.librarian_user_create');});
+ Route::get('/master_nego_book_data',[BookController::class,'master_nego_book_data']);
+ 
+ Route::get('/master_nego_book_datareport',[BookController::class,'master_nego_book_datareport']);
+
+ 
     });
+   
 });

@@ -61,7 +61,7 @@
 									<i class="bi bi-cart" style="font-size: 30px;"></i>
 									</div>
 									<div class="total-projects ms-3">
-										<h3 class="text-success count text-start">Magazine Year Order List</h3>
+										<h3 class="text-success count text-start">Periodical Year Order List</h3>
 										<!-- <span class="text-start">Total Completed</span> -->
 									</div>
 								</div>

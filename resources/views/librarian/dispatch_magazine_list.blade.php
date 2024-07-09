@@ -62,7 +62,7 @@
                                         <i class="bi bi-book" style="font-size: 30px;"></i>
                                     </div>
                                     <div class="total-projects ms-3">
-                                        <h3 class="text-success count text-start">Magazine List</h3>
+                                        <h3 class="text-success count text-start">Periodical List</h3>
                                         <!-- <span class="text-start">Total Completed</span> -->
                                     </div>
                                 </div>
@@ -119,7 +119,7 @@
                                                 <th>S.No</th>
                                                 <th>Language</th>
                                                 <th>Category</th>
-                                                <th>Title of the Magazine</th>
+                                                <th>Title of the Periodical</th>
                                                 <th>Periodicity</th>
                                                 <!-- <th>Type of Library</th> -->
                                                 <!-- <th>District</th> -->

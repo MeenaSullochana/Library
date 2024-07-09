@@ -272,7 +272,7 @@
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                @if($data->trans_author1 !=null)
+                                                @if($data->trans_from1 !=null)
 
                                                 <div class="row">
                                                     <div class="col-md-12">

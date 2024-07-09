@@ -107,7 +107,7 @@
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>Title of the Magazine</th>
+                                                <th>Title of the Periodical</th>
                                                 <th>Language</th>
                                                 <th>Category</th>
                                               

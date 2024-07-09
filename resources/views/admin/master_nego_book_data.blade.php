@@ -51,7 +51,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Master Book Data</b>
+                                <b>Master Negotiation Book Data</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="javascript:history.back()">
                                 <i class="fas fa-chevron-left"></i> Back </a>
@@ -64,7 +64,7 @@
                     <div class="card-body">
                     <div>
                     <h1>Book Data Report Download</h1>
-                    <form method="GET" action="/admin/master_book_datareport">
+                    <form method="GET" action="/admin/master_nego_book_datareport">
                             <div class="row mb-4 d-flex">
                                 <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
                                     <label class="form-label">Select Language</label>
@@ -109,41 +109,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-                                    <label class="form-label">Select Payment</label>
-                                    <select name="payment_filter" id="payment_filter"
-                                        class="form-select bg-white p-2 border border-1 mb-3">
-                                        <option value="">All Payment</option>
-                                        <option value="Success"
-                                            {{ request('payment_filter') == 'Success' ? 'selected' : '' }}>Success
-                                        </option>
-                                        <option value="No Payment"
-                                            {{ request('payment_filter') == 'No Payment' ? 'selected' : '' }}>No Payment
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-                                    <label class="form-label">Select Meta Checking</label>
-                                    <select name="metachecking_filter" id="metachecking_filter"
-                                        class="form-select bg-white p-2 border border-1 mb-3">
-                                        <option value="">All Meta Checking</option>
-                                        <option value="Success"
-                                            {{ request('metachecking_filter') == 'Success' ? 'selected' : '' }}>Success
-                                        </option>
-                                        <option value="Reject"
-                                            {{ request('metachecking_filter') == 'Reject' ? 'selected' : '' }}>Reject
-                                        </option>
-                                        <option value="Returned To User Correction"
-                                            {{ request('metachecking_filter') == 'Returned To User Correction' ? 'selected' : '' }}>
-                                            Returned To User Correction</option>
-                                        <option value="Book Update To Return"
-                                            {{ request('metachecking_filter') == 'Book Update To Return' ? 'selected' : '' }}>
-                                            Book Update To Return</option>
-                                        <option value="No Review"
-                                            {{ request('metachecking_filter') == 'No Review' ? 'selected' : '' }}>No
-                                            Review</option>
-                                    </select>
-                                </div>
+
+                              
                                 <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
                                     <label class="form-label">Search</label>
                                     <input type="text" name="search" id="search" class="form-control"
@@ -157,7 +124,7 @@
 </div>
 
 <h1>Master Book Data Filter</h1>
-                        <form method="GET" action="/admin/master_book_data">
+                        <form method="GET" action="/admin/master_nego_book_data">
                             <div class="row mb-4 d-flex">
                                 <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
                                     <label class="form-label">Select Language</label>
@@ -202,41 +169,8 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-                                    <label class="form-label">Select Payment</label>
-                                    <select name="payment_filter" id="payment_filter"
-                                        class="form-select bg-white p-2 border border-1 mb-3">
-                                        <option value="">All Payment</option>
-                                        <option value="Success"
-                                            {{ request('payment_filter') == 'Success' ? 'selected' : '' }}>Success
-                                        </option>
-                                        <option value="No Payment"
-                                            {{ request('payment_filter') == 'No Payment' ? 'selected' : '' }}>No Payment
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-                                    <label class="form-label">Select Meta Checking</label>
-                                    <select name="metachecking_filter" id="metachecking_filter"
-                                        class="form-select bg-white p-2 border border-1 mb-3">
-                                        <option value="">All Meta Checking</option>
-                                        <option value="Success"
-                                            {{ request('metachecking_filter') == 'Success' ? 'selected' : '' }}>Success
-                                        </option>
-                                        <option value="Reject"
-                                            {{ request('metachecking_filter') == 'Reject' ? 'selected' : '' }}>Reject
-                                        </option>
-                                        <option value="Returned To User Correction"
-                                            {{ request('metachecking_filter') == 'Returned To User Correction' ? 'selected' : '' }}>
-                                            Returned To User Correction</option>
-                                        <option value="Book Update To Return"
-                                            {{ request('metachecking_filter') == 'Book Update To Return' ? 'selected' : '' }}>
-                                            Book Update To Return</option>
-                                        <option value="No Review"
-                                            {{ request('metachecking_filter') == 'No Review' ? 'selected' : '' }}>No
-                                            Review</option>
-                                    </select>
-                                </div>
+                            
+                              
                                 <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
                                     <label class="form-label">Search</label>
                                     <input type="text" name="search" id="search" class="form-control"
@@ -294,9 +228,10 @@
                                         <th>Payment Status </th>
                                         <th>Meta checking Status </th>
                                         <th>Meta checker Name</th>
+                                        <th>Review Mark</th>
                                         <th>Book View</th>
                                         <th>User View</th>
-                                        <th> Book Edit</th>
+                                        <!-- <th> Book Edit</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -537,6 +472,14 @@
 
                     </td>
                     <td>
+
+<div>
+     <span>{{$val->marks}}</span>
+</div>
+</div>
+
+</td>
+                    <td>
                         <div class="d-flex">
                             <a href="/admin/book_manage_view/{{$val->id}}"
                                 class="btn btn-success shadow btn-xs sharp me-1">
@@ -568,13 +511,13 @@
 
                         </div>
                     </td>
-                    <td>
+                    <!-- <td>
                         <div class="d-flex">
                         <a href="/admin/book_edit/{{$val->id}}" class="btn btn-warning shadow btn-xs sharp me-1">
                                                 <i class="fa fa-edit"></i>
                                                 </a>
                         </div>
-                    </td>
+                    </td> -->
                     
                     </tr>
                     @endforeach

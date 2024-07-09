@@ -66,7 +66,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>View Magazine</b>
+                                <b>View Periodical</b>
                             </h3>
                             <!-- <a class="btn btn-primary  btn-sm" href="javascript:history.back()">
                                 <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Magazine </a> -->
@@ -265,7 +265,7 @@
                     <div class="col-6 fw-bolder p-2">Number of Monocolour Pages </div>
                     <div class="col-6">: {{$records->total_monocolour_pages}}</div>
 
-                    <div class="col-6 fw-bolder p-2">Size of the Magazine </div>
+                    <div class="col-6 fw-bolder p-2">Size of the Periodical </div>
                     <div class="col-6">: {{$records->magazine_size}}</div>
 
                     <div class="col-6 fw-bolder p-2">Subscription length </div>
