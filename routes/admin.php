@@ -1020,6 +1020,13 @@ Route::get('/nego_approved_list',function(){ return view('admin.nego_approved_li
 Route::get('/nego_failed_list',function(){ return view('admin.nego_failed_list');});
 Route::get('/nego_pending_list',function(){ return view('admin.nego_pending_list');});
 Route::get('/negotiation_list',function(){ return view('admin.negotiation_list');});
+Route::post('/sendnegotiationstatus',[BookController::class,'sendnegotiationstatus']);
+Route::get('/negotiation_hold_list',function(){ return view('admin.nego_hold');});
+
+
+Route::get('/negotiation_price_upload',function(){ return view('admin.negotiation_price_upload');});
+Route::post('/book/price', [BookController::class,'calculatedBookPrice']);
+Route::post('/magazine/price', [BookController::class,'calculatedBookPrice']);
 Route::post('/approvenegotiationstatus',[BookController::class,'approvenegotiationstatus']);
 Route::post('/rejectnegotiationstatus',[BookController::class,'rejectnegotiationstatus']);
 Route::get('/notification',function(){ return view('admin.notification');});

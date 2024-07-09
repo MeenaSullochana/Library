@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +19,7 @@
     <title>Government of Tamil Nadu - Book Procurement</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('distributor/images/fevi.svg') }}">
     <?php
-        include "distributor/plugin/plugin_css.php";
+    include "distributor/plugin/plugin_css.php";
     ?>
 </head>
 
@@ -43,7 +42,7 @@
         <!--**********************************
             Nav header start
             ***********************************-->
-            @include ('distributor.navigation')
+        @include ('distributor.navigation')
         <!--**********************************
             Sidebar end
             ***********************************-->
@@ -56,7 +55,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Negotiation Approved List</b>
+                                <b>Negotiation - Approved Book List</b>
                             </h3>
                             <a onclick="javascript:window.history.back();" class="btn btn-primary  btn-sm" href="/distributor/index">
                                 <i class="fa fa-angle-double-left"></i> Go Back</a>
@@ -82,28 +81,38 @@
                                         <thead>
                                             <tr role="row">
                                                 <th>S.No</th>
-                                                <th>Books</th>
-                                                <th>Book Price</th>
-                                                <th>Admin Price</th>
+                                                <th>Book Code</th>
+                                                <th>Book Title</th>
+                                                <th>Actual Price</th>
+                                                <th>Discount Percentage</th>
+                                                <th>Discounted Price</th>
+                                                <th>Calculated Percentage</th>
+                                                <th>Calculated Price</th>
+                                                <th>Negotiation Percentage</th>
+                                                <th>Negotiation Price</th>
                                                 <th>Accepted Price</th>
-                                                <th>Negotiation </th>
+                                                <th>Calculated Reason</th>
+                                                <th>Negotiation Reason</th>
+                                                <th>Reason For Hold</th>
+                                                <th>Negotiation Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @php
-                                        $id=auth('distributor')->user()->id;
-                                    $categori = DB::table('books')
-                                    ->where('marks', '>=', 40)
-                                    ->where('user_id', '=',$id)
-                                   ->where('negotiation_status', '=', 2)
-                                   ->get();
-                                                 @endphp
+                                            @php
+                                            $id=auth('distributor')->user()->id;
+                                            $categori = DB::table('books')
+                                            ->where('marks', '>=', 40)
+                                            ->where('user_id', '=',$id)
+                                            ->where('negotiation_status', '=', 2)
+                                            ->get();
+                                            @endphp
 
-                                                 @foreach($categori as $val)
+                                            @foreach($categori as $val)
                                             <tr role="row" class="odd">
 
                                                 <td data-label="S.No"><span>{{$loop->index +1}}</span></td>
+                                                <td data-label="S.No"><span>{{$val->product_code}}</span></td>
                                                 <td data-label="Books">
                                                     <div class="products">
                                                         <div>
@@ -113,25 +122,60 @@
                                                     </div>
                                                 </td>
                                                 <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">Rs {{$val->price}}</a></td>
+                                                <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">{{$val->discount}}%</a></td>
+                                                <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">Rs {{$val->discountedprice}}</a></td>
                                                 <td data-label="Admin Price">
-                                                    <span><a href="#" class="badge bg-info">Rs {{$val->calculated_price}}</a> </span>
+                                                    @if(!is_null($val->calculated_percentage))
+                                                    <span><a href="#">{{$val->calculated_percentage}}%</a> </span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
+                                                </td>
+                                                <td data-label="Admin Price">
+                                                    @if(!is_null($val->calculated_price))
+                                                    <span><a href="#">Rs {{$val->calculated_price}}</a> </span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
+                                                </td>
+                                                <td data-label="Admin Price">
+                                                    @if(!is_null($val->negotiation_percentage))
+                                                    <span><a href="#">{{$val->negotiation_percentage}}%</a> </span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
+                                                </td>
+                                                <td data-label="Admin Price">
+                                                    @if(!is_null($val->negotiation_price))
+                                                    <span><a href="#">Rs {{$val->negotiation_price}}</a> </span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
                                                 </td>
                                                 <td data-label="Accepted Price">
-                                                    <span><a href="#" class="badge bg-info">Rs {{$val->final_price}}</a> </span>
+                                                    <span><a href="#">Rs {{$val->final_price}}</a> </span>
+                                                </td>
+                                                <td data-label="Negotiation Message">
+                                                    <button type="button" id="successButton111" class="btn btn-primary btn-sm" data-id="{{$val->calculated_reason}}">View</button>
+                                                </td>
+
+                                                <td data-label="Negotiation Message">
+                                                    <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_message}}">View</button>
+                                                </td>
+                                                <td data-label="Negotiation Message">
+                                                    <button type="button" id="successButton112" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_reject_message}}">View</button>
                                                 </td>
                                                 <td data-label="Negotiation">
-                                                <button type="button" id="successButton" class="btn btn-success">Approve Book</button>
+                                                    <button type="button" id="successButton" class="btn btn-success">Approved</button>
 
-                                                     </td>
+                                                </td>
 
                                                 <td data-label="control">
                                                     <div class="d-flex mt-p0">
-                                                        <a href="book_manage_view.php" class="btn btn-success shadow btn-xs sharp me-1">
+                                                        <a href="/distributor/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
-                                                        <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
-                                                            <i class="fa fa-trash"></i>
-                                                        </a>
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -151,7 +195,7 @@
         <!--**********************************
             Footer start
             ***********************************-->
-            @include ("distributor.footer")
+        @include ("distributor.footer")
         <!--**********************************
             Footer end
             ***********************************-->
@@ -165,14 +209,84 @@
     <!--**********************************
          Main wrapper end
          ***********************************-->
-         <?php
-        include "distributor/plugin/plugin_js.php";
-        ?>
+    <?php
+    include "distributor/plugin/plugin_js.php";
+    ?>
     <!-- Modal Confirm Apply Procurement-->
-
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Negotiation Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBodyContent"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Calculation Reason</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBodyContent1"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reject Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBodyContent2"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+<script>
+    $(document).ready(function() {
+        $('#example3').on('click', '#successButton11', function() {
+            var message = $(this).data('id');
+            console.log(message);
+            $('#modalBodyContent').html(message);
+            $('#myModal').modal('show');
+        });
+    });
+</script>
 
-
+<script>
+    $(document).ready(function() {
+        $('#example3').on('click', '#successButton111', function() {
+            var message = $(this).data('id');
+            console.log(message);
+            $('#modalBodyContent1').html(message);
+            $('#myModal1').modal('show');
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#example3').on('click', '#successButton112', function() {
+            var message = $(this).data('id');
+            console.log(message);
+            $('#modalBodyContent2').html(message);
+            $('#myModal2').modal('show');
+        });
+    });
+</script>
 
 </html>
 <style>
@@ -272,12 +386,13 @@
         font-family: "Open Sans", sans-serif;
         line-height: 1.25;
     }
-    .active-projects.style-1 .dt-buttons .dt-button {
-    top: -50px;
-    right: 0 !important;
-}
 
-.active-projects tbody tr td:last-child {
+    .active-projects.style-1 .dt-buttons .dt-button {
+        top: -50px;
+        right: 0 !important;
+    }
+
+    .active-projects tbody tr td:last-child {
         text-align: center;
     }
 </style>

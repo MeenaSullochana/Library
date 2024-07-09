@@ -1417,19 +1417,19 @@
                             <li><a href="/distributor/procurement_reject">Reject List </a></li> 
                         </ul>
                     </li>
-					{{-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+			<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-journal-plus"></i>
                             <span class="nav-text">Manage Negotiation</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/distributor/nego_pending_list">Negotiation List</a></li>
-                            <li><a href="/distributor/nego_process_list">Negotiation Process List</a></li>
-
+                            <li><a href="/distributor/nego_process_list">Process List</a></li>
+							<li><a href="/distributor/nego_hold_list">Hold List</a></li>
 							<li><a href="/distributor/nego_approved_list">Approved List</a></li>
-                            <li><a href="/distributor/nego_failed_list">Failed list</a></li>
+                            <li><a href="/distributor/nego_failed_list">Rejected list</a></li>
 
                         </ul>
-                    </li> --}}
+                    </li>
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 					<i class="bi bi-chat-dots"></i>
                             <span class="nav-text">Feedback Manage</span>

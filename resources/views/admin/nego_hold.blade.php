@@ -14,7 +14,7 @@
       <meta property="og:image" content="">
       <meta name="format-detection" content="telephone=no">
       <!-- PAGE TITLE HERE -->
-      <title>Government of Tamil Nadu - Book Procurement - Negotiation Approved List </title>
+      <title>Government of Tamil Nadu - Book Procurement - Failed Nagotiation Book List</title>
       <!-- FAVICONS ICON -->
       <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
@@ -54,7 +54,7 @@
                   <div class="card-body">
                      <div class="d-flex align-items-center justify-content-between">
                         <h3 class="mb-0 bc-title">
-                           <b>Negotiation - Approved Book List</b>
+                           <b>Negotiation - Holding Book List</b>
                         </h3>
                         <!-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
                         <i class="fas fa-plus"></i> Add Book</a> -->
@@ -73,7 +73,7 @@
                     <div class="card-body p-0">
                         <div class="table-responsive active-projects style-1 ItemsCheckboxSec shorting ">
                             <div class="tbl-caption">
-                            
+                           
                             {{-- <div>
                                 <div class="btn-group bootstrap-select select-picker pr-2 d-tc">
                                     <div class="dropdown-menu open" role="combobox">
@@ -145,11 +145,11 @@
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Price</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiated Percentage</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiated Price</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Accepted Price</th>
-
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Reason</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiation Reason</th>
+
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Hold Reason</th>
+                                            
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending" style="width: 65.3594px;">Negotiation Status</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 87.4688px;"> Action</th>
                                             </tr>
@@ -158,7 +158,7 @@
                                 @php
                                 $categori = DB::table('books')
                                 ->where('marks', '>=', 40)
-                               ->where('negotiation_status', '=', 2)
+                               ->where('negotiation_status', '=', 4)
                                ->get();
                                              @endphp
 
@@ -175,25 +175,7 @@
                                             </div>
                                         </div>
                                         </td>
-                                        <!-- <td data-label="controlq">
-                                            <div class="d-flex mt-p0">
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                            </div>
-                                        <td> -->
+                                       
                                         <td>
                                         <span>Rs {{$val->price}}</span>
                                         </td>
@@ -205,11 +187,12 @@
                                         </td>
                                         <td>
                                             @if(!is_null($val->calculated_percentage))
-                                              <span>{{$val->calculated_percentage}}%</span>
-                                              @else
+                                        <span>{{$val->calculated_percentage}}%</span>
+                                        @else
                                                     <span>N/A</span>
-                                            @endif
+                                        @endif
                                         </td>
+                                      
                                         <td>
                                             @if(!is_null($val->calculated_price))
                                         <span>Rs {{$val->calculated_price}}</span>
@@ -231,26 +214,24 @@
                                                     <span>N/A</span>
                                         @endif
                                         </td>
-                                        <td>
-                                        <span>Rs {{$val->final_price}}</span>
-                                        </td>
                                         <td data-label="Message">
                                                     <button type="button" id="successButton111" class="btn btn-primary btn-sm" data-id1="{{$val->calculated_reason}}">View</button>
                                         </td>
                                         <td data-label="Message">
                                                 <button type="button" id="successButton112" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_message}}">View</button>
                                         </td>
-                                        <td data-label="Negotiation Message">
-                                                    <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_reject_message}}">View</button>
-                                                </td>
+                                        <td data-label="Message">
+                                        <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_reject_message}}">View</button>
+                                        </td>
                                         <td>
-                                           <span><a href="#" class="btn btn-success shadow btn-xs me-1">
-                                           Approved
+                                           <span><a href="#" class="btn btn-warning shadow btn-xs me-1">
+                                          Hold
                                              </a></span>
                                         </td>
                                         <td data-label="controlq">
                                             <div class="d-flex mt-p0">
-                                            <a href="/admin/book_manage_view/{{ $val->id }}" class="btn btn-success shadow btn-xs sharp me-1">
+                                             
+                                              <a href="/admin/book_manage_view/{{ $val->id }}" class="btn btn-success shadow btn-xs sharp me-1">
                                                         <i class="fa fa-book"></i>
                                                  </a>
                                                  @if($val->user_type === "publisher")
@@ -267,6 +248,9 @@
                                                  </a>
                                                  @endif
                                                 </a>
+
+
+
                                             </div>
                                         </td>
                                     </tr>
@@ -297,12 +281,11 @@
             Support ticket button end
             ***********************************-->
       </div>
-     
       <div class="modal fade" id="basicModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <p>Do you want to proceed?</p>
+                <p>Do You Want to Proceed?</p>
                 <!-- Hidden input field to store the data-id value -->
                 <input type="hidden" id="modalDataId" value="">
             </div>
@@ -313,20 +296,41 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+
+
+</div>  <div class="modal fade" id="basicModal1">
+            <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Reason for hold</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body" id="modalBodyContent"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                </div>
+            <div class="modal-body">
+                <p>Do you want to Proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="submitbutton" class="btn btn-primary submitbutton11">Confirm</button>
             </div>
         </div>
     </div>
+</div>
+      <!--**********************************
+         Main wrapper end
+         ***********************************-->
+         <?php
+        include "admin/plugin/plugin_js.php";
+    ?>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reason for reject</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBodyContent"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -355,38 +359,8 @@
         </div>
     </div>
 </div>
-
-</div>  <div class="modal fade" id="basicModal1">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-body">
-                <p>Do you want to proceed?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="submitbutton" class="btn btn-primary submitbutton11">Confirm</button>
-            </div>
-        </div>
-    </div>
-</div>
-      <!--**********************************
-         Main wrapper end
-         ***********************************-->
-         <?php
-        include "admin/plugin/plugin_js.php";
-    ?>
-   </body>
-   <script>
-    $(document).ready(function() {
-        $('#example3').on('click', '#successButton11', function() {
-            var message = $(this).data('id');
-            console.log(message);
-            $('#modalBodyContent').html(message);
-            $('#myModal').modal('show');
-        });
-    });
-</script>
-   <script>
+</body>
+<script>
     $(document).ready(function () {
         $('#example3').on('click', '#successButton111', function() {
      
@@ -394,6 +368,18 @@
             console.log(message);
             $('#modalBodyContent1').html(message);
             $('#myModal1').modal('show');
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#example3').on('click', '#successButton11', function() {
+
+  
+            var message = $(this).data('id');
+
+            $('#modalBodyContent').html(message);
+            $('#myModal').modal('show');
         });
     });
 </script>
@@ -407,7 +393,7 @@
         });
     });
 </script>
-   <script>
+<script>
     $(document).ready(function () {
 
         $("#openModalBtn").click(function () {

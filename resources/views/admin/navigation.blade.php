@@ -2059,12 +2059,14 @@
                             <span class="nav-text">Management Negotiation</span>
                         </a>
                         <ul aria-expanded="false">
+                            <li><a href="negotiation_price_upload">Price Upload </a></li>
                             <li><a href="negotiation_list">Negotiation List</a></li>
                             <li><a href="nego_pending_list">Pending list</a></li>
                             <li><a href="negotiation_process_list">Process list</a></li>
+                            <li><a href="negotiation_hold_list">Hold list</a></li>
                             <li><a href="nego_approved_list">Approved List</a></li>
 
-                            <li><a href="nego_failed_list">Failed list</a></li>
+                            <li><a href="nego_failed_list">Rejected list</a></li>
 
                         </ul>
                     </li>

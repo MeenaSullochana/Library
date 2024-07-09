@@ -19,13 +19,12 @@ class SubscriptionController extends Controller
 {
     public function subscription()
     {
-        $magazine = Magazine::all();
+        $magazine = Magazine::where('user_type','admin')->get();
         $periodicity = MagazinePeriodicity::where('status', 1)->get();
-       
         $arr =[];
         foreach ($periodicity as $key => $val) {
             foreach ($magazine as $key => $val1) {
-                $currentDate = Carbon::now()->subday(32);
+                $currentDate = Carbon::create(2024, 4, 1);
                 $endDate = $currentDate->copy()->addMonths(12);
                 $daysDifference = $endDate->diffInDays($currentDate);
                  if($val->name == $val1->periodicity ){
@@ -77,7 +76,7 @@ class SubscriptionController extends Controller
                         // array_push($arr, $obj);
                         $monthlyDates=[];
                     } else {
-                        $currentDate1 = Carbon::now()->subday(32);
+                        $currentDate1 =Carbon::create(2024, 4, 1);
                         $endDate1 = $currentDate1->copy()->addMonths(12);
                         $arrdate1=[];
                         while ($currentDate1->lt($endDate1)) {
