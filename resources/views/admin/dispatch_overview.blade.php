@@ -62,7 +62,7 @@
                                         <i class="bi bi-book" style="font-size: 30px;"></i>
                                     </div>
                                     <div class="total-projects ms-3">
-                                        <h3 class="text-success count text-start">Magazine List</h3>
+                                        <h3 class="text-success count text-start">Periodical List</h3>
                                         <!-- <span class="text-start">Total Completed</span> -->
                                     </div>
                                 </div>
@@ -72,35 +72,35 @@
                 </div>
                 <div class="row">
                     <div class="row">
-                    <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
-                                <label class="form-label">Select Category</label>
-                                <select name="category_filter" id="category_filter"
-                                    class="form-select bg-white p-2 border border-1 mb-3">
-                                    <option value="">All Category</option>
-                                    @php
-                                    $categori = DB::table('magazine_categories')->orderBy('created_at','ASC')->get();
-                                    @endphp
-                                    @foreach($categori as $val)
-                                    <option value="{{$val->name}}">{{$val->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
-                                <label class="form-label">Select language</label>
-                                <select name="language_filter" id="language_filter"
-                                    class="form-select bg-white p-2 border border-1 mb-3">
-                                    <option value="">All Record</option>
-                                    <option value="Tamil">Tamil</option>
-                                    <option value="English">English</option>
-                                </select>
-                            </div>
+                        <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                            <label class="form-label">Select Category</label>
+                            <select name="category_filter" id="category_filter"
+                                class="form-select bg-white p-2 border border-1 mb-3">
+                                <option value="">All Category</option>
+                                @php
+                                $categori = DB::table('magazine_categories')->orderBy('created_at','ASC')->get();
+                                @endphp
+                                @foreach($categori as $val)
+                                <option value="{{$val->name}}">{{$val->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
+                            <label class="form-label">Select language</label>
+                            <select name="language_filter" id="language_filter"
+                                class="form-select bg-white p-2 border border-1 mb-3">
+                                <option value="">All Record</option>
+                                <option value="Tamil">Tamil</option>
+                                <option value="English">English</option>
+                            </select>
+                        </div>
                         <div class="col-md-6 filter-elecment-one">
                             <!-- <div class="input-group mb-3">
                                 <input type="text" class="form-control" placeholder="Search Scheme" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                 <span class="input-group-text" id="basic-addon2"><i class="fa fa-search"></i></span>
                             </div> -->
                         </div>
-                   
+
                         <div class="col-md-6 filter-elecment-two text-right">
                             <div class="d-flex justify-content-end">
                                 <!-- <button class="btn btn-outline-success m-2"><i class="fa fa-file-excel"></i> Export
@@ -124,10 +124,10 @@
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>Title of the Magazine</th>
+                                                <th>Title of the Periodical</th>
                                                 <th>Language</th>
                                                 <th>Category</th>
-                                             
+
                                                 <th>Periodicity</th>
 
                                                 <!-- <th>District</th> -->
@@ -142,7 +142,7 @@
                                                 <th>Total No.of Multicolour Pages</th>
                                                 <th>Total No.of Monocolour Pages</th>
                                                 <th>Paper Quality</th>
-                                                <th>Size of Magazine</th>
+                                                <th>Size of Periodical</th>
                                                 <th>Status</th>
                                                 <th>Control</th>
                                             </tr>
@@ -151,15 +151,15 @@
                                             @foreach($datas as $val1)
                                             <tr>
                                                 <td class="py-2">{{ $loop->index + 1}}</td>
-                                                <td class="py-2">  <a
-                                                 href="/admin/dispatch_library_magazine/{{$val1->id}}/{{ implode(',', $val1->orderid) }}">
-                                        
-                                                {{ $val1->title}} </a></td>
+                                                <td class="py-2"> <a
+                                                        href="/admin/dispatch_library_magazine/{{$val1->id}}/{{ implode(',', $val1->orderid) }}">
+
+                                                        {{ $val1->title}} </a></td>
                                                 <td class="py-2">{{$val1->language}}</td>
                                                 <td class="py-2">{{$val1->category}}</td>
-                                               
-                                            
-                                             
+
+
+
                                                 <td class="py-2">{{$val1->periodicity}}</td>
 
                                                 <td class="py-2">{{ $val1->count}}</td>
@@ -179,11 +179,15 @@
 
                                                 </td>
                                                 <td>
-                                                    <a
-                                                        href="/admin/dispatch_library_magazine/{{$val1->id}}/{{ implode(',', $val1->orderid) }}">
-                                                        <i class="fa fa-eye p-2"></i>
-                                                    </a>
-
+                                                    <form action="/admin/dispatch_library_magazine/{{ $val1->id }}"
+                                                        method="POST" style="display:inline;">
+                                                        @csrf
+                                                        <input type="hidden" name="orderid"
+                                                            value="{{ implode(',', $val1->orderid) }}">
+                                                        <button type="submit" style="border:none; background:none;">
+                                                            <i class="fa fa-eye p-2"></i>
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -264,4 +268,5 @@ $(document).ready(function() {
     });
 });
 </script>
+
 </html>

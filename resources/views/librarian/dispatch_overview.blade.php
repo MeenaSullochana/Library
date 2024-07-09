@@ -62,7 +62,7 @@
                                         <i class="bi bi-book" style="font-size: 30px;"></i>
                                     </div>
                                     <div class="total-projects ms-3">
-                                        <h3 class="text-success count text-start">Magazine List</h3>
+                                        <h3 class="text-success count text-start">Periodical List</h3>
                                         <!-- <span class="text-start">Total Completed</span> -->
                                     </div>
                                 </div>
@@ -124,7 +124,7 @@
                                         <thead>
                                             <tr>
                                                 <th>S.No</th>
-                                                <th>Title of the Magazine</th>
+                                                <th>Title of the Periodical</th>
                                                 <th>Language</th>
                                                 <th>Category</th>
                                              
@@ -142,7 +142,7 @@
                                                 <th>Total No.of Multicolour Pages</th>
                                                 <th>Total No.of Monocolour Pages</th>
                                                 <th>Paper Quality</th>
-                                                <th>Size of Magazine</th>
+                                                <th>Size of Periodical</th>
                                                 <th>Status</th>
                                                 <th>Control</th>
                                             </tr>

@@ -101,7 +101,9 @@ $datas=[];
 
 
 
-public function dispatch_library_over_magazine_list($id,$orderid){
+public function dispatch_library_over_magazine_list(Request $request, $id)
+{
+    $orderid = $request->input('orderid');
     $orderidArray = explode(',', $orderid);
   
       $rec = [];

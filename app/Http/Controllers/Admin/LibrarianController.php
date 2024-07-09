@@ -33,18 +33,28 @@ class LibrarianController extends Controller
         $validator = Validator::make($req->all(),[
             'libraryType'=>'required|string',
             'libraryName'=>'required|string',
-           'subject'=>'required',
             'state'=>'required',
-            'district'=>'required|string',
-            'city'=>'required|string',
+            'district'=>'required|string', 
             'Village'=>'required',
+            'taluk'=>'required', 
+            'door_no'=>'required', 
+            'street_name'=>'required',
+            'place'=>'required',
+            'landmark'=>'required',
+            'post'=>'required',
+            'pin_code'=>'required',
             'metaChecker'=>'required',
             'librarianName'=>'required',
+            'librariancode'=>'required',
             'librarianDesignation'=>'required|string',
             'phoneNumber'=>'required|string|min:10|max:10',
             'email'=>'required|unique:librarians',
             'password'=>'required|min:8|max:8',
         ]);
+
+
+
+
         if($validator->fails()){
             $data= [
                 'error' => $validator->errors()->first(),
@@ -55,38 +65,51 @@ class LibrarianController extends Controller
       
             $Admin=auth('admin')->user();
             $librarian=new Librarian();
+
+          
             $librarian->libraryType = $req->libraryType;
             $librarian->libraryName = $req->libraryName;
-            $librarian->subject = json_encode($req->subject);
            
             $librarian->state = $req->state;
             $librarian->district = $req->district;
-            $librarian->city = $req->city;
+        
             $librarian->email = $req->email;
             $librarian->phoneNumber = $req->phoneNumber; 
             $librarian->Village = $req->Village;
             $librarian->role = "librarian";
             $librarian->metaChecker = $req->metaChecker;
+         
+            $librarian->taluk = $req->taluk;
+            $librarian->door_no = $req->door_no;
+            $librarian->street = $req->street_name;
+            $librarian->place = $req->place;
+            $librarian->landmark = $req->landmark;
+            $librarian->post = $req->post;
+            $librarian->pincode = $req->pin_code;
+
+
+
+            $librarian->checkstatus = "1";
+            if($req->metaChecker == "no"){
+                $librarian1 = Librarian::whereJsonContains('dlo_district', $req->district)
+                ->where('allow_status', '0')
+                ->first();
+                  if( $librarian1 != null ){
+                    $librarian->dlo_id =$librarian1->librarianId;
+                  }
+                  $librarian->allow_status = "1";
+            }else{
+                $librarian->allow_status = "2";
+                $librarian->subject = json_encode($req->subject);
+            }
            
-             $randomCode = str_pad(random_int(0, 99999999), 8, '0', STR_PAD_LEFT);
-             $librarian->librarianId= $randomCode;
+            $librarian->librarianId= $req->librariancode;
             $librarian->librarianName = $req->librarianName;
             $librarian->librarianDesignation = $req->librarianDesignation;
             $librarian->password=Hash::make($req->password);
+           
              $librarian->save();
-             $user =  $librarian->email;
-             $record =  $librarian;
-             $password = $req->password;
-            //  $url = "http://127.0.0.1:8000/member/login";
-            $rev =Mailurl::first();
-            if($rev == null){
-                $data= [
-                    'error' => "Mail Url not updated",
-                         ];
-                return response()->json($data);  
-            }
-            $url = $rev->name . "/member/login";
-             Notification::route('mail',$librarian->email)->notify(new Member1detailNotification($user, $url,$record,$password));  
+          
              $data= [
                 'success' => 'librarian Create Successfully',
                      ];

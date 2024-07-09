@@ -1,7 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="keywords" content="">
@@ -20,15 +20,16 @@
     <?php
         include "admin/plugin/plugin_css.php";
     ?>
-  </head>
-  <body>
+</head>
+
+<body>
     <!--*******************
         Preloader start
     ********************-->
     <div id="preloader">
-      <div class="text-center">
-        <img src="images/goverment_loader.gif" alt="" width="25%">
-      </div>
+        <div class="text-center">
+            <img src="images/goverment_loader.gif" alt="" width="25%">
+        </div>
     </div>
     <!--*******************
         Preloader end
@@ -37,14 +38,14 @@
         Main wrapper start
     ***********************************-->
     <div id="main-wrapper">
-      <!--**********************************
+        <!--**********************************
             Nav header start
-        ***********************************--> 
+        ***********************************-->
         @include ('admin.navigation')
-      <!--**********************************
+        <!--**********************************
             Sidebar end
         ***********************************-->
-      <!--**********************************
+        <!--**********************************
             Content body start
         ***********************************-->
         <div class="content-body">
@@ -55,15 +56,15 @@
 
                     </div>
                 </div>
-        <section class="content pr-3 pl-3">
+                <section class="content pr-3 pl-3">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card ">
                                 <div class="card-body">
                                     <div class="table-responsive-lg table-responsive-sm table-responsive-md">
-                    
+
                                         <div class="container">
-                                          
+
                                             <ul class="nav nav-pills mb-4 light">
                                                 <li class=" nav-item">
                                                     <a href="#navpills-1" class="nav-link active" data-bs-toggle="tab"
@@ -79,7 +80,17 @@
                                                 </li>
                                             </ul>
                                         </div>
-
+                                        <div class="row">
+                                            <div class="col-md-10"></div>
+                                            <div class="col-md-2">
+                                                <div class="d-sm-flex align-items-center justify-content-between">
+                                                    <button class="btn btn-info assignPro mb-5 justify-content-between"
+                                                        data-bs-toggle="modal" id="assign"
+                                                        data-bs-target="#basicModal">Delete reviewers</button>
+                                                    <!-- <button class="btn btn-info mb-5 justify-content-between"  id="assign">Assign</button> -->
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="tab-content">
                                             <div id="navpills-1" class="tab-pane active">
                                                 <div class="row">
@@ -108,7 +119,7 @@
                                                                             aria-describedby="empoloyeestbl2_info">
                                                                             <thead>
                                                                                 <tr role="row">
-                                                                                  
+
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
@@ -121,22 +132,22 @@
                                                                                         aria-label="User name: activate to sort column ascending"
                                                                                         style="width: 222.562px;">
                                                                                         Reviewer Name</th>
-                                                                                      
+
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
                                                                                         aria-label="Account Name: activate to sort column ascending"
                                                                                         style="width: 109px;">
-                                                                                       Assign Date 
+                                                                                        Assign Date
                                                                                     </th>
-                                                                                  
+
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
                                                                                         aria-label="Bank: activate to sort column ascending"
                                                                                         style="width: 73.4688px;">
                                                                                         Reviewer Remark</th>
-                                                                            
+
                                                                                     <th class="text-end sorting"
                                                                                         tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
@@ -147,40 +158,44 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                          @foreach($data->external as $val)
-                                                                       
+                                                                                @foreach($data->external as $val)
+
                                                                                 <tr role="row" class="odd">
-                                                                                <td class="sorting_1">{{$loop->index 
+                                                                                    <td class="sorting_1">{{$loop->index 
                                                                                     +1}} </td>
                                                                                     @php
-                                                                                    $reviewer = DB::table('reviewer')->find($val->reviewer_id);
-                                                                                     @endphp 
+                                                                                    $reviewer =
+                                                                                    DB::table('reviewer')->find($val->reviewer_id);
+                                                                                    @endphp
 
-                                                                                     @if( $reviewer !=null)
-                                                                           <td><span>{{$reviewer->name}}</span></td>
-                                                                           <td>
-                                                                            @endif
-                                                                                    {{$val->created_at->format('Y-m-d h:i A')}}
+                                                                                    @if( $reviewer !=null)
+                                                                                    <td><span>{{$reviewer->name}}</span>
                                                                                     </td>
                                                                                     <td>
-                                                                                   {{$val->review_type}}
+                                                                                        @endif
+                                                                                        {{$val->created_at->format('Y-m-d h:i A')}}
                                                                                     </td>
-                                                                                
-                                                                                 @if($val->review_type != null)
+                                                                                    <td>
+                                                                                        {{$val->review_type}}
+                                                                                    </td>
+
+                                                                                    @if($val->review_type != null)
                                                                                     <td class="py-2 "><span
-                                                                                            class="badge badge-success badge-sm"> Complited<span
-                                                                                                class="ms-1 fa fa-check"></span></span>
-                                                                                    </td>
-                                                                               
-                                                                                @else
-                                                                                <td class="py-2 "><span
-                                                                                            class="badge badge-danger badge-sm"> Not Completed<span
+                                                                                            class="badge badge-success badge-sm">
+                                                                                            Complited<span
                                                                                                 class="ms-1 fa fa-check"></span></span>
                                                                                     </td>
 
-                                                                                @endif
+                                                                                    @else
+                                                                                    <td class="py-2 "><span
+                                                                                            class="badge badge-danger badge-sm">
+                                                                                            Not Completed<span
+                                                                                                class="ms-1 fa fa-check"></span></span>
+                                                                                    </td>
+
+                                                                                    @endif
                                                                                 </tr>
-                                                                               @endforeach
+                                                                                @endforeach
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
@@ -189,7 +204,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                             
+
                                             </div>
                                             <div id="navpills-2" class="tab-pane">
                                                 <div class="row">
@@ -218,7 +233,19 @@
                                                                             aria-describedby="empoloyeestbl2_info">
                                                                             <thead>
                                                                                 <tr role="row">
-                                                                                <th class="sorting" tabindex="0"
+                                                                                    <th>
+                                                                                        <div
+                                                                                            class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                                                            <input type="checkbox"
+                                                                                                class="form-check-input"
+                                                                                                id="selectAllIbook"
+                                                                                                required="">
+                                                                                            <label
+                                                                                                class="form-check-label"
+                                                                                                for="selectAllIbook"></label>
+                                                                                        </div>
+                                                                                    </th>
+                                                                                    <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
                                                                                         aria-label="S.No: activate to sort column ascending"
@@ -230,22 +257,22 @@
                                                                                         aria-label="User name: activate to sort column ascending"
                                                                                         style="width: 222.562px;">
                                                                                         Reviewer Name</th>
-                                                                                      
+
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
                                                                                         aria-label="Account Name: activate to sort column ascending"
                                                                                         style="width: 109px;">
-                                                                                       Assign Date 
+                                                                                        Assign Date
                                                                                     </th>
-                                                                                  
+
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
                                                                                         aria-label="Bank: activate to sort column ascending"
                                                                                         style="width: 73.4688px;">
                                                                                         Reviewer Remark</th>
-                                                                            
+
                                                                                     <th class="text-end sorting"
                                                                                         tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
@@ -256,41 +283,63 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                           
-                                                                            @foreach($data->internal as $val)
-                                                                       
-                                                                       <tr role="row" class="odd">
-                                                                       <td class="sorting_1">{{$loop->index 
-                                                                           +1}} </td>
-                                                                           @php
-                                                                           $reviewer = DB::table('reviewer')->find($val->reviewer_id);
-                                                                            @endphp 
-@if( $reviewer !=null)
-                                                                           <td><span>{{$reviewer->name}}</span></td>
-                                                                           <td>
-                                                                            @endif
-                                                                           {{$val->created_at->format('Y-m-d h:i A')}}
-                                                                           </td>
-                                                                           <td>
-                                                                          {{$val->review_type}}
-                                                                           </td>
-                                                                       
-                                                                        @if($val->review_type != null)
-                                                                           <td class="py-2 "><span
-                                                                                   class="badge badge-success badge-sm"> Complited<span
-                                                                                       class="ms-1 fa fa-check"></span></span>
-                                                                           </td>
-                                                                      
-                                                                       @else
-                                                                       <td class="py-2 "><span
-                                                                                   class="badge badge-danger badge-sm"> Not Completed<span
-                                                                                       class="ms-1 fa fa-check"></span></span>
-                                                                           </td>
 
-                                                                       @endif
-                                                                       </tr>
-                                                                      @endforeach
-                                                                              
+                                                                                @foreach($data->internal as $val)
+
+                                                                                <tr role="row" class="odd">
+                                                                                    @if($val->review_type == null)
+                                                                                    <td>
+                                                                                        <div
+                                                                                            class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                                                            <input type="checkbox"
+                                                                                                class="form-check-input bookitem"
+                                                                                                id="checkItem_{{ $val->id }}"
+                                                                                                data-book-id="{{ $val->id }}"
+                                                                                                required="">
+                                                                                            <label
+                                                                                                class="form-check-label"
+                                                                                                for="checkItem_{{ $val->id }}"></label>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    @else
+                                                                                    <td>
+                                                                                    </td>
+                                                                                    @endif
+                                                                                    <td class="sorting_1">{{$loop->index 
+                                                                           +1}} </td>
+                                                                                    @php
+                                                                                    $reviewer =
+                                                                                    DB::table('reviewer')->find($val->reviewer_id);
+                                                                                    @endphp
+                                                                                    @if( $reviewer !=null)
+                                                                                    <td><span>{{$reviewer->name}}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        @endif
+                                                                                        {{$val->created_at->format('Y-m-d h:i A')}}
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        {{$val->review_type}}
+                                                                                    </td>
+
+                                                                                    @if($val->review_type != null)
+                                                                                    <td class="py-2 "><span
+                                                                                            class="badge badge-success badge-sm">
+                                                                                            Completed<span
+                                                                                                class="ms-1 fa fa-check"></span></span>
+                                                                                    </td>
+
+                                                                                    @else
+                                                                                    <td class="py-2 "><span
+                                                                                            class="badge badge-danger badge-sm">
+                                                                                            Not Completed<span
+                                                                                                class="ms-1 fa fa-check"></span></span>
+                                                                                    </td>
+
+                                                                                    @endif
+                                                                                </tr>
+                                                                                @endforeach
+
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
@@ -299,7 +348,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                              
+
                                             </div>
                                             <div id="navpills-3" class="tab-pane">
                                                 <div class="row">
@@ -328,7 +377,7 @@
                                                                             aria-describedby="empoloyeestbl2_info">
                                                                             <thead>
                                                                                 <tr role="row">
-                                                                                <th class="sorting" tabindex="0"
+                                                                                    <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
                                                                                         aria-label="S.No: activate to sort column ascending"
@@ -340,22 +389,22 @@
                                                                                         aria-label="User name: activate to sort column ascending"
                                                                                         style="width: 222.562px;">
                                                                                         Reviewer Name</th>
-                                                                                      
+
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
                                                                                         aria-label="Account Name: activate to sort column ascending"
                                                                                         style="width: 109px;">
-                                                                                       Assign Date 
+                                                                                        Assign Date
                                                                                     </th>
-                                                                                  
+
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
                                                                                         aria-label="Bank: activate to sort column ascending"
                                                                                         style="width: 73.4688px;">
                                                                                         Reviewer Remark</th>
-                                                                            
+
                                                                                     <th class="text-end sorting"
                                                                                         tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
@@ -366,41 +415,45 @@
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
-                                                                            @foreach($data->public as $val)
-                                                                       
-                                                                       <tr role="row" class="odd">
-                                                                       <td class="sorting_1">{{$loop->index 
+                                                                                @foreach($data->public as $val)
+
+                                                                                <tr role="row" class="odd">
+                                                                                    <td class="sorting_1">{{$loop->index 
                                                                            +1}} </td>
-                                                                           @php
-                                                                           $reviewer = DB::table('reviewer')->find($val->reviewer_id);
-                                                                            @endphp 
+                                                                                    @php
+                                                                                    $reviewer =
+                                                                                    DB::table('reviewer')->find($val->reviewer_id);
+                                                                                    @endphp
 
-                                                                            @if( $reviewer !=null)
-                                                                           <td><span>{{$reviewer->name}}</span></td>
-                                                                           <td>
-                                                                            @endif
-                                                                           {{$val->created_at->format('Y-m-d h:i A')}}
-                                                                           </td>
-                                                                           <td>
-                                                                          {{$val->review_type}}
-                                                                           </td>
-                                                                       
-                                                                        @if($val->review_type != null)
-                                                                           <td class="py-2 "><span
-                                                                                   class="badge badge-success badge-sm"> Complited<span
-                                                                                       class="ms-1 fa fa-check"></span></span>
-                                                                           </td>
-                                                                      
-                                                                       @else
-                                                                       <td class="py-2 "><span
-                                                                                   class="badge badge-danger badge-sm"> Not Completed<span
-                                                                                       class="ms-1 fa fa-check"></span></span>
-                                                                           </td>
+                                                                                    @if( $reviewer !=null)
+                                                                                    <td><span>{{$reviewer->name}}</span>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        @endif
+                                                                                        {{$val->created_at->format('Y-m-d h:i A')}}
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        {{$val->review_type}}
+                                                                                    </td>
 
-                                                                       @endif
-                                                                       </tr>
-                                                                      @endforeach
-                                                                              
+                                                                                    @if($val->review_type != null)
+                                                                                    <td class="py-2 "><span
+                                                                                            class="badge badge-success badge-sm">
+                                                                                            Complited<span
+                                                                                                class="ms-1 fa fa-check"></span></span>
+                                                                                    </td>
+
+                                                                                    @else
+                                                                                    <td class="py-2 "><span
+                                                                                            class="badge badge-danger badge-sm">
+                                                                                            Not Completed<span
+                                                                                                class="ms-1 fa fa-check"></span></span>
+                                                                                    </td>
+
+                                                                                    @endif
+                                                                                </tr>
+                                                                                @endforeach
+
                                                                             </tbody>
                                                                         </table>
                                                                     </div>
@@ -409,9 +462,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                              
+
                                             </div>
-                                     
+
                                         </div>
 
                                     </div>
@@ -419,14 +472,95 @@
                             </div>
                         </div>
                     </div> <!-- row-->
-       </section>
-      <!--**********************************
+                </section>
+                <!--**********************************
         Main wrapper end
-    ***********************************--> 
+    ***********************************-->
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="basicModal">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-body">
+                <p>Do you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="submitbutton11" class="btn btn-primary submitbutton11">Confirm</button>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-    <?php
+        <?php
         include "admin/plugin/plugin_js.php";
     ?>
-  </body>
+</body>
+<script>
+$(document).ready(function() {
+    $('#selectAllIbook').on('click', function() {
+        console.log('hi');
+        var isChecked = $(this).prop('checked');
+        $('.bookitem').prop('checked', isChecked);
+    });
+});
+</script>
+
+<script>
+    $('.submitbutton11').click(function () {
+      $('.submitbutton11').prop('disabled',true);
+      $('#assign').prop('disabled',true);
+
+             var checkebook = $('.bookitem:checked').map(function () {
+           return $(this).data('book-id');
+                }).get();
+
+   
+                var rec = @json($data->bookid);
+
+
+
+                var requestData = {
+                   reviewerId: checkebook,
+                   bookid:rec
+                        };
+
+        console.log(requestData);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: '/admin/delete-reviewer-data',
+            method: 'POST',
+            data: requestData,
+            success: function (response) {
+               $('.submitbutton11').prop('disabled',false);
+               $('#assign').prop('disabled',false);
+
+              if(response.success){
+               $('#basicModal').modal('hide');
+
+
+                setTimeout(function() {
+                    window.location.href ="/admin/review"
+                     }, 3000);
+                toastr.success(response.success,{timeout:45000});
+               }else{
+                  $('#basicModal').modal('hide');
+                toastr.error(response.error,{timeout:45000});
+             
+               }
+
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX error:', status, error);
+            }
+        });
+
+    });
+</script>
+
 </html>

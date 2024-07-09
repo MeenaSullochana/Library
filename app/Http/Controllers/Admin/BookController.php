@@ -26,6 +26,9 @@ use App\Models\PublisherDistributor;
 use App\Models\bookcopies;
 use DB;
 
+use App\Models\Booksubject;
+
+use Illuminate\Support\Facades\Session;
 class BookController extends Controller
 {
     
@@ -656,6 +659,7 @@ public function procur_pending_list(){
   }
   return view('admin.procur_pending_list')->with('record',$record);
 }
+
 public function procur_complete_list(){
   $data = BookReviewStatus::groupBy('book_id')->get('book_id');
   $record = [];
@@ -1375,7 +1379,8 @@ return response()->json($data);
  $reviewer=(Object)[
   'external'=>$external,
   'internal'=>$internal,
-  'public'=>$public
+  'public'=>$public,
+  'bookid'=>$id
 ];
 
  \Session::put('reviewer', $reviewer);
@@ -1383,6 +1388,86 @@ return response()->json($data);
       return redirect('admin/review'); 
   }
 
+  public function delete_reviewer_data(Request $req){
+    $reviewerId = $req->reviewerId;
+        
+    if (is_array($reviewerId) && !empty($reviewerId)) {
+
+    $reviewerIdsString = implode(',', array_map(function($id) {
+      return "'" . $id . "'";
+  }, $reviewerId));
+  
+  $sql = "DELETE FROM book_review_statuses WHERE book_id = ? AND id IN ($reviewerIdsString)";
+  
+  $deletedRows = DB::delete($sql, [$req->bookid]);
+} else {
+  $data = [
+    'error' => 'Please Select Reviewer',
+];
+return response()->json($data);
+}
+        
+     $avginternal=0;
+     $avgexternal=0;
+     $avgpublic=0;
+ 
+     $data1 = BookReviewStatus::where('book_id',$req->bookid)->where('mark','!=',null)->get();
+   
+     if(sizeof($data1) != 0){
+        $book = Book::find($req->bookid);
+        $internalcount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','internal')->count();
+        $externalcount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','external')->count();
+        $publiccount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','public')->count();
+        $rinternalcount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','internal')->where('mark','!=',null)->count();
+        $rexternalcount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','external')->where('mark','!=',null)->count();
+        $rpubliccount= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','public')->where('mark','!=',null)->count();
+        $suminternal= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','internal')->where('mark','!=',null)->sum('mark');
+        $sumexternal= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','external')->where('mark','!=',null)->sum('mark');
+        $sumpublic= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','public')->where('mark','!=',null)->sum('mark');
+        if(($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+                  $mark = ($sumexternal/($externalcount * 20))*100;
+        }else if(($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+                  $mark = ($suminternal/($internalcount * 20))*100;
+        }else if(($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)){
+                   $mark = ($sumpublic/($publiccount * 20))*100;
+        }else if($externalcount == 0 || $rexternalcount == 0){
+                 $mark = (($suminternal/($internalcount * 20))*50)+(($sumpublic/($publiccount * 20))*50);
+        }else if($internalcount == 0 || $rinternalcount == 0){
+                 $mark = (($sumexternal/($externalcount * 20))*70)+(($sumpublic/($publiccount * 20))*30);
+        }else if($publiccount == 0 || $rpubliccount == 0){
+               $mark = (($sumexternal/($externalcount * 20))*70)+(($suminternal/($internalcount * 20))*30);
+        }else{
+               $mark = (($sumexternal/($externalcount * 20))*60)+(($suminternal/($internalcount * 20))*20)+(($sumpublic/($publiccount * 20))*20);
+        }
+        $book->marks = $mark;
+        $book->save();
+    }
+   
+
+   
+     $external =  BookReviewStatus::where('book_id','=',$req->bookid)->where('reviewertype','=','external')->get();
+     $internal =  BookReviewStatus::where('book_id','=',$req->bookid)->where('reviewertype','=','internal')->get();
+     $public =  BookReviewStatus::where('book_id','=',$req->bookid)->where('reviewertype','=','public')->get();
+     $reviewer=(Object)[
+      'external'=>$external,
+      'internal'=>$internal,
+      'public'=>$public,
+      'bookid'=>$req->bookid
+    ];
+    
+     \Session::put('reviewer', $reviewer);
+      
+     $data = [
+      'success' => 'Reviewer Delete Successfully',
+  ];
+  return response()->json($data);
+
+        
+  }
+
+
+
+  
   public function book_manage($id){
       
     $book = Book::
@@ -1518,6 +1603,7 @@ public function master_book_data(Request $request) {
 
   if ($request->has('search') && $request->search != '') {
       $query->where('book_title', 'like', '%' . $request->search . '%')
+      ->orWhere('product_code', 'like', '%' . $request->search . '%')
             ->orWhere('isbn', 'like', '%' . $request->search . '%');
   }
 
@@ -1767,6 +1853,7 @@ public function master_book_datareport(Request $request) {
 
   if ($request->has('search') && $request->search != '') {
       $query->where('book_title', 'like', '%' . $request->search . '%')
+      ->orWhere('product_code', 'like', '%' . $request->search . '%')
             ->orWhere('isbn', 'like', '%' . $request->search . '%');
   }
 
@@ -1877,6 +1964,649 @@ return response()->json($data);
 
 }
 
+public function book_edit($id){
+  $book=Book::find($id);
+  $book->primaryauthor1= json_decode($book->primaryauthor);
+  $book->trans_from1= json_decode($book->trans_from);
+  $book->other_img1= json_decode($book->other_img);
+  $book->booktag1= json_decode($book->booktag);
+  $book->trans_author1= json_decode($book->trans_author);
+  $book->bookdescription1= json_decode($book->bookdescription);
+  $book->series1= json_decode($book->series);
+  $book->volume1= json_decode($book->volume);
+  $book->banner_img1= json_decode($book->banner_img);
+  if($book->user_type == "publisher"){
+    $pub=Publisher::find( $book->user_id);
+  
+    $book->firstName= $pub->firstName;
+    $book->lastName= $pub->lastName;
+   }else if($book->user_type == "distributor"){
+     $pub=Distributor::find( $book->user_id);
+  
+     $book->firstName= $pub->firstName;
+     $book->lastName= $pub->lastName;
+   }else{
+     $pub=PublisherDistributor::find( $book->user_id);
+ 
+     $book->firstName= $pub->firstName;
+     $book->lastName= $pub->lastName;
+   }
+   \Session::put('book', $book);
+  return redirect('admin/bookedit');
+
+}
+
+public function getlanguage(Request $request)
+{
+    $lang = $request->lang;
+    if($lang == "Tamil"){
+        $subjects = Booksubject::where('type',$lang)->get();
+    }else{
+        $subjects = Booksubject::where('type',"English")->get();
+    }
+   
+   
+    
+    return response()->json(['subjects' => $subjects]);
+}
+public function removeImage(Request $request)
+{
+    $book = Book::find($request->bookId);
+    $imageFileName = $request->input('imageFileName');
+    $otherImages = json_decode($book->other_img, true);
+    $index = array_search($imageFileName, $otherImages);
+    if ($index !== false) {
+        unset($otherImages[$index]);
+        $otherImages = array_values($otherImages);
+    }
+    if(count($otherImages) >0 ){
+      $book->other_img = json_encode($otherImages);
+    }else{
+      $book->other_img = null;
+    }
+   
+    $book->save();
+
+
+    $book->primaryauthor1= json_decode($book->primaryauthor);
+    $book->trans_from1= json_decode($book->trans_from);
+    $book->other_img1= json_decode($book->other_img);
+    $book->booktag1= json_decode($book->booktag);
+    $book->trans_author1= json_decode($book->trans_author);
+    $book->bookdescription1= json_decode($book->bookdescription);
+    $book->series1= json_decode($book->series);
+    $book->volume1= json_decode($book->volume);
+    $book->banner_img1= json_decode($book->banner_img);
+    if($book->user_type == "publisher"){
+      $pub=Publisher::find( $book->user_id);
+  
+      $book->firstName= $pub->firstName;
+      $book->lastName= $pub->lastName;
+     }else if($book->user_type == "distributor"){
+       $pub=Distributor::find( $book->user_id);
+     
+       $book->firstName= $pub->firstName;
+       $book->lastName= $pub->lastName;
+     }else{
+       $pub=PublisherDistributor::find( $book->user_id);
+     
+       $book->firstName= $pub->firstName;
+       $book->lastName= $pub->lastName;
+     }
+    if(Session::has('book')){
+      Session::forget('book');
+    }
+    Session::put('book',$book);
+    $filePath = public_path('Books/other_img/' . $imageFileName);
+    if (file_exists($filePath)) {
+        unlink($filePath);
+    }
+    return response()->json(['success' => true, "otherImages" => $otherImages]);
+}
+
+public function removeImageHighlights(Request $request)
+{
+    $book = Book::find($request->bookId);
+    $imageFileName = $request->input('imageFileName');
+    $otherImages = json_decode($book->banner_img, true);
+    $index = array_search($imageFileName, $otherImages);
+    if ($index !== false) {
+        unset($otherImages[$index]);
+        $otherImages = array_values($otherImages);
+    }
+    if(count($otherImages) >0 ){
+      $book->banner_img = json_encode($otherImages);
+    }else{
+      $book->banner_img = null;
+    }
+    
+    $book->save();
+    if(Session::has('book')){
+      Session::forget('book');
+    }
+    $book->primaryauthor1= json_decode($book->primaryauthor);
+    $book->trans_from1= json_decode($book->trans_from);
+    $book->other_img1= json_decode($book->other_img);
+    $book->booktag1= json_decode($book->booktag);
+    $book->trans_author1= json_decode($book->trans_author);
+    $book->bookdescription1= json_decode($book->bookdescription);
+    $book->series1= json_decode($book->series);
+    $book->volume1= json_decode($book->volume);
+    $book->banner_img1= json_decode($book->banner_img);
+    if($book->user_type == "publisher"){
+      $pub=Publisher::find( $book->user_id);
+    
+      $book->firstName= $pub->firstName;
+      $book->lastName= $pub->lastName;
+     }else if($book->user_type == "distributor"){
+       $pub=Distributor::find( $book->user_id);
+    
+       $book->firstName= $pub->firstName;
+       $book->lastName= $pub->lastName;
+     }else{
+       $pub=PublisherDistributor::find( $book->user_id);
+    
+       $book->firstName= $pub->firstName;
+       $book->lastName= $pub->lastName;
+     }
+    Session::put('book',$book);
+    $filePath = public_path('Books/other_img/' . $imageFileName);
+    if (file_exists($filePath)) {
+        unlink($filePath);
+    }
+    return response()->json(['success' => true, "otherImages" => $otherImages]);
+}
+
+public function update(Request $request){
+
+
+  $validator= Validator::make($request->all(),[
+      'book_title'                          =>['required'],
+      'size'                          =>['required'],
+      'weight'                          =>['required'],
+      'type'                          =>['required'],
+      'length_breadth'                          =>['required'],
+      'paper_finishing'                          =>['required'],
+      'currency_type'                          =>['required'],
+      'width'                          =>['required'],
+      'gsm'                          =>['required'],
+      'quality'                          =>['required'],
+      'multicolor'                          =>['required'],
+      'monocolor'                          =>['required'],
+      'pages'                          =>['required'],
+      'isbn'                          =>['required'],
+      'place'                          =>['required'],
+      'price'                          =>['required'],
+      'language.*'                          =>['required'],
+      'banner_img.*'                    =>['required'],
+      'category'                          =>['required'],
+      'description'                          =>['required'],
+      'author_name'                          =>['required'],
+      'author_description'                          =>['required'],
+      'bookdescription.*'                          =>['required'],
+      'productdescription'                          =>['required'],
+
+  ]);
+  if($validator->fails()){
+      // return $validator->errors();
+      return redirect()->back()->withInput()->withErrors($validator->errors());
+     }
+$book =Book::find($request->id);
+if(!isset($request->banner_img)){
+  if($book->banner_img == null){
+      return back()->with('imageerror',"Books highlights image is required field");
+  }
+ 
+
+}
+    $heightWidthString = $request->length_breadth;
+
+
+    $dimensionsArray = explode('x', $heightWidthString);
+    $length = trim($dimensionsArray[0]);
+    $breadth = trim($dimensionsArray[1]);
+    if ($request->series_number[0] != null && $request->series_title[0] != null && $request->isbn_number[0] != null) {
+     $series_number = $request->series_number;
+     $series_title = $request->series_title;
+     $isbn_number = $request->isbn_number;
+     $series_num = sizeof($series_number);
+     $series=[];
+     for($i=0;$i<$series_num;$i++){
+         $obj=(Object)[
+             "series_number"=>$series_number[$i],
+             "series_title"=>$series_title[$i],
+             "isbn_number"=>$isbn_number[$i],
+         ];
+         array_push($series,$obj);
+     }
+$book->series =        json_encode($series)  ;
+
+}
+  //    volume
+if($request->volume_number[0] !=null && $request->volume_title[0] !=null && $request->isbn_number1[0] !=null ){
+
+  $volume_number = $request->volume_number;
+  $volume_title = $request->volume_title;
+  $isbn_number1 = $request->isbn_number1;
+  $volume_num = sizeof($volume_number);
+  $volume=[];
+  for($i=0;$i<$volume_num;$i++){
+      $obj=(Object)[
+          "volume_number"=>$volume_number[$i],
+          "volume_title"=>$volume_title[$i],
+          "isbn_number"=>$isbn_number1[$i],
+      ];
+      array_push($volume,$obj);
+  }
+       $book->volume =        json_encode($volume)  ;
+
+     }
+
+//Sample Files
+if(isset($request->sample_file)){
+$oldfiletype = $book->sample_file;
+if($oldfiletype == "Pdf"){
+  $oldFilePath = $book->sample_pdf;
+  if ($oldFilePath) {
+      if (File::exists(public_path('Books/samplepdf/' . $oldFilePath))) {
+          File::delete(public_path('Books/samplepdf/' . $oldFilePath));
+      }
+     
+    
+     
+  }
+  $book->sample_pdf = null;
+} else {
+  $oldFilePath = $book->sample_epub;
+  if ($oldFilePath) {
+      if (File::exists(public_path('Books/sampleepub/' . $oldFilePath))) {
+          File::delete(public_path('Books/sampleepub/' . $oldFilePath));
+      }
+     
+    
+  }
+  $book->sample_epub = null;
+}
+if($request->sample_file == "Pdf"){
+  if ($request->hasFile('sample_pdf')) {
+      $samplepdf = $request->file('sample_pdf');
+     $samplepdf_name = time() . '_' . $samplepdf->getClientOriginalName();
+      $samplepdf->move(('Books/samplepdf'), $samplepdf_name);
+      $book->sample_pdf = $samplepdf_name;
+      $book->sample_file = $request->sample_file;
+  }
+
+}else{
+  if ($request->hasFile('sample_epub')) {
+      $sampleepub = $request->file('sample_epub');
+     $sampleepub_name = time() . '_' . $sampleepub->getClientOriginalName();
+      $sampleepub->move(('Books/sampleepub'), $sampleepub_name);
+      $book->sample_epub = $sampleepub_name;
+      $book->sample_file = $request->sample_file;
+    }
+}
+}
+
+//Front Img
+if(isset($request->front_img)){
+$oldFilePath = $book->front_img;
+if ($oldFilePath) {
+  if (File::exists(public_path('Books/front/' . $oldFilePath))) {
+      File::delete(public_path('Books/front/' . $oldFilePath));
+  }
+ 
+}
+if ($request->hasFile('front_img')) {
+  $front = $request->file('front_img');
+  $front_name = time() . '_' . $front->getClientOriginalName();
+  $front->move(('Books/front'), $front_name);
+  $book->front_img = $front_name;
+}
+}
+
+// Back Image
+if(isset($request->back_img)){
+$oldFilePath = $book->back_img;
+if ($oldFilePath) {
+  if (File::exists(public_path('Books/back/' . $oldFilePath))) {
+         File::delete(public_path('Books/back/' . $oldFilePath));
+  }
+ 
+}
+if ($request->hasFile('back_img')) {
+  $back = $request->file('back_img');
+  $back_name = time() . '_' . $back->getClientOriginalName();
+  $back->move(('Books/back'), $back_name);
+  $book->back_img = $back_name;
+}
+}
+
+//Other Image
+if(isset($request->full_img)){
+  $oldFilePath = $book->full_img;
+  if ($oldFilePath) {
+      if (File::exists(public_path('Books/full/' . $oldFilePath))) {
+          File::delete(public_path('Books/full/' . $oldFilePath));
+      }
+     
+  }
+  if ($request->hasFile('full_img')) {
+      $full = $request->file('full_img');
+      $full_name = time() . '_' . $full->getClientOriginalName();
+      $full->move(public_path('Books/full'), $full_name);
+      $book->full_img = $full_name;
+  }
+}
+
+//Author Image
+if(isset($request->author_img)){
+  $oldFilePath = $book->author_img;
+  if ($oldFilePath) {
+      if (File::exists(public_path('Books/author_img/' . $oldFilePath))) {
+          File::delete(public_path('Books/author_img/' . $oldFilePath));
+      }
+   
+  }
+  if ($request->hasFile('author_img')) {
+      $author_img = $request->file('author_img');
+      $author_img_name = time() . '_' . $author_img->getClientOriginalName();
+      $author_img->move(('Books/author_img'), $author_img_name);
+      $book->author_img = $author_img_name;
+  }
+}
+//Highlights
+if(isset($request->banner_img)){
+  $bannerimg = $request->banner_img;
+  $mem_len = sizeof($bannerimg);
+  if($book->banner_img != null){
+      $banner=json_decode($book->banner_img);
+      $banner= $banner;
+  }else{
+    $banner = [];
+  }
+  for($i=0;$i<$mem_len;$i++){
+      $bannerim = $bannerimg[$i];
+      $banner_name=$request->book_title.time().'_'.$bannerim->getClientOriginalName();
+      $bannerim->move(('Books/banner'),$banner_name);
+      array_push($banner,$banner_name);
+  }
+   $book->banner_img = json_encode($banner);
+ }
+
+//Product Image
+if(isset($request->product_img)){
+  $oldFilePath = $book->product_img;
+  if ($oldFilePath) {
+      if (File::exists(public_path('Books/product/' . $oldFilePath))) {
+          File::delete(public_path('Books/product/' . $oldFilePath));
+      }
+     
+  }
+  if ($request->hasFile('product_img')) {
+      $product = $request->file('product_img');
+      $product_name = time() . '_' . $product->getClientOriginalName();
+      $product->move(('Books/product'), $product_name);
+      $book->product_img = $product_name;
+   }
+     }
+
+//otherImg
+if(isset($request->other_img)){
+  $other_image = $request->other_img;
+  $mem_len = sizeof($other_image);
+  if($book->other_img != null){
+      $others=json_decode($book->other_img);
+      $others= $others;
+  }else{
+    $others = [];
+  }
+  for($i=0;$i<$mem_len;$i++){
+     $other = $other_image[$i];
+  
+     $other_name=$request->book_title.time().'_'.$other->getClientOriginalName();
+     $other->move(('Books/other_img'),$other_name);
+     array_push($others,$other_name);
+   }
+     $book->other_img = json_encode($others);
+     
+ }
+     $book->book_title = $request->book_title ;
+     $book->subtitle =       $request->subtitle ?? Null;
+     $book->booktag =        json_encode($request->tag)  ?? Null;
+     $book->edition_number =       $request->edition_number  ?? Null;
+     $book->primaryauthor =      json_encode( $request->primaryauthor) ;
+     if($request->trans_author[0] !=null || $request->trans_author[1] !=null || $request->trans_author[2] !=null ){
+      $book->trans_author =        json_encode($request->trans_author)  ?? Null;
+     }
+     if($request->trans_from[0] !=null || $request->trans_from[1] !=null ){
+      $book->trans_from =        json_encode($request->trans_from)  ?? Null;
+
+     }
+     $book->discountedprice =        $request->discountedprice1;
+     $book->discount =       $request->discount ;
+     $book->type =        $request->type;
+     $book->length =       $length ;
+     $book->breadth =       $breadth ;
+     $book->paper_finishing =      $request->paper_finishing ;
+     $book->length_breadth =      $request->length_breadth ;
+     $book->currency_type =      $request->currency_type ;
+     $book->size =       $request->size ;
+     $book->width =       $request->width ;
+     $book->weight =       $request->weight ;
+     $book->gsm =       $request->gsm ;
+     $book->quality =       $request->quality ;
+     $book->multicolor =       $request->multicolor ;
+     $book->monocolor =       $request->monocolor ;
+     $book->pages =       $request->pages ;
+     $book->isbn =       $request->isbn ;
+     $book->subject =       $request->subject ;
+     $book->product_code = $book->product_code;
+     $book->others =       $request->others  ?? Null;
+     $book->place =       $request->place ;
+     $book->price =       $request->price ;
+     $book->language =       $request->language;
+     $book->other_indian= $request->Other_Indian ?? Null;
+     $book->other_foreign= $request->Other_Foreign ?? Null;
+     $book->category =       $request->category ;
+     $book->description =       $request->description ;
+     $book->notes =       $request->notes  ?? Null;
+     $book->author_name =       $request->author_name ;
+     $book->author_description =       $request->author_description ;
+     $book->bookdescription =       json_encode($request->bookdescription) ;
+     $book->productdescription =       $request->productdescription  ;
+     $book->nameOfPublisher =       $request->nameOfPublisher  ;
+     $book->yearOfPublication =       $request->yearOfPublication  ;
+
+     $book->save();
+
+    
+
+$book->primaryauthor1= json_decode($book->primaryauthor);
+$book->trans_from1= json_decode($book->trans_from);
+$book->other_img1= json_decode($book->other_img);
+$book->booktag1= json_decode($book->booktag);
+$book->trans_author1= json_decode($book->trans_author);
+$book->bookdescription1= json_decode($book->bookdescription);
+$book->series1= json_decode($book->series);
+$book->volume1= json_decode($book->volume);
+$book->banner_img1= json_decode($book->banner_img);
+if($book->user_type == "publisher"){
+  $pub=Publisher::find( $book->user_id);
+   $publicationName=$pub->publicationName;
+   $book->publicationName= $publicationName;
+  $book->firstName= $pub->firstName;
+  $book->lastName= $pub->lastName;
+ }else if($book->user_type == "distributor"){
+   $pub=Distributor::find( $book->user_id);
+   $publicationName=$pub->distributionName;
+   $book->publicationName= $publicationName;
+   $book->firstName= $pub->firstName;
+   $book->lastName= $pub->lastName;
+ }else{
+   $pub=PublisherDistributor::find( $book->user_id);
+   $publicationName=$pub->publicationDistributionName;
+   $book->publicationName= $publicationName;
+   $book->firstName= $pub->firstName;
+   $book->lastName= $pub->lastName;
+ }
+if(Session::has('book')){
+  Session::forget('book');
+}
+Session::put('book',$book);
+return back()->with('success',"Books updated successfully");
+}
+
+public function master_nego_book_data(Request $request) {
+  // Use eager loading to reduce the number of queries
+  $query = Book::with('librarian');
+
+  // Apply filters
+  if ($request->has('language_filter') && $request->language_filter != '') {
+      $query->where('language', $request->language_filter);
+  }
+
+  if ($request->has('subject_filter') && $request->subject_filter != '') {
+      $query->where('subject', $request->subject_filter);
+  }
+
+  if ($request->has('category_filter') && $request->category_filter != '') {
+      $query->where('category', $request->category_filter);
+  }
+
+  if ($request->has('search') && $request->search != '') {
+      $query->where('book_title', 'like', '%' . $request->search . '%')
+      ->orWhere('product_code', 'like', '%' . $request->search . '%')
+            ->orWhere('isbn', 'like', '%' . $request->search . '%');
+  }
+  $query->where('marks', '>=', 40)->where('negotiation_status','=', null)
+  ->orderBy('marks', 'desc');
+$data = $query->paginate(15);
+
+  $procurementStatuses = ["1", "5", "6"];
+  $bookStatusLabels = [
+      "1" => "Success",
+      "0" => "Reject",
+      "2" => "Returned To User Correction",
+      "3" => "Book Update To Return"
+  ];
+
+  foreach ($data as $val) {
+      $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+      $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+      $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+  }
+
+  return view('admin.master_nego_book_data', compact('data'));
+}
+
+public function master_nego_book_datareport(Request $request) {
+
+  // Use eager loading to reduce the number of queries
+  $query = Book::with('librarian');
+
+  // Apply filters
+  if ($request->has('language_filter') && $request->language_filter != '') {
+      $query->where('language', $request->language_filter);
+  }
+
+  if ($request->has('subject_filter') && $request->subject_filter != '') {
+      $query->where('subject', $request->subject_filter);
+  }
+
+  if ($request->has('category_filter') && $request->category_filter != '') {
+      $query->where('category', $request->category_filter);
+  }
+
+
+  if ($request->has('search') && $request->search != '') {
+      $query->where('book_title', 'like', '%' . $request->search . '%')
+      ->orWhere('product_code', 'like', '%' . $request->search . '%')
+            ->orWhere('isbn', 'like', '%' . $request->search . '%');
+  }
+  $query->where('marks', '>=', 40)->where('negotiation_status','=', null)
+  ->orderBy('marks', 'desc');
+  $data = $query->get(); 
+
+  $procurementStatuses = ["1", "5", "6"];
+  $bookStatusLabels = [
+      "1" => "Success",
+      "0" => "Reject",
+      "2" => "Returned To User Correction",
+      "3" => "Book Update To Return"
+  ];
+
+  foreach ($data as $val) {
+      $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+      $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+      $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+  }
+
+
+
+  $actotal = 0;
+     $inactotal = 0;
+     $finaldata = [];
+     $serialNumber = 1;
+     foreach ($data as $val) {
+  
+      
+
+    
+         $finaldata[] = [
+            'S.No' =>  $serialNumber ++,
+            "Book ID"=> $val->product_code,
+            "Book Title"=> $val->book_title,
+            "Book ISBN"=> $val->isbn,
+            "Language of the Book"=> $val->language,
+            "Author Details"=> $val->author_name,
+            "Edition Number"=> $val->edition_number,
+            "Name of Publisher"=> $val->nameOfPublisher,
+            "Year of Publication"=> $val->yearOfPublication,
+            "Place of Publication"=> $val->place,
+            "Subject"=> $val->subject,
+            "Category"=> $val->category,
+            "Binding"=> $val->type,
+            "Size "=> $val->size,
+            "Length x Breadth(in Centimeters)"=> $val->length  *  $val->breadth,
+            "Width(in Centimeters) "=> $val->width,
+            "Weight(in grams)"=> $val->weight,
+            "GSM (Number)"=> $val->gsm,
+            "Type of Paper"=> $val->quality,
+            "Paper Finishing"=> $val->paper_finishing,
+            "Total Number of Pages"=> $val->pages,
+            "Number of Multicolor Pages"=> $val->multicolor,
+            "Number of Mono Color Pages"=> $val->monocolor,
+            "Currency Type"=> $val->currency_type,
+            "Price"=> $val->price,
+            "Discount Offer(%)"=>$val->discount ,
+            "Discounted Price"=> $val->discountedprice,
+            "Payment Status "=> $val->paystatus,
+            "Meta checking Status "=> $val->revstatus,
+            "Meta checker Name"=> $val->reviewername,
+            "Reviewer Mark"=> $val->marks,
+                                      
+        ];
+      
+
+
+      
+     }
+     
+     $csvContent ="\xEF\xBB\xBF"; 
+     $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status ,Meta checking Status,Meta checker Name,Review Mark\n"; 
+     foreach ($finaldata as $data) {
+         $csvContent .= '"' . implode('","', $data) ."\"\n";
+     }
+
+     $headers = [
+         'Content-Type' => 'text/csv; charset=utf-8',
+         'Content-Disposition' => 'attachment; filename="masterbookdata.csv"',
+     ];
+
+     return response()->make($csvContent, 200, $headers);
+
+ 
+}
 
 //Negotiation import record
 // public function calculatedBookPrice(Request $request)
@@ -2021,4 +2751,4 @@ public function sendnegotiationstatus(Request $req) {
  }
 }
 
-    } 
+   } 

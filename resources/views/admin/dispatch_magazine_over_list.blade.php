@@ -61,7 +61,7 @@
 									<i class="bi bi-book" style="font-size: 30px;"></i>
 									</div>
 									<div class="total-projects ms-3">
-										<h3 class="text-success count text-start">Magazine List</h3>
+										<h3 class="text-success count text-start">Periodical List</h3>
 										<!-- <span class="text-start">Total Completed</span> -->
 									</div>
 								</div>
@@ -146,8 +146,8 @@
 												<th>
 												</th>
 												<th>S.No</th>
-												<th>Magazine id</th>
-												<th>Magazine Name</th>
+												<th>Periodical id</th>
+												<th>Periodical Name</th>
                                                 <th>Frequency</th>
                                                 <th>Order Qty</th>
                                                 <th>Received Qty</th>

@@ -1484,20 +1484,20 @@
                                 </ul>
                             </li>
                             <li>
-                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Magazine
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Periodical
                                     Category</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="/admin/magazinecategory_add">Magazine Category Add</a></li>
-                                    <li><a href="/admin/magazinecategory_list">Magazine Category List</a></li>
+                                    <li><a href="/admin/magazinecategory_add">Periodical Category Add</a></li>
+                                    <li><a href="/admin/magazinecategory_list">Periodical Category List</a></li>
                                 </ul>
                             </li>
 
                             <li>
-                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Magazine
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Periodical
                                 Periodicity</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="/admin/magazineperiodicity_add">Magazine Periodicity Add</a></li>
-                                    <li><a href="/admin/magazineperiodicity_list">Magazine Periodicity List</a></li>
+                                    <li><a href="/admin/magazineperiodicity_add">Periodical Periodicity Add</a></li>
+                                    <li><a href="/admin/magazineperiodicity_list">Periodical Periodicity List</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -1838,7 +1838,8 @@
                             <li><a href="librarian_reviewer_create">Create Librarian Reviewer </a></li>
                             <li><a href="expert_reviewer_create">Create Expert Reviewer </a></li>
 
-                
+                            <li><a href="librarian_user_create">Create Librarian Users </a></li>
+
                             
                             <li><a href="multimember_create">Create Multi Member </a></li>
                         </ul>
@@ -2034,12 +2035,12 @@
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-card-checklist"></i>
-                            <span class="nav-text">Magazine Management</span>
+                            <span class="nav-text">Periodical Management</span>
                         </a>
                         <ul aria-expanded="false">
 
-                            <li><a href="/admin/magazine_add">Magazine Add</a></li>
-                            <li><a href="/admin/magazine_list">Magazine list</a> </li>
+                            <li><a href="/admin/magazine_add">Periodical Add</a></li>
+                            <li><a href="/admin/magazine_list">Periodical list</a> </li>
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Management Subscriptions </a>
                                 <ul aria-expanded="false">
                                     <!-- <li><a href="./user.html">Publisher List</a></li> -->
@@ -2059,6 +2060,8 @@
                             <span class="nav-text">Management Negotiation</span>
                         </a>
                         <ul aria-expanded="false">
+                        <li><a href="master_nego_book_data">Master Negotiation List</a></li>
+
                             <li><a href="negotiation_price_upload">Price Upload </a></li>
                             <li><a href="negotiation_list">Negotiation List</a></li>
                             <li><a href="nego_pending_list">Pending list</a></li>
@@ -2088,8 +2091,8 @@
                         <ul aria-expanded="false">
                             <li><a href="/admin/budget">Make Book Budget</a></li>
                             <li><a href="/admin/budgetlist">Book Budget List</a></li>
-                            <li><a href="/admin/magazinebudget_add">Make Magazine Budget</a></li>
-                            <li><a href="/admin/magazinebudget_list">Magazine Budget List</a></li>
+                            <li><a href="/admin/magazinebudget_add">Make Periodical Budget</a></li>
+                            <li><a href="/admin/magazinebudget_list">Periodical Budget List</a></li>
                         </ul> 
                     </li>
                     <li>
@@ -2119,12 +2122,12 @@
                                         <li><a href="manage_rejected_order_list">Rejected Order List</a></li>
                                     </ul>
                             </li> -->
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazines</a>
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Periodicals</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="magazine_order_list">Magazine Order List </a></li>
+                                    <li><a href="magazine_order_list">Periodical Order List </a></li>
                                 </ul>
                             </li>
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Order
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Periodical Order
                                 </a>
                                     <ul aria-expanded="false">
                                         <li><a href="magazine_order">Order List </a></li>
@@ -2159,13 +2162,13 @@
                                     <li><a href="application_rejected.php">Rejected Application</a></li>
                                 </ul>
                             </li>
-                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Magazine Order</a>
+                            <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Periodical Order</a>
                                 <ul aria-expanded="false">
                                     <li><a href="magazine_delivery_list">List Delivery</a></li>
                                     <li><a href="dist_application_approved_list.php">Approved Application</a></li>
                                     <li><a href="dist_application_rejected_list.php">Rejected Application</a></li>
 
-                                    <li><a href="dispatch-year-list">Magazine List</a></li>
+                                    <li><a href="dispatch-year-list">Periodical List</a></li>
                                     <li><a href="magazine-overview">Overview</a></li>
                                 </ul>
                             </li>
@@ -2185,7 +2188,7 @@
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-blockquote-left"></i>
-                        <span class="nav-text">Dispatch Magazine</span>
+                        <span class="nav-text">Dispatch Periodical</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/admin/dispatch_overview">Overview</a></li>
@@ -2341,8 +2344,8 @@
                             <li><a href="report_download_publisher">Publisher Report Download</a></li>
                             <li><a href="/admin/report_download_distributor">Distributor Report Download</a></li>
                             <li><a href="report_download_pub_dist">Publisher Cum Distributor Report Download</a></li>
-                            <li><a href="report_download_order_districtmagazine">Report Download Order District Magazine</a></li> 
-                            <li><a href="report_download_nonoeder_magazine">Report Download  Non Order Magazine</a></li> 
+                            <li><a href="report_download_order_districtmagazine">Report Download Order District Periodical</a></li> 
+                            <li><a href="report_download_nonoeder_magazine">Report Download  Non Order Periodical</a></li> 
                             <li><a href="report_download_bookadd">Book Count Report Download</a></li> 
 
                            
@@ -2355,7 +2358,7 @@
                             <li><a href="periodical_publisher_report">Report Download Periodical Publisher</a></li> 
                             <li><a href="periodical_distributor_report">Report Download Periodical Distributor</a></li> 
                             <li><a href="meta_checking_book_list">Report Download Meta Checking Book List</a></li> 
-                            <li><a href="magazine_dispatch_report">Magazine Dispatch Report</a></li> 
+                            <li><a href="magazine_dispatch_report">Periodical Dispatch Report</a></li> 
                             <li><a href="lbrary_dispatch_report">Library  Dispatch Report</a></li> 
 
                             

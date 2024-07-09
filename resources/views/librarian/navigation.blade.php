@@ -387,7 +387,7 @@
                         </a>
                         <ul aria-expanded="false">
 
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Order
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Periodical Order
                                 </a>
                                 <ul aria-expanded="false">
                                     <li><a href="/librarian/magazine_order">Order List </a></li>
@@ -397,9 +397,9 @@
                                 </ul>
                             </li>
 
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazines</a>
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Periodicals</a>
                                 <ul aria-expanded="false">
-                                    <li><a href="/librarian/magazine_order_list">Magazine Order List </a></li>
+                                    <li><a href="/librarian/magazine_order_list">Periodical Order List </a></li>
 
                                 </ul>
                             </li>
@@ -409,12 +409,12 @@
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-blockquote-left"></i>
-                        <span class="nav-text">Dispatch Magazine</span>
+                        <span class="nav-text">Dispatch Periodical</span>
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="/librarian/dispatch-year-list">Magazine List</a></li> -->
                             <li><a href="/librarian/dispatch_overview">Overview</a></li>
-                            <li><a href="/librarian/order-library-list"> Frequency of order magazine </a></li>
+                            <li><a href="/librarian/order-library-list"> Frequency of order Periodical </a></li>
 
                             
                         </ul>
@@ -424,8 +424,8 @@
                             <span class="nav-text">Report Management</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/librarian/report_download_oedermagazine">Order Magazine Download</a></li>
-                            <li><a href="report_download_order_magazine">Report Download Order Magazine</a></li>
+                            <li><a href="/librarian/report_download_oedermagazine">Order Periodical Download</a></li>
+                            <li><a href="report_download_order_magazine">Report Download Order Periodical</a></li>
 
                         </ul>
                     </li>
@@ -459,7 +459,7 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/product">Book List</a></li>
-                            <li><a href="/product-two">Magazine List</a></li>
+                            <li><a href="/product-two">Periodical List</a></li>
                         </ul>
                     </li>
                     <li>
@@ -477,7 +477,7 @@
 										<li><a href="../website/">Visit Book Store</a></li>
                                     </ul>
                             </li> -->
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Magazine Order
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Periodical Order
                                 </a>
                                 <ul aria-expanded="false">
                                     <li><a href="/librarian/magazine-order-list">Order List </a></li>
@@ -495,10 +495,10 @@
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-blockquote-left"></i>
-                        <span class="nav-text">Dispatch Magazine</span>
+                        <span class="nav-text">Dispatch Periodical</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/librarian/dispatch-year-list">Magazine List</a></li>
+                            <li><a href="/librarian/dispatch-year-list">Periodical List</a></li>
                             <!-- <li><a href="/librarian/magazine-overview">Overview</a></li> -->
                         </ul>
                     </li>
