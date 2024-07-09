@@ -164,15 +164,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                            $categori = DB::table('books')
-                                            ->where('marks', '>=', 40)
-                                            ->where('negotiation_status', '=', null)
-                                            ->get();
-                                            @endphp
+                                          
 
                                             @foreach($categori as $val)
-                                            <tr role="row" class="odd">
+                                            @if($val->check == "unique")
+
+                                            @php
+                                             echo "unique";
+                                            @endphp
+                                            <tr>
                                                 <td class="sorting_1">
                                                     <div class="form-check custom-checkbox">
                                                         <input type="checkbox" class="form-check-input bookitem" id="bookitem{{ $val->id }}" value="{{ $val->id }}" data-book-id="{{ $val->id }}" required="">
@@ -191,25 +191,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <!-- <td data-label="controlq">
-                                            <div class="d-flex mt-p0">
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                            </div>
-                                        <td> -->
+                                  
                                                 <td>
                                                     <span>Rs {{$val->price}}</span>
                                                 </td>
@@ -241,21 +223,7 @@
                                                  
                                                 </td>
 
-                                                <!-- @if($val->negotiation_price == Null )
-                                        <td>
-                                        <span>Rs 0</span>
-                                        </td>
-                                        @else
-                                        <td>
-                                        <span>$val->negotiation_price</span>
-                                        </td>
-                                        @endif -->
-
-                                                <!-- <td>
-                                                    <span><a href="#" class="btn btn-success shadow btn-xs me-1" data-id="{{ $val->id }}" id="openModalBtn">
-                                                            Send To Negotiation
-                                                        </a></span>
-                                                </td> -->
+                                      
                                                 <td data-label="Negotiation">
                                                     <div class="col-sm-12 m-b30">
                                                         <select class="col-sm-12 m-b30" name="user_approval" data-id="{{ $val->id }}">
@@ -288,6 +256,95 @@
                                                     </div>
                                                 </td>
                                             </tr>
+                                            @else
+                                            @php
+                                             echo "duplicate";
+                                            @endphp
+                                            <tr class="red-row">
+                                                <td class="sorting_1">
+                                                    <div class="form-check custom-checkbox">
+                                                        <input type="checkbox" class="form-check-input bookitem" id="bookitem{{ $val->id }}" value="{{ $val->id }}" data-book-id="{{ $val->id }}" required="">
+                                                        <label class="form-check-label" for="bookitem{{ $val->id }}"></label>
+                                                    </div>
+                                                </td>
+
+
+                                                <td><span>{{$loop->index +1}}</span></td>
+                                                <td><span>{{$val->product_code}}</span></td>
+                                                <td>
+                                                    <div class="products">
+                                                        <div>
+                                                            <h6><a class="text-left" href="book_manage_view.php">{{$val->book_title}}</a></h6>
+                                                            <span class="text-left">{{$val->subtitle}}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                  
+                                                <td>
+                                                    <span>Rs {{$val->price}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{$val->discount}} %</span>
+                                                </td>
+                                                <td>
+                                                    <span>Rs {{$val->discountedprice}}</span>
+                                                </td>
+                                                <td>
+                                                    @if(!is_null($val->calculated_percentage))
+                                                    <span>{{$val->calculated_percentage}}%</span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(!is_null($val->calculated_price))
+                                                    <span>Rs {{$val->calculated_price}}</span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
+                                                    
+                                                </td>
+
+                                                <td data-label="Message">
+                                                 
+                                                    <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->calculated_reason}}">View</button>
+                                                 
+                                                </td>
+
+                                      
+                                                <td data-label="Negotiation">
+                                                    <div class="col-sm-12 m-b30">
+                                                        <select class="col-sm-12 m-b30" name="user_approval" data-id="{{ $val->id }}">
+                                                            <option></option>
+                                                            <option style="color: red;">Send To Negotiation</option>
+                                                            <option style="color: green;">Approve</option>
+
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td data-label="controlq">
+                                                    <div class="d-flex mt-p0">
+                                                        <a href="/admin/book_manage_view/{{ $val->id }}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                            <i class="fa fa-book"></i>
+                                                        </a>
+                                                        @if($val->user_type === "publisher")
+                                                        <a href="/admin/pub_profile/{{$val->user_id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                            <i class="fa fa-user"></i>
+                                                        </a>
+                                                        @elseif($val->user_type === "distributor")
+                                                        <a href="/admin/dist_profile/{{$val->user_id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                            <i class="fa fa-user"></i>
+                                                        </a>
+                                                        @else
+                                                        <a href="/admin/publisherdisprofile/{{$val->user_id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                            <i class="fa fa-user"></i>
+                                                        </a>
+                                                        @endif
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endif
                                             @endforeach
                                         </tbody>
                                     </table>
