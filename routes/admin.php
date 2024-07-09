@@ -1019,7 +1019,9 @@ Route::get('/negotiation_process_list',function(){ return view('admin.negotiatio
 Route::get('/nego_approved_list',function(){ return view('admin.nego_approved_list');});
 Route::get('/nego_failed_list',function(){ return view('admin.nego_failed_list');});
 Route::get('/nego_pending_list',function(){ return view('admin.nego_pending_list');});
-Route::get('/negotiation_list',function(){ return view('admin.negotiation_list');});
+
+Route::get('/negotiation_list',[BookController::class,'negotiationlist']);
+
 Route::post('/sendnegotiationstatus',[BookController::class,'sendnegotiationstatus']);
 Route::get('/negotiation_hold_list',function(){ return view('admin.nego_hold');});
 

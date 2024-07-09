@@ -87,7 +87,9 @@ public function meta_book_list() {
               ->get();
   
   $existingBooks = Book::where("book_procurement_status", '=', 1)
-                       ->pluck('book_title', 'isbn');
+                       ->pluck('book_title');
+  $existingisbn = Book::where("book_procurement_status", '=', 1)
+                       ->pluck('isbn');
 
   $existingTitles = $existingBooks->map(function ($title) {
       return [
@@ -98,27 +100,50 @@ public function meta_book_list() {
 
   // Check each book for title and ISBN uniqueness
   foreach ($data as $val) {
-      $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks);
+      $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
   }
   
   // Return view with the processed data
   return view('admin.meta_book_list')->with('data', $data);
 }
 
+// private function processBookTitle($title) {
+//   $title = trim($title);
+//   $title = preg_replace('/(?<!^)[A-Z]/', '_$0', $title);
+//   $title = preg_replace('/\s+/', '', $title);
+//   $title = strtolower($title);
+//   return preg_replace('/[^a-zA-Z0-9]/', '', $title);
+// }
 private function processBookTitle($title) {
   $title = trim($title);
-  $title = preg_replace('/(?<!^)[A-Z]/', '_$0', $title);
+  if (!$this->isTamil($title)) {
+      $title = preg_replace('/(?<!^)[A-Z]/', '_$0', $title);
+  }
   $title = preg_replace('/\s+/', '', $title);
-  $title = strtolower($title);
-  return preg_replace('/[^a-zA-Z0-9]/', '', $title);
+  if (!$this->isTamil($title)) {
+      $title = strtolower($title);
+  }
+  $title = preg_replace('/[^A-Za-z0-9\x{0B80}-\x{0BFF}]/u', '', $title);
+  
+  return $title;
 }
 
-private function translateToTamil($title) {
-  // Implement your translation logic here
-  // Example: return translated title
+public function translateToTamil($text)
+{
+  if ($this->isTamil($text)) {
+    return $text; // Return the text as is if it is already in Tamil
+}
 }
 
-public function checkBookTitle($data, $existingTitles, $existingBooks) {
+public function isTamil($text)
+{
+    // Simple heuristic to check if the text contains Tamil characters
+    return preg_match('/[\x{0B80}-\x{0BFF}]+/u', $text);
+}
+
+
+
+public function checkBookTitle($data, $existingTitles, $existingBooks,$existingisbn) {
   // Process new book title for comparison
   $newBookTitle = $this->processBookTitle($data->book_title);
   
@@ -128,7 +153,7 @@ public function checkBookTitle($data, $existingTitles, $existingBooks) {
   })->count();
   
   // Count occurrences of the ISBN in existing ISBNs
-  $isbnCount = $existingBooks->filter(function ($isbn) use ($data) {
+  $isbnCount = $existingisbn->filter(function ($isbn) use ($data) {
       return $isbn === $data->isbn;
   })->count();
   
@@ -141,7 +166,6 @@ public function checkBookTitle($data, $existingTitles, $existingBooks) {
       return "unique";
   }
 }
-
 
 
   
@@ -197,7 +221,9 @@ public function checkBookTitle($data, $existingTitles, $existingBooks) {
 
   $data = $query->get();
   $existingBooks = Book::where("book_procurement_status", '=', 1)
-                       ->pluck('book_title', 'isbn');
+                       ->pluck('book_title');
+ $existingisbn = Book::where("book_procurement_status", '=', 1)
+                       ->pluck('isbn');                     
 
   $existingTitles = $existingBooks->map(function ($title) {
       return [
@@ -208,7 +234,7 @@ public function checkBookTitle($data, $existingTitles, $existingBooks) {
 
   // Check each book for title and ISBN uniqueness
   foreach ($data as $val) {
-      $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks);
+      $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
   }
   $tbodyHtml = '';
 
@@ -2750,5 +2776,29 @@ public function sendnegotiationstatus(Request $req) {
   return response()->json($data); 
  }
 }
+
+public function negotiationlist(){
+  $categori = Book::where('marks', '>=', 40)
+  ->where('negotiation_status', '=', null)
+  ->get();
+  $existingBooks = Book::where('marks', '>=', 40)
+  ->pluck('book_title');
+  $existingisbn = Book::where('marks', '>=', 40)
+  ->pluck('isbn');
+$existingTitles = $existingBooks->map(function ($title) {
+return [
+'english' => $this->processBookTitle($title),
+'tamil' => $this->processBookTitle($this->translateToTamil($title))
+];
+});
+
+foreach ($categori as $val) {
+$val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
+}
+return view('admin.negotiation_list')->with('categori', $categori);
+
+}
+
+
 
    } 
