@@ -370,8 +370,7 @@
 
                                                 <div class="item p-1 text-center">
                                                     <p class="text-danger fw-bold">Language</p>
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/44/44386.png"
-                                                        style="width:50px">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/44/44386.png" style="width:50px">
 
                                                     @if ($data->language == 'Other_Indian')
                                                         <p>{{ $data->other_indian }}</p>
@@ -397,9 +396,7 @@
                                                 </div> -->
                                                 <div class="item p-1 text-center">
                                                     <p class="text-danger fw-bold"> place of Origin</p>
-
-                                                    <img src="https://cdn-icons-png.flaticon.com/512/44/44386.png"
-                                                        style="width:50px">
+                                                    <img src="https://cdn-icons-png.flaticon.com/512/44/44386.png" style="width:50px">
                                                     <p>{{ $data->place }}</p>
                                                 </div>
                                                 <div class="item p-1 text-center">
@@ -790,11 +787,7 @@
                                                                 </span>
                                                             </li>
                                                         @endforeach
-
-
-
                                                     </ul>
-
                                                 </div>
                                             </div>
                                         </div>

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,10 +16,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Negotiation Books List</title>
+    <title>Government of Tamil Nadu - Book Procurement</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('publisher_and_distributor/images/fevi.svg') }}">
     <?php
-        include "publisher_and_distributor/plugin/plugin_css.php";
+    include 'publisher_and_distributor/plugin/plugin_css.php';
     ?>
 </head>
 
@@ -43,7 +42,7 @@
         <!--**********************************
             Nav header start
             ***********************************-->
-            @include ('publisher_and_distributor.navigation')
+        @include ('publisher_and_distributor.navigation')
         <!--**********************************
             Sidebar end
             ***********************************-->
@@ -56,93 +55,105 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Negotiation Books List</b>
+                                <b>Negotiation - Pending Book List</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="index">
-                                <i class="fas fa-plus"></i>Dashboard</a>
-                            <!-- <nav aria-label="breadcrumb">
-                           <ol class="breadcrumb">
-                               <li class="breadcrumb-item"><a href="allocated_location_view.php">View Allocated Location</a></li>
-                               <li class="breadcrumb-item active" aria-current="page">Allocated Location List</li>
-                           </ol>
-                           </nav> -->
+                            <a onclick="javascript:window.history.back();" class="btn btn-primary  btn-sm" href="/publisher_and_distributor/index">
+                                <i class="fa fa-angle-double-left"></i> Go Back</a>
                         </div>
                     </div>
                 </div>
-                <div class="row bg-white p-2">
-                    <div class="col-xl-12">
-                        <div class="card-body p-0">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body p-3">
                             <div class="table-responsive active-projects style-1 ItemsCheckboxSec shorting ">
                                 <div class="tbl-caption">
-                                    <span class="bulk-action">
-                                        <a href="#" class="btn btn-success shadow btn-xs sharp me-1">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
-                                            <i class="fa fa-trash"></i>
-                                        </a>
-                                    </span>
+
                                 </div>
                                 <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
-                                    {{-- empoloyees-tbl3 --}}
                                     <table id="example3" class="table dataTable no-footer" role="grid" aria-describedby="empoloyees-tbl3_info">
                                         <thead>
                                             <tr role="row">
 
 
                                                 <th>S.No</th>
-                                                <th>Title</th>
-                                                <th>Book Price</th>
-                                                <th>Admin Price</th>
-                                                <th>Negotiation </th>
+                                                <th>Book Code</th>
+                                                <th>Book Title</th>
+                                                <th>Actual Price</th>
+                                                <th>Discount Percentage</th>
+                                                <th>Discounted Price</th>
+                                                <th>Calculated Percentage</th>
+                                                <th>Calculated Price</th>
+                                                <th>Calculated Reason</th>
+                                                <th>Negotiation Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        @php
-                                        $id=auth('publisher_distributor')->user()->id;
-                                    $categori = DB::table('books')
-                                    ->where('marks', '>=', 40)
-                                    ->where('user_id', '=',$id)
-                                ->where('negotiation_status', '=', 0)
-                                ->get();
-                                                @endphp
+                                            @php
+                                            $id = auth('publisher_distributor')->user()->id;
+                                           
+                                            $categori = DB::table('books')->where('marks', '>=', 40)->where('user_id', '=', $id)->where('negotiation_status', '=', 0)->get();
+                                            @endphp
 
-                                                @foreach($categori as $val)
+                                            @foreach ($categori as $val)
                                             <tr role="row" class="odd">
 
-                                                <td data-label="S/no"><span>{{$loop->index +1}}</span></td>
+                                                <td data-label="S.No"><span>{{ $loop->index + 1 }}</span></td>
+                                                <td data-label="S.No"><span>{{ $val->product_code }}</span></td>
                                                 <td data-label="Title">
                                                     <div class="products">
                                                         <div>
-                                                            <h6><a class="text-left" href="#">{{$val->book_title}}</a></h6>
-                                                            <span class="text-left">{{$val->subtitle}}</span>
+                                                            <h6><a class="text-left" href="book_manage_view.php">{{ $val->book_title }}</a>
+                                                            </h6>
+                                                            <span class="text-left">{{ $val->subtitle }}</span>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td data-label="Price"><a href="javascript:void(0)" class="text-primary">Rs {{$val->price}}</a></td>
-                                                <td data-label="Estimated Price">
-                                                    <span><a href="#" class="badge bg-info">Rs {{$val->calculated_price}}</a> </span>
+                                                <td data-label="Book Price">Rs
+                                                    {{ $val->price }}
                                                 </td>
-                                                <td data-label="Status">
-                                <div class="col-sm-12 m-b30">
-                                    <select  class="col-sm-12 m-b30"  name="user_approval" data-id="{{$val->id}}">
-                                    <option></option>
-                                    <option style="color: red;">Negotiation</option>
-                                    <option style="color: green;">Approve</option>
-                                    <option style="color: blue;">Reject</option>
-                                    </select>
-                                    </div>
-                            </td>
+                                                <td data-label="Book Price">
+                                                    {{ $val->discount }} %
+                                                </td>
+                                                <td data-label="Book Price">Rs
+                                                    {{ $val->discountedprice }}
+                                                </td>
+                                                <td data-label="Book Price">
+                                                    @if(!is_null($val->calculated_percentage))
+                                                    <span>{{ $val->calculated_percentage }} %</span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
+                                                </td>
+                                                <td data-label="Admin Price">
+                                                    @if(!is_null($val->calculated_price))
+                                                    <span>
+                                                        Rs {{ $val->calculated_price }}
+                                                     </span>
+                                                     @else
+                                                    <span>N/A</span>
+                                                     @endif
+                                                </td>
+                                                <td data-label="Message">
+                                                    <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->calculated_reason}}">View</button>
+                                                </td>
+                                                <td data-label="Negotiation">
+                                                    <div class="col-sm-12 m-b30">
+                                                        <select class="col-sm-12 m-b30" name="user_approval" data-id="{{ $val->id }}" data-price="{{$val->price}}" data-discount="{{$val->discount}}" data-disprice="{{$val->discountedprice}}" data-calprice="{{ $val->calculated_price }}">
+                                                            <option></option>
+                                                            <option style="color: red;">Negotiation</option>
+                                                            <option style="color: green;">Accept</option>
+                                                            <option style="color: blue;">Reject</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
 
                                                 <td data-label="control">
                                                     <div class="d-flex mt-p0">
-                                                        <a href="#" class="btn btn-success shadow btn-xs sharp me-1">
+                                                        <a href="/publisher_and_distributor/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
-                                                        <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
-                                                            <i class="fa fa-trash"></i>
-                                                        </a>
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -162,7 +173,7 @@
         <!--**********************************
             Footer start
             ***********************************-->
-            @include ("publisher_and_distributor.footer")
+        @include ('publisher_and_distributor.footer')
         <!--**********************************
             Footer end
             ***********************************-->
@@ -176,136 +187,209 @@
     <!--**********************************
          Main wrapper end
          ***********************************-->
-         <?php
-        include "publisher_and_distributor/plugin/plugin_js.php";
-        ?>
+    <?php
+    include 'publisher_and_distributor/plugin/plugin_js.php';
+    ?>
     <!-- Modal Confirm Apply Procurement-->
     <div class="modal fade" id="exampleModalCenter">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Are you send this book to book recurement Negotiation ?</h5>
+                    <h5 class="modal-title">Are you sure you want to send this book to negotiation?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal">
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="basic-form">
 
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="mb-3 mt-2 mx-sm-2">
-                                    <label class="">Description</label>
-                                    <!-- <input type="text" class="form-control" placeholder="Enter the Description"> -->
-                                    <textarea name="Description" id="Description" cols="30" rows="10"  placeholder="Enter the Description" class="form-control"></textarea>
-                                    </div>
-                                </div>
+                        <div class="row">
 
-                                <div class="col-12">
-                                    <div class="mb-3 mt-2 mx-sm-2">
-                                    <label class="">Amount</label>
-                                    <input type="Number" class="form-control" id="amount" placeholder="Enter the Amount" required>
+
+                            <div class="col-12">
+                                <div class="mb-3 mt-2 mx-sm-2">
+                                    <label for="percentage">Percentage</label>
+                                    <input type="number" class="form-control" id="percentage" placeholder="Enter the Percentage(example: 10)" required>
                                 </div>
-                                <div>  <input type="hidden" name="userid" id="hiddenInput"> </div>
+                                <div class="mb-3 mt-2 mx-sm-2">
+                                    <label for="amount">Amount</label>
+                                    <input type="hidden" name="amount1" id="amount1">
+                                    <input type="number" class="form-control" id="amount" placeholder="Enter the Amount" required readonly>
+                                </div>
+                                <div>
+                                    <input type="hidden" name="userid" id="hiddenInput">
+                                    <input type="hidden" name="price" id="hiddenInputprice">
+                                    <input type="hidden" name="discount" id="hiddenInputdiscount">
+                                    <input type="hidden" name="disprice" id="hiddenInputdisprice">
+                                    <input type="hidden" name="calprice" id="hiddenInputcalprice">
                                 </div>
                             </div>
+                            <div class="col-12">
+                                <div class="mb-3 mt-2 mx-sm-2">
+                                    <label class="">Description</label>
+                                    <!-- <input type="text" class="form-control" placeholder="Enter the Description"> -->
+                                    <textarea name="Description" id="Description" cols="30" rows="10" placeholder="Enter the Description" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                    <div class="modal-footer">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="#ModalConfirmCenter">Close</button>
-                        <button type="submit" id="submitbutton" class="btn btn-primary"> Submit</button>
-                    </div>
+                    <button type="submit" id="submitbutton" class="btn btn-primary"> Submit</button>
+                </div>
 
             </div>
         </div>
     </div>
     <div class="modal fade" id="basicModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <p>Do you want to proceed?</p>
-                <!-- Hidden input field to store the data-id value -->
-                <input type="hidden" id="hiddenInput" value="">
-                <input type="hidden" id="hiddenInput1" value="">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="submitbutton11" class="btn btn-primary submitbutton11">Confirm</button>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <p>Do you want to proceed?</p>
+                    <!-- Hidden input field to store the data-id value -->
+                    <input type="hidden" id="hiddenInput" value="">
+                    <input type="hidden" id="hiddenInput1" value="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="submitbutton11" class="btn btn-primary submitbutton11">Confirm</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reason For Negotiation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalBodyContent"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
-            $('#example3').on( 'change', "select[name='user_approval']", function (e) {
-                  var approval_ = $(this).val();
-                  var pubdistid = $(this).data('id');
-                  if(approval_ == 'Reject'){
-                    $('#hiddenInput1').val(approval_);
-                    $('#hiddenInput').val(pubdistid);
-                     $('#basicModal').modal('show');
-                  }else if(approval_ == 'Approve'){
-                    $('#hiddenInput1').val(approval_);
-                    $('#hiddenInput').val(pubdistid);
-                    $('#basicModal').modal('show');
-                  }else{
+    function calculateAmount() {
+        const percentage = parseFloat(document.getElementById('percentage').value);
+        if (percentage >= 0 && percentage <= 100) {
+            const price = parseFloat(document.getElementById('hiddenInputprice').value);
+            if (!isNaN(percentage) && !isNaN(price)) {
+                const amount = (percentage / 100) * price;
+                const finalamount = price - Math.round(amount);
+                document.getElementById('amount').value = finalamount;
+                document.getElementById('amount1').value = finalamount;
+            }
+        } else {
+            document.getElementById('amount').value = "";
+            document.getElementById('amount1').value = "";
+        }
 
-                    $('#hiddenInput').val(pubdistid);
-                    $('#exampleModalCenter').modal('show');
-                  }
-              });
+    }
 
-         </script>
+    document.getElementById('percentage').addEventListener('input', calculateAmount);
+</script>
+<script>
+    $(document).ready(function() {
+        $('#example3').on('click', '#successButton11', function() {
+
+            var message = $(this).data('id');
+            console.log(message);
+            $('#modalBodyContent').html(message);
+            $('#myModal').modal('show');
+        });
+    });
+</script>
+<script>
+    $('#example3').on('change', "select[name='user_approval']", function(e) {
+        var approval_ = $(this).val();
+        var pubdistid = $(this).data('id');
+        var price = $(this).data('price');
+        var discount = $(this).data('discount');
+        var disprice = $(this).data('disprice');
+        var calprice = $(this).data('calprice');
+        if (approval_ == 'Reject') {
+            $('#hiddenInput1').val(approval_);
+            $('#hiddenInput').val(pubdistid);
+            $('#basicModal').modal('show');
+        } else if (approval_ == 'Accept') {
+            $('#hiddenInput1').val(approval_);
+            $('#hiddenInput').val(pubdistid);
+            $('#basicModal').modal('show');
+        } else {
+
+            $('#hiddenInput').val(pubdistid);
+            $('#hiddenInputprice').val(price);
+            $('#hiddenInputdiscount').val(discount);
+            $('#hiddenInputdisprice').val(disprice);
+            $('#hiddenInputcalprice').val(calprice);
+            $('#exampleModalCenter').modal('show');
+        }
+    });
+</script>
 
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-        $("#submitbutton11").click(function () {
+        $("#submitbutton11").click(function() {
             var bookId = $("#hiddenInput").val();
             var status = $("#hiddenInput1").val();
             $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 url: '/publisher_and_distributor/sendnegotiationstatus',
                 method: 'POST',
-                data: { bookId: bookId,status: status },
-                success: function (response) {
+                data: {
+                    bookId: bookId,
+                    status: status
+                },
+                success: function(response) {
                     if (response.success) {
-            $('#basicModal').modal('hide');
-            setTimeout(function () {
-                window.location.href = "/publisher_and_distributor/nego_pending_list";
-            }, 3000);
-            toastr.success(response.success, { timeout: 45000 });
-        } else {
-            toastr.error(response.error, { timeout: 45000 });
-        }
-    },
+                        $('#basicModal').modal('hide');
+                        setTimeout(function() {
+                            window.location.href = "/publisher_and_distributor/nego_pending_list";
+                        }, 3000);
+                        toastr.success(response.success, {
+                            timeout: 45000
+                        });
+                    } else {
+                        toastr.error(response.error, {
+                            timeout: 45000
+                        });
+                    }
+                },
 
 
-                error: function (error) {
+                error: function(error) {
 
                     console.error('Failed to create record:', error);
                 }
             });
         });
-        });
- </script>
+    });
+</script>
 <script>
-    $(document).ready(function () {
-        $("#submitbutton").click(function () {
+    $(document).ready(function() {
+        $("#submitbutton").click(function() {
             var bookId = $("#hiddenInput").val();
             var Description = $("#Description").val();
-            var amount = $("#amount").val();
-
+            var amount = $("#amount1").val();
+            var percentage = $("#percentage").val();
             // Create an array
             var data = {
                 'bookId': bookId,
                 'Description': Description,
-                'amount': amount
+                'amount': amount,
+                'percentage': percentage,
             };
+            // alert(JSON.stringify(data, null, 2));
 
             $.ajaxSetup({
                 headers: {
@@ -317,19 +401,23 @@
                 url: '/publisher_and_distributor/sendnegotiationsamount',
                 method: 'POST',
                 data: data,
-                success: function (response) {
+                success: function(response) {
                     if (response.success) {
-            $('#exampleModalCenter').modal('hide');
-            setTimeout(function () {
-                window.location.href = "/publisher_and_distributor/nego_pending_list";
-            }, 3000);
-            toastr.success(response.success, { timeout: 45000 });
-        } else {
-            toastr.error(response.error, { timeout: 45000 });
-        }
-    },
+                        $('#exampleModalCenter').modal('hide');
+                        setTimeout(function() {
+                            window.location.href = "/publisher_and_distributor/nego_pending_list";
+                        }, 3000);
+                        toastr.success(response.success, {
+                            timeout: 45000
+                        });
+                    } else {
+                        toastr.error(response.error, {
+                            timeout: 45000
+                        });
+                    }
+                },
 
-                error: function (error) {
+                error: function(error) {
                     console.error('Failed to create record:', error);
                 }
             });
@@ -436,12 +524,13 @@
         font-family: "Open Sans", sans-serif;
         line-height: 1.25;
     }
+
     .active-projects.style-1 .dt-buttons .dt-button {
-    top: -50px;
-    right: 0 !important;
+        top: -50px;
+        right: 0 !important;
     }
 
     .active-projects tbody tr td:last-child {
-            text-align: center;
-        }
+        text-align: center;
+    }
 </style>

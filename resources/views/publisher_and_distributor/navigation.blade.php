@@ -1340,20 +1340,21 @@
 
                         </ul>
                     </li> 
-					{{-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-journal-plus"></i>
                             <span class="nav-text">Manage Negotiation</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/publisher_and_distributor/nego_pending_list">Negotiation List</a></li>
                             <li><a href="/publisher_and_distributor/nego_process_list">Negotiation Process List</a></li>
+                            <li><a href="/publisher_and_distributor/nego_hold_list">Hold List</a></li>
 
 
 							<li><a href="/publisher_and_distributor/nego_approved_list">Approved List</a></li>
                             <li><a href="/publisher_and_distributor/nego_failed_list">Failed list</a></li>
 
                         </ul>
-                    </li> --}}
+                    </li> 
                     {{-- New Menu Start --}}
                     {{-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-cart-plus"></i>

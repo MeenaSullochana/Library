@@ -1346,19 +1346,19 @@
                             <li><a href="/publisher/procurement_reject">Reject List </a></li> 
                         </ul>
                     </li>
-                    {{-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+              <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-journal-plus"></i>
                         <span class="nav-text">Manage Negotiation</span>
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="/publisher/nego_pending_list">Negotiation List</a></li>
-                        <li><a href="/publisher/nego_process_list">Negotiation Process List</a></li>
-
+                        <li><a href="/publisher/nego_process_list">Process List</a></li>
+						<li><a href="/publisher/nego_hold_list">Hold list</a></li>
                         <li><a href="/publisher/nego_approved_list">Approved List</a></li>
-                        <li><a href="/publisher/nego_failed_list">Failed list</a></li>
+                        <li><a href="/publisher/nego_failed_list">Reject list</a></li>
 
                     </ul>
-                </li> --}}
+                </li>
 					 <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-receipt"></i>
                             <span class="nav-text">Procurement Receipt </span>

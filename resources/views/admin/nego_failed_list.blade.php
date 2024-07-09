@@ -54,7 +54,7 @@
                   <div class="card-body">
                      <div class="d-flex align-items-center justify-content-between">
                         <h3 class="mb-0 bc-title">
-                           <b>Negotiation Failed Books List</b>
+                           <b>Negotiation - Rejected Book List</b>
                         </h3>
                         <!-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
                         <i class="fas fa-plus"></i> Add Book</a> -->
@@ -73,11 +73,7 @@
                     <div class="card-body p-0">
                         <div class="table-responsive active-projects style-1 ItemsCheckboxSec shorting ">
                             <div class="tbl-caption">
-                            <span>
-                                <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
-                                <i class="fa fa-trash"></i>
-                                </a>
-                            </span>
+                           
                             {{-- <div>
                                 <div class="btn-group bootstrap-select select-picker pr-2 d-tc">
                                     <div class="dropdown-menu open" role="combobox">
@@ -127,39 +123,37 @@
                             </div> --}}
                             </div>
                             <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
-                            <table id="empoloyees-tbl3" class="table dataTable no-footer" role="grid"
+                            <table id="example3" class="table dataTable no-footer" role="grid"
                                 aria-describedby="empoloyees-tbl3_info">
                                 <thead>
-                                    <tr role="row">
+                                            <tr role="row">
 
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1" aria-label="ERoll No: activate to sort column ascending"
-                                        style="width: 97.5156px;">Book No</th>
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1"
-                                        aria-label="Books: activate to sort column ascending"
-                                        style="width: 145.219px;">Books</th>
-                                        <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">S.No</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">Book Code</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Book Title</th>
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                         colspan="1"
                                         aria-label="Ratings: activate to sort column ascending"
                                         style="width: 109.984px;">Ratings</th> -->
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1"
-                                        aria-label="ISBN(10/13): activate to sort column ascending"
-                                        style="width: 126.609px;">book Price</th>
-                                        <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1"
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Actual Price</th>
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1"
                                         aria-label="ISBN(10/13): activate to sort column ascending"
                                         style="width: 126.609px;">Negotiation Cost</th> -->
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1"
-                                        aria-label="ISBN(10/13): activate to sort column ascending"
-                                        style="width: 126.609px;">Calculated Price</th>
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1" aria-label="Quantity: activate to sort column ascending"
-                                        style="width: 65.3594px;">Add to Book List</th>
-                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                        colspan="1" aria-label="Action: activate to sort column ascending"
-                                        style="width: 87.4688px;">  Action</th>
-                                    </tr>
-                                </thead>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Discount Percentage</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Discounted Price</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Percentage</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Price</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiated Percentage</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiated Price</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Reason</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiation Reason</th>
+
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Reject Reason</th>
+                                            
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending" style="width: 65.3594px;">Negotiation Status</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 87.4688px;"> Action</th>
+                                            </tr>
+                                        </thead>
                                 <tbody>
                                 @php
                                 $categori = DB::table('books')
@@ -172,6 +166,7 @@
                                              <tr role="row" class="odd">
 
                                         <td><span>{{$loop->index +1}}</span></td>
+                                        <td><span>{{$val->product_code}}</span></td>
                                         <td>
                                         <div class="products">
                                             <div>
@@ -180,43 +175,62 @@
                                             </div>
                                         </div>
                                         </td>
-                                        <!-- <td data-label="controlq">
-                                            <div class="d-flex mt-p0">
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                                <a href="#" class="btn shadow btn-xs sharp me-1">
-                                                <i class="fa fa-star text-warning"></i>
-                                                </a>
-                                            </div>
-                                        <td> -->
+                                       
                                         <td>
                                         <span>Rs {{$val->price}}</span>
                                         </td>
                                         <td>
-                                        <span>Rs {{$val->calculated_price}}</span>
+                                        <span>{{$val->discount}}%</span>
                                         </td>
-
-
+                                        <td>
+                                        <span>Rs {{$val->discountedprice}}</span>
+                                        </td>
+                                        <td>
+                                            @if(!is_null($val->calculated_percentage))
+                                        <span>{{$val->calculated_percentage}}%</span>
+                                        @else
+                                                    <span>N/A</span>
+                                        @endif
+                                        </td>
+                                      
+                                        <td>
+                                            @if(!is_null($val->calculated_price))
+                                        <span>Rs {{$val->calculated_price}}</span>
+                                        @else
+                                                    <span>N/A</span>
+                                        @endif
+                                        </td>
+                                        <td>
+                                            @if(!is_null($val->negotiation_percentage))
+                                        <span>{{$val->negotiation_percentage}}%</span>
+                                        @else
+                                                    <span>N/A</span>
+                                        @endif
+                                        </td>
+                                        <td>
+                                            @if(!is_null($val->negotiation_price))
+                                        <span>Rs {{$val->negotiation_price}}</span>
+                                        @else
+                                                    <span>N/A</span>
+                                        @endif
+                                        </td>
+                                        <td data-label="Message">
+                                                    <button type="button" id="successButton111" class="btn btn-primary btn-sm" data-id1="{{$val->calculated_reason}}">View</button>
+                                        </td>
+                                        <td data-label="Message">
+                                                <button type="button" id="successButton112" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_message}}">View</button>
+                                        </td>
+                                        <td data-label="Message">
+                                        <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_reject_message}}">View</button>
+                                        </td>
                                         <td>
                                            <span><a href="#" class="btn btn-danger shadow btn-xs me-1">
-                                           Negotiation Reject
+                                          Rejected
                                              </a></span>
                                         </td>
                                         <td data-label="controlq">
                                             <div class="d-flex mt-p0">
-                                             @if($val->negotiation_reject_message !=null)
-                                              <button type="button" id="successButton11" class="btn btn-primary" data-id="{{$val->negotiation_reject_message}}">View</button>
-                                              @endif
+                                             
                                               <a href="/admin/book_manage_view/{{ $val->id }}" class="btn btn-success shadow btn-xs sharp me-1">
                                                         <i class="fa fa-book"></i>
                                                  </a>
@@ -307,7 +321,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Negotiation  Message</h5>
+                <h5 class="modal-title">Reason for reject</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="modalBodyContent"></div>
@@ -317,15 +331,65 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reason for negotiation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBodyContent2"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reason for calculation</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBodyContent1"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script>
     $(document).ready(function () {
-        $('#successButton11').click(function () {
-            var message = $(this).data('id');
+        $('#example3').on('click', '#successButton111', function() {
+     
+            var message = $(this).data('id1');
             console.log(message);
+            $('#modalBodyContent1').html(message);
+            $('#myModal1').modal('show');
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#example3').on('click', '#successButton11', function() {
+
+  
+            var message = $(this).data('id');
+
             $('#modalBodyContent').html(message);
             $('#myModal').modal('show');
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#example3').on('click', '#successButton112', function() {
+            var message = $(this).data('id');
+            console.log(message);
+            $('#modalBodyContent2').html(message);
+            $('#myModal2').modal('show');
         });
     });
 </script>

@@ -78,13 +78,6 @@ public function bookmanageview($id){
     
 }
 
-
-
-   
-  
-
-
-
 public function meta_book_list() {
   $data = Book::where("book_procurement_status", '=', 1)
               ->whereNull("book_reviewer_id")
@@ -1245,12 +1238,12 @@ public function rejectnegotiationstatus(Request $req) {
   
   if($req->Description !=null){
    $data1 = Book::find($req->bookId);
-   $data1->negotiation_status = "3";
+   $data1->negotiation_status = "4";
    $data1->negotiation_reject_message = $req->Description;
    $data1->save();
 
    $data = [
-       'success' => 'Negotiation Reject send Successfully',
+       'success' => 'The negotiation is on hold.',
    ];
 
    return response()->json($data);
@@ -1884,5 +1877,148 @@ return response()->json($data);
 
 }
 
+
+//Negotiation import record
+// public function calculatedBookPrice(Request $request)
+// {
+//     try {
+//         $admin = auth('admin')->user();
+//         if ($request->hasFile('file_book_price')) {
+//             $file = $request->file('file_book_price');
+//             $fileContents = file($file->getPathname());
+//             unset($fileContents[0]);
+
+//             $batchSize = 100; 
+
+//             $chunks = array_chunk($fileContents, $batchSize);
+          
+//             foreach ($chunks as $chunk) {
+//               $productcode = [];
+//               $productcode1 = [];
+//                 foreach ($chunk as $line) {
+//                     $data = str_getcsv($line);
+//                      $p_code = $data[1] ?? null;
+                         
+//                      if($p_code != null){
+//                         $code = str_pad($data[1], 8, '0', STR_PAD_LEFT);
+//                         $book = Book::where('product_code',  $code)->exists();
+//                         if ($book){
+//                            continue;
+//                         }else{
+//                           return redirect()->back()->with('errorlib',  $code . "Not Found");
+//                         }
+    
+//                         if (in_array($code, $productcode)) {
+//                           array_push($productcode1,  $code);
+//                             // return redirect()->back()->with('errorlib',  $code . " Duplicate entry");
+//                         } else {
+//                             array_push($productcode,  $code);
+//                         }
+                       
+//                      }
+                  
+//                 }
+//                 return $productcode;
+//                 $check =[];
+//                 foreach ($chunk as $line) {
+//                     $data = str_getcsv($line);
+//                     $productCode = str_pad($data[1], 8, '0', STR_PAD_LEFT);
+//                     $bookdata =Book::where('product_code','=',$productCode)->first();
+//                     $bookdata->calculated_price =  $data[2];
+//                     $bookdata->save();
+
+//                 }
+//             }
+
+//             return redirect()->back()->with('successlib', 'File imported successfully');
+//         } else {
+//             return redirect()->back()->with('errorlib', 'No file uploaded');
+//         }
+//     } catch (\Throwable $e) {
+//          return $e;
+//         // Handle the exception (e.g., log it)
+//         return redirect()->back()->with('errorlib', 'An error occurred while importing.');
+//     }
+// }
+
+public function calculatedBookPrice(Request $request)
+{
+    try {
+        $admin = auth('admin')->user();
+        if (!$request->hasFile('file_book_price')) {
+            return redirect()->back()->with('errorlib', 'No file uploaded');
+        }
+
+        $file = $request->file('file_book_price');
+        $fileContents = file($file->getPathname());
+        unset($fileContents[0]);
+
+        $batchSize = 100; 
+        $chunks = array_chunk($fileContents, $batchSize);
+
+        foreach ($chunks as $chunk) {
+            $productCodes = [];
+            $duplicateCodes = [];
+            $booksToUpdate = [];
+
+            foreach ($chunk as $line) {
+                $data = str_getcsv($line);
+                $productCode = str_pad($data[1] ?? '', 8, '0', STR_PAD_LEFT);
+
+                if (empty($productCode)) {
+                    continue;
+                }
+
+                if (Book::where('product_code', $productCode)->exists()) {
+                    if (in_array($productCode, $productCodes)) {
+                        $duplicateCodes[] = $productCode;
+                    } else {
+                        $productCodes[] = $productCode;
+                        $booksToUpdate[] = ['product_code' => $productCode, 'calculated_price' => $data[2],'calculated_percentage'=>$data[3],'reason'=>$data[4]];
+                    }
+                } else {
+                    return redirect()->back()->with('errorlib', $productCode . " Not Found");
+                }
+            }
+            if (!empty($duplicateCodes)) {
+              return redirect()->back()->with('errorlib', implode(', ', $duplicateCodes) . " Duplicate entries");
+          }
+            // Update books
+            foreach ($booksToUpdate as $bookData) {
+                $book = Book::where('product_code', $bookData['product_code'])->first();
+                if ($book) {
+                    $book->calculated_price = $bookData['calculated_price'];
+                    $book->calculated_percentage = $bookData['calculated_percentage'];
+                    $book->calculated_reason = $bookData['reason'];
+                    $book->save();
+                }
+            }
+
+           
+        }
+
+        return redirect()->back()->with('successlib', 'File imported successfully');
+    } catch (\Throwable $e) {
+        // Log the exception
+        \Log::error('Error importing book prices: ', ['error' => $e->getMessage()]);
+        return redirect()->back()->with('errorlib', 'An error occurred while importing.');
+    }
+}
+
+public function sendnegotiationstatus(Request $req) {
+  $bookId=$req->bookId;
+  $status=$req->status;
+
+ if($status == "Approve"){
+  $data1 = Book::find($bookId);
+  $data1->final_price= $data1->discountedprice;
+  $data1->negotiation_status ="2";
+  $data1->save();
+  $data= [
+      'success' => 'Approved Successfully',
+           ];
+  return response()->json($data); 
+ }
+}
 
     } 

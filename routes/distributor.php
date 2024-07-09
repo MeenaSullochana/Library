@@ -169,6 +169,8 @@ Route::get('/report_download', function () {return view('distributor.report_down
      Route::post('/sendnegotiationstatus',[BookController::class,'sendnegotiationstatus']);
      Route::post('/sendnegotiationsamount',[BookController::class,'sendnegotiationsamount']);
      Route::get('/book_updatelist',function(){ return view('distributor.book_updatelist');});
+     Route::get('/nego_hold_list',function(){ return view('distributor.nego_hold');});
+
      Route::post('/bookupdatedandreturn',[BookController::class,'bookupdatedandreturn']);
      Route::get('/book_edit/{id}',[BookController::class,'book_edit']);
      Route::get('/bookedit',function(){

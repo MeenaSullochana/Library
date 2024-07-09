@@ -56,10 +56,10 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Negotiation Process List</b>
+                                <b>Negotiation -  Processing Book List</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="book_add">
-                                <i class="fas fa-plus"></i> Add Book</a>
+                            <!-- <a class="btn btn-primary  btn-sm" href="book_add">
+                                <i class="fas fa-plus"></i> Add Book</a> -->
                             <!-- <nav aria-label="breadcrumb">
                            <ol class="breadcrumb">
                                <li class="breadcrumb-item"><a href="allocated_location_view.php">View Allocated Location</a></li>
@@ -89,13 +89,20 @@
                                             <tr role="row">
 
 
-                                                <th>S.No</th>
-                                                <th>Books</th>
-                                                <th>Book Price</th>
-                                                <th>Admin Price</th>
+                                            <th>S.No</th>
+                                                <th>Book Code</th>
+                                                <th>Book Title</th>
+                                                <th>Actual Price</th>
+                                                <th>Discount Percentage</th>
+                                                <th>Discounted Price</th>
+                                                <th>Calculated Percentage</th>
+                                                <th>Calculated Price</th>
+                                                <th>Negotiation Percentage</th>
                                                 <th>Negotiation Price</th>
-                                                <th>Negotiation </th>
-                                                <th>Negotiation Message</th>
+                                                <th>Calculated Reason</th>
+                                               
+                                                <th>Negotiation Reason</th>
+                                                <th>Negotiation Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -114,6 +121,8 @@
                                             <tr role="row" class="odd">
 
                                                 <td data-label="S.No"><span>{{$loop->index +1}}</span></td>
+                                                <td data-label="S.No"><span>{{$val->product_code}}</span></td>
+
                                                 <td data-label="Books">
                                                     <div class="products">
                                                         <div>
@@ -123,29 +132,54 @@
                                                     </div>
                                                 </td>
                                                 <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">Rs {{$val->price}}</a></td>
+                                                <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">{{$val->discount}}%</a></td>
+                                                <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">Rs {{$val->discountedprice}}</a></td>
+
                                                 <td data-label="Admin Price">
-                                                    <span><a href="#" class="badge bg-info">Rs {{$val->calculated_price}}</a> </span>
+                                                    @if(!is_null($val->calculated_percentage))
+                                                    <span><a href="#" >{{$val->calculated_percentage}}%</a> </span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
+                                                </td>
+                                                <td data-label="Admin Price">
+                                                    @if(!is_null($val->calculated_price))
+                                                    <span><a href="#" >Rs {{$val->calculated_price}}</a> </span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
+                                                </td>
+                                                <td data-label="Admin Price">
+                                                    @if(!is_null($val->negotiation_percentage))
+                                                    <span><a href="#" >{{$val->negotiation_percentage}}%</a> </span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
                                                 </td>
                                                 <td data-label="Negotiation Price">
-                                                    <span><a href="#" class="badge bg-info">Rs {{$val->negotiation_price}}</a> </span>
+                                                    @if(!is_null($val->negotiation_price))
+                                                    <span><a href="#" >Rs {{$val->negotiation_price}}</a> </span>
+                                                    @else
+                                                    <span>N/A</span>
+                                                    @endif
                                                 </td>
-
-                                                <td data-label="Negotiation">
-                                                <button type="button" id="successButton" class="btn btn-success">Process Book</button>
+                                                <td data-label="Negotiation Message">
+                                                   <button type="button" id="successButton111" class="btn btn-primary btn-sm" data-id="{{$val->calculated_reason}}">View</button>
+                                                  </td>
+         
+                                                     <td data-label="Negotiation Message">
+                                                   <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_message}}">View</button>
+                                                  </td>
+                                                  <td data-label="Negotiation">
+                                                <button type="button" id="successButton" class="btn btn-success">Processing</button>
 
                                                      </td>
-                                                     <td data-label="Negotiation Message">
-                                                   <button type="button" id="successButton11" class="btn btn-primary" data-id="{{$val->negotiation_message}}">View</button>
-                                                  </td>
-
                                                 <td data-label="control">
                                                     <div class="d-flex mt-p0">
-                                                        <a href="book_manage_view.php" class="btn btn-success shadow btn-xs sharp me-1">
+                                                        <a href="/distributor/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
-                                                        <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
-                                                            <i class="fa fa-trash"></i>
-                                                        </a>
+                                                    
                                                     </div>
                                                 </td>
                                             </tr>
@@ -186,7 +220,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">negotiation  Message</h5>
+                <h5 class="modal-title">Negotiation  Message</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body" id="modalBodyContent"></div>
@@ -196,11 +230,24 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Calculation Reason</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBodyContent1"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script>
     $(document).ready(function () {
-        $('#successButton11').click(function () {
+        $('#example3').on('click', '#successButton11', function() {
             var message = $(this).data('id');
             console.log(message);
             $('#modalBodyContent').html(message);
@@ -209,7 +256,16 @@
     });
 </script>
 
-
+<script>
+    $(document).ready(function () {
+        $('#example3').on('click', '#successButton111', function() {
+            var message = $(this).data('id');
+            console.log(message);
+            $('#modalBodyContent1').html(message);
+            $('#myModal1').modal('show');
+        });
+    });
+</script>
 
 </html>
 <style>

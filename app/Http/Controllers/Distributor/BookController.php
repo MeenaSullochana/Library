@@ -472,13 +472,13 @@ public function applay_procurment(Request $request){
     $bookId=$req->bookId;
     $status=$req->status;
 
-   if($status == "Approve"){
+   if($status == "Accept"){
     $data1 = Book::find($bookId);
     $data1->final_price= $data1->calculated_price;
     $data1->negotiation_status ="2";
     $data1->save();
     $data= [
-        'success' => 'Approved Successfully',
+        'success' => 'Accepted Successfully',
              ];
     return response()->json($data); 
    }else{
@@ -486,7 +486,7 @@ public function applay_procurment(Request $request){
     $data1->negotiation_status ="3";
     $data1->save();
     $data= [
-        'success' => 'Reject Successfully',
+        'success' => 'Rejected Successfully',
              ];
     return response()->json($data); 
    }
@@ -499,18 +499,28 @@ public function applay_procurment(Request $request){
 public function sendnegotiationsamount(Request $req) {
 
    if($req->amount !=null){
-    $data1 = Book::find($req->bookId);
+     if($req->Description != null){
+        $data1 = Book::find($req->bookId);
 
-    $data1->negotiation_status = "1";
-    $data1->negotiation_price = $req->amount;
-    $data1->negotiation_message = $req->Description;
-    $data1->save();
-
-    $data = [
-        'success' => 'Negotiation send Successfully',
-    ];
-
-    return response()->json($data);
+        $data1->negotiation_status = "1";
+        $data1->negotiation_price = $req->amount;
+        $data1->negotiation_message = $req->Description;
+        $data1->negotiation_percentage = $req->percentage;
+        $data1->save();
+    
+        $data = [
+            'success' => 'Negotiation send Successfully',
+        ];
+    
+        return response()->json($data);
+     }else{
+        $data = [
+            'error' => 'Description Filed is  Required',
+        ];
+    
+        return response()->json($data);
+     }
+  
    }else{
     $data = [
         'error' => 'Amount Filed is  Required',
@@ -979,39 +989,12 @@ public function procurement_samplebookcomplete(){
   return view('distributor.procurement_samplebookcomplete')->with('data',$data); 
 }
 
-
-
-
-
-
-// public function procurementbokkcopies(Request $request){
-//     $bookcopies=new bookcopies();
-
-//     $bookcopies->bookid =  $request->bookid;
-//     $bookcopies->booktitle =  $request->booktitle;
-//     $bookcopies->copies =  json_encode($request->datarec);
-//     $bookcopies->userid =  auth('distributor')->user()->id;
-//     $bookcopies->usertype =  auth('distributor')->user()->usertype;
-
- 
-//     if($bookcopies->save()){
-
-//         $book =Book::find($request->bookid);
-//         $book->book_procurement_status="6";
-//         $book->save();
-//         return response()->json(['success' => 'copies send successfull']);
-
-//     }
-
-// }
 public function procurement_samplebook(){
 
     $id=auth('distributor')->user()->id;
     $data=Book::where('user_id','=',$id)->where('book_procurement_status','=',"5")->where('book_status','=',null)->get(); 
     return view('distributor.procurement_samplebook')->with('data',$data); 
 }
-
-
 
 
 public function procurement_samplebookpending(){

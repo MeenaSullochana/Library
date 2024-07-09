@@ -189,6 +189,8 @@ Route::post('/multibookdelete',[BookController::class,'multibookdelete']);
           Route::get('/nego_approved_list',function(){ return view('publisher_and_distributor.nego_approved_list');});
           Route::get('/nego_failed_list',function(){ return view('publisher_and_distributor.nego_failed_list');});
           Route::get('/nego_process_list',function(){ return view('publisher_and_distributor.nego_process_list');});
+          Route::get('/nego_hold_list',function(){ return view('publisher_and_distributor.nego_hold');});
+
           Route::post('/sendnegotiationstatus',[BookController::class,'sendnegotiationstatus']);
           Route::post('/sendnegotiationsamount',[BookController::class,'sendnegotiationsamount']);
           Route::get('/book_updatelist',function(){ return view('publisher_and_distributor.book_updatelist');});

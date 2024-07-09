@@ -610,13 +610,13 @@ $user = auth('publisher')->user();
         $bookId=$req->bookId;
         $status=$req->status;
 
-       if($status == "Approve"){
+       if($status == "Accept"){
         $data1 = Book::find($bookId);
         $data1->final_price= $data1->calculated_price;
         $data1->negotiation_status ="2";
         $data1->save();
         $data= [
-            'success' => 'Approved Successfully',
+            'success' => 'Accepted Successfully',
                  ];
         return response()->json($data);
        }else{

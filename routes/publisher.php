@@ -198,6 +198,8 @@ Route::prefix('publisher')->group(function () {
 
      Route::get('/nego_pending_list',function(){ return view('publisher.nego_pending_list');});
      Route::get('/nego_approved_list',function(){ return view('publisher.nego_approved_list');});
+     Route::get('/nego_hold_list',function(){ return view('publisher.nego_hold');});
+     
      Route::get('/nego_failed_list',function(){ return view('publisher.nego_failed_list');});
      Route::get('/nego_process_list',function(){ return view('publisher.nego_process_list');});
 
