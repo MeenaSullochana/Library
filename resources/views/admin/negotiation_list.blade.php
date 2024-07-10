@@ -146,6 +146,8 @@
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">S.No</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">Book Code</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Book Title</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">ISBN</th>
+
                                                 <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                         colspan="1"
                                         aria-label="Ratings: activate to sort column ascending"
@@ -169,9 +171,7 @@
                                             @foreach($categori as $val)
                                             @if($val->check == "unique")
 
-                                            @php
-                                             echo "unique";
-                                            @endphp
+                                            
                                             <tr>
                                                 <td class="sorting_1">
                                                     <div class="form-check custom-checkbox">
@@ -191,7 +191,9 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                  
+                                                <td>
+                                                    <span>{{$val->isbn}}</span>
+                                                </td>
                                                 <td>
                                                     <span>Rs {{$val->price}}</span>
                                                 </td>
@@ -257,9 +259,7 @@
                                                 </td>
                                             </tr>
                                             @else
-                                            @php
-                                             echo "duplicate";
-                                            @endphp
+                                         
                                             <tr class="red-row">
                                                 <td class="sorting_1">
                                                     <div class="form-check custom-checkbox">
@@ -279,7 +279,9 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                  
+                                                <td>
+                                                    <span>{{$val->isbn}}</span>
+                                                </td>
                                                 <td>
                                                     <span>Rs {{$val->price}}</span>
                                                 </td>
