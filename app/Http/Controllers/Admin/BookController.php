@@ -88,7 +88,7 @@ public function meta_book_list() {
   
   $existingBooks = Book::where("book_procurement_status", '=', 1)
                        ->pluck('book_title');
-  $existingisbn = Book::where("book_procurement_status", '=', 1)
+  $existingbookisbn = Book::where("book_procurement_status", '=', 1)
                        ->pluck('isbn');
 
   $existingTitles = $existingBooks->map(function ($title) {
@@ -97,7 +97,9 @@ public function meta_book_list() {
           'tamil' => $this->processBookTitle($this->translateToTamil($title)) // Assuming a translate function
       ];
   });
-
+  $existingisbn = $existingbookisbn->map(function ($title) {
+    return $this->processBookTitle($title);
+    });
   // Check each book for title and ISBN uniqueness
   foreach ($data as $val) {
       $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
@@ -146,15 +148,15 @@ public function isTamil($text)
 public function checkBookTitle($data, $existingTitles, $existingBooks,$existingisbn) {
   // Process new book title for comparison
   $newBookTitle = $this->processBookTitle($data->book_title);
-  
+  $newBookisbn = $this->processBookTitle($data->isbn);
   // Count occurrences of the processed title in existing titles
   $titleCount = $existingTitles->filter(function ($titles) use ($newBookTitle) {
       return $titles['english'] === $newBookTitle || $titles['tamil'] === $newBookTitle;
   })->count();
   
   // Count occurrences of the ISBN in existing ISBNs
-  $isbnCount = $existingisbn->filter(function ($isbn) use ($data) {
-      return $isbn === $data->isbn;
+  $isbnCount = $existingisbn->filter(function ($isbn) use ($newBookisbn) {
+      return $isbn === $newBookisbn;
   })->count();
   
   // Determine uniqueness based on counts
@@ -222,7 +224,7 @@ public function checkBookTitle($data, $existingTitles, $existingBooks,$existingi
   $data = $query->get();
   $existingBooks = Book::where("book_procurement_status", '=', 1)
                        ->pluck('book_title');
- $existingisbn = Book::where("book_procurement_status", '=', 1)
+ $existingbookisbn = Book::where("book_procurement_status", '=', 1)
                        ->pluck('isbn');                     
 
   $existingTitles = $existingBooks->map(function ($title) {
@@ -231,7 +233,9 @@ public function checkBookTitle($data, $existingTitles, $existingBooks,$existingi
           'tamil' => $this->processBookTitle($this->translateToTamil($title)) // Assuming a translate function
       ];
   });
-
+  $existingisbn = $existingbookisbn->map(function ($title) {
+    return $this->processBookTitle($title);
+    });
   // Check each book for title and ISBN uniqueness
   foreach ($data as $val) {
       $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
@@ -2783,7 +2787,7 @@ public function negotiationlist(){
   ->get();
   $existingBooks = Book::where('marks', '>=', 40)
   ->pluck('book_title');
-  $existingisbn = Book::where('marks', '>=', 40)
+  $existingbookisbn = Book::where('marks', '>=', 40)
   ->pluck('isbn');
 $existingTitles = $existingBooks->map(function ($title) {
 return [
@@ -2791,6 +2795,10 @@ return [
 'tamil' => $this->processBookTitle($this->translateToTamil($title))
 ];
 });
+
+$existingisbn = $existingbookisbn->map(function ($title) {
+  return $this->processBookTitle($title);
+  });
 
 foreach ($categori as $val) {
 $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
