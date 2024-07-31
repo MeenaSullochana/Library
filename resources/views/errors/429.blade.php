@@ -3,7 +3,7 @@
 
 <head>
    <!--Title-->
-	<title>429</title>
+	<title>Too Many Requests</title>
 
 	<!-- Meta -->
 	<meta charset="utf-8">
@@ -30,9 +30,9 @@
                <div class="col-md-6">
 					<div class="error-page">
 						<div class="error-inner text-center">
-							<div class="dz-error" data-text="403">429</div>
-							<h2 class="error-head mb-0"><i class="fa fa-times-circle text-danger me-2"></i>Forbidden Error!</h2>
-							<p>You do not have permission to view this resource.</p>
+							<div class="dz-error" data-text="429">429</div>
+							<h2 class="error-head mb-0"><i class="fa fa-times-circle text-danger me-2"></i>Too Many Requests</h2>
+							<p>Sorry, you have made too many requests in a short period of time. Please try again later.</p>
 							<a href="/" class="btn btn-secondary">BACK TO HOMEPAGE</a>
 						</div>
 					</div>

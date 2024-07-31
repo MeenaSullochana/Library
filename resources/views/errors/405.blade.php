@@ -5,7 +5,7 @@ or temporarily unavailable.</p> --}}
 
 <head>
    <!--Title-->
-	<title>405</title>
+	<title>Method Not Allowed</title>
 
 	<!-- Meta -->
 	<meta charset="utf-8">
@@ -32,9 +32,9 @@ or temporarily unavailable.</p> --}}
                <div class="col-md-6">
 					<div class="error-page">
 						<div class="error-inner text-center">
-							<div class="dz-error" data-text="403">405</div>
-							<h2 class="error-head mb-0"><i class="fa fa-times-circle text-danger me-2"></i>Forbidden Error!</h2>
-							<p>You do not have permission to view this resource.</p>
+							<div class="dz-error" data-text="405">405</div>
+							<h2 class="error-head mb-0"><i class="fa fa-times-circle text-danger me-2"></i>Method Not Allowed</h2>
+							<p>Sorry, the request method is not allowed for the requested resource.</p>
 							<a href="/" class="btn btn-secondary">BACK TO HOMEPAGE</a>
 						</div>
 					</div>

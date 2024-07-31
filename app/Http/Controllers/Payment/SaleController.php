@@ -29,7 +29,6 @@ class SaleController extends Controller
         $paymentbook->type = "Book";
         $paymentbook->save();
         $books = $paymentbook->id;
-        // dd($books);
         $user = Session::get('user');
         $type = "Book";
         $amount = count($data) *450;

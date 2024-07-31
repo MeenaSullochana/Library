@@ -508,7 +508,7 @@ public function procurementstatus(Request $request){
              ];
     return response()->json($data);
 }
-public function checkBookTitle(Request $request)
+public function checkBookTitle1(Request $request)
 {
     $newBookTitle = trim($request->input('book_title'));
 
@@ -551,7 +551,7 @@ public function checkBookTitle(Request $request)
 
         }
         \Session::put('bookitem', $bookitem);
-$user = auth('publisher')->user();
+        $user = auth('publisher')->user();
         \Session::put('user',$user);
         $data= [
             'success' => 'Book Applied For Procurement',
@@ -661,20 +661,78 @@ $user = auth('publisher')->user();
     }
 
     public function isbn(Request $req) {
+        $isbn = $req->bookisbn;
         $id=auth('publisher')->user()->id;
-
-        $data1=Book::where('user_id','=',$id)->where('isbn','=',$req->bookisbn)->first();
-        if($data1 != null){
+        $existingbookisbn = Book::where('user_id','=',$id)
+            ->pluck('isbn');
+        if(count($existingbookisbn) != 0){
+            
+            $existingisbn = $existingbookisbn->map(function ($title) {
+                return $this->processBookTitle($title);
+                });
+        
+          $checkisbn = $this->checkBookTitle($isbn,$existingisbn);
+          if($checkisbn != 'unique'){
             $data= [
-                'error' => 'Isbn Number Is duplecate Please Enter the Valid Isbn Number',
+                'error' => 'ISBN already exist .. You cannot proceed with already exist ISBN',
                      ];
             return response()->json($data);
+          }else{
+            $data= [
+                'Sucess' => '',
+                     ];
+            return response()->json($data);
+          }
+           
         }
 
 
 
     }
-
+    private function processBookTitle($title) {
+        $title = trim($title);
+        if (!$this->isTamil($title)) {
+            $title = preg_replace('/(?<!^)[A-Z]/', '_$0', $title);
+        }
+        $title = preg_replace('/\s+/', '', $title);
+        if (!$this->isTamil($title)) {
+            $title = strtolower($title);
+        }
+        $title = preg_replace('/[^A-Za-z0-9\x{0B80}-\x{0BFF}]/u', '', $title);
+        
+        return $title;
+      }
+      
+      public function translateToTamil($text)
+      {
+        if ($this->isTamil($text)) {
+          return $text; // Return the text as is if it is already in Tamil
+      }
+      }
+      
+      public function isTamil($text)
+      {
+          // Simple heuristic to check if the text contains Tamil characters
+          return preg_match('/[\x{0B80}-\x{0BFF}]+/u', $text);
+      }
+      
+      
+      
+      public function checkBookTitle($data,$existingisbn) {
+      
+        $newBookisbn = $this->processBookTitle($data);
+        $isbnCount = $existingisbn->filter(function ($isbn) use ($newBookisbn) {
+            return $isbn === $newBookisbn;
+        })->count();
+        
+        // Determine uniqueness based on counts
+       if ($isbnCount >= 1) {
+            return "repeated";
+        } else {
+            return "unique";
+        }
+      }
+      
     public function update(Request $request){
         $validator= Validator::make($request->all(),[
             'book_title'                          =>['required'],
@@ -1114,4 +1172,9 @@ if(isset($request->back_img)){
         return view('publisher.procurement_samplebookcomplete')->with('data',$data); 
     }
 
+    public function procurereturnupdate(){
+        $id=auth('publisher')->user()->id;
+        $data=Book::where('user_id','=',$id)->where('book_procurement_status','=',1)->where('book_status','=',3)->get();
+        return view('publisher.book_procurement_return_update')->with('book',$data);
+    }
 }

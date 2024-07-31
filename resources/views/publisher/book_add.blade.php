@@ -95,6 +95,8 @@
                                                         </div>
                                                     </div>
                                                     <span id="bookTitleError" class="text-danger"></span>
+                                                    <input type="number" class="form-control" id="bookTitleError1"
+                                                    name="bookTitleError1"  hidden>
 
                                                 </div>
                                             </div>
@@ -1816,6 +1818,18 @@ input#other_img {
 <script>
     $(document).ready(function () {
         $("#submitbutton").click(function (event) {
+           
+            var booktitle = $('#bookTitleError1').val(); 
+            if (booktitle == 1) { 
+                toastr.error('ISBN already exist ');
+                event.preventDefault(); 
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#submitbutton").click(function (event) {
             var discountedprice1 = $('#discountedprice1').val(); 
           
             if (discountedprice1 === '') { 
@@ -2547,27 +2561,66 @@ $(document).ready(function () {
         }
     });
 </script>
+<script>
+var typingTimer;
+var doneTypingInterval = 1000;
 
- <script>
-    function checkBookISBN() {
-        var bookisbn = $('#isbn').val();
-        console.log(bookisbn);
-        $.ajax({
-            type: 'POST',
-            url: '/publisher/isbn',
-            data: {
-                '_token': '{{ csrf_token() }}',
-                'bookisbn': bookisbn
-            },
-            success: function(response) {
-                if (response.error) {
-                    $('#bookTitleError').text(response.error);
-                } else {
-                    $('#bookTitleError').text('');
-                }
-            }
-        });
+$('#isbn').keyup(function(){
+    clearTimeout(typingTimer);
+    if ($('#isbn').val()) {
+        typingTimer = setTimeout(function(){
+             var bookisbn = $("#isbn").val();
+             if(bookisbn.length == 0){
+               $("#bookTitleError").html("ISBN required");
+               toastr.error('ISBN required!');
+             } else {
+                 //ajax
+                 $.ajaxSetup({
+                     headers: {
+                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                     }
+                 });
+                 $.ajax({
+                     type: "POST",
+                     dataType: "json",
+                     url: '/publisher/isbn',
+                     data: { 'bookisbn': bookisbn },
+                     success: function(response) {
+                         if(response.error){
+                             $("#bookTitleError").html(response.error);
+                             document.getElementById('bookTitleError1').value = 1;
+                         } else {                                                                                                                                                                                                                                                                                                                                          
+                             $("#bookTitleError").html("");
+                             document.getElementById('bookTitleError1').value = 0;
+                         }
+                     }
+                 });
+             }
+        }, doneTypingInterval);
     }
+});
+</script>
+ <script>
+    // function checkBookISBN() {
+    //     var bookisbn = $('#isbn').val();
+    //     console.log(bookisbn);
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: '/publisher/isbn',
+    //         data: {
+    //             '_token': '{{ csrf_token() }}',
+    //             'bookisbn': bookisbn
+    //         },
+    //         success: function(response) {
+           
+    //             if (response.error) {
+    //                 $('#bookTitleError').text(response.error);
+    //             } else {
+    //                 $('#bookTitleError').text('');
+    //             }
+    //         }
+    //     });
+    // }
 
     function submitForm(event) {
         checkBookISBN();

@@ -10,10 +10,6 @@ use App\Http\Controllers\Periodicalauth\ForgotPasswordController;
 // use App\Http\Controllers\WebsitebookController;
 // use Illuminate\Support\Facades\Session;
 
-
-
-
-
 Route::prefix('periodical')->group(function () {
 Route::post('/create/publisher', [RegisterController::class, 'pub_create']);
 Route::post('/create/distributor', [RegisterController::class, 'dis_create']);

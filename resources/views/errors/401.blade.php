@@ -3,7 +3,7 @@
 
 <head>
    <!--Title-->
-	<title>401</title>
+	<title>Unauthorized</title>
 
 	<!-- Meta -->
 	<meta charset="utf-8">
@@ -30,9 +30,9 @@
                <div class="col-md-6">
 					<div class="error-page">
 						<div class="error-inner text-center">
-							<div class="dz-error" data-text="403">403</div>
-							<h2 class="error-head mb-0"><i class="fa fa-times-circle text-danger me-2"></i>Forbidden Error!</h2>
-							<p>You do not have permission to view this resource.</p>
+							<div class="dz-error" data-text="401">401</div>
+							<h2 class="error-head mb-0"><i class="fa fa-times-circle text-danger me-2"></i>Unauthorized</h2>
+							<p>Sorry, you are not authorized to access this page. Please log in and try again.</p>
 							<a href="/" class="btn btn-secondary">BACK TO HOMEPAGE</a>
 						</div>
 					</div>

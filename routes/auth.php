@@ -13,17 +13,13 @@ use Illuminate\Support\Facades\Session;
 
 //USER
 Route::get('/clear-cache', function () {
-    // Clear application cache
-    Artisan::call('cache:clear');
-
-    // Clear route cache
-    Artisan::call('route:cache');
-
-    // Clear config cache
-    Artisan::call('config:cache');
-
-    // Clear view cache
+    Artisan::call('config:clear');
+    Artisan::call('route:clear');
     Artisan::call('view:clear');
+    Artisan::call('event:clear');
+    Artisan::call('route:cache');
+    Artisan::call('config:cache');
+    
 
     return 'Caches have been cleared';
 });

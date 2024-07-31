@@ -8,7 +8,7 @@
 
 <head>
    <!--Title-->
-	<title>419</title>
+	<title>Page Expired</title>
 
 	<!-- Meta -->
 	<meta charset="utf-8">
@@ -35,9 +35,9 @@
                <div class="col-md-6">
 					<div class="error-page">
 						<div class="error-inner text-center">
-							<div class="dz-error" data-text="403">419</div>
-							<h2 class="error-head mb-0"><i class="fa fa-times-circle text-danger me-2"></i>Forbidden Error!</h2>
-							<p> Please return to the homepage and log in again to continue.</p>
+							<div class="dz-error" data-text="419">419</div>
+							<h2 class="error-head mb-0"><i class="fa fa-times-circle text-danger me-2"></i>Page Expired</h2>
+							<p>Sorry, your session has expired. Please refresh the page and try again.</p>
 							<a href="/" class="btn btn-secondary">BACK TO HOMEPAGE</a>
 						</div>
 					</div>
