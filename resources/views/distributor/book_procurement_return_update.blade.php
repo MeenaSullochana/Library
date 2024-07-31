@@ -21,9 +21,9 @@
       https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.css
       " rel="stylesheet">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-      <link rel="shortcut icon" type="image/png" href="{{ asset('publisher/images/fevi.svg') }}">
+      <link rel="shortcut icon" type="image/png" href="{{ asset('distributor/images/fevi.svg') }}">
       <?php
-        include "publisher/plugin/plugin_css.php";
+        include "distributor/plugin/plugin_css.php";
     ?>
    </head>
    <body>
@@ -45,7 +45,7 @@
          <!--**********************************
             Nav header start
             ***********************************-->
-            @include ('publisher.navigation')
+            @include ('distributor.navigation')
          <!--**********************************
             Sidebar end
             ***********************************-->
@@ -58,7 +58,7 @@
                   <div class="card-body">
                      <div class="d-sm-flex align-items-center justify-content-between">
                         <h3 class="mb-0 bc-title">
-                           <b>Return Books List</b>
+                           <b>Returned Books List</b>
                         </h3>
                         {{-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
                         <i class="fas fa-plus"></i> Add Book</a> --}}
@@ -101,9 +101,7 @@
                                     {{-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                        colspan="1" aria-label="Quantity: activate to sort column ascending"
                                        style="width: 65.3594px;">Quantity</th> --}}
-                                       <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
-                                       colspan="1" aria-label="Action: activate to sort column ascending"
-                                       style="width: 87.4688px;">Return Apply</th>
+                                    
                                        <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                        colspan="1" aria-label="Action: activate to sort column ascending"
                                        style="width: 87.4688px;">  Correction</th>
@@ -113,18 +111,15 @@
                                  </tr>
                               </thead>
                               <tbody>
-                                 @php
-                                 $id=auth('publisher')->user()->id;
-                                   $data=DB::table('books')->where('user_id','=',$id)->where('book_procurement_status','=',1)->where('book_status','=',2)->get();
-                                 @endphp
-                                 @foreach($data as $key=>$val)
+                                 
+                                 @foreach($book as $key=>$val)
                                  <tr role="row" class="odd">
                                  <td>{{$loop->index+1}}></td>
                                     <td>{{$val->product_code}}</td>
                                     <td>
                                        <div >
 
-                                             <h6><a class="text-left" href="/publisher/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
+                                             <h6><a class="text-left" href="/distributor/book_manage_view/{{$val->id}}">{{$val->book_title}}</a></h6>
                                              <span class="text-left">{{$val->subtitle}}</span>
 
                                        </div>
@@ -133,24 +128,19 @@
 
                            
 
-                                    <td>
-                                            <span><a href="#" class="badge bg-danger">Return</a></span>
-                                           </td>
-
+                                   
                                            <td>
-                                        <a class="badge bg-success delete-btn" data-id="{{ $val->id }}" data-bs-toggle="modal" data-bs-target="#myModal22">Click To Send Return Book</a>
+                                        <a class="badge bg-success delete-btn" data-id="{{ $val->id }}" data-bs-toggle="modal" data-bs-target="#myModal22">Return To Metacheck</a>
                                                    </td>
                                                </a>
                                                <td>
                                           <a class="btn btn-primary mb-2" data-bs-toggle="modal" data-id="{{$val->return_message}}" data-bs-target="#myModal">View</a>
                                      </td>
-                                    <td data-label="controlq">
+                                    <td>
 
-                                          <a href="/publisher/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
-                                          <i class="fa fa-eye"></i>
-                                          <a href="/publisher/book_edit/{{$val->id}}" class="btn btn-warning shadow btn-xs sharp me-1">
-                                                <i class="fa fa-edit"></i>
-                                                </a>
+                                          <a href="/distributor/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                          <i class="fa fa-eye"></i></a>
+                                         
                                     </td>
                                  </tr>
                                  @endforeach
@@ -168,7 +158,7 @@
          <!--**********************************
             Footer start
             ***********************************-->
-            @include ("publisher.footer")
+            @include ("distributor.footer")
          <!--**********************************
             Footer end
             ***********************************-->
@@ -215,7 +205,7 @@
          Main wrapper end
          ***********************************-->
          <?php
-         include "publisher/plugin/plugin_js.php";
+         include "distributor/plugin/plugin_js.php";
      ?>
       <!-- Modal -->
       <div class="modal fade" id="exampleModalCenter">
@@ -262,7 +252,7 @@
         $('#confirmDeleteBtn').on('click', function () {
             $('#basicModal').modal('hide');
             $.ajax({
-                url: '/publisher/bookupdatedandreturn',
+                url: '/distributor/bookupdatedandreturn',
                 method: 'POST',
                 data: { '_token': '{{ csrf_token() }}', 'id': deleteId },
                 success: function (response) {
@@ -271,7 +261,7 @@
                         toastr.success(response.success, { timeout: 2000 });
                         $('#basicModal').modal('hide');
                         setTimeout(function () {
-                            window.location.href = "/publisher/book_updatelist"
+                            window.location.href = "/distributor/book_updatelist"
                         }, 3000);
                     } else {
                         toastr.error(response.error, { timeout: 2000 });

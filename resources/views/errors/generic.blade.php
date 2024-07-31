@@ -5,7 +5,7 @@
 
 <head>
    <!--Title-->
-	<title>Network Disconnectedr</title>
+	<title>Error</title>
 
 	<!-- Meta -->
 	<meta charset="utf-8">
@@ -31,9 +31,8 @@
                <div class="col-md-6">
 					<div class="error-page">
 						<div class="error-inner text-center">
-							<div class="dz-error" data-text="503">503</div>
-							<h2 class="error-head mb-0"><i class="fa fa-times-circle text-danger"></i>Network Disconnectedr</h2>
-							<p>It looks like you are not connected to the internet. Please check your network connection and try again.</p>
+							<h2 class="error-head mb-0"><i class="fa fa-times-circle text-danger"></i></h2>
+							<p>We're sorry, but something went wrong. Please try again later.</p>
 							<a href="/" class="btn btn-secondary">BACK TO HOMEPAGE</a>
 						</div>
 					</div>

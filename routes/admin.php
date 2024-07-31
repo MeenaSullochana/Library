@@ -2,6 +2,7 @@
 
 use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Admin\SubadminController;
 use App\Http\Controllers\Admin\FairController;
@@ -733,7 +734,8 @@ Route::post('/categoryadd',[CategorieController::class,'categoryadd']);
 Route::get('/categories_edit/{id}',[CategorieController::class,'categories_edit']);
 Route::get('/categoriesedit',function(){
 
-    $data = Session::get('category');
+    $data = Cache::get('category');
+    // Session::forget('category');
      if($data !==null){
 
          return view('admin.categories_edit')->with("data",$data);

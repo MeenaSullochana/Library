@@ -173,6 +173,7 @@ Route::post('/multibookdelete',[BookController::class,'multibookdelete']);
      Route::get('/procurement_completed',[BookController::class,'procurecompleted']);
      Route::get('/procurement_list',[BookController::class,'procurelist']);
      Route::get('/procurement_reject',[BookController::class,'procurereject']);
+     Route::get('/book_returnupdatelist',[BookController::class,'procurereturnupdate']);
      Route::get('/procurement',[BookController::class,'procurement']);
      Route::post('/procurement',[BookController::class,'procurementstatus']);
      Route::post('/checkBookTitle',[BookController::class,'checkBookTitle']);

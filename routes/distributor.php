@@ -155,6 +155,7 @@ Route::get('/report_download', function () {return view('distributor.report_down
      Route::get('/procurement_reject',[BookController::class,'procurereject']);
      Route::get('/procurement',[BookController::class,'procurement']);
      Route::post('/procurement',[BookController::class,'procurementstatus']);
+     Route::get('/book_returnupdatelist',[BookController::class,'procurereturnupdate']);
      Route::post('/checkBookTitle',[BookController::class,'checkBookTitle']);
      Route::get('/payment',function(){ return view('distributor.payment');});
      Route::post('/applay_procurment',[BookController::class,'applay_procurment']);

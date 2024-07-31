@@ -1064,20 +1064,34 @@ public function create_reviewer(Request $req){
 
 
         foreach ($subjectArrays as $subject) {
-            if($subject == "Sports"){
+               if($subject == "Sports"){
                 $subjects[] = "Sports, Games";
-               }else  if($subject == "Games" ||  $subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
-               
-               }else  if($subject == "அகராதிகள்"){
+               }
+               else if($subject == "English Literature_ critisim"){
+                $subjects[] = "English Literature_ critisim, essays, letter";
+               }
+               else if($subject == "English Literature_Novel"){
+                $subjects[] = "English Literature_Novel, Short stories";
+               }
+               else if($subject == "Folklore (Culture"){
+                $subjects[] = "Folklore (Culture, Custom, Folklore)";
+
+               }
+               else  if($subject == "அகராதிகள்"){
                 $subjects[] = "அகராதிகள், கலைக்களஞ்சியங்கள், நிகண்டுகள்";
                 
 
+               }else  if($subject == "Games" || $subject == "essays" || $subject == "letter" || 
+               $subject == "Short stories" || $subject == "Custom" || $subject == "Folklore)" ||$subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
+               
                }
                
                else{
                 $subjects[] = $subject;
 
                }
+
+
         }
 
         $reviewer->subject = json_encode($subjects);

@@ -1073,4 +1073,9 @@ public function procurementbokkcopies_send(Request $request){
  
 
 }
+public function procurereturnupdate(){
+    $id=auth('publisher_distributor')->user()->id;
+    $data=Book::where('user_id','=',$id)->where('book_procurement_status','=',1)->where('book_status','=',3)->get();
+    return view('publisher_and_distributor.book_procurement_return_update')->with('book',$data);
+}
 }

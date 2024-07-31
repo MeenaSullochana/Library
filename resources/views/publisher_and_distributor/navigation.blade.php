@@ -1325,7 +1325,7 @@
                         <ul aria-expanded="false">
 						 <li><a href="/publisher_and_distributor/procurement_list">Pending List </a></li>
 							<li><a href="/publisher_and_distributor/book_updatelist">Return Correction Book List</a></li>
-
+							<li><a href="/publisher_and_distributor/book_returnupdatelist">Return To Meta Check</a></li>
 							<li><a href="/publisher_and_distributor/procurement_completed">Screened List </a></li>
                             <li><a href="/publisher_and_distributor/procurement_reject">Reject List </a></li> 
                  
