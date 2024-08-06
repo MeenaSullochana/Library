@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +13,7 @@
     <meta property="og:description" content="">
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement</title>
@@ -60,61 +60,66 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Reviewer Report Download</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="index.php">
-                                    <i class="fas fa-plus"></i> Dashboard </a>
+                            <!-- <a class="btn btn-primary  btn-sm" href="index.php">
+                                <i class="fas fa-plus"></i> Dashboard </a> -->
                         </div>
                     </div>
                 </div>
-                    <div class="row">
-                        <div class="col-xl-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Reviewer Report Download</h4>
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Reviewer Report Download</h4>
 
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-xl-4 mb-3">
-                                            <div class="example">
-                                                <p class="mb-1">From Date</p>
-                                                <input class="form-control input-daterange-datepicker" type="date"
-                                                    name="daterange" value="01/01/2015 - 01/31/2015">
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4 mb-3">
-                                            <div class="example">
-                                                <p class="mb-1">To Date</p>
-                                                <input type="date" class="form-control input-daterange-timepicker"
-                                                    name="daterange" value="01/01/2015 1:30 PM - 01/01/2015 2:00 PM">
-                                            </div>
+                            </div>
+                            <div class="card-body">
+                            <form    method="get" enctype="multipart/form-data"  action="/admin/reviewer_report">
+                                @csrf
+                                <div class="row">
+                                        <div class="col-xl-3 mb-3">
+                                            <label class="form-label">Reviewer Type<span
+                                                    class="text-danger mandatory"></span></label>
+                                            <select class="form-select bg-white" name="reviewer" id="reviewer">
+                                                <option value="">Select type</option>
+                                                <option value="internal">Librarian</option>
+                                                <option value="external">Expert</option>
+                                                <option value="public">Public</option>
+                                            </select>
                                         </div>
                                         <div class="col-xl-4 mt-3">
-                                        <button class="dt-button buttons-excel buttons-html5 bg-primary text-white btn btn-sm border-0 mt-3" tabindex="0" aria-controls="projects-tbl" type="button"><span><i class="fa-solid fa-file-excel"></i> Export Report download</span></button>
+                                            <button type="submit"
+                                                class="dt-button buttons-excel buttons-html5 bg-primary text-white btn btn-sm border-0 mt-3"
+                                                tabindex="0" aria-controls="projects-tbl">
+                                                <span><i class="fa-solid fa-file-excel"></i> Export Report
+                                                    download</span>
+                                            </button>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--**********************************
+    </div>
+    <!--**********************************
             Content body end
         ***********************************-->
-        <!--**********************************
+    <!--**********************************
             Footer start
         ***********************************-->
-        @include ("admin.footer")
-        <!--**********************************
+    @include ("admin.footer")
+    <!--**********************************
             Footer end
         ***********************************-->
 
-        <!--**********************************
+    <!--**********************************
            Support ticket button start
         ***********************************-->
 
-        <!--**********************************
+    <!--**********************************
            Support ticket button end
         ***********************************-->
 
@@ -127,5 +132,19 @@
         include "admin/plugin/plugin_js.php";
          ?>
 </body>
+@if (Session::has('success'))
 
+<script>
+
+toastr.success("{{ Session::get('success') }}",{timeout:15000});
+
+</script>
+@elseif (Session::has('error'))
+<script>
+
+toastr.error("{{ Session::get('error') }}",{timeout:15000});
+
+</script>
+
+@endif
 </html>

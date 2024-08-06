@@ -1066,8 +1066,10 @@ if(isset($request->rni_attachment_proof)){
 
 
  public function magazine_edit($id){
+  
   $magazine = Magazine::find($id);
   \Session::put('magazine', $magazine);
+
   return redirect('periodical_distributor/magazineupdate'); 
 }
 public function magazine_delete(Request $request){
@@ -1080,6 +1082,37 @@ public function magazine_delete(Request $request){
     'success' => 'Magazine deleted Successfully',
          ];
 return response()->json($data);
+}
+public function periodical_procurement_list(){
+
+    $id=auth('periodical_distributor')->user()->id;
+  $data=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"1")->where('periodical_status','=',null)->get();
+  return view('periodical_distributor.periodical_procurement_list')->with('data',$data);
+}
+public function periodical_procurement_reject(){
+  $id=auth('periodical_distributor')->user()->id;
+  $data=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"1")->where('periodical_status','=',0)->get();
+  return view('periodical_distributor.periodical_procurement_reject')->with('data',$data);
+}
+public function periodical_procurement_complete(){
+  $id=auth('periodical_distributor')->user()->id;
+ $data=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"1")->where('periodical_status','=',"1")->get();
+  return view('periodical_distributor.periodical_procurement_complete')->with('data',$data);
+}
+public function periodicalupdatedandreturn(Request $request){
+  $id=auth('periodical_distributor')->user()->id;
+  $Magazine1=Magazine::where('user_id','=',$id)->where('id','=',$request->id)->first();
+  $Magazine1->periodical_status = "3";
+  $Magazine1->save();
+  $data= [
+      'success' => 'Periodical applied Successfully',
+           ];
+  return response()->json($data);
+}
+public function periodical_procurement_return_update(){
+  $id=auth('periodical_distributor')->user()->id;
+ $data=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"1")->where('periodical_status','=',"3")->get();
+  return view('periodical_distributor.periodical_procurement_return_update')->with('data',$data);
 }
 
   }

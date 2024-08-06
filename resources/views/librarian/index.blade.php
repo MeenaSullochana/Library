@@ -691,6 +691,93 @@
 
                             @if (auth('librarian')->user()->metaChecker == 'no' &&
                             auth('librarian')->user()->allow_status ==1)
+                            <h3>Book</h3>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $orderbooks = DB::table('orderbooks')
+                                           
+                                            ->where('librarianid', '=', auth('librarian')->user()->id)
+                                            ->count();
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $orderbooks }}</h3>
+                                                <span>Total  Orders</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-primary-light rounded">
+                                                <i class="fa-solid fa-cart-shopping text-primary"></i>
+                                                @php
+                                                $books = DB::table('books')->where('negotiation_status', '=', '2')->get();
+
+                                                @endphp
+                                            </div>
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-primary count">{{ count($books) }}</h3>
+                                                <span>Total Periodical</span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-warning-light rounded">
+                                                <i class="fa-solid fa-users text-warning"></i>
+                                            </div>
+                                            @php
+                                            $carts = DB::table('cartbooks')
+                                            ->where('librarianid', '=', auth('librarian')->user()->id)
+                                            ->where('status', '=', '1')
+                                            ->count();
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-warning count">{{ $carts }}</h3>
+                                                <span>Total Cart Book</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card box-hover">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-box icon-box-lg bg-success-light rounded">
+                                                <i class="fa-solid fa-briefcase text-success"></i>
+                                            </div>
+
+                                            @php
+                                            $orderbooks1 = DB::table('orderbooks')
+                                            ->where('status', '=','2')
+                                            ->where('librarianid', '=', auth('librarian')->user()->id)
+                                            ->count();
+                                            @endphp
+                                            <div class="total-projects ms-3">
+                                                <h3 class="text-success count">{{ $orderbooks1 }}</h3>
+                                                <span>Total Cancel Orders</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3>Periodical</h3>
                             <div class="col-xl-4 col-sm-6">
                                 <div class="card box-hover">
                                     <div class="card-body">
@@ -701,13 +788,13 @@
 
                                             @php
                                             $ordermagazines = DB::table('ordermagazines')
-                                            ->where('status', '=','1')
+                                          
                                             ->where('librarianid', '=', auth('librarian')->user()->id)
                                             ->count();
                                             @endphp
                                             <div class="total-projects ms-3">
                                                 <h3 class="text-success count">{{ $ordermagazines }}</h3>
-                                                <span>Total Orders</span>
+                                                <span>Total  Orders</span>
                                             </div>
                                         </div>
                                     </div>
@@ -726,7 +813,7 @@
                                             </div>
                                             <div class="total-projects ms-3">
                                                 <h3 class="text-primary count">{{ count($magazines) }}</h3>
-                                                <span>Total Magazine</span>
+                                                <span>Total Periodical</span>
 
                                             </div>
                                         </div>
@@ -748,7 +835,7 @@
                                             @endphp
                                             <div class="total-projects ms-3">
                                                 <h3 class="text-warning count">{{ $carts }}</h3>
-                                                <span>Total Cart Magazine</span>
+                                                <span>Total Cart Periodical</span>
                                             </div>
                                         </div>
                                     </div>
@@ -792,7 +879,7 @@
                                 </div>
                             </div> -->
                             @endif
-
+                           <h3> Book </h3>
                             <div class="col-xl-6 col-md-6">
                                 <div class="row">
                                     @if (auth('librarian')->user()->metaChecker == 'yes')
@@ -905,7 +992,119 @@
                                     @endif
                                 </div>
                             </div>
-
+                            <h3> Periodical </h3>
+                            <div class="col-xl-6 col-md-6">
+                                <div class="row">
+                                    @if (auth('librarian')->user()->metaChecker == 'yes')
+                                    <div class="col-xl-6 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <div class="icon-box icon-box-md bg-danger-light me-1">
+                                                        <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
+                                                    </div>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $magaziness = DB::table('magazines')
+                                                    ->where('periodical_reviewer_id', '=', $id)
+                                                    ->count();
+                                                    @endphp
+                                                    <div class="ms-2">
+                                                        <h4>{{ $books }}</h4>
+                                                        <p class="mb-0">Total Meta Periodicals</p>
+                                                    </div>
+                                                </div>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fa-solid fa-chevron-right text-danger"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <div class="icon-box icon-box-md bg-primary-light me-1">
+                                                        <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
+                                                    </div>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $magazines1 = DB::table('magazines')
+                                                    ->where('periodical_reviewer_id', $id)
+                                                    ->where(function ($query) {
+                                                    $query
+                                                    ->whereNull('periodical_status')
+                                                    ->orWhere('periodical_status', 2)
+                                                    ->orWhere('periodical_status', 3);
+                                                    })
+                                                    ->count();
+                                                    @endphp
+                                                    <div class="ms-2">
+                                                        <h4>{{ $magazines1 }}</h4>
+                                                        <p class="mb-0">Pending Meta Periodicals</p>
+                                                    </div>
+                                                </div>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fa-solid fa-chevron-right text-primary"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-md-6">
+                                <div class="row">
+                                    @if (auth('librarian')->user()->metaChecker == 'yes')
+                                    <div class="col-xl-6 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <div class="icon-box icon-box-md bg-info-light me-1">
+                                                        <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
+                                                    </div>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $magazines3 = DB::table('magazines')
+                                                    ->where('periodical_reviewer_id', '=', $id)
+                                                    ->where('periodical_status', '=', 1)
+                                                    ->count();
+                                                    @endphp
+                                                    <div class="ms-2">
+                                                        <h4>{{ $magazines3 }}</h4>
+                                                        <p class="mb-0">Completed Periodicals</p>
+                                                    </div>
+                                                </div>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fa-solid fa-chevron-right text-info"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <div class="icon-box icon-box-md bg-info-light me-1">
+                                                        <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
+                                                    </div>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $magazines2 = DB::table('magazines')
+                                                    ->where('periodical_reviewer_id', '=', $id)
+                                                    ->where('periodical_status', '=', 0)
+                                                    ->count();
+                                                    @endphp
+                                                    <div class="ms-2">
+                                                        <h4>{{ $magazines2 }}</h4>
+                                                        <p class="mb-0">Rejected Books</p>
+                                                    </div>
+                                                </div>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fa-solid fa-chevron-right text-info"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
                             <div class="col-xl-12">
                                 <div class="card">
                                     @if (auth('librarian')->user()->metaChecker == 'yes')
@@ -950,6 +1149,72 @@
                                                                 class="badge badge-success light border-0">Success</span>
                                                         </td>
                                                         @elseif($val->book_status == null)
+                                                        <td>
+                                                            <span
+                                                                class="badge badge-warning light border-0">Pending</span>
+                                                        </td>
+                                                        @else
+                                                        <td>
+                                                            <span
+                                                                class="badge badge-danger light border-0">Reject</span>
+
+                                                        </td>
+                                                        @endif
+
+                                                    </tr>
+                                                    @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    @if (auth('librarian')->user()->metaChecker == 'yes')
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive active-projects">
+                                            <div class="tbl-caption">
+                                                <h4 class="heading mb-0">Meta Check Periodical List</h4>
+                                            </div>
+                                            <table id="projects-tbl1" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Periodical Name</th>
+                                                        <th>Price</th>
+                                                        <th>Status</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $recorddd = DB::table('magazines')
+                                                    ->where('periodical_reviewer_id', '=', $id)
+                                                    ->get();
+                                                    @endphp
+                                                    @foreach ($recorddd as $val)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <!-- <img src="{{ asset('Books/front/' . $val->front_img) }}"
+                                                                    class="avatar avatar-md rounded-circle" alt=""> -->
+                                                                <p class="mb-0 ms-2">{{ $val->title }}
+                                                                </p>
+
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            {{ $val->annual_cost_after_discount }}
+                                                        </td>
+                                                        @if ($val->periodical_status == 1)
+                                                        <td>
+                                                            <span
+                                                                class="badge badge-success light border-0">Success</span>
+                                                        </td>
+                                                        @elseif($val->periodical_status == null)
                                                         <td>
                                                             <span
                                                                 class="badge badge-warning light border-0">Pending</span>

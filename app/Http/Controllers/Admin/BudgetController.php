@@ -29,10 +29,11 @@ class BudgetController extends Controller
     
       
        
-    
+     
       $count = 0;
     foreach ($req->CategorieAmount as $category) {
-    $count += $category['amount'];
+    $count += $category['tamilAmount'];
+    $count += $category['englishAmount'];
     }
 
        if($count  == $req->totalAmount  ){
@@ -44,6 +45,7 @@ class BudgetController extends Controller
         $budget->purchaseid = "[]";
         $budget->type = $req->type;
         $budget->CategorieAmount = json_encode($req->CategorieAmount); 
+     
         $budget->save();
 
         $data= [

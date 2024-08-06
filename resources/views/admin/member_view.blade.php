@@ -160,11 +160,27 @@
                                                 <th scope="row">Organisation Details</th>
                                                 <td>: {{$data->organisationDetails}} </td>
                                             </tr>
+                                            @php
+                                            $subjectsArray = [];
+
+                                            if (is_string($data->subject)) {
+                                            $decodedSubjects = json_decode($data->subject, true);
+
+                                            if (is_array($decodedSubjects)) {
+                                            $subjectsArray = $decodedSubjects;
+                                            } else {
+                                            $subjectsArray = explode(',', $data->subject);
+                                            }
+                                            } elseif (is_array($data->subject)) {
+                                            $subjectsArray = $data->subject;
+                                            }
+                                            @endphp
+
                                             <tr>
                                                 <th scope="row">Subject</th>
-                                                <td>: {{ implode(', ', $data->subject) }}</td>
-
+                                                <td>: {{ implode(', ', $subjectsArray) }}</td>
                                             </tr>
+
                                             @endif
 
                                             @if($data->reviewerType == "internal")
@@ -312,6 +328,10 @@
                                         <div class="table-responsive">
                                             <table class="table table-striped mb-0">
                                                 <tbody>
+                                                <tr>
+                                                        <th scope="row" class="w-75">Account Holder Name</th>
+                                                        <td> {{$data->acc_hol_name}}</td>
+                                                    </tr>
                                                     <tr>
                                                         <th scope="row" class="w-75">Bank Name</th>
                                                         <td> {{$data->bankName}}</td>
@@ -346,11 +366,16 @@
                                                 </div> -->
 
                                             </div>
-                                            <table id="example3" class="table table-bordered dt-responsive nowrap " style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                            <!-- <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer"> -->
+                              <table id="empoloyees-tbl3" class="table dataTable no-footer" role="grid"
+                                 aria-describedby="empoloyees-tbl3_info">
+
+                                            <!-- <table id="example3" class="table table-bordered dt-responsive nowrap "  style="min-width: 100px"> -->
                                                 <thead>
                                                     <tr>
                                                         <th>Sr. No</th>
                                                         <th>Book Name</th>
+                                                        <th>Publication Name</th>
                                                         <th>Date</th>
                                                         <th>Status</th>
                                                         <th>Action</th>
@@ -362,7 +387,9 @@
 
                                                 <tr>
                                                     <td>{{$loop->index +1}}</td>
-                                                    <td>{{$val->bookname}} <span>({{$val->subbookname}})<br> </span></td>
+                                                    <td  style="white-space:normal;">{{$val->bookname}} </td>
+                                                    <td style="white-space:normal;">{{ $val->nameOfPublisher }}</td>
+
                                                     <td>{{ $val->created_at->format('Y-m-d') }}</td>
                                                     @if($val->mark !=Null)
                                                     <td>
@@ -381,7 +408,7 @@
                                                     data-subbookname="{{$val->subbookname}}"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#view_information">
-                                                    <i class="fa fa-eye"></i> View Details
+                                                    <i class="fa fa-eye"></i> View 
                                                 </button>
                                                     </td>
                                                 </tr>
@@ -391,7 +418,7 @@
 
                                                 </tbody>
                                             </table>
-                                            
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -429,13 +456,13 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <h5><b>Book Name: <span id="bookName"></span> (<span id="subBookName"></span>)</b></h5>
+                                <h5><b>Book Name: <span id="bookName"></b></h5>
                                 <h5><b>Valuable Feedback: <span id="reviewType"></span></b></h5>
                                 <h5><b>Comment: <span id="remark"></span></b></h5>
                             </div>
-                            <p>Other Info:</p>
+                            <!-- <p>Other Info:</p>
                             <hr>
-                            <h5><b>Payment Status: <span class="badge bg-primary">Paid!</span></b></h5>
+                            <h5><b>Payment Status: <span class="badge bg-primary">Paid!</span></b></h5> -->
                         </div>
                     </div>
                 </div>

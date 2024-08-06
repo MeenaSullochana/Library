@@ -69,10 +69,8 @@
         ->get();
       
      
-        $periodicities = DB::table('magazine_periodicities')
-        ->where('status', '=', 1)
-        ->orderBy('created_at', 'Asc')
-        ->get();
+        $subject = DB::table('book_subject')->where('status','=','1')->where('type','=','Tamil')->get();
+        $subject1 = DB::table('book_subject')->where('status','=','1')->where('type','=','English')->get();
         @endphp
         <!-- shop-area-start -->
         <section class="shop-area-start grey-bg pb-200">
@@ -94,28 +92,44 @@
                                         <div class="tpshop__leftbar w-100">
                                             <div class="tpshop__widget mb-30 pb-25">
                                                 <h4 class="tpshop__widget-title">Book  Categories</h4>
-                                                @foreach($categories as $key => $val)
-                                                <div class="form-check">
-                                                    <input class="form-check-input category-checkbox" type="checkbox" value="" data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}" data-key="{{ $key }}">
-                                                    <label class="form-check-label" for="flexCheckDefault{{ $val->name }}"> {{ $val->name }}</label>
-                                                </div>
-                                                @endforeach
+                                         @foreach($categories as $key => $val)
+                                            <div class="form-check">
+                                                <input class="form-check-input category-checkbox" type="checkbox" value="" data-id="{{ $val->name }}" id="flexCheckDefault{{ $val->name }}" data-key="{{ $key }}">
+                                                <label class="form-check-label" for="flexCheckDefault{{ $val->name }}"> {{ $val->name }}</label>
                                             </div>
-                                           
-                                            {{-- <div class="tpshop__widget mb-30 pb-25">
+                                          @endforeach
+
+                                            </div>
+                                            <div class="tpshop__leftbar w-100">
+                                          <div class="tpshop__widget mb-30 pb-25">
+                                              <h4 class="tpshop__widget-title">Book Language</h4>
+        
+                                          <div class="form-check">
+                                                <input class="form-check-input category-checkbox2" type="checkbox" value="" data-id22="Tamil" id="flexCheckDefaultTamil" data-key="1">
+                                                <label class="form-check-label" for="flexCheckDefaultTamil">Tamil</label>
+                                           </div>
+                                          <div class="form-check">
+                                                <input class="form-check-input category-checkbox2" type="checkbox" value="" data-id22="English" id="flexCheckDefaultEnglish" data-key="2">
+                                                <label class="form-check-label" for="flexCheckDefaultEnglish">English</label>
+                                          </div>
+        
+                                           </div>
+                                         </div>
+
+                                             <div class="tpshop__widget mb-30 pb-25">
                                                 <h4 class="tpshop__widget-title mb-20">FILTER BY PRICE</h4>
                                                 <label for="price-min">Min Price:<div id="minpricevalue"></div> </label>
                                                 <input type="range" name="price-min" id="price-min" value="{{$min}}" min="{{$min}}" max="{{$max}}">
                                                 <label for="price-min">Max Price:<div id="maxpricevalue"></div></label>
-                                                <input type="range" name="price-max" id="price-max" value="{{$max}}" min="{{$min}}" max="{{$max}}"> <!-- Add this line -->
-                                                <div class="productsidebar__btn mt-15 mb-15">
+                                                <input type="range" name="price-max" id="price-max" value="{{$max}}" min="{{$min}}" max="{{$max}}"> 
+                                                <!-- <div class="productsidebar__btn mt-15 mb-15">
                                                    <a href="#">FILTER</a>
-                                                </div>
-                                             </div> --}}
+                                                </div> -->
+                                             </div> 
                                             <div class="tpshop__widget mb-30 pb-25">
-                                                <h4 class="tpshop__widget-title">FILTER BY PERIODICITY</h4>
+                                                <h4 class="tpshop__widget-title">FILTER BY Subject</h4>
                                                 
-                                                @foreach($periodicities as $val)
+                                                @foreach($subject as $val)
                                                 <div class="form-check">
                                                     <input class="form-check-input category-checkbox1" type="checkbox" value=""   
                                                       data-id11="{{ $val->name }}" id="flexCheckDefault11{{ $val->name }}">
@@ -124,7 +138,15 @@
                                                     </label>
                                                 </div>
                                              @endforeach
-                
+                                             @foreach($subject1 as $val)
+                                                <div class="form-check">
+                                                    <input class="form-check-input category-checkbox1" type="checkbox" value=""   
+                                                      data-id11="{{ $val->name }}" id="flexCheckDefault11{{ $val->name }}">
+                                                    <label class="form-check-label" for="flexCheckDefault11{{ $val->name }}">
+                                                        {{$val->name}}
+                                                    </label>
+                                                </div>
+                                             @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -163,6 +185,9 @@
                                                             <p class="p-0 m-0">
                                                                 {{ implode(' ', array_slice(explode(' ', $val->category), 0, 2)) }}
                                                             </p>
+                                                        
+                                                            <div style="width:50px" class="pur-cmount w-100 p-0 m-0"> Language:  {{ $val->Type }}</div>
+
                                                             <div style="width:50px" class="pur-cmount w-100 p-0 m-0">Purchased Amount: <i class="fa fa-rupee"></i> {{ $val->cart_price }}</div>
 
                                                         </div>
@@ -361,195 +386,197 @@
     include 'plugin/js.php';
     ?>
     {{-- search  --}}
-    <script>
-        $(document).ready(function(e) {
-    
-                // Get the selected minimum and maximum prices
-                var minPrice = $('#price-min').val();
-                var maxPrice = $('#price-max').val();
-    
-                // Update the label text with the selected price range
-                $('#minpricevalue').text(minPrice);
-                $('#maxpricevalue').text(maxPrice);
-    
-            $('.search-panel .dropdown-menu').find('a').click(function(e) {
-                e.preventDefault();
-                var param = $(this).attr("href").replace("#", "");
-                var concept = $(this).text();
-                $('.search-panel span#search_concept').text(concept);
-                $('.input-group #search_param').val(param);
-            });
+  <div class="tpshop__widget mb-30 pb-25">
+    <h4 class="tpshop__widget-title mb-20">FILTER BY PRICE</h4>
+    <label for="price-min">Min Price: <div id="minpricevalue">{{$min}}</div></label>
+    <input type="range" name="price-min" id="price-min" value="{{$min}}" min="{{$min}}" max="{{$max}}">
+    <label for="price-max">Max Price: <div id="maxpricevalue">{{$max}}</div></label>
+    <input type="range" name="price-max" id="price-max" value="{{$max}}" min="{{$min}}" max="{{$max}}">
+</div>
+
+<script>
+$(document).ready(function() {
+    // Get the initial minimum and maximum prices
+    var minPrice = $('#price-min').val();
+    var maxPrice = $('#price-max').val();
+
+    // Update the label text with the initial price range
+    $('#minpricevalue').text(minPrice);
+    $('#maxpricevalue').text(maxPrice);
+
+    // Function to show loading indicator
+    function showLoader() {
+        $('#loader').show();
+    }
+
+    // Function to hide loading indicator
+    function hideLoader() {
+        $('#loader').hide();
+    }
+
+    // Function to display default content
+    function showDefaultContent() {
+        // Display default content here
+        // For example, you can show some placeholder or initial content
+        // $('#default-content').show();
+    }
+
+    // Function to hide default content
+    function hideDefaultContent() {
+        // Hide default content here
+        // For example, $('#default-content').hide();
+    }
+
+    // Ajax function for filtering products
+    function filterProducts(page, searchQuery = '', minPrice = 0, maxPrice = 0, showRecord = '') {
+        // Show loading indicator
+        showLoader();
+
+        // Hide default content
+        hideDefaultContent();   
+
+        // Gather selected filter options
+        var category = [];
+        $('.category-checkbox:checked').each(function() {
+            category.push($(this).data('id'));
         });
-        // Function to show loading indicator
-        function showLoader() {
-            $('#loader').show();
-        }
-    
-        // Function to hide loading indicator
-        function hideLoader() {
-            $('#loader').hide();
-        }
-    
-        // Function to display default content
-        function showDefaultContent() {
-            // Display default content here
-            // For example, you can show some placeholder or initial content
-            // $('#default-content').show();
-        }
-    
-        // Function to hide default content
-        function hideDefaultContent() {
-            // Hide default content here
-            // For example, $('#default-content').hide();
-        }
-    
-        // Ajax function for filtering products
-        function filterProducts(page, searchQuery = '',minPrice = 0, maxPrice = 0,showrecord='') {
-            // Show loading indicator
-            showLoader();
-    
-            // Hide default content
-            hideDefaultContent();   
-    
-            // Gather selected filter options
-            var category = [];
-            $('.category-checkbox:checked').each(function() {
-                category.push($(this).data('id'));
-            });
-    
-            // Convert the array to a comma-separated string
-            var categoryString = category.join(',');
-            // Make Ajax request
-            $.ajax({
-                url: '/product/filter?page=' + page,
-                type: 'GET',
-                data: {
-                    category: categoryString, // Pass the string instead of the array
-                    search: searchQuery, // Pass the search query
-                    minPrice: minPrice, // Pass the minimum price
-                    maxPrice: maxPrice, // Pass the maximum price
-                    showrecord:showrecord // Pass Show Record
-                },
-                success: function(response) {
-                    console.log(response);
-                    // if (response.message) {
-                    //        return toastr.error(response.message)
-    
-                    // }
-                        // Update each product listing div with its respective view
-                        if (response.hasOwnProperty('message')) {
-                                // No data found, display a message
-                                $('#magazine_eight').empty();
-                                $('#magazine_four').empty();
-                                $('#magazine_single').empty();
-                                $('#pagination').empty().html('<p>No data found.</p>');
-                            } else {
-                                // Data found, update the HTML content
-                                $('#magazine_eight').html(response.html.eight);
-                                $('#magazine_four').html(response.html.four);
-                                $('#magazine_single').html(response.html.single);
-                                $('#pagination').html(response.pagination);
-                            }
-    
-                        // Update pagination links
-                        $('#pagination').empty();
-                        $('#pagination-two').css('display','none');
-                        $('#pagination').html(response.pagination);
-                        // Modify pagination links to remove 'filter' segment from URL
-                        // $('#pagination').find('a').each(function() {
-                        //     var href = $(this).attr('href');
-                        //     href = href.replace('/filter', ''); // Remove 'filter' segment
-                        //     $(this).attr('href', href);
-                        // });
-    
-                        // Hide loader
-                        hideLoader();
-                },
-                error: function(xhr) {
-                    console.log(xhr.responseText);
-                    // Hide loader
-                    hideLoader();
-                },
-                complete: function() {
-                   // Hide loader
-                    hideLoader();
-                }
-            });
-        }
-    
-            // Function to modify URL
-            function updateURL(page) {
-                var currentUrl = window.location.href;
-                if (currentUrl.includes('products/filter')) {
-                    var newUrl = currentUrl.replace('products/filter', 'products');
-                    history.pushState({}, null, newUrl + '?page=' + page);
-                }
-            }
-        
-            // Function for handling search
-            function handleSearch() {
-                var minPrice = $('#price-min').val();
-                var maxPrice = $('#price-max').val();
-                var searchQuery = $('#search').val().trim();
-                if (searchQuery === '') {
-                    // If search query is empty, show all products
-                    // filterProducts(1);
-                    filterProducts(1,'',minPrice,maxPrice,'10'); // Reset pagination to first page when filters change
+
+        // Convert the array to a comma-separated string
+        var categoryString = category.join(',');
+       
+        var subject = [];
+        $('.category-checkbox1:checked').each(function() {
+            subject.push($(this).data('id11'));
+        });
+
+        // Convert the array to a comma-separated string
+        var subjectString = subject.join(',');
+
+        var language = [];
+        $('.category-checkbox2:checked').each(function() {
+            language.push($(this).data('id22'));
+        });
+
+        // Convert the array to a comma-separated string
+        var languageString = language.join(',');
+        // Make Ajax request
+        $.ajax({
+            url: '/product/filter?page=' + page,
+            type: 'GET',
+            data: {
+                category: categoryString, // Pass the string instead of the array
+                search: searchQuery, // Pass the search query
+                minPrice: minPrice, // Pass the minimum price
+                maxPrice: maxPrice, // Pass the maximum price
+                showRecord: showRecord, // Pass Show Record
+                subject:subjectString,
+                language:languageString
+            },
+            success: function(response) {
+                console.log(response);
+                if (response.hasOwnProperty('message')) {
+                    // No data found, display a message
+                    $('#magazine_eight').empty();
+                    $('#magazine_four').empty();
+                    $('#magazine_single').empty();
+                    $('#pagination').empty().html('<p>No data found.</p>');
                 } else {
-                    // If search query is not empty, filter products by search query
-                    filterProducts(1, searchQuery,minPrice,maxPrice,'10');
+                    // Data found, update the HTML content
+                    $('#magazine_eight').html(response.html.eight);
+                    $('#magazine_four').html(response.html.four);
+                    $('#magazine_single').html(response.html.single);
+                    $('#pagination').html(response.pagination);
                 }
+
+                // Update pagination links
+                $('#pagination').empty();
+                $('#pagination-two').css('display', 'none');
+                $('#pagination').html(response.pagination);
+
+                // Hide loader
+                hideLoader();
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+                // Hide loader
+                hideLoader();
+            },
+            complete: function() {
+                // Hide loader
+                hideLoader();
             }
+        });
+    }
+
+    // Function to modify URL
+    function updateURL(page) {
+        var currentUrl = window.location.href;
+        if (currentUrl.includes('products/filter')) {
+            var newUrl = currentUrl.replace('products/filter', 'products');
+            history.pushState({}, null, newUrl + '?page=' + page);
+        }
+    }
+
+    // Function for handling search
+    function handleSearch() {
+        var minPrice = $('#price-min').val();
+        var maxPrice = $('#price-max').val();
+        var searchQuery = $('#search').val().trim();
+        if (searchQuery === '') {
+            // If search query is empty, show all products
+            filterProducts(1, '', minPrice, maxPrice, '10'); // Reset pagination to first page when filters change
+        } else {
+            // If search query is not empty, filter products by search query
+            filterProducts(1, searchQuery, minPrice, maxPrice, '10');
+        }
+    }
+
+    // Listen for changes in filter options
+    $('input[type=checkbox]').change(function() {
+        var minPrice = $('#price-min').val();
+        var maxPrice = $('#price-max').val();
+        filterProducts(1, '', minPrice, maxPrice, '10'); // Reset pagination to first page when filters change
+    });
+
+    // Listen for pagination link clicks
+    $(document).on('click', '#pagination a', function(event) {
+        var minPrice = $('#price-min').val();
+        var maxPrice = $('#price-max').val();
+
+        event.preventDefault(); // Prevent default link behavior
+        var currentPage = $(this).attr('href').split('page=')[1];
+        var selectedPage = currentPage || 1; // If no page number, default to 1
+        filterProducts(selectedPage, '', minPrice, maxPrice, '10'); // Reset pagination to first page when filters change
+    });
+
+    // Listen for input event on search field
+    $('#search').on('input', handleSearch);
+
+    // Add event listener for change event on the range slider
+    $('#price-min, #price-max').on('input', function() {
+        // Get the selected minimum and maximum prices
+        var minPrice = $('#price-min').val();
+        var maxPrice = $('#price-max').val();
+
+        // Update the label text with the selected price range
+        $('#minpricevalue').text(minPrice);
+        $('#maxpricevalue').text(maxPrice);
         
-            // Listen for changes in filter options
-            $('input[type=checkbox]').change(function() {
-                var minPrice = $('#price-min').val();
-                var maxPrice = $('#price-max').val();
-                // alert('good');
-                filterProducts(1,'',minPrice,maxPrice,'10'); // Reset pagination to first page when filters change
-            });
-        
-            // Listen for pagination link clicks
-            $(document).on('click', '#pagination a', function(event) {
-                var minPrice = $('#price-min').val();
-                var maxPrice = $('#price-max').val();
-    
-                event.preventDefault(); // Prevent default link behavior
-                var currentPage = $(this).attr('href').split('page=')[1];
-                var selectedPage = currentPage || 1; // If no page number, default to 1
-                // filterProducts(selectedPage); // Call filterProducts without preventing default
-                filterProducts(selectedPage,'',minPrice,maxPrice,'10'); // Reset pagination to first page when filters change
-            });
-        
-            // Listen for input event on search field
-            $('#search').on('input', handleSearch);
-    
-            // Add event listener for change event on the range slider
-            $('#price-min, #price-max').on('input', function() {
-    
-                // Get the selected minimum and maximum prices
-                var minPrice = $('#price-min').val();
-                var maxPrice = $('#price-max').val();
-    
-                // Update the label text with the selected price range
-                $('#minpricevalue').text(minPrice);
-                $('#maxpricevalue').text(maxPrice);
-                
-                // Call the filterProducts function with the selected minimum and maximum prices
-                filterProducts(1, '', minPrice, maxPrice);
-            });
-    
-            //handle record change
-            $('#showrecord').on('change',function(){
-                 var minPrice = $('#price-min').val();
-                var maxPrice = $('#price-max').val();
-                var recordValue = $(this).val();
-                // alert(recordValue);
-                // page, searchQuery = '',minPrice = 0, maxPrice = 0,showrecord=''
-                 // Call the filterProducts function with the selected record value
-                 filterProducts(1,'',minPrice,maxPrice,recordValue);
-            });
-    </script>
+        // Call the filterProducts function with the selected minimum and maximum prices
+        filterProducts(1, '', minPrice, maxPrice);
+    });
+
+    // Handle record change
+    $('#showrecord').on('change', function() {
+        var minPrice = $('#price-min').val();
+        var maxPrice = $('#price-max').val();
+        var recordValue = $(this).val();
+        // Call the filterProducts function with the selected record value
+        filterProducts(1, '', minPrice, maxPrice, recordValue);
+    });
+});
+</script>
+
 {{-- search  --}}
 <script>
     $(document).ready(function() {
@@ -840,6 +867,58 @@
             },
         },
     });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const checkboxes = document.querySelectorAll('.category-checkbox');
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                checkboxes.forEach((cb) => {
+                    if (cb !== checkbox) {
+                        cb.checked = false;
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const checkboxes = document.querySelectorAll('.category-checkbox1');
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                checkboxes.forEach((cb) => {
+                    if (cb !== checkbox) {
+                        cb.checked = false;
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const checkboxes = document.querySelectorAll('.category-checkbox2');
+
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                checkboxes.forEach((cb) => {
+                    if (cb !== checkbox) {
+                        cb.checked = false;
+                    }
+                });
+            }
+        });
+    });
+});
 </script>
 <style>
     .tplist__content {

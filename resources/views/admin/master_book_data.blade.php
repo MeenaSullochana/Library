@@ -59,104 +59,156 @@
                     </div>
                 </div>
 
-         <div class="card">
-         
-                    <div class="card-body">
-                    <div>
-                    <h1>Book Data Report Download</h1>
-                    <form method="GET" action="/admin/master_book_datareport">
-                            <div class="row mb-4 d-flex">
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-                                    <label class="form-label">Select Language</label>
-                                    <select name="language_filter" id="language_filter"
-                                        class="form-select bg-white p-2 border border-1 mb-3">
-                                        <option value="">All Record</option>
-                                        <option value="Tamil"
-                                            {{ request('language_filter') == 'Tamil' ? 'selected' : '' }}>Tamil</option>
-                                        <option value="English"
-                                            {{ request('language_filter') == 'English' ? 'selected' : '' }}>English
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-                                    <label class="form-label">Select Subject</label>
-                                    <select name="subject_filter" id="subject_filter"
-                                        class="form-select bg-white p-2 border border-1 mb-3">
-                                        <option value="">All Subject</option>
-                                        @php
-                                        $subjects = DB::table('book_subject')->get();
-                                        @endphp
-                                        @foreach($subjects as $subject)
-                                        <option value="{{ $subject->name }}"
-                                            {{ request('subject_filter') == $subject->name ? 'selected' : '' }}>
-                                            {{ $subject->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-                                    <label class="form-label">Select Category</label>
-                                    <select name="category_filter" id="category_filter"
-                                        class="form-select bg-white p-2 border border-1 mb-3">
-                                        <option value="">All Category</option>
-                                        @php
-                                        $categories = DB::table('special_categories')->orderBy('created_at',
-                                        'ASC')->get();
-                                        @endphp
-                                        @foreach($categories as $category)
-                                        <option value="{{ $category->name }}"
-                                            {{ request('category_filter') == $category->name ? 'selected' : '' }}>
-                                            {{ $category->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-                                    <label class="form-label">Select Payment</label>
-                                    <select name="payment_filter" id="payment_filter"
-                                        class="form-select bg-white p-2 border border-1 mb-3">
-                                        <option value="">All Payment</option>
-                                        <option value="Success"
-                                            {{ request('payment_filter') == 'Success' ? 'selected' : '' }}>Success
-                                        </option>
-                                        <option value="No Payment"
-                                            {{ request('payment_filter') == 'No Payment' ? 'selected' : '' }}>No Payment
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-                                    <label class="form-label">Select Meta Checking</label>
-                                    <select name="metachecking_filter" id="metachecking_filter"
-                                        class="form-select bg-white p-2 border border-1 mb-3">
-                                        <option value="">All Meta Checking</option>
-                                        <option value="Success"
-                                            {{ request('metachecking_filter') == 'Success' ? 'selected' : '' }}>Success
-                                        </option>
-                                        <option value="Reject"
-                                            {{ request('metachecking_filter') == 'Reject' ? 'selected' : '' }}>Reject
-                                        </option>
-                                        <option value="Returned To User Correction"
-                                            {{ request('metachecking_filter') == 'Returned To User Correction' ? 'selected' : '' }}>
-                                            Returned To User Correction</option>
-                                        <option value="Book Update To Return"
-                                            {{ request('metachecking_filter') == 'Book Update To Return' ? 'selected' : '' }}>
-                                            Book Update To Return</option>
-                                        <option value="No Review"
-                                            {{ request('metachecking_filter') == 'No Review' ? 'selected' : '' }}>No
-                                            Review</option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
-                                    <label class="form-label">Search</label>
-                                    <input type="text" name="search" id="search" class="form-control"
-                                        value="{{ request('search') }}" placeholder="Search by title or ISBN">
-                                </div>
-                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0 mt-4">
-                                    <button type="submit" class="btn btn-primary">Download</button>
-                                </div>
-                            </div>
-                        </form>
-</div>
+                <div class="card">
 
-<h1>Master Book Data Filter</h1>
+                    <div class="card-body">
+                        <div>
+                            <h1>Book Data Report Download</h1>
+                            <form method="GET" action="/admin/master_book_datareport">
+                                <div class="row mb-4 d-flex">
+                                    <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                        <label class="form-label">Select Language</label>
+                                        <select name="language_filter" id="language_filter"
+                                            class="form-select bg-white p-2 border border-1 mb-3">
+                                            <option value="">All Record</option>
+                                            <option value="Tamil"
+                                                {{ request('language_filter') == 'Tamil' ? 'selected' : '' }}>Tamil
+                                            </option>
+                                            <option value="English"
+                                                {{ request('language_filter') == 'English' ? 'selected' : '' }}>English
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                        <label class="form-label">Select Subject</label>
+                                        <select name="subject_filter" id="subject_filter"
+                                            class="form-select bg-white p-2 border border-1 mb-3">
+                                            <option value="">All Subject</option>
+                                            @php
+                                            $subjects = DB::table('book_subject')->get();
+                                            @endphp
+                                            @foreach($subjects as $subject)
+                                            <option value="{{ $subject->name }}"
+                                                {{ request('subject_filter') == $subject->name ? 'selected' : '' }}>
+                                                {{ $subject->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                        <label class="form-label">Select Category</label>
+                                        <select name="category_filter" id="category_filter"
+                                            class="form-select bg-white p-2 border border-1 mb-3">
+                                            <option value="">All Category</option>
+                                            @php
+                                            $categories = DB::table('special_categories')->orderBy('created_at',
+                                            'ASC')->get();
+                                            @endphp
+                                            @foreach($categories as $category)
+                                            <option value="{{ $category->name }}"
+                                                {{ request('category_filter') == $category->name ? 'selected' : '' }}>
+                                                {{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                        <label class="form-label">Select Payment</label>
+                                        <select name="payment_filter" id="payment_filter"
+                                            class="form-select bg-white p-2 border border-1 mb-3">
+                                            <option value="">All Payment</option>
+                                            <option value="Success"
+                                                {{ request('payment_filter') == 'Success' ? 'selected' : '' }}>Success
+                                            </option>
+                                            <option value="No Payment"
+                                                {{ request('payment_filter') == 'No Payment' ? 'selected' : '' }}>No
+                                                Payment
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                        <label class="form-label">Select Meta Checking</label>
+                                        <select name="metachecking_filter" id="metachecking_filter"
+                                            class="form-select bg-white p-2 border border-1 mb-3">
+                                            <option value="">All Meta Checking</option>
+                                            <option value="Success"
+                                                {{ request('metachecking_filter') == 'Success' ? 'selected' : '' }}>
+                                                Success
+                                            </option>
+                                            <option value="Reject"
+                                                {{ request('metachecking_filter') == 'Reject' ? 'selected' : '' }}>
+                                                Reject
+                                            </option>
+                                            <option value="Returned To User Correction"
+                                                {{ request('metachecking_filter') == 'Returned To User Correction' ? 'selected' : '' }}>
+                                                Returned To User Correction</option>
+                                            <option value="Book Update To Return"
+                                                {{ request('metachecking_filter') == 'Book Update To Return' ? 'selected' : '' }}>
+                                                Book Update To Return</option>
+                                            <option value="No Review"
+                                                {{ request('metachecking_filter') == 'No Review' ? 'selected' : '' }}>No
+                                                Review</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                        <label class="form-label">Select Negotiation</label>
+                                        <select name="negostatus_filter" id="negostatus_filter"
+                                            class="form-select bg-white p-2 border border-1 mb-3">
+                                            <option value="">All Negotiation </option>
+                                            <option value="Negotiation from admin"
+                                                {{ request('negostatus_filter') == 'Negotiation from admin' ? 'selected' : '' }}>
+                                                Negotiation from admin
+                                            </option>
+                                            <option value="Negotiation from user"
+                                                {{ request('negostatus_filter') == 'Negotiation from user' ? 'selected' : '' }}>
+                                                Negotiation from user
+                                            </option>
+                                            <option value="Accepted"
+                                                {{ request('negostatus_filter') == 'Accepted' ? 'selected' : '' }}>
+                                                Accepted</option>
+                                            <option value="Rejected"
+                                                {{ request('negostatus_filter') == 'Rejected' ? 'selected' : '' }}>
+                                                Rejected</option>
+                                            <option value="Hold"
+                                                {{ request('negostatus_filter') == 'Hold' ? 'selected' : '' }}>
+                                                Hold</option>
+                                            <option value="No negotiation"
+                                                {{ request('negostatus_filter') == 'No negotiation' ? 'selected' : '' }}>
+                                                No negotiation</option>
+
+
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                        <label class="form-label">Select Mark Range</label>
+                                        <select name="mark_range" id="mark_range"
+                                            class="form-select bg-white p-2 border border-1 mb-3">
+                                            <option value="">All Mark Range </option>
+
+                                            <option value="0-100">0 to 100</option>
+                                            <option value="10-100">10 to 100</option>
+                                            <option value="20-100">20 to 100</option>
+                                            <option value="30-100">30 to 100</option>
+                                            <option value="40-100">40 to 100</option>
+                                            <option value="50-100">50 to 100</option>
+                                            <option value="60-100">60 to 100</option>
+                                            <option value="70-100">70 to 100</option>
+                                            <option value="80-100">80 to 100</option>
+                                            <option value="90-100">90 to 100</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                        <label class="form-label">Search</label>
+                                        <input type="text" name="search" id="search" class="form-control"
+                                            value="{{ request('search') }}" placeholder="Search by title or ISBN">
+                                    </div>
+                                    <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0 mt-4">
+                                        <button type="submit" class="btn btn-primary">Download</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <h1>Master Book Data Filter</h1>
                         <form method="GET" action="/admin/master_book_data">
                             <div class="row mb-4 d-flex">
                                 <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
@@ -237,6 +289,57 @@
                                             Review</option>
                                     </select>
                                 </div>
+
+                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                    <label class="form-label">Select Negotiation</label>
+                                    <select name="negostatus_filter" id="negostatus_filter"
+                                        class="form-select bg-white p-2 border border-1 mb-3">
+                                        <option value="">All Negotiation </option>
+                                        <option value="Negotiation from admin"
+                                            {{ request('negostatus_filter') == 'Negotiation from admin' ? 'selected' : '' }}>
+                                            Negotiation from admin
+                                        </option>
+                                        <option value="Negotiation from user"
+                                            {{ request('negostatus_filter') == 'Negotiation from user' ? 'selected' : '' }}>
+                                            Negotiation from user
+                                        </option>
+                                        <option value="Accepted"
+                                            {{ request('negostatus_filter') == 'Accepted' ? 'selected' : '' }}>
+                                            Accepted</option>
+                                        <option value="Rejected"
+                                            {{ request('negostatus_filter') == 'Rejected' ? 'selected' : '' }}>
+                                            Rejected</option>
+                                        <option value="Hold"
+                                            {{ request('negostatus_filter') == 'Hold' ? 'selected' : '' }}>
+                                            Hold</option>
+                                        <option value="No negotiation"
+                                            {{ request('negostatus_filter') == 'No negotiation' ? 'selected' : '' }}>No
+                                            negotiation</option>
+
+
+                                    </select>
+                                </div>
+
+                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                    <label class="form-label">Select Mark Range</label>
+                                    <select name="mark_range" id="mark_range"
+                                        class="form-select bg-white p-2 border border-1 mb-3">
+                                        <option value="">All Mark Range </option>
+
+                                        <option value="0-100">0 to 100</option>
+                                        <option value="10-100">10 to 100</option>
+                                        <option value="20-100">20 to 100</option>
+                                        <option value="30-100">30 to 100</option>
+                                        <option value="40-100">40 to 100</option>
+                                        <option value="50-100">50 to 100</option>
+                                        <option value="60-100">60 to 100</option>
+                                        <option value="70-100">70 to 100</option>
+                                        <option value="80-100">80 to 100</option>
+                                        <option value="90-100">90 to 100</option>
+
+                                    </select>
+                                </div>
+
                                 <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
                                     <label class="form-label">Search</label>
                                     <input type="text" name="search" id="search" class="form-control"
@@ -291,18 +394,23 @@
                                         <th>Discount Offer(%)</th>
                                         <th>Discounted Price</th>
 
+
                                         <th>Payment Status </th>
+                                        <th>Payment Date </th>
+
                                         <th>Meta checking Status </th>
                                         <th>Meta checker Name</th>
+                                        <th>Mark</th>
+                                        <th>Negotiation Status</th>
                                         <th>Book View</th>
                                         <th>User View</th>
-                                        <th> Book Edit</th>
+                                        <!-- <th> Book Edit</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($data as $val)
 
-                             <tr role="row" class="odd">
+                                    <tr role="row" class="odd">
                                         <td class="sorting_1">
                                             <div class="form-check custom-checkbox">
                                                 <input type="checkbox" class="form-check-input" id="customCheckBox3"
@@ -521,73 +629,102 @@
                                             </div>
 
                                         </td>
-                                        <td class="text-center">
-                                            <div>
-                                                <span>{{$val->revstatus}}</span>
+
+
+                                        <td>
+
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{$val->paymentdate}}</span>
+                                                </div>
                                             </div>
-                                    </div>
 
-                                     </td>
-                                      <td>
+                                        </td>
+                                       
+                                        <td class="text-center">
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{$val->revstatus}}</span>
+                                                </div>
+                                            </div>
 
-                                        <div>
-                                             <span>{{$val->reviewername}}</span>
-                                        </div>
-                                     </div>
+                                        </td>
+                                        <td>
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{$val->reviewername}}</span>
+                                                </div>
+                                            </div>
 
-                    </td>
-                    <td>
-                        <div class="d-flex">
-                            <a href="/admin/book_manage_view/{{$val->id}}"
-                                class="btn btn-success shadow btn-xs sharp me-1">
-                                <i class="fa fa-eye"></i>
-                            </a>
-                        </div>
-                    </td>
+                                        </td>
+                                        <td>
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{$val->marks}}</span>
+                                                </div>
+                                            </div>
 
-                    <td data-label="controlq">
-                        <div class="d-flex mt-p0">
+                                        </td>
+                                        <td>
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{$val->negostatus}}</span>
+                                                </div>
+                                            </div>
 
-                            @if($val->user_type === "publisher")
-                            <a href="/admin/pub_profile/{{$val->user_id}}"
-                                class="btn btn-success shadow btn-xs sharp me-1">
-                                <i class="fa fa-user"></i>
-                            </a>
-                            @elseif($val->user_type === "distributor")
-                            <a href="/admin/dist_profile/{{$val->user_id}}"
-                                class="btn btn-success shadow btn-xs sharp me-1">
-                                <i class="fa fa-user"></i>
-                            </a>
-                            @else
-                            <a href="/admin/publisherdisprofile/{{$val->user_id}}"
-                                class="btn btn-success shadow btn-xs sharp me-1">
-                                <i class="fa fa-user"></i>
-                            </a>
-                            @endif
-                            </a>
-
-                        </div>
-                    </td>
-                    <td>
-                        <div class="d-flex">
-                        <a href="/admin/book_edit/{{$val->id}}" class="btn btn-warning shadow btn-xs sharp me-1">
-                                                <i class="fa fa-edit"></i>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="/admin/book_manage_view/{{$val->id}}"
+                                                    class="btn btn-success shadow btn-xs sharp me-1">
+                                                    <i class="fa fa-eye"></i>
                                                 </a>
+                                            </div>
+                                        </td>
+
+                                        <td data-label="controlq">
+                                            <div class="d-flex mt-p0">
+
+                                                @if($val->user_type === "publisher")
+                                                <a href="/admin/pub_profile/{{$val->user_id}}"
+                                                    class="btn btn-success shadow btn-xs sharp me-1">
+                                                    <i class="fa fa-user"></i>
+                                                </a>
+                                                @elseif($val->user_type === "distributor")
+                                                <a href="/admin/dist_profile/{{$val->user_id}}"
+                                                    class="btn btn-success shadow btn-xs sharp me-1">
+                                                    <i class="fa fa-user"></i>
+                                                </a>
+                                                @else
+                                                <a href="/admin/publisherdisprofile/{{$val->user_id}}"
+                                                    class="btn btn-success shadow btn-xs sharp me-1">
+                                                    <i class="fa fa-user"></i>
+                                                </a>
+                                                @endif
+                                                </a>
+
+                                            </div>
+                                        </td>
+                                        <!-- <td>
+                <div class="d-flex">
+                    <a href="/admin/book_edit/{{$val->id}}" class="btn btn-warning shadow btn-xs sharp me-1">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                </div>
+            </td> -->
+
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                    </td>
-                    
-                    </tr>
-                    @endforeach
-                    </tbody>
-                    </table>
+                        <div class="d-flex justify-content-center">
+                            {{ $data->appends(request()->query())->links() }}
+                        </div>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                    {{ $data->appends(request()->query())->links() }}
-                </div>
-         </div>
+            </div>
         </div>
-    </div>
-    </div>
     </div>
     <!--**********************************
          Content body end

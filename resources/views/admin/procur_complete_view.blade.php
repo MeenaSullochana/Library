@@ -77,6 +77,16 @@
                               @foreach($rev as $key=>$val)
                               <div class="row">
                                  <div class="col-sm-3">
+                                 @if($val->reviewer->reviewerType == "internal")
+                                    <div class="review-block-name"><a href="#">Librarian Reviewer</a></div>
+
+                                    @elseif($val->reviewer->reviewerType   == "external")
+                                    <div class="review-block-name"><a href="#">Expert Reviewer</a></div>
+
+                                    @else
+                                    <div class="review-block-name"><a href="#">Public Reviewer</a></div>
+
+                                    @endif
                                     <div class="review-block-img">
                                        @if($val->reviewer->profileImage == null)
                                        <img src="{{ asset("admin/images/default.png") }}" class="img-rounded" alt="">
@@ -85,6 +95,7 @@
                                    @endif
                                     </div>
                                     <div class="review-block-name"><a href="#">{{$val->reviewer->name}}</a></div>
+                                  
                                     {{-- <div class="review-block-date">January 29, 2016<br>1 day ago</div> --}}
                                  </div>
                                  <div class="col-sm-9">

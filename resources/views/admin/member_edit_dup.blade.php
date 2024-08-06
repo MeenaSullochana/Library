@@ -263,6 +263,13 @@
                                                    <hr>
                                                 <div class="row">
                                                     <div class="col-md-6">
+                                                    <div class="col-sm-12 mb-3">
+                                                            <label class="form-label">Account Holder  Name<span
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter Account Holder Name" id="acc_hol_name"
+                                                                Required>
+                                                        </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Bank Name<span
                                                              class="text-danger maditory">*</span></label>

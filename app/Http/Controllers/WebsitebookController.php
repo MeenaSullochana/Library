@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\View;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Cartbooks;
 use App\Models\Existcategory;
+use App\Models\Orderbooks;
+
 
 
 
@@ -1490,7 +1492,7 @@ class WebsitebookController extends Controller
             }
         } else {
             $data = [
-                'error' => 'No Budget Allacated',
+                'error' => 'No Budget Allocated',
             ];
             return response()->json($data);
         }
@@ -1703,12 +1705,14 @@ public function add_to_book_cart(Request $req)
 
         $Existcategory = Existcategory::where('librarianid', '=', $librarian->id)
         ->where('category', '=', $bookdata->category)
+        ->where('Type', '=', $bookdata->language)
         ->where('budgetid', '=', $bookbudget->id)
         ->where('status', '=', '1')->first();
         
         if($Existcategory == null){
             $cartdata1 = Cartbooks::where('librarianid', '=', $librarian->id)
             ->where('category', '=', $bookdata->category)
+            ->where('Type', '=', $bookdata->language)
             ->where('budgetid', '=', $bookbudget->id)
             ->where('status', '=', '1')
             ->sum('totalAmount');
@@ -1716,7 +1720,12 @@ public function add_to_book_cart(Request $req)
 
         foreach ($bookbudgetdata as $val) {
             if ($val->name == $bookdata->category) {
-                $totalcost = $val->amount;
+                if( $bookdata->language == "Tamil"){
+                    $totalcost = $val->tamilAmount;
+                }else{
+                    $totalcost = $val->englishAmount;
+                }
+                
             }
         }
         $cartdata2 = $cartdata1 + $bookdata->final_price;
@@ -1759,6 +1768,7 @@ public function add_to_book_cart(Request $req)
                     $cart->amount = $Book->final_price;
                     $cart->quantity = $Book->quantity + 1;
                     $cart->budgetid = $bookbudget->id;
+                    $cart->Type = $bookdata->language;
                     $cart->totalAmount = ($Book->quantity + 1) * $Book->final_price;
                     $cart->category = $Book->category;
                     $cart->save();
@@ -1780,19 +1790,37 @@ public function add_to_book_cart(Request $req)
                 foreach ($bookbudget->CategorieAmount1 as $val) {
                     $cartdata2 = Cartbooks::where('librarianid', '=', $librarian->id)
                         ->where('category', '=', $val->name)
+                        ->where('Type', '=', "Tamil")
                         ->where('budgetid', '=', $bookbudget->id)
                         ->where('status', '=', '1')
                         ->sum('totalAmount');
-
-                    $percentage = $val->amount !== 0 ? round(($cartdata2 / max(1, $val->amount)) * 100) : 0;
-                      
-                    $obj = (object)[
-                        "category" => $val->name,
-                        "budget_price" => $val->amount,
-                        "cart_price" => $cartdata1,
-                        "percentage" => $percentage
-                    ];
-                    array_push($bud_arr1, $obj);
+                   $cartdata22 = Cartbooks::where('librarianid', '=', $librarian->id)
+                        ->where('category', '=', $val->name)
+                        ->where('Type', '=', "English")
+                        ->where('budgetid', '=', $bookbudget->id)
+                        ->where('status', '=', '1')
+                        ->sum('totalAmount');
+                        $percentage = $val->tamilAmount !== 0 ? round(($cartdata2 / max(1, $val->tamilAmount)) * 100) : 0;
+                        $percentage1 = $val->englishAmount !== 0 ? round(($cartdata22 / max(1, $val->englishAmount)) * 100) : 0;
+                        $obj = (object)[
+                          "category" => $val->name,
+                          "budget_price" => $val->tamilAmount,
+                           "Type"   =>"Tamil",
+                          "cart_price" => $cartdata2,
+                          "percentage" => $percentage
+                          
+                      ];
+                      array_push($bud_arr1, $obj);
+                  
+      $obj = (object)[
+          "category" => $val->name,
+          "budget_price" => $val->englishAmount,
+           "Type"   =>"English",
+          "cart_price" => $cartdata22,
+          "percentage" => $percentage1
+          
+      ];
+      array_push($bud_arr1, $obj);
                 }
                 if (Session::has('bud_arr1')) {
                     Session::forget('bud_arr1');
@@ -1820,10 +1848,18 @@ public function add_to_book_cart(Request $req)
 
         }
          else {
-            $data = [
-                'error' =>  'Your balance amount is ' . $balAmt . '. You have selected the book more than your balance. Please select books whose cost is under ' . $balAmt . '.',
-            ];
-            return response()->json($data);
+            if($balAmt > 0){
+                $data = [
+                    'error' =>  'Your balance amount is ' . $balAmt . '. You have selected the book more than your balance. Please select books whose cost is under ' . $balAmt . '.',
+                ];
+                return response()->json($data);
+            }else{
+                $data = [
+                    'error' =>  'You have reached your budget limit. Additional purchases are not allowed.',
+                ];
+                return response()->json($data);
+            }
+          
         }
         }else{
             $data = [
@@ -1854,7 +1890,7 @@ public function cart_book()
         ->where('libraryType', $librarian->libraryType)
         ->orderBy('created_at', 'ASC')
         ->first();
-
+       
 
     // return  $librarian;
     if ($bookbudget != null) {
@@ -1879,18 +1915,35 @@ public function cart_book()
             foreach ($bookbudget->CategorieAmount1 as $val) {
                 $cartdata1 = Cartbooks::where('librarianid', '=', $librarian->id)
                     ->where('category', '=', $val->name)
+                    ->where('Type', '=', "Tamil")
                     ->where('budgetid', '=', $bookbudget->id)
                     ->where('status', '=', '1')
                     ->sum('totalAmount');
-
-                $percentage = $val->amount !== 0 ? round(($cartdata1 / max(1, $val->amount)) * 100) : 0;
+                    $cartdata11 = Cartbooks::where('librarianid', '=', $librarian->id)
+                    ->where('category', '=', $val->name)
+                    ->where('Type', '=', "English")
+                    ->where('budgetid', '=', $bookbudget->id)
+                    ->where('status', '=', '1')
+                    ->sum('totalAmount');
+                    $percentage = $val->tamilAmount !== 0 ? round(($cartdata1 / max(1, $val->tamilAmount)) * 100) : 0;
+                    $percentage1 = $val->englishAmount !== 0 ? round(($cartdata11 / max(1, $val->englishAmount)) * 100) : 0;
 
 
                 $obj = (object)[
                     "category" => is_numeric($val->name) ? round($val->name) : $val->name,
-                    "budget_price" => is_numeric($val->amount) ? round($val->amount) : $val->amount,
+                    "budget_price" => is_numeric($val->tamilAmount) ? round($val->englishAmount) : $val->englishAmount,
                     "cart_price" => is_numeric($cartdata1) ? round($cartdata1) : $cartdata1,
-                    "percentage" => is_numeric($percentage) ? round($percentage) : $percentage
+                    "percentage" => is_numeric($percentage) ? round($percentage) : $percentage,
+                    "Type" =>"Tamil"
+                ];
+
+                array_push($bud_arr1, $obj);
+                $obj = (object)[
+                    "category" => is_numeric($val->name) ? round($val->name) : $val->name,
+                    "budget_price" => is_numeric($val->englishAmount) ? round($val->englishAmount) : $val->englishAmount,
+                    "cart_price" => is_numeric($cartdata11) ? round($cartdata11) : $cartdata11,
+                    "percentage" => is_numeric($percentage1) ? round($percentage1) : $percentage1,
+                    "Type" =>"English"
                 ];
 
                 array_push($bud_arr1, $obj);
@@ -1909,7 +1962,7 @@ public function cart_book()
         return view('cart-book', compact('bud_arr1', 'cartdata', 'cartdatacount', 'totalbudgetcount'));
     } else {
         $cartdata = null;
-        $bud_arr = null;
+        $bud_arr1 = null;
         $cartdatacount = 0;
         $totalbudgetcount = 0;
 
@@ -1936,15 +1989,23 @@ public function updatebookQuantity(Request $request)
       
     $bookbudgetdata = json_decode($bookbudget->CategorieAmount);
     $totalcost = 0;
+    $type="";
     foreach ($bookbudgetdata as $val) {
         if ($val->name = $cartItem->category) {
-            $totalcost = $val->amount;
+            if( $cartItem->Type == "Tamil"){
+                $totalcost = $val->tamilAmount;
+                $type = "Tamil";
+            }else{
+                $totalcost = $val->englishAmount;
+                $type = "English";
+            }
         }
     } 
     $cartdata1 = Cartbooks::where('librarianid', '=', $librarian->id)
     ->where('category', '=', $cartItem->category)
     ->where('budgetid', '=', $bookbudget->id)
     ->where('status', '=', '1')
+    ->where('type', '=', $type)
     ->where('bookid', '!=', $cartItem->bookid)
     ->sum('totalAmount');
 
@@ -2073,8 +2134,10 @@ public function report_downl_bookcart(Request $request)
     foreach ($maga as $val) {
         foreach ($cartdata22 as $val1) {
             if ($val->name == $val1->category) {
+             
                 $cartdata[] = [
                     'Book Title' => $val1->title,
+                    'Language' =>$val1->Type,
                     'Category' => $val1->category,
                     'Quantity' => $val1->quantity,
                     'Amount' => $val1->totalAmount,
@@ -2087,6 +2150,7 @@ public function report_downl_bookcart(Request $request)
     // Add row for total amount
     $cartdata[] = [
         'Book Title' => 'Total Amount:',
+        'Language' => '',
         'Category' => '',
         'Quantity' => '',
         'Amount' => $totalAmount,
@@ -2099,7 +2163,7 @@ public function report_downl_bookcart(Request $request)
     }
 
     $csvContent = "\xEF\xBB\xBF";
-    $csvContent .= "Book Title,Category,Quantity,Amount\n";
+    $csvContent .= "Book Title,Language,Category,Quantity,Amount\n";
     foreach ($cartdata as $data) {
         $csvContent .= '"' . implode('","', $data) . "\"\n";
     }
@@ -2154,7 +2218,387 @@ public function cartbookpdfview()
         ]);
     }
 }
-} 
 
+
+
+
+public function bookCheckout(Request $req)
+{
+   
+    $librarian = auth('librarian')->user();
+    $bookbudget = Budget::where('type', 'bookbudget')
+        ->where(function ($query) use ($librarian) {
+            $query->whereNotIn('purchaseid', [$librarian->id])
+                ->whereJsonDoesntContain('purchaseid', $librarian->id);
+        })
+        ->where('libraryType', $librarian->libraryType)
+        ->orderBy('created_at', 'ASC')
+        ->first();
+ 
+    if ($bookbudget) {
+        $bookbudgetdata = json_decode($bookbudget->CategorieAmount);
+
+        $bud_arr1 = [];
+        $balanceamount = 0;
+        $count = 0;
+        
+        foreach ($bookbudgetdata as $val) {
+     
+            $languages = ['Tamil', 'English'];
+            foreach ($languages as $language) {
+        
+                $cartdata1 = Cartbooks::where('librarianid', $librarian->id)
+                    ->where('category', $val->name)
+                    ->where('budgetid', $bookbudget->id)
+                    ->where('status', '1')
+                    ->where('Type', $language)
+                    ->sum('totalAmount');
+        
+                $categoryamount = ($language == "Tamil" ? $val->tamilAmount : $val->englishAmount) - $cartdata1;
+                $categoryamounttotal = ($language == "Tamil" ? $val->tamilAmount : $val->englishAmount);
+
+                $bookdata = Book::where(DB::raw('CAST(final_price AS UNSIGNED)'), '<=', $categoryamount)
+                    ->where(DB::raw('CAST(final_price AS UNSIGNED)'), '!=', '0')
+                    ->where('category', $val->name)
+                    ->where('language', $language)
+                    ->where('negotiation_status', '=', 2)
+                    ->where('book_active_status', '=', 1)
+                 
+                    ->get();
+              
+                $existbook = Existcategory::where('librarianid', $librarian->id)
+                    ->where('category', $val->name)
+                    ->where('Type', $language)
+                    ->where('budgetid', $bookbudget->id)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+                
+             
+                if ($bookdata->isNotEmpty()  && $categoryamount != 0) {
+                  
+                    $cartdatarecord = Cartbooks::where('librarianid', $librarian->id)
+                        ->where('category', $val->name)
+                        ->where('Type', $language)
+                        ->where('budgetid', $bookbudget->id)
+                        ->where('status', '1')
+                        ->get();
+        
+                    if ($cartdatarecord->isNotEmpty()) {
+                   
+                        $firstArray = collect($bookdata);
+                        $secondArray = collect($cartdatarecord);
+                       
+                        $firstNames = $firstArray->pluck('id')->toArray();
+                        $secondNames = $secondArray->pluck('bookid')->toArray();
+        
+                        $uniqueNames = collect($firstNames)->filter(function ($name) use ($secondNames) {
+                            return !in_array($name, $secondNames);
+                        })->toArray();
+                      
+                        if (count($uniqueNames) > 0) {
+                            if ($existbook == null || $existbook->status == 0) {
+                              
+                                $balanceamount = 0;
+                                $count = 0;
+                                $bud_arr1 = [];
+                                $data = [
+                                    'status' => '2',
+                                    'budgetid' => $bookbudget->id,
+                                    'category' => $val->name,
+                                    'amount' => $categoryamount,
+                                    'language' => $language,
+                                    'message' => 'நீங்கள் ' . $val->name .  ' ' . $language . ' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $categoryamount . ' உள்ளது. நீங்கள் இந்த தொகையை திரும்ப ஒப்பளிப்பு செய்கிறீர்களா?',
+                                    'error' => $val->name . ' ' . $language . ' பிரிவில் ₹' . $categoryamount . ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
+                                ];
+                                return response()->json($data);
+                            } else {
+                                $balanceamount += $categoryamount;
+                                $count++;
+        
+                                $obj = (object)[
+                                    "category" => $val->name,
+                                    "budget_price" => $categoryamounttotal,
+                                    "Type" => $language,
+                                    "balance_price" => $categoryamount,
+                                ];
+                                array_push($bud_arr1, $obj);
+                            }
+                        } else {
+                           
+                                $balanceamount += $categoryamount;
+                                $count++;
+                                $obj = (object)[
+                                    "category" => $val->name,
+                                    "budget_price" => $categoryamounttotal,
+                                    "Type" => $language,
+                                    "balance_price" => $categoryamount ,
+                                ];
+                                array_push($bud_arr1, $obj);
+                            
+                        }
+                    } else {
+                        if ($existbook == null || $existbook->status == 0) {
+                            $balanceamount = 0;
+                            $count = 0;
+                            $bud_arr1 = [];
+                            $data = [
+                                'status' => '2',
+                                'budgetid' => $bookbudget->id,
+                                'category' => $val->name,
+                                'amount' => $categoryamount,
+                                'language' => $language,
+                                'message' => 'நீங்கள் ' . $val->name . ' ' . $language .' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $categoryamount . ' உள்ளது. நீங்கள் இந்த தொகையை திரும்ப ஒப்பளிப்பு செய்கிறீர்களா?',
+                                'error' => $val->name . ' ' . $language . ' பிரிவில் ₹' . $categoryamount . ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
+                            ];
+                            return response()->json($data);
+                        } else {
+                            $balanceamount += $categoryamount;
+                            $count++;
+                            $obj = (object)[
+                                "category" => $val->name,
+                                "budget_price" => $categoryamounttotal,
+                                "Type" => $language,
+                                "balance_price" => $categoryamount ,
+                            ];
+                            array_push($bud_arr1, $obj);
+                        }
+                    }
+                } else {
+                
+                    if (($existbook == null || $existbook->status == 0) && ($categoryamount < 0)  ) {
+
+
+                        $balanceamount = 0;
+                        $count = 0;
+                        $bud_arr1 = [];
+                        $data = [
+                            'status' => '2',
+                            'budgetid' => $bookbudget->id,
+                            'category' => $val->name,
+                            'amount' => $categoryamount,
+                            'language' => $language,
+                            'message' => 'நீங்கள் ' . $val->name .  ' ' . $language . ' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $categoryamount . ' உள்ளது. நீங்கள் இந்த தொகையை திரும்ப ஒப்பளிப்பு செய்கிறீர்களா?',
+                            'error' => $val->name . ' ' . $language . ' பிரிவில் ₹' . $categoryamount . ' நிதி எஞ்சியுள்ளது. இந்த நிதி வரம்புக்கு உட்பட்ட பருவ இதழ்கள் - ' . $val->name . ' பிரிவில் உள்ளன. எனவே, நிதி ஒப்பளிப்பு செய்ய இயலாது. மீண்டும் இதழ்களைத் தேர்வு செய்க',
+                        ];
+                        return response()->json($data);
+                    } else {
+                        $balanceamount += $categoryamount;
+                        $count++;
+
+                        $obj = (object)[
+                            "category" => $val->name,
+                            "budget_price" => $categoryamounttotal,
+                            "Type" => $language,
+                            "balance_price" => $categoryamount,
+                        ];
+                        array_push($bud_arr1, $obj);
+                    }
+                }
+            }
+         
+        }
+        
+
+
+
+        if ($count == count($bookbudgetdata) *2) {
+      
+            
+            $cartdatas = Cartbooks::where('librarianid', '=', $librarian->id)
+                ->where('budgetid', '=', $bookbudget->id)
+                ->where('status', '=', '1')->get();
+            $finalquantity = (count($cartdatas));
+            $bookorder = [];
+            foreach ($cartdatas as $val) {
+                $booksrec = Book::find($val->bookid);
+                $obj = (object)[
+                    "category" => $booksrec->category,
+                    "title" => $booksrec->book_title,
+                    "book_price" => $booksrec->final_price,
+                    "quantity" =>  $val->quantity,
+                    "bookid" =>  $val->bookid,
+
+                ];
+                // $val->status='0';
+                // $val->save();
+                array_push($bookorder, $obj);
+            }
+         
+            if ($req->specialcat != 0) {
+                if ($bookbudget->totalAmount >= $balanceamount) {
+
+               
+
+                    $Orderbooks = new Orderbooks();
+                    $Orderbooks->librarianid = $librarian->id;
+                    $Orderbooks->budgetid = $bookbudget->id;
+                    $Orderbooks->balanceAmount = json_encode($bud_arr1);
+                    $Orderbooks->bookProduct = json_encode($bookorder);
+                    $Orderbooks->libraryType = $librarian->libraryType;
+                    $Orderbooks->totalBudget = $bookbudget->totalAmount;
+                    $Orderbooks->totalPurchased = $bookbudget->totalAmount - $balanceamount;
+                    $Orderbooks->totalBal = $balanceamount;
+                    $Orderbooks->libraryid = $librarian->librarianId;
+                    $Orderbooks->quantity = $finalquantity;
+                    $randomCode = str_pad(random_int(0, 99999999), 12, '0', STR_PAD_LEFT);
+                    $Orderbooks->orderid = $randomCode;
+                  
+                    $librariandata = [];
+                    $validator = Validator::make($req->all(), [
+
+                        'street' => 'required',
+                        'place' => 'required',
+                        'Village' => 'required',
+                        'taluk' => 'required',
+                        'post' => 'required',
+                        'pincode' => 'required',
+                        'landmark' => 'required',
+
+                        'district' => 'required|string',
+                        'readersForum' => 'required',
+
+
+                    ]);
+                    if ($validator->fails()) {
+                        $data = [
+                            'error' => $validator->errors()->first(),
+                        ];
+                        return response()->json($data);
+                    }
+
+                    if ($req->readersForum == 'undefined') {
+                        $data = [
+                            'error' => 'ReadersForum filed is required',
+                        ];
+                        return response()->json($data);
+                    }
+                    $librarian = Librarian::find(auth('librarian')->user()->id);
+                    $librarian->door_no = $req->door_no;
+                    $librarian->street = $req->street;
+                    $librarian->place = $req->place;
+                    $librarian->Village = $req->Village;
+                    $librarian->taluk = $req->taluk;
+                    $librarian->landmark = $req->landmark;
+                    $librarian->post = $req->post;
+                    $librarian->pincode = $req->pincode;
+                    $librarian->district = $req->district;
+                    if ($librarian->save()) {
+
+                        $image = $req->file('readersForum');
+                        $imagename = time() . '.' . $image->getClientOriginalExtension();
+                        $image->move('reviewer/readersForum', $imagename);
+
+                        $Orderbooks->readersForum = $imagename;
+                     
+                        if ($bookbudget->purchaseid == null) {
+                           
+                            $librariandata = [];
+                            array_push($librariandata, $librarian->id);
+                            $bookbudget->purchaseid = $librariandata;
+                        } else {
+                           
+                            array_push($librariandata, $librarian->id);
+                            $array = json_decode($bookbudget->purchaseid, true);
+                            $merged = array_merge($librariandata, $array);
+                           
+                            $bookbudget->purchaseid = $merged;
+                        }
+                           
+                        if ($Orderbooks->save() && $bookbudget->save()) {
+                            $bookIds = $cartdatas->pluck('bookid');
+                        
+                            $update = Cartbooks::whereIn('bookid', $bookIds)->update(['status' => '0']);
+                           
+                     
+                      
+                           
+                            if (Session::has('bookcartcount')) {
+                                Session::forget('bookcartcount');
+                            }
+                            $cartdata = Cartbooks::where('librarianid', '=', $librarian->id)
+                                ->where('budgetid', '=', $bookbudget->id)
+                                ->where('status', '=', '1')
+                                ->get();
+                            $bookcartcount = count($cartdata);
+
+                            Session::put('bookcartcount', $bookcartcount);
+                            $data = [
+                                'success' => 'Book Purchased Successfully.'
+                            ];
+                            return response()->json($data);
+                        }
+                    }
+                } else {
+                    $data = [
+                        'error' => 'Your are purchased more than a budget .. Please select magazine under budget amount',
+                    ];
+                    return response()->json($data);
+                }
+            } else {
+                $data = [
+                    'spccat' => '1',
+                ];
+                return response()->json($data);
+            }
+        }
+    } else {
+        $data = [
+            'error' => 'No Budget Allocated',
+        ];
+        return response()->json($data);
+    }
+}
+
+
+public function budgetcategurybook(Request $req)
+{
+    $librarian = auth('librarian')->user();
+    $Existcategory = Existcategory::where('budgetid', '=', $req->budget)->where('librarianid', '=', $librarian->id)
+        ->where('category', '=', $req->category) ->where('Type', '=', $req->language)->orderBy('created_at', 'desc')->first();
+    if ($Existcategory == null) {
+        $Existcategory = new Existcategory();
+        $Existcategory->librarianid = $librarian->id;
+        $Existcategory->budgetid = $req->budget;
+        $Existcategory->category = $req->category;
+        $Existcategory->Type = $req->language;
+        $Existcategory->status = $req->status;
+        $Existcategory->save();
+
+
+        if ($Existcategory->status == '1') {
+            $data = [
+
+                'success' => 'நீங்கள் ' . $req->category .' '. $req->language . ' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $req->amount2 . 'திரும்ப ஒப்பளிப்பு செய்யப்பட்டது',
+            ];
+            return response()->json($data);
+        } else {
+            return response()->json([
+                'error' => $req->messageValue,
+            ]);
+        }
+    } else {
+        $Existcategory->librarianid = $librarian->id;
+        $Existcategory->budgetid = $req->budget;
+        $Existcategory->category = $req->category;
+        $Existcategory->status = $req->status;
+        $Existcategory->Type = $req->language;
+        $Existcategory->save();
+
+        if ($Existcategory->status == '1') {
+            $data = [
+
+                'success' => 'நீங்கள் ' . $req->category .' '. $req->language . ' பிரிவில் தேர்வு செய்தது போக மீதம் தொகை ரூபாய் ' . $req->amount2 . 'திரும்ப ஒப்பளிப்பு செய்யப்பட்டது',
+            ];
+            return response()->json($data);
+        } else {
+            return response()->json([
+                'error' => $req->messageValue,
+            ]);
+        }
+    }
+}
+
+
+} 
 
 

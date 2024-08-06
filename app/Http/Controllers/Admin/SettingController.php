@@ -2445,55 +2445,56 @@ public function publicreviewercount(Request $request){
 
 
 
-public function Dispatch_magazinereport(Request $req){
+// public function Dispatch_magazinereport(Request $req){
   
-    if ($req->monthyear !== null) {
-        $query = Dispatch::query();
+//     if ($req->monthyear !== null && $req->monthyear1 !== null) {
+//         $query = Dispatch::query();
 
-        if ($req->id !== null) {
-            $query->where('magazine_id', $req->id);
-        }
+//         if ($req->id !== null) {
+//             $query->where('magazine_id', $req->id);
+//         }
         
-        if ($req->Frequency !== null) {
-            $query->where('periodicity', $req->Frequency);
-        }
+//         if ($req->Frequency !== null) {
+//             $query->where('periodicity', $req->Frequency);
+//         }
         
-        if ($req->monthyear !== null) {
-           $date = new \DateTime($req->monthyear);
-            $year = $date->format('Y');
-            $month = $date->format('m');
+//         if ($req->monthyear !== null && $req->monthyear1 !== null) {
+//             $startDate = new \DateTime($req->monthyear);
+//             $endDate = new \DateTime($req->monthyear1);
             
-         $query->whereYear('expected_date', $year)
-                  ->whereMonth('expected_date', $month);
+//             $startDateFormatted = $startDate->format('Y-m-d');
+//             $endDateFormatted = $endDate->format('Y-m-d');
+            
+//             $query->whereBetween('expected_date', [$startDateFormatted, $endDateFormatted]);
+//         }
         
-        }
         
-        $query->orderBy('created_at', 'asc');
+//         $query->orderBy('created_at', 'asc');
         
-        $Dispatch = $query->get();
+//         $Dispatch = $query->get();
     
-    $Dispatch = $query->get();
+  
 
-      if( $Dispatch->isNotEmpty()){
-        foreach($Dispatch  as $val){
-            $recived=0;
-                $notrecived=0;
-            $library_id = json_decode($val->library_id);
-            foreach($library_id  as $val1){
+//       if( $Dispatch->isNotEmpty()){
+//         foreach($Dispatch  as $val){
+//             $recived=0;
+//                 $notrecived=0;
+//             $library_id = json_decode($val->library_id);
+//             foreach($library_id  as $val1){
               
-                $received_id = json_decode($val->received_id);
-                $received_id1=[];
-                array_push($received_id1, $val1);
-                $result = array_filter($received_id1, function($element) use ($received_id) {
-                    return in_array($element, $received_id);
-                    });
+//                 $received_id = json_decode($val->received_id);
+//                 $received_id1=[];
+//                 array_push($received_id1, $val1);
+//                 $result = array_filter($received_id1, function($element) use ($received_id) {
+//                     return in_array($element, $received_id);
+//                     });
                  
-                $not_received_id = json_decode($val->not_received_id);
-                $not_received_id1=[];
-                array_push($not_received_id1,  $val1);
-                $result2 = array_filter($not_received_id1, function($element) use ($not_received_id) {
-                    return in_array($element, $not_received_id);
-                    });
+//                 $not_received_id = json_decode($val->not_received_id);
+//                 $not_received_id1=[];
+//                 array_push($not_received_id1,  $val1);
+//                 $result2 = array_filter($not_received_id1, function($element) use ($not_received_id) {
+//                     return in_array($element, $not_received_id);
+//                     });
             
 
    
@@ -2502,146 +2503,146 @@ public function Dispatch_magazinereport(Request $req){
              
 
      
-               if(count($result) !=0){
-                $recived=$recived + 1;
+//                if(count($result) !=0){
+//                 $recived=$recived + 1;
                
-               }elseif(count($result2) !=0){
+//                }elseif(count($result2) !=0){
              
-                $notrecived = $notrecived + 1;
+//                 $notrecived = $notrecived + 1;
         
-               }else{
-                $notrecived = $notrecived + 1;
-               }
+//                }else{
+//                 $notrecived = $notrecived + 1;
+//                }
              
             
-            }
+//             }
       
-                $val->count= count( $library_id);
-                $val->recived=$recived;
-                $val->notrecived=$notrecived;
+//                 $val->count= count( $library_id);
+//                 $val->recived=$recived;
+//                 $val->notrecived=$notrecived;
             
                  
-         }
-         $actotal = 0;
-         $inactotal = 0;
-         $finaldata = [];
-         $serialNumber = 1;
-         foreach ($Dispatch as $val) {
+//          }
+//          $actotal = 0;
+//          $inactotal = 0;
+//          $finaldata = [];
+//          $serialNumber = 1;
+//          foreach ($Dispatch as $val) {
             
         
-             $finaldata[] = [
-                'S.No' =>  $serialNumber ++,
-                'Magazine Name' =>    $val->magazine_name,
-                'Periodicity' =>   $val->periodicity,
-                'Expected Date ' =>  $val->expected_date,
-                'Total Library' =>   $val->count,
-                'Total Recived' =>   $val->recived,
-                'Total Notrecived' =>  $val->notrecived,
+//              $finaldata[] = [
+//                 'S.No' =>  $serialNumber ++,
+//                 'Magazine Name' =>    $val->magazine_name,
+//                 'Periodicity' =>   $val->periodicity,
+//                 'Expected Date ' =>  $val->expected_date,
+//                 'Total Library' =>   $val->count,
+//                 'Total Recived' =>   $val->recived,
+//                 'Total Notrecived' =>  $val->notrecived,
                 
-            ];
+//             ];
           
          
     
           
-         }
+//          }
          
     
-         $finaldata[] = [
-            'S.No' => '',
-            'Magazine Name' =>    '',
-            'Periodicity' =>  '',
-            'Expected Date ' =>  '',
-            'Total Library' =>   '',
-            'Total Recived' =>   '',
-            'Total Notrecived' =>  '',
-         ];
-         $finaldata[] = [
-            'S.No' => '',
-            'Magazine Name' =>    '',
-            'Periodicity' =>  '',
-            'Expected Date ' =>  '',
-            'Total Library' =>   '',
-            'Total Recived' =>   '',
-            'Total Notrecived' =>  '',
-         ];
+//          $finaldata[] = [
+//             'S.No' => '',
+//             'Magazine Name' =>    '',
+//             'Periodicity' =>  '',
+//             'Expected Date ' =>  '',
+//             'Total Library' =>   '',
+//             'Total Recived' =>   '',
+//             'Total Notrecived' =>  '',
+//          ];
+//          $finaldata[] = [
+//             'S.No' => '',
+//             'Magazine Name' =>    '',
+//             'Periodicity' =>  '',
+//             'Expected Date ' =>  '',
+//             'Total Library' =>   '',
+//             'Total Recived' =>   '',
+//             'Total Notrecived' =>  '',
+//          ];
      
 
     
-         $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
-         $csvContent .= "S.No, Magazine Name, Periodicity,Expected Date, Total Library,Total Recived,Total Notrecived\n"; 
-         foreach ($finaldata as $data) {
-             $csvContent .= '"' . implode('","', $data) ."\"\n";
-         }
+//          $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+//          $csvContent .= "S.No, Magazine Name, Periodicity,Expected Date, Total Library,Total Recived,Total Notrecived\n"; 
+//          foreach ($finaldata as $data) {
+//              $csvContent .= '"' . implode('","', $data) ."\"\n";
+//          }
     
-         $headers = [
-             'Content-Type' => 'text/csv; charset=utf-8',
-             'Content-Disposition' => 'attachment; filename="MagazineDispatchReport.csv"',
-         ];
+//          $headers = [
+//              'Content-Type' => 'text/csv; charset=utf-8',
+//              'Content-Disposition' => 'attachment; filename="MagazineDispatchReport.csv"',
+//          ];
     
-         return response()->make($csvContent, 200, $headers);
+//          return response()->make($csvContent, 200, $headers);
 
 
-      }else{
-        return back()->with('error',"No Record Found");
-    }
+//       }else{
+//         return back()->with('error',"No Record Found");
+//     }
        
-    }else{
-        return back()->with('error',"Mounth Year field  is required");
-    }
+//     }else{
+//         return back()->with('error',"Mounth Year field  is required");
+//     }
 
 
 
 
-}
+// }
 
 
-public function Dispatch_libraryreport(Request $req){
+// public function Dispatch_libraryreport(Request $req){
   
-    if ($req->monthyear !== null) {
-        $query = Dispatch::query();
+//     if ($req->monthyear !== null && $req->monthyear1 !== null) {
+//         $query = Dispatch::query();
 
      
         
-        if ($req->Frequency !== null) {
-            $query->where('periodicity', $req->Frequency);
-        }
+//         if ($req->Frequency !== null) {
+//             $query->where('periodicity', $req->Frequency);
+//         }
         
-        if ($req->monthyear !== null) {
-           $date = new \DateTime($req->monthyear);
-            $year = $date->format('Y');
-            $month = $date->format('m');
+//         if ($req->monthyear !== null && $req->monthyear1 !== null) {
+//             $startDate = new \DateTime($req->monthyear);
+//             $endDate = new \DateTime($req->monthyear1);
             
-         $query->whereYear('expected_date', $year)
-                  ->whereMonth('expected_date', $month);
+//             $startDateFormatted = $startDate->format('Y-m-d');
+//             $endDateFormatted = $endDate->format('Y-m-d');
+            
+//             $query->whereBetween('expected_date', [$startDateFormatted, $endDateFormatted]);
+//         }
         
-        }
+//         $query->orderBy('created_at', 'asc');
         
-        $query->orderBy('created_at', 'asc');
-        
-        $Dispatch = $query->get();
+//         $Dispatch = $query->get();
     
-        $Dispatch = $query->get();
-           $data=[];
-      if( $Dispatch->isNotEmpty()){
-        foreach($Dispatch  as $val){
-            $recived=0;
-                $notrecived=0;
-            $library_id = json_decode($val->library_id);
-            foreach($library_id  as $val1){
+//         $Dispatch = $query->get();
+//            $data=[];
+//       if( $Dispatch->isNotEmpty()){
+//         foreach($Dispatch  as $val){
+//             $recived=0;
+//                 $notrecived=0;
+//             $library_id = json_decode($val->library_id);
+//             foreach($library_id  as $val1){
               
-                $received_id = json_decode($val->received_id);
-                $received_id1=[];
-                array_push($received_id1, $val1);
-                $result = array_filter($received_id1, function($element) use ($received_id) {
-                    return in_array($element, $received_id);
-                    });
+//                 $received_id = json_decode($val->received_id);
+//                 $received_id1=[];
+//                 array_push($received_id1, $val1);
+//                 $result = array_filter($received_id1, function($element) use ($received_id) {
+//                     return in_array($element, $received_id);
+//                     });
                  
-                $not_received_id = json_decode($val->not_received_id);
-                $not_received_id1=[];
-                array_push($not_received_id1,  $val1);
-                $result2 = array_filter($not_received_id1, function($element) use ($not_received_id) {
-                    return in_array($element, $not_received_id);
-                    });
+//                 $not_received_id = json_decode($val->not_received_id);
+//                 $not_received_id1=[];
+//                 array_push($not_received_id1,  $val1);
+//                 $result2 = array_filter($not_received_id1, function($element) use ($not_received_id) {
+//                     return in_array($element, $not_received_id);
+//                     });
             
                  
                    
@@ -2650,63 +2651,515 @@ public function Dispatch_libraryreport(Request $req){
              
 
      
-               if(count($result) !=0){
-                $recived=$recived + 1;
+//                if(count($result) !=0){
+//                 $recived=$recived + 1;
                
-               }elseif(count($result2) !=0){
+//                }elseif(count($result2) !=0){
              
-                $notrecived = $notrecived + 1;
+//                 $notrecived = $notrecived + 1;
         
-               }else{
-                $notrecived = $notrecived + 1;
-               }
-              $Librarian =Librarian::find($val1);
+//                }else{
+//                 $notrecived = $notrecived + 1;
+//                }
+//               $Librarian =Librarian::find($val1);
 
-               if($req->librarytype != null){
-                if($req->librarytype == $Librarian->libraryType){
+//                if($req->librarytype != null){
+//                 if($req->librarytype == $Librarian->libraryType){
                       
-                    $val->libraryname= $Librarian->libraryName;
-                    $val->librarytype=$Librarian->libraryType;
-                    $val->recived=$recived;
-                    $val->notrecived=$notrecived;
-                    array_push($data,$val);
+//                     $val->libraryname= $Librarian->libraryName;
+//                     $val->librarytype=$Librarian->libraryType;
+//                     $val->recived=$recived;
+//                     $val->notrecived=$notrecived;
+//                     array_push($data,$val);
                   
-                }
-               }else{
+//                 }
+//                }else{
               
-                $val->libraryname= $Librarian->libraryName;
-                $val->librarytype=$Librarian->libraryType;
-                $val->recived=$recived;
-                $val->notrecived=$notrecived;
-                array_push($data,$val);
-               }
+//                 $val->libraryname= $Librarian->libraryName;
+//                 $val->librarytype=$Librarian->libraryType;
+//                 $val->recived=$recived;
+//                 $val->notrecived=$notrecived;
+//                 array_push($data,$val);
+//                }
                    
                    
             
-            }
+//             }
       
        
             
                  
-         }
+//          }
 
          
-         $actotal = 0;
-         $inactotal = 0;
+//          $actotal = 0;
+//          $inactotal = 0;
+//          $finaldata = [];
+//          $serialNumber = 1;
+//          foreach ($data as $val) {
+            
+        
+//              $finaldata[] = [
+//                 'S.No' =>  $serialNumber ++,
+//                 'Magazine Name' =>    $val->magazine_name,
+//                 'Periodicity' =>   $val->periodicity,
+//                 'Expected Date ' =>  $val->expected_date,
+//                 'Librarian Name' =>   $val->libraryname,
+//                 'Library Type' =>   $val->librarytype,
+//                 'Total Recived' =>   $val->recived,
+//                 'Total Notrecived' =>  $val->notrecived,
+                
+//             ];
+          
+         
+    
+          
+//          }
+         
+    
+//          $finaldata[] = [
+//             'S.No' => '',
+//             'Magazine Name' =>    '',
+//             'Periodicity' =>  '',
+//             'Expected Date ' =>  '',
+//             'Librarian Name' =>  '',
+//                 'Library Type' =>   '',
+//             'Total Recived' =>   '',
+//             'Total Notrecived' =>  '',
+//          ];
+//          $finaldata[] = [
+//             'S.No' => '',
+//             'Magazine Name' =>    '',
+//             'Periodicity' =>  '',
+//             'Expected Date ' =>  '',
+//             'Librarian Name' =>  '',
+//                 'Library Type' =>   '',
+//             'Total Recived' =>   '',
+//             'Total Notrecived' =>  '',
+//          ];
+     
+
+    
+//          $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+//          $csvContent .= "S.No, Magazine Name, Periodicity,Expected Date, Librarian Name,Library Type,Total Recived,Total Notrecived\n"; 
+//          foreach ($finaldata as $data) {
+//              $csvContent .= '"' . implode('","', $data) ."\"\n";
+//          }
+    
+//          $headers = [
+//              'Content-Type' => 'text/csv; charset=utf-8',
+//              'Content-Disposition' => 'attachment; filename="LibraryDispatchReport.csv"',
+//          ];
+    
+//          return response()->make($csvContent, 200, $headers);
+
+
+//       }else{
+//         return back()->with('error',"No Record Found");
+//     }
+       
+//     }else{
+//         return back()->with('error',"Mounth Year field  is required");
+//     }
+
+
+
+
+// }
+public function Dispatch_magazinereport(Request $req)
+{
+    if ($req->monthyear === null || $req->monthyear1 === null) {
+        return back()->with('error', "Month Year field is required");
+    }
+
+    $query = Dispatch::query();
+
+    if ($req->id !== null) {
+        $query->where('magazine_id', $req->id);
+    }
+
+    if ($req->Frequency !== null) {
+        $query->where('periodicity', $req->Frequency);
+    }
+
+    $startDate = new \DateTime($req->monthyear);
+    $endDate = new \DateTime($req->monthyear1);
+    $startDateFormatted = $startDate->format('Y-m-d');
+    $endDateFormatted = $endDate->format('Y-m-d');
+    $query->whereBetween('expected_date', [$startDateFormatted, $endDateFormatted]);
+
+    $query->orderBy('magazine_name', 'Desc');
+
+    $Dispatch = $query->get();
+
+    if ($Dispatch->isEmpty()) {
+        return back()->with('error', "No Record Found");
+    }
+
+    $finaldata = [];
+    $serialNumber = 1;
+
+    foreach ($Dispatch as $val) {
+        $library_ids = json_decode($val->library_id, true);
+        $received_ids = json_decode($val->received_id, true);
+        $not_received_ids = json_decode($val->not_received_id, true);
+
+        $recived = count(array_intersect($library_ids, $received_ids));
+        $notrecived = count(array_diff($library_ids, $received_ids));
+
+        $val->count = count($library_ids);
+        $val->recived = $recived;
+        $val->notrecived = $notrecived;
+
+        $finaldata[] = [
+            'S.No' => $serialNumber++,
+            'Magazine Name' => $val->magazine_name,
+            'Periodicity' => $val->periodicity,
+            'Expected Date' => $val->expected_date,
+            'Total Library' => $val->count,
+            'Total Recived' => $val->recived,
+            'Total Notrecived' => $val->notrecived,
+        ];
+    }
+
+    $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .= "S.No, Magazine Name, Periodicity, Expected Date, Total Library, Total Recived, Total Notrecived\n";
+    foreach ($finaldata as $data) {
+        $csvContent .= '"' . implode('","', $data) . "\"\n";
+    }
+
+    $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="MagazineDispatchReport.csv"',
+    ];
+
+    return response()->make($csvContent, 200, $headers);
+}
+
+public function Dispatch_libraryreport(Request $req) {
+if ($req->monthyear !== null && $req->monthyear1 !== null) {
+    $query = Dispatch::query();
+
+    if ($req->Frequency !== null) {
+        $query->where('periodicity', $req->Frequency);
+    }
+
+    $startDate = new \DateTime($req->monthyear);
+    $endDate = new \DateTime($req->monthyear1);
+    $startDateFormatted = $startDate->format('Y-m-d');
+    $endDateFormatted = $endDate->format('Y-m-d');
+    $query->whereBetween('expected_date', [$startDateFormatted, $endDateFormatted]);
+
+    $query->orderBy('created_at', 'asc');
+    $dispatches = $query->get();
+
+    if ($dispatches->isEmpty()) {
+        return back()->with('error', "No Record Found");
+    }
+
+    // Collect all library IDs from dispatches
+    $libraryIds = [];
+    foreach ($dispatches as $dispatch) {
+        $libraryIds = array_merge($libraryIds, json_decode($dispatch->library_id, true));
+    }
+    $libraryIds = array_unique($libraryIds);
+
+    // Fetch all librarians in a single query
+    $librarians = Librarian::whereIn('id', $libraryIds)->get()->keyBy('id');
+
+    $data = [];
+    foreach ($dispatches as $dispatch) {
+        $libraryIds = json_decode($dispatch->library_id, true);
+        $receivedIds = json_decode($dispatch->received_id, true);
+        $notReceivedIds = json_decode($dispatch->not_received_id, true);
+
+        foreach ($libraryIds as $libraryId) {
+            if (!isset($librarians[$libraryId])) {
+                continue;
+            }
+            $librarian = $librarians[$libraryId];
+
+            if ($req->librarytype != null && $req->librarytype != $librarian->libraryType) {
+                continue;
+            }
+
+            $received = in_array($libraryId, $receivedIds) ? 1 : 0;
+            $notReceived = in_array($libraryId, $notReceivedIds) ? 1 : 0;
+
+            $data[$libraryId]['library_name'] = $librarian->libraryName;
+            $data[$libraryId]['library_id'] = $librarian->librarianId;
+            $data[$libraryId]['library_district'] = $librarian->district;
+            $data[$libraryId]['library_type'] = $librarian->libraryType;
+           
+           
+            $data[$libraryId]['dispatches'][] = [
+                'magazine_name' => $dispatch->magazine_name,
+                'periodicity' => $dispatch->periodicity,
+                'expected_date' => $dispatch->expected_date,
+                'received' => $received,
+                'not_received' => $notReceived
+            ];
+        }
+    }
+
+    $serialNumber = 1;
+    $csvData = [];
+    foreach ($data as $libraryId => $libraryData) {
+        // Sort dispatches by magazine name
+        usort($libraryData['dispatches'], function($a, $b) {
+            return strcmp($a['magazine_name'], $b['magazine_name']);
+        });
+
+        foreach ($libraryData['dispatches'] as $val) {
+            $csvData[] = [
+                'S.No' => $serialNumber++,
+                'Library Name' => $libraryData['library_name'],
+                'Librarian Id' => $libraryData['library_id'],
+                'District' => $libraryData['library_district'],
+                'Library Type' => $libraryData['library_type'],
+                'Magazine Name' => $val['magazine_name'],
+                'Periodicity' => $val['periodicity'],
+                'Expected Date' => $val['expected_date'],
+                'Total Received' => $val['received'],
+                'Total Not Received' => $val['not_received'],
+            ];
+        }
+        // Adding an empty row after each group for spacing
+        $csvData[] = array_fill_keys(array_keys($csvData[0]), '');
+    }
+
+    $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .= "S.No, Library Name,Librarian Id, District, Library Type, Magazine Name, Periodicity, Expected Date, Total Received, Total Not Received\n";
+    foreach ($csvData as $row) {
+        $csvContent .= '"' . implode('","', $row) . '"' . "\n";
+    }
+
+    $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="LibraryDispatchReport.csv"',
+    ];
+
+    return response()->make($csvContent, 200, $headers);
+
+} else {
+    return back()->with('error', "Month Year field is required");
+}
+}
+
+
+
+public function reviewer_report(Request $request){
+
+     if($request->reviewer !=null) {
+      $Reviewer = Reviewer::where('reviewerType','=',$request->reviewer)->where('status','=','1')->get();
+
+     }else{
+        return back()->with('error',"Select Reviewer Type");
+     }
+
+
+if($Reviewer->isNotEmpty()){
+    if($request->reviewer == "internal"){
+        $finaldata = [];
+        $serialNumber = 1;
+        foreach ($Reviewer as $val) {
+     
+         $Categorys=json_decode($val->Category) ;
+         $string = implode(", ", $Categorys);
+     
+              $finaldata[] = [
+               'S.No' =>  $serialNumber ++,
+               'Library Name' =>    $val->libraryName,
+               'Library Type' =>   $val->libraryType,
+               'Reviwer Name' =>  $val->name,
+               'Reviwer Code'=>   $val->reviewerId,
+               'Designation'=>   $val->designation,
+               'Category'=>    $string,
+               'District' =>   $val->district,
+               'Email' =>   $val->email,
+               'Mobile Number' =>   $val->phoneNumber,
+           
+     
+               
+     
+           ];
+         
+        
+         
+        }
+        
+        $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+        $csvContent .= "S.No, Library Name, Library Type,Reviwer Name,Reviwer Code,Designation,Category,District, Email, Mobile Number\n"; 
+        foreach ($finaldata as $data) {
+            $csvContent .= '"' . implode('","', $data) ."\"\n";
+        }
+     
+        $headers = [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="LibrarianReviewer.csv"',
+        ];
+     
+        return response()->make($csvContent, 200, $headers);
+    }else if($request->reviewer == "external"){
+       
+        $finaldata = [];
+        $serialNumber = 1;
+        foreach ($Reviewer as $val) {
+   
+      $Subject=json_decode($val->subject) ;
+
+      if (is_string($Subject)) {
+        $array = explode(',', $Subject);
+        $string = implode(", ", array_map('trim', $array));  // Ensure no extra spaces
+    } elseif (is_array($Subject)) {
+        $string = implode(", ", array_map('trim', $Subject));  // Ensure no extra spaces
+    }
+      
+     
+              $finaldata[] = [
+               'S.No' =>  $serialNumber ++,
+               'Reviwer Name' =>  $val->name,
+               'Reviwer Code'=>   $val->reviewerId,
+               'Designation'=>   $val->designation,
+               'Organisation Details'=>   $val->organisationDetails,
+               'Subject'=>    $string,
+               'Bank Name'=>   $val->bankName,
+               'Account Number'=>   $val->accountNumber,
+               'branch'=>   $val->branch,
+               'Ifsc Number'=>   $val->ifscNumber,
+               'District' =>   $val->district,
+               'Email' =>   $val->email,
+               'Mobile Number' =>   $val->phoneNumber,
+           
+     
+               
+     
+           ];
+         
+        
+         
+        }
+       
+        $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+        $csvContent .= "S.No,Reviwer Name,Reviwer Code,Designation,Organisation Details,Subject,Bank Name,Account Number,branch,Ifsc Number,District, Email, Mobile Number\n"; 
+        foreach ($finaldata as $data) {
+            $csvContent .= '"' . implode('","', $data) ."\"\n";
+        }
+     
+        $headers = [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="ExpertReviewer.csv"',
+        ];
+     
+        return response()->make($csvContent, 200, $headers);
+    }else{
+        $finaldata = [];
+        $serialNumber = 1;
+        foreach ($Reviewer as $val) {
+     
+
+     
+              $finaldata[] = [
+               'S.No' =>  $serialNumber ++,
+               'Reviwer Name' =>  $val->name,
+               'Membership Id' =>  $val->membershipId,
+               'Category'=>   $val->Category,
+               'District' =>   $val->district,
+               'Email' =>   $val->email,
+               'Mobile Number' =>   $val->phoneNumber,
+           
+     
+               
+     
+           ];
+         
+        
+         
+        }
+        
+        $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+        $csvContent .= "S.No,Reviwer Name,Membership Id,Category,District, Email, Mobile Number\n"; 
+        foreach ($finaldata as $data) {
+            $csvContent .= '"' . implode('","', $data) ."\"\n";
+        }
+     
+        $headers = [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="PublicReviewer.csv"',
+        ];
+     
+        return response()->make($csvContent, 200, $headers);
+    }
+
+
+} else {
+   return back()->with('error',"No Records Found");
+}
+}
+
+
+ 
+public function Dispatch_library_report(Request $req){
+  
+    if ($req->monthyear !== null && $req->monthyear1 !== null) {
+        $query = Dispatch::query();
+
+     
+        
+        if ($req->Frequency !== null) {
+            $query->where('periodicity', $req->Frequency);
+        }
+        
+        if ($req->monthyear !== null && $req->monthyear1 !== null) {
+            $startDate = new \DateTime($req->monthyear);
+            $endDate = new \DateTime($req->monthyear1);
+            
+            $startDateFormatted = $startDate->format('Y-m-d');
+            $endDateFormatted = $endDate->format('Y-m-d');
+            
+            $query->whereBetween('expected_date', [$startDateFormatted, $endDateFormatted]);
+        }
+        
+        $query->orderBy('created_at', 'asc');
+        
+        $Dispatch = $query->get();
+
+      if( $Dispatch->isNotEmpty()){
+   $data1 = [];
+       $data2 = [];
+       foreach ($Dispatch as $val) {
+        $library_id = json_decode($val->library_id);
+        $data2 = array_merge($data2, $library_id);
+
+           $received_id = json_decode($val->received_id, true);
+           $not_received_id1 = json_decode($val->not_received_id, true);
+           $data1 = array_merge($data1, $not_received_id1);
+
+           $data1 = array_merge($data1, $received_id);
+       }
+
+       $data1 = array_unique($data1);
+       $data2 = array_unique($data2);
+       $diff = array_diff($data2, $data1);
+       $librarians = Librarian::whereIn('id', $diff)->get();
+      
+     
+         
+          
          $finaldata = [];
          $serialNumber = 1;
-         foreach ($data as $val) {
+         foreach ($librarians as $val) {
             
         
              $finaldata[] = [
                 'S.No' =>  $serialNumber ++,
-                'Magazine Name' =>    $val->magazine_name,
-                'Periodicity' =>   $val->periodicity,
-                'Expected Date ' =>  $val->expected_date,
-                'Librarian Name' =>   $val->libraryname,
-                'Library Type' =>   $val->librarytype,
-                'Total Recived' =>   $val->recived,
-                'Total Notrecived' =>  $val->notrecived,
+               'Library Name' =>    $val->libraryName,
+               'Library Type' =>   $val->libraryType,
+               'Librarian Name' =>  $val->librarianName,
+               'Library Code'=>   $val->librarianId,
+               'District' =>   $val->district,
+               'Email' =>   $val->email,
+               'Mobile Number' =>   $val->phoneNumber,
                 
             ];
           
@@ -2715,32 +3168,9 @@ public function Dispatch_libraryreport(Request $req){
           
          }
          
-    
-         $finaldata[] = [
-            'S.No' => '',
-            'Magazine Name' =>    '',
-            'Periodicity' =>  '',
-            'Expected Date ' =>  '',
-            'Librarian Name' =>  '',
-                'Library Type' =>   '',
-            'Total Recived' =>   '',
-            'Total Notrecived' =>  '',
-         ];
-         $finaldata[] = [
-            'S.No' => '',
-            'Magazine Name' =>    '',
-            'Periodicity' =>  '',
-            'Expected Date ' =>  '',
-            'Librarian Name' =>  '',
-                'Library Type' =>   '',
-            'Total Recived' =>   '',
-            'Total Notrecived' =>  '',
-         ];
-     
 
-    
          $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
-         $csvContent .= "S.No, Magazine Name, Periodicity,Expected Date, Librarian Name,Library Type,Total Recived,Total Notrecived\n"; 
+         $csvContent .= "S.No,Library Name,Library Type,Librarian Name, Library Code,District,Email,Mobile Number\n"; 
          foreach ($finaldata as $data) {
              $csvContent .= '"' . implode('","', $data) ."\"\n";
          }

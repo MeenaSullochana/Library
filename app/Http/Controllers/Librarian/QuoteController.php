@@ -37,4 +37,30 @@ class QuoteController extends Controller
        
        
      }
+     public function book_order_scheme_read($id){
+
+       
+        $Admin = Admin::first();
+        $budget = Budget::find($id);
+        $lines = explode(';', $budget->description);
+
+    // Prepare the text for display in a list format
+    $formattedText = '<ul style="font-family: Arial, sans-serif;">';
+    foreach ($lines as $line) {
+        $formattedText .= '<li>' . trim($line) . '</li>'; // Trim whitespace from each line
+    }
+    $formattedText .= '</ul>';
+        $budget->CategorieAmount1= json_decode($budget->CategorieAmount); 
+        $budget->admindata=$Admin;
+      
+         \Session::put('budget', $budget);
+         \Session::put('desc', $formattedText);
+        return redirect('librarian/book_order_scheme_read');
+
+
+       
+       
+     }
+
+     
 }

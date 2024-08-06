@@ -85,6 +85,11 @@
                                                 id="monthyear" name="monthyear" min="1918-03" required>
                                         </div>
                                         <div class="col-md-4">
+                                            <label for="monthyear">To Month and Year</label>
+                                            <input class="form-control input-daterange-datepicker" type="month"
+                                                id="monthyear1" name="monthyear1" min="1918-03" required>
+                                        </div>
+                                        <div class="col-md-4">
                                             <label for="Frequency">Frequency</label>
                                             <div
                                                 class="dropdown bootstrap-select default-select form-control wide form-control-sm">
@@ -181,5 +186,19 @@
     include 'admin/plugin/plugin_js.php';
     ?>
 </body>
+@if (Session::has('success'))
 
+<script>
+
+toastr.success("{{ Session::get('success') }}",{timeout:15000});
+
+</script>
+@elseif (Session::has('error'))
+<script>
+
+toastr.error("{{ Session::get('error') }}",{timeout:15000});
+
+</script>
+
+@endif
 </html>

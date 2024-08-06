@@ -409,7 +409,7 @@
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-blockquote-left"></i>
-                        <span class="nav-text">Dispatch Periodical</span>
+                        <span class="nav-text">Despatch Periodical</span>
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="/librarian/dispatch-year-list">Magazine List</a></li> -->
@@ -425,7 +425,9 @@
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/librarian/report_download_oedermagazine">Order Periodical Download</a></li>
-                            <li><a href="report_download_order_magazine">Report Download Order Periodical</a></li>
+                            <li><a href="/librarian/report_download_order_magazine">Report Download Order Periodical</a></li>
+                            <li><a href="/librarian/magazine_dispatch_report">Periodical Dispatch Report</a></li> 
+                            <li><a href="/librarian/lbrary_dispatch_report">Library  Dispatch Report</a></li> 
 
                         </ul>
                     </li>
@@ -446,7 +448,10 @@
                             <span class="nav-text">Quote Management</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/librarian/order_scheme">Orders Scheme</a></li>
+                        
+                        <li><a href="/librarian/book_order_scheme">Book Orders Scheme</a></li>
+
+                            <li><a href="/librarian/order_scheme">Megazine Orders Scheme</a></li>
                             <!-- <li><a href="/librarian/cart_books">Cart Books</a></li>
 							<li><a href="/librarian/quote_pending">Pending Quote</a></li>							
 							<li><a href="/librarian/quote_reject_list">Cancelled Quote</a></li>
@@ -468,15 +473,15 @@
                             <span class="nav-text">Order Management</span>
                         </a>
                         <ul aria-expanded="false">
-                            <!-- <li><a class="has-arrow" href="#" aria-expanded="false">Book Orders
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Book Order
                                 </a>
                                     <ul aria-expanded="false">
-                                        <li><a href="/librarian/book_order_list">Received  Order</a></li>
-										<li><a href="/librarian/book_order_pending">Pending Order</a></li>							
+                                        <li><a href="/librarian/book_order_list">Order List </a></li>
+										<!-- <li><a href="/librarian/book_order_pending">Pending Order</a></li>							 -->
 										<li><a href="/librarian/book_order_cancel_list">Cancelled Order</a></li>
-										<li><a href="../website/">Visit Book Store</a></li>
+										<!-- <li><a href="../website/">Visit Book Store</a></li> -->
                                     </ul>
-                            </li> -->
+                            </li>
                             <li><a class="has-arrow" href="#" aria-expanded="false">Periodical Order
                                 </a>
                                 <ul aria-expanded="false">
@@ -495,7 +500,7 @@
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-blockquote-left"></i>
-                        <span class="nav-text">Dispatch Periodical</span>
+                        <span class="nav-text">Despatch Periodical</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/librarian/dispatch-year-list">Periodical List</a></li>
@@ -505,22 +510,39 @@
                     @endif
 
                     @if(auth('librarian')->user()->metaChecker =="yes")
-                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                            <i class="bi bi-card-checklist"></i>
+              
+                    <li>
+                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-bag"></i>
                             <span class="nav-text">Meta Management</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/librarian/meta_book_list">Meta Book Check List</a></li>
-                            <li><a href="/librarian/meta_pending">Pending Book</a></li>
-                            <li><a href="/librarian/meta_complete_book_list">Completed Book</a></li>
-                            <li><a href="/librarian/meta_return">Return Book</a></li>
-                            <li><a href="/librarian/meta_update_return">Return Updated Book</a></li>
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Book Meta
+                                </a>
+                                    <ul aria-expanded="false">
+                                    <li><a href="/librarian/meta_book_list">Meta Book Check List</a></li>
+                                    <li><a href="/librarian/meta_pending">Pending Book</a></li>
+                                    <li><a href="/librarian/meta_complete_book_list">Completed Book</a></li>
+                                    <li><a href="/librarian/meta_return">Return Book</a></li>
+                                    <li><a href="/librarian/meta_update_return">Return Updated Book</a></li>
 
-                            <li><a href="/librarian/meta_reject">Reject Book</a></li>
+                                     <li><a href="/librarian/meta_reject">Reject Book</a></li>
+                                    </ul>
+                            </li>
+                            <li><a class="has-arrow" href="#" aria-expanded="false">Periodical Meta
+                                </a>
+                                <ul aria-expanded="false">
+                                <li><a href="/librarian/meta_periodical_list">Meta Periodical Check List</a></li>
+                            <li><a href="/librarian/meta_periodical_pending">Pending Periodical</a></li>
+                            <li><a href="/librarian/meta_complete_periodical_list">Completed Periodical</a></li>
+                            <li><a href="/librarian/meta_periodical_return">Return Periodical</a></li>
+                            <li><a href="/librarian/meta_periodical_update_return">Return Updated Periodical</a></li>
 
+                            <li><a href="/librarian/meta_periodical_reject">Reject Periodical</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
-
 
 
                     @endif

@@ -91,6 +91,7 @@
         <tr>
             <th>S.No</th>
             <th>Book Title</th>
+            <th>Language</th>
             <th>Category</th>
             <th>Quantity</th>
             <th>Amount</th>
@@ -107,13 +108,14 @@
             <tr>
                 <td>{{ $loop->index +1 }}</td>
                 <td>{{ $val->title }}</td>
+                <td>{{ $val->Type }}</td>
                 <td>{{ $val->category }}</td>
                 <td>{{ $val->quantity }}</td>
                 <td>{{ $val->totalAmount }}</td>
             </tr>
         @endforeach
         <tr>
-    <td colspan="4" style="text-align: right; font-weight: bold;">Total:</td>
+    <td colspan="5" style="text-align: right; font-weight: bold;">Total:</td>
     <td style="font-weight: bold;">{{ $totalAmount }}</td>
 </tr>
 

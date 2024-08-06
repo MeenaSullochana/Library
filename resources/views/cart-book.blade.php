@@ -14,12 +14,67 @@
     ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+
+     
+.loading-bar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.spinner-border {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 1.5em;
+    color: #333;
+}   
         /* @property --p {
       syntax: '<number>';
       inherits: true;
       initial-value: 0;
    } */
+   .quantity-container {
+    display: flex;
+    align-items: center;
+}
 
+.cart-minus,
+.cart-plus {
+    font-size: 20px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+.cart-input {
+    width: 50px;
+    text-align: center;
+    margin: 0 10px;
+    border: none;
+    background: none;
+}
         .pie {
             --p: 20;
             --b: 22px;
@@ -82,10 +137,27 @@
         h3.main-bg.text-white {
             background-color: #030355;
         }
+
+        body {
+    font-family: Arial, sans-serif;
+}
+
+#content {
+    text-align: center;
+    padding: 20px;
+}
+
+
     </style>
 </head>
-
+<div id="loadingBar2" class="loading-bar" style="display: none;">
+                           <div class="spinner-border" role="status">
+                          <span class="sr-only">Loading...</span>
+                         </div>
+                <div class="loading-text">Loading...</div>
+     </div>
 <body>
+
     <!-- Scroll-top -->
     <button class="scroll-top scroll-to-target" data-target="html">
         <i class="icon-chevrons-up"></i>
@@ -144,6 +216,8 @@
                                         <div class="card-header">
                                             <p style="font-size:14px;" class="card-title text-center">
                                                 {{ $val->category }}</p>
+                                                <p style="font-size:14px;" class="card-title text-center">Language
+                                                <small> {{ $val->Type }}</small></p>
                                             <p style="font-size:14px;" class="card-title text-center">Total Amount
                                                 <small> ₹{{ $val->budget_price }}</small></p>
 
@@ -191,7 +265,8 @@
                             <thead>
                                 <tr>
                                     <th class="product-thumbnail">Images</th>
-                                    <th class="cart-product-name">Magazine Title</th>
+                                    <th class="cart-product-name">Book Title</th>
+                                    <th class="cart-product-name">Language</th>
                                     <th class="cart-product-name">Subject</th>
                                     <th class="product-price">Unit Price</th>
                                     <th class="product-quantity">Quantity</th>
@@ -214,8 +289,11 @@
                                                         alt="">
                                                 </a>
                                             </td>
-                                            <td class="product-name">
+                                            <td class="product-name" style="white-space:normal;">
                                                 <a href="#">{{ $val->title }}</a>
+                                            </td>
+                                            <td class="product-name">
+                                                <a href="#">{{ $val->Type }}</a>
                                             </td>
                                             <td>
                                                 {{ $val->category }}
@@ -224,12 +302,12 @@
                                                 <span class="amount">₹{{ $val->amount }}</span>
                                             </td>
                                             <td class="product-quantity">
-                                                <span class="cart-minus">-</span>
-                                                <input class="cart-input" value="{{ $val->quantity }}"
-                                                    data-id="{{ $val->id }}" id="catval" disabled>
-
-                                                <span class="cart-plus">+</span>
-                                            </td>
+    <div class="quantity-container">
+        <span class="cart-minus">-</span>
+        <input class="cart-input" value="{{ $val->quantity }}" data-id="{{ $val->id }}" id="catval" disabled>
+        <span class="cart-plus">+</span>
+    </div>
+</td>
                                             <td class="product-subtotal">
                                                 <span class="amount">₹{{ $val->totalAmount }}</span>
                                             </td>
@@ -487,6 +565,9 @@
                     <input type="hidden" id="budgetValue">
                     <input type="hidden" id="categoryValue">
                     <input type="hidden" id="messageValue">
+                    <input type="hidden" id="languageValue">
+
+                    
 
 
                     <div class="form-check">
@@ -528,6 +609,7 @@
                 <input type="hidden" id="categoryValue2">
                 <input type="hidden" id="messageValue2">
                 <input type="hidden" id="amount2">
+                <input type="hidden" id="languageValue22">
 
 
                 <div class="modal-body">
@@ -645,8 +727,8 @@
                 var categoryValue = $('#categoryValue').val();
                 var messageValue = $('#messageValue').val();
                 var status = '0';
-
-
+                var language = $('#languageValue').val();
+             
                 if ($('input[name="yesNoRadio"]:checked').length === 0) {
                     toastr.error('Please select an option', {
                         timeout: 2000
@@ -660,14 +742,14 @@
                         }
                     });
                     $.ajax({
-                        url: '/budgetcategurystatus',
+                        url: '/budgetcategurybook',
                         method: 'POST',
                         data: {
                             budget: budgetValue,
                             category: categoryValue,
                             status: status,
                             messageValue: messageValue,
-
+                            language: language,
 
                         },
                         success: function(response) {
@@ -695,8 +777,10 @@
                 var budgetValue = $('#budgetValue').val();
                 var categoryValue = $('#categoryValue').val();
                 var messageValue = $('#messageValue').val();
+                var language = $('#languageValue22').val();
                 var amount2 = $('#amount2').val();
-
+              
+            
                 if ($('input[name="overflow_amount"]:checked').length === 0) {
                     toastr.error('Please select an option', {
                         timeout: 2000
@@ -711,7 +795,7 @@
                         }
                     });
                     $.ajax({
-                        url: '/budgetcategurystatus',
+                        url: '/budgetcategurybook',
                         method: 'POST',
                         data: {
                             budget: budgetValue,
@@ -719,7 +803,7 @@
                             status: status,
                             messageValue: messageValue,
                             amount2: amount2,
-
+                            language: language,
 
                         },
                         success: function(response) {
@@ -750,6 +834,8 @@
     <script>
         $(document).ready(function() {
             $('#Checkout111id').on('click', function() {
+                 $('#exampleModal').hide(); 
+                 $('#loadingBar2').show(); 
                 $('#Checkout111id').prop('disabled',true);
                 // $('#exampleModal').modal('hide'); 
                 var door_no = $('#door_no').val();
@@ -787,23 +873,28 @@
                 });
 
                 $.ajax({
-                    url: '/magazineCheckout',
+                    url: '/bookCheckout',
                     method: 'post',
                     data: fd,
                     processData: false,
                     contentType: false,
                     success: function(response) {
                         if (response.success) {
+                           
+                            $('#loadingBar2').hide(); 
+                           
                             toastr.success(response.success, {
                                 timeout: 2000
                             });
                             setTimeout(function() {
-                                window.location.href = "/cart-magazine"
+                                window.location.href = "/cart-book"
                             }, 3000);
 
                         } else {
                             $('#Checkout111id').prop('disabled',false);
-
+                          
+                            $('#loadingBar2').hide(); 
+                            $('#exampleModal').show(); 
                             toastr.error(response.error, {
                                 timeout: 2000
                             });
@@ -815,6 +906,8 @@
                     },
                     error: function(xhr, status, error) {
                         $('#Checkout111id').prop('disabled',false);
+                        $('#loadingBar2').hide(); 
+                        $('#exampleModal').show(); 
 
                         console.error(error);
                         toastr.error('An error occurred while processing your request.', {
@@ -837,7 +930,7 @@
                 });
 
                 $.ajax({
-                    url: '/magazineCheckout',
+                    url: '/bookCheckout',
                     method: 'POST',
                     data: {
                         specialcat: '0',
@@ -868,15 +961,19 @@
                                         .category;
                                     document.getElementById('messageValue').value = response
                                         .error;
-
+                                        document.getElementById('languageValue').value = response
+                                        .language;
+                                        document.getElementById('languageValue22').value = response
+                                        .language;
                                     document.getElementById('budgetValue2').value = response
                                         .budgetid;
                                     document.getElementById('categoryValue2').value = response
                                         .category;
                                     document.getElementById('messageValue2').value = response
                                         .error;
+                               
                                     document.getElementById('amount2').value = response.amount;
-
+                               
 
                                 } else {
                                     toastr.error(response.error, {

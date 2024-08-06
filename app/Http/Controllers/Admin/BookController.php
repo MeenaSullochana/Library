@@ -26,8 +26,13 @@ use App\Models\Distributor;
 use App\Models\PublisherDistributor;
 use App\Models\bookcopies;
 use DB;
+use App\Models\Magazine;
 
 use App\Models\Booksubject;
+use App\Models\Procurementpaymrnt;
+use App\Models\PeriodicalReviewStatus;
+
+
 
 use Illuminate\Support\Facades\Session;
 
@@ -228,6 +233,8 @@ class BookController extends Controller
     }
 
     $data = $query->get();
+
+    
     $existingBooks = Book::where("book_procurement_status", '=', 1)
       ->pluck('book_title');
     $existingbookisbn = Book::where("book_procurement_status", '=', 1)
@@ -342,7 +349,7 @@ class BookController extends Controller
 
     foreach ($rev as $key => $val) {
       $rec = json_decode($val->subject, true); // Decode the JSON string to an array
-
+   
       if (in_array($role, $rec)) {
 
         // Prepare the HTML for each record based on the conditions
@@ -380,7 +387,7 @@ class BookController extends Controller
       }
     }
 
-
+     
 
     return response()->json(['success' => $tbodyHtml, 'success2' => $tbodyHtml2]);
   }
@@ -1484,8 +1491,11 @@ class BookController extends Controller
       'bookid' => $req->bookid
     ];
 
-    \Session::put('reviewer', $reviewer);
-
+    if (\Session::has('reviewer')) {
+      \Session::forget('reviewer');
+  }
+  \Session::put('reviewer', $reviewer);
+  
     $data = [
       'success' => 'Reviewer Delete Successfully',
     ];
@@ -1581,11 +1591,11 @@ class BookController extends Controller
 
   //   return view('admin.master_book_data')->with('data',$data); 
 
-  // }
-  public function master_book_data(Request $request)
-  {
-    // Use eager loading to reduce the number of queries
-    $query = Book::with('librarian');
+// }
+public function master_book_data(Request $request) {
+
+  // Use eager loading to reduce the number of queries
+  $query = Book::with('librarian');
 
     // Apply filters
     if ($request->has('language_filter') && $request->language_filter != '') {
@@ -1606,10 +1616,15 @@ class BookController extends Controller
       } else {
         $query->whereNotIn('book_procurement_status', ['1', '5', '6']);
       }
-    }
+  }
 
-    if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
-
+  if ($request->has('mark_range') && $request->mark_range != '') {
+    list($min, $max) = explode('-', $request->mark_range);
+    $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
+  
+  if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
+  
 
       switch ($request->metachecking_filter) {
         case 'Success':
@@ -1625,17 +1640,43 @@ class BookController extends Controller
           $query->where('book_status', '3');
           break;
         case 'No Review':
-          $query->where('book_status', null);
-          break;
-      }
+            $query->where('book_status', null);
+            break;
     }
+}
+if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
+  
 
+  switch ($request->negostatus_filter) {
+      case 'Negotiation from admin':
+          $query->where('negotiation_status', '0');
+          break;
+      case 'Negotiation from user':
+          $query->where('negotiation_status', '1');
+          break;
+      case 'Accepted':
+          $query->where('negotiation_status', '2');
+          break;
+      case 'Rejected':
+          $query->where('negotiation_status', '3');
+          break;
+      case 'Hold':
+            $query->where('negotiation_status', '4');
+            break;
+      case 'No negotiation':
+          $query->where('negotiation_status', null);
+          break;
+  }
+}
 
     if ($request->has('search') && $request->search != '') {
       $query->where('book_title', 'like', '%' . $request->search . '%')
-        ->orWhere('product_code', 'like', '%' . $request->search . '%')
-        ->orWhere('isbn', 'like', '%' . $request->search . '%');
-    }
+      ->orWhere('product_code', 'like', '%' . $request->search . '%')
+      ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+      ->orWhere('language', 'like', '%' . $request->search . '%')
+      ->orWhere('marks', 'like', '%' . $request->search . '%')
+            ->orWhere('isbn', 'like', '%' . $request->search . '%');
+  }
 
     $data = $query->paginate(15); // Adjust the number of records per page as needed
 
@@ -1645,16 +1686,37 @@ class BookController extends Controller
       "0" => "Reject",
       "2" => "Returned To User Correction",
       "3" => "Book Update To Return"
-    ];
-
-    foreach ($data as $val) {
+  ];
+  $negobookStatus = [
+    "0" => "Negotiation from admin",
+   "1" => "Negotiation from user",
+   "2" => "Accepted",
+   "3" => "Rejected",
+   "4" => "Hold"
+];
+  foreach ($data as $val) {
       $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
       $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
       $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+      $val->negostatus = $negobookStatus[$val->negotiation_status] ?? "No negotiation";
+
+    }
+    foreach ($data as $val) {
+  
+      $procurementPayment = Procurementpaymrnt::whereJsonContains('bookid', $val->id)->first();
+      
+      if($procurementPayment !=null){
+        $val->paymentdate = $procurementPayment->created_at->format('d-m-Y');
+      }else{
+        $val->paymentdate = 'No Date';
+
+      }
+
     }
 
-    return view('admin.master_book_data', compact('data'));
-  }
+  
+  return view('admin.master_book_data', compact('data'));
+}
 
 
   public function reviewer_reviewrec()
@@ -1856,10 +1918,13 @@ class BookController extends Controller
       } else {
         $query->whereNotIn('book_procurement_status', ['1', '5', '6']);
       }
-    }
-
-    if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
-
+  }
+  if ($request->has('mark_range') && $request->mark_range != '') {
+    list($min, $max) = explode('-', $request->mark_range);
+    $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
+  if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
+  
 
       switch ($request->metachecking_filter) {
         case 'Success':
@@ -1869,23 +1934,50 @@ class BookController extends Controller
           $query->where('book_status', '0');
           break;
         case 'Returned To User Correction':
-          $query->where('book_status', '2');
-          break;
-        case 'Book Update To Return':
-          $query->where('book_status', '3');
-          break;
+            $query->where('book_status', '2');
+            break;
+        case 'Hold':
+            $query->where('book_status', '3');
+            break;
         case 'No Review':
-          $query->where('book_status', null);
-          break;
-      }
+            $query->where('book_status', null);
+            break;
     }
+}
+if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
+  
 
+  switch ($request->negostatus_filter) {
+      case 'Negotiation from admin':
+          $query->where('negotiation_status', '0');
+          break;
+      case 'Negotiation from user':
+          $query->where('negotiation_status', '1');
+          break;
+      case 'Accepted':
+          $query->where('negotiation_status', '2');
+          break;
+      case 'Rejected':
+          $query->where('negotiation_status', '3');
+          break;
+      case 'Hold':
+            $query->where('negotiation_status', '4');
+            break;
+      case 'No negotiation':
+          $query->where('negotiation_status', null);
+          break;
+  }
+}
 
     if ($request->has('search') && $request->search != '') {
       $query->where('book_title', 'like', '%' . $request->search . '%')
-        ->orWhere('product_code', 'like', '%' . $request->search . '%')
-        ->orWhere('isbn', 'like', '%' . $request->search . '%');
-    }
+      ->orWhere('product_code', 'like', '%' . $request->search . '%')
+      ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+      ->orWhere('language', 'like', '%' . $request->search . '%')
+      ->orWhere('marks', 'like', '%' . $request->search . '%')
+
+            ->orWhere('isbn', 'like', '%' . $request->search . '%');
+  }
 
     $data = $query->get(); // Adjust the number of records per page as needed
 
@@ -1897,12 +1989,32 @@ class BookController extends Controller
       "3" => "Book Update To Return"
     ];
 
-    foreach ($data as $val) {
+
+  $negobookStatus = [
+       "0" => "Negotiation from admin",
+      "1" => "Negotiation from user",
+      "2" => "Accepted",
+      "3" => "Rejected",
+      "4" => "Hold"
+  ];
+  foreach ($data as $val) {
       $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
       $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
       $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+      $val->negostatus = $negobookStatus[$val->negotiation_status] ?? "No negotiation";
+  }
+  foreach ($data as $val) {
+  
+    $procurementPayment = Procurementpaymrnt::whereJsonContains('bookid', $val->id)->first();
+    
+    if($procurementPayment !=null){
+      $val->paymentdate = $procurementPayment->created_at->format('d-m-Y');
+    }else{
+      $val->paymentdate = 'No Date';
+
     }
 
+  }
 
 
     $actotal = 0;
@@ -1913,47 +2025,56 @@ class BookController extends Controller
 
 
 
+    
+         $finaldata[] = [
+            'S.No' =>  $serialNumber ++,
+            "Book ID"=> $val->product_code,
+            "Book Title"=> $val->book_title,
+            "Book ISBN"=> $val->isbn,
+            "Language of the Book"=> $val->language,
+            "Author Details"=> $val->author_name,
+            "Edition Number"=> $val->edition_number,
+            "Name of Publisher"=> $val->nameOfPublisher,
+            "Year of Publication"=> $val->yearOfPublication,
+            "Place of Publication"=> $val->place,
+            "Subject"=> $val->subject,
+            "Category"=> $val->category,
+            "Binding"=> $val->type,
+            "Size "=> $val->size,
+            "Length x Breadth(in Centimeters)"=> $val->length  *  $val->breadth,
+            "Width(in Centimeters) "=> $val->width,
+            "Weight(in grams)"=> $val->weight,
+            "GSM (Number)"=> $val->gsm,
+            "Type of Paper"=> $val->quality,
+            "Paper Finishing"=> $val->paper_finishing,
+            "Total Number of Pages"=> $val->pages,
+            "Number of Multicolor Pages"=> $val->multicolor,
+            "Number of Mono Color Pages"=> $val->monocolor,
+            "Currency Type"=> $val->currency_type,
+            "Price"=> $val->price,
+            "Discount Offer(%)"=>$val->discount ,
+            "Discounted Price"=> $val->discountedprice,
+            "Payment Status "=> $val->paystatus,
+            "Payment Date "=> $val->paymentdate,
+            "Meta checking Status "=> $val->revstatus,
+            "Meta checker Name"=> $val->reviewername,
+            "Marks"=> $val->marks,
+            "Negotiation Status"=> $val->negostatus,
 
-      $finaldata[] = [
-        'S.No' =>  $serialNumber++,
-        "Book ID" => $val->product_code,
-        "Book Title" => $val->book_title,
-        "Book ISBN" => $val->isbn,
-        "Language of the Book" => $val->language,
-        "Author Details" => $val->author_name,
-        "Edition Number" => $val->edition_number,
-        "Name of Publisher" => $val->nameOfPublisher,
-        "Year of Publication" => $val->yearOfPublication,
-        "Place of Publication" => $val->place,
-        "Subject" => $val->subject,
-        "Category" => $val->category,
-        "Binding" => $val->type,
-        "Size " => $val->size,
-        "Length x Breadth(in Centimeters)" => $val->length  *  $val->breadth,
-        "Width(in Centimeters) " => $val->width,
-        "Weight(in grams)" => $val->weight,
-        "GSM (Number)" => $val->gsm,
-        "Type of Paper" => $val->quality,
-        "Paper Finishing" => $val->paper_finishing,
-        "Total Number of Pages" => $val->pages,
-        "Number of Multicolor Pages" => $val->multicolor,
-        "Number of Mono Color Pages" => $val->monocolor,
-        "Currency Type" => $val->currency_type,
-        "Price" => $val->price,
-        "Discount Offer(%)" => $val->discount,
-        "Discounted Price" => $val->discountedprice,
-        "Payment Status " => $val->paystatus,
-        "Meta checking Status " => $val->revstatus,
-        "Meta checker Name" => $val->reviewername,
+            
+                                      
+        ];
+      
 
-      ];
-    }
 
-    $csvContent = "\xEF\xBB\xBF";
-    $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status ,Meta checking Status,Meta checker Name\n";
-    foreach ($finaldata as $data) {
-      $csvContent .= '"' . implode('","', $data) . "\"\n";
-    }
+      
+     }
+     
+     $csvContent ="\xEF\xBB\xBF"; 
+     $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status,Payment Date ,Meta checking Status,Meta checker Name,Mark,Negotiation Status\n"; 
+     foreach ($finaldata as $data) {
+         $csvContent .= '"' . implode('","', $data) ."\"\n";
+     }
 
     $headers = [
       'Content-Type' => 'text/csv; charset=utf-8',
@@ -2478,16 +2599,23 @@ class BookController extends Controller
 
     if ($request->has('category_filter') && $request->category_filter != '') {
       $query->where('category', $request->category_filter);
-    }
-
-    if ($request->has('search') && $request->search != '') {
+  } 
+   if ($request->has('mark_range') && $request->mark_range != '') {
+    list($min, $max) = explode('-', $request->mark_range);
+    $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
+  if ($request->has('search') && $request->search != '') {
       $query->where('book_title', 'like', '%' . $request->search . '%')
-        ->orWhere('product_code', 'like', '%' . $request->search . '%')
-        ->orWhere('isbn', 'like', '%' . $request->search . '%');
-    }
-    $query->where('marks', '>=', 40)->where('negotiation_status', '=', null)
-      ->orderBy('marks', 'desc');
-    $data = $query->paginate(15);
+      ->orWhere('product_code', 'like', '%' . $request->search . '%')
+      ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+      ->orWhere('language', 'like', '%' . $request->search . '%')
+      ->orWhere('marks', 'like', '%' . $request->search . '%')
+
+            ->orWhere('isbn', 'like', '%' . $request->search . '%');
+  }
+  $query->where('marks', '>=', 40)->where('negotiation_status','=', null)
+  ->orderBy('marks', 'desc');
+$data = $query->paginate(15);
 
     $procurementStatuses = ["1", "5", "6"];
     $bookStatusLabels = [
@@ -2523,17 +2651,24 @@ class BookController extends Controller
 
     if ($request->has('category_filter') && $request->category_filter != '') {
       $query->where('category', $request->category_filter);
-    }
-
+  }
+  if ($request->has('mark_range') && $request->mark_range != '') {
+    list($min, $max) = explode('-', $request->mark_range);
+    $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
 
     if ($request->has('search') && $request->search != '') {
       $query->where('book_title', 'like', '%' . $request->search . '%')
-        ->orWhere('product_code', 'like', '%' . $request->search . '%')
-        ->orWhere('isbn', 'like', '%' . $request->search . '%');
-    }
-    $query->where('marks', '>=', 40)->where('negotiation_status', '=', null)
-      ->orderBy('marks', 'desc');
-    $data = $query->get();
+      ->orWhere('product_code', 'like', '%' . $request->search . '%')
+      ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+      ->orWhere('language', 'like', '%' . $request->search . '%')
+      ->orWhere('marks', 'like', '%' . $request->search . '%')
+
+            ->orWhere('isbn', 'like', '%' . $request->search . '%');
+  }
+  $query->where('marks', '>=', 40)->where('negotiation_status','=', null)
+  ->orderBy('marks', 'desc');
+  $data = $query->get(); 
 
     $procurementStatuses = ["1", "5", "6"];
     $bookStatusLabels = [
@@ -2772,9 +2907,514 @@ class BookController extends Controller
       return $this->processBookTitle($title);
     });
 
-    foreach ($categori as $val) {
-      $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks, $existingisbn);
-    }
-    return view('admin.negotiation_list')->with('categori', $categori);
-  }
+foreach ($categori as $val) {
+$val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
 }
+return view('admin.negotiation_list')->with('categori', $categori);
+
+}
+
+
+public function reviewbook(){
+  $data = BookReviewStatus::groupBy('book_id')->get('book_id');
+  $record = [];
+  $allthree=0;
+  $exp_lib=0;
+  $exp_pub=0;
+  $lib_pub = 0;
+  $exp=0;
+  $lib=0;
+  $pub=0;
+  $notyetreviewed=0;
+  foreach($data as $key=>$val){
+ 
+  
+
+    $data1 = BookReviewStatus::where('book_id',$val->book_id)->where('mark','!=',null)->get();
+    if(sizeof($data1) != 0){
+       $book = Book::find($val->book_id);
+       $internalcount= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','internal')->count();
+       $externalcount= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','external')->count();
+       $publiccount= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','public')->count();
+       $rinternalcount= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','internal')->where('mark','!=',null)->count();
+       $rexternalcount= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','external')->where('mark','!=',null)->count();
+       $rpubliccount= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','public')->where('mark','!=',null)->count();
+       $suminternal= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','internal')->where('mark','!=',null)->sum('mark');
+       $sumexternal= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','external')->where('mark','!=',null)->sum('mark');
+       $sumpublic= BookReviewStatus::where('book_id',$val->book_id)->where('reviewertype','public')->where('mark','!=',null)->sum('mark');
+       if(($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+              $exp = $exp+1;
+    
+}else if(($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+  $lib = $lib+1;
+}else if(($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)){
+  $pub = $pub+1;
+}else if($externalcount == 0 || $rexternalcount == 0){
+  $lib_pub =  $lib_pub+1;
+}else if($internalcount == 0 || $rinternalcount == 0){
+  $exp_pub=  $exp_pub+1; 
+}else if($publiccount == 0 || $rpubliccount == 0){
+  $exp_lib=$exp_lib +1;
+}else{
+  $allthree= $allthree +1;
+} 
+   }else{
+    $notyetreviewed = $notyetreviewed + 1;
+   }
+  }
+
+
+
+  $finaldata = [];
+
+
+     
+ 
+      $finaldata[] = [
+         'S.No' => 1,
+         'Allthree' =>    $allthree,
+         'exp_lib' =>   $exp_lib,
+         'exp_pub ' =>  $exp_pub,
+         'lib_pub' =>   $lib_pub,
+         'exp' =>   $exp,
+         'lib' =>  $lib,
+         'pub' =>  $pub,
+         'notyet' =>  $notyetreviewed,
+         'Total Book' =>count($data)
+         
+     ];
+   
+  
+  $csvContent ="\xEF\xBB\xBF"; 
+  $csvContent .= "S.No,All Three Review, Expert And Librarian,Expert And Public,Librarian And Public,Expert,Librarian,Public,No Review Book,Total Book Assign\n"; 
+  foreach ($finaldata as $data) {
+      $csvContent .= '"' . implode('","', $data) ."\"\n";
+  }
+
+  $headers = [
+      'Content-Type' => 'text/csv; charset=utf-8',
+      'Content-Disposition' => 'attachment; filename="Report.csv"',
+  ];
+
+  return response()->make($csvContent, 200, $headers);
+
+
+}
+
+
+
+public function bookreassign_data(Request $req)
+{
+
+  $validator = Validator::make($req->all(), [
+
+    'bookId' => 'required|array|min:1',
+  
+  ]);
+
+  if ($validator->fails()) {
+    $data = [
+      'error' => $validator->errors()->first(),
+    ];
+    return response()->json($data);
+  }
+  if (!empty($req->LibrarianReviewverId) || !empty($req->expectReviewverId) || !empty($req->publicReviewverId)) {
+    
+    $bookId = $req->bookId;
+  
+    $internalReviewverId = $req->LibrarianReviewverId;
+    $externalReviewverId = $req->expectReviewverId;
+  
+    $publicReviewverId = $req->publicReviewverId;
+    $mergedArray = array_merge(
+      array_filter($internalReviewverId ?? [], fn($value) => $value !== null && $value !== ''),
+      array_filter($externalReviewverId ?? [], fn($value) => $value !== null && $value !== ''),
+      array_filter($publicReviewverId ?? [], fn($value) => $value !== null && $value !== '')
+  );
+  
+
+      foreach ($bookId as $key => $val1) {
+  
+      foreach ($mergedArray as $key => $val) {
+        $rev = Reviewer::where("id", '=', $val)->first();
+        $revdata = BookReviewStatus::where("reviewer_id", '=', $rev->id)->where("book_id", '=',  $bookId[0])->first();
+         
+         if( $revdata == null){
+          $bookreview = new BookReviewStatus();
+          $bookreview->book_id = $val1;
+          $bookreview->reviewer_id = $rev->id;
+          $bookreview->reviewertype = $rev->reviewerType;
+          $bookreview->save();
+         }
+     
+      }
+    }
+  
+    foreach ($mergedArray as $key => $val) {
+      $notifi = new Notifications();
+      $notifi->message = "Book Assigned For Review";
+      $notifi->to = $val;
+      $notifi->from = auth('admin')->user()->id;
+      $notifi->type = "reviewer";
+      $notifi->save();
+    }
+    $avginternal = 0;
+    $avgexternal = 0;
+    $avgpublic = 0;
+
+    $data1 = BookReviewStatus::where('book_id', $bookId[0])->where('mark', '!=', null)->get();
+
+    if (sizeof($data1) != 0) {
+      $book = Book::find($bookId[0]);
+      dd($book);
+      $internalcount = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'internal')->count();
+      $externalcount = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'external')->count();
+      $publiccount = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'public')->count();
+      $rinternalcount = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'internal')->where('mark', '!=', null)->count();
+      $rexternalcount = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'external')->where('mark', '!=', null)->count();
+      $rpubliccount = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'public')->where('mark', '!=', null)->count();
+      $suminternal = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
+      $sumexternal = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
+      $sumpublic = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
+      if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+        $mark = ($sumexternal / ($externalcount * 20)) * 100;
+      } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+        $mark = ($suminternal / ($internalcount * 20)) * 100;
+      } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
+        $mark = ($sumpublic / ($publiccount * 20)) * 100;
+      } else if ($externalcount == 0 || $rexternalcount == 0) {
+        $mark = (($suminternal / ($internalcount * 20)) * 50) + (($sumpublic / ($publiccount * 20)) * 50);
+      } else if ($internalcount == 0 || $rinternalcount == 0) {
+        $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($sumpublic / ($publiccount * 20)) * 30);
+      } else if ($publiccount == 0 || $rpubliccount == 0) {
+        $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($suminternal / ($internalcount * 20)) * 30);
+      } else {
+        $mark = (($sumexternal / ($externalcount * 20)) * 60) + (($suminternal / ($internalcount * 20)) * 20) + (($sumpublic / ($publiccount * 20)) * 20);
+      }
+      $book->marks = $mark;
+      $book->save();
+    }
+
+    $external =  BookReviewStatus::where('book_id', '=', $bookId[0])->where('reviewertype', '=', 'external')->get();
+    $internal =  BookReviewStatus::where('book_id', '=', $bookId[0])->where('reviewertype', '=', 'internal')->get();
+    $public =  BookReviewStatus::where('book_id', '=', $bookId[0])->where('reviewertype', '=', 'public')->get();
+    $reviewer = (object)[
+      'external' => $external,
+      'internal' => $internal,
+      'public' => $public,
+      'bookid' => $bookId[0]
+    ];
+    if (\Session::has('reviewer')) {
+      \Session::forget('reviewer');
+  }
+  \Session::put('reviewer', $reviewer);
+  
+    $data = [
+      'success' => 'Book Reassigned Successfully',
+    ];
+    return response()->json($data);
+ 
+  } else {
+    $data = [
+      'error' => 'Select  any one reviewer',
+    ];
+    return response()->json($data);
+}
+ 
+  
+}
+// 
+
+public function get_periodicals($id)
+{
+ 
+  if ($id == 'all') {
+    $Magazines = Magazine::where('periodical_procurement_status', '=', '1')->where('periodical_status', '=', '1')->whereNotNull('periodical_reviewer_id')
+    ->get();
+  } else {
+    $Magazines = Magazine::where('category', $id)->where('periodical_procurement_status', '=', '1')->where('periodical_status', '=', '1')->whereNotNull('periodical_reviewer_id')
+    ->get();
+  }
+  
+  $reviewers1 = Reviewer::where('reviewerType', '=', 'external')
+    ->where('status', '=', 1)
+    ->get();
+
+  $reviewers = [];
+  $cat1 = $Magazines[0]->category;
+    foreach ($reviewers1 as $val) {
+      $categories = json_decode($val->per_category, true);
+
+      if (is_array($categories) && in_array($cat1, $categories)) {
+        $reviewers[] = $val;
+      }
+    }
+
+
+
+  $html = '';
+  $htmldata = '';
+
+  if ($Magazines->isEmpty()) {
+    $html = '<tr><td colspan="3">No books found.</td></tr>';
+  } else {
+    $i = 0;
+    foreach ($Magazines as $key => $val) {
+      $datass = PeriodicalReviewStatus::where('periodical_id', $val->id)->first();
+      
+      if ($datass == null) {
+          $language = $val->language;
+        $i = $i + 1;
+        $html .= '<tr>
+                  <td>
+                  <div class="form-check custom-checkbox checkbox-success check-lg me-3">
+                  <input type="checkbox" class="form-check-input bookitem" id="checkItem_' . $val->id . '" data-book-id="' . $val->id . '" required="">
+                  <label class="form-check-label" for="checkItem_' . $val->id . '"></label>
+              </div>
+                  </td>
+                  <td>' . ($i) . '</td>
+                  <td><small>' . $val->title . '</small></td>
+                   <td>' . $val->periodicity . '</td>
+                  <td>' . $language . '</td>
+                     <td>' . $val->category . '</td>
+                  <td>' . $val->publisher_name . '</td>
+              </tr>';
+      }
+      
+  }
+
+  if (count($reviewers) <= 0) {
+
+    $htmldata = '<tr><td colspan="3">No external reviewers found.</td></tr>';
+  } else {
+
+
+    foreach ($reviewers as $key => $val) {
+
+      $categories = json_decode($val->per_category, true);
+
+      $recdata = '';
+
+      if (is_array($categories)) {
+        foreach ($categories as $category) {
+          $recdata .= htmlspecialchars($category) . ' ,';
+        }
+      }
+
+
+      $htmldata .= '<tr>
+              <td>
+              <div class="form-check custom-checkbox checkbox-success check-lg me-3">
+              <input type="checkbox" class="form-check-input externel" id="checkItem_' . $val->id . '" data-externel-id="' . $val->id . '" required="">
+              <label class="form-check-label" for="customCheckBox2" value="' . $val->id . '"></label>
+              </div>
+              </td>
+              <td>' . ($key + 1) . '</td>
+              <td>' . $val->name . '</td>
+              <td>' . trim($recdata) . '</td>
+
+          </tr>';
+    }
+  }
+
+  $tbodyHtml2 = '';
+  $index1 = 1;
+  if ($Magazines[0]->category == null) {
+    $tbodyHtml2 = '<tr><td colspan="3">No Librarian reviewers found.</td></tr>';
+  } else {
+
+
+    $cat = $Magazines[0]->category;
+    $internalsdat = Reviewer::where('reviewerType', '=', 'internal')
+      ->where('status', '=', 1)
+      ->get();
+    $internalsdat1 = [];
+    foreach ($internalsdat as $val) {
+      $categories = json_decode($val->per_category, true);
+
+      if (is_array($categories) && in_array($cat, $categories)) {
+        $internalsdat1[] = $val;
+      }
+    }
+
+    if (count($internalsdat1) <= 0) {
+      $tbodyHtml2 = '<tr><td colspan="3">No Librarian reviewers found.</td></tr>';
+    } else {
+      foreach ($internalsdat1 as $key => $val) {
+        // $subjects = json_decode($val->subject);
+
+        $tbodyHtml2 .= '<tr>';
+        $tbodyHtml2 .= '<td>';
+        $tbodyHtml2 .= '<div class="form-check custom-checkbox checkbox-success check-lg me-3">';
+        $tbodyHtml2 .= '<input type="checkbox" class="form-check-input internalitem" id="customCheckBox' . ($index1 + 3) . '" required="" data-librarian-id="' . $val->id . '" value="' . $val->id . '">';
+        $tbodyHtml2 .= '<label class="form-check-label" for="customCheckBox' . ($index1 + 3) . '"></label>';
+        $tbodyHtml2 .= '</div>';
+        $tbodyHtml2 .= '</td>';
+        $tbodyHtml2 .= '<td>' . $index1 . '</td>';
+        $tbodyHtml2 .= '<td><span>' . $val->name . '</span></td>';
+        $tbodyHtml2 .= '<td><span>' . $val->libraryName . '</span></td>';
+
+
+        $categories = json_decode($val->per_category, true);
+
+        $recdata = '';
+
+        if (is_array($categories)) {
+          foreach ($categories as $category) {
+            $recdata .= htmlspecialchars($category) . ' ,';
+          }
+        }
+
+        $tbodyHtml2 .= '<td><span>' . trim($recdata) . '</span></td>';
+
+
+
+
+        $tbodyHtml2 .= '</tr>';
+        $index1++;
+      }
+    }
+  }
+  if (count($Magazines) <= 0) {
+    $tbodyHtml3 = '<tr><td colspan="3">No Public reviewers found.</td></tr>';
+  } else {
+    $tbodyHtml3 = '';
+    $index1 = 1;
+
+    if ($Magazines[0]->category == null) {
+      $tbodyHtml3 = '<tr><td colspan="3">No external reviewers found.</td></tr>';
+    } else {
+            $internals1122 = Reviewer::where('reviewerType', '=', 'public')->where('status', '=', 1)->get();
+
+      $cat = $Magazines[0]->category;
+      $internals11 = [];
+      foreach ($internals1122 as $val) {
+        $categories = json_decode($val->per_category, true);
+  
+        if (is_array($categories) && in_array($cat, $categories)) {
+          $internals11[] = $val;
+        }
+      }
+      if (count($internals11) <= 0) {
+        $tbodyHtml3 = '<tr><td colspan="3">No external reviewers found.</td></tr>';
+      } else {
+        foreach ($internals11 as $key => $val) {
+          $tbodyHtml3 .= '<tr>';
+          $tbodyHtml3 .= '<td>';
+          $tbodyHtml3 .= '<div class="form-check custom-checkbox checkbox-success check-lg me-3">';
+          $tbodyHtml3 .= '<input type="checkbox" class="form-check-input publiclitem" id="customCheckBox' . ($index1 + 3) . '" required="" data-public-id="' . $val->id . '" value="' . $val->id . '">';
+          $tbodyHtml3 .= '<label class="form-check-label" for="customCheckBox' . ($index1 + 3) . '"></label>';
+          $tbodyHtml3 .= '</div>';
+          $tbodyHtml3 .= '</td>';
+          $tbodyHtml3 .= '<td>' . $index1 . '</td>';
+          $tbodyHtml3 .= '<td><span>' . $val->name . '</span></td>';
+          $categories = json_decode($val->per_category, true);
+
+          $recdata = '';
+  
+          if (is_array($categories)) {
+            foreach ($categories as $category) {
+              $recdata .= htmlspecialchars($category) . ' ,';
+            }
+          }
+          $tbodyHtml3 .= '<td><span>' .  trim($recdata) . '</span></td>';
+          $tbodyHtml3 .= '<td><span>' . $val->district . '</span></td>';
+
+          $tbodyHtml3 .= '</tr>';
+          $index1++;
+        }
+      }
+    }
+  }
+
+  $data = [
+    'success' => $html,
+    'success11' => $htmldata,
+    'success22' => $tbodyHtml2,
+    'success33' => $tbodyHtml3,
+
+  ];
+
+  return response()->json($data);
+}
+
+
+   } 
+
+
+  //  
+
+  public function periodicalassign_data(Request $req)
+  {
+
+    $validator = Validator::make($req->all(), [
+
+      'periodicalId' => 'required|array|min:1',
+      'LibrarianReviewverId' => 'required|array|min:1',
+      'expectReviewverId' => 'required|array|min:1',
+      'publicReviewverId'   => 'required|array|min:1',
+    ]);
+
+    if ($validator->fails()) {
+      $data = [
+        'error' => $validator->errors()->first(),
+      ];
+      return response()->json($data);
+    }
+    $periodicalId = $req->periodicalId;
+    $internalReviewverId = $req->LibrarianReviewverId;
+    $externalReviewverId = $req->expectReviewverId;
+    $publicReviewverId = $req->publicReviewverId;
+    $mergedArray = array_merge($internalReviewverId, $externalReviewverId, $publicReviewverId);
+    foreach ($periodicalId as $key => $val1) {
+
+      foreach ($mergedArray as $key => $val) {
+        $rev = Reviewer::where("id", '=', $val)->first();
+
+        $bookreview = new PeriodicalReviewStatus();
+        $bookreview->periodical_id = $val1;
+        $bookreview->reviewer_id = $rev->id;
+        $bookreview->reviewertype = $rev->reviewerType;
+        $bookreview->save();
+      }
+    }
+
+    foreach ($mergedArray as $key => $val) {
+      $notifi = new Notifications();
+      $notifi->message = "Periodical Assigned For Review";
+      $notifi->to = $val;
+      $notifi->from = auth('admin')->user()->id;
+      $notifi->type = "reviewer";
+      $notifi->save();
+    }
+    $data = [
+      'success' => 'Periodical assigned Successfully',
+    ];
+    return response()->json($data);
+  }
+  public function procur_pending_periodical_list()
+  {
+    $data = PeriodicalReviewStatus::groupBy('periodical_id')->get('periodical_id');
+    $record = [];
+    foreach ($data as $key => $val) {
+      $data1 = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('mark', '!=', null)->get();
+      if (sizeof($data1) == 0) {
+        $periodical = Magazine::find($val->periodical_id);
+        $internalcount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'internal')->count();
+        $externalcount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'external')->count();
+        $publiccount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'public')->count();
+
+        $obj = (object)[
+          'periodical' => $periodical,
+          'internalcount' => $internalcount,
+          'externalcount' => $externalcount,
+          'publiccount' => $publiccount,
+        ];
+        array_push($record, $obj);
+      }
+    }
+    return view('admin.procur_pending_periodical_list')->with('record', $record);
+  }
+  
+
+  }

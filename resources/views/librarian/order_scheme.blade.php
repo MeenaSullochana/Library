@@ -62,7 +62,7 @@
 									<i class="bi bi-cart" style="font-size: 30px;"></i>
 									</div>
 									<div class="total-projects ms-3">
-										<h3 class="text-success count text-start">Order Scheme</h3>
+										<h3 class="text-success count text-start">Magazine Order Scheme</h3>
 										<!-- <span class="text-start">Total Completed</span> -->
 									</div>
 								</div>
@@ -95,7 +95,7 @@
                                         <tbody>
                                         @php
                                             $user=auth('librarian')->user()->libraryType;
-                                                              $categories = DB::table('libeaey_budgets')->where('libraryType','=', $user)->get();
+                                                              $categories = DB::table('libeaey_budgets')->where('Type','=', 'magazinebudget')->where('libraryType','=', $user)->get();
                                                                @endphp
 
                                                         @foreach($categories as $val)

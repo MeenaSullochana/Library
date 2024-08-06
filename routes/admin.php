@@ -1042,6 +1042,7 @@ Route::post('/multiple-statuschangebook',[BookController::class,'multiple_status
 Route::get('/reviewerlist/{id}',[BookController::class,'reviewerlist']);
 Route::get('/review',function(){
     $data = Session::get('reviewer');
+    
      return view('admin.assign-user-list')->with("data",$data);
  });
 
@@ -1266,7 +1267,26 @@ Route::get('/bookedit',function(){
  
  Route::get('/master_nego_book_datareport',[BookController::class,'master_nego_book_datareport']);
 
+ Route::get('/review/book',[BookController::class,'reviewbook']);
+ Route::get('/reviewer_report',[SettingController::class,'reviewer_report']);
+
+ Route::post('/Dispatch_library_report ',[SettingController::class,'Dispatch_library_report']);
+ Route::get('/Dispatch_library_report',function(){ return view('admin.lbrary_dispatch_notyet');});
+
  
+//   meta periodical
+Route::get('/meta_periodical_list',[MagazineController::class,'meta_periodical_list']);
+Route::post('/assign/librarianperiodical',[MagazineController::class,'assignlibrarianperiodical']);
+
+Route::get('/meta_pending_periodical',[MagazineController::class,'meta_pending_periodical']);
+Route::get('/meta_periodical_complete',[MagazineController::class,'meta_periodical_complete']);
+Route::get('/procur_periodical_assign',function(){ return view('admin.procur_periodical_assign');});
+Route::post('/bookreassign-data',[BookController::class,'bookreassign_data']);
+Route::get('/get-periodicals/{id}',[BookController::class,'get_periodicals']);
+Route::post('/periodicalassign-data',[BookController::class,'periodicalassign_data']);
+Route::get('/procur_pending_periodical_list',[BookController::class,'procur_pending_periodical_list']);
+
+
     });
    
 });

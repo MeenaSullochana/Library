@@ -157,9 +157,10 @@
                                             </div>
                                             @php
                                               $magazines = DB::table('magazines')->where('periodical_procurement_status','!=','0')
-                                              ->where('user_id','=',auth('periodical_publisher')->user()->firstName) ->get();
+                                              ->where('user_id','=',auth('periodical_publisher')->user()->id)->get();
                                             @endphp
                                             <div class="ms-2">
+                                      
                                                 <h4>{{count($magazines)}}</h4>
                                                 <p class="mb-0">Total Applied Periodical</p>
                                             </div>
@@ -176,8 +177,12 @@
                                             <div class="icon-box icon-box-md bg-primary-light me-1">
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
+                                            @php
+                                                $id = auth('periodical_publisher')->user()->id;
+                                                $magazines1 = DB::table('magazines')->where('user_id', '=', $id)->where('periodical_reviewer_id', '=',null )->where('periodical_status', '=', null)->where('periodical_procurement_status', '=', 1)->count();
+                                            @endphp
                                             <div class="ms-2">
-                                                <h4>0</h4>
+                                                <h4>{{$magazines1}}</h4>
                                                 <p class="mb-0">Pending Periodical</p>
                                             </div>
                                         </div>
@@ -196,8 +201,19 @@
                                             <div class="icon-box icon-box-md bg-info-light me-1">
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
+                                            @php
+                                            $id = auth('periodical_publisher')->user()->id;
+
+                                                $magazines2 = DB::table('magazines')
+                                                    ->where('user_id', $id)
+                                                    ->whereNotNull('periodical_reviewer_id')
+                                                    ->where('periodical_status', '0')
+                                                    ->where('periodical_procurement_status', '1')
+                                                    ->count();
+
+                                            @endphp
                                             <div class="ms-2">
-                                                <h4>0</h4>
+                                                <h4>{{$magazines2}}</h4>
                                                 <p class="mb-0">Rejected Periodical</p>
                                             </div>
                                         </div>
@@ -210,12 +226,54 @@
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
+                                            <div class="icon-box icon-box-md bg-primary-light me-1">
+                                                <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
+                                            </div>
+                                            @php
+                                          
+                                            $id = auth('periodical_publisher')->user()->id;
+
+                                            $perio111 = DB::table('magazines')
+                                                ->where('user_id', $id)
+                                                ->where('periodical_status', '2')
+                                                ->where('periodical_procurement_status', '1')
+                                                ->count();
+
+                                            $perio1111 = DB::table('magazines')
+                                                ->where('user_id', $id)
+                                                ->where('periodical_status', '3')
+                                                ->where('periodical_procurement_status', '1')
+                                                ->count();
+                        
+                                              @endphp
+                                          
+                                         <div class="ms-2">
+                                                 <h4>{{$perio111 + $perio1111}}</h4>
+                                               <p class="mb-0">Meta Check Process</p>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)"><i
+                                                class="fa-solid fa-chevron-right text-primary"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-sm-6">
+                                <div class="card">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div class="d-flex">
                                             <div class="icon-box icon-box-md bg-secondary-light me-1">
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
+                                            @php
+                                                $id = auth('periodical_publisher')->user()->id;
+                                                $magazines3 = DB::table('magazines')->where('user_id', '=', $id)->where('periodical_status', '=','1')->where('periodical_procurement_status', '=', '1')->count();
+                                            @endphp
                                             <div class="ms-2">
-                                                <h4>0</h4>
-                                                <p class="mb-0">Selected Periodical</p>
+                                             
+                                                <h4>{{ $magazines3}}</h4>
+                                                <p class="mb-0">Meta Check Completed</p>
                                             </div>
                                         </div>
                                         <a href="javascript:void(0)"><i

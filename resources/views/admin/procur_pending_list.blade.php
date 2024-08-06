@@ -129,7 +129,7 @@
                             {{-- </div> --}}
                             <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
                             <table id="example3" class="table dataTable no-footer" role="grid"
-                                aria-describedby="empoloyees-tbl3_info">
+                                aria-describedby="empoloyees-tbl3_info"  style="min-width: 100px">
                                 <thead>
                                     <tr role="row">
                                         {{-- <th class="sorting_asc" tabindex="0" aria-controls="empoloyees-tbl3"

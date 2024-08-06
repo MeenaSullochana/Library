@@ -782,6 +782,7 @@ public function editreviewer(Request $req){
             'designation'=>'required|string',
             'organisationDetails'=>'required|string',
             'phoneNumber'=>'required|string|min:10|max:10',
+            'acc_hol_name'=>'required|string',
             'bankName'=>'required|string',
             'accountNumber'=>'required',
             'branch'=>'required|string',
@@ -797,7 +798,7 @@ public function editreviewer(Request $req){
            
         }
         if(empty($req->newpassword) && empty($req->confirmpassword)) {
-          
+       
             $reviewer = Reviewer::find($req->id);
             $reviewer->name = $req->name;
             $reviewer->subject = json_encode($req->subject);
@@ -805,6 +806,9 @@ public function editreviewer(Request $req){
             $reviewer->bankName = $req->bankName;
             $reviewer->accountNumber = $req->accountNumber;
             $reviewer->branch = $req->branch;
+            $reviewer->acc_hol_name = $req->acc_hol_name;
+
+            
             $reviewer->ifscNumber = $req->ifscNumber;
             $reviewer->organisationDetails = $req->organisationDetails;
             if ($reviewer->email == $req->email) {
@@ -872,6 +876,8 @@ public function editreviewer(Request $req){
                 $reviewer->bankName = $req->bankName;
                 $reviewer->accountNumber = $req->accountNumber;
                 $reviewer->branch = $req->branch;
+                $reviewer->acc_hol_name = $req->acc_hol_name;
+
                 $reviewer->ifscNumber = $req->ifscNumber;
                 $reviewer->organisationDetails = $req->organisationDetails;
                 if ($reviewer->email == $req->email) {
