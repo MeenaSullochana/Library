@@ -277,6 +277,49 @@ Route::prefix('librarian')->group(function () {
 
     Route::get('/magazine_order_supply_list',function(){ return view('librarian.magazine_order_supply_list');});
 
+    Route::get('/magazine_dispatch_report',function(){ return view('librarian.magazine_dispatch_report');});
+Route::get('/lbrary_dispatch_report',function(){ return view('librarian.lbrary_dispatch_report');});
+
+Route::post('/Dispatch_libraryreport ',[SettingController::class,'Dispatch_libraryreport']);
+Route::post('/Dispatch_magazinereport ',[SettingController::class,'Dispatch_magazinereport']);
+
+Route::get('/book_order_view/{id}',[LibrarianController::class,'book_orderview']);
+Route::get('/book-order-view',function(){
+    $data = Session::get('Orderbook');
+    if($data !==null){
+        return view('librarian.book_order_view')->with("data",$data);
+    }
     
+});
+Route::get('/book_order_scheme',function(){ return view('librarian.book_order_scheme');});
+Route::get('/book_order_scheme_read/{id}',[QuoteController::class,'book_order_scheme_read']);
+Route::get('/book_order_scheme_read',function(){
+    $data = Session::get('budget');
+    $desc = Session::get('desc');
+    if($data !==null){
+        return view('librarian.book_order_scheme_read',compact("data","desc"));
+    }
+    
+});
+
+// periodical 
+
+Route::get('/meta_periodical_list',[LibrarianController::class,'metaperiodicallist']);
+Route::post('/librarianrejectstatus_perio',[LibrarianController::class,'librarianrejectstatus_perio']);
+Route::get('/meta_periodical_reject',[LibrarianController::class,'meta_periodical_reject']);
+
+
+Route::get('/meta_periodical_pending',[LibrarianController::class,'meta_periodical_pending']);
+
+Route::get('/meta_complete_periodical_list',[LibrarianController::class,'meta_complete_periodical_list']);
+
+Route::get('/meta_periodical_return',[LibrarianController::class,'meta_periodical_return']);
+Route::get('/meta_periodical_update_return',[LibrarianController::class,'meta_periodical_update_return']);
+// librarianreturnmessage_perio
+
+Route::post('/librarianreturnmessage_perio',[LibrarianController::class,'librarianreturnmessage_perio']);
+Route::post('/librarianapprovestatus_perio',[LibrarianController::class,'librarianapprovestatus_perio']);
+
+
 });
 });

@@ -226,7 +226,9 @@ public function reviewerstatus(Request $req){
         $book= Book::find($val->book_id);
         $val->bookname=$book->book_title;
         $val->subbookname=$book->subtitle;
+        $val->nameOfPublisher=$book->nameOfPublisher;
 
+        
         
         array_push($data,$val);
     }
@@ -241,7 +243,12 @@ public function reviewerstatus(Request $req){
     if (json_decode($reviewer->subject, true) !== null) {
 
         $selectedSubjects = json_decode( $reviewer->subject);
-        $SpecialSubjects = Booksubject::where('status', '1')
+        if (is_array($selectedSubjects)) {
+        } else {
+            $selectedSubjects = explode(',', $selectedSubjects);
+        }
+
+       $SpecialSubjects = Booksubject::where('status', '1')
        ->whereNotIn('name', $selectedSubjects)
        ->get();
     
@@ -465,6 +472,7 @@ public function reviewerstatus(Request $req){
             'designation'=>'required|string',
             'organisationDetails'=>'required|string',
             'phoneNumber'=>'required|string|min:10|max:10',
+            'acc_hol_name'=>'required|string',
             'bankName'=>'required|string',
             'accountNumber'=>'required',
             'branch'=>'required|string',
@@ -499,7 +507,17 @@ public function reviewerstatus(Request $req){
                     
 
                    }
-                   
+                   else  if($subject == "English Literature_ critisim"){
+                    $subjects[] = "English Literature_ critisim, essays, letter";
+                    
+    
+                   }
+                // }else  if($subject == "Games" || $subject == "essays" || $subject == "letter" || 
+                // $subject == "Short stories" || $subject == "Custom" || $subject == "Folklore)" ||$subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
+                // }
+
+
+
                    else{
                     $subjects[] = $subject;
     
@@ -514,6 +532,9 @@ public function reviewerstatus(Request $req){
             $reviewer->bankName = $req->bankName;
             $reviewer->accountNumber = $req->accountNumber;
             $reviewer->branch = $req->branch;
+            $reviewer->acc_hol_name = $req->acc_hol_name;
+
+            
             $reviewer->ifscNumber = $req->ifscNumber;
             $reviewer->organisationDetails = $req->organisationDetails;
             if ($reviewer->email == $req->email) {
@@ -594,7 +615,11 @@ public function reviewerstatus(Request $req){
                         
 
                        }
-                       
+                       else  if($subject == "English Literature_ critisim"){
+                        $subjects[] = "English Literature_ critisim, essays, letter";
+                        
+        
+                       }
                        else{
                         $subjects[] = $subject;
         
@@ -1035,6 +1060,7 @@ public function create_reviewer(Request $req){
             'designation'=>'required|string',
             'organisationDetails'=>'required|string',
             'phoneNumber'=>'required|string|min:10|max:10',
+            'acc_hol_name'=>'required|string',
             'bankName'=>'required|string',
             'accountNumber'=>'required',
             'branch'=>'required|string',
@@ -1081,9 +1107,10 @@ public function create_reviewer(Request $req){
                 $subjects[] = "அகராதிகள், கலைக்களஞ்சியங்கள், நிகண்டுகள்";
                 
 
-               }else  if($subject == "Games" || $subject == "essays" || $subject == "letter" || 
-               $subject == "Short stories" || $subject == "Custom" || $subject == "Folklore)" ||$subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
-               
+               }else  if($subject == "English Literature_ critisim"){
+                $subjects[] = "English Literature_ critisim, essays, letter";
+                
+
                }
                
                else{
@@ -1103,6 +1130,9 @@ public function create_reviewer(Request $req){
         $reviewer->phoneNumber = $req->phoneNumber; 
         $reviewer->bankName = $req->bankName;
         $reviewer->accountNumber = $req->accountNumber;
+        $reviewer->acc_hol_name = $req->acc_hol_name;
+
+        
         $reviewer->branch = $req->branch;
         $reviewer->creater = $Admin; 
 

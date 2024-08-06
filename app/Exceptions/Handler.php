@@ -74,23 +74,23 @@ class Handler extends ExceptionHandler
     //     return parent::render($request, $exception);
     // }
 
-    public function render($request, Throwable $exception)
-{
-    if ($this->isHttpException($exception)) {
-        return $this->renderHttpException($exception);
-    } elseif ($exception instanceof QueryException) {
-        $this->disconnectAllDatabaseConnections();
-        return response()->view('errors.generic', ['message' => $exception->getMessage()], 500); 
-    } elseif (strpos($exception->getMessage(), 'No space left on device') !== false) {
-        // Handle "No space left on device" error
-        return response()->make('<html><body><h1>Server Maintenance</h1><p>The server is currently undergoing maintenance. Please try again in a few minutes.</p><p>' . $exception->getMessage() . '</p></body></html>', 503);
-    } else {
-        // Handle other unknown errors
-        return response()->view('errors.generic', ['message' => $exception->getMessage()], 500); // Assuming you have a custom generic error view
-    }
+//     public function render($request, Throwable $exception)
+// {
+//     if ($this->isHttpException($exception)) {
+//         return $this->renderHttpException($exception);
+//     } elseif ($exception instanceof QueryException) {
+//         $this->disconnectAllDatabaseConnections();
+//         return response()->view('errors.generic', ['message' => $exception->getMessage()], 500); 
+//     } elseif (strpos($exception->getMessage(), 'No space left on device') !== false) {
+//         // Handle "No space left on device" error
+//         return response()->make('<html><body><h1>Server Maintenance</h1><p>The server is currently undergoing maintenance. Please try again in a few minutes.</p><p>' . $exception->getMessage() . '</p></body></html>', 503);
+//     } else {
+//         // Handle other unknown errors
+//         return response()->view('errors.generic', ['message' => $exception->getMessage()], 500); // Assuming you have a custom generic error view
+//     }
 
-    return parent::render($request, $exception);
-}
+//     return parent::render($request, $exception);
+// }
 
 
     protected function disconnectAllDatabaseConnections()

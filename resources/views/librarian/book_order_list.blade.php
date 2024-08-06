@@ -62,7 +62,7 @@
 									<i class="bi bi-cart" style="font-size: 30px;"></i>
 									</div>
 									<div class="total-projects ms-3">
-										<h3 class="text-info count text-start">Books Cart Order List</h3>
+										<h3 class="text-info count text-start">Books  Order List</h3>
 										<!-- <span class="text-start">Total Completed</span> -->
 									</div>
 								</div>
@@ -71,172 +71,98 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xl-12">
-						<div class="card">
-							<div class="card-body">
-								<div class="row task">
-									<div class="col-xl-2 col-sm-4 col-12">
-										<div class="task-summary">
-											<div class="d-flex align-items-baseline">
-												<h2 class="text-primary count">8</h2>
-												<span>Total Order</span>
-											</div>
-											<p>Order Books</p>
-										</div>
-									</div>
-									<div class="col-xl-2 col-sm-4 col-12">
-										<div class="task-summary">
-											<div class="d-flex align-items-baseline">
-												<h2 class="text-purple count">7</h2>
-												<span>Total Stock</span>
-											</div>
-											<p>Order Books</p>
-										</div>
-									</div>
-									<div class="col-xl-2 col-sm-4 col-12">
-										<div class="task-summary">
-											<div class="d-flex align-items-baseline">
-												<h2 class="text-warning count">13</h2>
-												<span>Received Order</span>
-											</div>
-											<p>Order Books</p>
-										</div>
-									</div>
-									<div class="col-xl-2 col-sm-4 col-12">
-										<div class="task-summary">
-											<div class="d-flex align-items-baseline">
-												<h2 class="text-danger count">11</h2>
-												<span>Canceld Orders</span>
-											</div>
-											<p>Order Books</p>
-										</div>
-									</div>
-									<div class="col-xl-2 col-sm-4 col-12">
-										<div class="task-summary">
-											<div class="d-flex align-items-baseline">
-												<h2 class="text-success count">21</h2>
-												<span>Complete Orders</span>
-											</div>
-											<p>Order Books</p>
-										</div>
-									</div>
-									<div class="col-xl-2 col-sm-4 col-12">
-										<div class="task-summary">
-											<div class="d-flex align-items-baseline">
-												<h2 class="text-danger count">16</h2>
-												<span>Upcoming Order</span>
-											</div>
-											<p>Order Books</p>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-12">
-						<div class="card">
-							<div class="card-body p-3">
-								<div class="table-responsive active-projects task-table">
-									<div class="tbl-caption">
-										<h4 class="heading mb-0">Book List</h4>
-									</div>
-									<table id="example3" class="table">
-										<thead>
-											<tr>
-												<th>
-												</th>
-												<th>S.No</th>
-												<th>Order id</th>
-												<th>Status</th>
-												<th>Order Date</th>
-												<th class="text-end">Controle</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>
-													<div class="form-check custom-checkbox">
-														<input type="checkbox" class="form-check-input" id="customCheckBox3" required>
-														<label class="form-check-label" for="customCheckBox3"></label>
-													</div>
-												</td>
-												<td><span>03</span></td>
-												<td>
-													<div class="products">
-														<div>
-															<!-- <h6>Create Frontend WordPress</h6> -->
-															<span>INV-100023456</span>
-														</div>
-													</div>
-												</td>
-												<td>
-													<span class="badge bg-success">Received</span>
+                    
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-body p-3">
+                         
+                                @php
+                                    $id = auth('librarian')->user()->id;
+                                      $records = DB::table('orderbooks')
+                                        ->where('librarianid', '=', $id)
+                                          ->where('status', '=', '1')
+                                         ->orderBy('created_at', 'asc')
+                                         ->get();
+                                      
+                                @endphp
 
-												</td>
-												<td><span>06 Feb 2023</span></td>
-												<td>
-                                                    <a href="order_item_list.php"> <i class="fa fa-eye p-2"></i></a>
-													<a href="order_item_list.php"><i class="fa fa-edit p-2"></i></a>
-													<div class="dropdown custom-dropdown">
-																<div class="btn sharp btn-primary tp-btn" data-bs-toggle="dropdown" aria-expanded="true">
-																	<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path d="M13.5202 17.4167C13.5202 18.81 12.3927 19.9375 10.9994 19.9375C9.60601 19.9375 8.47852 18.81 8.47852 17.4167C8.47852 16.0233 9.60601 14.8958 10.9994 14.8958C12.3927 14.8958 13.5202 16.0233 13.5202 17.4167ZM9.85352 17.4167C9.85352 18.0492 10.3669 18.5625 10.9994 18.5625C11.6319 18.5625 12.1452 18.0492 12.1452 17.4167C12.1452 16.7842 11.6319 16.2708 10.9994 16.2708C10.3669 16.2708 9.85352 16.7842 9.85352 17.4167Z" fill="#2696FD"></path>
-																	<path d="M13.5202 4.58369C13.5202 5.97699 12.3927 7.10449 10.9994 7.10449C9.60601 7.10449 8.47852 5.97699 8.47852 4.58369C8.47852 3.19029 9.60601 2.06279 10.9994 2.06279C12.3927 2.06279 13.5202 3.19029 13.5202 4.58369ZM9.85352 4.58369C9.85352 5.21619 10.3669 5.72949 10.9994 5.72949C11.6319 5.72949 12.1452 5.21619 12.1452 4.58369C12.1452 3.95119 11.6319 3.43779 10.9994 3.43779C10.3669 3.43779 9.85352 3.95119 9.85352 4.58369Z" fill="#2696FD"></path>
-																	<path d="M13.5202 10.9997C13.5202 12.393 12.3927 13.5205 10.9994 13.5205C9.60601 13.5205 8.47852 12.393 8.47852 10.9997C8.47852 9.6063 9.60601 8.4788 10.9994 8.4788C12.3927 8.4788 13.5202 9.6063 13.5202 10.9997ZM9.85352 10.9997C9.85352 11.6322 10.3669 12.1455 10.9994 12.1455C11.6319 12.1455 12.1452 11.6322 12.1452 10.9997C12.1452 10.3672 11.6319 9.8538 10.9994 9.8538C10.3669 9.8538 9.85352 10.3672 9.85352 10.9997Z" fill="#2696FD"></path>
-																	</svg>
-																</div>
-																<div class="dropdown-menu dropdown-menu-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(0.5px, 37px, 0px);" data-popper-placement="bottom-end">
-																	<a class="dropdown-item" href="javascript:void(0);">Received</a>
-																	<a class="dropdown-item" href="javascript:void(0);">Not Received</a>
-																</div>
-															</div>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<div class="form-check custom-checkbox">
-														<input type="checkbox" class="form-check-input" id="customCheckBox4" required>
-														<label class="form-check-label" for="customCheckBox4"></label>
-													</div>
-												</td>
-												<td><span>04</span></td>
-												<td>
-													<div class="products">
-														<div>
-															<!-- <h6>HTML To React Convert </h6> -->
-															<span>INV-100023456</span>
-														</div>
-													</div>
-												</td>
-												<td>
-													<span class="badge bg-danger">Pending</span>
-												</td>
-												<td><span>06 Feb 2023</span></td>
-												<td>
-                                                    <a href="order_item_list.php"> <i class="fa fa-eye p-2"></i></a>
-													<a href="order_item_list.php"><i class="fa fa-edit p-2"></i></a>
-													<div class="dropdown custom-dropdown">
-																<div class="btn sharp btn-primary tp-btn" data-bs-toggle="dropdown" aria-expanded="true">
-																	<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path d="M13.5202 17.4167C13.5202 18.81 12.3927 19.9375 10.9994 19.9375C9.60601 19.9375 8.47852 18.81 8.47852 17.4167C8.47852 16.0233 9.60601 14.8958 10.9994 14.8958C12.3927 14.8958 13.5202 16.0233 13.5202 17.4167ZM9.85352 17.4167C9.85352 18.0492 10.3669 18.5625 10.9994 18.5625C11.6319 18.5625 12.1452 18.0492 12.1452 17.4167C12.1452 16.7842 11.6319 16.2708 10.9994 16.2708C10.3669 16.2708 9.85352 16.7842 9.85352 17.4167Z" fill="#2696FD"></path>
-																	<path d="M13.5202 4.58369C13.5202 5.97699 12.3927 7.10449 10.9994 7.10449C9.60601 7.10449 8.47852 5.97699 8.47852 4.58369C8.47852 3.19029 9.60601 2.06279 10.9994 2.06279C12.3927 2.06279 13.5202 3.19029 13.5202 4.58369ZM9.85352 4.58369C9.85352 5.21619 10.3669 5.72949 10.9994 5.72949C11.6319 5.72949 12.1452 5.21619 12.1452 4.58369C12.1452 3.95119 11.6319 3.43779 10.9994 3.43779C10.3669 3.43779 9.85352 3.95119 9.85352 4.58369Z" fill="#2696FD"></path>
-																	<path d="M13.5202 10.9997C13.5202 12.393 12.3927 13.5205 10.9994 13.5205C9.60601 13.5205 8.47852 12.393 8.47852 10.9997C8.47852 9.6063 9.60601 8.4788 10.9994 8.4788C12.3927 8.4788 13.5202 9.6063 13.5202 10.9997ZM9.85352 10.9997C9.85352 11.6322 10.3669 12.1455 10.9994 12.1455C11.6319 12.1455 12.1452 11.6322 12.1452 10.9997C12.1452 10.3672 11.6319 9.8538 10.9994 9.8538C10.3669 9.8538 9.85352 10.3672 9.85352 10.9997Z" fill="#2696FD"></path>
-																	</svg>
-																</div>
-																<div class="dropdown-menu dropdown-menu-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate3d(0.5px, 37px, 0px);" data-popper-placement="bottom-end">
-																	<a class="dropdown-item" href="javascript:void(0);">Received</a>
-																	<a class="dropdown-item" href="javascript:void(0);">Not Received</a>
-																</div>
-															</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-sm mb-0 table-striped student-tbl" id="example3">
+                                        <thead>
+                                            <tr>
+                                                <!-- <th class=" pe-3">
+                                                    <div class="form-check custom-checkbox mx-2">
+                                                        <input type="checkbox" class="form-check-input" id="checkAll">
+                                                        <label class="form-check-label" for="checkAll"></label>
+                                                    </div>
+                                                </th> -->
+                                                <th>S.No</th>
+                                                <th>Order Id</th>
+                                                <th>Qty</th>
+                                                <th>Total Amount</th>
+                                                <th>Purchase Amount</th>
+                                                <th>Order Status</th>
+                                                <th>Order Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="customers">
+                                       @foreach($records as $val)
+
+                                            <tr class="btn-reveal-trigger">
+                                                <!-- <td class="py-2">
+                                                    <div class="form-check custom-checkbox mx-2">
+                                                        <input type="checkbox" class="form-check-input" id="checkbox1">
+                                                        <label class="form-check-label" for="checkbox1"></label>
+                                                    </div>
+                                                </td> -->
+                                                <td class="py-2">{{$loop->index + 1}}</td>
+                                                <td class="py-2">{{$val->orderid}}</td>
+                                                <td class="py-2">{{$val->quantity}}</td>
+                                                <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalBudget}}</td>
+
+                                                <td class="py-2"><i class="fa fa-rupee"></i> {{$val->totalPurchased}}</td>
+                                                <td class="py-2"> <span class="badge bg-primary">Submitted</span></td>
+                                                <td class="py-2"> {{ \Carbon\Carbon::parse($val->created_at)->format('d-M-Y') }}</td>
+                                                <td class="py-2 text-end">
+                                                    <div class="dropdown"><button
+                                                            class="btn btn-primary tp-btn-light sharp" type="button"
+                                                            data-bs-toggle="dropdown" aria-expanded="false"><span
+                                                                class="fs--1"><svg xmlns="http://www.w3.org/2000/svg"
+                                                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                                    width="18px" height="18px" viewBox="0 0 24 24"
+                                                                    version="1.1">
+                                                                    <g stroke="none" stroke-width="1" fill="none"
+                                                                        fill-rule="evenodd">
+                                                                        <rect x="0" y="0" width="24"
+                                                                            height="24"></rect>
+                                                                        <circle fill="#000000" cx="5"
+                                                                            cy="12" r="2"></circle>
+                                                                        <circle fill="#000000" cx="12"
+                                                                            cy="12" r="2"></circle>
+                                                                        <circle fill="#000000" cx="19"
+                                                                            cy="12" r="2"></circle>
+                                                                    </g>
+                                                                </svg></span></button>
+                                                        <div class="dropdown-menu dropdown-menu-end border py-0"
+                                                            style="">
+                                                            <div class="py-2">
+                                                                <a class="dropdown-item" href="/librarian/book_order_view/{{$val->id}}"><i class="fa fa-eye p-2"></i>View Order</a>
+                                                                <!-- <a class="dropdown-item" href="/librarian/magazine_invoice_view/{{$val->id}}"><i class="fa fa-pencil p-2"></i> View Order Invoice</a> -->
+                                                                <!-- <a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" href="magazine_delete"><i class="fa fa-trash p-2"></i>Delete</a></div> -->
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 			</div>
         </div>
     </div>

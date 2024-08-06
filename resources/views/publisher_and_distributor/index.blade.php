@@ -183,7 +183,7 @@
                         </div>
                     </div>
                     <div class="col-xl-6 col-md-12 col-sm-12">
-                    <div class="row">
+                        <div class="row">
                             <div class="col-xl-6 col-sm-6">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
@@ -250,6 +250,42 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xl-6 col-sm-6">
+                                <div class="card">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div class="d-flex">
+                                            <div class="icon-box icon-box-md bg-primary-light me-1">
+                                                <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
+                                            </div>
+                                            @php
+                                          
+                                          $id = auth('publisher_distributor')->user()->id;
+                                          
+                                          $books111 = DB::table('books')
+                                              ->where('user_id', '=', $id)
+                                              ->where('book_status', '=', 2)
+                                              ->where('book_procurement_status', '=', 1)
+                                              ->count();
+                                          
+                                              $books1111 = DB::table('books')
+                                              ->where('user_id', '=', $id)
+                                              ->where('book_status', '=', 3)
+                                              ->where('book_procurement_status', '=', 1)
+                                              ->count();                                 @endphp
+                                          
+                                                                                      <div class="ms-2">
+                                                                                          <h4>{{$books111 + $books1111}}</h4>
+                                                                                          <p class="mb-0">Meta Check Process</p>
+                                                                                      </div>
+                                        </div>
+                                        <a href="javascript:void(0)"><i
+                                                class="fa-solid fa-chevron-right text-primary"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          
                             <div class="col-xl-6 col-sm-6">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">

@@ -67,6 +67,8 @@ Route::get('/shopebook',function(){
  Route::get('/report_downl_bookcart',[WebsitebookController::class, 'report_downl_bookcart']);
 
  Route::get('/cartbookpdfview',[WebsitebookController::class, 'cartbookpdfview']);
+ Route::post('/bookCheckout',[WebsitebookController::class, 'bookCheckout']);
+ Route::post('/budgetcategurybook',[WebsitebookController::class, 'budgetcategurybook']);
 
  
     });

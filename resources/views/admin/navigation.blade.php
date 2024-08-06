@@ -2035,6 +2035,31 @@
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-card-checklist"></i>
+                            <span class="nav-text">Periodical Procurement</span>
+                        </a>
+                        <ul aria-expanded="false">
+                        <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Metacheck Management </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/admin/meta_periodical_list">Meta Periodical List</a></li>
+                            <li><a href="/admin/meta_pending_periodical">Meta pending Periodical List</a></li>
+                            <li><a href="/admin/meta_periodical_complete">Meta Complete Periodical List</a></li>
+                            </ul>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Reviewer Management</a>
+                        <ul aria-expanded="false">
+
+                        
+
+                            <li><a href="/admin/procur_periodical_assign">periodical List</a></li>
+                            <li><a href="/admin/procur_pending_periodical_list">Pending List</a></li>
+                            <li><a href="/admin/procur_complete_list">Complete List</a></li>
+                            </ul>
+                    </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-card-checklist"></i>
                             <span class="nav-text">Periodical Management</span>
                         </a>
                         <ul aria-expanded="false">
@@ -2360,6 +2385,7 @@
                             <li><a href="meta_checking_book_list">Report Download Meta Checking Book List</a></li> 
                             <li><a href="magazine_dispatch_report">Periodical Dispatch Report</a></li> 
                             <li><a href="lbrary_dispatch_report">Library  Dispatch Report</a></li> 
+                            <li><a href="Dispatch_library_report">Dispatch Not Yet Completed</a></li> 
 
                             
                         </ul>

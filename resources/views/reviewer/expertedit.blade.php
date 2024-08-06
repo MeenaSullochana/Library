@@ -257,6 +257,13 @@
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-md-6">
+                                                    <div class="col-sm-12 mb-3">
+                                                            <label class="form-label">Account Holder  Name<span
+                                                                    class="text-danger maditory">*</span></label>
+                                                            <input type="text" class="form-control"
+                                                                placeholder="Enter Account Holder Name" id="acc_hol_name"
+                                                                Required>
+                                                        </div>
                                                         <div class="col-sm-12 mb-3">
                                                             <label class="form-label">Bank Name<span
                                                                     class="text-danger maditory">*</span></label>
@@ -378,6 +385,8 @@ $(document).ready(function() {
 <script>
 $(document).on('click', '#submitButton', function(e) {
     e.preventDefault();
+    var acc_hol_name = $('#acc_hol_name').val();
+
     var id = $(this).data('id');
     var newpassword = $('#newpassword').val();
     var confirmpassword = $('#confirmpassword').val();
@@ -395,6 +404,8 @@ $(document).on('click', '#submitButton', function(e) {
     var reviewerType = $('#reviewerType').val();
     var profileImage = $('#profileImage')[0].files;
     let fd = new FormData();
+    fd.append('acc_hol_name', acc_hol_name);
+
     fd.append('newpassword', newpassword);
     fd.append('id', id);
     fd.append('confirmpassword', confirmpassword);

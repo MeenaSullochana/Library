@@ -10,15 +10,17 @@
                                                             alt="No Image"></a>
 
                                                 </div>
+                                                
                                                 <div class="tplist__content">
-                                                    <span>{{$val->category}}</span>,
-                                                    <span>{{$val->language}}</span>
-                                                    <h4 class="tplist__content-title"><a href="/shope-book/{{$val->id}}">Book
+                                                    <!-- <span>{{$val->category}}</span>,
+                                                    <span>{{$val->language}}</span> -->
+                                                    <h4 class="tplist__content-title"  style="width: 350.709px;"><a href="/shope-book/{{$val->id}}">Book
                                                             Title: {{$val->book_title}}</a></h4>
 
                                                     <ul class="tplist__content-info">
-                                                        <li>category: {{$val->category}}</li>
-                                                        <li>Subject: {{$val->subject}}</li>
+                                                        <li>Language: {{$val->language}}</li>
+                                                        <li>Category: {{$val->category}}</li>
+                                                        <li style="width: 326.709px;">Subject: {{$val->subject}}</li>
 
                                                     </ul>
                                                 </div>

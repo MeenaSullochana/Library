@@ -87,7 +87,8 @@
                                                 src="images/crm/party-popper.png" alt=""></h4>
 
 
-                                        <a href="/periodical_distributor/distributor_profile_view" class="btn btn-primary btn-sm mt-4">View
+                                        <a href="/periodical_distributor/distributor_profile_view"
+                                            class="btn btn-primary btn-sm mt-4">View
                                             Profile</a>
                                     </div>
                                     <img src="images/analytics/developer_male.png" class="harry-img w-25" alt="">
@@ -150,10 +151,12 @@
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
                                             @php
-                                              $magazines = DB::table('magazines')->where('periodical_procurement_status','!=','0')
-                                              ->where('user_id','=',auth('periodical_distributor')->user()->firstName) ->get();
+                                            $magazines =
+                                            DB::table('magazines')->where('periodical_procurement_status','!=','0')
+                                            ->where('user_id','=',auth('periodical_distributor')->user()->id)->get();
                                             @endphp
                                             <div class="ms-2">
+
                                                 <h4>{{count($magazines)}}</h4>
                                                 <p class="mb-0">Total Applied Periodical</p>
                                             </div>
@@ -170,8 +173,14 @@
                                             <div class="icon-box icon-box-md bg-primary-light me-1">
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
+                                            @php
+                                            $id = auth('periodical_distributor')->user()->id;
+                                            $magazines1 = DB::table('magazines')->where('user_id', '=',
+                                            $id)->where('periodical_reviewer_id', '=',null )->where('periodical_status',
+                                            '=', null)->where('periodical_procurement_status', '=', 1)->count();
+                                            @endphp
                                             <div class="ms-2">
-                                                <h4>0</h4>
+                                                <h4>{{$magazines1}}</h4>
                                                 <p class="mb-0">Pending Periodical</p>
                                             </div>
                                         </div>
@@ -190,8 +199,19 @@
                                             <div class="icon-box icon-box-md bg-info-light me-1">
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
+                                            @php
+                                            $id = auth('periodical_distributor')->user()->id;
+
+                                            $magazines2 = DB::table('magazines')
+                                            ->where('user_id', $id)
+                                            ->whereNotNull('periodical_reviewer_id')
+                                            ->where('periodical_status', '0')
+                                            ->where('periodical_procurement_status', '1')
+                                            ->count();
+
+                                            @endphp
                                             <div class="ms-2">
-                                                <h4>0</h4>
+                                                <h4>{{$magazines2}}</h4>
                                                 <p class="mb-0">Rejected Periodical</p>
                                             </div>
                                         </div>
@@ -204,12 +224,56 @@
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
                                         <div class="d-flex">
+                                            <div class="icon-box icon-box-md bg-primary-light me-1">
+                                                <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
+                                            </div>
+                                            @php
+
+                                            $id = auth('periodical_distributor')->user()->id;
+
+                                            $perio111 = DB::table('magazines')
+                                            ->where('user_id', $id)
+                                            ->where('periodical_status', '2')
+                                            ->where('periodical_procurement_status', '1')
+                                            ->count();
+
+                                            $perio1111 = DB::table('magazines')
+                                            ->where('user_id', $id)
+                                            ->where('periodical_status', '3')
+                                            ->where('periodical_procurement_status', '1')
+                                            ->count();
+
+                                            @endphp
+
+                                            <div class="ms-2">
+                                                <h4>{{$perio111 + $perio1111}}</h4>
+                                                <p class="mb-0">Meta Check Process</p>
+                                            </div>
+                                        </div>
+                                        <a href="javascript:void(0)"><i
+                                                class="fa-solid fa-chevron-right text-primary"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-sm-6">
+                                <div class="card">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div class="d-flex">
                                             <div class="icon-box icon-box-md bg-secondary-light me-1">
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
+                                            @php
+                                            $id = auth('periodical_distributor')->user()->id;
+                                            $magazines3 = DB::table('magazines')->where('user_id', '=',
+                                            $id)->where('periodical_status',
+                                            '=','1')->where('periodical_procurement_status', '=', '1')->count();
+                                            @endphp
                                             <div class="ms-2">
-                                                <h4>0</h4>
-                                                <p class="mb-0">Selected Periodical</p>
+
+                                                <h4>{{ $magazines3}}</h4>
+                                                <p class="mb-0">Meta Check Completed</p>
                                             </div>
                                         </div>
                                         <a href="javascript:void(0)"><i
@@ -218,7 +282,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col-xl-12">
@@ -235,8 +299,7 @@
                                                         <div class="card-body">
                                                             <div class="ana-box">
                                                                 <div class="ic-n-bx">
-                                                                    <div
-                                                                        class="icon-box bg-primary rounded-circle">
+                                                                    <div class="icon-box bg-primary rounded-circle">
                                                                         <i class="fa fa-book text-white"
                                                                             aria-hidden="true"></i>
                                                                     </div>
@@ -254,8 +317,7 @@
                                                         <div class="card-body">
                                                             <div class="ana-box">
                                                                 <div class="ic-n-bx">
-                                                                    <div
-                                                                        class="icon-box bg-primary rounded-circle">
+                                                                    <div class="icon-box bg-primary rounded-circle">
                                                                         <i class="fa fa-book text-white"
                                                                             aria-hidden="true"></i>
                                                                     </div>
@@ -273,8 +335,7 @@
                                                         <div class="card-body">
                                                             <div class="ana-box">
                                                                 <div class="ic-n-bx">
-                                                                    <div
-                                                                        class="icon-box bg-primary rounded-circle">
+                                                                    <div class="icon-box bg-primary rounded-circle">
                                                                         <i class="fa fa-book text-white"
                                                                             aria-hidden="true"></i>
                                                                     </div>
@@ -304,58 +365,61 @@
                                 </div>
                                 <div class="card-body p-0 pb-3">
                                     <ul class="country-sale dz-scroll">
-                                    @if($magazines->isNotEmpty())
-                                           @foreach($magazines as $val)
-                                           <li class="d-flex">
-                                                <div class="">
-                                                  {{$loop->index +1}}
-                                                </div>
-                                                <div class="ms-3 country-flag">
-                                                    <img src="{{ asset('Magazine/full/' . $val->full_img) }}" alt="">
-                                                </div>
-                                                <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
-                                                    
-                                                    <div class="ms-2">
-                                                        <h6 class="mb-0">{{$val->title}}</h6>
-                                                        <!-- <small>test one</small> -->
-                                                    </div>
-                                                    <span class="badge badge-primary  border-0 ms-2"><i class="fa fa-inr" aria-hidden="true"></i> {{$val->annual_cost_after_discount}}</span>
-                                                </div>
-                                            </li>
-                                            @endforeach
-                                            @else
-                                            <div class="text-center">No records found</div>
+                                        @if($magazines->isNotEmpty())
+                                        @foreach($magazines as $val)
+                                        <li class="d-flex">
+                                            <div class="">
+                                                {{$loop->index +1}}
+                                            </div>
+                                            <div class="ms-3 country-flag">
+                                                <img src="{{ asset('Magazine/full/' . $val->full_img) }}" alt="">
+                                            </div>
+                                            <div
+                                                class="d-flex flex-wrap align-items-center justify-content-between w-100">
 
-                                            @endif
-                                        </div>
-                                    </ul>
+                                                <div class="ms-2">
+                                                    <h6 class="mb-0">{{$val->title}}</h6>
+                                                    <!-- <small>test one</small> -->
+                                                </div>
+                                                <span class="badge badge-primary  border-0 ms-2"><i class="fa fa-inr"
+                                                        aria-hidden="true"></i>
+                                                    {{$val->annual_cost_after_discount}}</span>
+                                            </div>
+                                        </li>
+                                        @endforeach
+                                        @else
+                                        <div class="text-center">No records found</div>
+
+                                        @endif
                                 </div>
+                                </ul>
                             </div>
                         </div>
                     </div>
-           
-
                 </div>
+
+
             </div>
         </div>
+    </div>
 
-        <!--**********************************
+    <!--**********************************
             Content body end
         ***********************************-->
 
-        <!--**********************************
+    <!--**********************************
             Footer start
         ***********************************-->
-        @include("periodical_distributor.footer")
-        <!--**********************************
+    @include("periodical_distributor.footer")
+    <!--**********************************
             Footer end
         ***********************************-->
 
-        <!--**********************************
+    <!--**********************************
            Support ticket button start
         ***********************************-->
 
-        <!--**********************************
+    <!--**********************************
            Support ticket button end
         ***********************************-->
 

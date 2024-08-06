@@ -110,7 +110,25 @@
                                     </select>
                                 </div>
 
-                              
+                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                    <label class="form-label">Select Mark Range</label>
+                                    <select name="mark_range" id="mark_range"
+                                        class="form-select bg-white p-2 border border-1 mb-3">
+                                        <option value="">All Mark Range </option>
+
+                                        <option value="0-100">0 to 100</option>
+                                        <option value="10-100">10 to 100</option>
+                                        <option value="20-100">20 to 100</option>
+                                        <option value="30-100">30 to 100</option>
+                                        <option value="40-100">40 to 100</option>
+                                        <option value="50-100">50 to 100</option>
+                                        <option value="60-100">60 to 100</option>
+                                        <option value="70-100">70 to 100</option>
+                                        <option value="80-100">80 to 100</option>
+                                        <option value="90-100">90 to 100</option>
+                                  
+                                    </select>
+                                </div>
                                 <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
                                     <label class="form-label">Search</label>
                                     <input type="text" name="search" id="search" class="form-control"
@@ -169,7 +187,25 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            
+                                <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
+                                    <label class="form-label">Select Mark Range</label>
+                                    <select name="mark_range" id="mark_range"
+                                        class="form-select bg-white p-2 border border-1 mb-3">
+                                        <option value="">All Mark Range </option>
+
+                                        <option value="0-100">0 to 100</option>
+                                        <option value="10-100">10 to 100</option>
+                                        <option value="20-100">20 to 100</option>
+                                        <option value="30-100">30 to 100</option>
+                                        <option value="40-100">40 to 100</option>
+                                        <option value="50-100">50 to 100</option>
+                                        <option value="60-100">60 to 100</option>
+                                        <option value="70-100">70 to 100</option>
+                                        <option value="80-100">80 to 100</option>
+                                        <option value="90-100">90 to 100</option>
+                                  
+                                    </select>
+                                </div>
                               
                                 <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
                                     <label class="form-label">Search</label>

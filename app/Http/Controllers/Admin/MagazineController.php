@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Session;
  
  use Illuminate\Support\Facades\Auth;
  use App\Models\Subscription;
+ use App\Models\Notifications;
 
  
 
@@ -550,16 +551,72 @@ public function procurement_sampleperiodicalcomplete(){
 
 
 
+public function meta_periodical_list() {
+  $data=  Magazine::where("periodical_procurement_status", '=', "1")
+
+  ->whereNull("periodical_reviewer_id")
+  ->get();
+  return view('admin.meta_periodical_list')->with('data',$data); 
+
+}
+
+// 
 
 
+public function assignlibrarianperiodical (Request $req){
+ 
+  $validator = Validator::make($req->all(), [
+    
+    'periodicalId'=> 'required|array|min:1',
+    'metaLibraianId' => 'required|array|size:1',
+  
+]);
+
+if ($validator->fails()) {
+    $data = [
+        'error' => $validator->errors()->first(),
+    ];
+    return response()->json($data);
+}
 
 
+foreach($req->periodicalId as $key=>$val){
+  $Magazine = Magazine::find($val);
+  $lib = $req->metaLibraianId[0];
+  $Magazine->periodical_reviewer_id = $lib;
+  $Magazine->save();
+
+}
+
+$notifi= new Notifications();
+$notifi->message = "Periodical Assigned For Metacheck";
+$notifi->to=$req->metaLibraianId[0];
+$notifi->from=auth('admin')->user()->id;
+$notifi->type="librarian";
+$notifi->save();
+  $data= [
+    'success' => 'Periodical assigned Successfully',
+         ];
+return response()->json($data);   
+}
 
 
+// 
+public function meta_pending_periodical(){
+   $data = Magazine::where('periodical_procurement_status', '=', '1')
+  ->whereNotNull('periodical_reviewer_id')
+  ->whereNull('periodical_status')
+  ->get();
+return view('admin.meta_pending_periodical')->with('data',$data);
+}
+public function meta_periodical_complete(){
+  $data=Magazine::where('periodical_procurement_status', '=', '1')
 
-
-
-
+  ->whereNotNull('periodical_reviewer_id')
+  ->whereNotNull('periodical_status')
+  ->get();
+   return view('admin.meta_periodical_complete')->with('data',$data);
+ }
 
   }
 

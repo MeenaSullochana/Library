@@ -25,6 +25,8 @@ use App\Models\Magazine;
 use App\Models\Budget;
 use App\Models\bookcopies;
 use App\Models\periodicalcopies;
+use App\Models\Orderbooks;
+
 
 use App\Models\PeriodicalPublisher;
 use App\Models\PeriodicalDistributor;
@@ -1054,5 +1056,131 @@ public function librarianreturnmessage(Request $req){
 
     }
 }
+
+public function book_orderview($id){
+ 
+  $Orderbook=Orderbooks::find($id);
+  $bookProduct =json_decode($Orderbook->bookProduct);
+  $bookbudget = Budget::where('id', $Orderbook->budgetid)
+  ->first();
+  $bookbudget1 = json_decode($bookbudget->CategorieAmount);
+  $datas=[];
+    foreach($bookbudget1  as $val1){
+   foreach($bookProduct  as $val){
+    $booksrec = Book::find($val->bookid);
+    if($val1->name == $booksrec->category){
+      $val->image=$booksrec->front_img;
+      $val->language=$booksrec->language;
+        array_push($datas,$val);
+    }
+   
+
+   }
+  }
+   $Orderbook->bookProduct = $datas;
+
+
+
+
+  \Session::put('Orderbook', $Orderbook);
+  return redirect('librarian/book-order-view');    
+
+}
+
+
+
+public function metaperiodicallist()
+{
+    $id = auth('librarian')->user()->id;
+    $Magazine = Magazine::where('periodical_reviewer_id', '=', $id)->get();
+
+ 
+
+    return view('librarian/meta_periodical_list')->with('Magazine', $Magazine);
+}
+
+public function librarianrejectstatus_perio(Request $req){
+  if($req->rejectmessage != null){
+    $Magazine = Magazine::find($req->id);
+    $Magazine->periodical_status="0";
+    $Magazine->reject_message=$req->rejectmessage;
+    $Magazine->save();
+    $data= [
+        'success' => 'Periodical review status change Successfully',
+             ];
+    return response()->json($data); 
+  }else{
+    $data= [
+      'error' => 'Remark field is required',
+           ];
+  return response()->json($data); 
+
+  }
+
+
+ }
+
+ 
+ public function meta_periodical_reject(){
+   $id=auth('librarian')->user()->id; 
+     $Magazine = Magazine::where('periodical_reviewer_id','=',$id)->where('periodical_status','=','0')->get();
+   return view('librarian/meta_periodical_reject')->with('Magazine',$Magazine); 
+  }
+
+ 
+  public function meta_periodical_pending(){
+    $id=auth('librarian')->user()->id; 
+    $Magazine = Magazine::where('periodical_reviewer_id','=',$id)->where('periodical_status','=',Null)->get();
+    return view('librarian/meta_periodical_pending')->with('Magazine',$Magazine); 
+   }
+
+
+
+  public function meta_complete_periodical_list(){
+    $id=auth('librarian')->user()->id; 
+    $Magazine = Magazine::where('periodical_reviewer_id','=',$id)->where('periodical_status','=','1')->get();
+    return view('librarian/meta_complete_periodical_list')->with('Magazine',$Magazine); 
+   }
+
+   public function meta_periodical_return(){
+    $id=auth('librarian')->user()->id; 
+    $Magazine = Magazine::where('periodical_reviewer_id','=',$id)->where('periodical_status','=','2')->get();
+    return view('librarian/meta_periodical_return')->with('Magazine',$Magazine); 
+   }
+
+   public function meta_periodical_update_return(){
+    $id=auth('librarian')->user()->id; 
+    $Magazine = Magazine::where('periodical_reviewer_id','=',$id)->where('periodical_status','=','3')->get();
+    return view('librarian/meta_periodical_update_return')->with('Magazine',$Magazine); 
+   }
+  //  
+  public function librarianreturnmessage_perio(Request $req){
+
+   
+    $Magazine = Magazine::find($req->id);
+    $Magazine->periodical_status="2";
+    $Magazine->return_message=$req->returnmessage;
+    $Magazine->save();
+    $data= [
+        'success' => 'Periodical review status change Successfully',
+             ];
+    return response()->json($data); 
+  
+   }
+
+   public function librarianapprovestatus_perio(Request $req){
+    $Magazine = Magazine::find($req->id);
+    $Magazine->periodical_status="1";
+    $Magazine->ddc=$req->ddc;
+    $Magazine->cc=$req->cc;
+    $Magazine->issueComment=$req->issueComment;
+    $Magazine->save();
+    $data= [
+        'success' => 'Periodical review status change Successfully',
+             ];
+    return response()->json($data); 
+
+   }
+
     }
     

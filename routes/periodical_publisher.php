@@ -103,7 +103,14 @@ Route::prefix('periodical_publisher')->group(function () {
 
 
 
+     Route::get('/periodical_procurement_complete',[MagazineController::class,'periodical_procurement_complete']);
+     Route::get('/periodical_procurement_list',[MagazineController::class,'periodical_procurement_list']);
+     Route::get('/periodical_procurement_reject',[MagazineController::class,'periodical_procurement_reject']);
+     Route::get('/periodical_updatelist',function(){ return view('periodical_publisher.periodical_updatelist');});
+     
+     Route::post('/periodicalupdatedandreturn',[MagazineController::class,'periodicalupdatedandreturn']);
 
+     Route::get('/periodical_procurement_return_update',[MagazineController::class,'periodical_procurement_return_update']);
 
 
 

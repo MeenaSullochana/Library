@@ -57,7 +57,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Magazine Dispatch Report</b>
+                                <b>Periodical Dispatch Report</b>
                             </h3>
                             <!-- <a class="btn btn-primary  btn-sm" href="/admin/index">
                                 <i class="fas fa-plus"></i> Dashboard </a> -->
@@ -68,7 +68,7 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Magazine Dispatch Report</h4>
+                                <h4 class="card-title">Periodical Dispatch Report</h4>
 
                             </div>
                             <div class="card-body">
@@ -78,7 +78,7 @@
                                     <!-- Ensure CSRF token is generated -->
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label for="id">Magazine</label>
+                                            <label for="id">Periodical</label>
                                             <div
                                                 class="dropdown bootstrap-select default-select form-control wide form-control-sm">
                                                 <select id="id" name="id"
@@ -95,9 +95,14 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label for="monthyear">Month and Year</label>
+                                            <label for="monthyear">From Month and Year</label>
                                             <input class="form-control input-daterange-datepicker" type="month"
                                                 id="monthyear" name="monthyear" min="1918-03" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="monthyear">To Month and Year</label>
+                                            <input class="form-control input-daterange-datepicker" type="month"
+                                                id="monthyear1" name="monthyear1" min="1918-03" required>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="Frequency">Frequency</label>

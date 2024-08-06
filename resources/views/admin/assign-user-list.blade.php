@@ -133,6 +133,7 @@
                                                                                         style="width: 222.562px;">
                                                                                         Reviewer Name</th>
 
+
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
@@ -140,7 +141,13 @@
                                                                                         style="width: 109px;">
                                                                                         Assign Date
                                                                                     </th>
-
+                                                                                    <th class="sorting" tabindex="0"
+                                                                                        aria-controls="empoloyeestbl2"
+                                                                                        rowspan="1" colspan="1"
+                                                                                        aria-label="Account Name: activate to sort column ascending"
+                                                                                        style="width: 109px;">
+                                                                                        Complete Date
+                                                                                    </th>
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
@@ -171,14 +178,26 @@
                                                                                     @if( $reviewer !=null)
                                                                                     <td><span>{{$reviewer->name}}</span>
                                                                                     </td>
+                                                                                    @endif
                                                                                     <td>
-                                                                                        @endif
+
                                                                                         {{$val->created_at->format('Y-m-d h:i A')}}
                                                                                     </td>
+
+                                                                                    @if($val->review_type != null)
+                                                                                    <td>
+                                                                                        {{$val->updated_at->format('Y-m-d h:i A')}}
+                                                                                    </td>
+
+                                                                                    @else
+                                                                                    <td>
+                                                                                        No Review
+                                                                                    </td>
+
+                                                                                    @endif
                                                                                     <td>
                                                                                         {{$val->review_type}}
                                                                                     </td>
-
                                                                                     @if($val->review_type != null)
                                                                                     <td class="py-2 "><span
                                                                                             class="badge badge-success badge-sm">
@@ -265,7 +284,13 @@
                                                                                         style="width: 109px;">
                                                                                         Assign Date
                                                                                     </th>
-
+                                                                                    <th class="sorting" tabindex="0"
+                                                                                        aria-controls="empoloyeestbl2"
+                                                                                        rowspan="1" colspan="1"
+                                                                                        aria-label="Account Name: activate to sort column ascending"
+                                                                                        style="width: 109px;">
+                                                                                        Complete Date
+                                                                                    </th>
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
@@ -314,14 +339,25 @@
                                                                                     @if( $reviewer !=null)
                                                                                     <td><span>{{$reviewer->name}}</span>
                                                                                     </td>
+                                                                                    @endif
                                                                                     <td>
-                                                                                        @endif
+
                                                                                         {{$val->created_at->format('Y-m-d h:i A')}}
                                                                                     </td>
+
+                                                                                    @if($val->review_type != null)
+                                                                                    <td>
+                                                                                        {{$val->updated_at->format('Y-m-d h:i A')}}
+                                                                                    </td>
+
+                                                                                    @else
+                                                                                    <td>
+                                                                                        No Review
+                                                                                    </td>
+                                                                                    @endif
                                                                                     <td>
                                                                                         {{$val->review_type}}
                                                                                     </td>
-
                                                                                     @if($val->review_type != null)
                                                                                     <td class="py-2 "><span
                                                                                             class="badge badge-success badge-sm">
@@ -397,7 +433,13 @@
                                                                                         style="width: 109px;">
                                                                                         Assign Date
                                                                                     </th>
-
+                                                                                    <th class="sorting" tabindex="0"
+                                                                                        aria-controls="empoloyeestbl2"
+                                                                                        rowspan="1" colspan="1"
+                                                                                        aria-label="Account Name: activate to sort column ascending"
+                                                                                        style="width: 109px;">
+                                                                                        Complete Date
+                                                                                    </th>
                                                                                     <th class="sorting" tabindex="0"
                                                                                         aria-controls="empoloyeestbl2"
                                                                                         rowspan="1" colspan="1"
@@ -428,14 +470,25 @@
                                                                                     @if( $reviewer !=null)
                                                                                     <td><span>{{$reviewer->name}}</span>
                                                                                     </td>
+                                                                                    @endif
                                                                                     <td>
-                                                                                        @endif
+
                                                                                         {{$val->created_at->format('Y-m-d h:i A')}}
                                                                                     </td>
+
+                                                                                    @if($val->review_type != null)
+                                                                                    <td>
+                                                                                        {{$val->updated_at->format('Y-m-d h:i A')}}
+                                                                                    </td>
+
+                                                                                    @else
+                                                                                    <td>
+                                                                                        No Review
+                                                                                    </td>
+                                                                                    @endif
                                                                                     <td>
                                                                                         {{$val->review_type}}
                                                                                     </td>
-
                                                                                     @if($val->review_type != null)
                                                                                     <td class="py-2 "><span
                                                                                             class="badge badge-success badge-sm">
@@ -472,6 +525,411 @@
                             </div>
                         </div>
                     </div> <!-- row-->
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h3 class="mb-0 bc-title">
+                                    <b>Book Reassign to All Reviewer</b>
+                                </h3>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-2">
+                            <div class="d-sm-flex align-items-center justify-content-between">
+                                <button class="btn btn-info assignPro mb-5 justify-content-between"
+                                    data-bs-toggle="modal" id="assign22" data-bs-target="#basicModal22">Reassign</button>
+                                <!-- <button class="btn btn-info mb-5 justify-content-between"  id="assign">Assign</button> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="table_header">
+                                        <h4>Book List</h4>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-4"></div>
+                                        <div class="col-4"></div>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center" style="width: 100%;OVERFLOW: scroll;">
+                                    <table class="display table table-striped memeber_table" id="yourTableId"
+                                        style="width: 100%;overflow: scroll;">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <div
+                                                        class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                        <input type="checkbox" class="form-check-input"
+                                                            id="selectAllIbook22" required="">
+                                                        <label class="form-check-label" for="selectAllIbook22"></label>
+                                                    </div>
+                                                </th>
+                                                <th>S.No</th>
+                                                <th>Book Name</th>
+                                                <th>Language</th>
+                                                <th>Category</th>
+                                                <th>Subject</th>
+                                                <th>Publication Name</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                            $categori1 = [];
+                                            $books = DB::table('books')
+
+                                            ->find($data->bookid);
+
+
+                                            if ($books != null) {
+                                            array_push($categori1, $books);
+                                            }
+
+                                            @endphp
+
+
+                                            @foreach($categori1 as $val)
+                                                  
+                                            <tr>
+                                                <td>
+                                                    <div
+                                                        class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                        <input type="checkbox" class="form-check-input bookitem22"
+                                                            id="checkItem_{{ $val->id }}" data-book-id1="{{ $val->id }}"
+                                                            required="">
+                                                        <label class="form-check-label"
+                                                            for="checkItem_{{ $val->id }}"></label>
+                                                    </div>
+                                                </td>
+                                                <td>{{ $loop->index + 1 }}</td>
+                                                <td><small>{{ $val->book_title }}</small></td>
+                                                @if($val->language == "Other_Indian")
+                                                <td>{{  $val->other_indian }}</td>
+                                                @elseif ($val->language == "other_foreign")
+                                                <td>{{ $val->other_foreign }}</td>
+                                                @else
+                                                <td>{{ $val->language }}</td>
+                                                @endif
+                                                <td>{{ $val->category }}</td>
+                                                <td>{{ $val->subject }}</td>
+                                                <td>{{$val->nameOfPublisher}}</td>
+                                            </tr>
+                                            @endforeach
+
+                                        </tbody>
+
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        @php
+                        $reviewers1 = DB::table('reviewer')
+                        ->where('reviewerType', '=', 'external')
+                        ->where('status', '=', 1)
+                        ->get();
+
+
+                        $reviewers = [];
+                        foreach ($reviewers1 as $key => $val) {
+                        $subjects = json_decode($val->subject);
+
+                        if (is_string($subjects)) {
+                        $subjectsArray = explode(',', $subjects);
+                        } elseif (is_array($subjects)) {
+                        $subjectsArray = $subjects;
+                        } else {
+                        $subjectsArray = [];
+                        }
+
+                        $revin = in_array($books->subject, $subjectsArray);
+
+                        if ($revin) {
+                        array_push($reviewers, $val);
+                        }
+                        }
+
+
+                        @endphp
+
+                        <div class="col-12 col-md-6 col-lg-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Expert Reviewer List</h4>
+
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="table-responsive">
+                                        <table class="display table table-striped externel_reviewer" id="yourTableId11"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div
+                                                            class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                id="selectAllIexternel" required="">
+                                                            <label class="form-check-label"
+                                                                for="selectAllIexternel"></label>
+                                                        </div>
+                                                    </th>
+                                                    <th>S.No</th>
+                                                    <th>Expert Reviewer Name</th>
+                                                    <th>Subject</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($reviewers as $key => $val) 
+                                                @php
+                                                $subjects = json_decode($val->subject, true);
+
+
+                                                $recdata = '';
+
+                                                if (is_array($subjects)) {
+                                                foreach ($subjects as $subject) {
+                                                $recdata .= htmlspecialchars($subject) . ' ,';
+                                                }
+                                                }
+
+                                                $book_review_statuses = DB::table('book_review_statuses')
+                                               ->where('book_id', $data->bookid)->where('reviewer_id', $val->id)
+                                               ->first();
+                                                @endphp
+                                                <tr>
+                                                    @if($book_review_statuses ==null)
+                                                    <td>
+                                                        <div
+                                                            class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                            <input type="checkbox" class="form-check-input externel"
+                                                                id="checkItem_{{ $val->id}}"
+                                                                data-externel-id="{{$val->id}}" required="">
+                                                            <label class="form-check-label" for="customCheckBox2"
+                                                                value="{{$val->id}}"></label>
+                                                        </div>
+                                                    </td>
+                                                    @else
+                                                    <td> </td>
+                                                    @endif
+                                                    <td> {{$key + 1}} </td>
+                                                    <td>{{ $val->name}} </td>
+                                                    <td> {{trim($recdata)}} </td>
+
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="table_header">
+                                        <h4>Librarian Reviewer List</h4>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <!-- Button in the end -->
+                                            <div class="input-group mb-3">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-4"></div>
+                                        <div class="col-4"></div>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="table-responsive">
+                                        <table class="display table table-striped internal_table" id="yourTableId22"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div
+                                                            class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                id="selectAllinternal" required="">
+                                                            <label class="form-check-label"
+                                                                for="selectAllinternal"></label>
+                                                        </div>
+                                                    </th>
+                                                    <th>S.No</th>
+                                                    <th>Librarian Name </th>
+                                                    <th>Library Name </th>
+                                                    <th>Category </th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                $internalsdat = DB::table('reviewer')
+                                                ->where('reviewerType', '=', 'internal')
+                                                ->where('status', '=', 1)
+                                                ->get();
+                                                $internalsdat1 = [];
+                                                foreach ($internalsdat as $val1) {
+                                                $categories = json_decode($val1->Category, true);
+                                                $cat= $books->category;
+                                                if (is_array($categories) && in_array($cat, $categories)) {
+                                                $internalsdat1[] = $val1;
+                                                }
+                                                }
+                                            
+                                                @endphp
+
+                                                @foreach ($internalsdat1 as $key => $val)
+
+                                                @php
+                                                    $categories = json_decode($val->Category, true);
+                                                    $recdata = '';
+
+                                                    if (is_array($categories)) {
+                                                    foreach ($categories as $category) {
+                                                    $recdata .= htmlspecialchars($category) . ' ';
+                                                    }
+                                                    }
+                                                    $book_review_statuses1 = DB::table('book_review_statuses')
+                                               ->where('book_id', $data->bookid)->where('reviewer_id', $val->id)
+                                               ->first();
+                                                    @endphp
+                                                <tr>
+                                                @if($book_review_statuses1 ==null)
+                                                    <td>
+                                                        <div
+                                                            class="form-check custom-checkbox checkbox-success check-lg me-3">
+
+                                                            <input type="checkbox" class="form-check-input internalitem"
+                                                                id="customCheckBox{{$loop->index + 1 }}" required=""
+                                                                data-librarian-id="{{ $val->id}} "
+                                                                value="{{$val->id}} ">
+                                                            <label class="form-check-label"
+                                                                for="customCheckBox{{$loop->index + 1}} "></label>
+                                                        </div>
+                                                    </td>
+                                                    @else
+                                                    <td> </td>
+                                                    @endif
+                                                    <td>{{$loop->index + 1}} </td>
+                                                    <td><span>{{$val->name}}</span></td>
+                                                    <td><span>{{$val->libraryName}} </span></td>
+
+
+
+                                                    <td><span> {{trim($recdata)}} </span></td>
+
+
+
+
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="table_header">
+                                        <h4>Public Reviewer List</h4>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <!-- Button in the end -->
+                                            <div class="input-group mb-3">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-4"></div>
+                                        <div class="col-4"></div>
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="table-responsive">
+                                        <table class="display table table-striped public_table" id="yourTableId33"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div
+                                                            class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                            <input type="checkbox" class="form-check-input"
+                                                                id="selectAllpublic" required="">
+                                                            <label class="form-check-label"
+                                                                for="selectAllpublic"></label>
+                                                        </div>
+                                                    </th>
+                                                    <th>S.No</th>
+                                                    <th>Public Reviewer Name</th>
+                                                    <th>Category</th>
+                                                    <th>District</th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                $internals11 = DB::table('reviewer')
+                                                ->where('Category', '=',
+                                                $cat)->where('reviewerType', '=', 'public')->where('status', '=',
+                                                1)->get();
+                                             
+                                                @endphp
+                                                @foreach($internals11 as $val)
+                                                @php
+                                                $book_review_statuses2 = DB::table('book_review_statuses')
+                                               ->where('book_id', $data->bookid)->where('reviewer_id', $val->id)
+                                               ->first();
+                                                @endphp
+                                                <tr>
+                                                @if($book_review_statuses2 ==null)
+                                                    <td>
+                                                        <div
+                                                            class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                                            <input type="checkbox" class="form-check-input publiclitem"
+                                                                id="customCheckBox{{$loop->index + 1}}" required=""
+                                                                data-public-id="{{ $val->id }}" value="{{$val->id }}">
+                                                            <label class="form-check-label"
+                                                                for="customCheckBox{{$loop->index + 1}}"></label>
+                                                        </div>
+                                                    </td>
+                                                    @else
+                                                    <td> </td>
+                                                    @endif
+                                                    <td>{{$loop->index + 1}} </td>
+                                                    <td><span>{{$val->name}} </span></td>
+                                                    <td><span>{{$val->Category}} </span></td >
+                                                    <td> <span>{{$val->district}} </span></td>
+
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </section>
                 <!--**********************************
         Main wrapper end
@@ -482,20 +940,91 @@
 
         <div class="modal fade" id="basicModal">
             <div class="modal-dialog" role="document">
-            <div class="modal-content">
-            <div class="modal-body">
-                <p>Do you want to proceed?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="submitbutton11" class="btn btn-primary submitbutton11">Confirm</button>
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Do you want to proceed?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="submitbutton11"
+                            class="btn btn-primary submitbutton11">Confirm</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+        <div class="modal fade" id="basicModal22">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <p>Do you want to proceed?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="submitbutton22"
+                            class="btn btn-primary submitbutton22">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <?php
         include "admin/plugin/plugin_js.php";
     ?>
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script>
+        $(document).ready(function() {
+       
+            $('.memeber_table').dataTable();
+            $('.public_table').dataTable();
+            $('.externel_reviewer').dataTable();
+            $('.internal_table').dataTable()
+        });
+        </script>
+
+        <script>
+        $(document).ready(function() {
+            $('#selectAllpublic').on('click', function() {
+                console.log('hi');
+                var isChecked = $(this).prop('checked');
+                $('.publiclitem').prop('checked', isChecked);
+            });
+        });
+        </script>
+        <script>
+        $(document).ready(function() {
+            $('#selectAllinternal').on('click', function() {
+                console.log('hi');
+                var isChecked = $(this).prop('checked');
+                $('.internalitem').prop('checked', isChecked);
+            });
+        });
+        </script>
+        <script>
+        $(document).ready(function() {
+            $('#selectAllIbook22').on('click', function() {
+                console.log('hi');
+                var isChecked = $(this).prop('checked');
+                $('.bookitem22').prop('checked', isChecked);
+            });
+        });
+        </script>
+        <script>
+        $(document).ready(function() {
+            $('#selectAllIexternel').on('click', function() {
+
+                var isChecked = $(this).prop('checked');
+                $('.externel').prop('checked', isChecked);
+            });
+        });
+        </script>
+
+        <style>
+        .dataTables_wrapper .dataTables_paginate .paginate_button.previous,
+        .dataTables_wrapper .dataTables_paginate .paginate_button.next {
+            width: auto !important;
+        }
+        </style>
 </body>
 <script>
 $(document).ready(function() {
@@ -508,59 +1037,136 @@ $(document).ready(function() {
 </script>
 
 <script>
-    $('.submitbutton11').click(function () {
-      $('.submitbutton11').prop('disabled',true);
-      $('#assign').prop('disabled',true);
+$('.submitbutton11').click(function() {
+    $('.submitbutton11').prop('disabled', true);
+    $('#assign').prop('disabled', true);
 
-             var checkebook = $('.bookitem:checked').map(function () {
-           return $(this).data('book-id');
-                }).get();
-
-   
-                var rec = @json($data->bookid);
+    var checkebook = $('.bookitem:checked').map(function() {
+        return $(this).data('book-id');
+    }).get();
 
 
+    var rec = @json($data -> bookid);
 
-                var requestData = {
-                   reviewerId: checkebook,
-                   bookid:rec
-                        };
 
-        console.log(requestData);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: '/admin/delete-reviewer-data',
-            method: 'POST',
-            data: requestData,
-            success: function (response) {
-               $('.submitbutton11').prop('disabled',false);
-               $('#assign').prop('disabled',false);
 
-              if(response.success){
-               $('#basicModal').modal('hide');
+    var requestData = {
+        reviewerId: checkebook,
+        bookid: rec
+    };
+
+    console.log(requestData);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: '/admin/delete-reviewer-data',
+        method: 'POST',
+        data: requestData,
+        success: function(response) {
+            $('.submitbutton11').prop('disabled', false);
+            $('#assign').prop('disabled', false);
+
+            if (response.success) {
+                $('#basicModal').modal('hide');
 
 
                 setTimeout(function() {
-                    window.location.href ="/admin/review"
-                     }, 3000);
-                toastr.success(response.success,{timeout:45000});
-               }else{
-                  $('#basicModal').modal('hide');
-                toastr.error(response.error,{timeout:45000});
-             
-               }
+                    window.location.href = "/admin/review"
+                }, 3000);
+                toastr.success(response.success, {
+                    timeout: 45000
+                });
+            } else {
+                $('#basicModal').modal('hide');
+                toastr.error(response.error, {
+                    timeout: 45000
+                });
 
-            },
-            error: function (xhr, status, error) {
-                console.error('AJAX error:', status, error);
             }
-        });
 
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', status, error);
+        }
     });
-</script>
 
+});
+</script>
+<script>
+$('.submitbutton22').click(function() {
+  
+    $('.submitbutton22').prop('disabled', true);
+    $('#assign22').prop('disabled', true);
+
+
+    var checkepublic = $('.publiclitem:checked').map(function() {
+        return $(this).data('public-id');
+    }).get();
+
+
+    var checkebook = $('.bookitem22:checked').map(function() {
+        return $(this).data('book-id1');
+    }).get();
+
+    var checkeinternal = $('.internalitem:checked').map(function() {
+        return $(this).data('librarian-id');
+    }).get();
+
+
+    var checkeexternel = $('.externel:checked').map(function() {
+        return $(this).data('externel-id')
+    }).get();
+
+
+    var requestData = {
+        bookId: checkebook,
+        LibrarianReviewverId: checkeinternal,
+        expectReviewverId: checkeexternel,
+        publicReviewverId: checkepublic,
+    };
+    console.log(requestData);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        url: '/admin/bookreassign-data',
+        method: 'POST',
+        data: requestData,
+        success: function(response) {
+            $('.submitbutton22').prop('disabled', false);
+            $('#assign22').prop('disabled', false);
+
+            if (response.success) {
+                $('#basicModal22').modal('hide');
+
+
+                setTimeout(function() {
+                    window.location.href = "/admin/review"
+                }, 3000);
+                toastr.success(response.success, {
+                    timeout: 45000
+                });
+            } else {
+                $('#basicModal22').modal('hide');
+                toastr.error(response.error, {
+                    timeout: 45000
+                });
+                //  setTimeout(function() {
+                //      window.location.href =response.url
+                //       }, 3000);
+            }
+
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', status, error);
+        }
+    });
+
+});
+</script>
 </html>

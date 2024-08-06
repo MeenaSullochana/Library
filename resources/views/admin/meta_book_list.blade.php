@@ -282,45 +282,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- @php
-                                    $rev = DB::table('librarians')->where('status','=','1')->where('metaChecker','=','yes')->get();
-                                @endphp
-                                @foreach($rev as $val)
-                                    <tr>
-                                        <td>
-                                            <div class="form-check custom-checkbox checkbox-success check-lg me-3">
-                                                <input type="checkbox" class="form-check-input libraianitem" id="customCheckBox{{$loop->index + 3}}" required=""
-                                                    data-librarian-id="{{$val->id}}" value="{{$val->id}}">
-                                                <label class="form-check-label" for="customCheckBox{{$loop->index + 3}}"></label>
-                                            </div> 
-                                        </td>
-                                        <td>{{$loop->index + 1}}</td>
-                                        <td>
-                                            <span>{{$val->librarianName}}</span>
-                                        </td>
-                                        <td>
-                                            <span>{{$val->libraryName}}</span>
-                                        </td>
-<td>
-    @php
-        $subject1 = json_decode($val->subject); 
-    @endphp
-    <span>
-        @foreach($subject1 as $subject)
-            {{ $subject }}
-        @endforeach
-    </span>
-</td>
-
-                                        <td data-label="controlq">
-                                            <div class="d-flex mt-p0">
-                                                <a href="/admin/librarianview/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach -->
+                           
                                     </tbody>
                                 </table>
                             </div>
