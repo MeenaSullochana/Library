@@ -73,58 +73,11 @@
                     <div class="card-body p-0">
                         <div class="table-responsive active-projects style-1 ItemsCheckboxSec shorting ">
                             <div class="tbl-caption">
-                            
-                            {{-- <div>
-                                <div class="btn-group bootstrap-select select-picker pr-2 d-tc">
-                                    <div class="dropdown-menu open" role="combobox">
-                                        <ul class="dropdown-menu inner" role="listbox" aria-expanded="false">
-                                        <li data-original-index="0" class="selected"><a tabindex="0" class=""
-                                            data-tokens="null" role="option" aria-disabled="false"
-                                            aria-selected="true"><span class="text">Date
-                                            Descending</span><span
-                                                class="glyphicon glyphicon-ok check-mark"></span></a>
-                                        </li>
-                                        <li data-original-index="1"><a tabindex="0" class="" data-tokens="null"
-                                            role="option" aria-disabled="false" aria-selected="false"><span
-                                            class="text">Date Ascending</span><span
-                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                        <li data-original-index="2"><a tabindex="0" class="" data-tokens="null"
-                                            role="option" aria-disabled="false" aria-selected="false"><span
-                                            class="text">Title Descending</span><span
-                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                        <li data-original-index="3"><a tabindex="0" class="" data-tokens="null"
-                                            role="option" aria-disabled="false" aria-selected="false"><span
-                                            class="text">Title Ascending</span><span
-                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                        <li data-original-index="4"><a tabindex="0" class="" data-tokens="null"
-                                            role="option" aria-disabled="false" aria-selected="false"><span
-                                            class="text">Year Descending</span><span
-                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                        <li data-original-index="5"><a tabindex="0" class="" data-tokens="null"
-                                            role="option" aria-disabled="false" aria-selected="false"><span
-                                            class="text">Year Ascending</span><span
-                                            class="glyphicon glyphicon-ok check-mark"></span></a></li>
-                                        </ul>
-                                    </div>
-                                    <select name="sortColumn" id="books-sort" class="select-picker pr-2 d-tc"
-                                        autocomplete="off" tabindex="-98">
-                                        <option value="Books.creationDateTime" data-order="DESC">Date Descending
-                                        </option>
-                                        <option value="Books.creationDateTime" data-order="ASC">Date Ascending
-                                        </option>
-                                        <option value="Books.title" data-order="DESC">Title Descending</option>
-                                        <option value="Books.title" data-order="ASC">Title Ascending</option>
-                                        <option value="Books.publishingYear" data-order="DESC">Year Descending
-                                        </option>
-                                        <option value="Books.publishingYear" data-order="ASC">Year Ascending
-                                        </option>
-                                    </select>
-                                </div>
-                            </div> --}}
+
                             </div>
                             <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
-                            <table id="example3" class="table dataTable no-footer" role="grid"
-                                aria-describedby="empoloyees-tbl3_info">
+                                    <table id="example3" class="table dataTable no-footer" role="grid"
+                                        aria-describedby="empoloyees-tbl3_info"  style="min-width: 100px">
                                 <thead>
                                             <tr role="row">
 
@@ -170,8 +123,8 @@
                                         <td>
                                         <div class="products">
                                             <div>
-                                                <h6><a class="text-left" href="book_manage_view.php">{{$val->book_title}}</a></h6>
-                                                <span class="text-left">{{$val->subtitle}}</span>
+                                                <h6><a style="white-space:normal;" class="text-left" href="book_manage_view.php">{{$val->book_title}}</a></h6>
+                                                <span style="white-space:normal;" class="text-left">{{$val->subtitle}}</span>
                                             </div>
                                         </div>
                                         </td>

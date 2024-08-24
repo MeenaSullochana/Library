@@ -21,7 +21,8 @@ class PeriodicalDistributorController extends Controller
     
    
     public function periodical_distributor_view($id){
-        $PeriodicalDistributor=PeriodicalDistributor::find($id);
+    
+       return $PeriodicalDistributor=PeriodicalDistributor::find($id);
         \Session::put('PeriodicalDistributor', $PeriodicalDistributor);
       
           return redirect('admin/distriputor_profileview'); 

@@ -134,7 +134,8 @@
                             </div> -->
                                 </div>
                                 <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">
-                                    <table id="example3" class="table dataTable no-footer" role="grid" aria-describedby="empoloyees-tbl3_info">
+                                    <table id="example3" class="table dataTable no-footer" role="grid"
+                                        aria-describedby="empoloyees-tbl3_info"  style="min-width: 100px">
                                         <thead>
                                             <tr role="row">
                                                 <th class="sorting_asc" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-sort="ascending" aria-label=": activate to sort column descending" style="width: 25.375px;">
@@ -186,8 +187,8 @@
                                                 <td>
                                                     <div class="products">
                                                         <div>
-                                                            <h6><a class="text-left" href="book_manage_view.php">{{$val->book_title}}</a></h6>
-                                                            <span class="text-left">{{$val->subtitle}}</span>
+                                                            <h6><a style="white-space:normal;" class="text-left" href="book_manage_view.php">{{$val->book_title}}</a></h6>
+                                                            <span style="white-space:normal;" class="text-left">{{$val->subtitle}}</span>
                                                         </div>
                                                     </div>
                                                 </td>

@@ -130,8 +130,8 @@
                                                     <td>{{$data->txnrefno}}</td>
                                                     <td>{{$data->invoiceNumber}}</td>
                                                     <td class="right"><i class="fa fa-inr"></i>{{$data->amount}}</td>
-                                                    <td class="right">{{$data->totalAmount /   $data->amount}}</td>
-                                                    <td class="right"> <i class="fa fa-inr"></i> {{$data->totalAmount }}
+                                                    <td class="right"><i class="fa fa-inr"></i>{{$data->amount}}</td>
+                                                    <td class="right">{{$data->amount /   $data->amount}}</td>
                                                     </td>
                                                 </tr>
                                                 @endforeach

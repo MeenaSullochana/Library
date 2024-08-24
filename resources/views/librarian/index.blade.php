@@ -879,7 +879,9 @@
                                 </div>
                             </div> -->
                             @endif
+                            @if (auth('librarian')->user()->metaChecker == 'yes')
                            <h3> Book </h3>
+                           @endif
                             <div class="col-xl-6 col-md-6">
                                 <div class="row">
                                     @if (auth('librarian')->user()->metaChecker == 'yes')
@@ -992,7 +994,9 @@
                                     @endif
                                 </div>
                             </div>
+                            @if (auth('librarian')->user()->metaChecker == 'yes')
                             <h3> Periodical </h3>
+                            @endif
                             <div class="col-xl-6 col-md-6">
                                 <div class="row">
                                     @if (auth('librarian')->user()->metaChecker == 'yes')

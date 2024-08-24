@@ -1282,9 +1282,44 @@ Route::get('/meta_pending_periodical',[MagazineController::class,'meta_pending_p
 Route::get('/meta_periodical_complete',[MagazineController::class,'meta_periodical_complete']);
 Route::get('/procur_periodical_assign',function(){ return view('admin.procur_periodical_assign');});
 Route::post('/bookreassign-data',[BookController::class,'bookreassign_data']);
-Route::get('/get-periodicals/{id}',[BookController::class,'get_periodicals']);
-Route::post('/periodicalassign-data',[BookController::class,'periodicalassign_data']);
-Route::get('/procur_pending_periodical_list',[BookController::class,'procur_pending_periodical_list']);
+Route::get('/get-periodicals/{id}',[MagazineController::class,'get_periodicals']);
+Route::post('/periodicalassign-data',[MagazineController::class,'periodicalassign_data']);
+Route::get('/procur_pending_periodical_list',[MagazineController::class,'procur_pending_periodical_list']);
+Route::get('/periodical_reviewerlist/{id}',[MagazineController::class,'periodical_reviewerlist']);
+Route::get('/periodical_review',function(){
+    $data = Session::get('periodical_reviewer');
+    
+     return view('admin.periodical_assign-user-list')->with("data",$data);
+ });
+
+ Route::post('/periodicalreassign-data',[MagazineController::class,'periodicalreassign_data']);
+
+ Route::post('/periodical-delete-reviewer-data',[MagazineController::class,'periodical_delete_reviewer_data']);
+ Route::get('/procur_complete_periodical_list',[MagazineController::class,'procur_complete_periodical_list']);
+ Route::get('/review/periodical',[MagazineController::class,'reviewperiodical']);
+ 
+ Route::get('/despatch',function(){ return view('admin.despatch');});
+ Route::post('/despatch_periodical',[MagazineController::class,'despatch_periodical']);
+ Route::get('/master_periodical_data',[MagazineController::class,'master_periodical_data']);
+ Route::get('/magazine_views/{id}',[MagazineController::class,'magazine_views']);
+
+ Route::get('/magazine-views',function(){
+    $data = Session::get('magazineviews');
+    if($data !==null){
+        return view('admin.magazine_views')->with("data",$data);
+    }
+    
+});
+
+Route::get('/master_periodical_datareport',[MagazineController::class,'master_periodical_datareport']);
+
+
+Route::get('/metacheck_periodical_data',[MagazineController::class,'metacheck_periodical_data']);
+Route::get('/reviwer_periodical_data',[MagazineController::class,'reviwer_periodical_data']);
+Route::get('/dispatch_final_report',function(){ return view('admin.dispatch_final_report');});
+Route::post('/dispatch_finalreport',[SettingController::class,'dispatch_finalreport']);
+Route::get('/dispatch_final_report_pdf',function(){ return view('admin.dispatch_final_report_pdf');});
+Route::get('/dispatch_final_report_pdf',[SettingController::class,'dispatch_final_report_pdf']);
 
 
     });

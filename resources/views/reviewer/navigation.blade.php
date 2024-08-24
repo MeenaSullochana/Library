@@ -1343,7 +1343,7 @@
                         </a>
                     </li>
           
-					<li class="menu-title">Review Management</li>
+					<li class="menu-title">Book Review Management</li>
 					<li><a href="/reviewer/review_book_list" class="" aria-expanded="false">
 						<i class="bi bi-list-stars"></i>
                             <span class="nav-text">Review Book List</span>
@@ -1354,7 +1354,17 @@
                             <span class="nav-text">Completed Book</span>
                         </a>
                     </li>
-					
+					<li class="menu-title">Periodical Review Management</li>
+					<li><a href="/reviewer/review_periodical_list" class="" aria-expanded="false">
+						<i class="bi bi-list-stars"></i>
+                            <span class="nav-text">Review Periodical</span>
+                        </a>
+                    </li>
+					<li><a href="/reviewer/review_periodical_complete" class="" aria-expanded="false">
+						<i class="bi bi-journal-check"></i>
+                            <span class="nav-text">Completed Periodical</span>
+                        </a>
+                    </li>
 					@if(auth('reviewer')->user()->reviewerType == "internal")
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 					<i class="bi bi-chat-dots"></i>

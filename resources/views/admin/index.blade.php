@@ -4312,7 +4312,18 @@ Not Completed: {{ $bookTotals['metnotcomooktotal'] }}
             <td style="border: 1px solid black; padding: 10px; text-align: left;">
                 Assigned: {{ $reviewerCompleteCount }}<br>
                
-                Not Assigned: {{ $bookTotals['metcomooktotal'] -  $reviewerCompleteCount }}
+                Not Assigned: {{ $bookTotals['metcomooktotal'] -  $reviewerCompleteCount }}<br>
+                Review Complete: {{ $reviCompleteCount }}<br>
+                Review Not Complete: {{ $reviewerCompleteCount -  $reviCompleteCount }}<br>
+                
+                All Three Review: {{ $allthree }}<br>
+                Expert And Librarian: {{ $exp_lib }}<br>
+                Expert And Public: {{ $exp_pub }}<br>
+                Librarian And Public: {{ $lib_pub }}<br>
+                Expert: {{ $exp }}<br>
+                Librarian: {{ $lib }}<br>
+                Public: {{ $pub }}<br>
+              
             </td>
             <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['metcomooktotal'] }}</td>
 

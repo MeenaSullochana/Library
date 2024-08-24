@@ -610,7 +610,7 @@ $('.submitbutton11').click(function() {
 
 
                 setTimeout(function() {
-                    window.location.href = "/admin/procur_book_assign"
+                    window.location.href = "/admin/procur_periodical_assign"
                 }, 3000);
                 toastr.success(response.success, {
                     timeout: 45000

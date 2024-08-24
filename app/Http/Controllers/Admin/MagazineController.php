@@ -26,13 +26,15 @@ use App\Models\Publisher;
 use App\Models\periodicalcopies;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
- 
+use App\Models\PeriodicalReviewStatus;
  use Illuminate\Support\Facades\Auth;
  use App\Models\Subscription;
  use App\Models\Notifications;
 
- 
+ use App\Models\Reviewer;
+ use App\Models\Procurementpaymrnt;
 
+ 
  use Illuminate\Support\Facades\Notification;
 use App\Notifications\Member1detailNotification;
 class MagazineController extends Controller
@@ -617,6 +619,1131 @@ public function meta_periodical_complete(){
   ->get();
    return view('admin.meta_periodical_complete')->with('data',$data);
  }
+// new
+public function get_periodicals($id)
+{
+ 
+  if ($id == 'all') {
+    $Magazines = Magazine::where('periodical_procurement_status', '=', '1')->where('periodical_status', '=', '1')->whereNotNull('periodical_reviewer_id')
+    ->get();
+  } else {
+    $Magazines = Magazine::where('category', $id)->where('periodical_procurement_status', '=', '1')->where('periodical_status', '=', '1')->whereNotNull('periodical_reviewer_id')
+    ->get();
+  }
+  
+  $reviewers1 = Reviewer::where('reviewerType', '=', 'external')
+    ->where('status', '=', 1)
+    ->get();
+
+  $reviewers = [];
+  $cat1 = $Magazines[0]->category;
+    foreach ($reviewers1 as $val) {
+      $categories = json_decode($val->per_category, true);
+
+      if (is_array($categories) && in_array($cat1, $categories)) {
+        $reviewers[] = $val;
+      }
+    }
+
+
+
+  $html = '';
+  $htmldata = '';
+
+  if ($Magazines->isEmpty()) {
+    $html = '<tr><td colspan="3">No books found.</td></tr>';
+  } else {
+    $i = 0;
+    foreach ($Magazines as $key => $val) {
+      $datass = PeriodicalReviewStatus::where('periodical_id', $val->id)->first();
+      
+      if ($datass == null) {
+          $language = $val->language;
+        $i = $i + 1;
+        $html .= '<tr>
+                  <td>
+                  <div class="form-check custom-checkbox checkbox-success check-lg me-3">
+                  <input type="checkbox" class="form-check-input bookitem" id="checkItem_' . $val->id . '" data-book-id="' . $val->id . '" required="">
+                  <label class="form-check-label" for="checkItem_' . $val->id . '"></label>
+              </div>
+                  </td>
+                  <td>' . ($i) . '</td>
+                  <td><small>' . $val->title . '</small></td>
+                   <td>' . $val->periodicity . '</td>
+                  <td>' . $language . '</td>
+                     <td>' . $val->category . '</td>
+                  <td>' . $val->publisher_name . '</td>
+              </tr>';
+      }
+      
+  }
+
+  if (count($reviewers) <= 0) {
+
+    $htmldata = '<tr><td colspan="3">No external reviewers found.</td></tr>';
+  } else {
+
+
+    foreach ($reviewers as $key => $val) {
+
+      $categories = json_decode($val->per_category, true);
+
+      $recdata = '';
+
+      if (is_array($categories)) {
+        foreach ($categories as $category) {
+          $recdata .= htmlspecialchars($category) . ' ,';
+        }
+      }
+
+
+      $htmldata .= '<tr>
+              <td>
+              <div class="form-check custom-checkbox checkbox-success check-lg me-3">
+              <input type="checkbox" class="form-check-input externel" id="checkItem_' . $val->id . '" data-externel-id="' . $val->id . '" required="">
+              <label class="form-check-label" for="customCheckBox2" value="' . $val->id . '"></label>
+              </div>
+              </td>
+              <td>' . ($key + 1) . '</td>
+              <td>' . $val->name . '</td>
+              <td>' . trim($recdata) . '</td>
+
+          </tr>';
+    }
+  }
+
+  $tbodyHtml2 = '';
+  $index1 = 1;
+  if ($Magazines[0]->category == null) {
+    $tbodyHtml2 = '<tr><td colspan="3">No Librarian reviewers found.</td></tr>';
+  } else {
+
+
+    $cat = $Magazines[0]->category;
+    $internalsdat = Reviewer::where('reviewerType', '=', 'internal')
+      ->where('status', '=', 1)
+      ->get();
+    $internalsdat1 = [];
+    foreach ($internalsdat as $val) {
+      $categories = json_decode($val->per_category, true);
+
+      if (is_array($categories) && in_array($cat, $categories)) {
+        $internalsdat1[] = $val;
+      }
+    }
+
+    if (count($internalsdat1) <= 0) {
+      $tbodyHtml2 = '<tr><td colspan="3">No Librarian reviewers found.</td></tr>';
+    } else {
+      foreach ($internalsdat1 as $key => $val) {
+        // $subjects = json_decode($val->subject);
+
+        $tbodyHtml2 .= '<tr>';
+        $tbodyHtml2 .= '<td>';
+        $tbodyHtml2 .= '<div class="form-check custom-checkbox checkbox-success check-lg me-3">';
+        $tbodyHtml2 .= '<input type="checkbox" class="form-check-input internalitem" id="customCheckBox' . ($index1 + 3) . '" required="" data-librarian-id="' . $val->id . '" value="' . $val->id . '">';
+        $tbodyHtml2 .= '<label class="form-check-label" for="customCheckBox' . ($index1 + 3) . '"></label>';
+        $tbodyHtml2 .= '</div>';
+        $tbodyHtml2 .= '</td>';
+        $tbodyHtml2 .= '<td>' . $index1 . '</td>';
+        $tbodyHtml2 .= '<td><span>' . $val->name . '</span></td>';
+        $tbodyHtml2 .= '<td><span>' . $val->libraryName . '</span></td>';
+
+
+        $categories = json_decode($val->per_category, true);
+
+        $recdata = '';
+
+        if (is_array($categories)) {
+          foreach ($categories as $category) {
+            $recdata .= htmlspecialchars($category) . ' ,';
+          }
+        }
+
+        $tbodyHtml2 .= '<td><span>' . trim($recdata) . '</span></td>';
+
+
+
+
+        $tbodyHtml2 .= '</tr>';
+        $index1++;
+      }
+    }
+  }
+  if (count($Magazines) <= 0) {
+    $tbodyHtml3 = '<tr><td colspan="3">No Public reviewers found.</td></tr>';
+  } else {
+    $tbodyHtml3 = '';
+    $index1 = 1;
+
+    if ($Magazines[0]->category == null) {
+      $tbodyHtml3 = '<tr><td colspan="3">No external reviewers found.</td></tr>';
+    } else {
+            $internals1122 = Reviewer::where('reviewerType', '=', 'public')->where('status', '=', 1)->get();
+
+      $cat = $Magazines[0]->category;
+      $internals11 = [];
+      foreach ($internals1122 as $val) {
+        $categories = json_decode($val->per_category, true);
+  
+        if (is_array($categories) && in_array($cat, $categories)) {
+          $internals11[] = $val;
+        }
+      }
+      if (count($internals11) <= 0) {
+        $tbodyHtml3 = '<tr><td colspan="3">No external reviewers found.</td></tr>';
+      } else {
+        foreach ($internals11 as $key => $val) {
+          $tbodyHtml3 .= '<tr>';
+          $tbodyHtml3 .= '<td>';
+          $tbodyHtml3 .= '<div class="form-check custom-checkbox checkbox-success check-lg me-3">';
+          $tbodyHtml3 .= '<input type="checkbox" class="form-check-input publiclitem" id="customCheckBox' . ($index1 + 3) . '" required="" data-public-id="' . $val->id . '" value="' . $val->id . '">';
+          $tbodyHtml3 .= '<label class="form-check-label" for="customCheckBox' . ($index1 + 3) . '"></label>';
+          $tbodyHtml3 .= '</div>';
+          $tbodyHtml3 .= '</td>';
+          $tbodyHtml3 .= '<td>' . $index1 . '</td>';
+          $tbodyHtml3 .= '<td><span>' . $val->name . '</span></td>';
+          $categories = json_decode($val->per_category, true);
+
+          $recdata = '';
+  
+          if (is_array($categories)) {
+            foreach ($categories as $category) {
+              $recdata .= htmlspecialchars($category) . ' ,';
+            }
+          }
+          $tbodyHtml3 .= '<td><span>' .  trim($recdata) . '</span></td>';
+          $tbodyHtml3 .= '<td><span>' . $val->district . '</span></td>';
+
+          $tbodyHtml3 .= '</tr>';
+          $index1++;
+        }
+      }
+    }
+  }
+
+  $data = [
+    'success' => $html,
+    'success11' => $htmldata,
+    'success22' => $tbodyHtml2,
+    'success33' => $tbodyHtml3,
+
+  ];
+
+  return response()->json($data);
+}
+
+
+   } 
+
+
+  //  
+
+  public function periodicalassign_data(Request $req)
+  {
+
+    $validator = Validator::make($req->all(), [
+
+      'periodicalId' => 'required|array|min:1',
+      'LibrarianReviewverId' => 'required|array|min:1',
+      'expectReviewverId' => 'required|array|min:1',
+      'publicReviewverId'   => 'required|array|min:1',
+    ]);
+
+    if ($validator->fails()) {
+      $data = [
+        'error' => $validator->errors()->first(),
+      ];
+      return response()->json($data);
+    }
+    $periodicalId = $req->periodicalId;
+    $internalReviewverId = $req->LibrarianReviewverId;
+    $externalReviewverId = $req->expectReviewverId;
+    $publicReviewverId = $req->publicReviewverId;
+    $mergedArray = array_merge($internalReviewverId, $externalReviewverId, $publicReviewverId);
+    foreach ($periodicalId as $key => $val1) {
+
+      foreach ($mergedArray as $key => $val) {
+        $rev = Reviewer::where("id", '=', $val)->first();
+
+        $bookreview = new PeriodicalReviewStatus();
+        $bookreview->periodical_id = $val1;
+        $bookreview->reviewer_id = $rev->id;
+        $bookreview->reviewertype = $rev->reviewerType;
+        $bookreview->save();
+      }
+    }
+
+    foreach ($mergedArray as $key => $val) {
+      $notifi = new Notifications();
+      $notifi->message = "Periodical Assigned For Review";
+      $notifi->to = $val;
+      $notifi->from = auth('admin')->user()->id;
+      $notifi->type = "reviewer";
+      $notifi->save();
+    }
+    $data = [
+      'success' => 'Periodical assigned Successfully',
+    ];
+    return response()->json($data);
+  }
+  public function procur_pending_periodical_list()
+  {
+    $data = PeriodicalReviewStatus::groupBy('periodical_id')->get('periodical_id');
+    $record = [];
+    foreach ($data as $key => $val) {
+      $data1 = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('mark', '!=', null)->get();
+      if (sizeof($data1) == 0) {
+        $periodical = Magazine::find($val->periodical_id);
+        $internalcount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'internal')->count();
+        $externalcount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'external')->count();
+        $publiccount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'public')->count();
+
+        $obj = (object)[
+          'periodical' => $periodical,
+          'internalcount' => $internalcount,
+          'externalcount' => $externalcount,
+          'publiccount' => $publiccount,
+        ];
+        array_push($record, $obj);
+      }
+    }
+    return view('admin.procur_pending_periodical_list')->with('record', $record);
+  }
+  public function periodical_reviewerlist($id)
+  {
+    $external =  PeriodicalReviewStatus::where('periodical_id', '=', $id)->where('reviewertype', '=', 'external')->get();
+    $internal =  PeriodicalReviewStatus::where('periodical_id', '=', $id)->where('reviewertype', '=', 'internal')->get();
+    $public =  PeriodicalReviewStatus::where('periodical_id', '=', $id)->where('reviewertype', '=', 'public')->get();
+       $periodical_reviewer = (object)[
+      'external' => $external,
+      'internal' => $internal,
+      'public' => $public,
+      'periodicalid' => $id
+    ];
+    \Session::put('periodical_reviewer', $periodical_reviewer);
+
+    return redirect('admin/periodical_review');
+  }
+// 
+
+
+public function periodicalreassign_data(Request $req)
+{
+ 
+  $validator = Validator::make($req->all(), [
+
+    'periodicalId' => 'required|array|min:1',
+  
+  ]);
+
+  if ($validator->fails()) {
+    $data = [
+      'error' => $validator->errors()->first(),
+    ];
+    return response()->json($data);
+  }
+  if (!empty($req->LibrarianReviewverId) || !empty($req->expectReviewverId) || !empty($req->publicReviewverId)) {
+
+  $periodicalId = $req->periodicalId;
+  $internalReviewverId = $req->LibrarianReviewverId;
+  $externalReviewverId = $req->expectReviewverId;
+  $publicReviewverId = $req->publicReviewverId;
+  $mergedArray = array_merge(
+    array_filter($internalReviewverId ?? [], fn($value) => $value !== null && $value !== ''),
+    array_filter($externalReviewverId ?? [], fn($value) => $value !== null && $value !== ''),
+    array_filter($publicReviewverId ?? [], fn($value) => $value !== null && $value !== '')
+);
+  foreach ($periodicalId as $key => $val1) {
+
+    foreach ($mergedArray as $key => $val) {
+      $rev = Reviewer::where("id", '=', $val)->first();
+      $revdata = PeriodicalReviewStatus::where("reviewer_id", '=', $rev->id)->where("periodical_id", '=',  $periodicalId[0])->first();
+         
+      if( $revdata == null){
+      $periodicalreview = new PeriodicalReviewStatus();
+      $periodicalreview->periodical_id = $val1;
+      $periodicalreview->reviewer_id = $rev->id;
+      $periodicalreview->reviewertype = $rev->reviewerType;
+      $periodicalreview->save();
+    }
+  }
+  }
+
+  foreach ($mergedArray as $key => $val) {
+    $notifi = new Notifications();
+    $notifi->message = "Periodical Assigned For Review";
+    $notifi->to = $val;
+    $notifi->from = auth('admin')->user()->id;
+    $notifi->type = "reviewer";
+    $notifi->save();
+  }
+  $avginternal = 0;
+  $avgexternal = 0;
+  $avgpublic = 0;
+$periodical_id=$periodicalId[0];
+  $data1 = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('mark', '!=', null)->get();
+
+  if (sizeof($data1) != 0) {
+    $Magazine = Magazine::find($periodical_id);
+    $internalcount = PeriodicalReviewStatus::where('periodical_id',$periodical_id)->where('reviewertype', 'internal')->count();
+    $externalcount = PeriodicalReviewStatus::where('periodical_id',$periodical_id)->where('reviewertype', 'external')->count();
+    $publiccount = PeriodicalReviewStatus::where('periodical_id',$periodical_id)->where('reviewertype', 'public')->count();
+    $rinternalcount = PeriodicalReviewStatus::where('periodical_id',$periodical_id)->where('reviewertype', 'internal')->where('mark', '!=', null)->count();
+    $rexternalcount = PeriodicalReviewStatus::where('periodical_id',$periodical_id)->where('reviewertype', 'external')->where('mark', '!=', null)->count();
+    $rpubliccount = PeriodicalReviewStatus::where('periodical_id',$periodical_id)->where('reviewertype', 'public')->where('mark', '!=', null)->count();
+    $suminternal = PeriodicalReviewStatus::where('periodical_id',$periodical_id)->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
+    $sumexternal = PeriodicalReviewStatus::where('periodical_id',$periodical_id)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
+    $sumpublic = PeriodicalReviewStatus::where('periodical_id',$periodical_id)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
+    if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+      $mark = ($sumexternal / ($externalcount * 20)) * 100;
+    } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+      $mark = ($suminternal / ($internalcount * 20)) * 100;
+    } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
+      $mark = ($sumpublic / ($publiccount * 20)) * 100;
+    } else if ($externalcount == 0 || $rexternalcount == 0) {
+      $mark = (($suminternal / ($internalcount * 20)) * 50) + (($sumpublic / ($publiccount * 20)) * 50);
+    } else if ($internalcount == 0 || $rinternalcount == 0) {
+      $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($sumpublic / ($publiccount * 20)) * 30);
+    } else if ($publiccount == 0 || $rpubliccount == 0) {
+      $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($suminternal / ($internalcount * 20)) * 30);
+    } else {
+      $mark = (($sumexternal / ($externalcount * 20)) * 60) + (($suminternal / ($internalcount * 20)) * 20) + (($sumpublic / ($publiccount * 20)) * 20);
+    }
+     $Magazine->marks = $mark;
+    $Magazine->save();
+  }
+
+  $external =  PeriodicalReviewStatus::where('periodical_id', '=', $periodicalId[0])->where('reviewertype', '=', 'external')->get();
+  $internal =  PeriodicalReviewStatus::where('periodical_id', '=', $periodicalId[0])->where('reviewertype', '=', 'internal')->get();
+  $public =  PeriodicalReviewStatus::where('periodical_id', '=', $periodicalId[0])->where('reviewertype', '=', 'public')->get();
+  $periodical_reviewer = (object)[
+    'external' => $external,
+    'internal' => $internal,
+    'public' => $public,
+    'periodicalid' => $periodicalId[0]
+  ];
+
+  if (\Session::has('periodical_reviewer')) {
+    \Session::forget('periodical_reviewer');
+}
+\Session::put('periodical_reviewer', $periodical_reviewer);
+
+
+
+
+
+  $data = [
+    'success' => 'Periodical assigned Successfully',
+  ];
+  return response()->json($data);
+
+
+} else {
+  $data = [
+    'error' => 'Select  any one reviewer',
+  ];
+  return response()->json($data);
+}
+}
+
+
+
+
+public function periodical_delete_reviewer_data(Request $req)
+{
+  $reviewerId = $req->reviewerId;
+
+  if (is_array($reviewerId) && !empty($reviewerId)) {
+
+    $reviewerIdsString = implode(',', array_map(function ($id) {
+      return "'" . $id . "'";
+    }, $reviewerId));
+
+    $sql = "DELETE FROM periodical_review_statuses WHERE periodical_id = ? AND id IN ($reviewerIdsString)";
+
+    $deletedRows = DB::delete($sql, [$req->periodicalid]);
+  } else {
+    $data = [
+      'error' => 'Please Select Reviewer',
+    ];
+    return response()->json($data);
+  }
+  $periodical_id=$req->periodicalid;
+  $data1 = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('mark', '!=', null)->get();
+
+  if (sizeof($data1) != 0) {
+    $Magazine = Magazine::find($periodical_id);
+    $internalcount = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('reviewertype', 'internal')->count();
+    $externalcount = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('reviewertype', 'external')->count();
+    $publiccount = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('reviewertype', 'public')->count();
+    $rinternalcount = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('reviewertype', 'internal')->where('mark', '!=', null)->count();
+    $rexternalcount = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('reviewertype', 'external')->where('mark', '!=', null)->count();
+    $rpubliccount = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('reviewertype', 'public')->where('mark', '!=', null)->count();
+    $suminternal = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
+    $sumexternal = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
+    $sumpublic = PeriodicalReviewStatus::where('periodical_id', $periodical_id)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
+    if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+      $mark = ($sumexternal / ($externalcount * 20)) * 100;
+    } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+      $mark = ($suminternal / ($internalcount * 20)) * 100;
+    } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
+      $mark = ($sumpublic / ($publiccount * 20)) * 100;
+    } else if ($externalcount == 0 || $rexternalcount == 0) {
+      $mark = (($suminternal / ($internalcount * 20)) * 50) + (($sumpublic / ($publiccount * 20)) * 50);
+    } else if ($internalcount == 0 || $rinternalcount == 0) {
+      $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($sumpublic / ($publiccount * 20)) * 30);
+    } else if ($publiccount == 0 || $rpubliccount == 0) {
+      $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($suminternal / ($internalcount * 20)) * 30);
+    } else {
+      $mark = (($sumexternal / ($externalcount * 20)) * 60) + (($suminternal / ($internalcount * 20)) * 20) + (($sumpublic / ($publiccount * 20)) * 20);
+    }
+    $Magazine->marks = $mark;
+    $Magazine->save();
+  }
+  $external =  PeriodicalReviewStatus::where('periodical_id', '=', $req->periodicalid)->where('reviewertype', '=', 'external')->get();
+  $internal =  PeriodicalReviewStatus::where('periodical_id', '=', $req->periodicalid)->where('reviewertype', '=', 'internal')->get();
+  $public =  PeriodicalReviewStatus::where('periodical_id', '=', $req->periodicalid)->where('reviewertype', '=', 'public')->get();
+   $periodical_reviewer = (object)[
+    'external' => $external,
+    'internal' => $internal,
+    'public' => $public,
+    'periodicalid' => $req->periodicalid
+  ];
+  
+  if (\Session::has('periodical_reviewer')) {
+    \Session::forget('periodical_reviewer');
+}
+\Session::put('periodical_reviewer', $periodical_reviewer);
+
+  $data = [
+    'success' => 'Reviewer Delete Successfully',
+  ];
+  return response()->json($data);
+}
+public function procur_complete_periodical_list()
+{
+  $periodical = PeriodicalReviewStatus::groupBy('periodical_id')->get('periodical_id');
+  $record = [];
+  foreach ($periodical as $key => $val) {
+    $avginternal = 0;
+    $avgexternal = 0;
+    $avgpublic = 0;
+
+    $data1 = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('mark', '!=', null)->get();
+    if (sizeof($data1) != 0) {
+      $Magazine = Magazine::find($val->periodical_id);
+      $internalcount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'internal')->count();
+      $externalcount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'external')->count();
+      $publiccount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'public')->count();
+      $rinternalcount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'internal')->where('mark', '!=', null)->count();
+      $rexternalcount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'external')->where('mark', '!=', null)->count();
+      $rpubliccount = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'public')->where('mark', '!=', null)->count();
+      $suminternal = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
+      $sumexternal = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
+      $sumpublic = PeriodicalReviewStatus::where('periodical_id', $val->periodical_id)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
+      if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+        $avgexternal = ($sumexternal / ($externalcount * 20)) * 100;
+        $mark = ($sumexternal / ($externalcount * 20)) * 100;
+      } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+        $avginternal  = ($suminternal / ($internalcount * 20)) * 100;
+        $mark = ($suminternal / ($internalcount * 20)) * 100;
+      } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
+        $avgpublic  = ($sumpublic / ($publiccount * 20)) * 100;
+        $mark = ($sumpublic / ($publiccount * 20)) * 100;
+      } else if ($externalcount == 0 || $rexternalcount == 0) {
+        $avginternal  = ($suminternal / ($internalcount * 20)) * 50;
+        $avgpublic  = ($sumpublic / ($publiccount * 20)) * 50;
+        $mark = (($suminternal / ($internalcount * 20)) * 50) + (($sumpublic / ($publiccount * 20)) * 50);
+      } else if ($internalcount == 0 || $rinternalcount == 0) {
+        $avgexternal = ($sumexternal / ($externalcount * 20)) * 70;
+        $avgpublic  = ($sumpublic / ($publiccount * 20)) * 30;
+        $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($sumpublic / ($publiccount * 20)) * 30);
+      } else if ($publiccount == 0 || $rpubliccount == 0) {
+        $avgexternal = ($sumexternal / ($externalcount * 20)) * 70;
+        $avginternal  = ($suminternal / ($internalcount * 20)) * 30;
+        $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($suminternal / ($internalcount * 20)) * 30);
+      } else {
+
+        $avgexternal = ($sumexternal / ($externalcount * 20)) * 60;
+        $avginternal  = ($suminternal / ($internalcount * 20)) * 20;
+        $avgpublic  = ($sumpublic / ($publiccount * 20)) * 20;
+        $mark = (($sumexternal / ($externalcount * 20)) * 60) + (($suminternal / ($internalcount * 20)) * 20) + (($sumpublic / ($publiccount * 20)) * 20);
+      }
+
+
+      $obj = (object)[
+        'Magazine' => $Magazine,
+        'internalcount' => $internalcount,
+        'externalcount' => $externalcount,
+        'publiccount' => $publiccount,
+        'rinternalcount' => $rinternalcount,
+        'rexternalcount' => $rexternalcount,
+        'rpubliccount' => $rpubliccount,
+        'avginternal' => $avginternal,
+        'avgexternal' => $avgexternal,
+        'avgpublic' => $avgpublic,
+        'total' => $mark
+      ];
+      array_push($record, $obj);
+    }
+  }
+  // return $record;
+  return view('admin.procur_complete_periodical_list')->with('record', $record);
+}
+
+// 
+
+
+public function reviewperiodical(){
+
+  $data = PeriodicalReviewStatus::groupBy('periodical_id')->get('periodical_id');
+  $record = [];
+  $allthree=0;
+  $exp_lib=0;
+  $exp_pub=0;
+  $lib_pub = 0;
+  $exp=0;
+  $lib=0;
+  $pub=0;
+  $notyetreviewed=0;
+  foreach($data as $key=>$val){
+ 
+  
+
+    $data1 = PeriodicalReviewStatus::where('periodical_id',$val->periodical_id)->where('mark','!=',null)->get();
+    if(sizeof($data1) != 0){
+       $periodical = Magazine::find($val->periodical_id);
+       $internalcount= PeriodicalReviewStatus::where('periodical_id',$val->periodical_id)->where('reviewertype','internal')->count();
+       $externalcount= PeriodicalReviewStatus::where('periodical_id',$val->periodical_id)->where('reviewertype','external')->count();
+       $publiccount= PeriodicalReviewStatus::where('periodical_id',$val->periodical_id)->where('reviewertype','public')->count();
+       $rinternalcount= PeriodicalReviewStatus::where('periodical_id',$val->periodical_id)->where('reviewertype','internal')->where('mark','!=',null)->count();
+       $rexternalcount= PeriodicalReviewStatus::where('periodical_id',$val->periodical_id)->where('reviewertype','external')->where('mark','!=',null)->count();
+       $rpubliccount= PeriodicalReviewStatus::where('periodical_id',$val->periodical_id)->where('reviewertype','public')->where('mark','!=',null)->count();
+       $suminternal= PeriodicalReviewStatus::where('periodical_id',$val->periodical_id)->where('reviewertype','internal')->where('mark','!=',null)->sum('mark');
+       $sumexternal= PeriodicalReviewStatus::where('periodical_id',$val->periodical_id)->where('reviewertype','external')->where('mark','!=',null)->sum('mark');
+       $sumpublic= PeriodicalReviewStatus::where('periodical_id',$val->periodical_id)->where('reviewertype','public')->where('mark','!=',null)->sum('mark');
+       if(($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+              $exp = $exp+1;
+    
+}else if(($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+  $lib = $lib+1;
+}else if(($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)){
+  $pub = $pub+1;
+}else if($externalcount == 0 || $rexternalcount == 0){
+  $lib_pub =  $lib_pub+1;
+}else if($internalcount == 0 || $rinternalcount == 0){
+  $exp_pub=  $exp_pub+1; 
+}else if($publiccount == 0 || $rpubliccount == 0){
+  $exp_lib=$exp_lib +1;
+}else{
+  $allthree= $allthree +1;
+} 
+   }else{
+    $notyetreviewed = $notyetreviewed + 1;
+   }
+  }
+
+
+
+  $finaldata = [];
+
+
+     
+ 
+      $finaldata[] = [
+         'S.No' => 1,
+         'Allthree' =>    $allthree,
+         'exp_lib' =>   $exp_lib,
+         'exp_pub ' =>  $exp_pub,
+         'lib_pub' =>   $lib_pub,
+         'exp' =>   $exp,
+         'lib' =>  $lib,
+         'pub' =>  $pub,
+         'notyet' =>  $notyetreviewed,
+         'Total periodical' =>count($data)
+         
+     ];
+   
+  
+  $csvContent ="\xEF\xBB\xBF"; 
+  $csvContent .= "S.No,All Three Review, Expert And Librarian,Expert And Public,Librarian And Public,Expert,Librarian,Public,No Review periodical,Total periodical Assign\n"; 
+  foreach ($finaldata as $data) {
+      $csvContent .= '"' . implode('","', $data) ."\"\n";
+  }
+
+  $headers = [
+      'Content-Type' => 'text/csv; charset=utf-8',
+      'Content-Disposition' => 'attachment; filename="Report.csv"',
+  ];
+
+  return response()->make($csvContent, 200, $headers);
+
+
+}
+public function despatch_periodical(Request $request){
+
+    // Fetch the record with the status '0'
+$rev = DB::table('periodicaldates')->where('status', '=', '0')->first();
+
+// Check if a record was found
+if ($rev) {
+    // Update the record
+    DB::table('periodicaldates')
+        ->where('status', '=', '0')
+        ->update([
+            'startdate' => $request->startdate,
+            'enddate' => $request->enddate
+        ]);
+
+    return back()->with('success', "Despatch Periodical Changed successfully");
+} else {
+    return back()->with('error', "No record found with the specified status");
+}
+
+}
+public function master_periodical_data(Request $request) {
+  // return $request;
+  // Use eager loading to reduce the number of queries
+  $query = Magazine::with('librarian');
+
+
+    if ($request->has('language_filter') && $request->language_filter != '') {
+      $query->where('language', $request->language_filter);
+    }
+
+    if ($request->has('periodicity_filter') && $request->periodicity_filter != '') {
+      $query->where('periodicity', $request->periodicity_filter);
+    }
+
+    if ($request->has('category_filter') && $request->category_filter != '') {
+      $query->where('category', $request->category_filter);
+    }
+
+    if ($request->has('payment_filter') && $request->payment_filter != '') {
+      if ($request->payment_filter == 'Success') {
+        $query->whereIn('periodical_procurement_status', ['1', '5', '6']);
+      } else {
+        $query->whereNotIn('periodical_procurement_status', ['1', '5', '6']);
+      }
+  }
+
+  if ($request->has('mark_range') && $request->mark_range != '') {
+    list($min, $max) = explode('-', $request->mark_range);
+    $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
+  
+  if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
+  
+
+      switch ($request->metachecking_filter) {
+        case 'Success':
+          $query->where('periodical_status', '1');
+          break;
+        case 'Reject':
+          $query->where('periodical_status', '0');
+          break;
+        case 'Returned To User Correction':
+          $query->where('periodical_status', '2');
+          break;
+        case 'Periodical Update To Return':
+          $query->where('periodical_status', '3');
+          break;
+        case 'No Review':
+            $query->where('periodical_status', null);
+            break;
+    }
+}
+// if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
+  
+
+//   switch ($request->negostatus_filter) {
+//       case 'Negotiation from admin':
+//           $query->where('negotiation_status', '0');
+//           break;
+//       case 'Negotiation from user':
+//           $query->where('negotiation_status', '1');
+//           break;
+//       case 'Accepted':
+//           $query->where('negotiation_status', '2');
+//           break;
+//       case 'Rejected':
+//           $query->where('negotiation_status', '3');
+//           break;
+//       case 'Hold':
+//             $query->where('negotiation_status', '4');
+//             break;
+//       case 'No negotiation':
+//           $query->where('negotiation_status', null);
+//           break;
+//   }
+// }
+
+    if ($request->has('search') && $request->search != '') {
+      $query->where(function ($subQuery) use ($request) {
+        $subQuery->where('title', 'like', '%' . $request->search . '%')
+        ->orWhere('periodicity', 'like', '%' . $request->search . '%')
+        ->orWhere('rni_details', 'like', '%' . $request->search . '%')
+        ->orWhere('language', 'like', '%' . $request->search . '%')
+        ->orWhere('publisher_name', 'like', '%' . $request->search . '%')
+        ->orWhere('Gsm', 'like', '%' . $request->search . '%')
+        ->orWhere('marks', 'like', '%' . $request->search . '%');
+    });
+  }
+
+    $data = $query->paginate(15); // Adjust the number of records per page as needed
+
+    $procurementStatuses = ["1", "5", "6"];
+    $bookStatusLabels = [
+      "1" => "Success",
+      "0" => "Reject",
+      "2" => "Returned To User Correction",
+      "3" => "Periodical Update To Return"
+  ];
+//   $negobookStatus = [
+//     "0" => "Negotiation from admin",
+//    "1" => "Negotiation from user",
+//    "2" => "Accepted",
+//    "3" => "Rejected",
+//    "4" => "Hold"
+// ];
+  foreach ($data as $val) {
+      $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+      $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+      $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+      // $val->negostatus = $negobookStatus[$val->negotiation_status] ?? "No negotiation";
+
+    }
+    foreach ($data as $val) {
+  
+      $procurementPayment = Procurementpaymrnt::whereJsonContains('bookid', $val->id)->first();
+      
+      if($procurementPayment !=null){
+        $val->paymentdate = $procurementPayment->created_at->format('d-m-Y');
+      }else{
+        $val->paymentdate = 'No Date';
+
+      }
+
+    }
+
+  //  return $data;
+  return view('admin.master_periodical_data', compact('data'));
+}
+public function magazine_views($id){
+  $magazineviews = Magazine::find($id);
+  \Session::put('magazineviews', $magazineviews);
+  return redirect('admin/magazine-views');    
+
+}
+
+
+
+public function master_periodical_datareport(Request $request)
+{
+
+  $query = Magazine::with('librarian');
+
+  // Apply filters
+  if ($request->has('language_filter') && $request->language_filter != '') {
+    $query->where('language', $request->language_filter);
+  }
+
+  if ($request->has('periodicity_filter') && $request->periodicity_filter != '') {
+    $query->where('periodicity', $request->periodicity_filter);
+  }
+
+  if ($request->has('category_filter') && $request->category_filter != '') {
+    $query->where('category', $request->category_filter);
+  }
+
+  if ($request->has('payment_filter') && $request->payment_filter != '') {
+    if ($request->payment_filter == 'Success') {
+      $query->whereIn('periodical_procurement_status', ['1', '5', '6']);
+    } else {
+      $query->whereNotIn('periodical_procurement_status', ['1', '5', '6']);
+    }
+}
+
+if ($request->has('mark_range') && $request->mark_range != '') {
+  list($min, $max) = explode('-', $request->mark_range);
+  $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
+
+if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
+
+
+    switch ($request->metachecking_filter) {
+      case 'Success':
+        $query->where('periodical_status', '1');
+        break;
+      case 'Reject':
+        $query->where('periodical_status', '0');
+        break;
+      case 'Returned To User Correction':
+        $query->where('periodical_status', '2');
+        break;
+      case 'Periodical Update To Return':
+        $query->where('periodical_status', '3');
+        break;
+      case 'No Review':
+          $query->where('periodical_status', null);
+          break;
+  }
+}
+// if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
+
+
+//   switch ($request->negostatus_filter) {
+//       case 'Negotiation from admin':
+//           $query->where('negotiation_status', '0');
+//           break;
+//       case 'Negotiation from user':
+//           $query->where('negotiation_status', '1');
+//           break;
+//       case 'Accepted':
+//           $query->where('negotiation_status', '2');
+//           break;
+//       case 'Rejected':
+//           $query->where('negotiation_status', '3');
+//           break;
+//       case 'Hold':
+//             $query->where('negotiation_status', '4');
+//             break;
+//       case 'No negotiation':
+//           $query->where('negotiation_status', null);
+//           break;
+//   }
+// }
+
+  if ($request->has('search') && $request->search != '') {
+    $query->where(function ($subQuery) use ($request) {
+      $subQuery->where('title', 'like', '%' . $request->search . '%')
+          ->orWhere('periodicity', 'like', '%' . $request->search . '%')
+          ->orWhere('rni_details', 'like', '%' . $request->search . '%')
+          ->orWhere('language', 'like', '%' . $request->search . '%')
+          ->orWhere('publisher_name', 'like', '%' . $request->search . '%')
+          ->orWhere('Gsm', 'like', '%' . $request->search . '%')
+          ->orWhere('marks', 'like', '%' . $request->search . '%');
+  });
+}
+
+  $data = $query->get(); // Adjust the number of records per page as needed
+
+  $procurementStatuses = ["1", "5", "6"];
+  $bookStatusLabels = [
+    "1" => "Success",
+    "0" => "Reject",
+    "2" => "Returned To User Correction",
+    "3" => "Periodical Update To Return"
+];
+//   $negobookStatus = [
+//     "0" => "Negotiation from admin",
+//    "1" => "Negotiation from user",
+//    "2" => "Accepted",
+//    "3" => "Rejected",
+//    "4" => "Hold"
+// ];
+foreach ($data as $val) {
+    $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+    $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+    $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+    // $val->negostatus = $negobookStatus[$val->negotiation_status] ?? "No negotiation";
+
+  }
+  foreach ($data as $val) {
+
+    $procurementPayment = Procurementpaymrnt::whereJsonContains('bookid', $val->id)->first();
+    
+    if($procurementPayment !=null){
+      $val->paymentdate = $procurementPayment->created_at->format('d-m-Y');
+    }else{
+      $val->paymentdate = 'No Date';
+
+    }
+
+  }
+
+
+  $actotal = 0;
+  $inactotal = 0;
+  $finaldata = [];
+  $serialNumber = 1;
+  foreach ($data as $val) {
+
+
+  
+       $finaldata[] = [
+          'S.No' =>  $serialNumber ++,
+          "Language"=> $val->language,
+          "Category"=> $val->category,
+          "Title of the Periodical"=> $val->title,
+          "Periodicity"=> $val->periodicity,
+          "Publication Name"=> $val->publisher_name,
+          "Editor Name"=> $val->editor_name,
+          "First Issue Year"=> $val->first_issue_year,
+          "Issue Per Yea"=> $val->issue_per_year,
+          "Everyv Issue Date"=> $val->every_issue_date,
+          "Gsm"=> $val->gsm,
+          "Paper Type"=> $val->papertype,
+          "Paper Finishing"=> $val->paperfinishing,
+          "Cover Price"=> $val->single_issue_rate,
+          "Annual Subscription"=> $val->annual_subscription,
+          "Discount"=> $val->discount,
+          "Single Issue After Discount"=> $val->single_issue_after_discount,
+          "Annual Subscription After Discount"=> $val->annual_cost_after_discount,
+          "RNI Details"=> $val->rni_details,
+          "Total No.of Pages"=> $val->total_pages,
+          "Total No.of Multicolour Pages"=> $val->total_multicolour_pages,
+          "Total No.of Monocolour Pages"=> $val->total_monocolour_pages,
+          "Paper Quality"=> $val->paper_qualitity,
+          "Size of Magazine"=> $val->magazine_size,
+          "Contact Person"=> $val->contact_person,
+          "Phone"=> $val->phone,
+          "Email"=> $val->email,
+          "Address"=> $val->address,
+          "Payment Status "=> $val->paystatus,
+          "Payment Date "=> $val->paymentdate,
+          "Meta checking Status "=> $val->revstatus,
+          "Meta checker Name"=> $val->reviewername,
+          "Marks"=> $val->marks,
+       
+
+          
+                                    
+      ];
+    
+    
+
+    
+   }
+
+   $csvContent ="\xEF\xBB\xBF"; 
+   $csvContent .=  "S.No,Language,Category,Title of the Periodical,Periodicity,Publication Name,Editor Name,First Issue Year,Issue Per Yea,Everyv Issue Date,Gsm, Paper Type,Paper Finishing,Cover Price,Annual Subscription,Discount,Single Issue After Discount,Annual Subscription After Discount,RNI Details,Total No.of Pages,Total No.of Multicolour Pages,Total No.of Monocolour Pages,Paper Quality,Size of Magazine,Contact Person,Phone,Email,Address,Payment Status,Payment Date,Meta checking Status,Meta checker Name,Marks,Negotiation Status\n"; 
+   foreach ($finaldata as $data) {
+       $csvContent .= '"' . implode('","', $data) ."\"\n";
+   }
+
+  $headers = [
+    'Content-Type' => 'text/csv; charset=utf-8',
+    'Content-Disposition' => 'attachment; filename="masterbookdata.csv"',
+  ];
+
+  return response()->make($csvContent, 200, $headers);
+}
+
+// 
+
+
+public function metacheck_periodical_data()
+{
+  $metperiodicaltotal = Magazine::where('periodical_procurement_status', '=', '1')->count();
+  $metassignperiodicaltotal = Magazine::where('periodical_reviewer_id', '!=', Null)->where('periodical_procurement_status', '=', '1')->count();
+  $metcomperiodicaltotal = Magazine::whereNotNull('periodical_reviewer_id')->where('periodical_status', '=', '1')->where('periodical_procurement_status', '=', '1')->count();
+  $metnotcomperiodicalktotal = Magazine::where('periodical_procurement_status', 1)
+    ->whereNotNull('periodical_reviewer_id')
+    ->where(function ($query) {
+      $query->whereNull('periodical_status')
+        ->orWhere('periodical_status', 2)
+        ->orWhere('periodical_status', 3);
+    })
+    ->count();
+  $reviewer = (object)[
+    'metperiodicaltotal' => $metperiodicaltotal,
+    'metassignperiodicaltotal' => $metassignperiodicaltotal,
+    'metcomperiodicaltotal' => $metcomperiodicaltotal,
+    'metnotcomperiodicalktotal' => $metnotcomperiodicalktotal,
+  ];
+  $data = [];
+  $reviewers = Librarian::where('metaChecker', 'yes')->where('status', '1')->get();
+
+  foreach ($reviewers as $key => $val) {
+
+    $periodicalReview = Magazine::where('periodical_reviewer_id', '=', $val->id)->where('periodical_procurement_status', '=', '1')->count();
+    $periodicalReviewcom = Magazine::where('periodical_reviewer_id', '=', $val->id)->where('periodical_procurement_status', '=', '1')->where('periodical_status', '=', '1')->count();
+    $periodicalReviewpen = Magazine::where('periodical_procurement_status', 1)
+      ->where('periodical_reviewer_id', '=', $val->id)
+      ->where(function ($query) {
+        $query->whereNull('periodical_status')
+          ->orWhere('periodical_status', 2)
+          ->orWhere('periodical_status', 3);
+      })->count();
+
+
+   
+
+    $val->periodicalReview       = $periodicalReview;
+    $val->periodicalReviewcom    = $periodicalReviewcom;
+    $val->periodicalReviewpen    = $periodicalReviewpen;
+
+
+
+    array_push($data, $val);
+  }
+
+  return view(
+    'admin.metacheck_periodical_data',
+    compact('data', 'reviewer')
+  );
+}
+
+
+ 
+public function reviwer_periodical_data()
+{
+  $results = DB::table('reviewer as r')
+    ->select(
+      'r.id',
+      'r.name',
+      'r.per_category',
+      'r.reviewerType',
+      DB::raw('COUNT(br.reviewer_id) AS periodical_reviews_count '),
+      DB::raw('COUNT(CASE WHEN br.mark IS NOT NULL THEN 1 END) AS periodicalReviewcom'),
+      DB::raw('COUNT(CASE WHEN br.mark IS NULL THEN 1 END) AS periodicalReviewpen')
+    )
+    ->leftJoin('periodical_review_statuses as br', 'r.id', '=', 'br.reviewer_id')
+    ->where('r.status', 1)
+    ->whereIn('r.reviewerType', ['external', 'internal', 'public'])
+    ->groupBy('r.id', 'r.name', 'r.per_category', 'r.reviewerType')
+    ->get();
+
+  // Ensure $results is not null or empty
+  if ($results->isEmpty()) {
+    // Handle empty results if needed
+    return view('admin.reviwer_periodical_data', [
+      'data' => collect(),
+      'data1' => collect(),
+      'data2' => collect(),
+      'metacompletecount' => 0,
+      'reviewerassignCount' => 0,
+      'count' => 0
+    ]);
+  }
+
+  // Filter the results based on reviewer type
+  $data = $results->filter(function ($item) {
+    return $item->reviewerType == 'external';
+  });
+
+  $data1 = $results->filter(function ($item) {
+    return $item->reviewerType == 'internal';
+  });
+
+  $data2 = $results->filter(function ($item) {
+    return $item->reviewerType == 'public';
+  });
+
+  $metacompletecount = Magazine::whereNotNull('periodical_reviewer_id')
+    ->where('periodical_status', 1)
+    ->where('periodical_procurement_status', 1)
+    ->count();
+
+  $reviewerassignCount = PeriodicalReviewStatus::distinct('periodical_id')->count();
+
+  $count = $data->count() + $data1->count() + $data2->count();
+
+  return view('admin.reviwer_periodical_data', compact('data', 'data1', 'data2', 'metacompletecount', 'reviewerassignCount', 'count'));
+}
 
   }
 

@@ -169,7 +169,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="/admin/reviewerlist/{{$val->periodical->id}}" class="btn btn-primary shadow btn-sm m-0 me-1" > <i class="fa fa-list" aria-hidden="true"></i>
+                                            <a href="/admin/periodical_reviewerlist/{{$val->periodical->id}}" class="btn btn-primary shadow btn-sm m-0 me-1" > <i class="fa fa-list" aria-hidden="true"></i>
                                                 </a>
                                         </td>
                                     </tr>

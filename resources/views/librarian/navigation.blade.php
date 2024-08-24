@@ -428,6 +428,8 @@
                             <li><a href="/librarian/report_download_order_magazine">Report Download Order Periodical</a></li>
                             <li><a href="/librarian/magazine_dispatch_report">Periodical Dispatch Report</a></li> 
                             <li><a href="/librarian/lbrary_dispatch_report">Library  Dispatch Report</a></li> 
+                            <li><a href="/librarian/dispatch_final_report">Dispatch Final Report</a></li> 
+                            <li><a href="/librarian/dispatch_final_report_pdf">Dispatch Final Pdf Report</a></li> 
 
                         </ul>
                     </li>

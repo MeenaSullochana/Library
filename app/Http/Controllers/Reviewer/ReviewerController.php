@@ -1098,6 +1098,125 @@ public function editpublicprofile(Request $req){
 
  }
 }
+public function magazine_view($id,$rid){
+    $magazine = Magazine::find($id);
+    $magazine->revid= $rid;
+    \Session::put('magazine', $magazine);
+    return redirect('reviewer/magazineview');    
+
+  }
+  
+  public function review_post_periodical($id,$revid){
+
+    $rev = PeriodicalReviewStatus::find($revid);
+  
+    $periodical = Magazine::find($id);
+    $data=(Object)[
+        'periodical'=>$periodical,
+        'rev'=>$rev
+      ];
+
+    return redirect('reviewer/review_post_periodical')->with('data',$data);  
+}
+// 
+public function periodicalreview(Request $req){
+       
+    $rev = PeriodicalReviewStatus::find($req->rev);
+    $periodical = Magazine::find($req->bookid);
+    $review = $req->review;
+    if($review == "Highly Recommended"){
+       $mark = 20;
+    }else if($review == "May Be Considered"){
+       $mark = 10;
+    }else if($review == "Not Recommended"){
+        $mark = 0;
+    }else{
+        $mark = 0;
+    }
+
+    $rev->mark = $mark;
+    $rev->category = $req->category;
+    $rev->review_remark =      json_encode( $req->review_remark);
+
+ 
+    $rev->review_type = $review;
+
+    $rev->remark=$req->about_periodical;
+ 
+    $rev->save();
+   
+    //Mark calculation
+    $avginternal=0;
+    $avgexternal=0;
+    $avgpublic=0;
+
+    $data1 = PeriodicalReviewStatus::where('periodical_id',$req->periodicalid)->where('mark','!=',null)->get();
+    if(sizeof($data1) != 0){
+       $periodical = Magazine::find($req->periodicalid);
+       $internalcount= PeriodicalReviewStatus::where('periodical_id',$req->periodicalid)->where('reviewertype','internal')->count();
+       $externalcount= PeriodicalReviewStatus::where('periodical_id',$req->periodicalid)->where('reviewertype','external')->count();
+       $publiccount= PeriodicalReviewStatus::where('periodical_id',$req->periodicalid)->where('reviewertype','public')->count();
+       $rinternalcount= PeriodicalReviewStatus::where('periodical_id',$req->periodicalid)->where('reviewertype','internal')->where('mark','!=',null)->count();
+       $rexternalcount= PeriodicalReviewStatus::where('periodical_id',$req->periodicalid)->where('reviewertype','external')->where('mark','!=',null)->count();
+       $rpubliccount= PeriodicalReviewStatus::where('periodical_id',$req->periodicalid)->where('reviewertype','public')->where('mark','!=',null)->count();
+       $suminternal= PeriodicalReviewStatus::where('periodical_id',$req->periodicalid)->where('reviewertype','internal')->where('mark','!=',null)->sum('mark');
+       $sumexternal= PeriodicalReviewStatus::where('periodical_id',$req->periodicalid)->where('reviewertype','external')->where('mark','!=',null)->sum('mark');
+       $sumpublic= PeriodicalReviewStatus::where('periodical_id',$req->periodicalid)->where('reviewertype','public')->where('mark','!=',null)->sum('mark');
+       if(($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+                 $mark = ($sumexternal/($externalcount * 20))*100;
+       }else if(($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+                 $mark = ($suminternal/($internalcount * 20))*100;
+       }else if(($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)){
+                  $mark = ($sumpublic/($publiccount * 20))*100;
+       }else if($externalcount == 0 || $rexternalcount == 0){
+                $mark = (($suminternal/($internalcount * 20))*50)+(($sumpublic/($publiccount * 20))*50);
+       }else if($internalcount == 0 || $rinternalcount == 0){
+                $mark = (($sumexternal/($externalcount * 20))*70)+(($sumpublic/($publiccount * 20))*30);
+       }else if($publiccount == 0 || $rpubliccount == 0){
+              $mark = (($sumexternal/($externalcount * 20))*70)+(($suminternal/($internalcount * 20))*30);
+       }else{
+              $mark = (($sumexternal/($externalcount * 20))*60)+(($suminternal/($internalcount * 20))*20)+(($sumpublic/($publiccount * 20))*20);
+       }
+   }
+  
+
+    $periodical->marks = $mark;
+    $periodical->save();
+  
+    return redirect('reviewer/review_periodical_list');
+
+}
+public function reviewperiodicallist(){
+
+    $reviewer=auth('reviewer')->user();
+    $data = PeriodicalReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->get();
+    $totalreview =  PeriodicalReviewStatus::where('reviewer_id',$reviewer->id)->count();
+    $pendingreview =  PeriodicalReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->count();
+    $completedreview =  PeriodicalReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','!=',null)->count();
+    if(sizeof($data) != 0){
+    foreach($data as $key=>$val){
+        $rec =  Magazine::find($val->periodical_id);
+        $val->periodical = $rec;
+    }
+  }
+
+    return view('reviewer.review_periodical_list',compact('data','totalreview','pendingreview','completedreview'));
+}
+
+public function review_periodical_complete(){
+    $reviewer=auth('reviewer')->user();
+    $data = PeriodicalReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','!=',null)->get();
+    $totalreview =  PeriodicalReviewStatus::where('reviewer_id',$reviewer->id)->count();
+    $pendingreview =  PeriodicalReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->count();
+    $completedreview =  PeriodicalReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','!=',null)->count();
+    if(sizeof($data) != 0){
+    foreach($data as $key=>$val){
+        $rec = Magazine::find($val->periodical_id);
+        $val->periodical = $rec;
+    }
+  }
+    return view('reviewer.review_periodical_complete',compact('data','totalreview','pendingreview','completedreview'));
+}
 
 
 }

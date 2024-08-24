@@ -67,4 +67,7 @@ class Magazine extends Model
         'periodical_procurement_status',
         'periodical_status'
     ];
+    public function librarian() {
+        return $this->belongsTo(Librarian::class, 'periodical_reviewer_id');
+    }
 }
