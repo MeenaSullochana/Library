@@ -42,7 +42,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Pagination\Paginator;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -64,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
         Log::info('Clearing route cache...');
         Artisan::call('route:clear');
         Log::info('Route cache cleared');
-
+   
         // Clear compiled view cache
         Log::info('Clearing compiled view cache...');
         Artisan::call('view:clear');
@@ -77,6 +77,7 @@ class AppServiceProvider extends ServiceProvider
        
         // Log after clearing caches
         Log::info('Finished clearing caches');
+        Paginator::useBootstrap();
     }
 
     /**

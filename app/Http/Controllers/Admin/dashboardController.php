@@ -18,7 +18,7 @@ use App\Models\Specialcategories;
 use App\Models\Book;
 use App\Models\BookReviewStatus;
 
-
+use DB;
 class dashboardController extends Controller
 {
 //     public function admindashboard(){
@@ -381,19 +381,60 @@ foreach ($categoryCountsPerCategory as $category => &$countsPerMonth) {
          distinct('book_id')
          ->count();
    
+         $reviCompleteCount = BookReviewStatus::where('mark','!=',null)->
+         distinct('book_id')
+         ->count();
 
 
-
-
-    
-
+         $results = DB::table('book_review_statuses')
+         ->select('book_id',
+             DB::raw('SUM(CASE WHEN reviewertype = "internal" AND mark IS NOT NULL THEN 1 ELSE 0 END) as rinternalcount'),
+             DB::raw('SUM(CASE WHEN reviewertype = "external" AND mark IS NOT NULL THEN 1 ELSE 0 END) as rexternalcount'),
+             DB::raw('SUM(CASE WHEN reviewertype = "public" AND mark IS NOT NULL THEN 1 ELSE 0 END) as rpubliccount'),
+             DB::raw('SUM(CASE WHEN reviewertype = "internal" THEN 1 ELSE 0 END) as internalcount'),
+             DB::raw('SUM(CASE WHEN reviewertype = "external" THEN 1 ELSE 0 END) as externalcount'),
+             DB::raw('SUM(CASE WHEN reviewertype = "public" THEN 1 ELSE 0 END) as publiccount'),
+             DB::raw('SUM(CASE WHEN mark IS NOT NULL THEN mark ELSE 0 END) as summarks')
+         )
+         ->groupBy('book_id')
+         ->get();
+ 
+     // Initialize counters
+     $allthree=0;
+     $exp_lib=0;
+     $exp_pub=0;
+     $lib_pub = 0;
+     $exp=0;
+     $lib=0;
+     $pub=0;
+ 
+     // Process the results
+     foreach ($results as $val) {
+         if (($val->internalcount == 0 || $val->rinternalcount == 0) && ($val->publiccount == 0 || $val->rpubliccount == 0)) {
+             $exp++;
+         } elseif (($val->externalcount == 0 || $val->rexternalcount == 0) && ($val->publiccount == 0 || $val->rpubliccount == 0)) {
+             $lib++;
+         } elseif (($val->externalcount == 0 || $val->rexternalcount == 0) && ($val->internalcount == 0 || $val->rinternalcount == 0)) {
+             $pub++;
+         } elseif ($val->externalcount == 0 || $val->rexternalcount == 0) {
+             $lib_pub++;
+         } elseif ($val->internalcount == 0 || $val->rinternalcount == 0) {
+             $exp_pub++;
+         } elseif ($val->publiccount == 0 || $val->rpubliccount == 0) {
+             $exp_lib++;
+         } else {
+             $allthree++;
+         }
+     }
+ 
    
+    
    return view('admin.index',compact('allpub','activepub','inactivepub','allpubcount','activepubcount','inactivepubcount',
    'alldist','activedist','inactivedist', 'alldistcount','activedistcount','inactivedistcount',
    'allpubdist','activepubdist','inactivepubdist','categoryCountsPerCategory', 'allpubdistcount','activepubdistcount','inactivepubdistcount',
    'allperpub','activeperpub','inactiveperpub','allperpubcount','activeperpubcount','inactiveperpubcount','allperdist','activeperdist',
    'inactiveperdist','allperdistcount','activeperdistcount','inactiveperdistcount','total_periodical_pay','pub_periodical_pay','dis_periodical_pay','total_book_pay','pub_book_pay','dis_book_pay','pubdis_book_pay'
-   ,'bookTotals','reviewerCompleteCount')
+   ,'bookTotals','reviewerCompleteCount','reviCompleteCount','allthree','exp_lib','exp_pub','lib_pub','exp','lib','pub')
    );
 }
 }

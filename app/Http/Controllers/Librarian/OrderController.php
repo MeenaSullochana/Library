@@ -149,6 +149,10 @@ class OrderController extends Controller
     foreach($Dispatchdata  as $val){
     $datedata =  $val->expected_date;
    $ldate = date('Y-m-d');
+
+
+
+
    if($datedata > $ldate){
 
     $val->status="1";
@@ -594,5 +598,6 @@ public function dispatch_magazine_view($id,$orderid){
  
     
  }
-
+ 
+ 
 }

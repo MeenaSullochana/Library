@@ -1579,7 +1579,7 @@
                             {{-- <li><a href="site_announcement">Announcement Setting</a></li> --}}
                             <li><a href="smtp">SMTP</a></li>
                             <li><a href="mailurl">Mail Url</a></li>
-
+                            <li><a href="despatch">Despatch Periodical</a></li>
 
                             {{-- <li><a href="country_list">Country List</a></li>
                             <li><a href="state_list">State List</a></li>
@@ -1871,29 +1871,45 @@
                         </ul>
                     </li>
 
+                 
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-star"></i>
                             <span class="nav-text">Reviewer Data Manage </span>
                         </a>
+                        <ul>
+                        <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book</a>
                         <ul aria-expanded="false">
-                            <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
-                            <li><a href="metacheck_data">Metacheck Report</a></li>
-                            <li><a href="reviwer_data">Reviewer Report</a></li>
+                        <li><a href="metacheck_data">Metacheck Report</a></li>
+                        <li><a href="reviwer_data">Reviewer Report</a></li>
 
                         </ul>
+                        </li>
+
+                        <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Periodical</a>
+                        <ul aria-expanded="false">
+                        <li><a href="metacheck_periodical_data">Metacheck Report</a></li>
+                        <li><a href="reviwer_periodical_data">Reviewer Report</a></li>
+
+                        </ul>
+                        </li>
+                        </ul>
                     </li>
+
+
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-book"></i>
-                            <span class="nav-text">Master Book Management </span>
+                            <span class="nav-text">Master Data Management </span>
                         </a>
                         <ul aria-expanded="false">
                             <!-- <li><a href="library_manage_create">Create Library   </a></li> -->
                             <li><a href="master_book_data">Master Book Data</a></li>
-                          
+                            <li><a href="master_periodical_data">Master Periodical Data</a></li>
                         </ul>
                     </li>
+
+             
                     <!-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <div class="menu-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -2052,7 +2068,7 @@
 
                             <li><a href="/admin/procur_periodical_assign">periodical List</a></li>
                             <li><a href="/admin/procur_pending_periodical_list">Pending List</a></li>
-                            <li><a href="/admin/procur_complete_list">Complete List</a></li>
+                            <li><a href="/admin/procur_complete_periodical_list">Complete List</a></li>
                             </ul>
                     </li>
                         </ul>
@@ -2386,7 +2402,10 @@
                             <li><a href="magazine_dispatch_report">Periodical Dispatch Report</a></li> 
                             <li><a href="lbrary_dispatch_report">Library  Dispatch Report</a></li> 
                             <li><a href="Dispatch_library_report">Dispatch Not Yet Completed</a></li> 
+                            <li><a href="dispatch_final_report">Dispatch Final Report</a></li> 
+                            <li><a href="dispatch_final_report_pdf">Dispatch Final Pdf Report</a></li> 
 
+                            
                             
                         </ul>
                     </li>

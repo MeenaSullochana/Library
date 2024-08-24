@@ -96,9 +96,9 @@
                                         <th class="text-center" colspan="4"><b>Reviewer</b></th>
                                     </tr>
                                     <tr class="bg-primary text-white">
-                                        <th> No. of Books</th>
-                                        <th> No. of Books Assigned</th>
-                                        <th> No. of Books Not Assigned</th>
+                                        <th> No. of Periodicals</th>
+                                        <th> No. of Periodicals Assigned</th>
+                                        <th> No. of Periodicals Not Assigned</th>
                                         <th> No. of Reviewer</th>
                                     </tr>
                                 </thead>
@@ -119,7 +119,7 @@
                                     </tr>
                                     <tr>
                                         <th style="font-weight: bold;">Metachecker Name</th>
-                                        <th style="font-weight: bold;">No. of Books Assigned</th>
+                                        <th style="font-weight: bold;">No. of Periodicals Assigned</th>
                                         <th style="font-weight: bold;">No. of Review Completed</th>
                                         <th style="font-weight: bold;">No. of Review Pending</th>
                                     </tr>
@@ -129,12 +129,13 @@
                                 
                                     <tr>
                                         <td>{{ $val->name }}</td>
-                                        <td>{{ $val->book_reviews_count }}</td>
-                                        <td>{{ $val->BookReviewcom }}</td>
-                                        @if($val->book_reviews_count == "0"   && $val->BookReviewcom == "0" )    
+                                        <td>{{ $val->periodical_reviews_count }}</td>
+                                        <td>{{ $val->periodicalReviewcom }}</td>
+                                  
+                                        @if($val->periodical_reviews_count == "0"   && $val->periodicalReviewcom == "0" )    
                                         <td>0</td>
                                         @else
-                                        <td>{{ $val->BookReviewpen }}</td>
+                                        <td>{{ $val->periodicalReviewpen }}</td>
                                         @endif
                                     </tr>
                                     @endforeach

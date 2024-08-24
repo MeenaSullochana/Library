@@ -80,6 +80,7 @@
                     <div class="card p-5" id="print-pdf">
                         <div class="table-responsive">
                             <table class="table table-bordered">
+
                                 <div class="tbl-caption text-center">
                                     <img class="w-50" src="/assets/img/logo/logo.png" alt="logo">
                                     <h4 class="heading mb-6">Directorate of Public Libraries</h4>
@@ -89,59 +90,49 @@
                                 <div class="tbl-caption d-flex justify-content-between">
                                     <h4 class="heading mb-6">Transparent Book Procurement Report</h4>
                                     <h4 class="heading mb-6">Date: <?php echo date('Y-m-d'); ?></h4>
-                                </div>
 
-                                <thead>
+                                </div>
+                                <thead class="bg-primary text-white">
+
                                     <tr>
-                                        <th class="text-center" colspan="4"><b>Reviewer</b></th>
-                                    </tr>
-                                    <tr class="bg-primary text-white">
-                                        <th> No. of Books</th>
-                                        <th> No. of Books Assigned</th>
-                                        <th> No. of Books Not Assigned</th>
-                                        <th> No. of Reviewer</th>
+                                        <th>No. of Periodicals</th>
+                                        <th>No. of Periodicals Assigned</th>
+                                        <th>No. of Periodicals Completed</th>
+                                        <th>No. of Periodicals Balance</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>{{ $metacompletecount }}</td>
-                                        <td>{{ $reviewerassignCount }}</td>
-                                        <td>{{ $metacompletecount - $reviewerassignCount }}</td>
-                                        <td>{{ count($data) + count($data1) + count($data2) }}</td>
+                                        <td>{{$reviewer->metperiodicaltotal}}</td>
+                                        <td>{{$reviewer->metassignperiodicaltotal}}</td>
+                                        <td>{{$reviewer->metcomperiodicaltotal}} </td>
+                                        <td>{{$reviewer->metnotcomperiodicalktotal}}</td>
                                     </tr>
                                 </tbody>
 
-                                @foreach (['Expert' => $data, 'Librarian' => $data1, 'Public' => $data2]
-                                as $type => $reviewerList)
-                                <thead>
+                                <thead class="">
+
                                     <tr>
-                                        <th colspan="4" class="text-center">{{ $type }} Reviewer Details</th>
+                                        <th colspan="4" class="text-center">Metachecker Details</th>
                                     </tr>
                                     <tr>
                                         <th style="font-weight: bold;">Metachecker Name</th>
-                                        <th style="font-weight: bold;">No. of Books Assigned</th>
-                                        <th style="font-weight: bold;">No. of Review Completed</th>
-                                        <th style="font-weight: bold;">No. of Review Pending</th>
+                                        <th style="font-weight: bold;">No. of Periodicals Assigned</th>
+                                        <th style="font-weight: bold;">No. of Periodicals Completed</th>
+                                        <th style="font-weight: bold;">No. of Periodicals Balance</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($reviewerList as $val)
-                                
+                                    @foreach($data as $val)
                                     <tr>
-                                        <td>{{ $val->name }}</td>
-                                        <td>{{ $val->book_reviews_count }}</td>
-                                        <td>{{ $val->BookReviewcom }}</td>
-                                        @if($val->book_reviews_count == "0"   && $val->BookReviewcom == "0" )    
-                                        <td>0</td>
-                                        @else
-                                        <td>{{ $val->BookReviewpen }}</td>
-                                        @endif
+                                        <td>{{$val->librarianName}}</td>
+                                        <td>{{$val->periodicalReview}}</td>
+                                        <td>{{$val->periodicalReviewcom}} </td>
+                                        <td>{{$val->periodicalReviewpen}}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
-                                @endforeach
                             </table>
-
                         </div>
                     </div>
                 </div>

@@ -24,10 +24,18 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
     <style>
-    .disabled-row {
-        color: gray;
-        opacity: 0.5;
-    }
+
+.disabled-row {
+    pointer-events: none; /* Prevents clicks on elements within the row */
+    opacity: 0.5; /* Optional: makes the row appear disabled */
+}
+
+.disabled-row select {
+    pointer-events: none; /* Ensures dropdowns are also disabled */
+    opacity: 0.5; /* Optional: matches the opacity of the row */
+}
+
+
     </style>
 </head>
 
@@ -180,10 +188,26 @@
                     </thead>
                     <tbody>
                         @foreach($data as $val)
-                        @if($val->status == "1")
-                        <tr class="disabled-row">
+                            @php
+
+                            $records1 = DB::table('periodicaldates')
+                            ->first();
+                                $datedata = new \DateTime($val->expected_date);
+                                $startDate = new \DateTime($records1->startdate);
+                                $endDate = new \DateTime($records1->enddate);
+                              
+
+                           
+                          
+
+                           
+                            @endphp
+
+
+                        @if ($datedata->format('Y-m-d')>= $startDate->format('Y-m-d') && $datedata->format('Y-m-d') <=  $endDate->format('Y-m-d') )
+                            <tr>
                             @else
-                        <tr>
+                            <tr class="disabled-row">
                             @endif
 
 

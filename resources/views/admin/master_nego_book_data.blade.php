@@ -264,7 +264,24 @@
                                         <th>Payment Status </th>
                                         <th>Meta checking Status </th>
                                         <th>Meta checker Name</th>
-                                        <th>Review Mark</th>
+                                        <th>
+                                                    <h6>Librarian</h6>
+                                                    <span class="text-left">Review/Assign</span>
+                                                </th>
+                                                <th>
+                                                    <h6>Expert</h6>
+                                                    <span class="text-left">Review/Assign</span>
+                                                </th>
+                                                <th>
+                                                    <h6>Public</h6>
+                                                    <span class="text-left">Review/Assign</span>
+                                                </th>
+
+                                                <th>Librarian</th>
+                                                <th>Expert</th>
+                                                <th>Public</th>
+                                                <th>Total Review Mark</th>
+                                
                                         <th>Book View</th>
                                         <th>User View</th>
                                         <!-- <th> Book Edit</th> -->
@@ -507,14 +524,14 @@
                                      </div>
 
                     </td>
-                    <td>
-
-<div>
-     <span>{{$val->marks}}</span>
-</div>
-</div>
-
-</td>
+                    <td><span>{{$val->rinternalcount}}/{{$val->internalcount}}</span></td>
+                                                <td><span>{{$val->rexternalcount}}/{{$val->externalcount}}</span></td>
+                                                <td><span>{{$val->rpubliccount}}/{{$val->publiccount}}</span></td>
+                                                <td><span>{{$val->avginternal}}</span></td>
+                                                <td><span>{{$val->avgexternal}}</span></td>
+                                                <td><span>{{$val->avgpublic}}</span></td>
+                                                <td><span>{{$val->mark}}</span></td>
+   
                     <td>
                         <div class="d-flex">
                             <a href="/admin/book_manage_view/{{$val->id}}"

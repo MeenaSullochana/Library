@@ -128,7 +128,33 @@ use App\Http\Controllers\Reviewer\notificationController;
     Route::get('/expertedit',function(){ return view('reviewer.expertedit');});
     Route::post('/editreviewer',[ReviewerController::class,'editreviewer']);
     Route::post('/editpublicprofile',[ReviewerController::class,'editpublicprofile']);
-
+    Route::get('/magazine_view/{id}/{rid}',[ReviewerController::class,'magazine_view']);
+    Route::get('/magazineview',function(){
+        $data = \Session::get('magazine');
+        if($data !==null){
+            return view('reviewer.magazine_view')->with("data",$data);
+        }
     
+    });
+    
+    
+    Route::get('/review_post_periodical/{id}/{revid}',[ReviewerController::class,'review_post_periodical']);
+    Route::get('/review_post_periodical',function(){
+        $data = Session::get('data');
+        if($data !==null){
+            $periodical = $data->periodical;
+            $rev = $data->rev; 
+            
+            return view('reviewer.review_post_periodical',compact('periodical','rev'));
+        }else{
+            return back();
+        }
+        
+    });
+    Route::post('/periodicalreview',[ReviewerController::class,'periodicalreview']);
+    Route::get('/review_periodical_list',[ReviewerController::class,'reviewperiodicallist']);
+    Route::get('/review_periodical_complete',[ReviewerController::class,'review_periodical_complete']);
+
+
 });
     });

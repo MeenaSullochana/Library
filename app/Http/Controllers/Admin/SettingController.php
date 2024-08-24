@@ -2784,46 +2784,94 @@ public function Dispatch_magazinereport(Request $req)
 
     $startDate = new \DateTime($req->monthyear);
     $endDate = new \DateTime($req->monthyear1);
+    
+    $startDate->modify('first day of this month');
+    
+    $endDate->modify('last day of this month');
+    
     $startDateFormatted = $startDate->format('Y-m-d');
     $endDateFormatted = $endDate->format('Y-m-d');
     $query->whereBetween('expected_date', [$startDateFormatted, $endDateFormatted]);
 
     $query->orderBy('magazine_name', 'Desc');
-
+    $query->orderBy('expected_date', 'asc');
     $Dispatch = $query->get();
 
     if ($Dispatch->isEmpty()) {
         return back()->with('error', "No Record Found");
     }
 
+    $orders = Ordermagazine::where('status', '0')->get();
+    $magazineCounts = $orders->flatMap(function ($order) {
+        return collect(json_decode($order->magazineProduct, true))
+            ->map(function ($magazineProduct) use ($order) {
+                
+                return [
+                    'id' => $magazineProduct['magazineid'],
+                    'count' => 1,
+                ];
+            });
+    })
+    ->groupBy('id')
+
+    ->map(function ($items) {
+        return [
+            'id' => $items->first()['id'],
+            'count' => $items->sum('count'),
+        ];
+    })
+    ->values()
+    ->toArray();
+    
+
     $finaldata = [];
     $serialNumber = 1;
 
     foreach ($Dispatch as $val) {
-        $library_ids = json_decode($val->library_id, true);
-        $received_ids = json_decode($val->received_id, true);
-        $not_received_ids = json_decode($val->not_received_id, true);
+        $library_ids1 = json_decode($val->library_id, true);
+        $received_ids1 = json_decode($val->received_id, true);
+        $not_received_ids1 = json_decode($val->not_received_id, true);
+        $library_ids = array_unique($library_ids1);
+        $received_ids = array_unique($received_ids1);
+        $not_received_ids = array_unique($not_received_ids1);
 
         $recived = count(array_intersect($library_ids, $received_ids));
-        $notrecived = count(array_diff($library_ids, $received_ids));
-
+        $notrecived = count(array_intersect($library_ids, $not_received_ids));
+        $pending = count($library_ids)-($recived +$notrecived);
+        
         $val->count = count($library_ids);
         $val->recived = $recived;
         $val->notrecived = $notrecived;
+        $val->pending = $pending;
+        $totalrecc=0;
+        foreach($magazineCounts  as $value){
+             
+            if($val->magazine_id == $value['id']){
+                $totalrecc =$totalrecc + $value['count'];
+            }
+        }
+        $magazine1 = Magazine::find( $val->magazine_id);
 
         $finaldata[] = [
             'S.No' => $serialNumber++,
             'Magazine Name' => $val->magazine_name,
             'Periodicity' => $val->periodicity,
-            'Expected Date' => $val->expected_date,
+            'Single Issue Rate' => $magazine1->single_issue_rate,
+            'Discount' => $magazine1->discount,
+            'Single Issue After Discount' => $magazine1->single_issue_after_discount,
+            'Expected Date' => (new \DateTime($val->expected_date))->format('d-m-y'),
+            'Total Subscription' => $totalrecc,
             'Total Library' => $val->count,
             'Total Recived' => $val->recived,
             'Total Notrecived' => $val->notrecived,
+          'pending' =>  $val->pending
+
+
         ];
     }
 
     $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
-    $csvContent .= "S.No, Magazine Name, Periodicity, Expected Date, Total Library, Total Recived, Total Notrecived\n";
+    $csvContent .= "S.No, Magazine Name, Periodicity,Single Issue Rate,Discount,Single Issue After Discount,Expected Date,Total Subscription, Total Library, Total Recived, Total Notrecived, Total  Non Entered\n";
     foreach ($finaldata as $data) {
         $csvContent .= '"' . implode('","', $data) . "\"\n";
     }
@@ -2836,21 +2884,152 @@ public function Dispatch_magazinereport(Request $req)
     return response()->make($csvContent, 200, $headers);
 }
 
+// public function Dispatch_libraryreport(Request $req) {
+
+//     if ($req->monthyear !== null && $req->monthyear1 !== null) {
+//         $query = Dispatch::query();
+
+//         if ($req->Frequency !== null) {
+//             $query->where('periodicity', $req->Frequency);
+//         }
+//         if ($req->id !== null) {
+       
+//             $query->where('magazine_id', $req->id);
+//         }
+
+//         $startDate = new \DateTime($req->monthyear);
+//         $endDate = new \DateTime($req->monthyear1);
+//         $startDateFormatted = $startDate->format('Y-m-d');
+//         $endDateFormatted = $endDate->format('Y-m-d');
+//         $query->whereBetween('expected_date', [$startDateFormatted, $endDateFormatted]);
+
+//         $query->orderBy('created_at', 'asc');
+//         $dispatches = $query->get();
+       
+//         if ($dispatches->isEmpty()) {
+//             return back()->with('error', "No Record Found");
+//         }
+
+//         // Collect all library IDs from dispatches
+//         $libraryIds = [];
+//         foreach ($dispatches as $dispatch) {
+//              $rec11 =json_decode($dispatch->library_id, true);
+//             $libraryIds = array_merge($libraryIds,$rec11 );
+//         }
+   
+//         // $libraryIds = array_unique($libraryIds);
+   
+//         // Fetch all librarians in a single query
+//         $librarians = Librarian::whereIn('id', $libraryIds)->get()->keyBy('id');
+
+//         $data = [];
+//         foreach ($dispatches as $dispatch) {
+//             $libraryIds = json_decode($dispatch->library_id, true);
+//             $receivedIds = json_decode($dispatch->received_id, true);
+//             $notReceivedIds = json_decode($dispatch->not_received_id, true);
+
+//             foreach ($libraryIds as $libraryId) {
+//                 if (!isset($librarians[$libraryId])) {
+//                     continue;
+//                 }
+//                  $librarian = $librarians[$libraryId];
+
+//                 if ($req->librarytype != null && $req->librarytype != $librarian->libraryType) {
+//                     continue;
+//                 }
+
+//                  $received = in_array($libraryId, $receivedIds) ? 1 : 0;
+//                 $notReceived = in_array($libraryId, $notReceivedIds) ? 1 : 0;
+
+//                 $data[$libraryId]['library_name'] = $librarian->libraryName;
+//                 $data[$libraryId]['library_id'] = $librarian->librarianId;
+//                 $data[$libraryId]['library_district'] = $librarian->district;
+//                 $data[$libraryId]['library_type'] = $librarian->libraryType;
+           
+           
+//                $data[$libraryId]['dispatches'][] = [
+//                     'magazine_name' => $dispatch->magazine_name,
+//                     'periodicity' => $dispatch->periodicity,
+//                     'expected_date' => $dispatch->expected_date,
+//                     'received' => $received,
+//                     'not_received' => $notReceived
+//                 ];
+//             }
+//         }
+
+//         $serialNumber = 1;
+//         $csvData = [];
+//         foreach ($data as $libraryId => $libraryData) {
+     
+//             // Sort dispatches by magazine name
+//             usort($libraryData['dispatches'], function($a, $b) {
+//                 return strcmp($a['magazine_name'], $b['magazine_name']);
+//             });
+
+//             foreach ($libraryData['dispatches'] as $val) {
+//                 $csvData[] = [
+//                     'S.No' => $serialNumber++,
+//                     'Library Name' => $libraryData['library_name'],
+//                     'Librarian Id' => $libraryData['library_id'],
+//                     'District' => $libraryData['library_district'],
+//                     'Library Type' => $libraryData['library_type'],
+//                     'Magazine Name' => $val['magazine_name'],
+//                     'Periodicity' => $val['periodicity'],
+//                     'Expected Date' => $val['expected_date'],
+//                     'Total Received' => $val['received'],
+//                     'Total Not Received' => $val['not_received'],
+//                 ];
+//             }
+//             // Adding an empty row after each group for spacing
+//             $csvData[] = array_fill_keys(array_keys($csvData[0]), '');
+//         }
+
+//         $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+//         $csvContent .= "S.No, Library Name,Librarian Id, District, Library Type, Magazine Name, Periodicity, Expected Date, Total Received, Total Not Received\n";
+//         foreach ($csvData as $row) {
+//             $csvContent .= '"' . implode('","', $row) . '"' . "\n";
+//         }
+
+//         $headers = [
+//             'Content-Type' => 'text/csv; charset=utf-8',
+//             'Content-Disposition' => 'attachment; filename="LibraryDispatchReport.csv"',
+//         ];
+
+//         return response()->make($csvContent, 200, $headers);
+
+//     } else {
+//         return back()->with('error', "Month Year field is required");
+//     }
+// }
 public function Dispatch_libraryreport(Request $req) {
+
 if ($req->monthyear !== null && $req->monthyear1 !== null) {
     $query = Dispatch::query();
 
     if ($req->Frequency !== null) {
         $query->where('periodicity', $req->Frequency);
     }
-
+    if ($req->id !== null) {
+       
+        $query->where('magazine_id', $req->id);
+    }
     $startDate = new \DateTime($req->monthyear);
     $endDate = new \DateTime($req->monthyear1);
+    
+    $startDate->modify('first day of this month');
+    
+    $endDate->modify('last day of this month');
+    
     $startDateFormatted = $startDate->format('Y-m-d');
     $endDateFormatted = $endDate->format('Y-m-d');
+    // $startDate = new \DateTime($req->monthyear);
+    // $endDate = new \DateTime($req->monthyear1);
+    // $startDateFormatted = $startDate->format('Y-m-d');
+    //  $endDateFormatted = $endDate->format('Y-m-d');
     $query->whereBetween('expected_date', [$startDateFormatted, $endDateFormatted]);
 
-    $query->orderBy('created_at', 'asc');
+    $query->orderBy('magazine_name', 'Desc');
+    $query->orderBy('expected_date', 'asc');
     $dispatches = $query->get();
 
     if ($dispatches->isEmpty()) {
@@ -2879,32 +3058,37 @@ if ($req->monthyear !== null && $req->monthyear1 !== null) {
             }
             $librarian = $librarians[$libraryId];
 
+            $received = in_array($libraryId, $receivedIds) ? 1 : 0;
+            $notReceived = in_array($libraryId, $notReceivedIds) ? 1 : 0;
+
             if ($req->librarytype != null && $req->librarytype != $librarian->libraryType) {
                 continue;
             }
 
-            $received = in_array($libraryId, $receivedIds) ? 1 : 0;
-            $notReceived = in_array($libraryId, $notReceivedIds) ? 1 : 0;
-
             $data[$libraryId]['library_name'] = $librarian->libraryName;
-            $data[$libraryId]['library_id'] = $librarian->librarianId;
-            $data[$libraryId]['library_district'] = $librarian->district;
-            $data[$libraryId]['library_type'] = $librarian->libraryType;
-           
-           
-            $data[$libraryId]['dispatches'][] = [
-                'magazine_name' => $dispatch->magazine_name,
-                'periodicity' => $dispatch->periodicity,
-                'expected_date' => $dispatch->expected_date,
-                'received' => $received,
-                'not_received' => $notReceived
-            ];
+                            $data[$libraryId]['library_id'] = $librarian->librarianId;
+                            $data[$libraryId]['library_district'] = $librarian->district;
+                            $data[$libraryId]['library_type'] = $librarian->libraryType;
+                            $magazine1 = Magazine::find( $dispatch->magazine_id);
+
+                           
+                           $data[$libraryId]['dispatches'][] = [
+                                'magazine_name' => $dispatch->magazine_name,
+                                'periodicity' => $dispatch->periodicity,
+                                'single_issue_rate' => $magazine1->single_issue_rate,
+                                'discount' => $magazine1->discount,
+                                'single_issue_after_discount' => $magazine1->single_issue_after_discount,
+                                'expected_date' => $dispatch->expected_date,
+                                'received' => $received,
+                                'not_received' => $notReceived,
+                            ];
         }
     }
 
     $serialNumber = 1;
     $csvData = [];
     foreach ($data as $libraryId => $libraryData) {
+     
         // Sort dispatches by magazine name
         usort($libraryData['dispatches'], function($a, $b) {
             return strcmp($a['magazine_name'], $b['magazine_name']);
@@ -2919,17 +3103,21 @@ if ($req->monthyear !== null && $req->monthyear1 !== null) {
                 'Library Type' => $libraryData['library_type'],
                 'Magazine Name' => $val['magazine_name'],
                 'Periodicity' => $val['periodicity'],
-                'Expected Date' => $val['expected_date'],
+                'Single Issue Rate' => $val['single_issue_rate'],
+                'Discount' => $val['discount'],
+                'Single Issue After Discount' =>$val['single_issue_after_discount'],
+                'Expected Date' => (new \DateTime( $val['expected_date']))->format('d-m-y'),
                 'Total Received' => $val['received'],
                 'Total Not Received' => $val['not_received'],
+               'Total pending' => ($val['received'] != 1 && $val['not_received'] != 1) ? 1 : 0,
             ];
         }
         // Adding an empty row after each group for spacing
-        $csvData[] = array_fill_keys(array_keys($csvData[0]), '');
+        // $csvData[] = array_fill_keys(array_keys($csvData[0]), '');
     }
 
     $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
-    $csvContent .= "S.No, Library Name,Librarian Id, District, Library Type, Magazine Name, Periodicity, Expected Date, Total Received, Total Not Received\n";
+    $csvContent .= "S.No, Library Name,Librarian Id, District, Library Type, Magazine Name, Periodicity,Single Issue Rate,Discount,Single Issue After Discount,Expected Date, Total Received, Total Not Received,Total  Non Entered\n";
     foreach ($csvData as $row) {
         $csvContent .= '"' . implode('","', $row) . '"' . "\n";
     }
@@ -2944,10 +3132,7 @@ if ($req->monthyear !== null && $req->monthyear1 !== null) {
 } else {
     return back()->with('error', "Month Year field is required");
 }
-}
-
-
-
+} 
 public function reviewer_report(Request $request){
 
      if($request->reviewer !=null) {
@@ -3196,8 +3381,437 @@ public function Dispatch_library_report(Request $req){
 
 }
 
+public function dispatch_finalreport(Request $req)
+{
+    if ($req->monthyear === null || $req->monthyear1 === null) {
+        return back()->with('error', "Month Year field is required");
+    }
+
+    $query = Dispatch::query();
+
+    if ($req->id !== null) {
+        $query->where('magazine_id', $req->id);
+    }
+
+    if ($req->Frequency !== null) {
+        $query->where('periodicity', $req->Frequency);
+    }
+
+    $startDate = new \DateTime($req->monthyear);
+    $endDate = new \DateTime($req->monthyear1);
+    
+    $startDate->modify('first day of this month');
+    
+    $endDate->modify('last day of this month');
+    
+    $startDateFormatted = $startDate->format('Y-m-d');
+    $endDateFormatted = $endDate->format('Y-m-d');
+    $query->whereBetween('expected_date', [$startDateFormatted, $endDateFormatted]);
+
+    $query->orderBy('magazine_name', 'Desc');
+    $query->orderBy('expected_date', 'asc');
+    $Dispatch = $query->get();
+
+    if ($Dispatch->isEmpty()) {
+        return back()->with('error', "No Record Found");
+    }
+
+    $orders = Ordermagazine::where('status', '0')->get();
+    $magazineCounts = $orders->flatMap(function ($order) {
+        return collect(json_decode($order->magazineProduct, true))
+            ->map(function ($magazineProduct) use ($order) {
+                
+                return [
+                    'id' => $magazineProduct['magazineid'],
+                    'count' => 1,
+                ];
+            });
+    })
+    ->groupBy('id')
+
+    ->map(function ($items) {
+        return [
+            'id' => $items->first()['id'],
+            'count' => $items->sum('count'),
+        ];
+    })
+    ->values()
+    ->toArray();
+    
+
+    $finaldata = [];
+    $serialNumber = 1;
+  if($req->district != null){
+  
+    $librarianIds = Librarian::where('district', $req->district)
+    ->pluck('id')->toArray();
+
+foreach ($Dispatch as $key => $val) {
+    $library_ids = json_decode($val->library_id, true);
+    $received_ids = array_flip(json_decode($val->received_id, true));
+    $not_received_ids = array_flip(json_decode($val->not_received_id, true));
+
+    $counts = [
+        'totaldata' => 0,
+        'received_count' => 0,
+        'not_received_count' => 0,
+        'pending_count' => 0
+    ];
+
+    foreach ($library_ids as $library_id) {
+        if (in_array($library_id, $librarianIds)) {
+            $counts['totaldata']++;
+            if (isset($received_ids[$library_id])) {
+                $counts['received_count']++;
+            } elseif (isset($not_received_ids[$library_id])) {
+                $counts['not_received_count']++;
+            } else {
+                $counts['pending_count']++;
+            }
+        }
+    }
+
+    $magazine = Magazine::find($val->magazine_id);
+    $singleIssueAfterDiscount = (float) $magazine->single_issue_after_discount;
+    $totalSubscription = (int) $counts['totaldata'];
+    $totalReceived = (int) $counts['received_count'];
+    $totalNotReceived = (int) $counts['not_received_count'];
+    $pending = (int) $counts['pending_count'];
+
+    $finaldata[] = [
+        'S.No' => $key + 1,
+        'Magazine Name' => $val->magazine_name,
+        'Periodicity' => $val->periodicity,
+        'Single Issue Rate' => (float) $magazine->single_issue_rate,
+        'Discount' => (float) $magazine->discount,
+        'Single Issue After Discount' => round($singleIssueAfterDiscount),
+        'Total Subscription' => $totalSubscription,
+        'Total Library' => $totalSubscription,
+        'Total Received' => $totalReceived,
+        'Total Not Received' => $totalNotReceived,
+        'Pending' => $pending,
+    ];
+}
+
+$result = collect($finaldata)
+->groupBy('Magazine Name')
+->map(function ($group, $index) {
+    $index = (int) $index;  // Ensure $index is an integer
+    $singleIssueAfterDiscount = (float) round($group->first()['Single Issue After Discount']);
+    $totalSubscription = (int) $group->sum('Total Subscription');
+    $totalReceived = (int) $group->sum('Total Received');
+    $totalNotReceived = (int) $group->sum('Total Not Received');
+    $pending = (int) $group->sum('Pending');
+
+                                                
+ return [
+        'S.No' => $index + 1,
+        'Magazine Name' =>$group->first()['Magazine Name'],
+        'Periodicity' => $group->first()['Periodicity'],
+        'Single Issue Rate' => (float) $group->first()['Single Issue Rate'],
+        'Discount' => (float) $group->first()['Discount'],
+        'Single Issue After Discount' => $singleIssueAfterDiscount,
+        'Total Subscription' => $totalSubscription,
+        'Total Library' => $totalSubscription,
+        'Amount' => round($singleIssueAfterDiscount * $totalSubscription),
+        'Total Received' => $totalReceived,
+        'Amount1' => round($singleIssueAfterDiscount * $totalReceived),
+        'Total Not Received' => $totalNotReceived,
+        'Amount2' => round($singleIssueAfterDiscount * $totalNotReceived),
+        'Pending' => $pending,
+        'Amount3' => round($singleIssueAfterDiscount * $pending),
+        'Difference' => round($singleIssueAfterDiscount * ($totalSubscription - $totalReceived)),
+    ];
+})
+->values();
 
 
+//   foreach($result as $val){
+//      return $val;
+//   }
+$csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+$csvContent .= "S.No,Magazine Name,Periodicity,Single Issue Rate,Discount,Single Issue After Discount,Total Subscription,Total Library,Amount,Total Received,Amount,Total Not Received,Amount,Total Non Entered,Amount,Difference\n"; 
+
+foreach ($result as $data) {
+// Ensure each field is enclosed in double quotes and escape quotes inside fields
+$escapedData = array_map(function($field) {
+    return '"' . str_replace('"', '""', $field) . '"';
+}, $data);
+$csvContent .= implode(',', $escapedData) . "\n";
+}
+
+// Set headers for the CSV file
+$headers = [
+'Content-Type' => 'text/csv; charset=utf-8',
+'Content-Disposition' => 'attachment; filename="DespatchfinalReport.csv"',
+];
+
+// Output the CSV content with headers
+return response($csvContent)
+->header('Content-Type', $headers['Content-Type'])
+->header('Content-Disposition', $headers['Content-Disposition']);
+  }else{
+
+  
+    foreach ($Dispatch as $val) {
+        $library_ids1 = json_decode($val->library_id, true);
+        $received_ids1 = json_decode($val->received_id, true);
+        $not_received_ids1 = json_decode($val->not_received_id, true);
+        $library_ids = array_unique($library_ids1);
+        $received_ids = array_unique($received_ids1);
+        $not_received_ids = array_unique($not_received_ids1);
+
+        $recived = count(array_intersect($library_ids, $received_ids));
+        $notrecived = count(array_intersect($library_ids, $not_received_ids));
+        $pending = count($library_ids)-($recived +$notrecived);
+        
+        $val->count = count($library_ids);
+        $val->recived = $recived;
+        $val->notrecived = $notrecived;
+        $val->pending = $pending;
+        $totalrecc=0;
+        foreach($magazineCounts  as $value){
+             
+            if($val->magazine_id == $value['id']){
+                $totalrecc =$totalrecc + $value['count'];
+            }
+        }
+        $magazine1 = Magazine::find( $val->magazine_id);
+
+        $finaldata[] = [
+            'S.No' => $serialNumber++,
+            'Magazine Name' => $val->magazine_name,
+            'Periodicity' => $val->periodicity,
+            'Single Issue Rate' => $magazine1->single_issue_rate,
+            'Discount' => $magazine1->discount,
+            'Single Issue After Discount' => $magazine1->single_issue_after_discount,
+            'Expected Date' => (new \DateTime($val->expected_date))->format('d-m-y'),
+            'Total Subscription' => $totalrecc,
+            'Total Library' => $val->count,
+            'Total Received' => $val->recived,
+            'Total Not Received' => $val->notrecived,
+          'Pending' =>  $val->pending
+
+
+        ];
+    }
+  
+    $result = collect($finaldata)
+    ->groupBy('Magazine Name')
+    ->map(function ($group, $index) {
+        $index = (int) $index;  // Ensure $index is an integer
+        $singleIssueAfterDiscount = (float) round($group->first()['Single Issue After Discount']);
+        $totalSubscription = (int) $group->sum('Total Subscription');
+        $totalReceived = (int) $group->sum('Total Received');
+        $totalNotReceived = (int) $group->sum('Total Not Received');
+        $pending = (int) $group->sum('Pending');
+
+                                                    
+     return [
+            'S.No' => $index + 1,
+            'Magazine Name' =>$group->first()['Magazine Name'],
+            'Periodicity' => $group->first()['Periodicity'],
+            'Single Issue Rate' => (float) $group->first()['Single Issue Rate'],
+            'Discount' => (float) $group->first()['Discount'],
+            'Single Issue After Discount' => $singleIssueAfterDiscount,
+            'Total Subscription' => $totalSubscription,
+            'Total Library' => $totalSubscription,
+            'Amount' => round($singleIssueAfterDiscount * $totalSubscription),
+            'Total Received' => $totalReceived,
+            'Amount1' => round($singleIssueAfterDiscount * $totalReceived),
+            'Total Not Received' => $totalNotReceived,
+            'Amount2' => round($singleIssueAfterDiscount * $totalNotReceived),
+            'Pending' => $pending,
+            'Amount3' => round($singleIssueAfterDiscount * $pending),
+            'Difference' => round($singleIssueAfterDiscount * ($totalSubscription - $totalReceived)),
+        ];
+    })
+    ->values();
+
+    $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .= "S.No,Magazine Name,Periodicity,Single Issue Rate,Discount,Single Issue After Discount,Total Subscription,Total Library,Amount,Total Received,Amount,Total Not Received,Amount,Total Non Entered,Amount,Difference\n"; 
+    
+    foreach ($result as $data) {
+        // Ensure each field is enclosed in double quotes and escape quotes inside fields
+        $escapedData = array_map(function($field) {
+            return '"' . str_replace('"', '""', $field) . '"';
+        }, $data);
+        $csvContent .= implode(',', $escapedData) . "\n";
+    }
+    
+    // Set headers for the CSV file
+    $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="DespatchfinalReport.csv"',
+    ];
+    
+    // Output the CSV content with headers
+    return response($csvContent)
+        ->header('Content-Type', $headers['Content-Type'])
+        ->header('Content-Disposition', $headers['Content-Disposition']);
+}
+}
+
+
+public function dispatch_final_report_pdf(Request $req)
+{
+ 
+    if ($req->monthyear === null || $req->monthyear1 === null) {
+        $data=[];
+        return view('admin.dispatch_final_report_pdf', compact('data'));
+
+    }
+    if ($req->district === null ) {
+        $data=[];
+        return back()->with('error', "District field is required");
+
+    }
+    $query = Dispatch::query();
+
+  
+
+    $startDate = new \DateTime($req->monthyear);
+    $endDate = new \DateTime($req->monthyear1);
+    
+    $startDate->modify('first day of this month');
+    
+    $endDate->modify('last day of this month');
+    
+    $startDateFormatted = $startDate->format('Y-m-d');
+    $endDateFormatted = $endDate->format('Y-m-d');
+    $query->whereBetween('expected_date', [$startDateFormatted, $endDateFormatted]);
+
+    $query->orderBy('magazine_name', 'Desc');
+    $query->orderBy('expected_date', 'asc');
+    $Dispatch = $query->get();
+
+    if ($Dispatch->isEmpty()) {
+        return back()->with('error', "No Record Found");
+    }
+
+    $orders = Ordermagazine::where('status', '0')->get();
+    $magazineCounts = $orders->flatMap(function ($order) {
+        return collect(json_decode($order->magazineProduct, true))
+            ->map(function ($magazineProduct) use ($order) {
+                
+                return [
+                    'id' => $magazineProduct['magazineid'],
+                    'count' => 1,
+                ];
+            });
+    })
+    ->groupBy('id')
+
+    ->map(function ($items) {
+        return [
+            'id' => $items->first()['id'],
+            'count' => $items->sum('count'),
+        ];
+    })
+    ->values()
+    ->toArray();
+    
+
+    $finaldata = [];
+    $serialNumber = 1;
+
+  
+    $librarianIds = Librarian::where('district', $req->district)
+    ->pluck('id')->toArray();
+
+foreach ($Dispatch as $key => $val) {
+    $library_ids = json_decode($val->library_id, true);
+    $received_ids = array_flip(json_decode($val->received_id, true));
+    $not_received_ids = array_flip(json_decode($val->not_received_id, true));
+
+    $counts = [
+        'totaldata' => 0,
+        'received_count' => 0,
+        'not_received_count' => 0,
+        'pending_count' => 0
+    ];
+
+    foreach ($library_ids as $library_id) {
+        if (in_array($library_id, $librarianIds)) {
+            $counts['totaldata']++;
+            if (isset($received_ids[$library_id])) {
+                $counts['received_count']++;
+            } elseif (isset($not_received_ids[$library_id])) {
+                $counts['not_received_count']++;
+            } else {
+                $counts['pending_count']++;
+            }
+        }
+    }
+
+    $magazine = Magazine::find($val->magazine_id);
+    $singleIssueAfterDiscount = (float) $magazine->single_issue_after_discount;
+    $totalSubscription = (int) $counts['totaldata'];
+    $totalReceived = (int) $counts['received_count'];
+    $totalNotReceived = (int) $counts['not_received_count'];
+    $pending = (int) $counts['pending_count'];
+    $startDate = new \DateTime($req->monthyear);
+    $endDate = new \DateTime($req->monthyear1);
+    $startDateFormatted = $startDate->format('M-Y');
+    $endDateFormatted = $endDate->format('M-Y');
+        $finaldata[] = [
+        'S.No' => $key + 1,
+        'Magazine Name' => $val->magazine_name,
+        'Periodicity' => $val->periodicity,
+        'Single Issue Rate' => (float) $magazine->single_issue_rate,
+        'language' => (float) $magazine->language,
+        'Discount' => (float) $magazine->discount,
+        'Single Issue After Discount' => round($singleIssueAfterDiscount),
+        'Total Subscription' => $totalSubscription,
+        'Total Library' => $totalSubscription,
+        'Total Received' => $totalReceived,
+        'Total Not Received' => $totalNotReceived,
+        'Pending' => $pending,
+        'District' =>$req->district,
+        'month' => $startDateFormatted. ' - ' .  $endDateFormatted
+    ];
+}
+
+$result = collect($finaldata)
+->groupBy('Magazine Name')
+->map(function ($group, $index) {
+    $index = (int) $index;  // Ensure $index is an integer
+    $singleIssueAfterDiscount = (float) round($group->first()['Single Issue After Discount']);
+    $totalSubscription = (int) $group->sum('Total Subscription');
+    $totalReceived = (int) $group->sum('Total Received');
+    $totalNotReceived = (int) $group->sum('Total Not Received');
+    $pending = (int) $group->sum('Pending');
+
+                                                
+ return [
+        'S_No' => $index + 1,
+        'Magazine_Name' =>$group->first()['Magazine Name'],
+        'Periodicity' => $group->first()['Periodicity'],
+        'Single_Issue_Rate' => (float) $group->first()['Single Issue Rate'],
+        'Discount' => (float) $group->first()['Discount'],
+        'language' => (float) $group->first()['language'],
+        'Single_Issue_After_Discount' => $singleIssueAfterDiscount,
+        'Total_Subscription' => $totalSubscription,
+        'Total Library' => $totalSubscription,
+        'Amount' => round($singleIssueAfterDiscount * $totalSubscription),
+        'Total_Received' => $totalReceived,
+        'Amount1' => round($singleIssueAfterDiscount * $totalReceived),
+        'Total_Not_Received' => $totalNotReceived,
+        'Amount2' => round($singleIssueAfterDiscount * $totalNotReceived),
+        'Pending' => $pending,
+        'Amount3' => round($singleIssueAfterDiscount * $pending),
+        'Difference' => round($singleIssueAfterDiscount * ($totalSubscription - $totalReceived)),
+        'District' => $group->first()['District'],
+        'month' =>$group->first()['month']
+    ];
+})
+->values();
+    $data=$result;
+return view('admin.dispatch_final_report_pdf', compact('data'));
+
+ 
+
+}
 }
       
 

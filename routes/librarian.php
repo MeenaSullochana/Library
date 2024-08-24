@@ -319,7 +319,12 @@ Route::get('/meta_periodical_update_return',[LibrarianController::class,'meta_pe
 
 Route::post('/librarianreturnmessage_perio',[LibrarianController::class,'librarianreturnmessage_perio']);
 Route::post('/librarianapprovestatus_perio',[LibrarianController::class,'librarianapprovestatus_perio']);
+Route::get('/dispatch_final_report',function(){ return view('librarian.dispatch_final_report');});
+Route::post('/dispatch_finalreport',[SettingController::class,'dispatch_finalreport']);
+Route::get('/dispatch_final_report_pdf',[SettingController::class,'dispatch_final_report_pdf']);
 
+Route::get('/dispatch_final_report_pdf',function(){ return view('librarian.dispatch_final_report_pdf');});
+Route::get('/dispatch_final_report_pdf',[SettingController::class,'dispatch_final_report_pdf']);
 
 });
 });
