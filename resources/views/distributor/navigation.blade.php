@@ -1374,6 +1374,7 @@
                             <li><a href="feedback_public_list">Public Feedback</a></li> -->
                         </ul>
                     </li>
+					@if(auth('distributor')->user()->distributionName != 'Directorate of public Library')
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-minecart-loaded"></i>
                             <span class="nav-text">Procurement Receipt</span>
@@ -1383,16 +1384,27 @@
 
                         </ul>
                     </li>
+					@else
+					<li>
+						<a class="" href="/distributor/book_self_manage_all" aria-expanded="false">
+                        <i class="bi bi-minecart-loaded"></i>
+                            <span class="nav-text">Overall Book List</span>
+                        </a>
+                       
+                    </li>
+					@endif
+					
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <i class="bi bi-minecart-loaded"></i>
                             <span class="nav-text">Manage Procurement</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="/distributor/procurement">Apply For Procurement</a></li>
+							@if(auth('distributor')->user()->distributionName != 'Directorate of public Library')
 							<li><a href="/distributor/procurement_samplebook">Procurement Sample Book Copies send list</a></li>
 							<li><a href="/distributor/procurement_samplebookpending">Procurement Sample Book Copies pending list</a></li>
 							<li><a href="/distributor/procurement_samplebookcomplete">Procurement Sample Book Copies Complete list</a></li>
-
+							@endif
 							
 							{{-- <li><a href="/distributor/procurement_list">pending List </a></li>
 							<li><a href="/distributor/book_updatelist">Return Correction Book List</a></li>
@@ -1417,7 +1429,23 @@
                             <li><a href="/distributor/procurement_reject">Reject List </a></li> 
                         </ul>
                     </li>
-			<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+					@if(auth('distributor')->user()->distributionName != 'Directorate of public Library')
+		      	    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-journal-plus"></i>
+                            <span class="nav-text">Personal Selection Books</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/distributor/self_pending_list">Book List</a></li>
+                            <li><a href="/distributor/self_process_list">Processing Quotation</a></li>
+							<li><a href="/distributor/self_hold_list">Hold List</a></li>
+							<li><a href="/distributor/self_approved_list">Approved List</a></li>
+                            <li><a href="/distributor/self_failed_list">Rejected list</a></li>
+
+                        </ul>
+                    </li>
+					@endif
+					@if(auth('distributor')->user()->distributionName != 'Directorate of public Library')
+		      	    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-journal-plus"></i>
                             <span class="nav-text">Manage Negotiation</span>
                         </a>
@@ -1430,6 +1458,7 @@
 
                         </ul>
                     </li>
+					@endif
 					<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 					<i class="bi bi-chat-dots"></i>
                             <span class="nav-text">Feedback Manage</span>

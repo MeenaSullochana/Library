@@ -1012,8 +1012,31 @@ Route::post('/magazineperiodicity_statuschange',[LibraryTypeController::class,'m
  });
    Route::post('/magazine-eriodicity-edit',[LibraryTypeController::class,'magazineperiodicity_edit']);
 
+//Self Nominated Books
 
+Route::get('/master_self_book_data',[BookController::class,'master_self_book_data']);
+Route::get('/master_self_book_datareport',[BookController::class,'master_self_book_datareport']);
+Route::get('/self_list',[BookController::class,'selflist']);
+Route::post('/sendselfstatus',[BookController::class,'sendselfstatus']);
+Route::get('/self_pending_list',function(){ return view('admin.self_pending_list');});
+Route::get('/self_process_list',function(){ return view('admin.self_process_list');});
+Route::get('/self_approved_list',function(){ return view('admin.self_approved_list');});
+Route::get('/self_failed_list',function(){ return view('admin.self_failed_list');});
+Route::post('/approveselfstatus',[BookController::class,'approveselfstatus']);
+Route::post('/rejectselfstatus',[BookController::class,'rejectselfstatus']);
+Route::get('/self_creater_view/{id}',[BookController::class,'self_book_creators']);
+Route::get('/self_creater_view',function(){ 
+    $data = Session::get('data');
+    return view('admin.self_creater_view')->with('data',$data);
+});
+Route::get('/self_creater_failed_view/{id}',[BookController::class,'self_reject_creators']);
+Route::get('/self_creater_failed_view',function(){ 
+    $data = Session::get('data');
+    return view('admin.self_creater_failed_view')->with('data',$data);
+});
 
+Route::get('/self_export/{id}',[BookController::class,'SelfExport']);
+Route::post('/quotationstatus', [BookController::class,'quotationupload']);
 // negotiation
 Route::post('/sendnegotiation',[BookController::class,'sendnegotiation']);
 Route::post('/multisendnegotiation',[BookController::class,'multisendnegotiation']);
@@ -1021,13 +1044,9 @@ Route::get('/negotiation_process_list',function(){ return view('admin.negotiatio
 Route::get('/nego_approved_list',function(){ return view('admin.nego_approved_list');});
 Route::get('/nego_failed_list',function(){ return view('admin.nego_failed_list');});
 Route::get('/nego_pending_list',function(){ return view('admin.nego_pending_list');});
-
 Route::get('/negotiation_list',[BookController::class,'negotiationlist']);
-
 Route::post('/sendnegotiationstatus',[BookController::class,'sendnegotiationstatus']);
 Route::get('/negotiation_hold_list',function(){ return view('admin.nego_hold');});
-
-
 Route::get('/negotiation_price_upload',function(){ return view('admin.negotiation_price_upload');});
 Route::post('/book/price', [BookController::class,'calculatedBookPrice']);
 Route::post('/magazine/price', [BookController::class,'calculatedBookPrice']);

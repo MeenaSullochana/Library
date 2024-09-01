@@ -2082,6 +2082,18 @@
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-journal-plus"></i>
+                            <span class="nav-text">Self Nominated Books</span>
+                        </a>
+                        <ul aria-expanded="false">
+                        <li><a href="master_self_book_data">Master SelfNominated List</a></li>
+                            <li><a href="self_pending_list">Quotation Pending list</a></li>
+                            <li><a href="self_approved_list">Approved List</a></li>
+                            <li><a href="self_failed_list">Rejected list</a></li>
+
+                        </ul>
+                    </li>
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-journal-plus"></i>
                             <span class="nav-text">Management Negotiation</span>
                         </a>
                         <ul aria-expanded="false">

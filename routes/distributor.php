@@ -142,6 +142,9 @@ Route::get('/report_download', function () {return view('distributor.report_down
  Route::get('/book_add',function(){ return view('distributor.book_add');});
  Route::post('/create/book',[BookController::class,'create']);
     Route::get('/book_manage_all',[BookController::class,'bookmanageall']);
+
+
+    Route::get('/book_self_manage_all',[BookController::class,'bookselfmanageall']);
     Route::get('/book_manage_view/{id}',[BookController::class,'bookmanageview']);
      Route::get('/bookmanageview',function(){
          $data = Session::get('book');
@@ -192,6 +195,14 @@ Route::get('/report_download', function () {return view('distributor.report_down
       Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
       Route::post('/procurementbokkcopies-send',[BookController::class,'procurementbokkcopies_send']);
 
+// SelfNominated 
 
+Route::get('/self_pending_list',function(){ return view('distributor.self_pending_list');});
+Route::get('/self_approved_list',function(){ return view('distributor.self_approved_list');});
+Route::get('/self_failed_list',function(){ return view('distributor.self_failed_list');});
+Route::get('/self_process_list',function(){ return view('distributor.self_process_list');});
+Route::post('/sendselfstatus',[BookController::class,'sendselfstatus']);
+Route::post('/sendselfamount',[BookController::class,'sendselfamount']);
+Route::get('/self_hold_list',function(){ return view('distributor.self_hold');});
     });
 });

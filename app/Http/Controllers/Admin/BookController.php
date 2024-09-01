@@ -7,6 +7,8 @@ use App\Models\Reviewer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\District;
+use Illuminate\Support\Facades\Cache;
+
 use Illuminate\Support\Facades\Validator;
 use Throwable;
 use Carbon\Carbon;
@@ -31,7 +33,7 @@ use App\Models\Magazine;
 use App\Models\Booksubject;
 use App\Models\Procurementpaymrnt;
 use App\Models\PeriodicalReviewStatus;
-
+use App\Models\SelfNominatedBooks;
 
 
 use Illuminate\Support\Facades\Session;
@@ -57,7 +59,6 @@ class BookController extends Controller
 
   public function bookmanageview($id)
   {
-
     $book = Book::find($id);
     $book->primaryauthor1 = json_decode($book->primaryauthor);
     $book->trans_from1 = json_decode($book->trans_from);
@@ -2586,10 +2587,10 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
   public function master_nego_book_data(Request $request)
   {
     // Use eager loading to reduce the number of queries
-    $query = Book::with('librarian');
+    $query = Book::with('librarian')->where('marks', '>=', 40)->where('negotiation_status','=', null)->where('self_nominated','=', 0);
 
     // Apply filters
-    if ($request->has('language_filter') && $request->language_filter != '') {
+    if ($request->has('language_filter') && $request->language_filter != '') { 
       $query->where('language', $request->language_filter);
     }
 
@@ -2604,17 +2605,20 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
     list($min, $max) = explode('-', $request->mark_range);
     $query->whereBetween('marks', [(int)$min, (int)$max]);
 }
-  if ($request->has('search') && $request->search != '') {
-      $query->where('book_title', 'like', '%' . $request->search . '%')
-      ->orWhere('product_code', 'like', '%' . $request->search . '%')
-      ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
-      ->orWhere('language', 'like', '%' . $request->search . '%')
-      ->orWhere('marks', 'like', '%' . $request->search . '%')
+if ($request->has('search') && $request->search != '') {
+  $query->where(function ($subQuery) use ($request) {
+      $subQuery->where('book_title', 'like', '%' . $request->search . '%')
+          ->orWhere('product_code', 'like', '%' . $request->search . '%')
+          ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+          ->orWhere('language', 'like', '%' . $request->search . '%')
+          ->orWhere('marks', 'like', '%' . $request->search . '%')
+          ->orWhere('isbn', 'like', '%' . $request->search . '%');
+  });
 
-            ->orWhere('isbn', 'like', '%' . $request->search . '%');
-  }
-  $query->where('marks', '>=', 40)->where('negotiation_status','=', null)
-  ->orderBy('marks', 'desc');
+
+}
+
+  $query ->orderBy('marks', 'desc');
 $data = $query->paginate(15);
 
     $procurementStatuses = ["1", "5", "6"];
@@ -2744,69 +2748,6 @@ $data = $query->paginate(15);
 
     return response()->make($csvContent, 200, $headers);
   }
-
-  //Negotiation import record
-  // public function calculatedBookPrice(Request $request)
-  // {
-  //     try {
-  //         $admin = auth('admin')->user();
-  //         if ($request->hasFile('file_book_price')) {
-  //             $file = $request->file('file_book_price');
-  //             $fileContents = file($file->getPathname());
-  //             unset($fileContents[0]);
-
-  //             $batchSize = 100; 
-
-  //             $chunks = array_chunk($fileContents, $batchSize);
-
-  //             foreach ($chunks as $chunk) {
-  //               $productcode = [];
-  //               $productcode1 = [];
-  //                 foreach ($chunk as $line) {
-  //                     $data = str_getcsv($line);
-  //                      $p_code = $data[1] ?? null;
-
-  //                      if($p_code != null){
-  //                         $code = str_pad($data[1], 8, '0', STR_PAD_LEFT);
-  //                         $book = Book::where('product_code',  $code)->exists();
-  //                         if ($book){
-  //                            continue;
-  //                         }else{
-  //                           return redirect()->back()->with('errorlib',  $code . "Not Found");
-  //                         }
-
-  //                         if (in_array($code, $productcode)) {
-  //                           array_push($productcode1,  $code);
-  //                             // return redirect()->back()->with('errorlib',  $code . " Duplicate entry");
-  //                         } else {
-  //                             array_push($productcode,  $code);
-  //                         }
-
-  //                      }
-
-  //                 }
-  //                 return $productcode;
-  //                 $check =[];
-  //                 foreach ($chunk as $line) {
-  //                     $data = str_getcsv($line);
-  //                     $productCode = str_pad($data[1], 8, '0', STR_PAD_LEFT);
-  //                     $bookdata =Book::where('product_code','=',$productCode)->first();
-  //                     $bookdata->calculated_price =  $data[2];
-  //                     $bookdata->save();
-
-  //                 }
-  //             }
-
-  //             return redirect()->back()->with('successlib', 'File imported successfully');
-  //         } else {
-  //             return redirect()->back()->with('errorlib', 'No file uploaded');
-  //         }
-  //     } catch (\Throwable $e) {
-  //          return $e;
-  //         // Handle the exception (e.g., log it)
-  //         return redirect()->back()->with('errorlib', 'An error occurred while importing.');
-  //     }
-  // }
 
   public function calculatedBookPrice(Request $request)
   {
@@ -3341,9 +3282,6 @@ public function get_periodicals($id)
 
    } 
 
-
-  //  
-
   public function periodicalassign_data(Request $req)
   {
 
@@ -3416,5 +3354,463 @@ public function get_periodicals($id)
     return view('admin.procur_pending_periodical_list')->with('record', $record);
   }
   
+  public function self_book_creators($id){
+    $data = SelfNominatedBooks::where('book_id','=',$id)->get();
+    foreach($data as $key=>$val){
+ 
+     if($val->distributor_type == "distributor"){
+        
+       $user = Distributor::find($val->distributed_by);
+       $book = Book::find($val->book_id);
+       $val->user = $user;
+       $val->book = $book;
+     }else{
+       $user = PublisherDistributor::find($val->distributed_by);
+       $book = Book::find($val->book_id);
+       $val->user = $user;
+       $val->book = $book;
+     }
+   
+    }
+    Session::put('data',$data);
+   
+    return redirect('admin/self_creater_view');
+}
+public function self_reject_creators($id){
+$data = SelfNominatedBooks::where('book_id','=',$id)->where('status','=',2)->get();
+foreach($data as $key=>$val){
 
+if($val->distributor_type == "distributor"){
+   
+  $user = Distributor::find($val->distributed_by);
+  $book = Book::find($val->book_id);
+  $val->user = $user;
+  $val->book = $book;
+}else{
+  $user = PublisherDistributor::find($val->distributed_by);
+  $book = Book::find($val->book_id);
+  $val->user = $user;
+  $val->book = $book;
+}
+
+}
+
+Session::put('data',$data);
+
+return redirect('admin/self_creater_failed_view');
+}
+public function SelfExport($id){
+
+$data = SelfNominatedBooks::where('book_id','=',$id)->get();
+foreach($data as $key=>$val){
+
+if($val->distributor_type == "distributor"){
+   
+  $user = Distributor::find($val->distributed_by);
+  $book = Book::find($val->book_id);
+  $val->user = $user;
+  $val->book = $book;
+}else{
+  $user = PublisherDistributor::find($val->distributed_by);
+  $book = Book::find($val->book_id);
+  $val->user = $user;
+  $val->book = $book;
+}
+
+}
+$finaldata = [];
+$serialNumber = 1;
+foreach ($data as $val) {
+   $finaldata[] = [
+       'S.No' => $serialNumber++,
+       'Quotation Creator' =>$val->user->firstName.' '. $val->user->lastName,
+       'Quotation Creator Type' => $val->user->usertype,
+       'Distribution Name' => ($val->user->usertype == "distributor") ? $val->user->distributionName : $val->user->publicationDistributionName,
+       'Quotation Creator Email'=>$val->user->email,
+       'Book Code' => $val->book->product_code,
+       'Book Title' => $val->book->book_title,
+       'Actual Price(Rs)' =>$val->book->price,
+       'Discount Percentage(%)' =>$val->book->discount,
+       'Discounted Price(Rs)' => $val->book->discountedprice,
+       'Quotation Percentage(%)'=>$val->quotation_percentage,
+       'Quotation Price(Rs)'=> $val->quotation_price,
+       'Quotation Reason'=>$val->quotation_reason,
+       'Status(Accept/Reject)'=>'',
+       'Reason'=>'',
+   ];
+ 
+}
+
+//  return $finaldata;
+$csvContent =""; // UTF-8 BOM
+$csvContent .= "S.No,Quotation Creator,Quotation Creator Type,Distribution Name,Quotation Creator Email,Book Code,Book Title,Actual Price(Rs),Discount Percentage(%),Discounted Price(Rs),Quotation Percentage(%),Quotation Price(Rs),Quotation Reason,Status(Accept/Reject),Reason\n"; 
+foreach ($finaldata as $data) {
+   $csvContent .= '"' . implode('","', $data) ."\"\n";
+}
+
+$headers = [
+ 'Content-Type' => 'text/csv; charset=utf-8',
+ 'Content-Disposition' => 'attachment; filename="Book_Quotation_Report.csv"',
+];
+
+return response()->make($csvContent, 200, $headers);
+} 
+public function quotationupload(Request $request)
+{
+try {
+ $admin = auth('admin')->user();
+ if (!$request->hasFile('quotationfile')) {
+   return redirect()->back()->with('errorlib', 'No file uploaded');
+ }
+
+ $file = $request->file('quotationfile');
+ $fileContents = file($file->getPathname());
+ unset($fileContents[0]);
+
+ $batchSize = 100;
+ $chunks = array_chunk($fileContents, $batchSize);
+
+ foreach ($chunks as $chunk) {
+   $productCodes = [];
+   $duplicateCodes = [];
+   $reasons = [];
+   $statuses = [];
+   $accepteddata = [];
+   $booksToUpdate = [];
+
+   foreach ($chunk as $line) {
+     $data = str_getcsv($line);
+     $productCode = str_pad($data[5] ?? '', 8, '0', STR_PAD_LEFT);
+
+     if (empty($productCode)) {
+       continue;
+     }
+
+     if ($data[13] == "Accept" || $data[13] == "accept") {
+       if (in_array("Accept", $productCodes)) {
+         $accepteddata[] = $data[3];
+         $duplicateCodes[] = $data[3];
+       } else {
+         $productCodes[] = "Accept";
+         $accepteddata[] = $data[3];
+       }
+     }else if($data[13] == "Reject" || $data[13] == "reject"){
+           if(!$data[14]){
+             $reasons[]= $data[3];
+           }
+     } else {
+       $statuses[]= $data[3];
+     }
+     $booksToUpdate[]=['Quotation Creator'=>$data[1],'Quotation Creator Type'=>$data[2],'Distribution Name'=>$data[3],'Quotation Creator Email'=>$data[4],'Book Code'=>$data[5],'Book Title'=>$data[6],'Actual Price'=>$data[7],'Discount Percentage'=>$data[8],'Discounted Price'=>$data[9],'Quotation Percentage'=>$data[10],'Quotation Price'=>$data[11],'Quotation Reason'=>$data[12],'status'=>$data[13],'Reason'=>$data[14]];
+   }
+  
+   if (!empty($statuses)) {
+     return redirect()->back()->with('errorlib', "Status is required for the following distributions ". implode(', ', $statuses));
+   }
+   if (!empty($reasons)) {
+     return redirect()->back()->with('errorlib', "Reason for rejecting quotation is required for the following distributions ". implode(', ', $reasons)); 
+   }
+   if (empty($productCodes)) {
+     return redirect()->back()->with('errorlib', "Accept any one of the quotation ". implode(', ', $reasons)); 
+   }
+   if (!empty($duplicateCodes)) {
+     return redirect()->back()->with('errorlib',"You cannot accept more than one quotation. Accept any one of the following distributions ". implode(', ', $accepteddata));
+   }
+  
+ 
+
+
+   // Update books
+   foreach ($booksToUpdate as $bookData) {
+     $book = Book::where('product_code', $bookData['Book Code'])->first();
+    if($bookData['Quotation Creator Type'] == "distributor"){
+      $user = Distributor::where('email','=',$bookData['Quotation Creator Email'])->where('distributionName','=',$bookData['Distribution Name'])->first();
+
+     }else{
+      $user = PublisherDistributor::where('email','=',$bookData['Quotation Creator Email'])->where('publicationDistributionName','=',$bookData['Distribution Name'])->first();
+     }
+    
+     if ($book && $user) {
+       $self = SelfNominatedBooks::where('book_id','=',$book->id)->where('distributed_by','=',$user->id)->where('distributor_type','=',$user->usertype)->where('status','=',0)->first();
+       if($bookData['status'] == "Accept" ||$bookData['status'] == "accept" ){
+           $book->negotiation_status =2;
+           $book->user_id =$user->id;
+           $book->user_type =$user->usertype;
+           $book->final_price = $bookData['Quotation Price'];
+           $self->status = 1;
+           if($bookData['Reason']){
+             $self->reject_reason=$bookData['Reason'];
+           }
+    
+           $book->save();
+               
+       }else{
+           $self->status = 2;
+           $self->reject_reason=$bookData['Reason'];
+
+       }
+       $self->save();
+     
+     }
+   }
+ }
+
+ return redirect()->back()->with('successlib', 'File imported successfully');
+} catch (\Throwable $e) {
+ // Log the exception
+
+ \Log::error('Error importing book prices: ', ['error' => $e->getMessage()]);
+ return redirect()->back()->with('errorlib', 'An error occurred while importing.');
+}
+}
+
+public function master_self_book_data(Request $request)
+{
+  $query = Book::query();
+
+  // Apply filters
+  if ($request->has('language_filter') && $request->language_filter != '') { 
+    $query->where('language', $request->language_filter);
+  }
+
+  if ($request->has('subject_filter') && $request->subject_filter != '') {
+    $query->where('subject', $request->subject_filter);
+  }
+
+  if ($request->has('category_filter') && $request->category_filter != '') {
+    $query->where('category', $request->category_filter);
+} 
+ if ($request->has('mark_range') && $request->mark_range != '') {
+  list($min, $max) = explode('-', $request->mark_range);
+  $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
+if ($request->has('search') && $request->search != '') {
+$query->where(function ($subQuery) use ($request) {
+    $subQuery->where('book_title', 'like', '%' . $request->search . '%')
+        ->orWhere('product_code', 'like', '%' . $request->search . '%')
+        ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+        ->orWhere('language', 'like', '%' . $request->search . '%')
+        ->orWhere('marks', 'like', '%' . $request->search . '%')
+        ->orWhere('isbn', 'like', '%' . $request->search . '%');
+});
+
+
+}
+
+$query ->orderBy('marks', 'desc');
+$data = $query->paginate(15);
+return $data;
+       $procurementStatuses = ["1", "5", "6"];
+       $bookStatusLabels = [
+         "1" => "Success",
+         "0" => "Reject",
+         "2" => "Returned To User Correction",
+         "3" => "Book Update To Return"
+       ];
+   
+         $quoted=[];
+       foreach ($data as $val) {
+         $self = SelfNominatedBooks::where('book_id','=',$val->id)->get();
+         $val->self = $self;
+         if(empty($self)){
+           $val->quotation_status = "Not Yet Quoted";
+         }else if($val->negotiation_status == 2){
+             $val->quotation_status = "Completed";
+         }else{
+            $val->quotation_status = "Quoted";
+         }
+   
+         if ($request->has('quotation_filter') && $request->quotation_filter != '') {
+              if($val->quotation_status == $request->quotation_filter){
+                    array_push($quoted,$val);
+              }
+             }
+         $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+         $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+         $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+       }
+      
+       if ($request->has('quotation_filter') && $request->quotation_filter != '') {
+   
+         $data=$quoted;
+         return $data;
+       }
+   
+       return view('admin.master_self_book_data', compact('data'));
+     }
+
+ // Process the data
+
+public function master_self_book_data1(Request $request)
+{
+
+// Use eager loading to reduce the number of queries
+$query = Book::with('librarian');
+
+// Apply filters
+if ($request->has('language_filter') && $request->language_filter != '') {
+ $query->where('language', $request->language_filter);
+}
+if ($request->has('usertype_filter') && $request->usertype_filter != '') {
+ $query->where('user_type', $request->usertype_filter);
+}
+if ($request->has('subject_filter') && $request->subject_filter != '') {
+ $query->where('subject', $request->subject_filter);
+}
+
+if ($request->has('category_filter') && $request->category_filter != '') {
+ $query->where('category', $request->category_filter);
+}
+
+if ($request->has('search') && $request->search != '') {
+ $query->where('book_title', 'like', '%' . $request->search . '%')
+   ->orWhere('product_code', 'like', '%' . $request->search . '%')
+   ->orWhere('isbn', 'like', '%' . $request->search . '%');
+}
+$query->where('self_nominated','=',1)
+ ->orderBy('marks', 'desc');
+$data = $query->paginate(15);
+
+$procurementStatuses = ["1", "5", "6"];
+$bookStatusLabels = [
+ "1" => "Success",
+ "0" => "Reject",
+ "2" => "Returned To User Correction",
+ "3" => "Book Update To Return"
+];
+
+ $quoted=[];
+foreach ($data as $val) {
+ $self = SelfNominatedBooks::where('book_id','=',$val->id)->get();
+ $val->self = $self;
+ if(empty($self)){
+   $val->quotation_status = "Not Yet Quoted";
+ }else if($val->negotiation_status == 2){
+     $val->quotation_status = "Completed";
+ }else{
+    $val->quotation_status = "Quoted";
+ }
+
+ if ($request->has('quotation_filter') && $request->quotation_filter != '') {
+      if($val->quotation_status == $request->quotation_filter){
+            array_push($quoted,$val);
+      }
+     }
+ $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+ $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+ $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+}
+
+if ($request->has('quotation_filter') && $request->quotation_filter != '') {
+
+ $data=$quoted;
+ return $data;
+}
+
+return view('admin.master_self_book_data', compact('data'));
+}
+
+public function master_self_book_datareport(Request $request)
+{
+
+// Use eager loading to reduce the number of queries
+$query = Book::with('librarian');
+
+// Apply filters
+if ($request->has('language_filter') && $request->language_filter != '') {
+ $query->where('language', $request->language_filter);
+}
+
+if ($request->has('subject_filter') && $request->subject_filter != '') {
+ $query->where('subject', $request->subject_filter);
+}
+
+if ($request->has('category_filter') && $request->category_filter != '') {
+ $query->where('category', $request->category_filter);
+}
+
+
+if ($request->has('search') && $request->search != '') {
+ $query->where('book_title', 'like', '%' . $request->search . '%')
+   ->orWhere('product_code', 'like', '%' . $request->search . '%')
+   ->orWhere('isbn', 'like', '%' . $request->search . '%');
+}
+$query->where('marks', '>=', 40)->where('negotiation_status', '=', null)
+ ->orderBy('marks', 'desc');
+$data = $query->get();
+
+$procurementStatuses = ["1", "5", "6"];
+$bookStatusLabels = [
+ "1" => "Success",
+ "0" => "Reject",
+ "2" => "Returned To User Correction",
+ "3" => "Book Update To Return"
+];
+
+foreach ($data as $val) {
+ $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+ $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+ $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+}
+
+
+
+$actotal = 0;
+$inactotal = 0;
+$finaldata = [];
+$serialNumber = 1;
+foreach ($data as $val) {
+
+
+
+
+ $finaldata[] = [
+   'S.No' =>  $serialNumber++,
+   "Book ID" => $val->product_code,
+   "Book Title" => $val->book_title,
+   "Book ISBN" => $val->isbn,
+   "Language of the Book" => $val->language,
+   "Author Details" => $val->author_name,
+   "Edition Number" => $val->edition_number,
+   "Name of Publisher" => $val->nameOfPublisher,
+   "Year of Publication" => $val->yearOfPublication,
+   "Place of Publication" => $val->place,
+   "Subject" => $val->subject,
+   "Category" => $val->category,
+   "Binding" => $val->type,
+   "Size " => $val->size,
+   "Length x Breadth(in Centimeters)" => $val->length  *  $val->breadth,
+   "Width(in Centimeters) " => $val->width,
+   "Weight(in grams)" => $val->weight,
+   "GSM (Number)" => $val->gsm,
+   "Type of Paper" => $val->quality,
+   "Paper Finishing" => $val->paper_finishing,
+   "Total Number of Pages" => $val->pages,
+   "Number of Multicolor Pages" => $val->multicolor,
+   "Number of Mono Color Pages" => $val->monocolor,
+   "Currency Type" => $val->currency_type,
+   "Price" => $val->price,
+   "Discount Offer(%)" => $val->discount,
+   "Discounted Price" => $val->discountedprice,
+   "Payment Status " => $val->paystatus,
+   "Meta checking Status " => $val->revstatus,
+   "Meta checker Name" => $val->reviewername,
+   "Reviewer Mark" => $val->marks,
+
+ ];
+}
+
+$csvContent = "\xEF\xBB\xBF";
+$csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status ,Meta checking Status,Meta checker Name,Review Mark\n";
+foreach ($finaldata as $data) {
+ $csvContent .= '"' . implode('","', $data) . "\"\n";
+}
+
+$headers = [
+ 'Content-Type' => 'text/csv; charset=utf-8',
+ 'Content-Disposition' => 'attachment; filename="masterbookdata.csv"',
+];
+
+return response()->make($csvContent, 200, $headers);
+}
   }

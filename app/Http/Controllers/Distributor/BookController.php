@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Models\Subadmin;
 use App\Models\Ticket;
 use App\Models\Book;
+use App\Models\SelfNominatedBooks;
 use App\Models\Publisher;
 use App\Models\Booksubject;
 
@@ -67,7 +68,7 @@ public function create(Request $request){
         return $validator->errors();
         // return redirect()->back()->withInput()->withErrors($validator->errors());
        }
-$book = new Book();
+           $book = new Book();
 
       $heightWidthString = $request->length_breadth;
 
@@ -274,6 +275,11 @@ if ($request->hasFile('back_img')) {
        $book->yearOfPublication =       $request->yearOfPublication  ; 
        $book->user_type =    "distributor" ;
        $book->user_id =   auth('distributor')->user()->id; 
+
+
+       if(auth('distributor')->user()->distributionName == 'Directorate of public Library'){
+        $book->self_nominated =  1; 
+       }
        $book->save();
        return back()->with('success',"Books added successfully");
 
@@ -284,6 +290,8 @@ public function bookmanageall(){
       $data=Book::where('user_id','=',$id)->where('book_procurement_status','=',0)->get();
       return view('distributor.book_manage_all')->with('data',$data);   
 }
+
+
 public function bookdelete(Request $request){
 
     $id=auth('distributor')->user()->id;
@@ -408,18 +416,33 @@ public function applay_procurment(Request $request){
     }
     $bookitem=[];
     $bookIds = $request->input('bookId', []);
-    foreach($bookIds as $key=>$val){
+    if(auth('distributor')->user()->distributionName == 'Directorate of public Library'){
+        foreach($bookIds as $key=>$val){
    
-        $books = Book::find($val);
-        array_push($bookitem,$books);
+            $books = Book::find($val);
+            $books->book_procurement_status = 1;
+            $books->save();
+    
+        }
 
-    }
-    \Session::put('bookitem', $bookitem);
-    $user = auth('distributor')->user();
-    \Session::put('user',$user);
-    $data= [
-        'success' => 'Book Applied For Procurement',
-             ];
+        $data= [
+            'self' => 'Book Applied For Procurement',
+                 ];
+       }else{
+        foreach($bookIds as $key=>$val){
+   
+            $books = Book::find($val);
+            array_push($bookitem,$books);
+    
+        }
+        \Session::put('bookitem', $bookitem);
+        $user = auth('distributor')->user();
+        \Session::put('user',$user);
+        $data= [
+            'success' => 'Book Applied For Procurement',
+                 ];
+       }
+  
     return response()->json($data);  
  }
 
@@ -1065,6 +1088,80 @@ public function procurereturnupdate(){
     $id=auth('distributor')->user()->id;
     $data=Book::where('user_id','=',$id)->where('book_procurement_status','=',1)->where('book_status','=',3)->get();
     return view('distributor.book_procurement_return_update')->with('book',$data);
+}
+
+
+public function bookselfmanageall(){
+    $id=auth('distributor')->user()->id;
+    $data=Book::where('self_nominated','=',1)->get();
+    return view('distributor.book_self_manage_all')->with('data',$data);   
+}
+
+//Self nominated
+public function sendselfstatus(Request $req) {
+    $bookId=$req->bookId;
+    $status=$req->status;
+
+   if($status == "Accept"){
+    $data1 = Book::find($bookId);
+    $data1->final_price= $data1->calculated_price;
+    $data1->negotiation_status ="2";
+    $data1->save();
+    $data= [
+        'success' => 'Accepted Successfully',
+             ];
+    return response()->json($data); 
+   }else{
+    $data1 = Book::find($bookId);
+    $data1->negotiation_status ="3";
+    $data1->save();
+    $data= [
+        'success' => 'Rejected Successfully',
+             ];
+    return response()->json($data); 
+   }
+
+
+}
+public function sendselfamount(Request $req) {
+
+   if($req->amount !=null){
+     if($req->Description != null){
+        $data1 = Book::find($req->bookId);
+        $self = new SelfNominatedBooks();
+        $self->book_id = $req->bookId;
+        $self->created_by = $data1->user_id;
+        $self->distributed_by = auth('distributor')->user()->id;
+        $self->creater_type = $data1->user_type;
+        $self->distributor_type = auth('distributor')->user()->usertype;
+        $self->status = "0";
+        $self->price = $req->amount;
+        $self->quotation_reason = $req->Description;
+        $self->percentage = $req->percentage;
+        $self->save();
+    
+        $data = [
+            'success' => 'Quotation send Successfully',
+        ];
+    
+        return response()->json($data);
+     }else{
+        $data = [
+            'error' => 'Description Filed is  Required',
+        ];
+    
+        return response()->json($data);
+     }
+  
+   }else{
+    $data = [
+        'error' => 'Amount Filed is  Required',
+    ];
+
+    return response()->json($data);
+   }
+
+   
 }
 
 }

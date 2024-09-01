@@ -99,7 +99,7 @@
                                                     <div class="form-group">
                                                         <label for="file" class="form-label">Choose Excel File</label>
                                                         <input type="file" class="form-control mb-2" name="file_book_price" id="file" accept=".xls, .xlsx" required>
-                                                        <small class="form-text text-muted mt-3"><img style="width: 30px; height=30px;" src="images/excel.png" alt="" width="25%"><b class="ms-3">Select .csv files only.</b></small>
+                                                        <span class="text-success"><a href="{{ asset('Excel/book_price_upload_sample.csv') }}" download><small>Download Sample CSV Format</small></a></span>
                                                         
                                                     </div>
                                                 </div>

@@ -642,6 +642,7 @@ public function checkBookTitle1(Request $request)
         $data1->negotiation_status = "1";
         $data1->negotiation_price = $req->amount;
         $data1->negotiation_message = $req->Description;
+        $data1->negotiation_percentage = $req->percentage;
         $data1->save();
 
         $data = [

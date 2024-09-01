@@ -390,7 +390,15 @@
                     toastr.success(response.success, {
                         timeout: 45000
                     });
-                } else {
+                } 
+                else if(response.self){
+                    setTimeout(function() {
+                        window.location.href = "/distributor/procurement";
+                    }, 3000);
+                    toastr.success(response.self, {
+                        timeout: 45000
+                    });
+                }else {
                     toastr.error(response.error, {
                         timeout: 45000
                     });
