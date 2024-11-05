@@ -228,7 +228,7 @@
                                                 <td>
                                                     <span>{{$val->publisher_name}}</span>
                                                 </td>
-                                                @if($val->user_type == "periodical_publisher")
+                                                @if($val->user_type == "publisher")
                                                 @php
                                                 $data1= DB::table('periodical_publishers')->find($val->user_id);
 
@@ -240,7 +240,7 @@
                                                 <td>
                                                     <span>{{$data1->mobileNumber}}</span>
                                                 </td>
-                                                @elseif($val->user_type == "periodical_distributor")
+                                                @elseif($val->user_type == "distributor")
                                                 @php
                                                 $data2= DB::table('periodical_distributors')->find($val->user_id);
 

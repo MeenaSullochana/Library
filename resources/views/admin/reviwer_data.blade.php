@@ -73,7 +73,10 @@
                 </div>
                 <div class="row">
                     <div class=" d-flex justify-content-end">
-
+                    <a href="exportrevdetailsreport" class="btn btn-info">
+                            <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
+                            Export Reviewer Report
+                        </a>
                         <button type="button" class="btn btn-primary" id="" onclick="generatePdf()"><span
                                 class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
                     </div>
@@ -90,7 +93,7 @@
                                     <h4 class="heading mb-6">Transparent Book Procurement Report</h4>
                                     <h4 class="heading mb-6">Date: <?php echo date('Y-m-d'); ?></h4>
                                 </div>
-
+ </div>
                                 <thead>
                                     <tr>
                                         <th class="text-center" colspan="4"><b>Reviewer</b></th>
@@ -110,38 +113,84 @@
                                         <td>{{ count($data) + count($data1) + count($data2) }}</td>
                                     </tr>
                                 </tbody>
-
-                                @foreach (['Expert' => $data, 'Librarian' => $data1, 'Public' => $data2]
-                                as $type => $reviewerList)
+                            </table>
+                                <table class="table table-bordered">
+                                @foreach (['Expert' => $data] as $type => $reviewerList)
                                 <thead>
                                     <tr>
-                                        <th colspan="4" class="text-center">{{ $type }} Reviewer Details</th>
+                                        <th colspan="{{ $type ===  4 }}" class="text-center">{{ $type }} Reviewer Details</th>
                                     </tr>
                                     <tr>
-                                        <th style="font-weight: bold;">Metachecker Name</th>
-                                        <th style="font-weight: bold;">No. of Books Assigned</th>
-                                        <th style="font-weight: bold;">No. of Review Completed</th>
-                                        <th style="font-weight: bold;">No. of Review Pending</th>
+                                        <th style="font-weight: bold;">Metachecker <br> Name</th>
+                                        <th style="font-weight: bold;">No. of Books<br> Assigned</th>
+                                        <th style="font-weight: bold;">No. of Review<br> Completed</th>
+                                        <th style="font-weight: bold;">No. of Review<br> Pending</th>
+                                     
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($reviewerList as $val)
-                                
-                                    <tr>
-                                        <td>{{ $val->name }}</td>
-                                        <td>{{ $val->book_reviews_count }}</td>
-                                        <td>{{ $val->BookReviewcom }}</td>
-                                        @if($val->book_reviews_count == "0"   && $val->BookReviewcom == "0" )    
-                                        <td>0</td>
-                                        @else
-                                        <td>{{ $val->BookReviewpen }}</td>
-                                        @endif
-                                    </tr>
+                                        <tr>
+                                            <td>{{ $val->name }}</td>
+                                            <td>{{ $val->book_reviews_count }}</td>
+                                            <td>{{ $val->BookReviewcom }}</td>
+                                            <td>
+                                                @if ($val->book_reviews_count == "0" && $val->BookReviewcom == "0")
+                                                    0
+                                                @else
+                                                    {{ $val->BookReviewpen }}
+                                                @endif
+                                            </td>
+                                         
+                                        </tr>
                                     @endforeach
                                 </tbody>
-                                @endforeach
+                            @endforeach
+                            
+                            
+                            
                             </table>
-
+                            <table class="table table-bordered">
+                                @foreach ([ 'Librarian' => $data1,'Public' => $data2] as $type => $reviewerList1)
+                                <thead>
+                                    <tr>
+                                        <th colspan="{{ $type ===  5  }}" class="text-center">{{ $type }} Reviewer Details</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="font-weight: bold;">Metachecker <br> Name</th>
+                                        <th style="font-weight: bold;">No. of Books<br> Assigned</th>
+                                        <th style="font-weight: bold;">No. of Review<br> Completed</th>
+                                        <th style="font-weight: bold;">No. of Review<br> Pending</th>
+                                     
+                                            <th style="font-weight: bold;">No. of Review<br> Hold</th>
+                                   
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($reviewerList1 as $val)
+                                        <tr>
+                                            <td>{{ $val->name }}</td>
+                                            <td>{{ $val->book_reviews_count }}</td>
+                                            <td>{{ $val->BookReviewcom }}</td>
+                                            <td>
+                                                @if ($val->book_reviews_count == "0" && $val->BookReviewcom == "0")
+                                                    0
+                                                @else
+                                                    {{ $val->BookReviewpen }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ isset($val->subject) ? $val->subject : 0 }}
+                                            </td>
+                                           
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            @endforeach
+                            
+                            
+                            
+                            </table>
                         </div>
                     </div>
                 </div>

@@ -102,7 +102,20 @@ Route::get('/feedback_add',function(){ return view('periodical_distributor.feedb
 
      Route::get('/periodical_procurement_return_update',[MagazineController::class,'periodical_procurement_return_update']);
 
+     Route::get('/nego_pending_list',function(){ return view('periodical_distributor.nego_pending_list');});
+     Route::get('/nego_approved_list',function(){ return view('periodical_distributor.nego_approved_list');});
+     Route::get('/nego_hold_list',function(){ return view('periodical_distributor.nego_hold');});
      
+     Route::get('/nego_failed_list',function(){ return view('periodical_distributor.nego_failed_list');});
+     Route::get('/nego_process_list',function(){ return view('periodical_distributor.nego_process_list');});
+
+
+
+     Route::post('/sendnegotiationstatus',[MagazineController::class,'sendnegotiationstatus']);
+
+
+     Route::post('/sendnegotiationsamount',[MagazineController::class,'sendnegotiationsamount']);
+
 });
 
 });

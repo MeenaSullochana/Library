@@ -281,32 +281,67 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                   
-                            <div class="col-xl-6 col-sm-6">
-                                <div class="card">
-                                    <div class="card-body d-flex justify-content-between align-items-center">
-                                        <div class="d-flex">
-                                            <div class="icon-box icon-box-md bg-secondary-light me-1">
-                                                <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
+   
+                            <div class="row">
+                                <div class="col-xl-6 col-sm-6">
+                                    <div class="card">
+                                        <div class="card-body d-flex justify-content-between align-items-center">
+                                            <div class="d-flex">
+                                                <div class="icon-box icon-box-md bg-primary-light me-1">
+                                                    <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
+                                                </div>
+
+                                                @php
+                                                        $id = auth('distributor')->user()->id;
+                                                        $books3 = DB::table('books')->where('user_id', '=', $id)->where('book_status', '=', 1)->where('book_procurement_status', '=', 1)->count();
+                                                    @endphp
+                                                    <div class="ms-2">
+                                                        <h4>{{ $books3}}</h4>
+                                                        <p class="mb-0">Meta Check Completed</p>
+                                                    </div>
+                                            
                                             </div>
-                                            @php
-                                                $id = auth('distributor')->user()->id;
-                                                $books3 = DB::table('books')->where('user_id', '=', $id)->where('book_status', '=', 1)->where('book_procurement_status', '=', 1)->count();
-                                            @endphp
-                                            <div class="ms-2">
-                                                <h4>{{ $books3}}</h4>
-                                                <p class="mb-0">Meta Check Completed</p>
-                                            </div>
+                                            <a href="javascript:void(0)"><i
+                                                    class="fa-solid fa-chevron-right text-primary"></i></a>
                                         </div>
-                                        <a href="javascript:void(0)"><i
-                                                class="fa-solid fa-chevron-right text-secondary"></i></a>
                                     </div>
                                 </div>
+                                <div class="col-xl-6 col-sm-6">
+                                        <div class="card">
+                                            <div class="card-body d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <div class="icon-box icon-box-md bg-secondary-light me-1">
+                                                        <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
+                                                    </div>
+                                                    @php
+                                                        $id = auth('distributor')->user()->id;
+                                                    
+                                                        // Get the count of unique books with a review status in a single query
+                                                        $book_review_statusescont = DB::table('books')
+                                                            ->join('book_review_statuses', 'books.id', '=', 'book_review_statuses.book_id')
+                                                            ->where('books.user_id', '=', $id)
+                                                            ->where('books.book_status', '=', 1)
+                                                            ->where('books.book_procurement_status', '=', 1)
+                                                            ->distinct('books.id')  // Ensure unique book count
+                                                            ->count('books.id');    // Count the unique book IDs
+                                                    @endphp
+                                                    
+                                                    
+                                                    <div class="ms-2">
+                                                        <h4>{{ $book_review_statusescont}}</h4>
+                                                        <p class="mb-0">Review Processing Books</p>
+                                                    </div>
+                                                </div>
+                                                <a href="javascript:void(0)"><i
+                                                        class="fa-solid fa-chevron-right text-secondary"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                        
                             </div>
                         </div>
-                    </div>
-
                     <div class="col-xl-12">
                         <div class="card bg-primary-light analytics-card">
                             <div class="card-body mt-4 pb-1">
@@ -662,7 +697,85 @@
     <!--**********************************
            Support ticket button end
         ***********************************-->
+        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitleId">Bank Details </h5>
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                </div>
+                <div class="modal-body">
+                    <form class="needs-validation" novalidate method="POST">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="pan_num" class="form-label">Pan Number</label>
+                                <input type="text" class="form-control" name="pan_num" id="pan_num"
+                                    placeholder="Enter the Pan Number" required>
+                                <div class="invalid-feedback">Please Enter Pan Number</div>
+                            </div>
+                       
+                            <div class="col-md-6 mb-3">
+                                <label for="acc_num" class="form-label">Bank Account Number</label>
+                                <input type="text" class="form-control" name="acc_num" id="acc_num"
+                                    placeholder="Enter the Bank Account Number" required>
+                                <div class="invalid-feedback">Please Enter Bank Account Number</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        
 
+                            <div class="col-md-6 mb-3">
+                                <label for="pan_num" class="form-label">IFSC Code</label>
+                                <input type="text" class="form-control" name="ifsc_code" id="ifsc_code"
+                                    placeholder="Enter the IFSC Code" required>
+                                <div class="invalid-feedback">Please Enter IFSC Code</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="bank_name" class="form-label">Bank Name</label>
+                                <input type="text" class="form-control" name="bank_name" id="bank_name"
+                                    placeholder="Enter the Bank Name" required>
+                                <div class="invalid-feedback">Please Enter Bank Name</div>
+                            </div>
+                          
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="branch" class="form-label">Branch</label>
+                                <input type="text" class="form-control" name="branch" id="branch"
+                                    placeholder="Enter the Branch" required>
+                                <div class="invalid-feedback">Please Enter Branch</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="acc_type" class="form-label">Account Type</label>
+                                <input type="text" class="form-control" name="acc_type" id="acc_type"
+                                    placeholder="Enter the Account Type" required>
+                                <div class="invalid-feedback">Please Enter Account Type</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="acc_hol_name" class="form-label">Account Holder Name</label>
+                                <input type="text" class="form-control" name="acc_hol_name" id="acc_hol_name"
+                                    placeholder="Enter the Holder Name" required>
+                                <div class="invalid-feedback">Please Enter Account Holder Name</div>
+                            </div>
+                        </div>
+
+                      
+                    </form>
+                </div>
+                
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button> -->
+                    <button type="submit" id="submitButton" name="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
 
     </div>
     <!--**********************************
@@ -708,6 +821,119 @@
     <script src="{{asset('distributor/js/styleSwitcher.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
+
+
+@php
+    $id=auth('distributor')->user()->id;
+      $data=DB::table('accountdetails')->where('user_id','=',$id)->first();
+    @endphp
+<script>
+    $(document).ready(function() {
+        (function() {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })
+        @if($data == null)
+        $('#modalId').modal('show');
+        @endif
+    })
+    </script>
+    
+    <script>
+        $(document).on('click', '#submitButton', function(e) {
+            e.preventDefault();
+            
+            // Basic validation
+            if($.trim($('#pan_num').val()) === ''){
+                toastr.error("PAN Number field is required");
+            } else if($.trim($('#acc_num').val()) === '') {
+                toastr.error("Account Number field is required");
+            } else if($.trim($('#ifsc_code').val()) === '') {
+                toastr.error("IFSC Code field is required");
+            } else if($.trim($('#bank_name').val()) === '') {
+                toastr.error("Bank Name field is required");
+            } else if($.trim($('#branch').val()) === '') {
+                toastr.error("Branch field is required");
+            } else if($.trim($('#acc_type').val()) === '') {
+                toastr.error("Account Type field is required");
+            } else if($.trim($('#acc_hol_name').val()) === '') {
+                toastr.error("Account Holder Name field is required");
+            } else {
+                // Gather data
+                var data = {
+                    'pan_num': $('#pan_num').val(),
+                    'acc_num': $('#acc_num').val(),
+                    'ifsc_code': $('#ifsc_code').val(),
+                    'bank_name': $('#bank_name').val(),
+                    'branch': $('#branch').val(),
+                    'acc_type': $('#acc_type').val(),
+                    'acc_hol_name': $('#acc_hol_name').val(),
+                };
+    
+                // Optional: Show loader
+                $('#submitButton').prop('disabled', true); // Disable button to prevent multiple submits
+                $('#loader').show(); // Assuming you have a loader with id 'loader'
+    
+                // Set up CSRF token
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+    
+                // Make AJAX request
+                $.ajax({
+                    type: "post",
+                    url: "/distributor/accountdetails", // Update with your actual route
+                    data: data,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.success) {
+                            toastr.success(response.success, { timeout: 25000 });
+    
+                            // Clear form fields
+                            $('#pan_num').val('');
+                            $('#acc_num').val('');
+                            $('#ifsc_code').val('');
+                            $('#bank_name').val('');
+                            $('#branch').val('');
+                            $('#acc_type').val('');
+                            $('#acc_hol_name').val('');
+    
+                            // Hide modal if needed
+                            $('#modalId').modal('hide');
+                        } else {
+                            toastr.error(response.error, { timeout: 25000 });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        toastr.error("An error occurred. Please try again.", { timeout: 25000 });
+                    },
+                    complete: function() {
+                        // Re-enable button and hide loader
+                        $('#submitButton').prop('disabled', false);
+                        $('#loader').hide();
+                    }
+                });
+            }
+        });
+    </script>
+
 <style>
     .scroll-view {
     height: 190px;

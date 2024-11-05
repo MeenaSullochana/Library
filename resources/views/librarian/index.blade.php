@@ -994,6 +994,72 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    @if (auth('librarian')->user()->metaChecker == 'yes')
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive active-projects">
+                                            <div class="tbl-caption">
+                                                <h4 class="heading mb-0">Meta Check Book List</h4>
+                                            </div>
+                                            <table id="projects-tbl" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Book Name</th>
+                                                        <th>Price</th>
+                                                        <th>Status</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @php
+                                                    $id = auth('librarian')->user()->id;
+                                                    $record = DB::table('books')
+                                                    ->where('book_reviewer_id', '=', $id)
+                                                    ->get();
+                                                    @endphp
+                                                    @foreach ($record as $val)
+                                                    <tr>
+                                                        <td>
+                                                            <div class="d-flex align-items-center">
+                                                                <!-- <img src="{{ asset('Books/front/' . $val->front_img) }}"
+                                                                    class="avatar avatar-md rounded-circle" alt=""> -->
+                                                                <p class="mb-0 ms-2">{{ $val->book_title }}
+                                                                </p>
+
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            {{ $val->price }}
+                                                        </td>
+                                                        @if ($val->book_status == 1)
+                                                        <td>
+                                                            <span
+                                                                class="badge badge-success light border-0">Success</span>
+                                                        </td>
+                                                        @elseif($val->book_status == null)
+                                                        <td>
+                                                            <span
+                                                                class="badge badge-warning light border-0">Pending</span>
+                                                        </td>
+                                                        @else
+                                                        <td>
+                                                            <span
+                                                                class="badge badge-danger light border-0">Reject</span>
+
+                                                        </td>
+                                                        @endif
+
+                                                    </tr>
+                                                    @endforeach
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
                             @if (auth('librarian')->user()->metaChecker == 'yes')
                             <h3> Periodical </h3>
                             @endif
@@ -1014,7 +1080,7 @@
                                                     ->count();
                                                     @endphp
                                                     <div class="ms-2">
-                                                        <h4>{{ $books }}</h4>
+                                                        <h4>{{ $magaziness }}</h4>
                                                         <p class="mb-0">Total Meta Periodicals</p>
                                                     </div>
                                                 </div>
@@ -1109,72 +1175,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-xl-12">
-                                <div class="card">
-                                    @if (auth('librarian')->user()->metaChecker == 'yes')
-                                    <div class="card-body p-0">
-                                        <div class="table-responsive active-projects">
-                                            <div class="tbl-caption">
-                                                <h4 class="heading mb-0">Meta Check Book List</h4>
-                                            </div>
-                                            <table id="projects-tbl" class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Book Name</th>
-                                                        <th>Price</th>
-                                                        <th>Status</th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @php
-                                                    $id = auth('librarian')->user()->id;
-                                                    $record = DB::table('books')
-                                                    ->where('book_reviewer_id', '=', $id)
-                                                    ->get();
-                                                    @endphp
-                                                    @foreach ($record as $val)
-                                                    <tr>
-                                                        <td>
-                                                            <div class="d-flex align-items-center">
-                                                                <!-- <img src="{{ asset('Books/front/' . $val->front_img) }}"
-                                                                    class="avatar avatar-md rounded-circle" alt=""> -->
-                                                                <p class="mb-0 ms-2">{{ $val->book_title }}
-                                                                </p>
-
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            {{ $val->price }}
-                                                        </td>
-                                                        @if ($val->book_status == 1)
-                                                        <td>
-                                                            <span
-                                                                class="badge badge-success light border-0">Success</span>
-                                                        </td>
-                                                        @elseif($val->book_status == null)
-                                                        <td>
-                                                            <span
-                                                                class="badge badge-warning light border-0">Pending</span>
-                                                        </td>
-                                                        @else
-                                                        <td>
-                                                            <span
-                                                                class="badge badge-danger light border-0">Reject</span>
-
-                                                        </td>
-                                                        @endif
-
-                                                    </tr>
-                                                    @endforeach
-
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    @endif
-                                </div>
-                            </div>
+                          
                             <div class="col-xl-12">
                                 <div class="card">
                                     @if (auth('librarian')->user()->metaChecker == 'yes')

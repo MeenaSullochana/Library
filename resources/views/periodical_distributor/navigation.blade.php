@@ -380,6 +380,20 @@
 		
 								</ul>
 							</li>
+
+							<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+								<i class="bi bi-journal-plus"></i>
+								<span class="nav-text">Manage Negotiation</span>
+							</a>
+							<ul aria-expanded="false">
+								<li><a href="/periodical_distributor/nego_pending_list">Negotiation List</a></li>
+								<li><a href="/periodical_distributor/nego_process_list">Process List</a></li>
+								<li><a href="/periodical_distributor/nego_hold_list">Hold list</a></li>
+								<li><a href="/periodical_distributor/nego_approved_list">Approved List</a></li>
+								<li><a href="/periodical_distributor/nego_failed_list">Reject list</a></li>
+		
+							</ul>
+						</li>
 							<li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
 							<i class="bi bi-chat-dots"></i>
 									<span class="nav-text">Feedback Manage</span>

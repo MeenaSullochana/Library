@@ -331,6 +331,7 @@ public function librarianreturnmessage(Request $req){
   $book = Book::find($req->id);
   $book->book_status="2";
   $book->return_message=$req->returnmessage;
+  $book->return_message_date=\Carbon\Carbon::now();
   $book->save();
   $data= [
       'success' => 'Book review status change Successfully',

@@ -426,7 +426,23 @@ foreach ($categoryCountsPerCategory as $category => &$countsPerMonth) {
              $allthree++;
          }
      }
+     $resultscount=0;
+     $resultscount1=0;
+     $resultscount2=0;
+   foreach($results as $results1){
+          $boook=Book::find($results1->book_id);
+        if($boook->marks >=40   &&  $results1->rexternalcount  >=2){
+            $resultscount=  $resultscount + 1;
+        }elseif($boook->marks >=40   &&  $results1->rexternalcount  == 1){
+            $resultscount2=  $resultscount2 + 1;
+        }
+   }
  
+   foreach($results as $results1){
+    if($results1->summarks >=40 ){
+        $resultscount1=  $resultscount1 + 1;
+    }
+   }
    
     
    return view('admin.index',compact('allpub','activepub','inactivepub','allpubcount','activepubcount','inactivepubcount',
@@ -434,7 +450,7 @@ foreach ($categoryCountsPerCategory as $category => &$countsPerMonth) {
    'allpubdist','activepubdist','inactivepubdist','categoryCountsPerCategory', 'allpubdistcount','activepubdistcount','inactivepubdistcount',
    'allperpub','activeperpub','inactiveperpub','allperpubcount','activeperpubcount','inactiveperpubcount','allperdist','activeperdist',
    'inactiveperdist','allperdistcount','activeperdistcount','inactiveperdistcount','total_periodical_pay','pub_periodical_pay','dis_periodical_pay','total_book_pay','pub_book_pay','dis_book_pay','pubdis_book_pay'
-   ,'bookTotals','reviewerCompleteCount','reviCompleteCount','allthree','exp_lib','exp_pub','lib_pub','exp','lib','pub')
+   ,'bookTotals','reviewerCompleteCount','reviCompleteCount','allthree','exp_lib','exp_pub','lib_pub','exp','lib','pub','resultscount','resultscount2','resultscount1')
    );
 }
 }

@@ -1745,6 +1745,521 @@ public function reviwer_periodical_data()
   return view('admin.reviwer_periodical_data', compact('data', 'data1', 'data2', 'metacompletecount', 'reviewerassignCount', 'count'));
 }
 
+
+public function master_nego_periodical_data(Request $request) {
+  // return $request;
+  // Use eager loading to reduce the number of queries
+  $query = Magazine::with('librarian')->where('marks', '>=', 40)->where('negotiation_status','=', null);
+
+
+    if ($request->has('language_filter') && $request->language_filter != '') {
+      $query->where('language', $request->language_filter);
+    }
+
+    if ($request->has('periodicity_filter') && $request->periodicity_filter != '') {
+      $query->where('periodicity', $request->periodicity_filter);
+    }
+
+    if ($request->has('category_filter') && $request->category_filter != '') {
+      $query->where('category', $request->category_filter);
+    }
+
+    if ($request->has('payment_filter') && $request->payment_filter != '') {
+      if ($request->payment_filter == 'Success') {
+        $query->whereIn('periodical_procurement_status', ['1', '5', '6']);
+      } else {
+        $query->whereNotIn('periodical_procurement_status', ['1', '5', '6']);
+      }
+  }
+
+  if ($request->has('mark_range') && $request->mark_range != '') {
+    list($min, $max) = explode('-', $request->mark_range);
+    $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
+  
+  if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
+  
+
+      switch ($request->metachecking_filter) {
+        case 'Success':
+          $query->where('periodical_status', '1');
+          break;
+        case 'Reject':
+          $query->where('periodical_status', '0');
+          break;
+        case 'Returned To User Correction':
+          $query->where('periodical_status', '2');
+          break;
+        case 'Periodical Update To Return':
+          $query->where('periodical_status', '3');
+          break;
+        case 'No Review':
+            $query->where('periodical_status', null);
+            break;
+    }
+}
+// if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
+  
+
+//   switch ($request->negostatus_filter) {
+//       case 'Negotiation from admin':
+//           $query->where('negotiation_status', '0');
+//           break;
+//       case 'Negotiation from user':
+//           $query->where('negotiation_status', '1');
+//           break;
+//       case 'Accepted':
+//           $query->where('negotiation_status', '2');
+//           break;
+//       case 'Rejected':
+//           $query->where('negotiation_status', '3');
+//           break;
+//       case 'Hold':
+//             $query->where('negotiation_status', '4');
+//             break;
+//       case 'No negotiation':
+//           $query->where('negotiation_status', null);
+//           break;
+//   }
+// }
+
+    if ($request->has('search') && $request->search != '') {
+      $query->where(function ($subQuery) use ($request) {
+        $subQuery->where('title', 'like', '%' . $request->search . '%')
+        ->orWhere('periodicity', 'like', '%' . $request->search . '%')
+        ->orWhere('rni_details', 'like', '%' . $request->search . '%')
+        ->orWhere('language', 'like', '%' . $request->search . '%')
+        ->orWhere('publisher_name', 'like', '%' . $request->search . '%')
+        ->orWhere('Gsm', 'like', '%' . $request->search . '%')
+        ->orWhere('marks', 'like', '%' . $request->search . '%');
+    });
+  }
+
+    $data = $query->paginate(15); // Adjust the number of records per page as needed
+
+    $procurementStatuses = ["1", "5", "6"];
+    $bookStatusLabels = [
+      "1" => "Success",
+      "0" => "Reject",
+      "2" => "Returned To User Correction",
+      "3" => "Periodical Update To Return"
+  ];
+//   $negobookStatus = [
+//     "0" => "Negotiation from admin",
+//    "1" => "Negotiation from user",
+//    "2" => "Accepted",
+//    "3" => "Rejected",
+//    "4" => "Hold"
+// ];
+  foreach ($data as $val) {
+      $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+      $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+      $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+      // $val->negostatus = $negobookStatus[$val->negotiation_status] ?? "No negotiation";
+
+    }
+    foreach ($data as $val) {
+  
+      $procurementPayment = Procurementpaymrnt::whereJsonContains('bookid', $val->id)->first();
+      
+      if($procurementPayment !=null){
+        $val->paymentdate = $procurementPayment->created_at->format('d-m-Y');
+      }else{
+        $val->paymentdate = 'No Date';
+
+      }
+
+    }
+
+   
+  return view('admin.master_nego_periodical_data', compact('data'));
+}
+
+
+public function master_nego_periodical_datareport(Request $request)
+{
+
+  $query = Magazine::with('librarian')->where('marks', '>=', 40)->where('negotiation_status','=', null);
+
+  // Apply filters
+  if ($request->has('language_filter') && $request->language_filter != '') {
+    $query->where('language', $request->language_filter);
+  }
+
+  if ($request->has('periodicity_filter') && $request->periodicity_filter != '') {
+    $query->where('periodicity', $request->periodicity_filter);
+  }
+
+  if ($request->has('category_filter') && $request->category_filter != '') {
+    $query->where('category', $request->category_filter);
+  }
+
+  if ($request->has('payment_filter') && $request->payment_filter != '') {
+    if ($request->payment_filter == 'Success') {
+      $query->whereIn('periodical_procurement_status', ['1', '5', '6']);
+    } else {
+      $query->whereNotIn('periodical_procurement_status', ['1', '5', '6']);
+    }
+}
+
+if ($request->has('mark_range') && $request->mark_range != '') {
+  list($min, $max) = explode('-', $request->mark_range);
+  $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
+
+if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
+
+
+    switch ($request->metachecking_filter) {
+      case 'Success':
+        $query->where('periodical_status', '1');
+        break;
+      case 'Reject':
+        $query->where('periodical_status', '0');
+        break;
+      case 'Returned To User Correction':
+        $query->where('periodical_status', '2');
+        break;
+      case 'Periodical Update To Return':
+        $query->where('periodical_status', '3');
+        break;
+      case 'No Review':
+          $query->where('periodical_status', null);
+          break;
+  }
+}
+// if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
+
+
+//   switch ($request->negostatus_filter) {
+//       case 'Negotiation from admin':
+//           $query->where('negotiation_status', '0');
+//           break;
+//       case 'Negotiation from user':
+//           $query->where('negotiation_status', '1');
+//           break;
+//       case 'Accepted':
+//           $query->where('negotiation_status', '2');
+//           break;
+//       case 'Rejected':
+//           $query->where('negotiation_status', '3');
+//           break;
+//       case 'Hold':
+//             $query->where('negotiation_status', '4');
+//             break;
+//       case 'No negotiation':
+//           $query->where('negotiation_status', null);
+//           break;
+//   }
+// }
+
+  if ($request->has('search') && $request->search != '') {
+    $query->where(function ($subQuery) use ($request) {
+      $subQuery->where('title', 'like', '%' . $request->search . '%')
+          ->orWhere('periodicity', 'like', '%' . $request->search . '%')
+          ->orWhere('rni_details', 'like', '%' . $request->search . '%')
+          ->orWhere('language', 'like', '%' . $request->search . '%')
+          ->orWhere('publisher_name', 'like', '%' . $request->search . '%')
+          ->orWhere('Gsm', 'like', '%' . $request->search . '%')
+          ->orWhere('marks', 'like', '%' . $request->search . '%');
+  });
+}
+
+  $data = $query->get(); // Adjust the number of records per page as needed
+
+  $procurementStatuses = ["1", "5", "6"];
+  $bookStatusLabels = [
+    "1" => "Success",
+    "0" => "Reject",
+    "2" => "Returned To User Correction",
+    "3" => "Periodical Update To Return"
+];
+//   $negobookStatus = [
+//     "0" => "Negotiation from admin",
+//    "1" => "Negotiation from user",
+//    "2" => "Accepted",
+//    "3" => "Rejected",
+//    "4" => "Hold"
+// ];
+foreach ($data as $val) {
+    $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+    $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+    $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+    // $val->negostatus = $negobookStatus[$val->negotiation_status] ?? "No negotiation";
+
+  }
+  foreach ($data as $val) {
+
+    $procurementPayment = Procurementpaymrnt::whereJsonContains('bookid', $val->id)->first();
+    
+    if($procurementPayment !=null){
+      $val->paymentdate = $procurementPayment->created_at->format('d-m-Y');
+    }else{
+      $val->paymentdate = 'No Date';
+
+    }
+
+  }
+
+
+  $actotal = 0;
+  $inactotal = 0;
+  $finaldata = [];
+  $serialNumber = 1;
+  foreach ($data as $val) {
+
+
+  
+       $finaldata[] = [
+          'S.No' =>  $serialNumber ++,
+          "Language"=> $val->language,
+          "Category"=> $val->category,
+          "Title of the Periodical"=> $val->title,
+          "Periodicity"=> $val->periodicity,
+          "Publication Name"=> $val->publisher_name,
+          "Editor Name"=> $val->editor_name,
+          "First Issue Year"=> $val->first_issue_year,
+          "Issue Per Yea"=> $val->issue_per_year,
+          "Everyv Issue Date"=> $val->every_issue_date,
+          "Gsm"=> $val->gsm,
+          "Paper Type"=> $val->papertype,
+          "Paper Finishing"=> $val->paperfinishing,
+          "Cover Price"=> $val->single_issue_rate,
+          "Annual Subscription"=> $val->annual_subscription,
+          "Discount"=> $val->discount,
+          "Single Issue After Discount"=> $val->single_issue_after_discount,
+          "Annual Subscription After Discount"=> $val->annual_cost_after_discount,
+          "RNI Details"=> $val->rni_details,
+          "Total No.of Pages"=> $val->total_pages,
+          "Total No.of Multicolour Pages"=> $val->total_multicolour_pages,
+          "Total No.of Monocolour Pages"=> $val->total_monocolour_pages,
+          "Paper Quality"=> $val->paper_qualitity,
+          "Size of Magazine"=> $val->magazine_size,
+          "Contact Person"=> $val->contact_person,
+          "Phone"=> $val->phone,
+          "Email"=> $val->email,
+          "Address"=> $val->address,
+          "Payment Status "=> $val->paystatus,
+          "Payment Date "=> $val->paymentdate,
+          "Meta checking Status "=> $val->revstatus,
+          "Meta checker Name"=> $val->reviewername,
+          "Marks"=> $val->marks,
+       
+
+          
+                                    
+      ];
+    
+    
+
+    
+   }
+
+   $csvContent ="\xEF\xBB\xBF"; 
+   $csvContent .=  "S.No,Language,Category,Title of the Periodical,Periodicity,Publication Name,Editor Name,First Issue Year,Issue Per Yea,Everyv Issue Date,Gsm, Paper Type,Paper Finishing,Cover Price,Annual Subscription,Discount,Single Issue After Discount,Annual Subscription After Discount,RNI Details,Total No.of Pages,Total No.of Multicolour Pages,Total No.of Monocolour Pages,Paper Quality,Size of Magazine,Contact Person,Phone,Email,Address,Payment Status,Payment Date,Meta checking Status,Meta checker Name,Marks\n"; 
+   foreach ($finaldata as $data) {
+       $csvContent .= '"' . implode('","', $data) ."\"\n";
+   }
+
+  $headers = [
+    'Content-Type' => 'text/csv; charset=utf-8',
+    'Content-Disposition' => 'attachment; filename="masterbookdata.csv"',
+  ];
+
+  return response()->make($csvContent, 200, $headers);
+}
+
+public function negotiation_periodicallist()
+{
+   $categori = Magazine::where('marks', '>=', 40)
+    ->where('negotiation_status', '=', null)
+    ->get();
+ 
+return view('admin.negotiation_periodical_list')->with('categori', $categori);
+
+}
+
+
+public function approveperiodicalnegotiationstatus (Request $req)
+{
+  $periodicalId = $req->periodicalId;
+ 
+    $data1 = Magazine::find($periodicalId);
+
+    if($data1->negotiation_price == null){
+      $data1->final_price = $data1->calculated_price;
+
+    }else{
+      $data1->final_price = $data1->negotiation_price;
+
+    } 
+
+    
+    $data1->negotiation_status = "2";
+    $data1->save();
+    $data = [
+      'success' => 'Approved Successfully',
+    ];
+    return response()->json($data);
+  
+}
+public function sendnegotiation_periodical(Request $req)
+{
+ 
+  $id = $req->dataId;
+  $data1 = Magazine::find($id);
+  $data1->negotiation_status = "0";
+  $data1->save();
+
+  $notifi = new Notifications();
+  $notifi->message = "Received a request to negotiate the price of the Periodical";
+  $notifi->to = $data1->user_id;
+  $notifi->from = auth('admin')->user()->id;
+  $notifi->type = $data1->user_type;
+  $notifi->save();
+  $data = [
+    'success' => 'Periodical Send Negotiation Successfully',
+  ];
+  return response()->json($data);
+}
+
+
+public function multisendperiodicalnegotiation(Request $req)
+{
+  $record = $req->periodicalId;
+  $record1 = [];
+  foreach ($record as $key => $val) {
+    $data1 = Magazine::find($val);
+    $data1->negotiation_status = "0";
+    $data1->save();
+    $data2 = (object)[
+      'userid' => $data1->user_id,
+      'type' => $data1->user_type,
+    ];
+    $exists = false;
+    foreach ($record1 as $item) {
+      if ($item->userid == $data2->userid) {
+        $exists = true;
+        break;
+      }
+    }
+    if (!$exists) {
+      array_push($record1, $data2);
+    }
+  }
+  foreach ($record1 as $key => $val) {
+    $notifi = new Notifications();
+    $notifi->message = "Received a request to negotiate the price of the Periodical";
+    $notifi->to = $val->userid;
+    $notifi->from = auth('admin')->user()->id;
+    $notifi->type = $val->type;
+    $notifi->save();
+  }
+
+  $data = [
+    'success' => 'Periodical Send Negotiation Successfully',
+  ];
+  return response()->json($data);
+}
+
+
+
+public function holdperiodicalnegotiationstatus(Request $req)
+{
+
+  if ($req->Description != null) {
+    $data1 = Magazine::find($req->periodicalId);
+    $data1->negotiation_status = "4";
+    $data1->negotiation_hold_message = $req->Description;
+    $data1->save();
+
+    $data = [
+      'success' => 'The negotiation is on hold.',
+    ];
+
+    return response()->json($data);
+  } else {
+    $data = [
+      'error' => 'Description Filed is  Required',
+    ];
+
+    return response()->json($data);
+  }
+}
+public function rejectperiodicalnegotiationstatus(Request $req)
+{
+
+  if ($req->Description != null) {
+    $data1 = Magazine::find($req->periodicalId);
+    $data1->negotiation_status = "3";
+    $data1->negotiation_reject_message = $req->Description;
+    $data1->save();
+
+    $data = [
+      'success' => 'The negotiation is on Reject.',
+    ];
+
+    return response()->json($data);
+  } else {
+    $data = [
+      'error' => 'Description Filed is  Required',
+    ];
+
+    return response()->json($data);
+  }
+}
+public function periodical_dispatch_list($magazineid)
+{
+  $ldate = date('Y-m-d');
+  $Subscription = Subscription::where('magazine_id' ,'=',$magazineid)->whereDate('issue_date','<=',$ldate)->where('end_date','>=',$ldate)->first();
+  if($Subscription != null){
+    $Dispatch=Dispatch::where('magazine_id' ,'=',$magazineid)->where('subscription_id','=',$Subscription->id)->orderBy('expected_date','ASC')->get();
+    \Session::put('Dispatch', $Dispatch);
+    return redirect('admin/periodical-dispatch');   
+
+  }
+
+
+}
+
+public function periodical_dispatch_update(Request $request)
+{
+
+
+  foreach ($request->records as $record) {
+    $id = $record['id'];
+    $date = $record['date'];
+    $formattedDate = Carbon::createFromFormat('Y-m-d', $date)->format('Y-m-d');
+
+    $dispatch = Dispatch::where('id', $id)->first();
+ 
+    if ($dispatch) {
+  
+        $dispatch->expected_date = $formattedDate;
+        $dispatch->save();
+    
+    } 
+    }
+     $rec= $request->records[0];
+       $id = $rec['id'];
+       $Dispatch1=Dispatch::find($id);
+
+       
+      $Dispatch=Dispatch::where('magazine_id' ,'=',$Dispatch1->magazine_id)->where('subscription_id','=',$Dispatch1->subscription_id)->orderBy('expected_date','ASC')->get();
+ 
+      \Session::put('Dispatch', $Dispatch);
+      $data = [
+        'success' => 'Dispatch records updated successfully.',
+      ];
+      return response()->json($data);
+
+  
+    
+  
+
+
+
+}
   }
 
   

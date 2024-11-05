@@ -72,12 +72,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class=" d-flex justify-content-end">
-
-                        <button type="button" class="btn btn-primary" id="" onclick="generatePdf()"><span
-                                class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" id="" onclick="generatePdf()">
+                            <span class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF
+                        </button>
+                        <button class="btn btn-primary print-button ms-2" onclick="printDiv()">Print</button>
                     </div>
-                    <div class="card p-5" id="print-pdf">
+
+
+                    <div class="card p-5 printableArea" id="print-pdf">
                         <div class="table-responsive">
                             <table class="table table-bordered">
 
@@ -173,6 +176,19 @@
 function generatePdf() {
     let htmlElement = document.getElementById('print-pdf');
     html2pdf().from(htmlElement).save('book_report.pdf');
+}
+</script>
+<script>
+function printDiv() {
+    var printContents = document.querySelector('.printableArea').innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+    location.reload(); // Reload the page to restore the original content
 }
 </script>
 

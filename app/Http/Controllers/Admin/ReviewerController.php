@@ -225,6 +225,7 @@ public function reviewerstatus(Request $req){
     foreach($review as $key=>$val){
         $book= Book::find($val->book_id);
         $val->bookname=$book->book_title;
+        $val->bookid=$book->product_code;
         $val->subbookname=$book->subtitle;
         $val->nameOfPublisher=$book->nameOfPublisher;
 
@@ -497,27 +498,31 @@ public function reviewerstatus(Request $req){
             
             $subjectArray = array_map('trim', $subjectArray);
             
+
+            
             foreach ($subjectArray as $subject) {
                 if($subject == "Sports"){
                     $subjects[] = "Sports, Games";
-                   }else  if($subject == "Games" ||  $subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
-                   
-                   }else  if($subject == "அகராதிகள்"){
-                    $subjects[] = "அகராதிகள், கலைக்களஞ்சியங்கள், நிகண்டுகள்";
-                    
-
                    }
-                   else  if($subject == "English Literature_ critisim"){
+                   else if($subject == "English Literature_ critisim"){
                     $subjects[] = "English Literature_ critisim, essays, letter";
-                    
+                   }
+                   else if($subject == "English Literature_Novel"){
+                    $subjects[] = "English Literature_Novel, Short stories";
+                   }
+                   else if($subject == "Folklore (Culture"){
+                    $subjects[] = "Folklore (Culture, Custom, Folklore)";
     
                    }
-                // }else  if($subject == "Games" || $subject == "essays" || $subject == "letter" || 
-                // $subject == "Short stories" || $subject == "Custom" || $subject == "Folklore)" ||$subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
-                // }
-
-
-
+                   else  if($subject == "அகராதிகள்"){
+                    $subjects[] = "அகராதிகள், கலைக்களஞ்சியங்கள், நிகண்டுகள்";
+                    
+    
+                   }else  if($subject == "Games" || $subject == "essays" || $subject == "letter" || 
+                   $subject == "Short stories" || $subject == "Custom" || $subject == "Folklore)" ||$subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
+                   
+                   }
+                   
                    else{
                     $subjects[] = $subject;
     
@@ -608,18 +613,26 @@ public function reviewerstatus(Request $req){
                 foreach ($subjectArrays as $subject) {
                     if($subject == "Sports"){
                         $subjects[] = "Sports, Games";
-                       }else  if($subject == "Games" ||  $subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
-                       
-                       }else  if($subject == "அகராதிகள்"){
-                        $subjects[] = "அகராதிகள், கலைக்களஞ்சியங்கள், நிகண்டுகள்";
-                        
-
                        }
-                       else  if($subject == "English Literature_ critisim"){
+                       else if($subject == "English Literature_ critisim"){
                         $subjects[] = "English Literature_ critisim, essays, letter";
-                        
+                       }
+                       else if($subject == "English Literature_Novel"){
+                        $subjects[] = "English Literature_Novel, Short stories";
+                       }
+                       else if($subject == "Folklore (Culture"){
+                        $subjects[] = "Folklore (Culture, Custom, Folklore)";
         
                        }
+                       else  if($subject == "அகராதிகள்"){
+                        $subjects[] = "அகராதிகள், கலைக்களஞ்சியங்கள், நிகண்டுகள்";
+                        
+        
+                       }else  if($subject == "Games" || $subject == "essays" || $subject == "letter" || 
+                       $subject == "Short stories" || $subject == "Custom" || $subject == "Folklore)" ||$subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
+                       
+                       }
+                       
                        else{
                         $subjects[] = $subject;
         
@@ -1090,7 +1103,7 @@ public function create_reviewer(Request $req){
 
 
         foreach ($subjectArrays as $subject) {
-               if($subject == "Sports"){
+            if($subject == "Sports"){
                 $subjects[] = "Sports, Games";
                }
                else if($subject == "English Literature_ critisim"){
@@ -1107,10 +1120,9 @@ public function create_reviewer(Request $req){
                 $subjects[] = "அகராதிகள், கலைக்களஞ்சியங்கள், நிகண்டுகள்";
                 
 
-               }else  if($subject == "English Literature_ critisim"){
-                $subjects[] = "English Literature_ critisim, essays, letter";
-                
-
+               }else  if($subject == "Games" || $subject == "essays" || $subject == "letter" || 
+               $subject == "Short stories" || $subject == "Custom" || $subject == "Folklore)" ||$subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
+               
                }
                
                else{

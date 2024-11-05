@@ -191,7 +191,10 @@ Route::get('/report_download', function () {return view('distributor.report_down
       Route::post('/procurementbokkcopies',[BookController::class,'procurementbokkcopies']);
       Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
       Route::post('/procurementbokkcopies-send',[BookController::class,'procurementbokkcopies_send']);
+      Route::get('/aacountdetail',[DistributorController::class,'aacountdetail']);
 
+      Route::get('/pub_basic_details',[DistributorController::class,'pub_basic_details']);
+ 
 
     });
 });

@@ -114,6 +114,20 @@ Route::prefix('periodical_publisher')->group(function () {
 
 
 
+     Route::get('/nego_pending_list',function(){ return view('periodical_publisher.nego_pending_list');});
+     Route::get('/nego_approved_list',function(){ return view('periodical_publisher.nego_approved_list');});
+     Route::get('/nego_hold_list',function(){ return view('periodical_publisher.nego_hold');});
+     
+     Route::get('/nego_failed_list',function(){ return view('periodical_publisher.nego_failed_list');});
+     Route::get('/nego_process_list',function(){ return view('periodical_publisher.nego_process_list');});
+
+
+
+     Route::post('/sendnegotiationstatus',[MagazineController::class,'sendnegotiationstatus']);
+
+
+     Route::post('/sendnegotiationsamount',[MagazineController::class,'sendnegotiationsamount']);
+
 
 
 });

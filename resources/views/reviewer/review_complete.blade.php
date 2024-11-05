@@ -94,6 +94,17 @@
 											<p>Current Review</p>
 										</div>
 									</div>
+									@if(auth('reviewer')->user()->reviewerType == "public" || auth('reviewer')->user()->reviewerType == "internal" )
+									<div class="col-xl-4 col-sm-6 col-12">
+										<div class="task-summary">
+											<div class="d-flex align-items-baseline">
+												<h2 class="text-purple count">{{$recordcont}}</h2>
+												<span>Hold Review</span>
+											</div>
+											<p>Maximum  Review Reached</p>
+										</div>
+									</div>
+									@endif
 									<div class="col-xl-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">

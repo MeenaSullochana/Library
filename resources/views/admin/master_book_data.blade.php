@@ -373,6 +373,7 @@
                                         <th>Author Details</th>
                                         <th>Edition Number</th>
                                         <th>Name of Publisher</th>
+                                        <th>Vendor Name</th>
                                         <th>Year of Publication</th>
                                         <th>Place of Publication</th>
                                         <th>Subject</th>
@@ -404,7 +405,7 @@
                                         <th>Negotiation Status</th>
                                         <th>Book View</th>
                                         <th>User View</th>
-                                        <!-- <th> Book Edit</th> -->
+                                        <th> Book Edit</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -431,7 +432,7 @@
                                             <div class="products">
                                                 <div>
                                                     <!-- <h6>#40597</h6> -->
-                                                    <span>{{$val->book_title}}</span>
+                                                    <span style="white-space:normal;">{{$val->book_title}}</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -470,6 +471,13 @@
                                             <div class="products">
                                                 <div>
                                                     <span>{{$val->nameOfPublisher}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{$val->vendorname}}</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -705,13 +713,13 @@
 
                                             </div>
                                         </td>
-                                        <!-- <td>
+                                        <td>
                 <div class="d-flex">
                     <a href="/admin/book_edit/{{$val->id}}" class="btn btn-warning shadow btn-xs sharp me-1">
                         <i class="fa fa-edit"></i>
                     </a>
                 </div>
-            </td> -->
+            </td>
 
                                     </tr>
                                     @endforeach

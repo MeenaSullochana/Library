@@ -71,7 +71,7 @@
                 </div>
         
                 <div class="row">
-                    <div class="row">
+                 <div class="row">
                     <div class="col-xl-3  col-sm-6 mb-3 mb-xl-0">
                                 <label class="form-label">Select Category</label>
                                 <select name="category_filter" id="category_filter"

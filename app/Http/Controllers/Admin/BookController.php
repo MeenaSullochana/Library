@@ -112,6 +112,26 @@ class BookController extends Controller
     foreach ($data as $val) {
       $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks, $existingisbn);
     }
+ 
+    foreach ($data as $val) {
+     
+      $pub = Publisher::query()
+      ->where('id', $val->user_id)
+      ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+      ->union(
+          Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+      )
+      ->union(
+          PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+      )
+      ->first();
+      $Procurementpaymrnt1 = Procurementpaymrnt::where('paidstatus', '1')
+      ->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(bookId, '$')) LIKE ?", ['%"' . $val->id . '"%'])
+      ->first(); 
+      $val->book_active_status=$pub->publicationName;
+      $val->discount = $Procurementpaymrnt1->created_at->format('Y-m-d');
+
+    }
 
     // Return view with the processed data
     return view('admin.meta_book_list')->with('data', $data);
@@ -269,6 +289,19 @@ class BookController extends Controller
         } else {
           $language = $val->language;
         }
+        $pub = Publisher::query()
+        ->where('id', $val->user_id)
+        ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+        ->union(
+            Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+        )
+        ->union(
+            PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+        )
+        ->first();
+        $Procurementpaymrnt1 = Procurementpaymrnt::where('paidstatus', '1')
+        ->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(bookId, '$')) LIKE ?", ['%"' . $val->id . '"%'])
+        ->first(); 
         if ($val->check == "unique") {
           $tbodyHtml .= '<tr>';
           $tbodyHtml .= '<td>';
@@ -292,6 +325,8 @@ class BookController extends Controller
           $tbodyHtml .= '<td>' . $val->author_name . '</td>';
           $tbodyHtml .= '<td>' . $val->user_type . '</td>';
           $tbodyHtml .= '<td>' . $val->nameOfPublisher . '</td>';
+          $tbodyHtml .= '<td>' .  $pub->publicationName . '</td>';
+          $tbodyHtml .= '<td>' . date('d-m-Y', strtotime($Procurementpaymrnt1->created_at)) . '</td>';
           $tbodyHtml .= '<td data-label="controlq">';
           $tbodyHtml .= '<div class="d-flex mt-p0">';
           $tbodyHtml .= '<a href="/admin/book_manage_view/' . $val->id . '" class="btn btn-success shadow btn-xs sharp me-1">';
@@ -325,6 +360,8 @@ class BookController extends Controller
           $tbodyHtml .= '<td>' . $val->author_name . '</td>';
           $tbodyHtml .= '<td>' . $val->user_type . '</td>';
           $tbodyHtml .= '<td>' . $val->nameOfPublisher . '</td>';
+          $tbodyHtml .= '<td>' .  $pub->publicationName . '</td>';
+          $tbodyHtml .= '<td>' . date('d-m-Y', strtotime($Procurementpaymrnt1->created_at)) . '</td>';
           $tbodyHtml .= '<td data-label="controlq">';
           $tbodyHtml .= '<div class="d-flex mt-p0">';
           $tbodyHtml .= '<a href="/admin/book_manage_view/' . $val->id . '" class="btn btn-success shadow btn-xs sharp me-1">';
@@ -338,7 +375,7 @@ class BookController extends Controller
         }
       }
     }
-
+  
 
     $rev = Librarian::where("status", '=', '1')
       ->where("metaChecker", '=', 'yes')
@@ -388,7 +425,7 @@ class BookController extends Controller
     }
 
      
-
+  
     return response()->json(['success' => $tbodyHtml, 'success2' => $tbodyHtml2]);
   }
 
@@ -731,32 +768,32 @@ class BookController extends Controller
         $sumexternal = BookReviewStatus::where('book_id', $val->book_id)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
         $sumpublic = BookReviewStatus::where('book_id', $val->book_id)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
         if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
-          $avgexternal = ($sumexternal / ($externalcount * 20)) * 100;
-          $mark = ($sumexternal / ($externalcount * 20)) * 100;
+          $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+          $mark = ($sumexternal / ($rexternalcount)) * 3;
         } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
-          $avginternal  = ($suminternal / ($internalcount * 20)) * 100;
-          $mark = ($suminternal / ($internalcount * 20)) * 100;
+          $avginternal  = ($suminternal / ($rinternalcount)) *1;
+          $mark = ($suminternal / ($rinternalcount)) *1;
         } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
-          $avgpublic  = ($sumpublic / ($publiccount * 20)) * 100;
-          $mark = ($sumpublic / ($publiccount * 20)) * 100;
+          $avgpublic  = ($sumpublic / ($rpubliccount)) * 1;
+          $mark = ($sumpublic / ($rpubliccount)) * 1;
         } else if ($externalcount == 0 || $rexternalcount == 0) {
-          $avginternal  = ($suminternal / ($internalcount * 20)) * 50;
-          $avgpublic  = ($sumpublic / ($publiccount * 20)) * 50;
-          $mark = (($suminternal / ($internalcount * 20)) * 50) + (($sumpublic / ($publiccount * 20)) * 50);
+          $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+          $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+          $mark = (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) *1);
         } else if ($internalcount == 0 || $rinternalcount == 0) {
-          $avgexternal = ($sumexternal / ($externalcount * 20)) * 70;
-          $avgpublic  = ($sumpublic / ($publiccount * 20)) * 30;
-          $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($sumpublic / ($publiccount * 20)) * 30);
+          $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+          $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+          $mark = (($sumexternal / ($rexternalcount)) *3) + (($sumpublic / ($rpubliccount)) *1);
         } else if ($publiccount == 0 || $rpubliccount == 0) {
-          $avgexternal = ($sumexternal / ($externalcount * 20)) * 70;
-          $avginternal  = ($suminternal / ($internalcount * 20)) * 30;
-          $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($suminternal / ($internalcount * 20)) * 30);
+          $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+          $avginternal  = ($suminternal / ($rinternalcount)) *1;
+          $mark = (($sumexternal / ($rexternalcount)) *3) + (($suminternal / ($rinternalcount)) * 1);
         } else {
-
-          $avgexternal = ($sumexternal / ($externalcount * 20)) * 60;
-          $avginternal  = ($suminternal / ($internalcount * 20)) * 20;
-          $avgpublic  = ($sumpublic / ($publiccount * 20)) * 20;
-          $mark = (($sumexternal / ($externalcount * 20)) * 60) + (($suminternal / ($internalcount * 20)) * 20) + (($sumpublic / ($publiccount * 20)) * 20);
+      
+          $avgexternal = ($sumexternal / ($rexternalcount)) * 3;
+          $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+          $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+          $mark = (($sumexternal / ($rexternalcount )) *3) + (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) * 1);
         }
 
 
@@ -1021,6 +1058,7 @@ class BookController extends Controller
       'book' => $book,
       'rev' => $rev
     ];
+
     return redirect('admin/procur_complete_view')->with('data', $data);
   }
 
@@ -1460,20 +1498,20 @@ class BookController extends Controller
       $suminternal = BookReviewStatus::where('book_id', $req->bookid)->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
       $sumexternal = BookReviewStatus::where('book_id', $req->bookid)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
       $sumpublic = BookReviewStatus::where('book_id', $req->bookid)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
-      if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
-        $mark = ($sumexternal / ($externalcount * 20)) * 100;
-      } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
-        $mark = ($suminternal / ($internalcount * 20)) * 100;
-      } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
-        $mark = ($sumpublic / ($publiccount * 20)) * 100;
-      } else if ($externalcount == 0 || $rexternalcount == 0) {
-        $mark = (($suminternal / ($internalcount * 20)) * 50) + (($sumpublic / ($publiccount * 20)) * 50);
-      } else if ($internalcount == 0 || $rinternalcount == 0) {
-        $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($sumpublic / ($publiccount * 20)) * 30);
-      } else if ($publiccount == 0 || $rpubliccount == 0) {
-        $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($suminternal / ($internalcount * 20)) * 30);
-      } else {
-        $mark = (($sumexternal / ($externalcount * 20)) * 60) + (($suminternal / ($internalcount * 20)) * 20) + (($sumpublic / ($publiccount * 20)) * 20);
+      if(($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+        $mark = ($sumexternal/($rexternalcount))*3;
+      }else if(($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+              $mark = ($suminternal/($rinternalcount))*1;
+      }else if(($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)){
+              $mark = ($sumpublic/($rpubliccount))*1;
+      }else if($externalcount == 0 || $rexternalcount == 0){
+            $mark = (($suminternal/($rinternalcount))*1)+(($sumpublic/($rpubliccount))*1);
+      }else if($internalcount == 0 || $rinternalcount == 0){
+            $mark = (($sumexternal/($rexternalcount))*3)+(($sumpublic/($rpubliccount))*1);
+      }else if($publiccount == 0 || $rpubliccount == 0){
+          $mark = (($sumexternal/($rexternalcount))*3)+(($suminternal/($rinternalcount))*1);
+      }else{
+          $mark = (($sumexternal/($rexternalcount))*3)+(($suminternal/($rinternalcount))*1)+(($sumpublic/($rpubliccount))*1);
       }
       $book->marks = $mark;
       $book->save();
@@ -1595,7 +1633,13 @@ class BookController extends Controller
 public function master_book_data(Request $request) {
 
   // Use eager loading to reduce the number of queries
-  $query = Book::with('librarian');
+  $query = Book::with('librarian')
+  ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+  ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+  ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+  ->select('books.*', 
+      DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+  );
 
     // Apply filters
     if ($request->has('language_filter') && $request->language_filter != '') {
@@ -1674,10 +1718,15 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
         $subQuery->where('book_title', 'like', '%' . $request->search . '%')
             ->orWhere('product_code', 'like', '%' . $request->search . '%')
             ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
-            ->orWhere('language', 'like', '%' . $request->search . '%')
+            ->orWhere('publishers.publicationName', 'like', '%' . $request->search . '%')
+            ->orWhere('distributors.distributionName', 'like', '%' . $request->search . '%')
+            ->orWhere('publisher_distributors.publicationDistributionName', 'like', '%' . $request->search . '%')
+            ->orWhere('books.language', 'like', '%' . $request->search . '%')
             ->orWhere('marks', 'like', '%' . $request->search . '%')
             ->orWhere('isbn', 'like', '%' . $request->search . '%');
+       
     });
+  
   }
 
     $data = $query->paginate(15); // Adjust the number of records per page as needed
@@ -1713,6 +1762,17 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
         $val->paymentdate = 'No Date';
 
       }
+      // $pub = Publisher::query()
+      // ->where('id', $val->user_id)
+      // ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+      // ->union(
+      //     Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+      // )
+      // ->union(
+      //     PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+      // )
+      // ->first();
+      // $val->vendorname =  $pub->publicationName;
 
     }
 
@@ -1836,61 +1896,97 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
 
 
   // }
-  public function reviwer_datarec()
-  {
+  public function reviwer_datarec() {
     $results = DB::table('reviewer as r')
-      ->select(
-        'r.id',
-        'r.name',
-        'r.subject',
-        'r.reviewerType',
-        DB::raw('COUNT(br.reviewer_id) AS book_reviews_count '),
-        DB::raw('COUNT(CASE WHEN br.mark IS NOT NULL THEN 1 END) AS BookReviewcom'),
-        DB::raw('COUNT(CASE WHEN br.mark IS NULL THEN 1 END) AS BookReviewpen')
-      )
-      ->leftJoin('book_review_statuses as br', 'r.id', '=', 'br.reviewer_id')
-      ->where('r.status', 1)
-      ->whereIn('r.reviewerType', ['external', 'internal', 'public'])
-      ->groupBy('r.id', 'r.name', 'r.subject', 'r.reviewerType')
-      ->get();
-
+        ->select(
+            'r.id',
+            'r.name',
+            'r.subject',
+            'r.reviewerType',
+            DB::raw('COUNT(br.reviewer_id) AS book_reviews_count '),
+            DB::raw('COUNT(CASE WHEN br.mark IS NOT NULL THEN 1 END) AS BookReviewcom'),
+            DB::raw('COUNT(CASE WHEN br.mark IS NULL THEN 1 END) AS BookReviewpen')
+        )
+        ->leftJoin('book_review_statuses as br', 'r.id', '=', 'br.reviewer_id')
+        ->where('r.status', 1)
+        ->whereIn('r.reviewerType', ['external', 'internal', 'public'])
+        ->groupBy('r.id', 'r.name', 'r.subject', 'r.reviewerType')
+        ->get();
+  
     // Ensure $results is not null or empty
+  
     if ($results->isEmpty()) {
-      // Handle empty results if needed
-      return view('admin.reviwer_data', [
-        'data' => collect(),
-        'data1' => collect(),
-        'data2' => collect(),
-        'metacompletecount' => 0,
-        'reviewerassignCount' => 0,
-        'count' => 0
-      ]);
+        // Handle empty results if needed
+        return view('admin.reviwer_data', [
+            'data' => collect(),
+            'data1' => collect(),
+            'data2' => collect(),
+            'metacompletecount' => 0,
+            'reviewerassignCount' => 0,
+            'count' => 0
+        ]);
     }
-
-    // Filter the results based on reviewer type
+  
     $data = $results->filter(function ($item) {
-      return $item->reviewerType == 'external';
+        return $item->reviewerType == 'external';
     });
-
+  
     $data1 = $results->filter(function ($item) {
-      return $item->reviewerType == 'internal';
+        return $item->reviewerType == 'internal';
     });
-
+    $reviewerIds1 = collect($data1)->pluck('id');
+  
+    $reviewCounts1 = DB::table('book_review_statuses')
+        ->select('reviewer_id', 
+            DB::raw('SUM(CASE WHEN (SELECT COUNT(*) FROM book_review_statuses br WHERE br.book_id = book_review_statuses.book_id AND br.reviewertype = "public" AND br.mark IS NOT NULL) < 3 THEN 1 ELSE 0 END) as BookReviewpen'), 
+            DB::raw('SUM(CASE WHEN (SELECT COUNT(*) FROM book_review_statuses br WHERE br.book_id = book_review_statuses.book_id AND br.reviewertype = "public" AND br.mark IS NOT NULL) >= 5 THEN 1 ELSE 0 END) as subject'))
+        ->whereIn('reviewer_id', $reviewerIds1)
+        ->whereNull('remark')
+        ->groupBy('reviewer_id')
+        ->get();
+    
+    $countMap = $reviewCounts->keyBy('reviewer_id');
+    
+    $data2->transform(function ($val) use ($countMap) {
+        $val->BookReviewpen = isset($countMap[$val->id]) ? $countMap[$val->id]->BookReviewpen : 0;
+        $val->subject = isset($countMap[$val->id]) ? $countMap[$val->id]->subject : 0;
+        return $val;
+    });
     $data2 = $results->filter(function ($item) {
-      return $item->reviewerType == 'public';
+        return $item->reviewerType == 'public';
     });
-
+  
+  $reviewerIds = collect($data2)->pluck('id');
+  
+  $reviewCounts = DB::table('book_review_statuses')
+      ->select('reviewer_id', 
+          DB::raw('SUM(CASE WHEN (SELECT COUNT(*) FROM book_review_statuses br WHERE br.book_id = book_review_statuses.book_id AND br.reviewertype = "public" AND br.mark IS NOT NULL) < 5 THEN 1 ELSE 0 END) as BookReviewpen'), 
+          DB::raw('SUM(CASE WHEN (SELECT COUNT(*) FROM book_review_statuses br WHERE br.book_id = book_review_statuses.book_id AND br.reviewertype = "public" AND br.mark IS NOT NULL) >= 5 THEN 1 ELSE 0 END) as subject'))
+      ->whereIn('reviewer_id', $reviewerIds)
+      ->whereNull('remark')
+      ->groupBy('reviewer_id')
+      ->get();
+  
+  $countMap = $reviewCounts->keyBy('reviewer_id');
+  
+  $data2->transform(function ($val) use ($countMap) {
+      $val->BookReviewpen = isset($countMap[$val->id]) ? $countMap[$val->id]->BookReviewpen : 0;
+      $val->subject = isset($countMap[$val->id]) ? $countMap[$val->id]->subject : 0;
+      return $val;
+  });
+  
     $metacompletecount = Book::whereNotNull('book_reviewer_id')
-      ->where('book_status', 1)
-      ->where('book_procurement_status', 1)
-      ->count();
-
+                            ->where('book_status', 1)
+                            ->where('book_procurement_status', 1)
+                            ->count();
+  
     $reviewerassignCount = BookReviewStatus::distinct('book_id')->count();
-
+  
     $count = $data->count() + $data1->count() + $data2->count();
-
+  
     return view('admin.reviwer_data', compact('data', 'data1', 'data2', 'metacompletecount', 'reviewerassignCount', 'count'));
   }
+  
 
 
 
@@ -1971,6 +2067,20 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
   }
 }
 
+
+
+$pub = Publisher::query()
+->where('id', $val->user_id)
+->select('id', 'publicationName', 'usertype','mobileNumber','email')
+->union(
+    Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+)
+->union(
+    PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+)
+->first();
+$val->vendorname =  $pub->publicationName;
+
     if ($request->has('search') && $request->search != '') {
       $query->where(function ($subQuery) use ($request) {
         $subQuery->where('book_title', 'like', '%' . $request->search . '%')
@@ -2038,6 +2148,7 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
             "Author Details"=> $val->author_name,
             "Edition Number"=> $val->edition_number,
             "Name of Publisher"=> $val->nameOfPublisher,
+            "Vendor Name"=> $val->vendorname,
             "Year of Publication"=> $val->yearOfPublication,
             "Place of Publication"=> $val->place,
             "Subject"=> $val->subject,
@@ -2074,7 +2185,7 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
      }
      
      $csvContent ="\xEF\xBB\xBF"; 
-     $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status,Payment Date ,Meta checking Status,Meta checker Name,Mark,Negotiation Status\n"; 
+     $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Vendor Name,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status,Payment Date ,Meta checking Status,Meta checker Name,Mark,Negotiation Status\n"; 
      foreach ($finaldata as $data) {
          $csvContent .= '"' . implode('","', $data) ."\"\n";
      }
@@ -2589,7 +2700,7 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
   public function master_nego_book_data(Request $request)
   {
     $query = Book::with('librarian')->where('marks', '>=', 40)->where('negotiation_status','=', null)->where('self_nominated','=', 0);
-
+  
     // Apply filters
     if ($request->has('language_filter') && $request->language_filter != '') { 
       $query->where('language', $request->language_filter);
@@ -2621,7 +2732,7 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
   
   $query ->orderBy('marks', 'desc');
   $data = $query->paginate(15);
-
+  
     $procurementStatuses = ["1", "5", "6"];
     $bookStatusLabels = [
       "1" => "Success",
@@ -2629,11 +2740,24 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
       "2" => "Returned To User Correction",
       "3" => "Book Update To Return"
     ];
-
+  
     foreach ($data as $val) {
       $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
       $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
       $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+    
+      $pub = Publisher::query()
+      ->where('id', $val->user_id)
+      ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+      ->union(
+          Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+      )
+      ->union(
+          PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+      )
+      ->first();
+      $val->vendorname =  $pub->publicationName;
+  
     }
     foreach ($data as $val) {
       $avginternal = 0;
@@ -2649,36 +2773,37 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
     $suminternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
     $sumexternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
     $sumpublic = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
+  
     if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
-      $avgexternal = ($sumexternal / ($externalcount * 20)) * 100;
-      $mark = ($sumexternal / ($externalcount * 20)) * 100;
+      $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+      $mark = ($sumexternal / ($rexternalcount)) * 3;
     } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
-      $avginternal  = ($suminternal / ($internalcount * 20)) * 100;
-      $mark = ($suminternal / ($internalcount * 20)) * 100;
+      $avginternal  = ($suminternal / ($rinternalcount)) *1;
+      $mark = ($suminternal / ($rinternalcount)) *1;
     } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
-      $avgpublic  = ($sumpublic / ($publiccount * 20)) * 100;
-      $mark = ($sumpublic / ($publiccount * 20)) * 100;
+      $avgpublic  = ($sumpublic / ($rpubliccount)) * 1;
+      $mark = ($sumpublic / ($rpubliccount)) * 1;
     } else if ($externalcount == 0 || $rexternalcount == 0) {
-      $avginternal  = ($suminternal / ($internalcount * 20)) * 50;
-      $avgpublic  = ($sumpublic / ($publiccount * 20)) * 50;
-      $mark = (($suminternal / ($internalcount * 20)) * 50) + (($sumpublic / ($publiccount * 20)) * 50);
+      $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+      $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+      $mark = (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) *1);
     } else if ($internalcount == 0 || $rinternalcount == 0) {
-      $avgexternal = ($sumexternal / ($externalcount * 20)) * 70;
-      $avgpublic  = ($sumpublic / ($publiccount * 20)) * 30;
-      $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($sumpublic / ($publiccount * 20)) * 30);
+      $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+      $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+      $mark = (($sumexternal / ($rexternalcount)) *3) + (($sumpublic / ($rpubliccount)) *1);
     } else if ($publiccount == 0 || $rpubliccount == 0) {
-      $avgexternal = ($sumexternal / ($externalcount * 20)) * 70;
-      $avginternal  = ($suminternal / ($internalcount * 20)) * 30;
-      $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($suminternal / ($internalcount * 20)) * 30);
+      $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+      $avginternal  = ($suminternal / ($rinternalcount)) *1;
+      $mark = (($sumexternal / ($rexternalcount)) *3) + (($suminternal / ($rinternalcount)) * 1);
     } else {
-
-      $avgexternal = ($sumexternal / ($externalcount * 20)) * 60;
-      $avginternal  = ($suminternal / ($internalcount * 20)) * 20;
-      $avgpublic  = ($sumpublic / ($publiccount * 20)) * 20;
-      $mark = (($sumexternal / ($externalcount * 20)) * 60) + (($suminternal / ($internalcount * 20)) * 20) + (($sumpublic / ($publiccount * 20)) * 20);
+  
+      $avgexternal = ($sumexternal / ($rexternalcount)) * 3;
+      $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+      $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+      $mark = (($sumexternal / ($rexternalcount )) *3) + (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) * 1);
     }
-
-
+  
+  
   
    
     $val->internalcount = $internalcount;
@@ -2691,18 +2816,18 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
     $val->avgexternal = $avgexternal;
     $val->avgpublic = $avgpublic;
     $val->mark = $mark;
-   
+  
   }
-
-
+   
+  
     return view('admin.master_nego_book_data', compact('data'));
   }
-
+  
   public function master_nego_book_datareport(Request $request)
   {
-
+  
     $query = Book::with('librarian')->where('marks', '>=', 40)->where('negotiation_status','=', null)->where('self_nominated','=', 0);
-
+  
     // Apply filters
     if ($request->has('language_filter') && $request->language_filter != '') { 
       $query->where('language', $request->language_filter);
@@ -2733,9 +2858,9 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
   }
   
   $query ->orderBy('marks', 'desc');
-  // $data = $query->paginate(15);
-  $data = $query->get(); 
-
+  
+   $data = $query->get(); 
+  
     $procurementStatuses = ["1", "5", "6"];
     $bookStatusLabels = [
       "1" => "Success",
@@ -2743,12 +2868,24 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
       "2" => "Returned To User Correction",
       "3" => "Book Update To Return"
     ];
-
+  
     foreach ($data as $val) {
       $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
       $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
       $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+      $pub = Publisher::query()
+      ->where('id', $val->user_id)
+      ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+      ->union(
+          Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+      )
+      ->union(
+          PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+      )
+      ->first();
+      $val->vendorname =  $pub->publicationName;
     }
+  
     foreach ($data as $val) {
       $avginternal = 0;
       $avgexternal = 0;
@@ -2765,38 +2902,37 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
     $suminternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
     $sumexternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
     $sumpublic = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
-   if($rinternalcount == 0 &&  $rexternalcount  == 0 &&  $rpubliccount  == 0){
-        return  $book;
+  //  if($rinternalcount == 0 &&  $rexternalcount  == 0 &&  $rpubliccount  == 0){
+  //       return  $book;
+  // }
+  if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $mark = ($sumexternal / ($rexternalcount)) * 3;
+  } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+    $avginternal  = ($suminternal / ($rinternalcount)) *1;
+    $mark = ($suminternal / ($rinternalcount)) *1;
+  } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
+    $avgpublic  = ($sumpublic / ($rpubliccount)) * 1;
+    $mark = ($sumpublic / ($rpubliccount)) * 1;
+  } else if ($externalcount == 0 || $rexternalcount == 0) {
+    $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) *1);
+  } else if ($internalcount == 0 || $rinternalcount == 0) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($sumexternal / ($rexternalcount)) *3) + (($sumpublic / ($rpubliccount)) *1);
+  } else if ($publiccount == 0 || $rpubliccount == 0) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $avginternal  = ($suminternal / ($rinternalcount)) *1;
+    $mark = (($sumexternal / ($rexternalcount)) *3) + (($suminternal / ($rinternalcount)) * 1);
+  } else {
+  
+    $avgexternal = ($sumexternal / ($rexternalcount)) * 3;
+    $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($sumexternal / ($rexternalcount )) *3) + (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) * 1);
   }
-    if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
-      $avgexternal = ($sumexternal / ($externalcount * 20)) * 100;
-      $mark = ($sumexternal / ($externalcount * 20)) * 100;
-    } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
-      $avginternal  = ($suminternal / ($internalcount * 20)) * 100;
-      $mark = ($suminternal / ($internalcount * 20)) * 100;
-    } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
-      $avgpublic  = ($sumpublic / ($publiccount * 20)) * 100;
-      $mark = ($sumpublic / ($publiccount * 20)) * 100;
-    } else if ($externalcount == 0 || $rexternalcount == 0) {
-      $avginternal  = ($suminternal / ($internalcount * 20)) * 50;
-      $avgpublic  = ($sumpublic / ($publiccount * 20)) * 50;
-      $mark = (($suminternal / ($internalcount * 20)) * 50) + (($sumpublic / ($publiccount * 20)) * 50);
-    } else if ($internalcount == 0 || $rinternalcount == 0) {
-      $avgexternal = ($sumexternal / ($externalcount * 20)) * 70;
-      $avgpublic  = ($sumpublic / ($publiccount * 20)) * 30;
-      $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($sumpublic / ($publiccount * 20)) * 30);
-    } else if ($publiccount == 0 || $rpubliccount == 0) {
-      $avgexternal = ($sumexternal / ($externalcount * 20)) * 70;
-      $avginternal  = ($suminternal / ($internalcount * 20)) * 30;
-      $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($suminternal / ($internalcount * 20)) * 30);
-    } else {
-  
-      $avgexternal = ($sumexternal / ($externalcount * 20)) * 60;
-      $avginternal  = ($suminternal / ($internalcount * 20)) * 20;
-      $avgpublic  = ($sumpublic / ($publiccount * 20)) * 20;
-      $mark = (($sumexternal / ($externalcount * 20)) * 60) + (($suminternal / ($internalcount * 20)) * 20) + (($sumpublic / ($publiccount * 20)) * 20);
-    }
-  
   
   
    
@@ -2820,9 +2956,10 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
     $serialNumber = 1;
     foreach ($data as $val) {
   
+     
   
-  
-  
+     if($val->rexternalcount >=1){
+        
       $finaldata[] = [
         'S.No' =>  $serialNumber++,
         "Book ID" => $val->product_code,
@@ -2832,6 +2969,7 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
         "Author Details" => $val->author_name,
         "Edition Number" => $val->edition_number,
         "Name of Publisher" => $val->nameOfPublisher,
+        "Vendor Name" => $val->vendorname,
         "Year of Publication" => $val->yearOfPublication,
         "Place of Publication" => $val->place,
         "Subject" => $val->subject,
@@ -2854,93 +2992,34 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
         "Payment Status " => $val->paystatus,
         "Meta checking Status " => $val->revstatus,
         "Meta checker Name" => $val->reviewername,
-        "Librarian Review/Assign" => $val->rinternalcount.'/'.$val->internalcount,
-        "Expert Review/Assign" => $val->rexternalcount.'/'.$val->externalcount,
-        "Public Review/Assign" => $val->rpubliccount.'/'.$val->publiccount,
+        "Librarian Review/Assign" =>$val->internalcount .'|'.$val->rinternalcount,
+        "Expert Review/Assign" => $val->externalcount.'|'. $val->rexternalcount,
+        "Public Review/Assign" =>$val->publiccount.'|'.$val->rpubliccount,
         "Librarian" => $val->avginternal,
         "Expert" => $val->avgexternal,
         "Public" => $val->avgpublic,
         "RTotal Review Mark" => $val->mark
         
       ];
+  
+    }
+      
+    }
+    // return $finaldata;
+    $csvContent = "\xEF\xBB\xBF";
+    $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Vendor Name,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status ,Meta checking Status,Meta checker Name,Librarian Review/Assign,Expert Review/Assign,Public Review/Assign,Librarian,Expert,Public,RTotal Review Mark\n";
+    foreach ($finaldata as $data) {
+      $csvContent .= '"' . implode('","', array_map('strval', $data)) . "\"\n";
     }
   
-    $csvContent = "\xEF\xBB\xBF";
-    $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status ,Meta checking Status,Meta checker Name,Librarian Review/Assign,Expert Review/Assign,Public Review/Assign,Librarian,Expert,Public,RTotal Review Mark\n";
-    foreach ($finaldata as $data) {
-      $csvContent .= '"' . implode('","', $data) . "\"\n";
-    }
-
     $headers = [
       'Content-Type' => 'text/csv; charset=utf-8',
       'Content-Disposition' => 'attachment; filename="masterbookdata.csv"',
     ];
-
+  
     return response()->make($csvContent, 200, $headers);
   }
-
-  //Negotiation import record
-  // public function calculatedBookPrice(Request $request)
-  // {
-  //     try {
-  //         $admin = auth('admin')->user();
-  //         if ($request->hasFile('file_book_price')) {
-  //             $file = $request->file('file_book_price');
-  //             $fileContents = file($file->getPathname());
-  //             unset($fileContents[0]);
-
-  //             $batchSize = 100; 
-
-  //             $chunks = array_chunk($fileContents, $batchSize);
-
-  //             foreach ($chunks as $chunk) {
-  //               $productcode = [];
-  //               $productcode1 = [];
-  //                 foreach ($chunk as $line) {
-  //                     $data = str_getcsv($line);
-  //                      $p_code = $data[1] ?? null;
-
-  //                      if($p_code != null){
-  //                         $code = str_pad($data[1], 8, '0', STR_PAD_LEFT);
-  //                         $book = Book::where('product_code',  $code)->exists();
-  //                         if ($book){
-  //                            continue;
-  //                         }else{
-  //                           return redirect()->back()->with('errorlib',  $code . "Not Found");
-  //                         }
-
-  //                         if (in_array($code, $productcode)) {
-  //                           array_push($productcode1,  $code);
-  //                             // return redirect()->back()->with('errorlib',  $code . " Duplicate entry");
-  //                         } else {
-  //                             array_push($productcode,  $code);
-  //                         }
-
-  //                      }
-
-  //                 }
-  //                 return $productcode;
-  //                 $check =[];
-  //                 foreach ($chunk as $line) {
-  //                     $data = str_getcsv($line);
-  //                     $productCode = str_pad($data[1], 8, '0', STR_PAD_LEFT);
-  //                     $bookdata =Book::where('product_code','=',$productCode)->first();
-  //                     $bookdata->calculated_price =  $data[2];
-  //                     $bookdata->save();
-
-  //                 }
-  //             }
-
-  //             return redirect()->back()->with('successlib', 'File imported successfully');
-  //         } else {
-  //             return redirect()->back()->with('errorlib', 'No file uploaded');
-  //         }
-  //     } catch (\Throwable $e) {
-  //          return $e;
-  //         // Handle the exception (e.g., log it)
-  //         return redirect()->back()->with('errorlib', 'An error occurred while importing.');
-  //     }
-  // }
+  
 
   public function calculatedBookPrice(Request $request)
   {
@@ -3210,20 +3289,20 @@ public function bookreassign_data(Request $req)
       $suminternal = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
       $sumexternal = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
       $sumpublic = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
-      if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
-        $mark = ($sumexternal / ($externalcount * 20)) * 100;
-      } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
-        $mark = ($suminternal / ($internalcount * 20)) * 100;
-      } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
-        $mark = ($sumpublic / ($publiccount * 20)) * 100;
-      } else if ($externalcount == 0 || $rexternalcount == 0) {
-        $mark = (($suminternal / ($internalcount * 20)) * 50) + (($sumpublic / ($publiccount * 20)) * 50);
-      } else if ($internalcount == 0 || $rinternalcount == 0) {
-        $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($sumpublic / ($publiccount * 20)) * 30);
-      } else if ($publiccount == 0 || $rpubliccount == 0) {
-        $mark = (($sumexternal / ($externalcount * 20)) * 70) + (($suminternal / ($internalcount * 20)) * 30);
-      } else {
-        $mark = (($sumexternal / ($externalcount * 20)) * 60) + (($suminternal / ($internalcount * 20)) * 20) + (($sumpublic / ($publiccount * 20)) * 20);
+      if(($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+        $mark = ($sumexternal/($rexternalcount))*3;
+      }else if(($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
+              $mark = ($suminternal/($rinternalcount))*1;
+      }else if(($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)){
+              $mark = ($sumpublic/($rpubliccount))*1;
+      }else if($externalcount == 0 || $rexternalcount == 0){
+            $mark = (($suminternal/($rinternalcount))*1)+(($sumpublic/($rpubliccount))*1);
+      }else if($internalcount == 0 || $rinternalcount == 0){
+            $mark = (($sumexternal/($rexternalcount))*3)+(($sumpublic/($rpubliccount))*1);
+      }else if($publiccount == 0 || $rpubliccount == 0){
+          $mark = (($sumexternal/($rexternalcount))*3)+(($suminternal/($rinternalcount))*1);
+      }else{
+          $mark = (($sumexternal/($rexternalcount))*3)+(($suminternal/($rinternalcount))*1)+(($sumpublic/($rpubliccount))*1);
       }
       $book->marks = $mark;
       $book->save();
@@ -3258,7 +3337,532 @@ public function bookreassign_data(Request $req)
   
 }
 
+public function exportrevdetailsreport()
+{
+  $results = DB::table('reviewer as r')
+    ->select(
+      'r.id',
+      'r.name',
+      'r.subject',
+      'r.reviewerType',
+      DB::raw('COUNT(br.reviewer_id) AS book_reviews_count '),
+      DB::raw('COUNT(CASE WHEN br.mark IS NOT NULL THEN 1 END) AS BookReviewcom'),
+      DB::raw('COUNT(CASE WHEN br.mark IS NULL THEN 1 END) AS BookReviewpen')
+    )
+    ->leftJoin('book_review_statuses as br', 'r.id', '=', 'br.reviewer_id')
+    ->where('r.status', 1)
+    ->whereIn('r.reviewerType', ['external', 'internal', 'public'])
+    ->groupBy('r.id', 'r.name', 'r.subject', 'r.reviewerType')
+    ->get();
 
+
+
+
+  foreach($results as $val){
+   
+       
+     $Reviewer=Reviewer::find($val->id);
+   
+    
+      
+      if($Reviewer->reviewerType=="internal"){
+       
+      
+          $categories = json_decode($Reviewer->Category, true);
+
+          $recdata = '';
+  
+          if (is_array($categories)) {
+            foreach ($categories as $category) {
+              $recdata .= htmlspecialchars($category) . ' ,';
+            }
+          }
+         
+          $val->subject = $recdata;
+      
+          if($val->book_reviews_count == "0"   && $val->BookReviewcom == "0" ) {  
+            $val->BookReviewpen ="0";
+        }
+       
+      
+        $val->district =$Reviewer->district;
+        $val->libraryType =$Reviewer->libraryType;
+        $val->libraryName =$Reviewer->libraryName;
+      }elseif($Reviewer->reviewerType=="public"){
+        $val->subject =  $Reviewer->Category;
+        $Reviewer1=Reviewer::find($Reviewer->creater);
+        if($val->book_reviews_count == "0"   && $val->BookReviewcom == "0" ) {  
+          $val->BookReviewpen ="0";
+      }
+     
+        $val->district =$Reviewer->district;
+        $val->libraryType =$Reviewer1->libraryType;
+        $val->libraryName =$Reviewer1->libraryName;
+      }else{
+        $subjects = json_decode($val->subject, true);
+
+        $recdata = '';
+        
+        if (is_array($subjects)) {
+            $count = count($subjects);
+            foreach ($subjects as $index => $subject) {
+                $recdata .= htmlspecialchars($subject);
+                if ($index < $count - 1) {
+                    $recdata .= ', ';
+                }
+            }
+        } 
+         $val->subject =$recdata;
+         if($val->book_reviews_count == "0"   && $val->BookReviewcom == "0" ) {  
+          $val->BookReviewpen ="0";
+      }
+      $val->district =$Reviewer->district;
+        $val->libraryType =""; 
+        $val->libraryName ="";
+      }
+    
+  }    
+
+  $data = $results->filter(function ($item) {
+    return $item->reviewerType == 'external';
+  });  
+   
+  $data1 = $results->filter(function ($item) {
+    return $item->reviewerType == 'internal';
+  });
+  $reviewerIds1 = collect($data1)->pluck('id');
+
+  $reviewCounts1 = DB::table('book_review_statuses')
+    ->select('reviewer_id', 
+        DB::raw('SUM(CASE WHEN (SELECT COUNT(*) FROM book_review_statuses br WHERE br.book_id = book_review_statuses.book_id AND br.reviewertype = "public" AND br.mark IS NOT NULL) < 5 THEN 1 ELSE 0 END) as BookReviewpen'), 
+        DB::raw('SUM(CASE WHEN (SELECT COUNT(*) FROM book_review_statuses br WHERE br.book_id = book_review_statuses.book_id AND br.reviewertype = "public" AND br.mark IS NOT NULL) >= 5 THEN 1 ELSE 0 END) as hold'))
+    ->whereIn('reviewer_id', $reviewerIds1)
+    ->whereNull('remark')
+    ->groupBy('reviewer_id')
+    ->get();
+  
+  $countMap1 = $reviewCounts1->keyBy('reviewer_id');
+  
+  $data1->transform(function ($val) use ($countMap1) {
+    $val->BookReviewpen = isset($countMap1[$val->id]) ? $countMap1[$val->id]->BookReviewpen : 0;
+    $val->hold = isset($countMap1[$val->id]) ? $countMap1[$val->id]->hold : 0;
+    return $val;
+  });
+  $data2 = $results->filter(function ($item) {
+    return $item->reviewerType == 'public';
+});
+
+$reviewerIds = collect($data2)->pluck('id');
+
+$reviewCounts = DB::table('book_review_statuses')
+  ->select('reviewer_id', 
+      DB::raw('SUM(CASE WHEN (SELECT COUNT(*) FROM book_review_statuses br WHERE br.book_id = book_review_statuses.book_id AND br.reviewertype = "public" AND br.mark IS NOT NULL) < 5 THEN 1 ELSE 0 END) as BookReviewpen'), 
+      DB::raw('SUM(CASE WHEN (SELECT COUNT(*) FROM book_review_statuses br WHERE br.book_id = book_review_statuses.book_id AND br.reviewertype = "public" AND br.mark IS NOT NULL) >= 5 THEN 1 ELSE 0 END) as hold'))
+  ->whereIn('reviewer_id', $reviewerIds)
+  ->whereNull('remark')
+  ->groupBy('reviewer_id')
+  ->get();
+
+$countMap = $reviewCounts->keyBy('reviewer_id');
+
+$data2->transform(function ($val) use ($countMap) {
+  $val->BookReviewpen = isset($countMap[$val->id]) ? $countMap[$val->id]->BookReviewpen : 0;
+  $val->hold = isset($countMap[$val->id]) ? $countMap[$val->id]->hold : 0;
+  return $val;
+});
+
+  $metacompletecount = Book::whereNotNull('book_reviewer_id')
+    ->where('book_status', 1)
+    ->where('book_procurement_status', 1)
+    ->count();
+
+  $reviewerassignCount = BookReviewStatus::distinct('book_id')->count();
+
+  $count = $data->count() + $data1->count() + $data2->count();
+
+
+
+
+  $finaldata = [];
+  $serialNumber = 1;
+  
+  // Concatenate the collections
+   $allData = $data->concat($data1)->concat($data2);
+  
+  foreach ($allData as $val) {
+
+      $finaldata[] = [
+          'S.No' => $serialNumber++,
+          'Reviewer Name' => $val->name,
+          'Reviewer Type' => $val->reviewerType,
+          'No. of Books Assigned' => $val->book_reviews_count,
+          'No. of Review Completed' => $val->BookReviewcom,
+          'No. of Review Pending' => $val->BookReviewpen,
+           'No. of Review hold' => isset($val->hold) ? $val->hold : "",
+
+          'Subject' => $val->subject,
+          'Library Type' => $val->libraryType,
+          'Library Name' => $val->libraryName,
+          'District' => $val->district ? $val->district : "",
+      ];
+  }
+  
+
+$finaldata[] = [
+  'S.No' =>  '',
+ 'Reviewer Name' =>   '',
+ 'Reviewer Type' =>   '',
+ 'No. of Books Assigned' =>  '',
+ 'No. of Review Completed'=>   '',
+ 'No. of Review Pending' =>   '',
+ 'No. of Review hold' =>   '',
+ 'Subject' =>   '',
+ 'Library Type' =>  '',
+ 'Library Name' =>  '',
+ 'District' =>   '',
+  
+];
+   
+
+  $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+  $csvContent .= "S.No,Reviewer Name,Reviewer Type,No. of Books Assigned, No. of Review Completed,No. of Review Pending,No. of Review hold,Subject,Library Type,Library Name,District\n"; 
+  foreach ($finaldata as $data) {
+      $csvContent .= '"' . implode('","', $data) ."\"\n";
+  }
+
+  $headers = [
+      'Content-Type' => 'text/csv; charset=utf-8',
+      'Content-Disposition' => 'attachment; filename="LibraryDispatchReport.csv"',
+  ];
+
+  return response()->make($csvContent, 200, $headers);
+  return view('admin.reviwer_data', compact('data', 'data1', 'data2', 'metacompletecount', 'reviewerassignCount', 'count'));
+}
+
+public function master_nego_notqualified_book_data(Request $request)
+{
+  $query = Book::with('BookReviewStatus')
+  ->where('negotiation_status', null)
+  ->where('self_nominated', 0)
+  ->where('marks', '<', 40) 
+  ->whereHas('BookReviewStatus', function ($query) {
+      $query->whereNotNull('review_type');
+  }, '>=', 1);
+
+  if ($request->has('subject_filter') && $request->subject_filter != '') {
+    $query->where('subject', $request->subject_filter);
+  }
+
+  if ($request->has('category_filter') && $request->category_filter != '') {
+    $query->where('category', $request->category_filter);
+} 
+ if ($request->has('mark_range') && $request->mark_range != '') {
+  list($min, $max) = explode('-', $request->mark_range);
+  $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
+if ($request->has('search') && $request->search != '') {
+$query->where(function ($subQuery) use ($request) {
+    $subQuery->where('book_title', 'like', '%' . $request->search . '%')
+        ->orWhere('product_code', 'like', '%' . $request->search . '%')
+        ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+        ->orWhere('language', 'like', '%' . $request->search . '%')
+        ->orWhere('marks', 'like', '%' . $request->search . '%')
+        ->orWhere('isbn', 'like', '%' . $request->search . '%');
+});
+
+
+}
+
+$query ->orderBy('marks', 'desc');
+$data = $query->paginate(150);
+
+  $procurementStatuses = ["1", "5", "6"];
+  $bookStatusLabels = [
+    "1" => "Success",
+    "0" => "Reject",
+    "2" => "Returned To User Correction",
+    "3" => "Book Update To Return"
+  ];
+
+  foreach ($data as $val) {
+    $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+    $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+    $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+    $pub = Publisher::query()
+    ->where('id', $val->user_id)
+    ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+    ->union(
+        Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+    )
+    ->union(
+        PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+    )
+    ->first();
+    $val->vendorname =  $pub->publicationName;
+  }
+  foreach ($data as $val) {
+    $avginternal = 0;
+    $avgexternal = 0;
+    $avgpublic = 0;
+  $book = Book::find($val->id);
+  $internalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->count();
+  $externalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->count();
+  $publiccount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->count();
+  $rinternalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->where('mark', '!=', null)->count();
+  $rexternalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->where('mark', '!=', null)->count();
+  $rpubliccount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->where('mark', '!=', null)->count();
+  $suminternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
+  $sumexternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
+  $sumpublic = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
+  if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $mark = ($sumexternal / ($rexternalcount)) * 3;
+  } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+    $avginternal  = ($suminternal / ($rinternalcount)) *1;
+    $mark = ($suminternal / ($rinternalcount)) *1;
+  } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
+    $avgpublic  = ($sumpublic / ($rpubliccount)) * 1;
+    $mark = ($sumpublic / ($rpubliccount)) * 1;
+  } else if ($externalcount == 0 || $rexternalcount == 0) {
+    $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) *1);
+  } else if ($internalcount == 0 || $rinternalcount == 0) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($sumexternal / ($rexternalcount)) *3) + (($sumpublic / ($rpubliccount)) *1);
+  } else if ($publiccount == 0 || $rpubliccount == 0) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $avginternal  = ($suminternal / ($rinternalcount)) *1;
+    $mark = (($sumexternal / ($rexternalcount)) *3) + (($suminternal / ($rinternalcount)) * 1);
+  } else {
+  
+    $avgexternal = ($sumexternal / ($rexternalcount)) * 3;
+    $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($sumexternal / ($rexternalcount )) *3) + (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) * 1);
   }
 
 
+ 
+  $val->internalcount = $internalcount;
+  $val->externalcount = $externalcount;
+  $val->publiccount = $publiccount;
+  $val->rinternalcount = $rinternalcount;
+  $val->rexternalcount = $rexternalcount;
+  $val->rpubliccount = $rpubliccount;
+  $val->avginternal = $avginternal;
+  $val->avgexternal = $avgexternal;
+  $val->avgpublic = $avgpublic;
+  $val->mark = $mark;
+ 
+}
+
+
+  return view('admin.master_nego_notqualified_book_data', compact('data'));
+}
+
+
+public function master_nego_notqualified_book_datareport(Request $request)
+{
+
+  $query = Book::with('BookReviewStatus')
+  ->where('negotiation_status', null)
+  ->where('self_nominated', 0)
+  ->where('marks', '<', 40) 
+  ->whereHas('BookReviewStatus', function ($query) {
+      $query->whereNotNull('review_type');
+  }, '>=', 1);
+
+// $query = Book::with('BookReviewStatus')->where('negotiation_status','=', null)->where('self_nominated','=', 0);
+
+
+  // Apply filters
+  if ($request->has('language_filter') && $request->language_filter != '') { 
+    $query->where('language', $request->language_filter);
+  }
+
+  if ($request->has('subject_filter') && $request->subject_filter != '') {
+    $query->where('subject', $request->subject_filter);
+  }
+
+  if ($request->has('category_filter') && $request->category_filter != '') {
+    $query->where('category', $request->category_filter);
+} 
+ if ($request->has('mark_range') && $request->mark_range != '') {
+  list($min, $max) = explode('-', $request->mark_range);
+  $query->whereBetween('marks', [(int)$min, (int)$max]);
+}
+if ($request->has('search') && $request->search != '') {
+$query->where(function ($subQuery) use ($request) {
+    $subQuery->where('book_title', 'like', '%' . $request->search . '%')
+        ->orWhere('product_code', 'like', '%' . $request->search . '%')
+        ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+        ->orWhere('language', 'like', '%' . $request->search . '%')
+        ->orWhere('marks', 'like', '%' . $request->search . '%')
+        ->orWhere('isbn', 'like', '%' . $request->search . '%');
+});
+
+
+}
+
+$query ->orderBy('marks', 'desc');
+
+ $data = $query->get(); 
+
+  $procurementStatuses = ["1", "5", "6"];
+  $bookStatusLabels = [
+    "1" => "Success",
+    "0" => "Reject",
+    "2" => "Returned To User Correction",
+    "3" => "Book Update To Return"
+  ];
+
+  foreach ($data as $val) {
+    $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+    $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+    $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+    $pub = Publisher::query()
+    ->where('id', $val->user_id)
+    ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+    ->union(
+        Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+    )
+    ->union(
+        PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+    )
+    ->first();
+    $val->vendorname =  $pub->publicationName;
+  }
+  foreach ($data as $val) {
+    $avginternal = 0;
+    $avgexternal = 0;
+    $avgpublic = 0;
+   $book = Book::find($val->id);
+
+
+  $internalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->count();
+  $externalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->count();
+  $publiccount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->count();
+  $rinternalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->where('mark', '!=', null)->count();
+  $rexternalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->where('mark', '!=', null)->count();
+  $rpubliccount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->where('mark', '!=', null)->count();
+  $suminternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
+  $sumexternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
+  $sumpublic = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
+  if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $mark = ($sumexternal / ($rexternalcount)) * 3;
+  } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+    $avginternal  = ($suminternal / ($rinternalcount)) *1;
+    $mark = ($suminternal / ($rinternalcount)) *1;
+  } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
+    $avgpublic  = ($sumpublic / ($rpubliccount)) * 1;
+    $mark = ($sumpublic / ($rpubliccount)) * 1;
+  } else if ($externalcount == 0 || $rexternalcount == 0) {
+    $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) *1);
+  } else if ($internalcount == 0 || $rinternalcount == 0) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($sumexternal / ($rexternalcount)) *3) + (($sumpublic / ($rpubliccount)) *1);
+  } else if ($publiccount == 0 || $rpubliccount == 0) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $avginternal  = ($suminternal / ($rinternalcount)) *1;
+    $mark = (($sumexternal / ($rexternalcount)) *3) + (($suminternal / ($rinternalcount)) * 1);
+  } else {
+  
+    $avgexternal = ($sumexternal / ($rexternalcount)) * 3;
+    $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($sumexternal / ($rexternalcount )) *3) + (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) * 1);
+  }
+
+
+
+ 
+  $val->internalcount = $internalcount;
+  $val->externalcount = $externalcount;
+  $val->publiccount = $publiccount;
+  $val->rinternalcount = $rinternalcount;
+  $val->rexternalcount = $rexternalcount;
+  $val->rpubliccount = $rpubliccount;
+  $val->avginternal = $avginternal;
+  $val->avgexternal = $avgexternal;
+  $val->avgpublic = $avgpublic;
+  $val->mark = $mark;
+ 
+}
+
+
+  $actotal = 0;
+  $inactotal = 0;
+  $finaldata = [];
+  $serialNumber = 1;
+  foreach ($data as $val) {
+
+
+
+
+  
+    
+      $finaldata[] = [
+        'S.No' =>  $serialNumber++,
+        "Book ID" => $val->product_code,
+        "Book Title" => $val->book_title,
+        "Book ISBN" => $val->isbn,
+        "Language of the Book" => $val->language,
+        "Author Details" => $val->author_name,
+        "Edition Number" => $val->edition_number,
+        "Name of Publisher" => $val->nameOfPublisher,
+        "Vendor Name" => $val->vendorname,
+        "Year of Publication" => $val->yearOfPublication,
+        "Place of Publication" => $val->place,
+        "Subject" => $val->subject,
+        "Category" => $val->category,
+        "Binding" => $val->type,
+        "Size " => $val->size,
+        "Length x Breadth(in Centimeters)" => $val->length  *  $val->breadth,
+        "Width(in Centimeters) " => $val->width,
+        "Weight(in grams)" => $val->weight,
+        "GSM (Number)" => $val->gsm,
+        "Type of Paper" => $val->quality,
+        "Paper Finishing" => $val->paper_finishing,
+        "Total Number of Pages" => $val->pages,
+        "Number of Multicolor Pages" => $val->multicolor,
+        "Number of Mono Color Pages" => $val->monocolor,
+        "Currency Type" => $val->currency_type,
+        "Price" => $val->price,
+        "Discount Offer(%)" => $val->discount,
+        "Discounted Price" => $val->discountedprice,
+        "Payment Status " => $val->paystatus,
+        "Meta checking Status " => $val->revstatus,
+        "Meta checker Name" => $val->reviewername,
+        "Librarian Review/Assign" =>$val->internalcount .'|'.$val->rinternalcount,
+        "Expert Review/Assign" => $val->externalcount.'|'. $val->rexternalcount,
+        "Public Review/Assign" =>$val->publiccount.'|'.$val->rpubliccount,
+        "Librarian" => $val->avginternal,
+        "Expert" => $val->avgexternal,
+        "Public" => $val->avgpublic,
+        "RTotal Review Mark" => $val->mark
+        
+      ];
+  
+    
+  }
+count($finaldata);
+  $csvContent = "\xEF\xBB\xBF";
+  $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Vendor Name,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status ,Meta checking Status,Meta checker Name,Librarian Review/Assign,Expert Review/Assign,Public Review/Assign,Librarian,Expert,Public,RTotal Review Mark\n";
+  foreach ($finaldata as $data) {
+    $csvContent .= '"' . implode('","', $data) . "\"\n";
+  }
+
+  $headers = [
+    'Content-Type' => 'text/csv; charset=utf-8',
+    'Content-Disposition' => 'attachment; filename="masterbookdata.csv"',
+  ];
+
+  return response()->make($csvContent, 200, $headers);
+}
+  }

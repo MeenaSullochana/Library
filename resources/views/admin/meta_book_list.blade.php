@@ -143,7 +143,8 @@
                                             <th>Book Author</th>
                                             <th>User Type</th>
                                             <th>Publication Name</th>
-
+                                            <th>Vendor Name</th>
+                                            <th>Payment Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -184,7 +185,8 @@
 
                                             <td>{{$val->user_type}}</td>
                                             <td>{{$val->nameOfPublisher}}</td>
-
+                                            <td>{{$val->book_active_status}}</td>
+                                            <td>{{$val->discount}}</td>
                                             <td data-label="controlq">
                                                 <div class="d-flex mt-p0">
                                                     <a href="/admin/book_manage_view/{{ $val->id }}"
@@ -228,6 +230,8 @@
                                             <td>{{$val->author_name}}</td>
                                             <td>{{$val->user_type}}</td>
                                             <td>{{$val->nameOfPublisher}}</td>
+                                            <td>{{$val->book_active_status}}</td>
+                                            <td>{{$val->discount}}</td>
                                             <td data-label="controlq">
                                                 <div class="d-flex mt-p0">
                                                     <a href="/admin/book_manage_view/{{ $val->id }}"

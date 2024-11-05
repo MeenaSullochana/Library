@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Reviewer;
+use App\Models\Book;
 
 
 class BookReviewStatus extends Model
@@ -26,5 +27,8 @@ class BookReviewStatus extends Model
     public function reviewer()
     {
         return $this->belongsTo(Reviewer::class, 'reviewer_id', 'id');
+    }
+    public function Book() {
+        return $this->belongsTo(Book::class, 'book_id', 'id');
     }
 }

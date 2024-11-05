@@ -93,6 +93,17 @@
 											<p>Current Review</p>
 										</div>
 									</div>
+									@if(auth('reviewer')->user()->reviewerType == "public" || auth('reviewer')->user()->reviewerType == "internal" )
+									<div class="col-xl-4 col-sm-6 col-12">
+										<div class="task-summary">
+											<div class="d-flex align-items-baseline">
+												<h2 class="text-purple count">{{$recordcont}}</h2>
+												<span>Hold Review</span>
+											</div>
+											<p>Maximum  Review Reached</p>
+										</div>
+									</div>
+									@endif
 									<div class="col-xl-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
@@ -150,14 +161,17 @@
 												<th>Category</th>
 												<th>ISBN</th>
 												<th>Assign Date</th>
+											
 												<th>Control</th>
 											</tr>
 										</thead>
 										<tbody>
+									
 											@foreach($data as $key=>$val)
+										
 											<tr>
 
-												<td data-label="S/No">{{$loop->index+1}}</td>
+												<td data-label="S/No">{{$loop->index +1}}</td>
 												<td data-label="Book No"><span>{{$val->book->product_code}}</span></td>
 												<td style="white-space:normal;" data-label="Book Title">
 												<a href="/reviewer/book_view/{{$val->book->id}}/{{$val->id}}"> 
@@ -176,20 +190,29 @@
 													<span>{{ $val->book->isbn }}</span>
 												</td>
 												<td data-label="Date">
-													<span>{{ $val->created_at->format('d-m-Y') }}</span>
+													<span>{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d') }}</span>
 												</td>
-
+											
+											 
+										
 												<td data-label="Control">
-													<!-- <a href="/reviewer/review_post_book/{{$val->book->id}}/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a> -->
-											<a href="/reviewer/book_view/{{$val->book->id}}/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
-
-
-													<!-- <a href="book_view.php"><i class="fa fa-edit p-2"></i></a>
-													<i class="fa fa-trash-o p-2" aria-hidden="true"></i> -->
+													{{-- @if($isPublicReviewer && $rev >= 5)
+													<a href="#" data-bs-toggle="modal" data-bs-target="#bookReviewModal">
+														<i class="fa fa-eye p-2" style="color: red;"></i>
+													</a>
+													
+													@else --}}
+														<a href="/reviewer/book_view/{{$val->book->id}}/{{$val->id}}">
+															<i class="fa fa-eye p-2"></i>
+														</a>
+													{{-- @endif --}}
 												</td>
+												
+														
+												
 											</tr>
-
-@endforeach
+										
+                                        @endforeach
 										</tbody>
 									</table>
 								</div>
@@ -221,6 +244,26 @@
 
 
 	</div>
+
+	<div class="modal fade" id="bookReviewModal" tabindex="-1" aria-labelledby="bookReviewModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="bookReviewModalLabel">Book Review Details</h5>
+			  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+			  <!-- Content of the modal goes here -->
+			  <!-- For example, you can load dynamic content here using PHP or JavaScript -->
+			  <p>இந்த நூல் குறைந்த பட்ச மதிப்பீடுகளைப் பெற்றுள்ளது. மேலும் பல நூல்கள் மதிப்பீடு செய்ய வேண்டி இருப்பதால் பிற நூல்களை மதிப்பீடு செய்யவும் நன்றி..</p>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+
     <!--**********************************
         Main wrapper end
     ***********************************-->

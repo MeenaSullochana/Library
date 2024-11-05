@@ -99,17 +99,89 @@
 
 									</div>
 									<div class="total-projects ms-3">
-									@php
-										$id = auth('reviewer')->user()->id;
-										$record2 = DB::table('book_review_statuses')->where('reviewer_id', $id)->where('remark', null)->count();
-									@endphp
-										<h3 class="text-primary count">{{$record2}}</h3>
+										@php
+											  $recordcont = 0;
+												$user = auth('reviewer')->user();
+												$id = $user->id;
+												$pendingreview = 0;
+												
+												if ($user->reviewerType == "external") {
+													$pendingReviewCount = DB::table('book_review_statuses')
+													->where('reviewer_id', $id)
+													->whereNull('mark')
+													->get();
+												$pendingreview = $pendingReviewCount->count();
+												} else if (in_array($user->reviewerType, ['public', 'internal'])) {
+													$reviewTypeLimit = $user->reviewerType == "public" ? 5 : 3;
+
+													$pendingReviews = DB::table('book_review_statuses as brs')
+														->select('brs.book_id', DB::raw('MAX(brs.reviewer_id) AS reviewer_id'), DB::raw('MAX(brs.mark) AS mark'))
+														->where('brs.reviewer_id', $id)
+														->where('brs.reviewertype', $user->reviewerType)
+														->whereNull('brs.mark')
+														->whereRaw('(
+															SELECT COUNT(*) 
+															FROM book_review_statuses 
+															WHERE book_id = brs.book_id 
+															 AND reviewertype =brs.reviewertype
+															AND mark IS NOT NULL
+														) < ?', [$reviewTypeLimit])
+														->groupBy('brs.book_id')
+														->get();
+
+													// Get count of pending reviews
+													$pendingreview = $pendingReviews->count();
+												
+													$anotherVariable = DB::table('book_review_statuses as brs')
+														->select('brs.book_id', DB::raw('MAX(brs.reviewer_id) AS reviewer_id'), DB::raw('MAX(brs.mark) AS mark'))
+														->where('brs.reviewer_id', $id)
+														->where('brs.reviewertype', $user->reviewerType)
+
+														->whereNull('brs.mark')
+														->whereRaw('(
+															SELECT COUNT(*) 
+															FROM book_review_statuses 
+															WHERE book_id = brs.book_id 
+														    AND reviewertype =brs.reviewertype
+															AND mark IS NOT NULL
+														) >= ?', [$reviewTypeLimit])
+														->groupBy('brs.book_id')
+														->get();
+												
+												$recordcont = $anotherVariable->count();
+												
+												}
+										@endphp
+										
+										<h3 class="text-primary count">{{$pendingreview}}</h3>
 										<span>Total In Progress</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
+					@if($user->reviewerType == "public" || $user->reviewerType == "internal")
+					<div class="col-xl-4 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex align-items-center justify-content-between">
+									<div class="icon-box icon-box-lg bg-purple-light rounded-circle">
+										<svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M23 3.5l6.9 14.0 15.4 2.2-11.2 10.9 2.6 15.4-13.8-7.3-13.8 7.3 2.6-15.4L0 19.7l15.4-2.2L23 3.5z" fill="#BB6BD9"/>
+										</svg>
+
+									</div>
+									<div class="total-projects ms-3">
+							
+										<h3 class="text-purple count">{{$recordcont}}</h3>
+										<span>Total Maximum Review Reached </span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					@endif
 					<div class="col-xl-4 col-sm-6">
 						<div class="card">
 							<div class="card-body">
@@ -133,6 +205,31 @@
 							</div>
 						</div>
 					</div>
+			
+					@if($user->reviewerType == "external")
+					<div class="col-xl-4 col-sm-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="d-flex align-items-center justify-content-between">
+									<div class="icon-box icon-box-lg bg-purple-light rounded-circle">
+										<svg width="46" height="46" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" fill="#4CAF50"/>
+											<path d="M2 8H22V10H2V8Z" fill="#fff"/>
+											<path d="M16 15H18C18 17.76 15.76 20 13 20C10.24 20 8 17.76 8 15H10C10 17 11.24 18 13 18C14.76 18 16 16.76 16 15Z" fill="#4CAF50"/>
+											<path d="M11 12H13V14H11V12Z" fill="#fff"/>
+										</svg>
+										
+									</div>
+									<div class="total-projects ms-3">
+							
+										<h3 class="text-purple count">{{ $record3 * 50 }}</h3>
+										<span>Review Fee </span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					@endif
 					@if( auth('reviewer')->user()->reviewerType == "internal")
 					<div class="col-xl-4 col-sm-6">
 						<div class="card">
@@ -497,9 +594,34 @@
 												<td>
 													<span>{{ \Carbon\Carbon::parse($val->created_at)->format('Y-m-d') }}</span>
 												</td>
-												<td>
-												<a href="/reviewer/book_view/{{$records->id}}/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
+												@php
+													$user = auth('reviewer')->user();
+													$isPublicReviewer = $user && $user->reviewerType == "public";
+													$rev = $isPublicReviewer
+														? DB::table('book_review_statuses')
+															->where('book_id', $records->id)
+															->where('reviewertype', 'public')
+															->whereNotNull('mark')
+															->count()
+														: 0;
+														
+												@endphp
+												
+												<td data-label="Control">
+													@if($isPublicReviewer && $rev >= 5)
+													<a href="#" data-bs-toggle="modal" data-bs-target="#bookReviewModal">
+														<i class="fa fa-eye p-2" style="color: red;"></i>
+													</a>
+													
+													@else
+													<a href="/reviewer/book_view/{{$records->id}}/{{$val->id}}"> <i class="fa fa-eye p-2"></i></a>
+
+													@endif
 												</td>
+												
+
+
+											
 											</tr>
 											@endforeach
 										</tbody>
@@ -773,6 +895,24 @@
            Support ticket button end
         ***********************************-->
 
+		<div class="modal fade" id="bookReviewModal" tabindex="-1" aria-labelledby="bookReviewModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="bookReviewModalLabel">Book Review Details</h5>
+				  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+				  <!-- Content of the modal goes here -->
+				  <!-- For example, you can load dynamic content here using PHP or JavaScript -->
+				  <p>இந்த நூல் குறைந்த பட்ச மதிப்பீடுகளைப் பெற்றுள்ளது. மேலும் பல நூல்கள் மதிப்பீடு செய்ய வேண்டி இருப்பதால் பிற நூல்களை மதிப்பீடு செய்யவும் நன்றி..</p>
+				</div>
+				<div class="modal-footer">
+				  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
+			  </div>
+			</div>
+		  </div>
 
 	</div>
 	<!--**********************************

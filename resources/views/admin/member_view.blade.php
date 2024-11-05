@@ -226,6 +226,35 @@
                                                 <th scope="row">Phone number</th>
                                                 <td>: {{$data->phoneNumber}} </td>
                                             </tr>
+                                            @if($data->reviewerType == "public")
+                                            @php
+                                                $rev = DB::table('reviewer')->find($data->creater);
+                                            @endphp
+                                            
+                                            @if($rev) <!-- Ensure $rev is not null -->
+                                                <tr>
+                                                    <th class="end"><br>Created By</th>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <th scope="row">Reviewer Name</th>
+                                                    <td>: {{$rev->name}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Reviewer Id</th>
+                                                    <td>: {{$rev->reviewerId}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Reviewer Library Name</th>
+                                                    <td>: {{$rev->libraryName}}</td>
+                                                </tr>
+                                            @else
+                                                <tr>
+                                                    <td colspan="2">No reviewer found.</td>
+                                                </tr>
+                                            @endif
+                                        @endif
+                                        
                                         </tbody>
                                     </table>
                                 </div>
@@ -366,58 +395,60 @@
                                                 </div> -->
 
                                             </div>
-                                            <!-- <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer"> -->
-                              <table id="empoloyees-tbl3" class="table dataTable no-footer" role="grid"
-                                 aria-describedby="empoloyees-tbl3_info">
-
-                                            <!-- <table id="example3" class="table table-bordered dt-responsive nowrap "  style="min-width: 100px"> -->
-                                                <thead>
+                                            <div class="table-responsive">
+                                                <table id="empoloyees-tbl3" class="table dataTable no-footer" role="grid"
+                                                        aria-describedby="empoloyees-tbl3_info">
+    
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sr. No</th>
+                                                            <th>Book Name</th>
+                                                            <th>Book id</th>
+                                                            <th>Publication Name</th>
+                                                            <th>Date</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @if ($data->record !== null)
+                                                  @foreach($data->record as $key => $val)
+    
                                                     <tr>
-                                                        <th>Sr. No</th>
-                                                        <th>Book Name</th>
-                                                        <th>Publication Name</th>
-                                                        <th>Date</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
+                                                        <td>{{$loop->index +1}}</td>
+                                                        <td  style="white-space:normal;">{{$val->bookname}} </td>
+                                                        <td  style="white-space:normal;">{{$val->bookid}} </td>
+                                                        <td style="white-space:normal;">{{ $val->nameOfPublisher }}</td>
+    
+                                                        <td>{{ $val->created_at->format('Y-m-d') }}</td>
+                                                        @if($val->mark !=Null)
+                                                        <td>
+                                                            <span class="badge bg-success">Complete!</span>
+                                                        </td>
+                                                        @else
+                                                        <td>
+                                                            <span class="badge bg-danger">Pending</span>
+                                                        </td>
+                                                        @endif
+                                                        <td>
+                                                        <button type="button" class="btn btn-primary mb-2 mb-md-0 fetch-review-btn"
+                                                        data-remark="{{$val->remark}}"
+                                                        data-review_type="{{$val->review_type}}"
+                                                        data-bookname="{{$val->bookname}}"
+                                                        data-subbookname="{{$val->subbookname}}"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#view_information">
+                                                        <i class="fa fa-eye"></i> View 
+                                                    </button>
+                                                        </td>
                                                     </tr>
-                                                </thead>
-                                                <tbody>
-                                                @if ($data->record !== null)
-                                              @foreach($data->record as $key => $val)
-
-                                                <tr>
-                                                    <td>{{$loop->index +1}}</td>
-                                                    <td  style="white-space:normal;">{{$val->bookname}} </td>
-                                                    <td style="white-space:normal;">{{ $val->nameOfPublisher }}</td>
-
-                                                    <td>{{ $val->created_at->format('Y-m-d') }}</td>
-                                                    @if($val->mark !=Null)
-                                                    <td>
-                                                        <span class="badge bg-success">Complete!</span>
-                                                    </td>
-                                                    @else
-                                                    <td>
-                                                        <span class="badge bg-danger">Pending</span>
-                                                    </td>
-                                                    @endif
-                                                    <td>
-                                                    <button type="button" class="btn btn-primary mb-2 mb-md-0 fetch-review-btn"
-                                                    data-remark="{{$val->remark}}"
-                                                    data-review_type="{{$val->review_type}}"
-                                                    data-bookname="{{$val->bookname}}"
-                                                    data-subbookname="{{$val->subbookname}}"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#view_information">
-                                                    <i class="fa fa-eye"></i> View 
-                                                </button>
-                                                    </td>
-                                                </tr>
-
-                                                        @endforeach
-                                                    @endif
-
-                                                </tbody>
-                                            </table>
+    
+                                                            @endforeach
+                                                        @endif
+    
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>

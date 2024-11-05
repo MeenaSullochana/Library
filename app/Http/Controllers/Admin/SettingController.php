@@ -49,6 +49,9 @@ use App\Models\Librarian;
 use App\Models\Book;
 use App\Models\Reviewer;
 use App\Models\Dispatch;
+use App\Models\BookReviewStatus;
+use App\Models\bookcopies;
+
 
 
 use Illuminate\Support\Facades\Notification;
@@ -3241,33 +3244,34 @@ if($Reviewer->isNotEmpty()){
         $finaldata = [];
         $serialNumber = 1;
         foreach ($Reviewer as $val) {
-     
+        
+             
+            $Reviewer1 = Reviewer::find($val->creater);
 
-     
-              $finaldata[] = [
-               'S.No' =>  $serialNumber ++,
-               'Reviwer Name' =>  $val->name,
-               'Membership Id' =>  $val->membershipId,
-               'Category'=>   $val->Category,
-               'District' =>   $val->district,
-               'Email' =>   $val->email,
-               'Mobile Number' =>   $val->phoneNumber,
-           
-     
-               
-     
-           ];
+               $finaldata[] = [
+                'S.No' =>  $serialNumber ++,
+                'Reviwer Name' =>  $val->name,
+                'Membership Id' =>  $val->membershipId,
+                'Category'=>   $val->Category,
+                'District' =>   $val->district,
+                'Email' =>   $val->email,
+                'Mobile Number' =>   $val->phoneNumber,
+                'Library Name' =>    $Reviewer1->libraryName,
+                'Library Type' =>   $Reviewer1->libraryType,
+      
+                
+      
+            ];
+          
          
-        
+          
+         }
          
-        }
-        
-        $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
-        $csvContent .= "S.No,Reviwer Name,Membership Id,Category,District, Email, Mobile Number\n"; 
-        foreach ($finaldata as $data) {
-            $csvContent .= '"' . implode('","', $data) ."\"\n";
-        }
-     
+         $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+         $csvContent .= "S.No,Reviwer Name,Membership Id,Category,District, Email, Mobile Number,Library Name, Library Type\n"; 
+         foreach ($finaldata as $data) {
+             $csvContent .= '"' . implode('","', $data) ."\"\n";
+         }
         $headers = [
             'Content-Type' => 'text/csv; charset=utf-8',
             'Content-Disposition' => 'attachment; filename="PublicReviewer.csv"',
@@ -3812,11 +3816,823 @@ return view('admin.dispatch_final_report_pdf', compact('data'));
  
 
 }
-}
+// public function vendorwise_bookreport()
+// {
+//     $finaldata = [];
+
+//     // Retrieve all publishers, distributors, and publisher distributors
+//     $publishers = Publisher::all();
+//     $distributors = Distributor::all();
+//     $publisherDistributors = PublisherDistributor::all();
+
+//     // Merge the collections
+//     $mergedCollection = $publishers->concat($distributors)->concat($publisherDistributors);
+//     $serialNumber = 1;
+//     foreach ($mergedCollection as $val) {
+//         // Initialize counts
+//         $books = Book::where('user_id', $val->id)->count();
+//         $notPaidBooks = Book::where('user_id', $val->id)
+//                             ->where('book_procurement_status', '0')
+//                             ->count();
+//         $paidBooks = Book::where('user_id', $val->id)
+//                          ->where('book_procurement_status', '!=', '0')
+//                          ->count();
+//         $metaBookPending = Book::where('user_id', $val->id)
+//                                ->whereNotNull('book_reviewer_id')
+//                                ->where(function ($query) {
+//                                    $query->whereNull('book_status')
+//                                          ->orWhereIn('book_status', ['2', '3']);
+//                                })
+//                                ->count();
+//         $metaBooksCompleted = Book::where('user_id', $val->id)
+//                                   ->whereNotNull('book_reviewer_id')
+//                                   ->whereIn('book_status', ['0', '1'])
+//                                   ->count();
+
+//         // Qualified and Not Qualified books count
+//         $metaFinal = Book::where('user_id', $val->id)
+//                          ->where('book_status', '1')
+//                          ->get();
+
+//         $qualifiedCount = 0;
+//         $notQualifiedCount = 0;
+
+//         foreach ($metaFinal as $book) {
+//             if ($book->marks >= 40) {
+//                 $reviewCompleteCount = BookReviewStatus::where('mark', '!=', null)
+//                                                        ->where('book_id', $book->id)
+//                                                        ->where('reviewertype', 'external')
+//                                                        ->count();
+
+//                 if ($reviewCompleteCount >= 2) {
+//                     $qualifiedCount++;
+//                 } else {
+//                     $notQualifiedCount++;
+//                 }
+//             } else {
+//                 $notQualifiedCount++;
+//             }
+//         }
+
       
+//               if($val->usertype == "publisher_distributor"){
+//                   $type= "publisher cun  distributor";
+//               }else{
+//                 $type = $val->usertype;
+//               }
+               
+              
+//         $obj = (object)[
+//             'S.No' =>  $serialNumber ++,
+//             'Publication Name' => $val->distributionName ?? $val->publicationName ?? $val->publicationDistributionName,
+//             'User Type' => $type,
+//             'Total Books' => $books,
+//             'Paid Books' => $paidBooks,
+//             'Not Paid Books' => $notPaidBooks,
+//             'Meta Complete Books' => $metaBooksCompleted,
+//             'Meta Pending Books' => $metaBookPending,
+//             'Qualified Books' => $qualifiedCount,
+//             'Not Qualified Books' => $notQualifiedCount,
+//         ];
 
-
-
+//         // Add the object to the data array
+//         $finaldata[] = $obj;
+//     }
 
   
 
+//     $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+//     $csvContent .= "S.No,Publication Name,User Type,Total Book,Paid Book,Not Paid Book,Meta Complete Book,Meta Pending Book,Qualified Books,Not Qualified Books\n"; 
+//     foreach ($finaldata as $data) {
+//         // Convert the object to an array before using implode
+//         $csvContent .= '"' . implode('","', (array) $data) . "\"\n";
+//     }
+    
+  
+
+//     $headers = [
+//         'Content-Type' => 'text/csv; charset=utf-8',
+//         'Content-Disposition' => 'attachment; filename="vendorwiseBookReport.csv"',
+//     ];
+
+
+//     return response()->make($csvContent, 200, $headers);
+// }
+
+public function vendorwise_bookreport()
+{
+    $finaldata = [];
+
+    // Retrieve all publishers, distributors, and publisher distributors
+    $mergedCollection = Publisher::query()
+                        ->select('id', 'publicationName', 'usertype')
+                        ->union(
+                            Distributor::query()->select('id', 'distributionName as publicationName', 'usertype')
+                        )
+                        ->union(
+                            PublisherDistributor::query()->select('id', 'publicationDistributionName as publicationName', 'usertype')
+                        )
+                        ->get();
+
+    $serialNumber = 1;
+
+    foreach ($mergedCollection as $val) {
+        // Use a single query to get all necessary counts for books related to the user
+        $bookData = Book::selectRaw("
+        COUNT(*) as totalBooks,
+        SUM(CASE WHEN book_procurement_status = '0' THEN 1 ELSE 0 END) as notPaidBooks,
+        SUM(CASE WHEN book_procurement_status != '0' THEN 1 ELSE 0 END) as paidBooks,
+        SUM(CASE WHEN book_procurement_status = '5' THEN 1 ELSE 0 END) as notSendBookCopies,
+        SUM(CASE WHEN book_procurement_status = '6' THEN 1 ELSE 0 END) as sendBookCopies,
+        SUM(CASE WHEN book_procurement_status = '1' AND book_reviewer_id IS NULL THEN 1 ELSE 0 END) as metaNotAssignedBooks,
+        SUM(CASE WHEN book_reviewer_id IS NOT NULL THEN 1 ELSE 0 END) as metaAssignedBooks,
+        SUM(CASE WHEN book_reviewer_id IS NOT NULL AND (book_status IS NULL OR book_status IN ('2', '3')) THEN 1 ELSE 0 END) as metaBooksPending,
+        SUM(CASE WHEN book_reviewer_id IS NOT NULL AND book_status = '1' THEN 1 ELSE 0 END) as metaBooksCompleted,
+        SUM(CASE WHEN book_reviewer_id IS NOT NULL AND book_status = '0' THEN 1 ELSE 0 END) as metaBooksRejected
+    ")
+    ->where('user_id', $val->id)
+    ->first();
+
+
+        $qualifiedCount = 0;
+        $notQualifiedCount = 0;
+        $notassignedreviewCount = 0;
+        $metaFinal = Book::where('user_id', $val->id)
+                         ->where('book_status', '1')
+                         ->get();
+
+        foreach ($metaFinal as $book) {
+            if ($book->marks >= 40) {
+                $reviewCompleteCount = BookReviewStatus::where('book_id', $book->id)
+                                                       ->whereNotNull('mark')
+                                                       ->where('reviewertype', 'external')
+                                                       ->count();
+                                            
+                if ($reviewCompleteCount >= 1) {
+                    $qualifiedCount++;
+                } else {
+                    $notQualifiedCount++;
+                }
+            } else {
+                $reviewCompleteCount = BookReviewStatus::where('book_id', $book->id) ->count();
+
+                if($reviewCompleteCount !=0){
+                    $notQualifiedCount++;
+
+                }else{
+                    $notassignedreviewCount++;
+                }
+            }
+        }
+
+        $type = $val->usertype == "publisher_distributor" ? "publisher cum distributor" : $val->usertype;
+
+        $finaldata[] = (object)[
+            'S.No' => $serialNumber++,
+            'Publication Name' => $val->publicationName,
+            'User Type' => $type,
+            'Total Book' => $bookData->totalBooks,
+            'Paid Book' => $bookData->paidBooks,
+            'Not Paid Book' => $bookData->notPaidBooks,
+            'Not Send Book Copies' => $bookData->notsendBookcopies,
+            'Copies Not Approved at ACL' => $bookData->sendBookcopies,
+            'Copies Approved at ACL' => $bookData->paidBooks -  $bookData->notsendBookcopies - $bookData->sendBookcopies,
+            'Meta not Assigned' => $bookData->metaNotAssignedBooks,
+            'Meta Assigned' => $bookData->metaAssignedBooks,
+            'Meta Pending Book' => $bookData->metaBookPending,
+            'Meta Complete Book' => $bookData->metaBooksCompleted,
+            'Meta Reject Book' => $bookData->metaBooksreject,
+            'Review Not Assigned Book' => $notassignedreviewCount,
+            'Review Assigned Book' => $qualifiedCount + $notQualifiedCount,
+            'Not Qualified Book' => $notQualifiedCount,
+            'Qualified Book' => $qualifiedCount,
+           
+        ];
+    }
+
+  
+    $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .= "S.No,Publication Name,User Type,Total Book,Paid Book,Not Paid Book,Not Send Book Copies,Copies Not Approved at ACL,Copies Approved at ACL,Meta not Assigned,Meta Assigned,Meta Pending Book,Meta Complete Book,Meta Reject Book,Review Not Assigned Book,Review Assigned Book,Not Qualified Book,Qualified Book\n"; 
+    foreach ($finaldata as $data) {
+        // Convert the object to an array before using implode
+        $csvContent .= '"' . implode('","', (array) $data) . "\"\n";
+    }
+    
+  
+
+    $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="vendorwiseBookReport.csv"',
+    ];
+
+
+    return response()->make($csvContent, 200, $headers);
+}
+
+public function periodical_data_report(Request $req){
+  
+    if($req->type ){
+      
+        if($req->type == "Admin"){
+            $magazine=Magazine::where('user_type','admin')->get();
+        }else{
+            $magazine=Magazine::where('user_type','!=','admin')->get();
+        
+            }
+       if ($magazine->isNotempty()) {
+                
+         $finaldata = [];
+         $serialNumber = 1;
+         foreach ($magazine as $val) {
+               if($val->periodical_procurement_status =="1"  || $val->periodical_procurement_status =="5" || $val->periodical_procurement_status =="6" ){
+                   $status="Payment Success";
+               }else{
+                $status="No Payment";
+               }
+        
+             $finaldata[] = [
+                'S.No' =>  $serialNumber ++,
+               'Title of the Periodical' =>    $val->title,
+               'Language' =>    $val->language,
+               'frequency' =>   $val->periodicity,
+               'RNI number' =>  $val->rni_details,
+               'Category' =>  $val->category,
+               'Name of the Publisher'=>   $val->publisher_name,
+               'Payment status' =>   $status,
+               
+                
+            ];
+          
+         
+    
+          
+         }
+         
+
+         $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+         $csvContent .= "S.No,Title of the Periodical,Language,frequency, RNI number,Category,Name of the Publisher,Payment status\n"; 
+         foreach ($finaldata as $data) {
+             $csvContent .= '"' . implode('","', $data) ."\"\n";
+         }
+    
+         $headers = [
+             'Content-Type' => 'text/csv; charset=utf-8',
+             'Content-Disposition' => 'attachment; filename="periodicalReport.csv"',
+         ];
+    
+         return response()->make($csvContent, 200, $headers);
+
+
+       }else{
+        return back()->with('error', 'No Record Found');
+
+       }
+
+ } else{
+        return back()->with('error', 'Select Vendor Type');
+
+    }
+ 
+   
+}
+public function samplebookpending(Request $req)
+{
+     
+    $data1 = collect();
+  
+    if ($req->Type != null && $req->Librarytype != null) {
+       
+        $status = ($req->Type == "0") ? "0" : "1";
+        $status1 = ($req->Type == "0") ? "1" : "0";
+        $data1 = bookcopies::where('status', '=', $status)
+            ->whereJsonContains('copies', ['librarytype' => $req->Librarytype, 'status' => $status1])
+            ->get();
+    }  elseif ($req->Type !== null) {
+        $status = ($req->Type == "0") ? "0" : "1";
+        $data1 = bookcopies::where('status', '=', $status)->get();
+    }else{
+        $data1 = bookcopies::get();
+    }
+
+  $data = [];
+  foreach ($data1 as $key => $val) {
+    $bookcopies = bookcopies::where('bookid', '=', $val->bookid)->first();
+    $copies =  json_decode($bookcopies->copies);
+    $data2 = Book::find($val->bookid);
+    $data2->copies = $copies;
+    foreach ($copies as $val1) {
+       if($req->Librarytype != null){
+        if( $val1->librarytype == $req->Librarytype){
+            $data2->rec = ($val1->status == "0") ? "pending" : "complete";
+
+        }
+      
+       }else{
+        if( $val1->librarytype == "Anna Centenary Library"){
+            $data2->rec = ($val1->status == "0") ? "pending" : "complete";
+
+        }elseif($val1->librarytype == "Kalaignar Centenary Library"){
+            $data2->rec1 = ($val1->status == "0") ? "pending" : "complete";
+
+        }else{
+            $data2->rec2 = ($val1->status == "0") ? "pending" : "complete";
+
+        }
+       
+       }
+    
+    }
+
+
+    array_push($data, $data2);
+  }
+  
+
+  $finaldata = [];
+  $serialNumber = 1;
+  foreach ($data as $val) {
+        if($val->rec && $val->rec1 && $val->rec2){
+            $pub = Publisher::query()
+            ->where('id', $val->user_id)
+            ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+            ->union(
+                Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+            )
+            ->union(
+                PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+            )
+            ->first();
+            $finaldata[] = [
+                'S.No' =>  $serialNumber++,
+               'Book Title' =>    $val->book_title,
+               'Book Id' =>   $val->product_code,
+               'Publication Name' =>   $val->nameOfPublisher,
+               'Vendor Name'=>   $pub->publicationName ?$pub->publicationName :"" ,
+               'Mobile Number' =>   $pub->mobileNumber,
+               'Anna Centenary Library' =>  $val->rec,
+               'Kalaignar Centenary Library'=>   $val->rec1,
+               'Connemara Public Library' =>   $val->rec2,
+             
+              
+                
+            ];
+         
+        }else{
+           
+            $finaldata[] = [
+                'S.No' =>  $serialNumber++,
+               'Book Title' =>    $val->book_title,
+               'Book Id' =>   $val->product_code,
+               'Publication Name' =>   $val->nameOfPublisher,
+               'Vendor Name'=>   $pub->publicationName ?$pub->publicationName :"" ,
+               'Mobile Number' =>   $pub->mobileNumber,
+
+               $req->Librarytype =>  $val->rec,
+              
+             
+              
+                
+            ];
+         
+        }
+      
+    
+
+   
+  }
+  if(($req->Type != null && $req->Librarytype != null) || ($req->Type == null && $req->Librarytype != null) )  {
+
+
+    $csvContent = "\xEF\xBB\xBF"; 
+    $csvContent .= "S.No,Book Title,Book Id,Publication Name,Vendor Name,Mobile Number,$req->Librarytype\n"; 
+    
+    foreach ($finaldata as $data) {
+        $csvContent .= '"' . implode('","', $data) ."\"\n";
+    }
+  }else{
+
+    $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .= "S.No,Book Title,Book Id,Publication Name,Vendor Name,Mobile Number, Anna Centenary Library,Kalaignar Centenary Library,Connemara Public Library\n"; 
+    foreach ($finaldata as $data) {
+        $csvContent .= '"' . implode('","', $data) ."\"\n";
+    }
+  }
+
+
+
+  $headers = [
+      'Content-Type' => 'text/csv; charset=utf-8',
+      'Content-Disposition' => 'attachment; filename="pendingbookcopiesReport.csv"',
+  ];
+
+  return response()->make($csvContent, 200, $headers);
+}
+
+
+public function notyet_send_bookcopies(Request $req){
+  
+
+     $Book = Book::where('book_procurement_status','5')->orderBy('user_id')->get();
+
+        
+    if ($Book->isNotEmpty()) {
+        $finaldata = [];
+        $serialNumber = 1;
+         foreach ($Book as $val) {
+         $pub = Publisher::query()
+            ->where('id', $val->user_id)
+            ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+            ->union(
+                Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+            )
+            ->union(
+                PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+            )
+            ->first();
+            $Procurementpaymrnt1 = Procurementpaymrnt::where('paidstatus', '1')
+            ->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(bookId, '$')) LIKE ?", ['%"' . $val->id . '"%'])
+            ->first();   
+                  
+                        
+             $finaldata[] = [
+                'S.No' =>  $serialNumber ++,
+               'Book Title' =>    $val->book_title,
+               'Book Id' =>   $val->profuct_code,
+               'Publication Name' =>  $val->nameOfPublication,
+               'Vendor Name'=>   $pub->publicationName ?$pub->publicationName :"" ,
+               'Email' =>   $pub->email,
+               'Mobile Number' =>   $pub->mobileNumber,
+                'Payment Date'  => $Procurementpaymrnt1->created_at->format('m-d-y'),
+            ];
+
+         
+    
+          
+         }
+          
+
+         $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+         $csvContent .= "S.No,Book Title,Book Id,Publication Name,Vendor Name,Email,Mobile Number,Payment Date\n"; 
+         foreach ($finaldata as $data) {
+             $csvContent .= '"' . implode('","', $data) ."\"\n";
+         }
+    
+         $headers = [
+             'Content-Type' => 'text/csv; charset=utf-8',
+             'Content-Disposition' => 'attachment; filename="notyetsendbookcopieschReport.csv"',
+         ];
+    
+         return response()->make($csvContent, 200, $headers);
+
+
+      }else{
+        return back()->with('error',"No Record Found");
+    }
+       
+   
+
+
+
+
+}
+
+
+
+public function master_expertrev_payment(Request $request){
+
+    $query = DB::table('reviewer as r')
+        ->leftJoin('book_review_statuses as br', 'r.id', '=', 'br.reviewer_id')
+        ->select(
+            'r.id',
+            'r.name',
+            'r.subject',
+            'r.email',
+            'r.phoneNumber',
+            'r.designation',
+            'r.organisationDetails',
+            'r.bankName',
+            'r.accountNumber',
+            'r.acc_hol_name',
+            'r.ifscNumber',
+            'r.branch',
+            'r.reviewerType',
+            DB::raw('COUNT(br.reviewer_id) AS book_reviews_count'),
+            DB::raw('COUNT(CASE WHEN br.mark IS NOT NULL THEN 1 END) AS BookReviewcom'),
+            DB::raw('COUNT(CASE WHEN br.mark IS NULL THEN 1 END) AS BookReviewpen')
+        )
+        ->where('r.status', 1)
+        ->whereIn('r.reviewerType', ['external']);
+
+    if ($request->reviewer_filter) {
+        $query->where('r.id', $request->reviewer_filter);
+    }
+    if ($request->has('search') && $request->search != '') {
+        $query->where(function ($subQuery) use ($request) {
+          $subQuery->where('name', 'like', '%' . $request->search . '%')
+              ->orWhere('email', 'like', '%' . $request->search . '%')
+              ->orWhere('phoneNumber', 'like', '%' . $request->search . '%')
+              ->orWhere('designation', 'like', '%' . $request->search . '%')
+              ->orWhere('organisationDetails', 'like', '%' . $request->search . '%');
+            
+         
+      });
+    
+    }
+    $results = $query->groupBy(
+        'r.id', 
+        'r.name', 
+        'r.subject', 
+        'r.email', 
+        'r.phoneNumber', 
+        'r.designation', 
+        'r.organisationDetails', 
+        'r.bankName', 
+        'r.accountNumber', 
+        'r.acc_hol_name', 
+        'r.ifscNumber', 
+        'r.branch', 
+        'r.reviewerType'
+    )->paginate(10); 
+
+    $results->transform(function ($item) {
+        // First, decode the HTML entities (like &quot; and &amp;) in the subject
+        $subject = htmlspecialchars_decode($item->subject, ENT_QUOTES);
+        
+        // Attempt to decode the subject as JSON
+        $subjects = json_decode($subject, true);
+    
+        // Check if it's a valid JSON array
+        if (is_array($subjects)) {
+            // If it's an array, apply htmlspecialchars to each subject and join them into a string
+            $item->subject = implode(', ', array_map('htmlspecialchars', $subjects));
+        } else {
+            // If it's not a valid JSON array, treat it as a string and decode Unicode escape sequences
+            $item->subject = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($matches) {
+                return mb_convert_encoding(pack('H*', $matches[1]), 'UTF-8', 'UCS-2BE');
+            }, $subject);
+        }
+    
+        // Remove any surrounding double quotes or spaces
+        $item->subject = trim($item->subject, " \t\n\r\0\x0B\"");
+    
+        return $item;
+    });
+    
+    
+  
+    return view('admin.report_download_rev_pen_payment')->with('results', $results);
+
+    
+    
+}
+
+
+public function master_expertrev_payment_datareport(Request $request){
+
+    $query = DB::table('reviewer as r')
+        ->leftJoin('book_review_statuses as br', 'r.id', '=', 'br.reviewer_id')
+        ->select(
+            'r.id',
+            'r.name',
+            'r.subject',
+            'r.email',
+            'r.phoneNumber',
+            'r.designation',
+            'r.organisationDetails',
+            'r.bankName',
+            'r.accountNumber',
+            'r.acc_hol_name',
+            'r.ifscNumber',
+            'r.branch',
+            'r.reviewerType',
+            DB::raw('COUNT(br.reviewer_id) AS book_reviews_count'),
+            DB::raw('COUNT(CASE WHEN br.mark IS NOT NULL THEN 1 END) AS BookReviewcom'),
+            DB::raw('COUNT(CASE WHEN br.mark IS NULL THEN 1 END) AS BookReviewpen')
+        )
+        ->where('r.status', 1)
+        ->whereIn('r.reviewerType', ['external']);
+
+    if ($request->reviewer_filter) {
+        $query->where('r.id', $request->reviewer_filter);
+    }
+    if ($request->has('search') && $request->search != '') {
+        $query->where(function ($subQuery) use ($request) {
+          $subQuery->where('name', 'like', '%' . $request->search . '%')
+              ->orWhere('email', 'like', '%' . $request->search . '%')
+              ->orWhere('phoneNumber', 'like', '%' . $request->search . '%')
+              ->orWhere('designation', 'like', '%' . $request->search . '%')
+              ->orWhere('organisationDetails', 'like', '%' . $request->search . '%');
+            
+         
+      });
+    
+    }
+    $results = $query->groupBy(
+        'r.id', 
+        'r.name', 
+        'r.subject', 
+        'r.email', 
+        'r.phoneNumber', 
+        'r.designation', 
+        'r.organisationDetails', 
+        'r.bankName', 
+        'r.accountNumber', 
+        'r.acc_hol_name', 
+        'r.ifscNumber', 
+        'r.branch', 
+        'r.reviewerType'
+    )->get(); 
+
+    $results->transform(function ($item) {
+        // First, decode the HTML entities (like &quot; and &amp;) in the subject
+        $subject = htmlspecialchars_decode($item->subject, ENT_QUOTES);
+        
+        // Attempt to decode the subject as JSON
+        $subjects = json_decode($subject, true);
+    
+        // Check if it's a valid JSON array
+        if (is_array($subjects)) {
+            // If it's an array, apply htmlspecialchars to each subject and join them into a string
+            $item->subject = implode(', ', array_map('htmlspecialchars', $subjects));
+        } else {
+            // If it's not a valid JSON array, treat it as a string and decode Unicode escape sequences
+            $item->subject = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($matches) {
+                return mb_convert_encoding(pack('H*', $matches[1]), 'UTF-8', 'UCS-2BE');
+            }, $subject);
+        }
+    
+        // Remove any surrounding double quotes or spaces
+        $item->subject = trim($item->subject, " \t\n\r\0\x0B\"");
+    
+        return $item;
+    });
+    
+    
+    $finaldata = [];
+         $serialNumber = 1;
+         foreach ($results as $val) {
+            
+        
+             $finaldata[] = [
+                'S.No' =>  $serialNumber ++,
+               'Expert Name' =>    $val->name,
+               'Subject' =>   $val->subject,
+               'Email' =>  $val->email,
+               'Mobile Number'=>   $val->phoneNumber,
+               'Designation' =>   $val->designation,
+               'Organisation Details' =>   $val->organisationDetails,
+               'Account Holder Name' =>   $val->acc_hol_name,
+               'Bank Name' =>   $val->bankName,
+               'Branch' =>   $val->branch,
+               'IFSC Number' =>   $val->ifscNumber,
+               'Account Number' =>   $val->accountNumber,
+               'Number Of Books Assigned' =>   $val->book_reviews_count,
+               'Number Of Books Completed' =>   $val->BookReviewcom,
+               'Number Of Books Pending' =>   $val->BookReviewpen,
+               'Amount Per Book(Rs.50)' =>   50,
+               'Total Amount' =>   $val->BookReviewcom * 50,
+            ];
+          
+         
+    
+          
+         }
+
+         $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+         $csvContent .= "S.No,Expert Name,Subject,Email,Mobile Number,Designation,Organisation Details,Account Holder Name,Bank Name,Branch,IFSC Number,Account Number,Number Of Books Assigned,Number Of Books Completed,Number Of Books Pending,Amount Per Book(Rs.50),Total Amount\n"; 
+         foreach ($finaldata as $data) {
+            $csvContent .= '"' . implode('","', (array) $data) . "\"\n";
+        }
+    
+         $headers = [
+             'Content-Type' => 'text/csv; charset=utf-8',
+             'Content-Disposition' => 'attachment; filename="ExpertreviewfeeReport.csv"',
+         ];
+    
+         return response()->make($csvContent, 200, $headers);
+        
+    
+    
+}
+public function expert_review_assessment_report(Request $request){
+
+
+    $query = DB::table('reviewer as r')
+    ->leftJoin('book_review_statuses as br', function ($join) use ($request) {
+        $join->on('r.id', '=', 'br.reviewer_id');
+
+        if ($request->status == 'Pending') {
+            $join->whereNull('br.mark');
+        } elseif ($request->status == 'Complete') {
+            $join->whereNotNull('br.mark');
+        }
+ 
+
+    })
+    ->rightJoin('books as br1', 'br.book_id', '=', 'br1.id')
+    ->select(
+        'r.id',
+        'r.name',
+        'r.subject',
+        'br1.book_title',
+        'br1.product_code',
+        'br1.nameOfPublisher',
+        DB::raw("CASE WHEN br.mark IS NULL THEN 'Pending' ELSE 'Complete' END AS mark_status"),
+        DB::raw(" br.review_type  AS type"),
+        DB::raw("CASE WHEN br.mark IS NULL THEN '' ELSE DATE_FORMAT(br.updated_at, '%d-%m-%y') END AS reviewdate"),
+
+    )
+    ->where('r.status', 1)
+    ->whereIn('r.reviewerType', ['external'])
+    ->groupBy('r.id', 'r.name', 'r.subject', 'br1.book_title', 'br1.product_code', 'br.mark','br.review_type', 'br.updated_at','br1.nameOfPublisher');
+
+    if ($request->reviewer_filter) {
+        $query->where('r.id', $request->reviewer_filter);
+    }
+
+    if ($request->has('search') && $request->search != '') {
+        $query->where(function ($subQuery) use ($request) {
+            $subQuery->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('book_title', 'like', '%' . $request->search . '%')
+                ->orWhere('product_code', 'like', '%' . $request->search . '%')
+                ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+                ->orWhere('review_type', 'like', '%' . $request->search . '%');
+            
+        });
+    }
+
+    if ($request->has('review_Type') && $request->review_Type != '') {
+        $query->where(function ($subQuery) use ($request) {
+            $subQuery->where('review_type', 'like', '%' . $request->review_Type . '%');
+              
+            
+        });
+    }
+
+
+    $results = $query->get();
+    $results->transform(function ($item) {
+        $subject = htmlspecialchars_decode($item->subject, ENT_QUOTES);
+        
+        $subjects = json_decode($subject, true);
+    
+        if (is_array($subjects)) {
+            $item->subject = implode(', ', array_map('htmlspecialchars', $subjects));
+        } else {
+            $item->subject = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($matches) {
+                return mb_convert_encoding(pack('H*', $matches[1]), 'UTF-8', 'UCS-2BE');
+            }, $subject);
+        }
+    
+        $item->subject = trim($item->subject, " \t\n\r\0\x0B\"");
+    
+        return $item;
+    });
+    
+    if(count($results) != 0){
+   
+        $finaldata = [];
+        $serialNumber = 1;
+        foreach ($results as $val) {
+           
+       
+            $finaldata[] = [
+               'S.No' =>  $serialNumber ++,
+              'Expert Name' =>    $val->name,
+              'Subject' =>   $val->subject,
+              'Book Id' =>  $val->product_code,
+              'Title Of The Book'=>   $val->book_title,
+              'Publication Name' =>   $val->nameOfPublisher,
+              'Review Date' =>   $val->reviewdate,
+              'Review Status' =>   $val->mark_status,
+              'Review Ratings' =>   $val->type,
+   
+           ];
+         
+        
+   
+         
+        }
+
+        $csvContent ="\xEF\xBB\xBF"; 
+        $csvContent .= "S.No,Expert Name,Subject,Book Id,Title Of The Book,Publication Name,Review Date,Review Status,Review Ratings\n"; 
+        foreach ($finaldata as $data) {
+           $csvContent .= '"' . implode('","', (array) $data) . "\"\n";
+       }
+   
+        $headers = [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="Expert_assessment_review_Report.csv"',
+        ];
+   
+        return response()->make($csvContent, 200, $headers);
+    }else{
+        return back()->with('error',"No Record Found");
+
+    }
+  
+
+}
+    
+
+}
