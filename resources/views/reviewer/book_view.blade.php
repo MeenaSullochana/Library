@@ -1405,6 +1405,77 @@
         });
     </script>
 
+<script>
+document.addEventListener('keydown', function(e) {
+    var modal = document.getElementById('modalId');
+    var isModalOpen = modal && modal.classList.contains('show');
+        if(@json($data->sample_file) =="Pdf"){
+            switch (e.keyCode) {
+            case 37: 
+                console.log('Left arrow key pressed');
+                document.getElementById('prev').click();
+                break;
+            case 39: 
+                console.log('Right arrow key pressed');
+                document.getElementById('next').click();
+                break;
+                case 38: // Up arrow key
+                e.preventDefault();
+                console.log('Up arrow key pressed');
+                document.querySelector('.modal-dialog-scrollable .modal-body').scrollBy(0, -100);
+                break;
+                case 40: // Down arrow key
+                e.preventDefault();
+                    console.log('Down arrow key pressed');
+                    document.querySelector('.modal-dialog-scrollable .modal-body').scrollBy(0, 100);
+                break;
+        }
+        }else if (@json($data->sample_file) ==epub){
+           
+             switch (e.keyCode) {
+                  case 37: // Left arrow key
+                    e.preventDefault();
+                    var prevButtonEPUB = document.getElementById('prev');
+                    if (prevButtonEPUB) {
+                        console.log('EPUB Prev button found, clicking...');
+                        prevButtonEPUB.click();
+                    } else {
+                        console.warn('EPUB Prev button not found');
+                    }
+                    break;
+
+             case 39: // Right arrow key
+                    e.preventDefault();
+                    var nextButtonEPUB = document.getElementById('next');
+                    if (nextButtonEPUB) {
+                        console.log('EPUB Next button found, clicking...');
+                        nextButtonEPUB.click();
+                    } else {
+                        console.warn('EPUB Next button not found');
+                    }
+                   
+                    break;
+                }
+             }else{
+                 
+             switch (e.keyCode) {
+                  case 38: // Up arrow key
+                e.preventDefault();
+                console.log('Up arrow key pressed');
+                document.querySelector('.modal-dialog-scrollable .modal-body').scrollBy(0, -100);
+                break;
+                case 40: // Down arrow key
+                e.preventDefault();
+                    console.log('Down arrow key pressed');
+                    document.querySelector('.modal-dialog-scrollable .modal-body').scrollBy(0, 100);
+                break;
+                 }
+          }
+       
+    
+    
+});
+</script>
 
 
 

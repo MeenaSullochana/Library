@@ -1321,6 +1321,72 @@ Route::post('/dispatch_finalreport',[SettingController::class,'dispatch_finalrep
 Route::get('/dispatch_final_report_pdf',function(){ return view('admin.dispatch_final_report_pdf');});
 Route::get('/dispatch_final_report_pdf',[SettingController::class,'dispatch_final_report_pdf']);
 
+Route::get('/master_nego_periodical_data',[MagazineController::class,'master_nego_periodical_data']);
+ 
+Route::get('/master_nego_periodical_datareport',[MagazineController::class,'master_nego_periodical_datareport']);
+
+Route::get('/negotiation_periodical_list',[MagazineController::class,'negotiation_periodicallist']);
+
+Route::get('/exportrevdetailsreport',[BookController::class,'exportrevdetailsreport']);
+
+
+Route::post('/approveperiodicalnegotiationstatus',[MagazineController::class,'approveperiodicalnegotiationstatus']);
+
+Route::post('/sendnegotiation_periodical',[MagazineController::class,'sendnegotiation_periodical']);
+Route::post('/multisendperiodicalnegotiation',[MagazineController::class,'multisendperiodicalnegotiation']);
+
+Route::get('/nego_pending_periodical_ist',function(){ return view('admin.nego_pending_periodical_ist');});
+Route::get('/nego_approved_periodical_list',function(){ return view('admin.nego_approved_periodical_list');});
+
+Route::get('/nego_failed_periodical_list',function(){ return view('admin.nego_failed_periodical_list');});
+Route::get('/negotiation_process_periodical_list',function(){ return view('admin.negotiation_process_periodical_list');});
+
+Route::post('/holdperiodicalnegotiationstatus',[MagazineController::class,'holdperiodicalnegotiationstatus']);
+
+
+Route::get('/negotiation_hold_periodical_list',function(){ return view('admin.negotiation_hold_periodical_list');});
+
+Route::post('/rejectperiodicalnegotiationstatus',[MagazineController::class,'rejectperiodicalnegotiationstatus']);
+
+
+
+Route::get('/vendorwise_bookreport ',[SettingController::class,'vendorwise_bookreport']);
+
+
+Route::get('/vendor-wise-book-data',function(){ return view('admin.vendor-wise-book-data');});
+Route::get('/periodical_data_report',function(){ return view('admin.periodical_data_report');});
+Route::POST('/periodical_data_report ',[SettingController::class,'periodical_data_report']);
+
+
+Route::get('/master_nego_notqualified_book_data',[BookController::class,'master_nego_notqualified_book_data']);
+Route::get('/master_nego_notqualified_book_datareport',[BookController::class,'master_nego_notqualified_book_datareport']);
+
+Route::POST('/samplebookpending ',[SettingController::class,'samplebookpending']);
+Route::get('/book_copies_report',function(){ return view('admin.book_copies_report');});
+
+Route::get('/notyet_send_book_copies',function(){ return view('admin.notyet_send_book_copies');});
+Route::get('/notyet_send_bookcopies ',[SettingController::class,'notyet_send_bookcopies']);
+
+Route::get('/master_expertrev_payment',[SettingController::class,'master_expertrev_payment']);
+Route::get('/master_expertrev_payment_datareport',[SettingController::class,'master_expertrev_payment_datareport']);
+
+Route::get('/expert_review_assessment_report',[SettingController::class,'expert_review_assessment_report']);
+
+Route::get('/expert_review_assessment',function(){ return view('admin.expert_review_assessment');});
+Route::get('/newone',function(){ return view('admin.newone');});
+
+Route::get('/dispatch_magazine_list',function(){ return view('admin.dispatch_magazine_list');});
+Route::get('/periodical_dispatch_list/{id}',[MagazineController::class,'periodical_dispatch_list']);
+
+Route::get('/periodical-dispatch',function(){
+    $data = Session::get('Dispatch');
+    if($data !==null){
+        return view('admin.dispatch_periodical_view')->with("data",$data);
+    }
+    
+});
+Route::POST('/periodical_dispatch_update',[MagazineController::class,'periodical_dispatch_update']);
+
 
     });
    

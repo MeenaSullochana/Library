@@ -15,6 +15,8 @@ use App\Models\Publisher;
 use App\Models\Distributor;
 use Illuminate\Support\Facades\Hash;
 use File;
+use App\Models\Accountdetail;
+
 class DistributorController extends Controller
 {
     
@@ -179,5 +181,52 @@ class DistributorController extends Controller
                 }
              
     }
-       
+    public function accountdetails(Request $req){
+      
+        $validator = Validator::make($req->all(),[
+            'pan_num'=>'required|string',
+            'acc_num'=>'required|string',
+            'ifsc_code'=>'required',
+            'bank_name'=>'required|string',
+            'branch'=>'required|string',
+            'acc_type'=>'required',
+            'acc_hol_name'=>'required',
+        ]);
+        if($validator->fails()){
+            $data= [
+                'error' => $validator->errors()->first(),
+                     ];
+            return response()->json($data);
+
+        }
+              $publisher=auth('distributor')->user();
+            
+                $Accountdetail = new Accountdetail();
+
+             $Accountdetail->pan_num= $req->pan_num;
+             $Accountdetail->acc_num= $req->acc_num;
+             $Accountdetail->ifsc_code= $req->ifsc_code;
+             $Accountdetail->bank_name= $req->bank_name;
+             $Accountdetail->branch= $req->branch;
+             $Accountdetail->acc_type= $req->acc_type;
+             $Accountdetail->acc_hol_name= $req->acc_hol_name;
+             $Accountdetail->user_id= $publisher->id;
+             $Accountdetail->user_type= $publisher->usertype;
+            if($Accountdetail->save()){
+                
+                $data= [
+                'success' => 'Account Details  Updated  Successfully',
+                        ];
+            return response()->json($data);
+            }
+            
+
+        
+    }
+    public function aacountdetail(){
+        $id=auth('distributor')->user()->id;
+        $data =Accountdetail::where('user_id', $id)->first();
+        return view('distributor.aacountdetails')->with('data',$data);
+
+    }
     }

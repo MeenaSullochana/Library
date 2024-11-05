@@ -5,6 +5,7 @@ use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Librarian;
+use App\Models\BookReviewStatus;
 
 
 class Book extends Model
@@ -78,4 +79,9 @@ class Book extends Model
     public function librarian() {
         return $this->belongsTo(Librarian::class, 'book_reviewer_id');
     }
+    public function BookReviewStatus() {
+        return $this->hasMany(BookReviewStatus::class, 'book_id', 'id'); // Use 'book_id' to link correctly
+    }
+
+    
 }

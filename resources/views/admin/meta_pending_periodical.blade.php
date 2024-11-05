@@ -57,7 +57,7 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Meta Pending Periodical List</b>
                             </h3>
-                            <a class="btn btn-primary btn-sm" href="/admin/meta_book_list">
+                            <a class="btn btn-primary btn-sm" href="/admin/meta_periodical_list">
                                 <i class="fas fa-plus"></i> Meta Periodical List</a>
 
                   
@@ -95,7 +95,7 @@
                                                 <td>
                                                     <div class="products">
                                                         <div>
-                                                            <h6><a class="text-left" href="/admin/book_manage_view/{{$val->id}}">{{$val->title}}</a></h6>
+                                                            <h6><a class="text-left" href="/admin/magazine_views/{{$val->id}}">{{$val->title}}</a></h6>
                                                             
                                                         </div>
                                                     </div>
@@ -103,7 +103,7 @@
                                                 <td><span>{{$val->periodicity}}</span></td>
 
                                                 <td>
-                                                    <span></span>
+                                                <span>{{$metachecker->librarianName}}</span>
                                                 </td>
                                                 <td>
                                                     <span>{{$val->user_type}}</span>
@@ -114,7 +114,7 @@
                                                 </td>
                                                 <td data-label="controlq">
                                                     <div class="d-flex mt-p0 justify-content-center">
-                                                        <a href="/admin/librarianview/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                        <a href="/admin/magazine_views/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                                             <i class="fa fa-eye"></i>
                                                         </a>
                                             

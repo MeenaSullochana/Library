@@ -271,7 +271,7 @@
 </script>
    <script>
     $(document).ready(function () {
-        var deleteId;
+      
 
         $('.delete-btn').on('click', function () {
             deleteId = $(this).data('id');

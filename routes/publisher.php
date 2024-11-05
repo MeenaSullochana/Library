@@ -219,7 +219,13 @@ Route::prefix('publisher')->group(function () {
      Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
 
      Route::post('/procurementbokkcopies-send',[BookController::class,'procurementbokkcopies_send']);
+     Route::post('/accountdetails',[PublisherController::class,'accountdetails']);
+     Route::get('/aacountdetail',[PublisherController::class,'aacountdetail']);
 
+     Route::get('/pub_basic_details',[PublisherController::class,'pub_basic_details']);
+     Route::post('/update_accountdetails',[PublisherController::class,'update_accountdetails']);
+
+     
 
     //  
     });

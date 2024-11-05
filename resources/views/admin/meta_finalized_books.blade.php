@@ -95,7 +95,7 @@
                                                 <th>Category</th>
                                                 <th>Subject</th>
                                                 <th>Publication Name</th>
-
+                                                <th>Vendor Name</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -112,8 +112,24 @@
                                             $datass = DB::table('book_review_statuses')
                                             ->where('book_id', $val->id)
                                             ->first();
-
+                                            
                                             if ($datass == null) {
+                                                $pub = DB::table('publishers')
+                                                    ->where('id', $val->user_id) // Check for the user_id in the publishers table
+                                                    ->select('id', 'publicationName', 'usertype', 'mobileNumber', 'email') // Select these fields
+                                                    ->union(
+                                                        DB::table('distributors') // Union with distributors table
+                                                        ->where('id', $val->user_id) // Check for the same user_id
+                                                        ->select('id', 'distributionName as publicationName', 'usertype', 'mobileNumber', 'email') // Select and rename publicationName
+                                                    )
+                                                    ->union(
+                                                        DB::table('publisher_distributors') // Union with publisher_distributors table
+                                                        ->where('id', $val->user_id) // Check for the same user_id
+                                                        ->select('id', 'publicationDistributionName as publicationName', 'usertype', 'mobileNumber', 'email') // Select and rename publicationName
+                                                    )
+                                                    ->first();
+                                                $val->vendorname =  $pub->publicationName;
+  
                                             array_push($categori, $val);
                                             }
                                             }
@@ -136,7 +152,7 @@
                                                 <td>{{ $val->category }}</td>
                                                 <td>{{ $val->subject }}</td>
                                                 <td>{{$val->nameOfPublisher}}</td>
-
+                                                <td>{{$val->vendorname}}</td>
                                                 <td data-label="controlq">
                                           <div class="d-flex mt-p0">
                                              <a href="/admin/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">

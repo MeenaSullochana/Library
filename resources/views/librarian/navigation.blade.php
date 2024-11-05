@@ -513,36 +513,35 @@
 
                     @if(auth('librarian')->user()->metaChecker =="yes")
               
-                    <li>
-                        <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                            <i class="bi bi-bag"></i>
-                            <span class="nav-text">Meta Management</span>
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-card-checklist"></i>
+                            <span class="nav-text">Book Meta </span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Book Meta
-                                </a>
-                                    <ul aria-expanded="false">
-                                    <li><a href="/librarian/meta_book_list">Meta Book Check List</a></li>
-                                    <li><a href="/librarian/meta_pending">Pending Book</a></li>
-                                    <li><a href="/librarian/meta_complete_book_list">Completed Book</a></li>
-                                    <li><a href="/librarian/meta_return">Return Book</a></li>
-                                    <li><a href="/librarian/meta_update_return">Return Updated Book</a></li>
+                            <li><a href="/librarian/meta_book_list">Meta Book Check List</a></li>
+                            <li><a href="/librarian/meta_pending">Pending Book</a></li>
+                            <li><a href="/librarian/meta_complete_book_list">Completed Book</a></li>
+                            <li><a href="/librarian/meta_return">Return Book</a></li>
+                            <li><a href="/librarian/meta_update_return">Return Updated Book</a></li>
 
-                                     <li><a href="/librarian/meta_reject">Reject Book</a></li>
-                                    </ul>
-                            </li>
-                            <li><a class="has-arrow" href="#" aria-expanded="false">Periodical Meta
-                                </a>
-                                <ul aria-expanded="false">
-                                <li><a href="/librarian/meta_periodical_list">Meta Periodical Check List</a></li>
+                            <li><a href="/librarian/meta_reject">Reject Book</a></li>
+
+                        </ul>
+                    </li>
+
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                    <i class="bi bi-newspaper"></i>
+                            <span class="nav-text"> Periodical Meta </span>
+                        </a>
+                        <ul aria-expanded="false">
+                        <li><a href="/librarian/meta_periodical_list">Meta Periodical Check List</a></li>
                             <li><a href="/librarian/meta_periodical_pending">Pending Periodical</a></li>
                             <li><a href="/librarian/meta_complete_periodical_list">Completed Periodical</a></li>
                             <li><a href="/librarian/meta_periodical_return">Return Periodical</a></li>
                             <li><a href="/librarian/meta_periodical_update_return">Return Updated Periodical</a></li>
 
                             <li><a href="/librarian/meta_periodical_reject">Reject Periodical</a></li>
-                                </ul>
-                            </li>
+
                         </ul>
                     </li>
 

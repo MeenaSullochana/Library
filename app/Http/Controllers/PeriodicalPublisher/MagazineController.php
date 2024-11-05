@@ -1104,6 +1104,62 @@ $id=auth('periodical_publisher')->user()->id;
 $data=Magazine::where('user_id','=',$id)->where('periodical_procurement_status','=',"1")->where('periodical_status','=',"3")->get();
 return view('periodical_publisher.periodical_procurement_return_update')->with('data',$data);
 }
+public function sendnegotiationstatus(Request $req) {
+  $periodicalid=$req->periodicalid;
+  $status=$req->status;
+
+ if($status == "Accept"){
+  $data1 = Magazine::find($periodicalid);
+  $data1->final_price= $data1->calculated_price;
+  $data1->negotiation_status ="2";
+  $data1->save();
+  $data= [
+      'success' => 'Accepted Successfully',
+           ];
+  return response()->json($data);
+ }else{
+  $data1 = Magazine::find($periodicalid);
+  $data1->negotiation_status ="3";
+  $data1->save();
+  $data= [
+      'success' => 'Reject Successfully',
+           ];
+  return response()->json($data);
+ }
+
+
+
+
+
+}
+public function sendnegotiationsamount(Request $req) {
+
+ if($req->amount !=null){
+  $data1 = Magazine::find($req->periodicalId);
+
+  $data1->negotiation_percentage = $req->percentage;
+
+  
+  $data1->negotiation_status = "1";
+  $data1->negotiation_price = $req->amount;
+  $data1->negotiation_message = $req->Description;
+  $data1->save();
+
+  $data = [
+      'success' => 'Negotiation send Successfully',
+  ];
+
+  return response()->json($data);
+ }else{
+  $data = [
+      'error' => 'Amount Filed is  Required',
+  ];
+
+  return response()->json($data);
+ }
+
+
+}
 
   }
 

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,9 +22,23 @@
     <?php
     include 'librarian/plugin/plugin_css.php';
     ?>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    /* Custom modal size */
+    .modal-lg-custom {
+        max-width: 90%;
+        /* Adjust the percentage for larger or smaller size */
+    }
 
+    .modal-body-custom {
+        max-height: 800vh;
+        /* Adjust the height to control scrolling */
+        overflow-y: auto;
+        /* Enable vertical scrolling */
+    }
+    </style>
 </head>
 
 <body>
@@ -62,8 +77,8 @@
                             <h3 class="mb-0 bc-title">
                                 <b>View Periodical</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href=" {{ url('librarian/magazine_list') }}">
-                                <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Periodical </a>
+                            <!-- <a class="btn btn-primary  btn-sm" href=" {{ url('librarian/magazine_list') }}">
+                                <i class="fa fa-angle-double-left" aria-hidden="true"></i> List of Periodical </a> -->
                         </div>
                     </div>
                 </div>
@@ -223,14 +238,10 @@
     
                                     </div>
                                     <div class="col-md-12 mb-3">
-                                        <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle"
-                                            role="button">Read PDF</a>
-                                
-                                        <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle1"
-                                            role="button">Read PDF</a>
-                                   
-                                        <a class="btn btn-primary " data-bs-toggle="modal" href="#exampleModalToggle2"
-                                            role="button">Read PDF</a>
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">
+                                            Open Modal with Tabs
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -281,7 +292,6 @@
                                         <div class="col-md-6 col-6 mt-4">
                                             <span style="font-size:14px">: {{$data->annual_cost_after_discount}}</span>
                                         </div>
-                                        
                                         <div class="col-md-6 col-6 mt-4">
                                             <div class="text-title text-danger">
                                                 <b style="font-size:14px">Total Number of Pages </b>
@@ -296,7 +306,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-6 mt-4">
-                                            <span style="font-size:14px">: {{$data->editor_name}}</span>
+                                            <span style="font-size:14px">:{{$data->editor_name}}</span>
                                         </div>
                                         <div class="col-md-6 col-6 mt-4">
                                             <div class="text-title text-danger">
@@ -548,7 +558,62 @@
     <!--**********************************
             Support ticket button end
             ***********************************-->
-
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg-custom">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal with Tabs</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <!-- Nav tabs -->
+                  
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Sample Issue One </a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sample Issue Two</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Sample Issue Three</a>
+                        </li>
+                    </ul>
+                 
+                    <!-- Tab panes -->
+                    <div class="tab-content mt-3">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="pdf-viewer" id="viewer-home"></div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="pdf-viewer" id="viewer-profile"></div>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <div class="pdf-viewer" id="viewer-contact"></div>
+                        </div>
+                    </div>
+                        <div class="tab-content mt-3">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="pdf-viewer" id="viewer-home"></div>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="pdf-viewer" id="viewer-profile"></div>
+                        </div>
+                        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                            <div class="pdf-viewer" id="viewer-contact"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="button" id="saveButton" data-dataid="{{ $data->id }}"
+                            data-revid="{{$data->revid }}" class="btn btn-primary">Review</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     </div>
     <!--**********************************
@@ -557,115 +622,10 @@
     <?php
     include 'librarian/plugin/plugin_js.php';
     ?>
-    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-        tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel">
-                        Read magazine Sample
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-
-                    @if($data->pdf1 == null)
-                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
-                    @else
-                    @if(file_exists(public_path('Magazine/pdf1/' . $data->pdf1)))
-
-                    <iframe src="{{ asset('Magazine/pdf1/' . $data->pdf1) }}" style="width:100%; height:1000px;"
-                        frameborder="0"></iframe>
-                    @else
-                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
-                    @endif
-
-                    @endif
-
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="exampleModalToggle1" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-        tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel">
-                        Read magazine Sample
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-
-                    @if($data->pdf2 == null)
-                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
-                    @else
-                    @if(file_exists(public_path('Magazine/pdf2/' . $data->pdf2)))
-
-                    <iframe src="{{ asset('Magazine/pdf2/' . $data->pdf2) }}" style="width:100%; height:1000px;"
-                        frameborder="0"></iframe>
-                    @else
-                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
-                    @endif
-
-                    @endif
-
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
 
-    <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-        tabindex="-1">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel">
-                        Read magazine Sample
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-
-                    @if($data->pdf3 == null)
-                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
-                    @else
-                    @if(file_exists(public_path('Magazine/pdf3/' . $data->pdf3)))
-
-                    <iframe src="{{ asset('Magazine/pdf3/' . $data->pdf3) }}" style="width:100%; height:1000px;"
-                        frameborder="0"></iframe>
-                    @else
-                    <iframe src="" style="width:100%; height:1000px;" frameborder="0"></iframe>
-                    @endif
-
-                    @endif
-
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="modal fade" id="exampleModalTogglerni" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
     tabindex="-1">
@@ -695,6 +655,89 @@
         </div>
     </div>
 </div>
+<script>
+        $(document).ready(function() {
+            $('#saveButton').click(function() {
+                var dataId = $(this).data('dataid');
+                var librarianId = $(this).data('revid');
+
+
+                window.location.href = '/librarian/review_post_periodical/' + dataId + '/' + librarianId;
+            });
+        });
+        </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+
+        function renderPDF(url, viewerId) {
+            var loadingTask = pdfjsLib.getDocument(url);
+            loadingTask.promise.then(function(pdf) {
+                var totalPages = pdf.numPages;
+                var viewer = document.getElementById(viewerId);
+                viewer.innerHTML = ''; // Clear previous content
+
+                function renderPage(pageNumber) {
+                    pdf.getPage(pageNumber).then(function(page) {
+                        var scale = 1.9;
+                        var viewport = page.getViewport({ scale: scale });
+
+                        var canvas = document.createElement('canvas');
+                        var context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        var renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+
+                        page.render(renderContext).promise.then(function() {
+                            viewer.appendChild(canvas); // Append each page's canvas
+                            if (pageNumber < totalPages) {
+                                renderPage(pageNumber + 1); // Render the next page
+                            }
+                        });
+                    });
+                }
+
+                renderPage(1); // Start rendering from the first page
+            }).catch(function(error) {
+                console.error('Error loading PDF:', error);
+                var viewer = document.getElementById(viewerId);
+                viewer.innerHTML = '<p>Error loading PDF. Please try again later.</p>';
+            });
+        }
+
+        function getPdfUrls() {
+            return {
+                home: "{{ asset('Magazine/pdf1/' . $data->pdf1) }}",
+                profile: "{{ asset('Magazine/pdf2/' . $data->pdf2) }}",
+                contact: "{{ asset('Magazine/pdf3/' . $data->pdf3) }}"
+            };
+        }
+
+        // Initial rendering of all PDFs when the modal is shown
+        var modalEl = document.getElementById('exampleModal');
+        modalEl.addEventListener('shown.bs.modal', function() {
+            var pdfUrls = getPdfUrls();
+            for (var key in pdfUrls) {
+                if (pdfUrls.hasOwnProperty(key)) {
+                    var viewerId = 'viewer-' + key;
+                    // Check if the PDF has not been rendered yet
+                    if (document.getElementById(viewerId) && !document.getElementById(viewerId).hasChildNodes()) {
+                        renderPDF(pdfUrls[key], viewerId);
+                    }
+                }
+            }
+        });
+    });
+</script>
+
 
     <style>
     .bg-main {
@@ -705,3 +748,32 @@
         width: 75px !important;
     }
     </style>
+    <style>
+    .tab-content {
+        position: relative;
+    }
+
+    .pdf-viewer {
+        max-height: 500px; /* Adjust this height as needed */
+        overflow-y: auto;
+    }
+
+    .tab-pane {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tab-content::-webkit-scrollbar {
+        width: 12px; /* Adjust scrollbar width if needed */
+    }
+
+    .tab-content::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.5); /* Adjust color if needed */
+        border-radius: 6px;
+    }
+
+    .tab-content::-webkit-scrollbar-track {
+        background-color: #f1f1f1; /* Adjust track color if needed */
+    }
+</style>

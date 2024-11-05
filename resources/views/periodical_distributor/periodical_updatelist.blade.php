@@ -125,7 +125,7 @@
                                            </td>
 
                                            <td>
-                                        <a class="badge bg-success delete-btn" data-id="{{ $val->id }}" data-bs-toggle="modal" data-bs-target="#myModal22">Click To Send Return Periodical</a>
+                                        <a class="badge bg-success delete-btn" data-id="{{ $val->id }}" data-bs-toggle="modal" data-bs-target="#myModal22">Click To Send <br> Return Periodical</a>
                                                    </td>
                                                </a>
                                                <td>

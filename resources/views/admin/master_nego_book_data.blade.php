@@ -240,6 +240,7 @@
                                         <th>Author Details</th>
                                         <th>Edition Number</th>
                                         <th>Name of Publisher</th>
+                                        <th>Vendor Name</th>
                                         <th>Year of Publication</th>
                                         <th>Place of Publication</th>
                                         <th>Subject</th>
@@ -283,13 +284,18 @@
                                                 <th>Total Review Mark</th>
                                 
                                         <th>Book View</th>
+                                        <th>Review View</th>
                                         <th>User View</th>
                                         <!-- <th> Book Edit</th> -->
                                     </tr>
                                 </thead>
+                                @php
+                                    $count= 0;
+                                @endphp
                                 <tbody>
                                     @foreach($data as $val)
-
+                                    @if($val->rexternalcount >=2)
+                                   
                              <tr role="row" class="odd">
                                         <td class="sorting_1">
                                             <div class="form-check custom-checkbox">
@@ -298,7 +304,10 @@
                                                 <label class="form-check-label" for="customCheckBox3"></label>
                                             </div>
                                         </td>
-                                        <td><span>{{$loop->index + 1}}</span></td>
+                                        <td><span>{{$count}}</span></td>
+                                        @php
+                                    $count= $count + 1;
+                                @endphp
                                         <td>
                                             <div class="products">
                                                 <div>
@@ -311,7 +320,7 @@
                                             <div class="products">
                                                 <div>
                                                     <!-- <h6>#40597</h6> -->
-                                                    <span>{{$val->book_title}}</span>
+                                                    <span style="white-space:normal;">{{$val->book_title}}</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -350,6 +359,13 @@
                                             <div class="products">
                                                 <div>
                                                     <span>{{$val->nameOfPublisher}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{$val->vendorname}}</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -540,7 +556,17 @@
                             </a>
                         </div>
                     </td>
+                    <td data-label="controlq">
+                        <div class="d-flex mt-p0">
+                            <a href="/admin/procur_complete_view/{{$val->id}}"
+                                class="btn btn-primary shadow btn-sm m-0 me-1"> <i
+                                class="fa fa-list" aria-hidden="true"></i>
+                            </a>
 
+
+
+                        </div>
+                    </td>
                     <td data-label="controlq">
                         <div class="d-flex mt-p0">
 
@@ -573,6 +599,7 @@
                     </td> -->
                     
                     </tr>
+                    @endif
                     @endforeach
                     </tbody>
                     </table>

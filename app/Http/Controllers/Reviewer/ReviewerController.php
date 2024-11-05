@@ -18,6 +18,8 @@ use App\Models\PublisherDistributor;
 use App\Models\BookReviewStatus;
 use App\Models\Reviewer;
 use App\Models\Mailurl;
+use DB;
+use App\Models\PeriodicalReviewStatus;
 
 
 use Illuminate\Support\Facades\Hash;
@@ -31,18 +33,68 @@ class ReviewerController extends Controller
     public function reviewlist(){
 
         $reviewer=auth('reviewer')->user();
-        $data = BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->get();
+        // $data = BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->get();
         $totalreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->count();
-        $pendingreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->count();
+        // $pendingreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->count();
         $completedreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','!=',null)->count();
-        if(sizeof($data) != 0){
-        foreach($data as $key=>$val){
-            $rec = Book::find($val->book_id);
-            $val->book = $rec;
+      
+        $recordcont = 0;
+        $user = auth('reviewer')->user();
+        $id = $user->id;
+        $pendingreview = 0;
+        
+        if ($user->reviewerType == "external") {
+            $revget = DB::table('book_review_statuses')
+            ->where('reviewer_id', $id)
+            ->whereNull('mark')
+            ->get();
+        $pendingreview = $revget->count();
+        } else if (in_array($user->reviewerType, ['public', 'internal'])) {
+            $reviewTypeLimit = $user->reviewerType == "public" ? 5 : 3;
+    
+            $revget = DB::table('book_review_statuses as brs')
+            ->select('brs.id', 'brs.book_id', 'brs.created_at', 'brs.reviewer_id', 'brs.mark')
+            ->where('brs.reviewer_id', $id)
+            ->where('brs.reviewertype', $user->reviewerType)
+            ->whereNull('brs.mark')
+            ->whereRaw('(
+                SELECT COUNT(*) 
+                FROM book_review_statuses 
+                WHERE book_id = brs.book_id 
+                AND reviewertype = brs.reviewertype
+                AND mark IS NOT NULL
+            ) < ?', [$reviewTypeLimit])
+            ->get();
+        
+            // Get count of pending reviews
+            $pendingreview = $revget->count();
+        
+            $anotherVariable = DB::table('book_review_statuses as brs')
+            ->select('brs.id', 'brs.book_id', 'brs.created_at', 'brs.reviewer_id', 'brs.mark')
+            ->where('brs.reviewer_id', $id)
+                ->where('brs.reviewertype', $user->reviewerType)
+    
+                ->whereNull('brs.mark')
+                ->whereRaw('(
+                    SELECT COUNT(*) 
+                    FROM book_review_statuses 
+                    WHERE book_id = brs.book_id 
+                    AND reviewertype =brs.reviewertype
+                    AND mark IS NOT NULL
+                ) >= ?', [$reviewTypeLimit])
+                ->get();
+        
+        $recordcont = $anotherVariable->count();
+        
         }
-      }
-
-        return view('reviewer.review_book_list',compact('data','totalreview','pendingreview','completedreview'));
+        $data= $revget;
+        if(sizeof($data) != 0){
+            foreach($data as $key=>$val){
+                $rec = Book::find($val->book_id);
+                $val->book = $rec;
+            }
+          }
+        return view('reviewer.review_book_list',compact('data','totalreview','pendingreview','completedreview','recordcont'));
     }
 
     public function reviewpost($bookid,$revid){
@@ -102,19 +154,19 @@ class ReviewerController extends Controller
            $sumexternal= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','external')->where('mark','!=',null)->sum('mark');
            $sumpublic= BookReviewStatus::where('book_id',$req->bookid)->where('reviewertype','public')->where('mark','!=',null)->sum('mark');
            if(($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
-                     $mark = ($sumexternal/($externalcount * 20))*100;
+                     $mark = ($sumexternal/($rexternalcount))*3;
            }else if(($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)){
-                     $mark = ($suminternal/($internalcount * 20))*100;
+                     $mark = ($suminternal/($rinternalcount))*1;
            }else if(($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)){
-                      $mark = ($sumpublic/($publiccount * 20))*100;
+                      $mark = ($sumpublic/($rpubliccount))*1;
            }else if($externalcount == 0 || $rexternalcount == 0){
-                    $mark = (($suminternal/($internalcount * 20))*50)+(($sumpublic/($publiccount * 20))*50);
+                    $mark = (($suminternal/($rinternalcount))*1)+(($sumpublic/($rpubliccount))*1);
            }else if($internalcount == 0 || $rinternalcount == 0){
-                    $mark = (($sumexternal/($externalcount * 20))*70)+(($sumpublic/($publiccount * 20))*30);
+                    $mark = (($sumexternal/($rexternalcount))*3)+(($sumpublic/($rpubliccount))*1);
            }else if($publiccount == 0 || $rpubliccount == 0){
-                  $mark = (($sumexternal/($externalcount * 20))*70)+(($suminternal/($internalcount * 20))*30);
+                  $mark = (($sumexternal/($rexternalcount))*3)+(($suminternal/($rinternalcount))*1);
            }else{
-                  $mark = (($sumexternal/($externalcount * 20))*60)+(($suminternal/($internalcount * 20))*20)+(($sumpublic/($publiccount * 20))*20);
+                  $mark = (($sumexternal/($rexternalcount))*3)+(($suminternal/($rinternalcount))*1)+(($sumpublic/($rpubliccount))*1);
            }
        }
       
@@ -130,7 +182,7 @@ class ReviewerController extends Controller
         $reviewer=auth('reviewer')->user();
         $data = BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','!=',null)->get();
         $totalreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->count();
-        $pendingreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->count();
+        // $pendingreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->count();
         $completedreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','!=',null)->count();
         if(sizeof($data) != 0){
         foreach($data as $key=>$val){
@@ -138,7 +190,57 @@ class ReviewerController extends Controller
             $val->book = $rec;
         }
       }
-        return view('reviewer.review_complete',compact('data','totalreview','pendingreview','completedreview'));
+      $recordcont = 0;
+    $user = auth('reviewer')->user();
+    $id = $user->id;
+    $pendingreview = 0;
+    
+    if ($user->reviewerType == "external") {
+        $pendingReviewCount = DB::table('book_review_statuses')
+        ->where('reviewer_id', $id)
+        ->whereNull('mark')
+        ->get();
+    $pendingreview = $pendingReviewCount->count();
+    } else if (in_array($user->reviewerType, ['public', 'internal'])) {
+        $reviewTypeLimit = $user->reviewerType == "public" ? 5 : 3;
+
+        $revget = DB::table('book_review_statuses as brs')
+        ->select('brs.id', 'brs.book_id', 'brs.created_at', 'brs.reviewer_id', 'brs.mark')
+        ->where('brs.reviewer_id', $id)
+        ->where('brs.reviewertype', $user->reviewerType)
+        ->whereNull('brs.mark')
+        ->whereRaw('(
+            SELECT COUNT(*) 
+            FROM book_review_statuses 
+            WHERE book_id = brs.book_id 
+            AND reviewertype = brs.reviewertype
+            AND mark IS NOT NULL
+        ) < ?', [$reviewTypeLimit])
+        ->get();
+    
+        // Get count of pending reviews
+        $pendingreview = $revget->count();
+    
+        $anotherVariable = DB::table('book_review_statuses as brs')
+        ->select('brs.id', 'brs.book_id', 'brs.created_at', 'brs.reviewer_id', 'brs.mark')
+        ->where('brs.reviewer_id', $id)
+            ->where('brs.reviewertype', $user->reviewerType)
+
+            ->whereNull('brs.mark')
+            ->whereRaw('(
+                SELECT COUNT(*) 
+                FROM book_review_statuses 
+                WHERE book_id = brs.book_id 
+                AND reviewertype =brs.reviewertype
+                AND mark IS NOT NULL
+            ) >= ?', [$reviewTypeLimit])
+            ->get();
+    
+    $recordcont = $anotherVariable->count();
+    
+    }
+    
+        return view('reviewer.review_complete',compact('data','totalreview','pendingreview','completedreview','recordcont'));
     }
 
     public function bookview($id,$revid){
@@ -1215,8 +1317,79 @@ public function review_periodical_complete(){
         $val->periodical = $rec;
     }
   }
+  
     return view('reviewer.review_periodical_complete',compact('data','totalreview','pendingreview','completedreview'));
 }
 
+
+public function review_hold_book_list(){
+
+    $reviewer=auth('reviewer')->user();
+    // $data = BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->get();
+    $totalreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->count();
+    // $pendingreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','=',null)->count();
+    $completedreview =  BookReviewStatus::where('reviewer_id',$reviewer->id)->where('mark','!=',null)->count();
+    $recordcont = 0;
+    $user = auth('reviewer')->user();
+    $id = $user->id;
+    $pendingreview = 0;
+    
+    if ($user->reviewerType == "external") {
+        $pendingReviewCount = DB::table('book_review_statuses')
+        ->where('reviewer_id', $id)
+        ->whereNull('mark')
+        ->get();
+    $pendingreview = $pendingReviewCount->count();
+    } else if (in_array($user->reviewerType, ['public', 'internal'])) {
+        $reviewTypeLimit = $user->reviewerType == "public" ? 5 : 3;
+
+        $revget = DB::table('book_review_statuses as brs')
+        ->select('brs.id', 'brs.book_id', 'brs.created_at', 'brs.reviewer_id', 'brs.mark')
+        ->where('brs.reviewer_id', $id)
+        ->where('brs.reviewertype', $user->reviewerType)
+        ->whereNull('brs.mark')
+        ->whereRaw('(
+            SELECT COUNT(*) 
+            FROM book_review_statuses 
+            WHERE book_id = brs.book_id 
+            AND reviewertype = brs.reviewertype
+            AND mark IS NOT NULL
+        ) < ?', [$reviewTypeLimit])
+        ->get();
+    
+        // Get count of pending reviews
+        $pendingreview = $revget->count();
+    
+        $anotherVariable = DB::table('book_review_statuses as brs')
+        ->select('brs.id', 'brs.book_id', 'brs.created_at', 'brs.reviewer_id', 'brs.mark')
+        ->where('brs.reviewer_id', $id)
+            ->where('brs.reviewertype', $user->reviewerType)
+
+            ->whereNull('brs.mark')
+            ->whereRaw('(
+                SELECT COUNT(*) 
+                FROM book_review_statuses 
+                WHERE book_id = brs.book_id 
+                AND reviewertype =brs.reviewertype
+                AND mark IS NOT NULL
+            ) >= ?', [$reviewTypeLimit])
+            ->get();
+    
+    $recordcont = $anotherVariable->count();
+    
+    }
+
+    $data= $anotherVariable;
+    if(sizeof($data) != 0){
+        foreach($data as $key=>$val){
+            $rec = Book::find($val->book_id);
+            $val->book = $rec;
+        }
+      }
+
+
+
+    return view('reviewer.review_hold_book_list',compact('data','totalreview','pendingreview','completedreview','recordcont'));
+}
 
 }

@@ -125,15 +125,15 @@
                                            </td>
 
                                            <td>
-                                        <a class="badge bg-success delete-btn" data-id="{{ $val->id }}" data-bs-toggle="modal" data-bs-target="#myModal22">Click To Send Return Periodical</a>
+                                        <a class="badge bg-success delete-btn" data-id="{{ $val->id }}" data-bs-toggle="modal" data-bs-target="#myModal22">Click To Send <br> Return Periodical</a>
                                                    </td>
-                                               </a>
+                                             
                                                <td>
                                           <a class="btn btn-primary mb-2" data-bs-toggle="modal" data-id="{{$val->return_message}}" data-bs-target="#myModal">View</a>
                                      </td>
                                     <td data-label="controlq">
 
-                                          <a href="/periodical_publisher/magazine_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                          <a href="/periodical_publisher/magazine_views/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                           <i class="fa fa-eye"></i>
                                           <a href="/periodical_publisher/magazine_edit/{{$val->id}}" class="btn btn-warning shadow btn-xs sharp me-1">
                                                 <i class="fa fa-edit"></i>

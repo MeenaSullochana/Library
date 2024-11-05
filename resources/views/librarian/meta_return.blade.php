@@ -203,6 +203,7 @@
                                                 <th>Publication Name</th>
                                                 <th> Name Of The Vendor</th>
                                                 <th>Mobile Number</th>
+                                                <th>Correction Send Date</th>
                                                 <th>Meta Check</th>
                                                 <th class="text-end">Control</th>
                                             </tr>
@@ -264,7 +265,9 @@
                                                 <span>{{$data3->mobileNumber}}</span>
                                                 </td>
                                                 @endif
-
+                                                <td>
+                                                    <span>{{$val->return_message_date}}</span>
+                                                 </td>
                                                 @if($val->book_status=='2')
                                                 <td> <span class="badge bg-success text-white">Returned To
                                                         @if($val->user_type == "publisher_distributor")

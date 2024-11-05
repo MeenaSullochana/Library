@@ -1349,6 +1349,13 @@
                             <span class="nav-text">Review Book List</span>
                         </a>
                     </li>
+					@if(auth('reviewer')->user()->reviewerType == "public" || auth('reviewer')->user()->reviewerType  == "internal")
+					<li><a href="/reviewer/review_hold_book_list" class="" aria-expanded="false">
+						<i class="bi bi-check"></i>
+                            <span class="nav-text">Hold List</span>
+                        </a>
+                    </li>
+					@endif
 					<li><a href="/reviewer/review_complete" class="" aria-expanded="false">
 						<i class="bi bi-journal-check"></i>
                             <span class="nav-text">Completed Book</span>

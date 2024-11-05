@@ -65,9 +65,19 @@
                         </div>
                     </div>
                 </div>
+                {{-- <div class="col-xl-12 col-sm-12 mt-4 text-end">
+                        
+                    <a href="samplebookpending" class="btn btn-info">
+                        <span class="btn-icon-start text-info"><i class="fa fa-file-excel-o"></i></span>
+                        Export Copies Not Received Books
+                    </a>
+
+                </div> --}}
                 <div class="row bg-white p-2">
+         
                     <div class="col-xl-12">
                         <div class="card-body p-0">
+                 
                             <div class="table-responsive active-projects style-1 ItemsCheckboxSec shorting ">
 
                                 <div id="empoloyees-tbl3_wrapper" class="dataTables_wrapper no-footer">

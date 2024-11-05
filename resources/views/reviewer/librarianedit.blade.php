@@ -96,7 +96,7 @@
                                                                 <label class="form-label">District</label>
                                                                 <select name="district" class="form-select"
                                                                     id="district">
-                                                                    <option value="$data->district" Readonly>
+                                                                    <option value="{{$data->district}}" Readonly>
                                                                         {{$data->district}}</option>
 
                                                                     <!-- @php

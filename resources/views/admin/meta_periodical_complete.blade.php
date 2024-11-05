@@ -57,7 +57,7 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Meta Complete Periodical List</b>
                             </h3>
-                            <a class="btn btn-primary  btn-sm" href="/admin/meta_book_list">
+                            <a class="btn btn-primary  btn-sm" href="/admin/meta_periodical_list">
                                 <i class="fas fa-plus"></i> Meta Periodical List</a>
                             <!-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
                         <i class="fas fa-plus"></i> Add Book</a> -->
@@ -114,7 +114,7 @@
                                                 <td>
                                                     <div class="products">
                                                         <div>
-                                                            <h6><a class="text-left" href="/admin/magazine_view/{{$val->id}}">{{$val->title}}</a></h6>
+                                                            <h6><a class="text-left" href="/admin/magazine_views/{{$val->id}}">{{$val->title}}</a></h6>
 
                                                         </div>
                                                     </div>
@@ -133,7 +133,7 @@
                                                     <span> <span class="badge bg-danger">Return To Publisher</span></span>
 
                                                     @elseif($val->periodical_status == 3)
-                                                    <span> <span class="badge bg-danger">Book Update To Return</span></span>
+                                                    <span> <span class="badge bg-danger">Periodical Update To Return</span></span>
                                                             @else
                                                     <span> <span class="badge bg-danger">Rejected</span></span>
 
@@ -141,7 +141,7 @@
                                                 </td>
                                                 <td data-label="controlq">
                                                     <div class="d-flex mt-p0 justify-content-center">
-                                                        <a href="/admin/magazine_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
+                                                        <a href="/admin/magazine_views/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
                                                             <i class="fa fa-eye"></i>
                                                             @if($val->periodical_status=='0')
                                                     <a class="btn btn-primary mb-2" data-bs-toggle="modal" data-id="{{$val->reject_message}}" data-bs-target="#myModal">View</a>

@@ -150,7 +150,7 @@
                                             <td>{{$val->publisher_name}}</td>
                                             <td data-label="controlq">
                                                 <div class="d-flex mt-p0">
-                                                    <a href="/admin/magazine_view/{{ $val->id }}"
+                                                    <a href="/admin/magazine_views/{{ $val->id }}"
                                                         class="btn btn-success shadow btn-xs sharp me-1">
                                                         <i class="fa fa-eye"></i>
                                                     </a>

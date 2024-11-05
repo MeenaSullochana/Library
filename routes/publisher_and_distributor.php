@@ -211,5 +211,11 @@ Route::post('/multibookdelete',[BookController::class,'multibookdelete']);
            Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
            Route::post('/procurementbokkcopies-send',[BookController::class,'procurementbokkcopies_send']);
 
+
+           Route::get('/aacountdetail',[PublisherDistributorController::class,'aacountdetail']);
+
+           Route::get('/pub_basic_details',[PublisherDistributorController::class,'pub_basic_details']);
+      
+     
 });
 });

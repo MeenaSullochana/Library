@@ -2085,9 +2085,9 @@
                             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Management Subscriptions </a>
                                 <ul aria-expanded="false">
                                     <!-- <li><a href="./user.html">Publisher List</a></li> -->
-                                    <li><a href="/admin/subscription_add"> Subscriptions Add</a></li>
-                                    <li><a href="/admin/subscription_list"> Subscriptions List</a></li>
-
+                                    {{-- <li><a href="/admin/subscription_add"> Subscriptions Add</a></li>
+                                    <li><a href="/admin/subscription_list"> Subscriptions List</a></li> --}}
+                                    <li><a href="/admin/dispatch_magazine_list"> Subscriptions List</a></li>
 
                                     <!-- <li><a href="./app-profile-2.html">Profile 2 <span class="badge badge-danger badge-xs ms-1">NEW</span></a></li>
 									<li><a href="./edit-profile.html">Edit Profile</a></li>
@@ -2098,9 +2098,11 @@
                     </li>
                     <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-journal-plus"></i>
-                            <span class="nav-text">Management Negotiation</span>
+                            <span class="nav-text">Book Negotiation</span>
                         </a>
                         <ul aria-expanded="false">
+                      <li><a href="master_nego_notqualified_book_data">Not Qualified Book List</a></li>
+
                         <li><a href="master_nego_book_data">Master Negotiation List</a></li>
 
                             <li><a href="negotiation_price_upload">Price Upload </a></li>
@@ -2114,6 +2116,26 @@
 
                         </ul>
                     </li>
+
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <i class="bi bi-journal-plus"></i>
+                            <span class="nav-text">Periodical Negotiation</span>
+                        </a>
+                        <ul aria-expanded="false">
+                        <li><a href="master_nego_periodical_data">Master Negotiation List</a></li>
+
+                            <li><a href="negotiation_price_upload">Price Upload </a></li>
+                            <li><a href="negotiation_periodical_list">Negotiation List</a></li>
+                            <li><a href="nego_pending_periodical_ist">Pending list</a></li>
+                             <li><a href="negotiation_process_periodical_list">Process list</a></li>
+                            <li><a href="negotiation_hold_periodical_list">Hold list</a></li>
+                            <li><a href="nego_approved_periodical_list">Approved List</a></li> 
+
+                            <li><a href="nego_failed_periodical_list">Rejected list</a></li> 
+
+                        </ul>
+                    </li>
+
                     <li>
                         <a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-book"></i>
@@ -2376,12 +2398,14 @@
                             </li> -->
                         </ul>
                     </li>
-                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                    {{-- <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                             <i class="bi bi-printer"></i>
                             <span class="nav-text">Report Management</span>
                         </a>
                         <ul aria-expanded="false">
-                            {{-- <li><a href="report_download">Book Fair Report Download</a></li> --}}
+                            <li><a href="/admin/vendor-wise-book-data">VendorWise Book Data</a></li>
+                            <li><a href="/admin/periodical_data_report">Periodical Report Download</a></li>
+
                             <li><a href="report_download_publisher">Publisher Report Download</a></li>
                             <li><a href="/admin/report_download_distributor">Distributor Report Download</a></li>
                             <li><a href="report_download_pub_dist">Publisher Cum Distributor Report Download</a></li>
@@ -2404,11 +2428,112 @@
                             <li><a href="Dispatch_library_report">Dispatch Not Yet Completed</a></li> 
                             <li><a href="dispatch_final_report">Dispatch Final Report</a></li> 
                             <li><a href="dispatch_final_report_pdf">Dispatch Final Pdf Report</a></li> 
+                            <li><a href="dispatch_final_report_pdf">Dispatch Final Pdf Report</a></li> 
+                            <li><a href="book_copies_report">Book Copies Report</a></li> 
+
 
                             
                             
                         </ul>
+                    </li> --}}
+
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                        <i class="bi bi-printer"></i>
+                        <span class="nav-text">Report Management</span>
+                    </a>
+                        
+                    <ul aria-expanded="false">
+                        <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Vendor Report
+                            </a>
+                        <ul aria-expanded="false">
+                            <li><a href="report_download_publisher">Publisher Report Download</a></li>
+                            <li><a href="/admin/report_download_distributor">Distributor Report Download</a></li>
+                            <li><a href="report_download_pub_dist">Publisher Cum Distributor Report Download</a></li>
+                            <li><a href="periodical_publisher_report">Report Download Periodical Publisher</a></li> 
+                            <li><a href="periodical_distributor_report">Report Download Periodical Distributor</a></li> 
+                        </ul>
                     </li>
+            
+
+                <ul aria-expanded="false">
+                    <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Book Report
+                        </a>
+                    <ul aria-expanded="false">
+                        <li><a href="/admin/vendor-wise-book-data">VendorWise Book Data</a></li>
+                        <li><a href="report_download_bookadd">Book Count Report Download</a></li> 
+                        <li><a href="book_copies_report">Book Copies Report</a></li> 
+                        <li><a href="notyet_send_book_copies">Notyet Send Book Copies Report</a></li> 
+
+                        
+                        <li><a href="meta_checking_book_list">Report Download Meta Checking Book List</a></li> 
+
+
+                    </ul>
+                </li>
+      
+
+            <ul aria-expanded="false">
+                <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Librarian Report
+                    </a>
+                <ul aria-expanded="false">
+                    <li><a href="librarian_password_report">Librarian Change Password Report</a></li>
+
+
+
+                </ul>
+            </li>
+    
+
+        
+            <ul aria-expanded="false">
+                <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Reviewer Report
+                    </a>
+                <ul aria-expanded="false">
+                
+                    <li><a href="report_download_reviwer">Reviewer Report Download</a></li>
+                    <li><a href="report_download_pub_revi">Publisher & Reviewer Report Download</a></li>
+                    <li><a href="master_expertrev_payment"> Master Exper Reviewer Data</a></li>
+                    <li><a href="expert_review_assessment"> Exper Reviewer Assessment Report</a></li>
+
+                  
+                </ul>
+            </li>
+     
+            <ul aria-expanded="false">
+                <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Periodical Report
+                    </a>
+                <ul aria-expanded="false">
+                    <li><a href="/admin/periodical_data_report">Periodical Report Download</a></li>
+                    <li><a href="report_download_oedermagazine">Report Download Order Periodical</a></li> 
+                    <li><a href="report_download_order_districtmagazine">Report Download Order District Periodical</a></li> 
+                    <li><a href="report_download_nonoeder_magazine">Report Download  Non Order Periodical</a></li> 
+
+                    <li><a href="report_download_order">Order Management Download</a></li>
+                 
+                    <li><a href="magazine_dispatch_report">Periodical Dispatch Report</a></li> 
+                    <li><a href="lbrary_dispatch_report">Library  Dispatch Report</a></li> 
+                    <li><a href="Dispatch_library_report">Dispatch Not Yet Completed</a></li> 
+                    <li><a href="dispatch_final_report">Dispatch Final Report</a></li> 
+                    <li><a href="dispatch_final_report_pdf">Dispatch Final Pdf Report</a></li> 
+                </ul>
+            </li>
+    
+                      
+                <ul aria-expanded="false">
+                    <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Payment Report
+                        </a>
+                    <ul aria-expanded="false">
+                        <li><a href="report_download_payment">Payment Report Download</a></li>
+
+
+                    </ul>
+                </li>
+            </ul>
+                      
+                      
+
+                    </ul>
+                </li>
                     <!-- <li><a href="#" class="" aria-expanded="false">
                             <div class="menu-icon">
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

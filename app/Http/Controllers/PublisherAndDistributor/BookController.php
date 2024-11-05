@@ -656,6 +656,7 @@ public function book_edit($id){
 
 
   public function update(Request $request){
+  
     $validator= Validator::make($request->all(),[
         'book_title'                          =>['required'],
         'weight'                          =>['required'],
@@ -716,6 +717,8 @@ if(!isset($request->banner_img)){
        }
 $book->series =        json_encode($series)  ;
 
+}else{
+    $book->series =       NULL;
 }
     //    volume
 if($request->volume_number[0] !=null && $request->volume_title[0] !=null && $request->isbn_number1[0] !=null ){
@@ -735,7 +738,9 @@ if($request->volume_number[0] !=null && $request->volume_title[0] !=null && $req
     }
          $book->volume =        json_encode($volume)  ;
 
-       }
+       }else{
+        $book->volume =       NULL;
+    }
 
 //Sample Files
 if(isset($request->sample_file)){
@@ -888,10 +893,14 @@ if(isset($request->other_img)){
        $book->primaryauthor =      json_encode( $request->primaryauthor) ;
        if($request->trans_author[0] !=null || $request->trans_author[1] !=null || $request->trans_author[2] !=null ){
         $book->trans_author =        json_encode($request->trans_author)  ?? Null;
+       }else{
+        $book->trans_author =NULL;
        }
        if($request->trans_from[0] !=null || $request->trans_from[1] !=null ){
         $book->trans_from =        json_encode($request->trans_from)  ?? Null;
 
+       }else{
+        $book->trans_from =NULL;
        }
        $book->discountedprice =        $request->discountedprice1;
        $book->discount =       $request->discount ;

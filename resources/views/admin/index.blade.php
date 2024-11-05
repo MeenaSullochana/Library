@@ -4056,7 +4056,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-12">
+                                {{-- <div class="col-xl-12">
                                     <div class="card same-card chart-chart">
                                         <div class="card-body d-flex align-items-center  py-2">
                                             <div id="AllProject"></div>
@@ -4088,7 +4088,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
@@ -4115,8 +4115,10 @@
                     <div class="card-header d-flex justify-content-between"> 
                     <h4 class="heading mb-0">Book Report</h4>
                                   <button type="button" class="btn btn-primary" id="print_invoice" onclick="generatePdf()"><span class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
-                               </div>
-                                    <div class="card-body p-3" id='print-pdf'>
+                                  <button class="btn btn-primary print-button"
+                                  onclick="printDiv()">Print</button>
+                                </div>
+                                    <div class="card-body p-3 printableArea" id='print-pdf'>
                                 
                                         <div class="table-responsive active-projects" >
                                         <div class="tbl-caption text-center">
@@ -4328,6 +4330,35 @@ Not Completed: {{ $bookTotals['metnotcomooktotal'] }}
             <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $bookTotals['metcomooktotal'] }}</td>
 
         </tr>
+
+
+
+
+        <td><strong>  Books Qualified For Negotiation </strong></td>
+            </tr>
+            <tr>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Category</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Details</th>
+            <th style="border: 1px solid black; padding: 10px; text-align: left;">Count</th>
+
+        </tr>
+            
+        <tr>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">Total Books</td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">
+               
+               Two Expert Review Qualified Book: {{ $resultscount }}<br>
+               One Expert Review Qualified Book: {{ $resultscount2 }}<br>
+                {{-- Mot Qualified Books : {{ $resultscount1 - $resultscount }}<br>
+                Qualified And Two External Reviews Completed Book: {{ $resultscount }}<br> --}}
+              
+                
+            </td>
+            <td style="border: 1px solid black; padding: 10px; text-align: left;">{{ $resultscount}}</td>
+            
+        </tr>
+
+        
     </tbody>
 </table>
 
@@ -4880,4 +4911,18 @@ toastr.error("{{ Session::get('error') }}",{timeout:15000});
         let htmlElement = document.getElementById('print-pdf');
         html2pdf().from(htmlElement).save('book_report.pdf');
     }
+</script>
+
+<script>
+function printDiv() {
+    var printContents = document.querySelector('.printableArea').innerHTML;
+    var originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+    location.reload(); // Reload the page to restore the original content
+}
 </script>

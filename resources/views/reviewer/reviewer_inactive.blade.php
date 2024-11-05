@@ -16,7 +16,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Inctive Reviewer List</title>
+    <title>Government of Tamil Nadu - Book Procurement - All Reviewer List</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('reviewer/images/fevi.svg') }}">
     <?php
@@ -59,10 +59,10 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Inctive Public Reviewer List</b>
+                                <b>Public Reviewer List</b>
                             </h3>
                             <a class="btn btn-primary  btn-sm" href="/reviewer/reviewer_create">
-                                <i class="fas fa-plus"></i> Add Reviewer</a>
+                                <i class="fas fa-plus"></i> Add Public Reviewer</a>
 
                         </div>
                     </div>
@@ -73,7 +73,8 @@
                         <button class="btn btn-info assignPro mb-5 justify-content-between active-btn"
                             data-bs-toggle="modal" data-bs-target="#basicModal" data-state="active">Active</button>
 
-                        <!-- <button class="btn  btn-danger assignPro mb-5 justify-content-between inactive-btn" data-bs-toggle="modal" data-bs-target="#basicModal1" data-state="inactive">Inactive</button> -->
+                        <button class="btn  btn-danger assignPro mb-5 justify-content-between inactive-btn"
+                            data-bs-toggle="modal" data-bs-target="#basicModal1" data-state="inactive">Inactive</button>
 
                     </span>
                 </div>
@@ -103,6 +104,18 @@
                                                     style="width: 145.219px;">Profile</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
                                                     rowspan="1" colspan="1"
+                                                    aria-label="Profile: activate to sort column ascending"
+                                                    style="width: 145.219px;">No. of Books Assigned</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Profile: activate to sort column ascending"
+                                                    style="width: 145.219px;">No. of Review Completed</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Profile: activate to sort column ascending"
+                                                    style="width: 145.219px;">No. of Review Pending</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
+                                                    rowspan="1" colspan="1"
                                                     aria-label="Email: activate to sort column ascending"
                                                     style="width: 109.984px;">Email</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
@@ -113,10 +126,10 @@
                                                     rowspan="1" colspan="1"
                                                     aria-label="Role Type: activate to sort column ascending"
                                                     style="width: 65.3594px;">Role Type</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Status: activate to sort column ascending"
-                                                    style="width: 72.7031px;"> Active Status</th>
+                                                    style="width: 72.7031px;"> Active Status</th> -->
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
                                                     rowspan="1" colspan="1"
                                                     aria-label="Status: activate to sort column ascending"
@@ -129,116 +142,136 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                                $rev = DB::table('reviewer')->where('status', '=', '0')->where('reviewerType', '=','public')->where('creater','=',auth('reviewer')->user()->id)->get();
+                                            $rev = DB::table('reviewer')->where('reviewerType',
+                                            '=','public')->where('creater','=',auth('reviewer')->user()->id)->get();
                                             @endphp
+
                                             @foreach ($rev as $val)
-                                                <tr role="row" class="odd">
-                                                    <td class="sorting_1">
-                                                        <div class="form-check custom-checkbox">
-                                                            <input type="checkbox"
-                                                                class="form-check-input revieweritem"
-                                                                id="customCheckBox100"
-                                                                data-reviewer-id="{{ $val->id }}"
-                                                                value="{{ $val->id }}">
-                                                            <label class="form-check-label"
-                                                                for="customCheckBox100"></label>
-                                                        </div>
-                                                    </td>
-                                                    <td><span>{{ $loop->index + 1 }}</span></td>
-                                                    <td class="py-3">
-                                                        <a href="#">
-                                                            <div class="media d-flex align-items-left">
-                                                                @if ($val->profileImage != null)
-                                                                    <div class="avatar avatar-sm me-2">
-                                                                        <div class=""><img
-                                                                                class="rounded-circle img-fluid"
-                                                                                src="{{ asset('reviewer/ProfileImage/' . $val->profileImage) }}"
-                                                                                width="30" alt="">
-                                                                        </div>
-                                                                    </div>
-                                                                @else
-                                                                    <div class="avatar avatar-sm me-2">
-                                                                        <div class=""> <img
-                                                                                class="rounded-circle img-fluid"
-                                                                                src='{{ asset('images/default.png') }}'
-                                                                                width="30" alt="">
-                                                                        </div>
-                                                                    </div>
-                                                                @endif
-                                                                <div class="media-body">
-                                                                    <h6 class="mb-0 fs--1">{{ $val->name }}</h6>
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">
+                                                    <div class="form-check custom-checkbox">
+                                                        <input type="checkbox" class="form-check-input revieweritem"
+                                                            id="customCheckBox100" data-reviewer-id="{{ $val->id }}"
+                                                            value="{{ $val->id }}">
+                                                        <label class="form-check-label" for="customCheckBox100"></label>
+                                                    </div>
+                                                </td>
+                                                <td><span>{{ $loop->index + 1 }}</span></td>
+                                                <td class="py-3">
+                                                    <a href="#">
+                                                        <div class="media d-flex align-items-left">
+                                                            @if ($val->profileImage != null)
+                                                            <div class="avatar avatar-sm me-2">
+                                                                <div class=""><img class="rounded-circle img-fluid"
+                                                                        src="{{ asset('reviewer/ProfileImage/' . $val->profileImage) }}"
+                                                                        width="30" alt="">
                                                                 </div>
                                                             </div>
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <div class="products">
-                                                            <div>
-                                                                <span class="text-left">{{ $val->email }}</span>
+                                                            @else
+                                                            <div class="avatar avatar-sm me-2">
+                                                                <div class=""> <img class="rounded-circle img-fluid"
+                                                                        src='{{ asset('images/default.png') }}'
+                                                                        width="30" alt="">
+                                                                </div>
+                                                            </div>
+                                                            @endif
+                                                            <div class="media-body">
+                                                                <h6 class="mb-0 fs--1">{{ $val->name }}</h6>
                                                             </div>
                                                         </div>
-                                                    </td>
-                                                    <td><a href="javascript:void(0)"
-                                                            class="text-primary">{{ $val->phoneNumber }}</a></td>
-                                                    <td>
-                                                        <span>{{ $val->reviewerType }}</span>
-                                                    </td>
-                                                    <td class="sorting_1">
+                                                    </a>
+                                                </td>
+                                                @php
+                                                $revdat = DB::table('book_review_statuses')->where('reviewer_id',
+                                                '=',$val->id)->count();
+                                                $revdat1 = DB::table('book_review_statuses')
+                                                ->where('reviewer_id', $val->id)
+                                                ->whereNotNull('remark')
+                                                ->count();
+
+                                                $revdat2 = DB::table('book_review_statuses')
+                                                ->where('reviewer_id', $val->id)
+                                                ->whereNull('remark')
+                                                ->count();
+
+                                                @endphp
+
+                                                <td>
+                                                    <div class="products">
+                                                        <div>
+                                                            <span class="text-left">{{ $revdat }}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <div class="products">
+                                                        <div>
+                                                            <span class="text-left">{{ $revdat1 }}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="products">
+                                                        <div>
+                                                            <span class="text-left">{{ $revdat2 }}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="products">
+                                                        <div>
+                                                            <span class="text-left">{{ $val->email }}</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td><a href="javascript:void(0)"
+                                                        class="text-primary">{{ $val->phoneNumber }}</a></td>
+                                                <td>
+                                                    <span>{{ $val->reviewerType }}</span>
+                                                </td>
+                                                <!-- <td class="sorting_1">
                                                         <div class="form-check form-switch id="load">
-                                                            <input class="form-check-input toggle-class"
-                                                                type="checkbox" data-id="{{ $val->id }}"
-                                                                name="featured_status" data-isprm="1"
-                                                                data-onstyle="success" data-offstyle="danger"
-                                                                data-toggle="toggle" data-on="Active"
-                                                                data-off="InActive"
+                                                            <input class="form-check-input toggle-class" type="checkbox"
+                                                                data-id="{{ $val->id }}" name="featured_status"
+                                                                data-isprm="1" data-onstyle="success"
+                                                                data-offstyle="danger" data-toggle="toggle"
+                                                                data-on="Active" data-off="InActive"
                                                                 {{ $val->status ? 'checked' : '' }}>
                                                             <label class="form-check-label"
                                                                 for="flexSwitchCheckDefault"></label>
                                                         </div>
-                                                    </td>
-                                                    @if ($val->status == 1)
-                                                        <td>
-                                                            <span
-                                                                class="badge badge-success light border-0 me-1">Active</span>
-                                                        </td>
-                                                    @else
-                                                        <td>
-                                                            <span
-                                                                class="badge badge-danger light border-0 me-1">Inctive</span>
-                                                        </td>
-                                                    @endif
+                                                    </td> -->
+                                                @if ($val->status == 1)
+                                                <td>
+                                                    <span class="badge badge-success light border-0 me-1">Active</span>
+                                                </td>
+                                                @else
+                                                <td>
+                                                    <span class="badge badge-danger light border-0 me-1">Inctive</span>
+                                                </td>
+                                                @endif
 
 
 
-                                                    <td data-label="controlq">
-                                                        <div class="d-flex mt-p0">
+                                                <td data-label="controlq">
+                                                    <div class="d-flex mt-p0">
                                                         <a href="/reviewer/reviewerview/{{ $val->id }}"
-                                                                class="btn btn-success shadow btn-xs sharp me-1">
-                                                                <i class="fa fa-eye"></i>
-                                                            </a>
-                                                            <a href="/reviewer/reviewer_edit/{{ $val->id }}"
+                                                            class="btn btn-success shadow btn-xs sharp me-1">
+                                                            <i class="fa fa-eye"></i>
+                                                        </a>
+
+                                                        <!-- <a href="/reviewer/reviewer_edit/{{ $val->id }}"
                                                                     class="btn btn-warning shadow btn-xs sharp me-1">
                                                                     <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            <!-- @if ($val->reviewerType != 'public')
-                                                                <a href="/reviewer/member_edit/{{ $val->id }}"
-                                                                    class="btn btn-warning shadow btn-xs sharp me-1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            @else
-                                                                <a href="/reviewer/member_publicedit/{{ $val->id }}"
-                                                                    class="btn btn-warning shadow btn-xs sharp me-1">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </a>
-                                                            @endif -->
+                                                                </a> -->
 
 
-                                                            <!-- <a href="#" class="btn btn-danger shadow btn-xs sharp me-1">
-                                                            <i class="fa fa-trash"></i>
-                                                        </a> -->
-                                                        </div>
-                                                    </td>
-                                                </tr>
+
+
+                                                    </div>
+                                                </td>
+                                            </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -286,190 +319,189 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="submitbutton11"
-                        class="btn btn-primary submitbutton11">Confirm</button>
+                    <button type="button" id="submitbutton11" class="btn btn-primary submitbutton11">Confirm</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- <div class="modal fade" id="basicModal1">
-            <div class="modal-dialog" role="document">
+    <div class="modal fade" id="basicModal1">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-            <div class="modal-body">
-                <p>Do you want to proceed?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                <button type="button" id="submitbutton22" class="btn btn-primary submitbutton22">Confirm</button>
+                <div class="modal-body">
+                    <p>Do you want to proceed?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="submitbutton22" class="btn btn-primary submitbutton22">Confirm</button>
+                </div>
             </div>
         </div>
     </div>
-</div> -->
 </body>
 
 <script>
-    $(function() {
-        $('.toggle-class').change(function(e) {
-            e.preventDefault();
-            var status = $(this).prop('checked') == true ? 1 : 0;
-            var id = $(this).data('id');
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+$(function() {
+    $('.toggle-class').change(function(e) {
+        e.preventDefault();
+        var status = $(this).prop('checked') == true ? 1 : 0;
+        var id = $(this).data('id');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: "put",
+            dataType: "json",
+            url: '/reviewer/reviewerstatus',
+            data: {
+                'status': status,
+                'id': id
+            },
+            success: function(response) {
+                if (response.success) {
+                    setTimeout(function() {
+                        window.location.href = "/reviewer/reviewer_list"
+                    }, 3000);
+                    toastr.success(response.success, {
+                        timeout: 45000
+                    });
+                } else {
+                    toastr.error(response.error, {
+                        timeout: 45000
+                    });
+                    setTimeout(function() {
+                        window.location.href = "/reviewer/reviewer_list"
+                    }, 3000);
                 }
-            });
-            $.ajax({
-                type: "put",
-                dataType: "json",
-                url: '/reviewer/reviewerstatus',
-                data: {
-                    'status': status,
-                    'id': id
-                },
-                success: function(response) {
-                    if (response.success) {
-                        setTimeout(function() {
-                            window.location.href = "/reviewer/reviewer_inactive"
-                        }, 3000);
-                        toastr.success(response.success, {
-                            timeout: 45000
-                        });
-                    } else {
-                        toastr.error(response.error, {
-                            timeout: 45000
-                        });
-                        setTimeout(function() {
-                            window.location.href = "/reviewer/reviewer_inactive"
-                        }, 3000);
-                    }
 
-                }
-            });
-        })
+            }
+        });
     })
+})
 </script>
 
 
 <script>
-    $(document).ready(function() {
-        $('#dataall').click(function() {
-            $('.revieweritem').prop('checked', this.checked);
-        });
+$(document).ready(function() {
+    $('#dataall').click(function() {
+        $('.revieweritem').prop('checked', this.checked);
     });
+});
 </script>
 
 <script>
-    $('.submitbutton11').click(function() {
-        var checkebook = $('.revieweritem:checked').map(function() {
-            return $(this).data('reviewer-id');
-        }).get();
+$('.submitbutton11').click(function() {
+    var checkebook = $('.revieweritem:checked').map(function() {
+        return $(this).data('reviewer-id');
+    }).get();
 
 
-        var requestData = {
-            reviewerId: checkebook,
+    var requestData = {
+        reviewerId: checkebook,
 
-        };
-        console.log(requestData);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: '/reviewer/multiple-reviewerstatus',
-            method: 'POST',
-            data: {
-                'requestData': requestData,
-                'status': '1'
-            },
-            success: function(response) {
-                console.log(response.data);
-                if (response.success) {
-                    $('#basicModal').modal('hide');
-                    //    $('#basicModal').hide();
-                    setTimeout(function() {
-                        window.location.href = "/reviewer/reviewer_inactive"
-                    }, 3000);
-                    toastr.success(response.success, {
-                        timeout: 45000
-                    });
-                } else {
-                    $('#basicModal').modal('hide');
-                    //   $('#basicModal').hide();
-                    toastr.error(response.error, {
-                        timeout: 45000
-                    });
-
-                }
-
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX error:', status, error);
-            }
-        });
-
+    };
+    console.log(requestData);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
+    $.ajax({
+        url: '/reviewer/multiple-reviewerstatus',
+        method: 'POST',
+        data: {
+            'requestData': requestData,
+            'status': '1'
+        },
+        success: function(response) {
+            console.log(response.data);
+            if (response.success) {
+                $('#basicModal').modal('hide');
+                //    $('#basicModal').hide();
+                setTimeout(function() {
+                    window.location.href = "/reviewer/reviewer_list"
+                }, 3000);
+                toastr.success(response.success, {
+                    timeout: 45000
+                });
+            } else {
+                $('#basicModal').modal('hide');
+                //   $('#basicModal').hide();
+                toastr.error(response.error, {
+                    timeout: 45000
+                });
+
+            }
+
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', status, error);
+        }
+    });
+
+});
 </script>
-<!-- <script>
-    $('.submitbutton22').click(function() {
-        var checkebook = $('.revieweritem:checked').map(function() {
-            return $(this).data('reviewer-id');
-        }).get();
+<script>
+$('.submitbutton22').click(function() {
+    var checkebook = $('.revieweritem:checked').map(function() {
+        return $(this).data('reviewer-id');
+    }).get();
 
 
-        var requestData = {
-            reviewerId: checkebook,
+    var requestData = {
+        reviewerId: checkebook,
 
-        };
-        console.log(requestData);
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            url: '/reviewer/multiple-reviewerstatus',
-            method: 'POST',
-            data: {
-                'requestData': requestData,
-                'status': '0'
-            },
-            success: function(response) {
-                console.log(response.data);
-                if (response.success) {
-                    $('#basicModal1').modal('hide');
-                    setTimeout(function() {
-                        window.location.href = "/reviewer/member_inactive"
-                    }, 3000);
-                    toastr.success(response.success, {
-                        timeout: 45000
-                    });
-                } else {
-                    $('#basicModal1').modal('hide');
-                    toastr.error(response.error, {
-                        timeout: 45000
-                    });
-
-                }
-
-            },
-            error: function(xhr, status, error) {
-                console.error('AJAX error:', status, error);
-            }
-        });
-
+    };
+    console.log(requestData);
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
-</script> -->
+    $.ajax({
+        url: '/reviewer/multiple-reviewerstatus',
+        method: 'POST',
+        data: {
+            'requestData': requestData,
+            'status': '0'
+        },
+        success: function(response) {
+            console.log(response.data);
+            if (response.success) {
+                $('#basicModal1').modal('hide');
+                setTimeout(function() {
+                    window.location.href = "/reviewer/reviewer_list"
+                }, 3000);
+                toastr.success(response.success, {
+                    timeout: 45000
+                });
+            } else {
+                $('#basicModal1').modal('hide');
+                toastr.error(response.error, {
+                    timeout: 45000
+                });
+
+            }
+
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', status, error);
+        }
+    });
+
+});
+</script>
 
 </html>
 <style>
-    .active-projects.style-1 .dt-buttons .dt-button {
-        top: -50px;
-        right: 0 !important;
-    }
+.active-projects.style-1 .dt-buttons .dt-button {
+    top: -50px;
+    right: 0 !important;
+}
 
-    .active-projects tbody tr td:last-child {
-        text-align: center;
-    }
+.active-projects tbody tr td:last-child {
+    text-align: center;
+}
 </style>
