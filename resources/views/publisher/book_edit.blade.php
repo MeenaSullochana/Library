@@ -1424,25 +1424,7 @@ $bookdescription = $data->bookdescription1;
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="mb-3">
-                                                    <label class="text-label form-label text-black"
-                                                        for="validationCustomUsername">Total Number of Pages <span
-                                                            class="text-danger">*</span></label>
-                                                    <div class="input-group">
-                                                        <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
-
-                                                        <input type="number" class="form-control" id="pages"
-                                                            name="pages" placeholder="Enter Total Number of Pages.." value="{{$data->pages}}"
-                                                            required>
-                                                        <div class="invalid-feedback">
-                                                            Book Title cannot be edited agter your book has been
-                                                            published.
-                                                            Click here to learn more.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                       
 
                                             <div class="col-md-4">
                                                 <div class="mb-3">
@@ -1474,6 +1456,29 @@ $bookdescription = $data->bookdescription1;
                                                         <input type="number" class="form-control" id="monocolor"
                                                             name="monocolor"
                                                             placeholder="Enter Number of Mono Color Pages.." value="{{$data->monocolor}}" required>
+                                                        <div class="invalid-feedback">
+                                                            Book Title cannot be edited agter your book has been
+                                                            published.
+                                                            Click here to learn more.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label text-black"
+                                                        for="validationCustomUsername">Total Number of Pages <span
+                                                            class="text-danger">*</span></label>
+                                                    <div class="input-group">
+                                                        <!-- <span class="input-group-text"> <i class="fa fa-user"></i> </span> -->
+
+                                                        <input type="number" class="form-control" id="pages1"
+                                                            name="pages1" placeholder="." value="{{$data->pages}}"
+                                                            required disabled>
+                                                            <input type="hidden" class="form-control" id="pages"
+                                                            name="pages" placeholder="Enter Total Number of Pages.." value="{{$data->pages}}"
+                                                            required>
                                                         <div class="invalid-feedback">
                                                             Book Title cannot be edited agter your book has been
                                                             published.
@@ -3292,7 +3297,30 @@ $('.highlights_delete').on('click', function() {
     </script>
 
 
+<script>
+    // JavaScript code
+    function calculatecolore() {
+      
+        var monocolor = parseFloat(document.getElementById('monocolor').value);
+        var multicolor = parseFloat(document.getElementById('multicolor').value);
 
+        if (!isNaN(monocolor) && !isNaN(multicolor)) {
+            var discountedPrice = monocolor + multicolor; // Round to the nearest integer
+            document.getElementById('pages').value = discountedPrice;
+                 document.getElementById('pages1').value = discountedPrice;
+
+
+        } else {
+
+            document.getElementById('pages').value = '';
+            document.getElementById('pages1').value = '';
+
+        }
+    }
+
+    document.getElementById('monocolor').addEventListener('keyup', calculatecolore);
+    document.getElementById('multicolor').addEventListener('keyup', calculatecolore);
+</script>
 
 
 

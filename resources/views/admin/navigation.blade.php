@@ -1500,6 +1500,23 @@
                                     <li><a href="/admin/magazineperiodicity_list">Periodical Periodicity List</a></li>
                                 </ul>
                             </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Unique Author
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/uniqueauthor_add">Unique Author Add</a></li>
+                                    <li><a href="/admin/uniqueauthor_list">Unique Author List</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Periodical Gsm
+                                </a>
+                                <ul aria-expanded="false">
+                                    <li><a href="/admin/periodicalgsm_add">Periodical Gsm Add</a></li>
+                                    <li><a href="/admin/periodicalgsm_list">Periodical Gsm List</a></li>
+                                </ul>
+                            </li>
+                            
                         </ul>
                     </li>
 
@@ -1580,7 +1597,10 @@
                             <li><a href="smtp">SMTP</a></li>
                             <li><a href="mailurl">Mail Url</a></li>
                             <li><a href="despatch">Despatch Periodical</a></li>
+                            <li><a href="budeget_restrictions">Website Budeget Restriction</a></li>
+                            <li><a href="negostopdate">Negotiation Stop Date</a></li>
 
+                       
                             {{-- <li><a href="country_list">Country List</a></li>
                             <li><a href="state_list">State List</a></li>
                             <li><a href="district_list">District List</a></li>
@@ -2106,9 +2126,19 @@
                         <li><a href="master_nego_book_data">Master Negotiation List</a></li>
 
                             <li><a href="negotiation_price_upload">Price Upload </a></li>
-                            <li><a href="negotiation_list">Negotiation List</a></li>
+                            
+                            <li><a href="negotiation_notverified_list">Negotiation Not Verified List</a></li>
+                            <li><a href="non_negotiation_list">Non Negotiation List</a></li>
+                            
+                            <li><a href="percentage_negotiation_list">Percentage Negotiation List</a></li>
+
+                            <li><a href="negotiation_list">Price Negotiation List</a></li>
+                            <li><a href="negotiation_process_list">Renegotiation By Vendor Not Verified list</a></li>
+                            <li><a href="negotiation_processverified_list">Renegotiation By Vendor  Verified list</a></li>
+                            <li><a href="negotiation_reprocess_list">Renegotiation By Admin list</a></li>
+    
+                           
                             <li><a href="nego_pending_list">Pending list</a></li>
-                            <li><a href="negotiation_process_list">Process list</a></li>
                             <li><a href="negotiation_hold_list">Hold list</a></li>
                             <li><a href="nego_approved_list">Approved List</a></li>
 
@@ -2460,12 +2490,25 @@
                         </a>
                     <ul aria-expanded="false">
                         <li><a href="/admin/vendor-wise-book-data">VendorWise Book Data</a></li>
+                        <li><a href="/admin/publication-wise-book-data">PublicationWise Book Data</a></li>
+
+                   
                         <li><a href="report_download_bookadd">Book Count Report Download</a></li> 
                         <li><a href="book_copies_report">Book Copies Report</a></li> 
                         <li><a href="notyet_send_book_copies">Notyet Send Book Copies Report</a></li> 
 
                         
                         <li><a href="meta_checking_book_list">Report Download Meta Checking Book List</a></li> 
+                        <li><a href="book_review_data_report">Report Download Review Book List</a></li> 
+                        <li><a href="notcomplete_book_review_data">Not Complete Book Review Data</a></li> 
+                        <li><a href="duplicate_book_report">Duplicate  Book Report</a></li> 
+                        <li><a href="report_nego_data">Negotiation  Book Report</a></li> 
+                        <li><a href="report_allnego_data">Negotiation Excel Book Report</a></li> 
+                        <li><a href="renegotiation_data_report">Renegotiation Excel Book Report</a></li> 
+
+                        <li><a href="categorywise_amount_report">Category Wise Amount Excel Book Report</a></li> 
+
+                        
 
 
                     </ul>
@@ -2477,8 +2520,9 @@
                     </a>
                 <ul aria-expanded="false">
                     <li><a href="librarian_password_report">Librarian Change Password Report</a></li>
+                    <li><a href="library_datareport">Library Data Report</a></li>
 
-
+                 
 
                 </ul>
             </li>
@@ -2492,7 +2536,7 @@
                 
                     <li><a href="report_download_reviwer">Reviewer Report Download</a></li>
                     <li><a href="report_download_pub_revi">Publisher & Reviewer Report Download</a></li>
-                    <li><a href="master_expertrev_payment"> Master Exper Reviewer Data</a></li>
+                    <li><a href="master_expertrev_payment"> Master Expert Reviewer Data</a></li>
                     <li><a href="expert_review_assessment"> Exper Reviewer Assessment Report</a></li>
 
                   

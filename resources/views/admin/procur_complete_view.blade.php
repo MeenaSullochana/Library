@@ -20,6 +20,14 @@
     <?php
         include "admin/plugin/plugin_css.php";
     ?>
+    
+<style>
+   .tamil-font {
+       font-family: 'Latha', sans-serif;
+   }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    </head>
    <body>
@@ -55,58 +63,84 @@
                   <div class="card mb-4">
                      <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
-                           <nav aria-label="breadcrumb">
-                              <ol class="breadcrumb">
-                                 <li class="breadcrumb-item"><a href="allocated_location_view.php">View Allocated Location</a></li>
-                                 <li class="breadcrumb-item active" aria-current="page">Allocated Location List</li>
-                              </ol>
-                           </nav>
+                          
                            <h3 class="mb-0 bc-title">
-                              <b>All Books List</b>
+                              <b>All Review List</b>
                            </h3>
-                           <a class="btn btn-primary  btn-sm" href="/admin/book_manage_view/{{$book->id}}">
-                              <i class="fas fa-book"></i> View Book</a>
+                           <button type="button" class="btn btn-primary" id="print_invoice" onclick="generatePdf()"><span class="btn-icon-start text-primary"><i class="fas fa-file-pdf"></i></span>PDF</button>
+
                         </div>
                      </div>
                   </div>
-                  <section class="col-md-12">
-                     <div class="row">
-
+                  <section class="col-md-12" >
+                     <div class="row" id="print-pdf">
                         <div class="col-sm-12 col-md-12">
                            <div class="review-block">
-                              @foreach($rev as $key=>$val)
-                              <div class="row">
-                                 <div class="col-sm-3">
-                                 @if($val->reviewer->reviewerType == "internal")
-                                    <div class="review-block-name"><a href="#">Librarian Reviewer</a></div>
-
-                                    @elseif($val->reviewer->reviewerType   == "external")
-                                    <div class="review-block-name"><a href="#">Expert Reviewer</a></div>
-
-                                    @else
-                                    <div class="review-block-name"><a href="#">Public Reviewer</a></div>
-
-                                    @endif
-                                    <div class="review-block-img">
-                                       @if($val->reviewer->profileImage == null)
-                                       <img src="{{ asset("admin/images/default.png") }}" class="img-rounded" alt="">
+                               <div style="display: flex; justify-content: space-between; align-items: center;">
+                                   <div style="flex: 1; text-align: left;">
+                                       <h3>Book Title</h3>
+                                       <span style="white-space: normal;">{{$book->book_title}}</span>
+                                   </div>
+                                   <div style="flex: 1; text-align: center;">
+                                       <h3>Book Id</h3>
+                                       <span>{{$book->product_code}}</span>
+                                   </div>
+                                   <div style="flex: 1; text-align: left;">
+                                       <h3>Author Name</h3>
+                                       <span style="white-space: normal;">{{$book->author_name}}</span>
+                                   </div>
+                                   <div style="flex: 1; text-align: center;">
+                                    <h3>Vendore Name</h3>
+                                    <span>{{$book->vendorname}}</span>
+                                </div>
+                                   <div style="flex: 1; text-align: center;">
+                                       <h3>Publication Name</h3>
+                                       <span>{{$book->nameOfPublisher}}</span>
+                                   </div>
+                               </div>
+                           </div>
+                        </div>
+                        
+                       
+                              @foreach(collect($rev)->sortBy(function($item) {
+                                 if ($item->reviewer->reviewerType == 'internal') return 1;
+                                 if ($item->reviewer->reviewerType == 'external') return 2;
+                                 return 3;
+                              }) as $key=>$val)
+                                 <div class="row">
+                                    <div class="col-sm-3">
+                                       @if($val->reviewer->reviewerType == "external")
+                                          <div class="review-block-name"><a href="#">Librarian Reviewer</a></div>
+                        
+                                       @elseif($val->reviewer->reviewerType == "internal")
+                                          <div class="review-block-name"><a href="#">Expert Reviewer</a></div>
+                        
                                        @else
-                                       <img src="{{ asset('reviewer/ProfileImage/'.$val->reviewer->profileImage) }}" class="img-rounded" alt="">
-                                   @endif
+                                          <div class="review-block-name"><a href="#">Public Reviewer</a></div>
+                                       @endif
+                                       
+                                       <div class="review-block-img">
+                                          @if($val->reviewer->profileImage == null)
+                                             <img src="{{ asset('admin/images/default.png') }}" class="img-rounded" alt="">
+                                          @else
+                                             <img src="{{ asset('reviewer/ProfileImage/'.$val->reviewer->profileImage) }}" class="img-rounded" alt="">
+                                          @endif
+                                       </div>
+                                       
+                                       <div class="review-block-name"><a href="#">{{$val->reviewer->name}}</a></div>
                                     </div>
-                                    <div class="review-block-name"><a href="#">{{$val->reviewer->name}}</a></div>
-                                  
-                                    {{-- <div class="review-block-date">January 29, 2016<br>1 day ago</div> --}}
+                                    <div class="col-sm-9">
+                                       <h5> Review Mark </h5>
+                                       <div class="review-block-description" style="text-indent: 100px;">{{$val->review_type}}</div>
+                                       <h5> Review Comment </h5>
+                                       <div class="review-block-description" style="text-indent: 100px;">{{$val->remark}}</div>
+                                    </div>
                                  </div>
-                                 <div class="col-sm-9">
-                                    <div class="review-block-title">{{$val->review_type}}</div>
-                                    <div class="review-block-description">{{$val->remark}} </div>
-                                 </div>
-                              </div>
-                              <hr>
+                                 <hr>
                               @endforeach
                            </div>
                         </div>
+                        
                      </div>
                   </section>
                </div>
@@ -133,6 +167,44 @@
       <!--**********************************
          Main wrapper end
          ***********************************-->
+         <script>
+            async function generatePdf() {
+                const { jsPDF } = window.jspdf;
+    
+                try {
+                    const content = document.getElementById('print-pdf');
+    
+                    if (!content) {
+                        throw new Error("Content element not found");
+                    }
+    
+                    // Estimate the required page height
+                    const recordCount = 300;
+                    const recordHeight = 10; // Height of each record in mm
+                    const pageHeight = recordCount * recordHeight; // Total height of the page
+    
+                    // Create the PDF with the custom page height
+                    const pdf = new jsPDF('p', 'mm', [210, pageHeight]);
+    
+                    // Capture the content as an image using html2canvas
+                    const canvas = await html2canvas(content, { scale: 2 });
+                    const imgData = canvas.toDataURL('image/png');
+    
+                    // Get the image properties
+                    const imgProps = pdf.getImageProperties(imgData);
+                    const pdfWidth = pdf.internal.pageSize.getWidth();
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    
+                    // Add the image to the PDF
+                    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    
+                    // Save the PDF
+                    pdf.save('book_reviewdetail.pdf');
+                } catch (error) {
+                    console.error("Error generating PDF:", error);
+                }
+            }
+        </script>
       <style>
          /*** Portfolio page
          ==============================================================================*/

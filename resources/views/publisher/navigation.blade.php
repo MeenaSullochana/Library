@@ -1361,9 +1361,14 @@
                         <span class="nav-text">Manage Negotiation</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="/publisher/nego_pending_list">Negotiation List</a></li>
-                        <li><a href="/publisher/nego_process_list">Process List</a></li>
-						<li><a href="/publisher/nego_hold_list">Hold list</a></li>
+                        <li><a href="/publisher/nego_pending_list">Percentage Negotiation List</a></li>
+                        <li><a href="/publisher/price_nego_list">Price Negotiation List</a></li>
+
+					
+                        <li><a href="/publisher/nego_process_list">Renegotiation By Vendor List </a></li>
+						<li><a href="/publisher/nego_reprocess_list">Renegotiation By Admin List </a></li>
+
+						{{-- <li><a href="/publisher/nego_hold_list">Hold list</a></li> --}}
                         <li><a href="/publisher/nego_approved_list">Approved List</a></li>
                         <li><a href="/publisher/nego_failed_list">Reject list</a></li>
 

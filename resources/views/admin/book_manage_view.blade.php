@@ -446,6 +446,18 @@
 
                                                         </p>
                                                     </div>
+                                                    @php
+                                                        $unique_authors = DB::table('unique_authors')->where('authorid', '=', $data->unique_author)->first();
+                                                    @endphp
+                                               
+                                                    <div class="col-md-6">
+                                                        <p><span class="fs-6 fw-bold text-primary">Unique Author
+                                                                 : </span>
+
+                                                            <strong>{{ $unique_authors ? $unique_authors->name : 'Not Yet Unified' }}</strong>
+
+                                                        </p>
+                                                    </div>
                                                 </div>
                                                 <hr>
                                                 @if($data->trans_from1 !=null)

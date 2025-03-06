@@ -721,13 +721,17 @@
                                             <div class="icon-box icon-box-lg bg-primary-light rounded">
                                                 <i class="fa-solid fa-cart-shopping text-primary"></i>
                                                 @php
-                                                $books = DB::table('books')->where('negotiation_status', '=', '2')->get();
+                                                $books = DB::table('books')
+                                                ->where('negotiation_status', '=', '2')
+                                                ->where('book_active_status', '=', 1)
+                                                ->whereNotNull('unique_author')
+                                                ->get();
 
                                                 @endphp
                                             </div>
                                             <div class="total-projects ms-3">
                                                 <h3 class="text-primary count">{{ count($books) }}</h3>
-                                                <span>Total Periodical</span>
+                                                <span>Total Books</span>
 
                                             </div>
                                         </div>

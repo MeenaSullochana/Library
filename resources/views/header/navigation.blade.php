@@ -96,11 +96,11 @@
                           
                         </div>
 
-                        <div class="header__info-cart tpcolor__oasis ml-10 ">
+                      <div class="header__info-cart tpcolor__oasis ml-10 ">
                             @php
                             $user = auth('librarian')->user();
                             @endphp
-                        @if($user && $user->metaChecker =="no")
+                            @if($user && $user->metaChecker =="no")
                             @if(Session::has('bookcartcount'))
                             <a href="/cart-book">
                                 <button id="bookcartcountId">
@@ -121,7 +121,7 @@
                             @endif
 
 
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

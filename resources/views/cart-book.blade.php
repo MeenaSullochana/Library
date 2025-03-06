@@ -267,7 +267,7 @@
                                     <th class="product-thumbnail">Images</th>
                                     <th class="cart-product-name">Book Title</th>
                                     <th class="cart-product-name">Language</th>
-                                    <th class="cart-product-name">Subject</th>
+                                    <th class="cart-product-name">Category</th>
                                     <th class="product-price">Unit Price</th>
                                     <th class="product-quantity">Quantity</th>
                                     <th class="product-subtotal">Total</th>
@@ -283,17 +283,17 @@
                                     @foreach ($cartdata as $val)
                                         <tr id="row_{{ $val->id }}">
                                             <td class="product-thumbnail">
-                                                <a href="#">
+                                                <a href="/shope-book/{{$val->bookid}}">
                                                     <img style="width:75px;hight:75px;"
                                                         src="{{ asset('Books/front/' . $val->image) }}"
                                                         alt="">
                                                 </a>
                                             </td>
                                             <td class="product-name" style="white-space:normal;">
-                                                <a href="#">{{ $val->title }}</a>
+                                                <a href="/shope-book/{{$val->bookid}}">{{ $val->title }}</a>
                                             </td>
                                             <td class="product-name">
-                                                <a href="#">{{ $val->Type }}</a>
+                                                <a href="/shope-book/{{$val->bookid}}">{{ $val->Type }}</a>
                                             </td>
                                             <td>
                                                 {{ $val->category }}
@@ -302,12 +302,12 @@
                                                 <span class="amount">₹{{ $val->amount }}</span>
                                             </td>
                                             <td class="product-quantity">
-    <div class="quantity-container">
-        <span class="cart-minus">-</span>
-        <input class="cart-input" value="{{ $val->quantity }}" data-id="{{ $val->id }}" id="catval" disabled>
-        <span class="cart-plus">+</span>
-    </div>
-</td>
+                                                <div class="quantity-container">
+                                                    <span class="cart-minus">-</span>
+                                                    <input class="cart-input" value="{{ $val->quantity }}" data-id="{{ $val->id }}" id="catval" disabled>
+                                                    <span class="cart-plus">+</span>
+                                                </div>
+                                            </td>
                                             <td class="product-subtotal">
                                                 <span class="amount">₹{{ $val->totalAmount }}</span>
                                             </td>
@@ -382,7 +382,7 @@
                                             <div class="" id="amountdata1">
                                                 <a href="/procurement-policy" style="font-size: 20px !important;"><i
                                                         class="fa fa-check-circle text-success"
-                                                        aria-hidden="true"></i><span class="text-success"> Procurment
+                                                        aria-hidden="true"></i><span class="text-success"> Procurement
                                                         Policy</span></a>
                                                 {{-- <p class="mb-2 mt-2">Subtotal (1 item):<span><b> <i
                                                                 class="fa fa-inr"></i> 14,999.00 </b></span></p> --}}
@@ -615,22 +615,22 @@
                 <div class="modal-body">
                     <p>
                         <label for="">ஆம் எனில் எதற்காக என்று தேர்வு செய்யவும்</label>
-                    <div class="form-check mt-3 w-100">
+                    {{-- <div class="form-check mt-3 w-100">
                         <input class="form-check-input" type="radio" name="overflow_amount" id="option11"
                             value="1">
                         <label class="form-check-label" for="option1">தமிழ் நாடு பாடநூல் மற்றும் கல்வியியல் பணிகள்
                             கழகத்தால் வழங்கப்படும் தொகையிலிருந்து அண்ணா நூற்றாண்டு நூலகம் மூலம் பெறப்படுகிறது.</label>
-                    </div>
+                    </div> --}}
                     <div class="form-check mt-3 w-100">
                         <input class="form-check-input" type="radio" name="overflow_amount" id="option22"
                             value="0">
-                        <label class="form-check-label" for="option2">மேலும் பிற பருவ இதழ்கள் வாங்கப் போதுமான நிதி
+                        <label class="form-check-label" for="option2"> பிற நூல்கள் வாங்கப் போதுமான நிதி
                             இல்லாததால் நிதி ஒப்படைக்கப்படுகிறது.</label>
                     </div>
                     <div class="form-check mt-3 w-100">
                         <input class="form-check-input" type="radio" name="overflow_amount" id="option33"
                             value="0">
-                        <label class="form-check-label" for="option3">இந்த பிரிவில் தேவையான இதழ்கள் தேர்வு
+                        <label class="form-check-label" for="option3">இந்த பிரிவில் தேவையான நூல்கள் தேர்வு
                             செய்துவிட்டதால் நிதி ஒப்படைக்கப்படுகிறது.</label>
                     </div>
                     </p>
@@ -1179,9 +1179,10 @@
                         'quantity': quantity
                     },
                     success: function(response) {
-                        if (response.error) {
-                         
-                            toastr.error(response.error, {
+                        if (response.error) {  
+                            $('#row_' + itemId + ' .cart-input').val(response.quantity); // Change '1' to the desired value
+
+                             $('#row_' + itemId + ' .cart-input').trigger('change');                            toastr.error(response.error, {
                                 timeout: 2000
                             });
                         } else {

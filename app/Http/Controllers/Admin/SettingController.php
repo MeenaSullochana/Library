@@ -3918,42 +3918,118 @@ return view('admin.dispatch_final_report_pdf', compact('data'));
 
 //     return response()->make($csvContent, 200, $headers);
 // }
-
 public function vendorwise_bookreport()
 {
     $finaldata = [];
+   $mergedCollection = Publisher::query()
+  ->selectRaw('
+      publishers.id as id, 
+      publishers.publicationName, 
+      publishers.usertype,
+      COUNT(books.id) as totalBooks,
+      SUM(CASE WHEN books.book_procurement_status = "0" THEN 1 ELSE 0 END) as notPaidBooks,
+      SUM(CASE WHEN books.book_procurement_status != "0" THEN 1 ELSE 0 END) as paidBooks,
+      SUM(CASE WHEN books.book_reviewer_id IS NULL AND books.book_procurement_status = "5" THEN 1 ELSE 0 END) as notSendBookCopies,
+      SUM(CASE WHEN books.book_reviewer_id IS NULL AND books.book_procurement_status = "6" THEN 1 ELSE 0 END) as sendBookCopies,
+      SUM(CASE WHEN books.book_procurement_status = "1" THEN 1 ELSE 0 END) as aclBookCopies,
+      SUM(CASE WHEN books.book_procurement_status = "1" AND books.book_reviewer_id IS NULL THEN 1 ELSE 0 END) as metaNotAssignedBooks,
+      SUM(CASE WHEN books.book_reviewer_id IS NOT NULL THEN 1 ELSE 0 END) as metaAssignedBooks,
+      SUM(CASE WHEN books.book_reviewer_id IS NOT NULL AND (books.book_status IS NULL OR books.book_status IN ("2", "3")) THEN 1 ELSE 0 END) as metaBooksPending,
+      SUM(CASE WHEN books.book_reviewer_id IS NOT NULL AND books.book_status = "1" THEN 1 ELSE 0 END) as metaBooksCompleted,
+      SUM(CASE WHEN books.book_reviewer_id IS NOT NULL AND books.book_status = "0" THEN 1 ELSE 0 END) as metaBooksRejected,
+      SUM(CASE WHEN books.negotiation_status IS NULL AND books.marks >= 40 THEN 1 ELSE 0 END) as negoNotAssignedBook,
+      SUM(CASE WHEN books.negotiation_status IS NOT NULL AND books.marks >= 40 THEN 1 ELSE 0 END) as negoAssignedBook,
+      SUM(CASE WHEN books.negotiation_status IN ("1", "5") AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as renegoBook,
+      SUM(CASE WHEN books.negotiation_status ="0" AND books.marks >= 40  AND books.nego_status = "No_Negotiation" THEN 1 ELSE 0 END) as pennegononegoBook,
+      SUM(CASE WHEN books.negotiation_status ="0" AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as pennegopriceBook,
+      SUM(CASE WHEN books.negotiation_status ="0" AND books.marks >= 40  AND books.nego_status = "Below25" THEN 1 ELSE 0 END) as pennegopercentBook,
+      SUM(CASE WHEN books.negotiation_status ="2" AND books.marks >= 40  AND books.nego_status = "No_Negotiation" THEN 1 ELSE 0 END) as negononegoBook,
+      SUM(CASE WHEN books.negotiation_status ="2" AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as negopriceBook,
+      SUM(CASE WHEN books.negotiation_status ="2" AND books.marks >= 40  AND books.nego_status = "Below25" THEN 1 ELSE 0 END) as negopercentBook,
+      SUM(CASE WHEN books.negotiation_status ="3" AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as negorejpriceBook,
+      SUM(CASE WHEN books.negotiation_status ="3" AND books.marks >= 40  AND books.nego_status = "Below25" THEN 1 ELSE 0 END) as negorejpercBook
 
-    // Retrieve all publishers, distributors, and publisher distributors
-    $mergedCollection = Publisher::query()
-                        ->select('id', 'publicationName', 'usertype')
-                        ->union(
-                            Distributor::query()->select('id', 'distributionName as publicationName', 'usertype')
-                        )
-                        ->union(
-                            PublisherDistributor::query()->select('id', 'publicationDistributionName as publicationName', 'usertype')
-                        )
-                        ->get();
+ 
+      ')
+  ->leftJoin('books', 'books.user_id', '=', 'publishers.id')
+  ->groupBy('publishers.id', 'publishers.publicationName', 'publishers.usertype')
+  ->union(
+      Distributor::query()->selectRaw('
+          distributors.id as id, 
+          distributors.distributionName as publicationName, 
+          distributors.usertype,
+          COUNT(books.id) as totalBooks,
+          SUM(CASE WHEN books.book_procurement_status = "0" THEN 1 ELSE 0 END) as notPaidBooks,
+          SUM(CASE WHEN books.book_procurement_status != "0" THEN 1 ELSE 0 END) as paidBooks,
+          SUM(CASE WHEN books.book_reviewer_id IS NULL AND books.book_procurement_status = "5" THEN 1 ELSE 0 END) as notSendBookCopies,
+          SUM(CASE WHEN books.book_reviewer_id IS NULL AND books.book_procurement_status = "6" THEN 1 ELSE 0 END) as sendBookCopies,
+          SUM(CASE WHEN books.book_procurement_status = "1" THEN 1 ELSE 0 END) as aclBookCopies,
+          SUM(CASE WHEN books.book_procurement_status = "1" AND books.book_reviewer_id IS NULL THEN 1 ELSE 0 END) as metaNotAssignedBooks,
+          SUM(CASE WHEN books.book_reviewer_id IS NOT NULL THEN 1 ELSE 0 END) as metaAssignedBooks,
+          SUM(CASE WHEN books.book_reviewer_id IS NOT NULL AND (books.book_status IS NULL OR books.book_status IN ("2", "3")) THEN 1 ELSE 0 END) as metaBooksPending,
+          SUM(CASE WHEN books.book_reviewer_id IS NOT NULL AND books.book_status = "1" THEN 1 ELSE 0 END) as metaBooksCompleted,
+          SUM(CASE WHEN books.book_reviewer_id IS NOT NULL AND books.book_status = "0" THEN 1 ELSE 0 END) as metaBooksRejected,
+        SUM(CASE WHEN books.negotiation_status IS NULL AND books.marks >= 40 THEN 1 ELSE 0 END) as negoNotAssignedBook,
+        SUM(CASE WHEN books.negotiation_status IS NOT NULL AND books.marks >= 40 THEN 1 ELSE 0 END) as negoAssignedBook,
+        SUM(CASE WHEN books.negotiation_status IN ("1", "5") AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as renegoBook,
+      SUM(CASE WHEN books.negotiation_status ="0" AND books.marks >= 40  AND books.nego_status = "No_Negotiation" THEN 1 ELSE 0 END) as pennegononegoBook,
+      SUM(CASE WHEN books.negotiation_status ="0" AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as pennegopriceBook,
+      SUM(CASE WHEN books.negotiation_status ="0" AND books.marks >= 40  AND books.nego_status = "Below25" THEN 1 ELSE 0 END) as pennegopercentBook,
+      SUM(CASE WHEN books.negotiation_status ="2" AND books.marks >= 40  AND books.nego_status = "No_Negotiation" THEN 1 ELSE 0 END) as negononegoBook,
+      SUM(CASE WHEN books.negotiation_status ="2" AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as negopriceBook,
+      SUM(CASE WHEN books.negotiation_status ="2" AND books.marks >= 40  AND books.nego_status = "Below25" THEN 1 ELSE 0 END) as negopercentBook,
+      SUM(CASE WHEN books.negotiation_status ="3" AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as negorejpriceBook,
+      SUM(CASE WHEN books.negotiation_status ="3" AND books.marks >= 40  AND books.nego_status = "Below25" THEN 1 ELSE 0 END) as negorejpercBook
+      ')
+      ->leftJoin('books', 'books.user_id', '=', 'distributors.id')
+      ->groupBy('distributors.id', 'distributors.distributionName', 'distributors.usertype')
+  )
+  ->union(
+      PublisherDistributor::query()->selectRaw('
+          publisher_distributors.id as id, 
+          publisher_distributors.publicationDistributionName as publicationName, 
+          publisher_distributors.usertype,
+          COUNT(books.id) as totalBooks,
+          SUM(CASE WHEN books.book_procurement_status = "0" THEN 1 ELSE 0 END) as notPaidBooks,
+          SUM(CASE WHEN books.book_procurement_status != "0" THEN 1 ELSE 0 END) as paidBooks,
+          SUM(CASE WHEN books.book_reviewer_id IS NULL AND books.book_procurement_status = "5" THEN 1 ELSE 0 END) as notSendBookCopies,
+          SUM(CASE WHEN books.book_reviewer_id IS NULL AND books.book_procurement_status = "6" THEN 1 ELSE 0 END) as sendBookCopies,
+          SUM(CASE WHEN books.book_procurement_status = "1" THEN 1 ELSE 0 END) as aclBookCopies,
+          SUM(CASE WHEN books.book_procurement_status = "1" AND books.book_reviewer_id IS NULL THEN 1 ELSE 0 END) as metaNotAssignedBooks,
+          SUM(CASE WHEN books.book_reviewer_id IS NOT NULL THEN 1 ELSE 0 END) as metaAssignedBooks,
+          SUM(CASE WHEN books.book_reviewer_id IS NOT NULL AND (books.book_status IS NULL OR books.book_status IN ("2", "3")) THEN 1 ELSE 0 END) as metaBooksPending,
+          SUM(CASE WHEN books.book_reviewer_id IS NOT NULL AND books.book_status = "1" THEN 1 ELSE 0 END) as metaBooksCompleted,
+          SUM(CASE WHEN books.book_reviewer_id IS NOT NULL AND books.book_status = "0" THEN 1 ELSE 0 END) as metaBooksRejected,
+        SUM(CASE WHEN books.negotiation_status IS NULL AND books.marks >= 40 THEN 1 ELSE 0 END) as negoNotAssignedBook,
+        SUM(CASE WHEN books.negotiation_status IS NOT NULL AND books.marks >= 40 THEN 1 ELSE 0 END) as negoAssignedBook,
+        SUM(CASE WHEN books.negotiation_status IN ("1", "5") AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as renegoBook,
+      SUM(CASE WHEN books.negotiation_status ="0" AND books.marks >= 40  AND books.nego_status = "No_Negotiation" THEN 1 ELSE 0 END) as pennegononegoBook,
+      SUM(CASE WHEN books.negotiation_status ="0" AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as pennegopriceBook,
+      SUM(CASE WHEN books.negotiation_status ="0" AND books.marks >= 40  AND books.nego_status = "Below25" THEN 1 ELSE 0 END) as pennegopercentBook,
+      SUM(CASE WHEN books.negotiation_status ="2" AND books.marks >= 40  AND books.nego_status = "No_Negotiation" THEN 1 ELSE 0 END) as negononegoBook,
+      SUM(CASE WHEN books.negotiation_status ="2" AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as negopriceBook,
+      SUM(CASE WHEN books.negotiation_status ="2" AND books.marks >= 40  AND books.nego_status = "Below25" THEN 1 ELSE 0 END) as negopercentBook,
+      SUM(CASE WHEN books.negotiation_status ="3" AND books.marks >= 40  AND books.nego_status = "Negotiation" THEN 1 ELSE 0 END) as negorejpriceBook,
+      SUM(CASE WHEN books.negotiation_status ="3" AND books.marks >= 40  AND books.nego_status = "Below25" THEN 1 ELSE 0 END) as negorejpercBook
+      ')
+      ->leftJoin('books', 'books.user_id', '=', 'publisher_distributors.id')
+      ->groupBy('publisher_distributors.id', 'publisher_distributors.publicationDistributionName', 'publisher_distributors.usertype')
+  )
+  ->groupBy('id', 'publicationName', 'usertype') // Final group by in case unioned results require it
+  ->get();
+
 
     $serialNumber = 1;
 
     foreach ($mergedCollection as $val) {
-        // Use a single query to get all necessary counts for books related to the user
-        $bookData = Book::selectRaw("
-        COUNT(*) as totalBooks,
-        SUM(CASE WHEN book_procurement_status = '0' THEN 1 ELSE 0 END) as notPaidBooks,
-        SUM(CASE WHEN book_procurement_status != '0' THEN 1 ELSE 0 END) as paidBooks,
-        SUM(CASE WHEN book_procurement_status = '5' THEN 1 ELSE 0 END) as notSendBookCopies,
-        SUM(CASE WHEN book_procurement_status = '6' THEN 1 ELSE 0 END) as sendBookCopies,
-        SUM(CASE WHEN book_procurement_status = '1' AND book_reviewer_id IS NULL THEN 1 ELSE 0 END) as metaNotAssignedBooks,
-        SUM(CASE WHEN book_reviewer_id IS NOT NULL THEN 1 ELSE 0 END) as metaAssignedBooks,
-        SUM(CASE WHEN book_reviewer_id IS NOT NULL AND (book_status IS NULL OR book_status IN ('2', '3')) THEN 1 ELSE 0 END) as metaBooksPending,
-        SUM(CASE WHEN book_reviewer_id IS NOT NULL AND book_status = '1' THEN 1 ELSE 0 END) as metaBooksCompleted,
-        SUM(CASE WHEN book_reviewer_id IS NOT NULL AND book_status = '0' THEN 1 ELSE 0 END) as metaBooksRejected
-    ")
-    ->where('user_id', $val->id)
-    ->first();
+ 
+       $notSendBookCopies = $val->notSendBookCopies;
+       $sendBookCopies = $val->sendBookCopies;
+       $metaBooksPending = $val->metaBooksPending;
+       $metaBooksRejected = $val->metaBooksRejected;
 
-
+       
+       
         $qualifiedCount = 0;
         $notQualifiedCount = 0;
         $notassignedreviewCount = 0;
@@ -3986,33 +4062,47 @@ public function vendorwise_bookreport()
         }
 
         $type = $val->usertype == "publisher_distributor" ? "publisher cum distributor" : $val->usertype;
-
+      
         $finaldata[] = (object)[
             'S.No' => $serialNumber++,
             'Publication Name' => $val->publicationName,
             'User Type' => $type,
-            'Total Book' => $bookData->totalBooks,
-            'Paid Book' => $bookData->paidBooks,
-            'Not Paid Book' => $bookData->notPaidBooks,
-            'Not Send Book Copies' => $bookData->notsendBookcopies,
-            'Copies Not Approved at ACL' => $bookData->sendBookcopies,
-            'Copies Approved at ACL' => $bookData->paidBooks -  $bookData->notsendBookcopies - $bookData->sendBookcopies,
-            'Meta not Assigned' => $bookData->metaNotAssignedBooks,
-            'Meta Assigned' => $bookData->metaAssignedBooks,
-            'Meta Pending Book' => $bookData->metaBookPending,
-            'Meta Complete Book' => $bookData->metaBooksCompleted,
-            'Meta Reject Book' => $bookData->metaBooksreject,
+            'Total Book' => $val->totalBooks,
+            'Paid Book' => $val->paidBooks,
+            'Not Paid Book' => $val->notPaidBooks,
+            'Not Send Book Copies' => $notSendBookCopies,
+            'Copies Not Approved at ACL' => $sendBookCopies,
+            'Copies Approved at ACL' => $val->aclBookCopies,
+            'Meta not Assigned' => $val->metaNotAssignedBooks,
+            'Meta Assigned' => $val->metaAssignedBooks,
+            'Meta Pending Book' => $metaBooksPending,
+            'Meta Complete Book' => $val->metaBooksCompleted,
+            'Meta Reject Book' => $metaBooksRejected,
             'Review Not Assigned Book' => $notassignedreviewCount,
             'Review Assigned Book' => $qualifiedCount + $notQualifiedCount,
             'Not Qualified Book' => $notQualifiedCount,
             'Qualified Book' => $qualifiedCount,
+
+
+            'Negotiation not Assigned' => $val->negoNotAssignedBook,
+            'Negotiation Assigned' => $val->negoAssignedBook,
+            'No Negotiation Pending Book' => $val->pennegononegoBook,
+            'Below25 Pending Book' => $val->pennegopriceBook,
+            'Negotiation  Pending Book' => $val->pennegopercentBook,
+            'Renegotiation Book' => $val->renegoBook,
+            'No Negotiation Book' => $val->negononegoBook,
+            'Below25 Approve Book' => $val->negopercentBook,
+            'Negotiation Approve Book' => $val->negopriceBook,
+            'Below25 Disagree Book' => $val->negorejpercBook,
+            'Negotiation Disagree Book' =>$val->negorejpriceBook,
            
         ];
+       
     }
 
-  
+   
     $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
-    $csvContent .= "S.No,Publication Name,User Type,Total Book,Paid Book,Not Paid Book,Not Send Book Copies,Copies Not Approved at ACL,Copies Approved at ACL,Meta not Assigned,Meta Assigned,Meta Pending Book,Meta Complete Book,Meta Reject Book,Review Not Assigned Book,Review Assigned Book,Not Qualified Book,Qualified Book\n"; 
+    $csvContent .= "S.No,Publication Name,User Type,Total Book,Paid Book,Not Paid Book,Not Send Book Copies,Copies Not Approved at ACL,Copies Approved at ACL,Meta not Assigned,Meta Assigned,Meta Pending Book,Meta Complete Book,Meta Reject Book,Review Not Assigned Book,Review Assigned Book,Not Qualified Book,Qualified Book, Negotiation not Assigned,Negotiation Assigned,No Negotiation Pending Book,Below25 Pending Book,Negotiation  Pending Book,Renegotiation Book,No Negotiation Book,Below25 Approve Book,Negotiation Approve Bookk,Below25 Disagree Book,Negotiation Disagree Book\n"; 
     foreach ($finaldata as $data) {
         // Convert the object to an array before using implode
         $csvContent .= '"' . implode('","', (array) $data) . "\"\n";
@@ -4028,206 +4118,234 @@ public function vendorwise_bookreport()
 
     return response()->make($csvContent, 200, $headers);
 }
-
-public function periodical_data_report(Request $req){
+// public function samplebookpending(Request $req)
+// {
+     
+//     $data1 = collect();
   
-    if($req->type ){
+//     if ($req->Type != null && $req->Librarytype != null) {
+       
+//         $status = ($req->Type == "0") ? "0" : "1";
+//         $status1 = ($req->Type == "0") ? "1" : "0";
+//         $data1 = bookcopies::where('status', '=', $status)
+//             ->whereJsonContains('copies', ['librarytype' => $req->Librarytype, 'status' => $status1])
+//             ->get();
+//     }  elseif ($req->Type !== null) {
+//         $status = ($req->Type == "0") ? "0" : "1";
+//         $data1 = bookcopies::where('status', '=', $status)->get();
+//     }else{
+//         $data1 = bookcopies::get();
+//     }
+
+//   $data = [];
+//   foreach ($data1 as $key => $val) {
+//     $bookcopies = bookcopies::where('bookid', '=', $val->bookid)->first();
+//     $copies =  json_decode($bookcopies->copies);
+//     $data2 = Book::find($val->bookid);
+//     $data2->copies = $copies;
+//     foreach ($copies as $val1) {
+//        if($req->Librarytype != null){
+//         if( $val1->librarytype == $req->Librarytype){
+//             $data2->rec = ($val1->status == "0") ? "pending" : "complete";
+
+//         }
       
-        if($req->type == "Admin"){
-            $magazine=Magazine::where('user_type','admin')->get();
-        }else{
-            $magazine=Magazine::where('user_type','!=','admin')->get();
-        
-            }
-       if ($magazine->isNotempty()) {
+//        }else{
+//         if( $val1->librarytype == "Anna Centenary Library"){
+//             $data2->rec = ($val1->status == "0") ? "pending" : "complete";
+
+//         }elseif($val1->librarytype == "Kalaignar Centenary Library"){
+//             $data2->rec1 = ($val1->status == "0") ? "pending" : "complete";
+
+//         }else{
+//             $data2->rec2 = ($val1->status == "0") ? "pending" : "complete";
+
+//         }
+       
+//        }
+    
+//     }
+
+
+//     array_push($data, $data2);
+//   }
+  
+
+//   $finaldata = [];
+//   $serialNumber = 1;
+//   foreach ($data as $val) {
+//         if($val->rec && $val->rec1 && $val->rec2){
+//             $pub = Publisher::query()
+//             ->where('id', $val->user_id)
+//             ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+//             ->union(
+//                 Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+//             )
+//             ->union(
+//                 PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+//             )
+//             ->first();
+       
+//             $finaldata[] = [
+//                 'S.No' =>  $serialNumber++,
+//                'Book Title' =>    $val->book_title,
+//                'Book Id' =>   $val->product_code,
+//                'Publication Name' =>   $val->nameOfPublisher,
+//                'Vendor Name'=>   $pub->publicationName ?$pub->publicationName :"" ,
+//                'Author Name'=>   $val->author_name,
+//                'Isbn Number'=>   $val->isbn,
+//                'Mobile Number' =>   $pub->mobileNumber,
+//                'Anna Centenary Library' =>  $val->rec,
+//                'Kalaignar Centenary Library'=>   $val->rec1,
+//                'Connemara Public Library' =>   $val->rec2,
+             
+              
                 
-         $finaldata = [];
-         $serialNumber = 1;
-         foreach ($magazine as $val) {
-               if($val->periodical_procurement_status =="1"  || $val->periodical_procurement_status =="5" || $val->periodical_procurement_status =="6" ){
-                   $status="Payment Success";
-               }else{
-                $status="No Payment";
-               }
-        
-             $finaldata[] = [
-                'S.No' =>  $serialNumber ++,
-               'Title of the Periodical' =>    $val->title,
-               'Language' =>    $val->language,
-               'frequency' =>   $val->periodicity,
-               'RNI number' =>  $val->rni_details,
-               'Category' =>  $val->category,
-               'Name of the Publisher'=>   $val->publisher_name,
-               'Payment status' =>   $status,
-               
+//             ];
+         
+//         }else{
+           
+//             $finaldata[] = [
+//                 'S.No' =>  $serialNumber++,
+//                'Book Title' =>    $val->book_title,
+//                'Book Id' =>   $val->product_code,
+//                'Publication Name' =>   $val->nameOfPublisher,
+//                'Vendor Name'=>   $pub->publicationName ?$pub->publicationName :"" ,
+//                'Author Name'=>   $val->author_name,
+//                'Isbn Number'=>   $val->isbn,
+//                'Mobile Number' =>   $pub->mobileNumber,
+
+//                $req->Librarytype =>  $val->rec,
+              
+             
+              
                 
-            ];
-          
+//             ];
          
+//         }
+      
     
-          
-         }
-         
 
-         $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
-         $csvContent .= "S.No,Title of the Periodical,Language,frequency, RNI number,Category,Name of the Publisher,Payment status\n"; 
-         foreach ($finaldata as $data) {
-             $csvContent .= '"' . implode('","', $data) ."\"\n";
-         }
-    
-         $headers = [
-             'Content-Type' => 'text/csv; charset=utf-8',
-             'Content-Disposition' => 'attachment; filename="periodicalReport.csv"',
-         ];
-    
-         return response()->make($csvContent, 200, $headers);
-
-
-       }else{
-        return back()->with('error', 'No Record Found');
-
-       }
-
- } else{
-        return back()->with('error', 'Select Vendor Type');
-
-    }
- 
    
-}
+//   }
+//   if(($req->Type != null && $req->Librarytype != null) || ($req->Type == null && $req->Librarytype != null) )  {
+
+
+//     $csvContent = "\xEF\xBB\xBF"; 
+//     $csvContent .= "S.No,Book Title,Book Id,Publication Name,Vendor Name,Author Name,Isbn Number,Mobile Number,$req->Librarytype\n"; 
+    
+//     foreach ($finaldata as $data) {
+//         $csvContent .= '"' . implode('","', $data) ."\"\n";
+//     }
+//   }else{
+
+//     $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+//     $csvContent .= "S.No,Book Title,Book Id,Publication Name,Vendor Name,Author Name,Isbn Number,Mobile Number, Anna Centenary Library,Kalaignar Centenary Library,Connemara Public Library\n"; 
+//     foreach ($finaldata as $data) {
+//         $csvContent .= '"' . implode('","', $data) ."\"\n";
+//     }
+//   }
+
+
+
+//   $headers = [
+//       'Content-Type' => 'text/csv; charset=utf-8',
+//       'Content-Disposition' => 'attachment; filename="pendingbookcopiesReport.csv"',
+//   ];
+
+//   return response()->make($csvContent, 200, $headers);
+// }
+
 public function samplebookpending(Request $req)
 {
-     
+    // Initialize data collection
     $data1 = collect();
-  
-    if ($req->Type != null && $req->Librarytype != null) {
-       
-        $status = ($req->Type == "0") ? "0" : "1";
-        $status1 = ($req->Type == "0") ? "1" : "0";
-        $data1 = bookcopies::where('status', '=', $status)
+    $status = $req->Type === null ? null : ($req->Type === "0" ? "0" : "1");
+    $status1 = $status === null ? null : ($status === "0" ? "1" : "0");
+
+    // Filter data based on type and librarytype if specified
+    if ($status !== null && $req->Librarytype !== null) {
+        $data1 = bookcopies::where('status', $status)
             ->whereJsonContains('copies', ['librarytype' => $req->Librarytype, 'status' => $status1])
             ->get();
-    }  elseif ($req->Type !== null) {
-        $status = ($req->Type == "0") ? "0" : "1";
-        $data1 = bookcopies::where('status', '=', $status)->get();
-    }else{
+    } elseif ($status !== null) {
+        $data1 = bookcopies::where('status', $status)->get();
+    } else {
         $data1 = bookcopies::get();
     }
 
-  $data = [];
-  foreach ($data1 as $key => $val) {
-    $bookcopies = bookcopies::where('bookid', '=', $val->bookid)->first();
-    $copies =  json_decode($bookcopies->copies);
-    $data2 = Book::find($val->bookid);
-    $data2->copies = $copies;
-    foreach ($copies as $val1) {
-       if($req->Librarytype != null){
-        if( $val1->librarytype == $req->Librarytype){
-            $data2->rec = ($val1->status == "0") ? "pending" : "complete";
+    // Process data
+    $data = $data1->map(function ($val) use ($req) {
+        $bookcopies = json_decode(bookcopies::where('bookid', $val->bookid)->first()->copies);
+        $book = Book::find($val->bookid);
+        $book->copies = $bookcopies;
 
+        // Assign status for each library
+        foreach ($bookcopies as $copy) {
+            if ($req->Librarytype === null || $copy->librarytype === $req->Librarytype) {
+                $statusKey = ($copy->librarytype === 'Anna Centenary Library') ? 'rec' :
+                             (($copy->librarytype === 'Kalaignar Centenary Library') ? 'rec1' : 'rec2');
+                $book->$statusKey = ($copy->status === "0") ? "pending" : "complete";
+            }
         }
-      
-       }else{
-        if( $val1->librarytype == "Anna Centenary Library"){
-            $data2->rec = ($val1->status == "0") ? "pending" : "complete";
+        return $book;
+    });
 
-        }elseif($val1->librarytype == "Kalaignar Centenary Library"){
-            $data2->rec1 = ($val1->status == "0") ? "pending" : "complete";
+    // Prepare final data for CSV
+    $finaldata = $data->map(function ($val, $index) use ($req) {
+        $pub = $this->getPublisherDetails($val->user_id);
+        $commonFields = [
+            'S.No' => $index + 1,
+            'Book Title' => $val->book_title,
+            'Book Id' => $val->product_code,
+            'Publication Name' => $val->nameOfPublisher,
+            'Vendor Name' => $pub->publicationName ?: '',
+            'Author Name' => $val->author_name,
+            'Isbn Number' => $val->isbn,
+            'Mobile Number' => $pub->mobileNumber,
+        ];
 
-        }else{
-            $data2->rec2 = ($val1->status == "0") ? "pending" : "complete";
-
+        // Add library-specific status columns
+        if ($req->Librarytype !== null) {
+            $commonFields[$req->Librarytype] = $val->rec ?? '';
+        } else {
+            $commonFields['Anna Centenary Library'] = $val->rec ?? '';
+            $commonFields['Kalaignar Centenary Library'] = $val->rec1 ?? '';
+            $commonFields['Connemara Public Library'] = $val->rec2 ?? '';
         }
-       
-       }
-    
+
+        return $commonFields;
+    });
+
+    // Generate CSV content
+    $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+    if ($req->Librarytype) {
+        $csvContent .= "S.No,Book Title,Book Id,Publication Name,Vendor Name,Author Name,Isbn Number,Mobile Number,{$req->Librarytype}\n";
+    } else {
+        $csvContent .= "S.No,Book Title,Book Id,Publication Name,Vendor Name,Author Name,Isbn Number,Mobile Number, Anna Centenary Library,Kalaignar Centenary Library,Connemara Public Library\n";
     }
 
-
-    array_push($data, $data2);
-  }
-  
-
-  $finaldata = [];
-  $serialNumber = 1;
-  foreach ($data as $val) {
-        if($val->rec && $val->rec1 && $val->rec2){
-            $pub = Publisher::query()
-            ->where('id', $val->user_id)
-            ->select('id', 'publicationName', 'usertype','mobileNumber','email')
-            ->union(
-                Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
-            )
-            ->union(
-                PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
-            )
-            ->first();
-            $finaldata[] = [
-                'S.No' =>  $serialNumber++,
-               'Book Title' =>    $val->book_title,
-               'Book Id' =>   $val->product_code,
-               'Publication Name' =>   $val->nameOfPublisher,
-               'Vendor Name'=>   $pub->publicationName ?$pub->publicationName :"" ,
-               'Mobile Number' =>   $pub->mobileNumber,
-               'Anna Centenary Library' =>  $val->rec,
-               'Kalaignar Centenary Library'=>   $val->rec1,
-               'Connemara Public Library' =>   $val->rec2,
-             
-              
-                
-            ];
-         
-        }else{
-           
-            $finaldata[] = [
-                'S.No' =>  $serialNumber++,
-               'Book Title' =>    $val->book_title,
-               'Book Id' =>   $val->product_code,
-               'Publication Name' =>   $val->nameOfPublisher,
-               'Vendor Name'=>   $pub->publicationName ?$pub->publicationName :"" ,
-               'Mobile Number' =>   $pub->mobileNumber,
-
-               $req->Librarytype =>  $val->rec,
-              
-             
-              
-                
-            ];
-         
-        }
-      
-    
-
-   
-  }
-  if(($req->Type != null && $req->Librarytype != null) || ($req->Type == null && $req->Librarytype != null) )  {
-
-
-    $csvContent = "\xEF\xBB\xBF"; 
-    $csvContent .= "S.No,Book Title,Book Id,Publication Name,Vendor Name,Mobile Number,$req->Librarytype\n"; 
-    
-    foreach ($finaldata as $data) {
-        $csvContent .= '"' . implode('","', $data) ."\"\n";
+    foreach ($finaldata as $dataRow) {
+        $csvContent .= '"' . implode('","', $dataRow) . "\"\n";
     }
-  }else{
 
-    $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
-    $csvContent .= "S.No,Book Title,Book Id,Publication Name,Vendor Name,Mobile Number, Anna Centenary Library,Kalaignar Centenary Library,Connemara Public Library\n"; 
-    foreach ($finaldata as $data) {
-        $csvContent .= '"' . implode('","', $data) ."\"\n";
-    }
-  }
-
-
-
-  $headers = [
-      'Content-Type' => 'text/csv; charset=utf-8',
-      'Content-Disposition' => 'attachment; filename="pendingbookcopiesReport.csv"',
-  ];
-
-  return response()->make($csvContent, 200, $headers);
+    // Return CSV as response
+    return response()->make($csvContent, 200, [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="pendingbookcopiesReport.csv"',
+    ]);
 }
 
+// Helper function to fetch publisher or distributor info
+private function getPublisherDetails($userId)
+{
+    return Publisher::query()
+        ->where('id', $userId)
+        ->select('id', 'publicationName', 'usertype', 'mobileNumber', 'email')
+        ->union(Distributor::query()->where('id', $userId)->select('id', 'distributionName as publicationName', 'usertype', 'mobileNumber', 'email'))
+        ->union(PublisherDistributor::query()->where('id', $userId)->select('id', 'publicationDistributionName as publicationName', 'usertype', 'mobileNumber', 'email'))
+        ->first();
+}
 
 public function notyet_send_bookcopies(Request $req){
   
@@ -4386,9 +4504,8 @@ public function master_expertrev_payment(Request $request){
     
 }
 
-
 public function master_expertrev_payment_datareport(Request $request){
-
+  
     $query = DB::table('reviewer as r')
         ->leftJoin('book_review_statuses as br', 'r.id', '=', 'br.reviewer_id')
         ->select(
@@ -4411,7 +4528,7 @@ public function master_expertrev_payment_datareport(Request $request){
         )
         ->where('r.status', 1)
         ->whereIn('r.reviewerType', ['external']);
-
+  
     if ($request->reviewer_filter) {
         $query->where('r.id', $request->reviewer_filter);
     }
@@ -4442,31 +4559,21 @@ public function master_expertrev_payment_datareport(Request $request){
         'r.branch', 
         'r.reviewerType'
     )->get(); 
-
     $results->transform(function ($item) {
-        // First, decode the HTML entities (like &quot; and &amp;) in the subject
         $subject = htmlspecialchars_decode($item->subject, ENT_QUOTES);
-        
-        // Attempt to decode the subject as JSON
         $subjects = json_decode($subject, true);
-    
-        // Check if it's a valid JSON array
         if (is_array($subjects)) {
-            // If it's an array, apply htmlspecialchars to each subject and join them into a string
             $item->subject = implode(', ', array_map('htmlspecialchars', $subjects));
         } else {
-            // If it's not a valid JSON array, treat it as a string and decode Unicode escape sequences
             $item->subject = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($matches) {
                 return mb_convert_encoding(pack('H*', $matches[1]), 'UTF-8', 'UCS-2BE');
             }, $subject);
         }
     
-        // Remove any surrounding double quotes or spaces
         $item->subject = trim($item->subject, " \t\n\r\0\x0B\"");
     
         return $item;
     });
-    
     
     $finaldata = [];
          $serialNumber = 1;
@@ -4497,7 +4604,7 @@ public function master_expertrev_payment_datareport(Request $request){
     
           
          }
-
+  
          $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
          $csvContent .= "S.No,Expert Name,Subject,Email,Mobile Number,Designation,Organisation Details,Account Holder Name,Bank Name,Branch,IFSC Number,Account Number,Number Of Books Assigned,Number Of Books Completed,Number Of Books Pending,Amount Per Book(Rs.50),Total Amount\n"; 
          foreach ($finaldata as $data) {
@@ -4513,21 +4620,21 @@ public function master_expertrev_payment_datareport(Request $request){
         
     
     
-}
+  }
 public function expert_review_assessment_report(Request $request){
-
-
+  
+  
     $query = DB::table('reviewer as r')
     ->leftJoin('book_review_statuses as br', function ($join) use ($request) {
         $join->on('r.id', '=', 'br.reviewer_id');
-
+  
         if ($request->status == 'Pending') {
             $join->whereNull('br.mark');
         } elseif ($request->status == 'Complete') {
             $join->whereNotNull('br.mark');
         }
- 
-
+  
+  
     })
     ->rightJoin('books as br1', 'br.book_id', '=', 'br1.id')
     ->select(
@@ -4540,16 +4647,16 @@ public function expert_review_assessment_report(Request $request){
         DB::raw("CASE WHEN br.mark IS NULL THEN 'Pending' ELSE 'Complete' END AS mark_status"),
         DB::raw(" br.review_type  AS type"),
         DB::raw("CASE WHEN br.mark IS NULL THEN '' ELSE DATE_FORMAT(br.updated_at, '%d-%m-%y') END AS reviewdate"),
-
+  
     )
     ->where('r.status', 1)
     ->whereIn('r.reviewerType', ['external'])
     ->groupBy('r.id', 'r.name', 'r.subject', 'br1.book_title', 'br1.product_code', 'br.mark','br.review_type', 'br.updated_at','br1.nameOfPublisher');
-
+  
     if ($request->reviewer_filter) {
         $query->where('r.id', $request->reviewer_filter);
     }
-
+  
     if ($request->has('search') && $request->search != '') {
         $query->where(function ($subQuery) use ($request) {
             $subQuery->where('name', 'like', '%' . $request->search . '%')
@@ -4560,7 +4667,7 @@ public function expert_review_assessment_report(Request $request){
             
         });
     }
-
+  
     if ($request->has('review_Type') && $request->review_Type != '') {
         $query->where(function ($subQuery) use ($request) {
             $subQuery->where('review_type', 'like', '%' . $request->review_Type . '%');
@@ -4568,27 +4675,32 @@ public function expert_review_assessment_report(Request $request){
             
         });
     }
-
-
+  
+  
     $results = $query->get();
     $results->transform(function ($item) {
+        // First, decode the HTML entities (like &quot; and &amp;) in the subject
         $subject = htmlspecialchars_decode($item->subject, ENT_QUOTES);
         
+        // Attempt to decode the subject as JSON
         $subjects = json_decode($subject, true);
     
+        // Check if it's a valid JSON array
         if (is_array($subjects)) {
+            // If it's an array, apply htmlspecialchars to each subject and join them into a string
             $item->subject = implode(', ', array_map('htmlspecialchars', $subjects));
         } else {
+            // If it's not a valid JSON array, treat it as a string and decode Unicode escape sequences
             $item->subject = preg_replace_callback('/\\\\u([0-9a-fA-F]{4})/', function ($matches) {
                 return mb_convert_encoding(pack('H*', $matches[1]), 'UTF-8', 'UCS-2BE');
             }, $subject);
         }
     
+        // Remove any surrounding double quotes or spaces
         $item->subject = trim($item->subject, " \t\n\r\0\x0B\"");
     
         return $item;
     });
-    
     if(count($results) != 0){
    
         $finaldata = [];
@@ -4613,8 +4725,8 @@ public function expert_review_assessment_report(Request $request){
    
          
         }
-
-        $csvContent ="\xEF\xBB\xBF"; 
+  
+        $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
         $csvContent .= "S.No,Expert Name,Subject,Book Id,Title Of The Book,Publication Name,Review Date,Review Status,Review Ratings\n"; 
         foreach ($finaldata as $data) {
            $csvContent .= '"' . implode('","', (array) $data) . "\"\n";
@@ -4628,11 +4740,965 @@ public function expert_review_assessment_report(Request $request){
         return response()->make($csvContent, 200, $headers);
     }else{
         return back()->with('error',"No Record Found");
-
+  
     }
   
+  
+  }
+    
+public function book_review_data_reports(Request $request){
+
+    if($request->type != null){
+     $rdatacountval = BookReviewStatus::distinct()
+     ->select('book_id')
+     ->get();
+ 
+     $finaldata = [];
+     $serialNumber = 1;
+     foreach ($rdatacountval as $rval) {
+           $Bookrv = Book::find($rval->book_id);
+         $Bookrvstatus = BookReviewStatus::where('book_id', '=', $rval->book_id)->get();
+     
+         $comextcount = 0;
+         $comintcount = 0;
+         $compubcount = 0;
+         $penextcount = 0;
+         $penintcount = 0;
+         $penpubcount = 0;
+     
+         foreach ($Bookrvstatus as $rvalst) {
+             switch ($rvalst->reviewertype) {
+                 case 'external':
+                     $rvalst->mark === null ?  $penextcount++ :$comextcount++;
+                     break;
+                 case 'internal':
+                     $rvalst->mark === null ?  $penintcount++ : $comintcount++;
+                     break;
+                 default: // public
+                     $rvalst->mark === null ? $penpubcount++: $compubcount++ ;
+             }
+         }
+     
+         $isQualifiedReviewData = $comextcount == $comextcount + $penextcount  && $comintcount >= 3 && $compubcount >= 5;
+         $isPassMark = $Bookrv->marks >= 40;
+         $pub = Publisher::query()
+            ->where('id',  $Bookrv->user_id)
+            ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+            ->union(
+                Distributor::query()->where('id',  $Bookrv->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+            )
+            ->union(
+                PublisherDistributor::query()->where('id',  $Bookrv->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+            )
+            ->first();
+         if ($isQualifiedReviewData) {
+             if ($isPassMark) {
+                if($request->type == "1" || $request->type == "All"){
+                    $finaldata[] = [
+                        'S.No' =>  $serialNumber ++,
+                        'Book Id' =>  $Bookrv->product_code,
+                        'Title Of The Book'=>   $Bookrv->book_title,
+                        'Publication Name' =>   $Bookrv->nameOfPublisher,
+                        'Vendor Name' =>  $pub->publicationName,
+                        'Vendor Type'=>   $Bookrv->user_type,
+                         'language'=>   $Bookrv->language,
+                         'Author Name'=>   $Bookrv->author_name,
+                         'ISBN Number'=>   $Bookrv->isbn,
+                         'Edition Number'=>   $Bookrv->edition_number,
+                         'Paper Type'=>   $Bookrv->type,
+                         'Size'=>   $Bookrv->size,
+                         'Length * Breadth'=>   $Bookrv->length_breadth,
+                         'Width'=>   $Bookrv->width,
+                         'Weight'=>   $Bookrv->weight,
+                         'Gsm'=>   $Bookrv->gsm, 
+                         'Paper Quality'=>   $Bookrv->quality,
+                         'Paper Finishing'=>   $Bookrv->paper_finishing,
+                         'multicolor'=>   $Bookrv->multicolor,
+                         'monocolor'=>   $Bookrv->monocolor,
+                         'Pages'=>   $Bookrv->pages,
+                         'Subject'=>   $Bookrv->subject,
+                         'Category'=>   $Bookrv->category,
+                         'price'=>   $Bookrv->price,
+                         'Discount'=>   $Bookrv->discount,
+                         'Discounted Price'=>   $Bookrv->discountedprice,
+                        'Exper Review' =>    $comextcount +    $penextcount. '  | ' .  $comextcount,
+                        'Librarian Review' =>   $comintcount +    $penintcount. '  | ' .  $comintcount,
+                        'Public Review' =>   $compubcount +    $penpubcount. '  | ' .  $compubcount,
+                         'mark'=>$Bookrv->marks
+                    ];
+                }
+               
+               
+
+             } else {
+                if($request->type == "3"){
+                $finaldata[] = [
+                    'S.No' =>  $serialNumber ++,
+                    'Book Id' =>  $Bookrv->product_code,
+                    'Title Of The Book'=>   $Bookrv->book_title,
+                    'Publication Name' =>   $Bookrv->nameOfPublisher,
+                    'Vendor Name' =>  $pub->publicationName,
+                    'Vendor Type'=>   $Bookrv->user_type,
+                     'language'=>   $Bookrv->language,
+                     'Author Name'=>   $Bookrv->author_name,
+                     'ISBN Number'=>   $Bookrv->isbn,
+                     'Edition Number'=>   $Bookrv->edition_number,
+                     'Paper Type'=>   $Bookrv->type,
+                     'Size'=>   $Bookrv->size,
+                     'Length * Breadth'=>   $Bookrv->length_breadth,
+                     'Width'=>   $Bookrv->width,
+                     'Weight'=>   $Bookrv->weight,
+                     'Gsm'=>   $Bookrv->gsm, 
+                     'Paper Quality'=>   $Bookrv->quality,
+                     'Paper Finishing'=>   $Bookrv->paper_finishing,
+                     'multicolor'=>   $Bookrv->multicolor,
+                     'monocolor'=>   $Bookrv->monocolor,
+                     'Pages'=>   $Bookrv->pages,
+                     'Subject'=>   $Bookrv->subject,
+                     'Category'=>   $Bookrv->category,
+                     'price'=>   $Bookrv->price,
+                     'Discount'=>   $Bookrv->discount,
+                     'Discounted Price'=>   $Bookrv->discountedprice,
+                    'Exper Review' =>    $comextcount +    $penextcount. '  | ' .  $comextcount,
+                    'Librarian Review' =>   $comintcount +    $penintcount. '  | ' .  $comintcount,
+                    'Public Review' =>   $compubcount +    $penpubcount. '  | ' .  $compubcount,
+                     'mark'=>$Bookrv->marks
+                ];
+            }
+ 
+            
+             }
+         } else {
+             if ($isPassMark) {
+                if($request->type == "2" || $request->type == "All" ){
+                $finaldata[] = [
+                    'S.No' =>  $serialNumber ++,
+                    'Book Id' =>  $Bookrv->product_code,
+                    'Title Of The Book'=>   $Bookrv->book_title,
+                    'Publication Name' =>   $Bookrv->nameOfPublisher,
+                    'Vendor Name' =>  $pub->publicationName,
+                    'Vendor Type'=>   $Bookrv->user_type,
+                     'language'=>   $Bookrv->language,
+                     'Author Name'=>   $Bookrv->author_name,
+                     'ISBN Number'=>   $Bookrv->isbn,
+                     'Edition Number'=>   $Bookrv->edition_number,
+                     'Paper Type'=>   $Bookrv->type,
+                     'Size'=>   $Bookrv->size,
+                     'Length * Breadth'=>   $Bookrv->length_breadth,
+                     'Width'=>   $Bookrv->width,
+                     'Weight'=>   $Bookrv->weight,
+                     'Gsm'=>   $Bookrv->gsm, 
+                     'Paper Quality'=>   $Bookrv->quality,
+                     'Paper Finishing'=>   $Bookrv->paper_finishing,
+                     'multicolor'=>   $Bookrv->multicolor,
+                     'monocolor'=>   $Bookrv->monocolor,
+                     'Pages'=>   $Bookrv->pages,
+                     'Subject'=>   $Bookrv->subject,
+                     'Category'=>   $Bookrv->category,
+                     'price'=>   $Bookrv->price,
+                     'Discount'=>   $Bookrv->discount,
+                     'Discounted Price'=>   $Bookrv->discountedprice,
+                    'Exper Review' =>    $comextcount +    $penextcount. '  | ' .  $comextcount,
+                    'Librarian Review' =>   $comintcount +    $penintcount. '  | ' .  $comintcount,
+                    'Public Review' =>   $compubcount +    $penpubcount. '  | ' .  $compubcount,
+                     'mark'=>$Bookrv->marks
+                ];
+            }
+               
+             } else {
+                if($request->type == "4"){
+                $finaldata[] = [
+                    'S.No' =>  $serialNumber ++,
+                   'Book Id' =>  $Bookrv->product_code,
+                   'Title Of The Book'=>   $Bookrv->book_title,
+                   'Publication Name' =>   $Bookrv->nameOfPublisher,
+                   'Vendor Name' =>  $pub->publicationName,
+                   'Vendor Type'=>   $Bookrv->user_type,
+                    'language'=>   $Bookrv->language,
+                    'Author Name'=>   $Bookrv->author_name,
+                    'ISBN Number'=>   $Bookrv->isbn,
+                    'Edition Number'=>   $Bookrv->edition_number,
+                    'Paper Type'=>   $Bookrv->type,
+                    'Size'=>   $Bookrv->size,
+                    'Length * Breadth'=>   $Bookrv->length_breadth,
+                    'Width'=>   $Bookrv->width,
+                    'Weight'=>   $Bookrv->weight,
+                    'Gsm'=>   $Bookrv->gsm, 
+                    'Paper Quality'=>   $Bookrv->quality,
+                    'Paper Finishing'=>   $Bookrv->paper_finishing,
+                    'multicolor'=>   $Bookrv->multicolor,
+                    'monocolor'=>   $Bookrv->monocolor,
+                    'Pages'=>   $Bookrv->pages,
+                    'Subject'=>   $Bookrv->subject,
+                    'Category'=>   $Bookrv->category,
+                    'price'=>   $Bookrv->price,
+                    'Discount'=>   $Bookrv->discount,
+                    'Discounted Price'=>   $Bookrv->discountedprice,
+                   'Exper Review' =>    $comextcount +    $penextcount. '  | ' .  $comextcount,
+                   'Librarian Review' =>   $comintcount +    $penintcount. '  | ' .  $comintcount,
+                   'Public Review' =>   $compubcount +    $penpubcount. '  | ' .  $compubcount,
+                    'mark'=>$Bookrv->marks
+                ];
+            }
+          
+              
+             }
+         }
+ 
+        
+       
+     }
+
+  
+     $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+     $csvContent .= "S.No,Book Id,Title Of The Book,Publication Name,Vendor Name,Vendor Type,language,Author Name,ISBN Number,Edition Number,Paper Type,Size,Length * Breadth,Width,Weight,Gsm,Paper Quality,Paper Finishing,multicolor,monocolor,Pages,Subject,Category,price,Discount,Discounted Price,Exper Review,Librarian Review,Public Review,mark\n"; 
+     foreach ($finaldata as $data) {
+        $csvContent .= '"' . implode('","', (array) $data) . "\"\n";
+    }
+
+     $headers = [
+         'Content-Type' => 'text/csv; charset=utf-8',
+         'Content-Disposition' => 'attachment; filename="Expert_review_Report.csv"',
+     ];
+     return response()->make($csvContent, 200, $headers);
+    }else{
+     return back()->with('error',"No Record Found");
+ 
+    }
+   
+ }
+ 
+ public function publicationwise_bookreport()
+ {
+     $finaldata = [];
+ 
+     $mergedCollection = Book::select(
+             'user_id', 
+             'nameOfPublisher', 
+             'user_type', 
+             DB::raw('count(*) as totalBooks'),
+             DB::raw('SUM(CASE WHEN book_procurement_status = "0" THEN 1 ELSE 0 END) as notPaidBooks'),
+             DB::raw('SUM(CASE WHEN book_procurement_status != "0" THEN 1 ELSE 0 END) as paidBooks'),
+             DB::raw('SUM(CASE WHEN book_reviewer_id IS NULL AND book_procurement_status = "5" THEN 1 ELSE 0 END) as notSendBookCopies'),
+             DB::raw('SUM(CASE WHEN book_reviewer_id IS NULL AND book_procurement_status = "6" THEN 1 ELSE 0 END) as sendBookCopies'),
+             DB::raw('SUM(CASE WHEN book_procurement_status = "1" THEN 1 ELSE 0 END) as aclBookCopies'),
+             DB::raw('SUM(CASE WHEN book_procurement_status = "1" AND book_reviewer_id IS NULL THEN 1 ELSE 0 END) as metaNotAssignedBooks'),
+             DB::raw('SUM(CASE WHEN book_reviewer_id IS NOT NULL THEN 1 ELSE 0 END) as metaAssignedBooks'),
+             DB::raw('SUM(CASE WHEN book_reviewer_id IS NOT NULL AND (book_status IS NULL OR book_status IN ("2", "3")) THEN 1 ELSE 0 END) as metaBooksPending'),
+             DB::raw('SUM(CASE WHEN book_reviewer_id IS NOT NULL AND book_status = "1" THEN 1 ELSE 0 END) as metaBooksCompleted'),
+             DB::raw('SUM(CASE WHEN book_reviewer_id IS NOT NULL AND book_status = "0" THEN 1 ELSE 0 END) as metaBooksRejected')
+         )
+         ->groupBy('user_id', 'nameOfPublisher','user_type')
+         ->get();
+     
+ 
+ 
+ 
+ 
+ 
+     $serialNumber = 1;
+ 
+     foreach ($mergedCollection as $val) {
+  
+        $notSendBookCopies = $val->notSendBookCopies;
+        $sendBookCopies = $val->sendBookCopies;
+        $metaBooksPending = $val->metaBooksPending;
+        $metaBooksRejected = $val->metaBooksRejected;
+ 
+     
+         $qualifiedCount = 0;
+         $notQualifiedCount = 0;
+         $notassignedreviewCount = 0;
+        //  $metaFinal = Book::where('user_id', $val->user_id)
+        //                    ->where('nameOfPublisher', $val->nameOfPublisher)
+        //                   ->where('book_status', '1')
+        //                   ->get();
+ 
+        //  foreach ($metaFinal as $book) {
+        //      if ($book->marks >= 40) {
+        //          $reviewCompleteCount = BookReviewStatus::where('book_id', $book->id)
+        //                                                 ->whereNotNull('mark')
+        //                                                 ->where('reviewertype', 'external')
+        //                                                 ->count();
+                                             
+        //          if ($reviewCompleteCount >= 1) {
+        //              $qualifiedCount++;
+        //          } else {
+        //              $notQualifiedCount++;
+        //          }
+        //      } else {
+        //          $reviewCompleteCount = BookReviewStatus::where('book_id', $book->id) ->count();
+ 
+        //          if($reviewCompleteCount !=0){
+        //              $notQualifiedCount++;
+ 
+        //          }else{
+        //              $notassignedreviewCount++;
+        //          }
+        //      }
+        //  }
+        $metaFinal = Book::where('user_id', $val->user_id)
+        ->where('nameOfPublisher', $val->nameOfPublisher)
+        ->where('book_status', '1')
+        ->withCount([
+            'reviews as external_review_count' => function ($query) {
+                $query->whereNotNull('mark')
+                      ->where('reviewertype', 'external');
+            },
+            'reviews as total_review_count' => function ($query) {
+                $query->whereNotNull('mark');
+            }
+        ])
+        ->get();
+
+foreach ($metaFinal as $book) {
+if ($book->marks >= 40) {
+// If book's marks are 40 or more, check for external reviews
+if ($book->external_review_count >= 1) {
+    $qualifiedCount++;
+} else {
+    $notQualifiedCount++;
+}
+} else {
+if ($book->total_review_count != 0) {
+    $notQualifiedCount++;
+} else {
+    $notassignedreviewCount++;
+}
+}
+}
+
+         $type = $val->user_type == "publisher_distributor" ? "publisher cum distributor" : $val->usertype;
+       
+         $finaldata[] = (object)[
+             'S.No' => $serialNumber++,
+             'Publication Name' => $val->nameOfPublisher,
+             'User Type' => $type,
+             'Total Book' => $val->totalBooks,
+             'Paid Book' => $val->paidBooks,
+             'Not Paid Book' => $val->notPaidBooks,
+             'Not Send Book Copies' => $notSendBookCopies,
+             'Copies Not Approved at ACL' => $sendBookCopies,
+             'Copies Approved at ACL' => $val->aclBookCopies,
+             'Meta not Assigned' => $val->metaNotAssignedBooks,
+             'Meta Assigned' => $val->metaAssignedBooks,
+             'Meta Pending Book' => $metaBooksPending,
+             'Meta Complete Book' => $val->metaBooksCompleted,
+             'Meta Reject Book' => $metaBooksRejected,
+             'Review Not Assigned Book' => $notassignedreviewCount,
+             'Review Assigned Book' => $qualifiedCount + $notQualifiedCount,
+             'Not Qualified Book' => $notQualifiedCount,
+             'Qualified Book' => $qualifiedCount,
+            
+         ];
+        
+     }
+ 
+     
+     $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+     $csvContent .= "S.No,Publication Name,User Type,Total Book,Paid Book,Not Paid Book,Not Send Book Copies,Copies Not Approved at ACL,Copies Approved at ACL,Meta not Assigned,Meta Assigned,Meta Pending Book,Meta Complete Book,Meta Reject Book,Review Not Assigned Book,Review Assigned Book,Not Qualified Book,Qualified Book\n"; 
+     foreach ($finaldata as $data) {
+         // Convert the object to an array before using implode
+         $csvContent .= '"' . implode('","', (array) $data) . "\"\n";
+     }
+     
+   
+ 
+     $headers = [
+         'Content-Type' => 'text/csv; charset=utf-8',
+         'Content-Disposition' => 'attachment; filename="publicationwiseBookReport.csv"',
+     ];
+ 
+ 
+     return response()->make($csvContent, 200, $headers);
+ }
+ 
+public function book_review_notcom_data() {
+    // Fetch distinct book IDs for review status
+    $rdatacountval = BookReviewStatus::distinct()
+        ->select('book_id')
+        ->get();
+
+    $finaldata = [];
+    $serialNumber = 1;
+
+    // Preload all books and their associated data
+    $books = Book::with('reviews')->whereIn('id', $rdatacountval->pluck('book_id'))->get();
+
+    // Preload publishers, distributors, and publisher distributors for all user_ids
+    $userIds = $books->pluck('user_id')->unique();
+    $publishers = Publisher::whereIn('id', $userIds)->get()->keyBy('id');
+    $distributors = Distributor::whereIn('id', $userIds)->get()->keyBy('id');
+    $publisherDistributors = PublisherDistributor::whereIn('id', $userIds)->get()->keyBy('id');
+
+    foreach ($books as $Bookrv) {
+        $Bookrvstatus = $Bookrv->reviews;
+        
+        $comextcount = $comintcount = $compubcount = 0;
+        $penextcount = $penintcount = $penpubcount = 0;
+
+        // Count review statuses by type
+        foreach ($Bookrvstatus as $rvalst) {
+            switch ($rvalst->reviewertype) {
+                case 'external':
+                    $rvalst->mark === null ? $penextcount++ : $comextcount++;
+                    break;
+                case 'internal':
+                    $rvalst->mark === null ? $penintcount++ : $comintcount++;
+                    break;
+                default: // public
+                    $rvalst->mark === null ? $penpubcount++ : $compubcount++;
+            }
+        }
+
+        // Check review and pass mark criteria
+        $isQualifiedReviewData = ($comextcount + $penextcount) == $comextcount && $comintcount >= 3 && $compubcount >= 5;
+        $isPassMark = $Bookrv->marks >= 40;
+
+        if (!$isQualifiedReviewData && !$isPassMark) {
+            foreach ($Bookrvstatus as $rvalst) {
+                // Determine reviewer type
+                $type = ($rvalst->reviewertype === "internal") ? "librarian" : $rvalst->reviewertype;
+
+                // Fetch the publisher, distributor, or publisher distributor
+                $pub = $publishers[$Bookrv->user_id] ?? $distributors[$Bookrv->user_id] ?? $publisherDistributors[$Bookrv->user_id] ?? null;
+
+                // Fetch reviewer info
+                $Reviewer = Reviewer::find($rvalst->reviewer_id);
+                
+                // Prepare data for CSV output
+                $finaldata[] = [
+                    'S.No' => $serialNumber++,
+                    'Book Id' => $Bookrv->product_code,
+                    'Title Of The Book' => $Bookrv->book_title,
+                    'Publication Name' => $Bookrv->nameOfPublisher,
+                    'Vendor Name' => $pub ? $pub->publicationName : 'N/A',
+                    'Vendor Type' => $Bookrv->user_type,
+                    'Language' => $Bookrv->language,
+                    'Author Name' => $Bookrv->author_name,
+                    'ISBN Number' => $Bookrv->isbn,
+                    'Reviewer Name' => $Reviewer->name ?? 'N/A',
+                    'Reviewer Type' => $type,
+                    'Reviewer Review Comment' => $rvalst->review_type ?: "No Review",
+                    'Reviewer Review Status' => $rvalst->review_type ? "Complete" : "Pending",
+                    'Exper Review' => ($comextcount + $penextcount) . ' | ' . $comextcount,
+                    'Librarian Review' => ($comintcount + $penintcount) . ' | ' . $comintcount,
+                    'Public Review' => ($compubcount + $penpubcount) . ' | ' . $compubcount,
+                    'mark' => $Bookrv->marks
+                ];
+            }
+        }
+    }
+
+    // Prepare CSV content
+    $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .= "S.No,Book Id,Title Of The Book,Publication Name,Vendor Name,Vendor Type,Language,Author Name,ISBN Number,Reviewer Name,Reviewer Type,Reviewer Review Comment,Reviewer Review Status,Exper Review,Librarian Review,Public Review,mark\n";
+
+    // Append data rows to CSV
+    foreach ($finaldata as $data) {
+        $csvContent .= '"' . implode('","', (array)$data) . "\"\n";
+    }
+
+    // Set the headers for file download
+    $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="Expert_review_Report.csv"',
+    ];
+
+    return response()->make($csvContent, 200, $headers);
+}
+
+
+
+
+
+
+ 
+public function negotiation_data_reports(Request $request) {
+
+    $query = Book::leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+    ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+    ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+    ->select('books.*', 
+        DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+    );
+
+if ($request->type == 'all') {
+    // Check if the type is one of the statuses: No_Negotiation, Negotiation, Below25
+    $query->whereIn('nego_status', ['No_Negotiation', 'Negotiation', 'Below25']);
+}else if($request->type != "null"){
+    $query->where('nego_status', '=', $request->type);
+
+}else{
+    return back()->with('error', 'Select Negotiation Type');
 
 }
+
+
+$bookdata = $query->get();
+$finaldata = [];
+$serialNumber = 1;
+
+
+            foreach ($bookdata as $Bookrv) {
+         
+                $finaldata[] = [
+                    'S.No' => $serialNumber++,
+                    'Book Id' => $Bookrv->product_code,
+                    'Title Of The Book' => $Bookrv->book_title,
+                    'Publication Name' => $Bookrv->nameOfPublisher,
+                    'Vendor Name' => $Bookrv->vendorname,
+                    'Vendor Type' => $Bookrv->user_type,
+                    'Language' => $Bookrv->language,
+                    'Author Name' => $Bookrv->author_name,
+                    'ISBN Number' => $Bookrv->isbn,
+                    'Book Price' => $Bookrv->price ,
+                    'Offered Discount(Percentage)' => $Bookrv->discount . '%',
+                    'Discounted Price' => $Bookrv->discountedprice,
+                    'Negotiation Percentage(Percentage)' => $Bookrv->calculated_percentage. '%',
+                    'Negotiation Price' => $Bookrv->calculated_price,
+                    'Negotiation Reason' => $Bookrv-> calculated_reason,
+                    'Negotiation Status' => $Bookrv->nego_status,
+              
+                ];
+            }
+        
+           
+
+    // Prepare CSV content
+    $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .= "S.No,Book Id,Title Of The Book,Publication Name,Vendor Name,Vendor Type,Language,Author Name,ISBN Number,Book Price,Offered Discount(Percentage),Discounted Price,Negotiation Percentage(Percentage),Negotiation Price,Negotiation Reason,Negotiation Status\n";
+
+    // Append data rows to CSV
+    foreach ($finaldata as $data) {
+        $csvContent .= '"' . implode('","', (array)$data) . "\"\n";
+    }
+
+    // Set the headers for file download
+    $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="Negotiation_Report.csv"',
+    ];
+
+    return response()->make($csvContent, 200, $headers);
+}
+
+
+
+
+public function negotiation_alldata_reports(Request $request) {
+   $report = DB::table('books')
+    ->select(
+        DB::raw('SUM(CASE WHEN nego_status = "No_Negotiation" AND negotiation_status IS NOT NULL THEN 1 ELSE 0 END) as Nonegotiation'),
+        DB::raw('SUM(CASE WHEN nego_status = "No_Negotiation" AND language = "Tamil" AND negotiation_status IS NOT NULL THEN 1 ELSE 0 END) as tamilNonegotiation'),
+        DB::raw('SUM(CASE WHEN nego_status = "No_Negotiation" AND language = "English" AND negotiation_status IS NOT NULL THEN 1 ELSE 0 END) as englishNonegotiation'),
+
+        
+      
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND negotiation_status IS NOT NULL THEN 1 ELSE 0 END) as Below25'),
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND language = "Tamil" AND negotiation_status IS NOT NULL THEN 1 ELSE 0 END) as tamilBelow25'),
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND language = "English" AND negotiation_status IS NOT NULL THEN 1 ELSE 0 END) as englishBelow25'),
+
+      
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND negotiation_status IS NOT NULL THEN 1 ELSE 0 END) as Negotiation'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "Tamil" AND negotiation_status IS NOT NULL THEN 1 ELSE 0 END) as tamilNegotiation'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "English" AND negotiation_status IS NOT NULL THEN 1 ELSE 0 END) as englishNegotiation'),
+
+
+
+
+
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND negotiation_status = 0 THEN 1 ELSE 0 END) as Below25pending'),
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND language = "Tamil" AND negotiation_status = 0 THEN 1 ELSE 0 END) as tamilBelow25pending'),
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND language = "English" AND negotiation_status = 0 THEN 1 ELSE 0 END) as englishBelow25pending'),
+
+
+
+
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND negotiation_status = 2 THEN 1 ELSE 0 END) as Below25agree'),
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND language = "Tamil" AND negotiation_status = 2 THEN 1 ELSE 0 END) as tamilBelow25agree'),
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND language = "English" AND negotiation_status = 2 THEN 1 ELSE 0 END) as englishBelow25agree'),
+
+
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND negotiation_status = 3 THEN 1 ELSE 0 END) as Below25disagree'),
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND language = "Tamil" AND negotiation_status = 3 THEN 1 ELSE 0 END) as tamilBelow25disagree'),
+        DB::raw('SUM(CASE WHEN nego_status = "Below25" AND language = "English" AND negotiation_status = 3 THEN 1 ELSE 0 END) as englishBelow25disagree'),
+
     
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND negotiation_status = 0 THEN 1 ELSE 0 END) as Negotiationpending'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "Tamil" AND negotiation_status = 0 THEN 1 ELSE 0 END) as tamilNegotiationpending'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "English" AND negotiation_status = 0 THEN 1 ELSE 0 END) as englishNegotiationpending'),
+
+
+
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND negotiation_status = 1 THEN 1 ELSE 0 END) as Negotiationrenegotiationbyvendor'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "Tamil" AND negotiation_status = 1 THEN 1 ELSE 0 END) as tamilNegotiationrenegotiationbyvendor'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "English" AND negotiation_status = 1 THEN 1 ELSE 0 END) as englishNegotiationrenegotiationbyvendor'),
+
+
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND negotiation_status = 5 THEN 1 ELSE 0 END) as Negotiationrenegotiationbyadmin'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "Tamil" AND  negotiation_status = 5 THEN 1 ELSE 0 END) as tamilNegotiationrenegotiationbyadmin'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "English" AND negotiation_status = 5 THEN 1 ELSE 0 END) as englishNegotiationrenegotiationbyadmin'),
+
+
+
+
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND negotiation_status = 2 THEN 1 ELSE 0 END) as Negotiationagree'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "Tamil" AND negotiation_status = 2 THEN 1 ELSE 0 END) as tamilNegotiationagree'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "English" AND negotiation_status = 2 THEN 1 ELSE 0 END) as englishNegotiationagree'),
+
+      
+      
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND negotiation_status = 3 THEN 1 ELSE 0 END) as Negotiationdisagree'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "Tamil" AND negotiation_status = 3 THEN 1 ELSE 0 END) as tamilNegotiationdisagree'),
+        DB::raw('SUM(CASE WHEN nego_status = "Negotiation" AND language = "English" AND negotiation_status = 3 THEN 1 ELSE 0 END) as englishNegotiationdisagree'),
+
+    )
+    ->first();
+
+
+    $finaldata = [];
+    $finaldata[] = [
+        'S.No' => 1,
+        'Nonegotiation' => $report->Nonegotiation,
+        'Nonegotiation Tamil' => $report->tamilNonegotiation,
+        'Nonegotiation English' => $report->englishNonegotiation,
+        'Below25' => $report->Below25,
+        'Below25 Tamil' => $report->tamilBelow25,
+        'Below25 English' => $report->englishBelow25,
+        'Below25 Pending' => $report->Below25pending,
+        'Below25 Pending Tamil' => $report->tamilBelow25pending,
+        'Below25 Pending English' => $report->englishBelow25pending,
+        'Below25 Agree' => $report->Below25agree,
+        'Below25 Agree Tamil' => $report->tamilBelow25agree,
+        'Below25 Agree English' => $report->englishBelow25agree,
+        'Below25 Disagree' => $report->Below25disagree,
+        'Below25 Disagree Tamil' => $report->tamilBelow25disagree,
+        'Below25 Disagree English' => $report->englishBelow25disagree,
+        'Negotiation ' => $report->Negotiation,
+        'Negotiation Tamil' => $report->tamilNegotiation,
+        'Negotiation English' => $report->englishNegotiation,
+        'Negotiation Pending' => $report->Negotiationpending,
+        'Negotiation Pending Tamil' => $report->tamilNegotiationpending,
+        'Negotiation Pending English' => $report->englishNegotiationpending,
+        'Renegotiation By Vendor' => $report->Negotiationrenegotiationbyvendor,
+        'Renegotiation By Vendor Tamil' => $report->tamilNegotiationrenegotiationbyvendor,
+        'Renegotiation By Vendor English' => $report->englishNegotiationrenegotiationbyvendor,
+        'Renegotiation By Admin' => $report->Negotiationrenegotiationbyadmin,
+        'Renegotiation By Admin Tamil' => $report->tamilNegotiationrenegotiationbyadmin,
+        'Renegotiation By Admin English' => $report->englishNegotiationrenegotiationbyadmin,
+        'Negotiation Agree' => $report->Negotiationagree,
+        'Negotiation Agree Tamil' => $report->tamilNegotiationagree,
+        'Negotiation Agree English' => $report->englishNegotiationagree,
+        'Negotiation Disagree' => $report->Negotiationdisagree,
+        'Negotiation Disagree Tamil' => $report->tamilNegotiationdisagree,
+        'Negotiation Disagree English' => $report->englishNegotiationdisagree,
+    ];
+    
+ 
+            
+               
+    
+        // Prepare CSV content
+        $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+        $csvContent .= "S.No,Nonegotiation, Nonegotiation Tamil, Nonegotiation English, Below25, Below25 Tamil, Below25 English, Below25 Pending, Below25 Pending Tamil, Below25 Pending English, Below25 Agree, Below25 Agree Tamil, Below25 Agree English, Below25 Disagree, Below25 Disagree Tamil, Below25 Disagree English, Negotiation, Negotiation Tamil, Negotiation English, Negotiation Pending, Negotiation Pending Tamil, Negotiation Pending English, Renegotiation By Vendor, Renegotiation By Vendor Tamil, Renegotiation By Vendor English, Renegotiation By Admin, Renegotiation By Admin Tamil, Renegotiation By Admin English, Negotiation Agree, Negotiation Agree Tamil, Negotiation Agree English, Negotiation Disagree, Negotiation Disagree Tamil, Negotiation Disagree English\n";
+    
+        // Append data rows to CSV
+        foreach ($finaldata as $data) {
+            $csvContent .= '"' . implode('","', (array)$data) . "\"\n";
+        }
+    
+        // Set the headers for file download
+        $headers = [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="Negotiation_Report.csv"',
+        ];
+    
+        return response()->make($csvContent, 200, $headers);
+
+
+}
+
+
+
+public function unique_authorreport(Request $request) {
+
+     $unique_authors = DB::table('unique_authors')
+    ->leftJoin('books', 'unique_authors.authorid', '=', 'books.unique_author')
+    ->select('unique_authors.*', DB::raw('COUNT(books.unique_author) as book_count'))
+    ->groupBy(
+        'unique_authors.authorid', 
+        'unique_authors.id', 
+        'unique_authors.name', 
+        'unique_authors.status', 
+        'unique_authors.created_at', 
+        'unique_authors.updated_at'
+    ) // Add all columns from unique_authors
+    ->orderByDesc(DB::raw('COUNT(books.unique_author)')) // Order by book count in descending order
+    ->get();
+
+
+
+
+
+$finaldata = [];
+$serialNumber = 1;
+
+
+            foreach ($unique_authors as $Bookrv) {
+         
+                $finaldata[] = [
+                    'S.No' => $serialNumber++,
+                    'Author Name' => $Bookrv->name,
+                    'Status' => $Bookrv->status == 1 ? 'active' : 'inactive',
+                    'Book Assigncount' => $Bookrv->book_count,
+                
+   
+              
+                ];
+            }
+        
+           
+            
+    // Prepare CSV content
+    $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .= "S.No,Author Name,Status,Book Assigncount\n";
+
+    // Append data rows to CSV
+    foreach ($finaldata as $data) {
+        $csvContent .= '"' . implode('","', (array)$data) . "\"\n";
+    }
+
+    // Set the headers for file download
+    $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="unique_author_Report.csv"',
+    ];
+
+    return response()->make($csvContent, 200, $headers);
+}
+
+
+
+public function report_downl_library(Request $request)
+{
+
+    $query = Librarian::query(); 
+
+   
+    
+    if ($request->type != null && $request->librarytype == null) {
+        $query->where('librarianId', '!=', $request->type)
+              ->where('dlo_id', '=', $request->type);
+        
+    } else if ($request->type == null && $request->librarytype != null) {
+        if ($request->librarytype == "1") {
+            $query->where('metaChecker', '=', 'no')
+                  ->where('allow_status', '=', '1');
+        } else if ($request->librarytype == "2") {
+            $query->where('metaChecker', 'no')
+                  ->where('allow_status', '0')
+                  ->where('libraryType', 'District Library Office -DLO');
+        }  else if ($request->librarytype == "3") {
+            $query->where('metaChecker', '==', 'yes');
+        }
+    
+    } else if ($request->type != null && $request->librarytype != null) {
+        return back()->with('error', 'No Record Found');
+    }
+    
+
+    $results = $query->get();
+
+    
+
+
+
+    
+    $librariandata = [];
+    $serialNumber = 1;
+    foreach ($results as $val1) {
+         return $val1;
+         $librarianAdressString = ($val1->door_no ?? "") . ' ' . $val1->street . ' ' . $val1->place . ' ' . $val1->Village . ' ' . $val1->post . ' ' . $val1->taluk . ' ' . $val1->district . ' ' . $val1->pincode . ' ' . $val1->landmark;
+
+        $librariandata[] = [
+            'S.No' => $serialNumber++,
+            'Library Code' => $val1->librarianId,
+            'Library Name' => $val1->libraryName,
+            'Type Of Library' => $val1->libraryType,
+            'Door Number' => $val1->door_no,
+            'Strwwt Name' => $val1->street,
+            'Place' => $val1->place,
+            'Village' => $val1->Village,
+            'Taluk' => $val1->taluk,
+            'Landmark' => $val1->landmark,
+            'Post' => $val1->post,
+            'Pin Code' => $val1->pincode,
+            'District' => $val1->district,
+            'Librarian Name' => $val1->librarianName,
+            'Designation' => $val1->librarianDesignation,
+            'Email' => $val1->email,
+            'Contact Number' => $val1->phoneNumber,
+            'Status' => $val1->status == 1 ? 'active' : 'inactive',
+
+        ];
+       
+    }
+
+    $csvContent ="\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .="S.No,Library Code,Library Name,Type Of Library,Door Number,Strwwt Name,Place,Village,Taluk,Landmark,Post,Pin Code,District,Librarian Name,Designation,Email,Contact Number,Status\n"; 
+    foreach ($librariandata as $data) {
+        $csvContent .= '"' . implode('","', $data) ."\"\n";
+    }
+
+    $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="librarian_report.csv"',
+    ];
+
+    return response()->make($csvContent, 200, $headers);
+}
+
+
+ 
+public function renegotiation_data_reports(Request $request) {
+
+    $query = Book::leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+    ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+    ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+    ->select('books.*', 
+        DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+    );
+
+ if($request->type){
+    $query->where('negotiation_status', '=', $request->type);
+
+}else{
+    return back()->with('error', 'Select Negotiation Type');
+
+}
+
+
+ $bookdata = $query->get();
+$finaldata = [];
+$serialNumber = 1;
+
+
+            foreach ($bookdata as $Bookrv) {
+         
+                $finaldata[] = [
+                    'S.No' => $serialNumber++,
+                    'Book Id' => $Bookrv->product_code,
+                    'Title Of The Book' => $Bookrv->book_title,
+                    'Publication Name' => $Bookrv->nameOfPublisher,
+                    'Vendor Name' => $Bookrv->vendorname,
+                    'Vendor Type' => $Bookrv->user_type,
+                    'Language' => $Bookrv->language,
+                    'Author Name' => $Bookrv->author_name,
+                    'ISBN Number' => $Bookrv->isbn,
+                    'Book Price' => $Bookrv->price ,
+                    'Offered Discount(Percentage)' => $Bookrv->discount . '%',
+                    'Discounted Price' => $Bookrv->discountedprice,
+                    'Negotiation (Percentage)' => $Bookrv->calculated_percentage. '%',
+                    'Negotiation Price' => $Bookrv->calculated_price,
+                    'Negotiation Reason' => $Bookrv-> calculated_reason,
+                    'Renegotiation By Vendor (Percentage)' => $Bookrv->negotiation_percentage ? $Bookrv->negotiation_percentage . '%' : '0%',
+                    'Renegotiation  By Vendor Price' => $Bookrv->negotiation_price,
+                    'Renegotiation  By Vendor Reason' => $Bookrv-> negotiation_message,
+                    'Renegotiation  By Admin Price' => $Bookrv->renegotiation_price,
+                    'Renegotiation  By Admin Reason' => $Bookrv-> renegotiation_message,
+                    'Negotiation Status' => $Bookrv->nego_status,
+              
+                ];
+            }
+       
+           
+
+    // Prepare CSV content
+    $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .= "S.No,Book Id,Title Of The Book,Publication Name,Vendor Name,Vendor Type,Language,Author Name,ISBN Number,Book Price,Offered Discount(Percentage),Discounted Price,Negotiation (Percentage),Negotiation Price,Negotiation Reason,Renegotiation By Vendor (Percentage),Renegotiation  By Vendor Price,Renegotiation  By Vendor Reason,Renegotiation  By Admin Price,Renegotiation  By Admin Reason,Negotiation Status\n";
+
+    // Append data rows to CSV
+    foreach ($finaldata as $data) {
+        $csvContent .= '"' . implode('","', (array)$data) . "\"\n";
+    }
+
+    // Set the headers for file download
+    $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="Negotiation_Report.csv"',
+    ];
+
+    return response()->make($csvContent, 200, $headers);
+}
+
+
+
+
+
+
+
+
+public function category_wise_amount_report(Request $request) {
+
+    $query = Book::where('book_active_status', '=', 1)
+    ->where('negotiation_status', '=', "2")
+    ->where('marks', '>=', 40)->where('book_status', '=', '1')
+    ->whereNotNull('unique_author');
+
+ if($request->type  ){
+    $query->where('category', '=', $request->type);
+
+}
+
+
+ $bookdata = $query->get();
+ $groupedData = $bookdata->groupBy('category')->map(function ($books, $category) {
+    return [
+        'category' => $category, // Add category name
+        'total_count' => $books->sum('final_price'),
+        'Mrp Price' => $books->sum('price'),
+        'No.of Title' => count($books),
+        'Tamil' => $books->where('language', 'Tamil')->sum('final_price'),
+        'English' => $books->where('language', 'English')->sum('final_price'),
+    ];
+});
+
+$finaldata = [];
+$serialNumber = 1;
+
+foreach ($groupedData as $Bookrv) {
+    $finaldata[] = [
+        'S.No' => $serialNumber++,
+        'No.of Title' => $Bookrv['No.of Title'], //
+        'Mrp Price' => $Bookrv['Mrp Price'],
+        'Category Name' => $Bookrv['category'], // Corrected key
+        'Tamil' => $Bookrv['Tamil'], // Corrected key
+        'English' => $Bookrv['English'], // Corrected key
+        'Total' => $Bookrv['total_count'], // Corrected key
+    ];
+}
+
+       
+           
+
+    // Prepare CSV content
+    $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+    $csvContent .= "S.No,'Category Name',No.of Title,Mrp Price,Tamil,English,Total\n";
+
+    // Append data rows to CSV
+    foreach ($finaldata as $data) {
+        $csvContent .= '"' . implode('","', (array)$data) . "\"\n";
+    }
+
+    // Set the headers for file download
+    $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="categoryamount_Report.csv"',
+    ];
+
+    return response()->make($csvContent, 200, $headers);
+}
+
 
 }

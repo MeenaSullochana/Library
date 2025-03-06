@@ -218,7 +218,7 @@ class PublisherDistributorController extends Controller
         
                 }
             
-                      $publisher=auth('publisher')->user();
+                      $publisher=auth('publisher_distributor')->user();
                     
                         $Accountdetail = new Accountdetail();
         
@@ -248,11 +248,61 @@ class PublisherDistributorController extends Controller
         
                 
             }
-            public function aacountdetail(){
+            public function acountdetail(){
                 $id=auth('publisher_distributor')->user()->id;
                 $data =Accountdetail::where('user_id', $id)->first();
-                return view('publisher_and_distributor.aacountdetails')->with('data',$data);
+                return view('publisher_and_distributor.acountdetails')->with('data',$data);
         
+            }
+
+
+            public function update_accountdetails(Request $req){
+     
+                $validator = Validator::make($req->all(),[
+                    'ven_gst_category'=>'required',
+                    'pan_num'=>'required|string',
+                    'pan_hol_name'=>'required',
+                    'pan_father_name'=>'required',
+                    'pan_hol_dob'=>'required',
+                    'address'=>'required',
+                    'pincode'=>'required',
+                    'acc_num'=>'required',
+                    'ifsc_code'=>'required',
+                    'beneficary_name'=>'required',
+                 
+                ]);
+                if($validator->fails()){
+                    $data= [
+                        'error' => $validator->errors()->first(),
+                             ];
+                    return response()->json($data);
+        
+                }
+            
+                     
+                    $Accountdetail = Accountdetail::find($req->id);
+                     $Accountdetail->ven_gst_category= $req->ven_gst_category;
+                     $Accountdetail->pan_num= $req->pan_num;
+                     $Accountdetail->pan_hol_name= $req->pan_hol_name;
+                     $Accountdetail->pan_father_name= $req->pan_father_name;           
+                     $Accountdetail->pan_hol_dob= $req->pan_hol_dob;
+                     $Accountdetail->address= $req->address;
+                     $Accountdetail->pincode= $req->pincode;
+                     $Accountdetail->acc_num= $req->acc_num;
+                     $Accountdetail->ifsc_code= $req->ifsc_code;
+                     $Accountdetail->beneficary_name= $req->beneficary_name;
+           
+                 
+                    if($Accountdetail->save()){
+                        
+                        $data= [
+                        'success' => 'Account Details  Updated  Successfully',
+                                ];
+                    return response()->json($data);
+                    }
+                    
+        
+                
             }
     }
     

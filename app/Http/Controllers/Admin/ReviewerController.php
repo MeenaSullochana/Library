@@ -522,7 +522,11 @@ public function reviewerstatus(Request $req){
                    $subject == "Short stories" || $subject == "Custom" || $subject == "Folklore)" ||$subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
                    
                    }
-                   
+                   else  if($subject == "புனைவு (சிறுகதை" ){
+                    $subjects[] = "புனைவு (சிறுகதை. குறுநாவல், நாவல்)";
+                
+    
+                   }
                    else{
                     $subjects[] = $subject;
     
@@ -632,7 +636,11 @@ public function reviewerstatus(Request $req){
                        $subject == "Short stories" || $subject == "Custom" || $subject == "Folklore)" ||$subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
                        
                        }
-                       
+                       else  if($subject == "புனைவு (சிறுகதை" ){
+                        $subjects[] = "புனைவு (சிறுகதை. குறுநாவல், நாவல்)";
+                    
+        
+                       }
                        else{
                         $subjects[] = $subject;
         
@@ -1124,7 +1132,11 @@ public function create_reviewer(Request $req){
                $subject == "Short stories" || $subject == "Custom" || $subject == "Folklore)" ||$subject == "கலைக்களஞ்சியங்கள்"  || $subject == "நிகண்டுகள்" ){
                
                }
-               
+               else  if($subject == "புனைவு (சிறுகதை" ){
+                $subjects[] = "புனைவு (சிறுகதை. குறுநாவல், நாவல்)";
+            
+
+               }
                else{
                 $subjects[] = $subject;
 

@@ -203,7 +203,7 @@ class ProductController extends Controller
                     ->whereJsonDoesntContain('purchaseid', $librarian->id);
             })
             ->where('libraryType', $librarian->libraryType)
-            ->orderBy('created_at', 'ASC')
+            ->orderBy('created_at', 'Desc')
             ->first();
       
         if ($bookbudget) {
@@ -297,13 +297,16 @@ class ProductController extends Controller
             $books = Book::where('book_active_status', '=', 1)
             ->where('negotiation_status', '=', "2")
             ->where('marks', '>=', 40)->where('book_status', '=', '1')
+            ->whereNotNull('unique_author')
             ->orderBy('marks', 'desc')->paginate(24);
             $min = Book::where('book_active_status', '=', 1)
             ->where('negotiation_status', '=', "2")
+            ->whereNotNull('unique_author')
             ->where('marks', '>=', 40)->where('book_status', '=', '1')->min(\DB::raw('CAST(final_price AS UNSIGNED)'));
 
             $max = Book::where('book_active_status', '=', 1)
             ->where('negotiation_status', '=', "2")
+            ->whereNotNull('unique_author')
             ->where('marks', '>=', 40)->where('book_status', '=', '1')->max(\DB::raw('CAST(final_price AS UNSIGNED)'));
          
             return view('product', compact('books','min','max'));
@@ -316,6 +319,7 @@ class ProductController extends Controller
         $query = Book::query();
         $query->where('book_active_status', '=', 1)
         ->where('negotiation_status', '=', "2")
+        ->whereNotNull('unique_author')
         ->where('marks', '>=', 40)->where('book_status', '=', '1');
         // Check if category parameter is provided and not empty
         if ($request->has('category')) {
@@ -348,6 +352,16 @@ class ProductController extends Controller
                 
             }
         }
+        if ($request->has('author_name')) {
+            $author_name = $request->input('author_name');
+            if (!empty($author_name)) {
+              
+            
+                    $query->where('author_name', $author_name);
+                
+            }
+        }
+
         
         // Apply search filter if provided
         if ($request->has('search')) {

@@ -8,7 +8,8 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php include 'plugin/css.php'; ?>
-
+    <link href="https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     {{-- @include(asset('pl')) --}}
     <style>
 .tpproduct__thumb {
@@ -571,6 +572,9 @@ img.avatar.avatar-md.rounded-circle {
                             $Books = DB::table('books')
                             ->where('id', '!=', $data->id)
                             ->where('category', $data->category)
+                            ->where('negotiation_status', '=', "2")
+                            ->where('book_active_status', '=', 1)
+                            ->whereNotNull('unique_author')
                             ->orderBy('created_at', 'asc')
                             ->take(5)
                             ->get();
@@ -621,10 +625,14 @@ img.avatar.avatar-md.rounded-circle {
                     <div class="swiper-container tpproduct-active tpslider-bottom p-relative">
                         <div class="swiper-wrapper">
                             @php
-                            $Books = DB::table('Books')
+                            $Books = DB::table('books')
                             ->where('id','!=', $data->id)
                             ->where('category', $data->category)
+                            ->where('negotiation_status', '=', "2")
+                            ->where('book_active_status', '=', 1)
+                            ->whereNotNull('unique_author')
                             ->orderBy('created_at', 'Asc')
+                            ->take(50)
                             ->get();
                             @endphp
                             @foreach( $Books as $val)
@@ -683,38 +691,38 @@ img.avatar.avatar-md.rounded-circle {
             </div>
         </section>
         <!-- product-area-end -->
-        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-            role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <!-- Add your modal header content here -->
-                        <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i
-                                class="fa fa-chevron-left"></i>Back to</button>
-                        <!-- <h5 class="modal-title" id="modalTitleId">THREE THOUSAND STITCHES: ORDINARY PEOPLE, EXTRAORDINARY
+        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+        aria-labelledby="modalTitleId" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- Add your modal header content here -->
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"><i
+                            class="fa fa-chevron-left"></i>Back to</button>
+                    <!-- <h5 class="modal-title" id="modalTitleId">THREE THOUSAND STITCHES: ORDINARY PEOPLE, EXTRAORDINARY
                         LIVES</h5> -->
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div id="viewer" class="spreads"></div>
+
+                </div>
+                <div class="modal-footer" style="display: flex; justify-content: space-between;">
+                <div>
+                        <a id="prev" href="#prev" class="arrow">Previous</a>
+                        <a id="next" href="#next" class="arrow">Next</a>
                     </div>
-                    <div class="modal-body">
-
-                        <div id="viewer" class="spreads"></div>
-
-                    </div>
-                    <div class="modal-footer" style="display: flex; justify-content: space-between;">
-                        <div>
-                            <a id="prev" href="#prev" class="arrow">Previous</a>
-                            <a id="next" href="#next" class="arrow">Next</a>
-                        </div>
-                        <div>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <!-- <button type="button" id="saveButton" data-dataid="{{ $data->id }}"
-                            data-revid="{{$data->revid }}" class="btn btn-primary">Review</button> -->
-                        </div>
-
-
+                  
+                    <div>
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save</button> -->
                     </div>
                 </div>
+
             </div>
+        </div>
+    </div>
     </main>
 
 
@@ -807,15 +815,14 @@ img.avatar.avatar-md.rounded-circle {
     });
     </script>
 
-
-    <script>
+<script>
     const myModal = new bootstrap.Modal(document.getElementById('modalId'), options)
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
-    <script src="https://unpkg.com/epubjs@0.3.93/dist/epub.legacy.js"></script>
-    <script>
+</script>
+<script src="https://cdn.jsdelivr.net/npm/owl-carousel@1.0.0/owl-carousel/owl.carousel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js"></script>
+<script src="https://unpkg.com/epubjs@0.3.93/dist/epub.legacy.js"></script>
+<script>
     var swiper = new Swiper(".mySwiper", {
         slidesPerView: "auto",
         centeredSlides: true,
@@ -825,8 +832,8 @@ img.avatar.avatar-md.rounded-circle {
             clickable: true,
         },
     });
-    </script>
-    <script>
+</script>
+<script>
     function showMore(link) {
         var shortNotes = link.parentNode.querySelector('.short_notes');
         var longNotes = link.parentNode.querySelector('.long_notes');
@@ -844,9 +851,9 @@ img.avatar.avatar-md.rounded-circle {
             link.innerHTML = "See less";
         }
     }
-    </script>
+</script>
 
-    <script>
+<script>
     var params = URLSearchParams && new URLSearchParams(document.location.search.substring(1));
     var url = params && params.get("url") && decodeURIComponent(params.get("url"));
     var currentSectionIndex = (params && params.get("loc")) ? params.get("loc") : undefined;
@@ -856,9 +863,9 @@ img.avatar.avatar-md.rounded-circle {
 
     openModalBtn.addEventListener('click', function() {
         epubModal.style.display = 'flex';
-        var data = @json($data -> sample_file);
-        var data1 = @json($data -> sample_pdf);
-        var data2 = @json($data -> sample_epub);
+        var data = @json($data->sample_file);
+        var data1 = @json($data->sample_pdf);
+        var data2 = @json($data->sample_epub);
 
         var bookSource = data2;
 
@@ -877,29 +884,25 @@ img.avatar.avatar-md.rounded-circle {
             var next = document.getElementById("next");
 
             next.addEventListener("click", function(e) {
-                book.package.metadata.direction === "rtl" ? rendition.prev() : rendition
-                    .next();
+                book.package.metadata.direction === "rtl" ? rendition.prev() : rendition.next();
                 e.preventDefault();
             }, false);
 
             var prev = document.getElementById("prev");
             prev.addEventListener("click", function(e) {
-                book.package.metadata.direction === "rtl" ? rendition.next() : rendition
-                    .prev();
+                book.package.metadata.direction === "rtl" ? rendition.next() : rendition.prev();
                 e.preventDefault();
             }, false);
 
             var keyListener = function(e) {
                 // Left Key
                 if ((e.keyCode || e.which) == 37) {
-                    book.package.metadata.direction === "rtl" ? rendition.next() : rendition
-                        .prev();
+                    book.package.metadata.direction === "rtl" ? rendition.next() : rendition.prev();
                 }
 
                 // Right Key
                 if ((e.keyCode || e.which) == 39) {
-                    book.package.metadata.direction === "rtl" ? rendition.prev() : rendition
-                        .next();
+                    book.package.metadata.direction === "rtl" ? rendition.prev() : rendition.next();
                 }
             };
 
@@ -992,15 +995,15 @@ img.avatar.avatar-md.rounded-circle {
             epubModal.style.display = 'none';
         }
     });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-    <script>
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<script>
     var openModalBtn = document.getElementById('openModalBtn');
     var pdfModal = document.getElementById('modalId');
 
     openModalBtn.addEventListener('click', function() {
         pdfModal.style.display = 'flex';
-        var data1 = @json($data -> sample_pdf); // Assuming $data->sample_pdf contains the PDF file name
+        var data1 = @json($data->sample_pdf); // Assuming $data->sample_pdf contains the PDF file name
         var pdfUrl = "{{ asset('Books/samplepdf') }}/" + data1; // Adjust the path as necessary
 
         var pdfjsLib = window['pdfjs-dist/build/pdf'];
@@ -1064,38 +1067,124 @@ img.avatar.avatar-md.rounded-circle {
             pdfModal.style.display = 'none';
         }
     });
-    </script>
-    <script>
-    var $affectedElements = $("p, h1, h2, h3, h4, h5, h6"); // Can be extended, ex. $("div, p, span.someClass")
+</script>
 
-    // Storing the original size in a data attribute so size can be reset
-    $affectedElements.each(function() {
-        var $this = $(this);
-        $this.data("orig-size", $this.css("font-size"));
-    });
-
-    $("#btn-increase").click(function() {
-        changeFontSize(1);
-    })
-
-    $("#btn-decrease").click(function() {
-        changeFontSize(-1);
-    })
-
-    $("#btn-orig").click(function() {
-        $affectedElements.each(function() {
-            var $this = $(this);
-            $this.css("font-size", $this.data("orig-size"));
-        });
-    })
-
-    function changeFontSize(direction) {
-        $affectedElements.each(function() {
-            var $this = $(this);
-            $this.css("font-size", parseInt($this.css("font-size")) + direction);
-        });
+<script>
+document.addEventListener('keydown', function(e) {
+var modal = document.getElementById('modalId');
+var isModalOpen = modal && modal.classList.contains('show');
+    if(@json($data->sample_file) =="Pdf"){
+        switch (e.keyCode) {
+        case 37: 
+            console.log('Left arrow key pressed');
+            document.getElementById('prev').click();
+            break;
+        case 39: 
+            console.log('Right arrow key pressed');
+            document.getElementById('next').click();
+            break;
+            case 38: // Up arrow key
+            e.preventDefault();
+            console.log('Up arrow key pressed');
+            document.querySelector('.modal-dialog-scrollable .modal-body').scrollBy(0, -100);
+            break;
+            case 40: // Down arrow key
+            e.preventDefault();
+                console.log('Down arrow key pressed');
+                document.querySelector('.modal-dialog-scrollable .modal-body').scrollBy(0, 100);
+            break;
     }
-    </script>
+    }else if (@json($data->sample_file) ==epub){
+       
+         switch (e.keyCode) {
+              case 37: // Left arrow key
+                e.preventDefault();
+                var prevButtonEPUB = document.getElementById('prev');
+                if (prevButtonEPUB) {
+                    console.log('EPUB Prev button found, clicking...');
+                    prevButtonEPUB.click();
+                } else {
+                    console.warn('EPUB Prev button not found');
+                }
+                break;
+
+         case 39: // Right arrow key
+                e.preventDefault();
+                var nextButtonEPUB = document.getElementById('next');
+                if (nextButtonEPUB) {
+                    console.log('EPUB Next button found, clicking...');
+                    nextButtonEPUB.click();
+                } else {
+                    console.warn('EPUB Next button not found');
+                }
+               
+                break;
+            }
+         }else{
+             
+         switch (e.keyCode) {
+              case 38: // Up arrow key
+            e.preventDefault();
+            console.log('Up arrow key pressed');
+            document.querySelector('.modal-dialog-scrollable .modal-body').scrollBy(0, -100);
+            break;
+            case 40: // Down arrow key
+            e.preventDefault();
+                console.log('Down arrow key pressed');
+                document.querySelector('.modal-dialog-scrollable .modal-body').scrollBy(0, 100);
+            break;
+             }
+      }
+   
+
+
+});
+</script>
+
+
+
+
+<script>
+    // function myFunction() {
+    //     var dots = document.getElementById("dots");
+    //     var moreText = document.getElementById("more");
+    //     var btnText = document.getElementById("myBtn");
+
+    //     if (dots.style.display === "none") {
+    //         dots.style.display = "inline";
+    //         btnText.innerHTML = "Read more";
+    //         moreText.style.display = "none";
+    //     } else {
+    //         dots.style.display = "none";
+    //         btnText.innerHTML = "Read less";
+    //         moreText.style.display = "inline";
+    //     }
+    // }
+    // slider
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: true,
+        navText: [
+            "<i class='fa fa-caret-left'></i>",
+            "<i class='fa fa-caret-right'></i>"
+        ],
+        autoplay: true,
+        autoplayHoverPause: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 5
+            }
+        }
+    })
+</script>
+
 
 </body>
 

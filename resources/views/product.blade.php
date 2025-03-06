@@ -11,7 +11,140 @@
     <?php include 'plugin/css.php'; ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {{-- @include(asset('pl')) --}}
-   
+    <style>
+        .tplist__content {
+        padding: 25px;
+    }
+        .tpproduct__thumb {
+            padding: 20px 20px;
+            overflow: hidden;
+            border-radius: 10px;
+            min-height: 270px;
+            max-height: 270px;
+        }
+        .category__item {
+            text-align: center;
+            background-color: var(--tp-common-white);
+            border-radius: 10px;
+            padding: 30px 10px 25px 10px;
+            min-height: 234px;
+        }
+        
+        .tplist__product-img {
+            height: 200px;
+            width: 100px;
+        }
+        
+        .tplist__product-img-one img {
+            height: 200px;
+            width: 100px;
+        }
+        
+        .tplist__product-img-two img {
+            height: 200px;
+            width: 100px;
+        }
+        .tpproduct__hover-text{
+            z-index: 1;
+        }
+        .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            position: fixed; /* Position fixed */
+            top: 50%;
+            left: 50%;
+            margin-left: -60px; /* Negative half of width */
+            margin-top: -60px; /* Negative half of height */
+            z-index: 9999; /* Higher z-index */
+            background: rgba(20, 6, 6, 0.5); /* Semi-transparent background */
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        </style>
+        <style>
+        @property --p{
+          syntax: '<number>';
+          inherits: true;
+          initial-value: 0;
+        }
+        
+        .pie {
+          --p:20;
+          --b:10px;
+          --c:darkred;
+          --w:70px;
+          
+          width:var(--w);
+          aspect-ratio:1;
+          position:relative;
+          display:inline-grid;
+          margin:5px;
+          place-content:center;
+          font-size:16px;
+          font-weight:bold;
+          font-family:sans-serif;
+        }
+        .pie:before,
+        .pie:after {
+          content:"";
+          position:absolute;
+          border-radius:50%;
+        }
+        .pie:before {
+          inset:0;
+          background:
+          radial-gradient(farthest-side, var(--c) 98%, #0000) top / var(--b) var(--b) no-repeat, conic-gradient(var(--c) calc(var(--p)* 1%), #0000002e 0);
+          -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+                  mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+        }
+        .pie:after {
+          inset:calc(50% - var(--b)/2);
+          background:var(--c);
+          transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
+        }
+        .animate {
+          animation:p 1s .5s both;
+        }
+        .no-round:before {
+          background-size:0 0,auto;
+        }
+        .no-round:after {
+          content:none;
+        }
+        @keyframes p {
+          from{--p:0}
+        }
+        div#pagination-two {
+        width: 100%;
+        overflow: scroll;
+    }
+    @media only screen and (max-width: 600px) {
+        .tp-shop-selector{
+            margin-top: 10px;
+        }
+    }
+    
+    .scrollable-div {
+        height: 600px; 
+        overflow-y: auto;  
+        overflow-x: hidden; 
+        padding-right: 15px; 
+    }
+    
+    .scrollable1-div {
+        height: 300px; 
+        overflow-y: auto;  
+        overflow-x: hidden; 
+        padding-right: 15px; 
+    }
+        </style>
 </head>
 
 <body>
@@ -68,7 +201,14 @@
         ->orderBy('created_at', 'Asc')
         ->get();
       
-     
+        $booksdata = DB::table('unique_authors')
+        ->where('status', '=',1)
+        ->orderByRaw("CASE 
+         WHEN name REGEXP '^[A-Za-z]' THEN 2 
+         ELSE 1 
+         END ASC, name ASC")
+        ->get();
+ 
         $subject = DB::table('book_subject')->where('status','=','1')->where('type','=','Tamil')->get();
         $subject1 = DB::table('book_subject')->where('status','=','1')->where('type','=','English')->get();
         @endphp
@@ -126,7 +266,7 @@
                                                    <a href="#">FILTER</a>
                                                 </div> -->
                                              </div> 
-                                            <div class="tpshop__widget mb-30 pb-25">
+                                            <div class="tpshop__widget mb-30 pb-25 scrollable-div">
                                                 <h4 class="tpshop__widget-title">FILTER BY Subject</h4>
                                                 
                                                 @foreach($subject as $val)
@@ -147,6 +287,20 @@
                                                     </label>
                                                 </div>
                                              @endforeach
+                                            </div>
+                                            <div class="tpshop__widget mb-30 pb-25 scrollable1-div">
+                                                <h4 class="tpshop__widget-title">FILTER BY Author Name</h4>
+                                                
+                                                @foreach($booksdata as $val)
+                                                <div class="form-check">
+                                                    <input class="form-check-input author-checkbox1" type="checkbox" value=""   
+                                                      data-id55="{{ $val->authorid }}" id="flexCheckDefault11{{ $val->name }}">
+                                                    <label class="form-check-label" for="flexCheckDefault11{{ $val->name }}">
+                                                        {{$val->name}}
+                                                    </label>
+                                                </div>
+                                             @endforeach
+                                          
                                             </div>
                                         </div>
                                     </div>
@@ -203,7 +357,7 @@
                                     @foreach($categories as $val)
                                     <div class="swiper-slide">
                                         <div class="category__item mb-30">
-                                        <div class="category__thumb fix mb-15">
+                                        <div class="category__thumb fix mb-15 ">
                                                     <a href="#"><img
                                                             src="{{ asset('admin/categorieImage/' . $val->categorieImage) }}"
                                                             alt="category-thumb"></a>
@@ -326,8 +480,9 @@
                                                 <select class="form-control" id="showrecord">
                                                     <!-- <option value="">Default sorting</option> -->
                                                     {{-- <option value="12">Show 12</option> --}}
-                                                    <option value="12">Show 12</option>
                                                     <option value="24">Show 24</option>
+                                                    <option value="12">Show 12</option>
+                                                 
                                                     <option value="48">Show 48</option>
                                                     <option value="98">Show 96</option>
                                                 </select>
@@ -344,21 +499,21 @@
                                 <div class="tab-pane fade" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
                                    <div class="row row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item" id="magazine_eight">
                                       {{-- Eight Board --}}
-                                      @include('book.book-eight');
+                                      @include('book.book-eight')
                                       {{-- end Eight Board --}}
                                    </div>
                                 </div>
                                 <div class="tab-pane fade show active whight-product" id="nav-popular" role="tabpanel" aria-labelledby="nav-popular-tab">
                                    <div class="row" id="magazine_single">
                                       {{-- single Board --}}
-                                      @include('book.book-single');
+                                      @include('book.book-single')
                                       {{-- single Board --}}
                                    </div>
                                 </div>
                                 <div class="tab-pane fade whight-product" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
                                    <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-3 row-cols-sm-2 row-cols-1 tpproduct__shop-item" id="magazine_four">
                                       {{-- single Board --}}
-                                      @include('book.book-four');
+                                      @include('book.book-four')
                                       {{-- single Board --}}
                                    </div>
                                 </div>
@@ -386,13 +541,7 @@
     include 'plugin/js.php';
     ?>
     {{-- search  --}}
-  <div class="tpshop__widget mb-30 pb-25">
-    <h4 class="tpshop__widget-title mb-20">FILTER BY PRICE</h4>
-    <label for="price-min">Min Price: <div id="minpricevalue">{{$min}}</div></label>
-    <input type="range" name="price-min" id="price-min" value="{{$min}}" min="{{$min}}" max="{{$max}}">
-    <label for="price-max">Max Price: <div id="maxpricevalue">{{$max}}</div></label>
-    <input type="range" name="price-max" id="price-max" value="{{$max}}" min="{{$min}}" max="{{$max}}">
-</div>
+
 
 <script>
 $(document).ready(function() {
@@ -452,11 +601,22 @@ $(document).ready(function() {
         // Convert the array to a comma-separated string
         var subjectString = subject.join(',');
 
+        var author = [];
+        $('.author-checkbox1:checked').each(function() {
+            author.push($(this).data('id55'));
+        });
+
+        // Convert the array to a comma-separated string
+        var authorString = author.join(',');
+
+        
         var language = [];
         $('.category-checkbox2:checked').each(function() {
             language.push($(this).data('id22'));
         });
 
+
+       
         // Convert the array to a comma-separated string
         var languageString = language.join(',');
         // Make Ajax request
@@ -470,7 +630,10 @@ $(document).ready(function() {
                 maxPrice: maxPrice, // Pass the maximum price
                 showRecord: showRecord, // Pass Show Record
                 subject:subjectString,
-                language:languageString
+                language:languageString,
+                author_name:authorString
+
+                
             },
             success: function(response) {
                 console.log(response);
@@ -920,126 +1083,24 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-<style>
-    .tplist__content {
-    padding: 25px;
-}
-    .tpproduct__thumb {
-        padding: 20px 20px;
-        overflow: hidden;
-        border-radius: 10px;
-        min-height: 270px;
-        max-height: 270px;
-    }
-    .category__item {
-        text-align: center;
-        background-color: var(--tp-common-white);
-        border-radius: 10px;
-        padding: 30px 10px 25px 10px;
-        min-height: 234px;
-    }
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const checkboxes = document.querySelectorAll('.author-checkbox1');
     
-    .tplist__product-img {
-        height: 200px;
-        width: 100px;
-    }
-    
-    .tplist__product-img-one img {
-        height: 200px;
-        width: 100px;
-    }
-    
-    .tplist__product-img-two img {
-        height: 200px;
-        width: 100px;
-    }
-    .tpproduct__hover-text{
-        z-index: 1;
-    }
-    .loader {
-        border: 16px solid #f3f3f3; /* Light grey */
-        border-top: 16px solid #3498db; /* Blue */
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        animation: spin 2s linear infinite;
-        position: fixed; /* Position fixed */
-        top: 50%;
-        left: 50%;
-        margin-left: -60px; /* Negative half of width */
-        margin-top: -60px; /* Negative half of height */
-        z-index: 9999; /* Higher z-index */
-        background: rgba(20, 6, 6, 0.5); /* Semi-transparent background */
-    }
-    
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-    </style>
-    <style>
-    @property --p{
-      syntax: '<number>';
-      inherits: true;
-      initial-value: 0;
-    }
-    
-    .pie {
-      --p:20;
-      --b:10px;
-      --c:darkred;
-      --w:70px;
-      
-      width:var(--w);
-      aspect-ratio:1;
-      position:relative;
-      display:inline-grid;
-      margin:5px;
-      place-content:center;
-      font-size:16px;
-      font-weight:bold;
-      font-family:sans-serif;
-    }
-    .pie:before,
-    .pie:after {
-      content:"";
-      position:absolute;
-      border-radius:50%;
-    }
-    .pie:before {
-      inset:0;
-      background:
-      radial-gradient(farthest-side, var(--c) 98%, #0000) top / var(--b) var(--b) no-repeat, conic-gradient(var(--c) calc(var(--p)* 1%), #0000002e 0);
-      -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
-              mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
-    }
-    .pie:after {
-      inset:calc(50% - var(--b)/2);
-      background:var(--c);
-      transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
-    }
-    .animate {
-      animation:p 1s .5s both;
-    }
-    .no-round:before {
-      background-size:0 0,auto;
-    }
-    .no-round:after {
-      content:none;
-    }
-    @keyframes p {
-      from{--p:0}
-    }
-    div#pagination-two {
-    width: 100%;
-    overflow: scroll;
-}
-@media only screen and (max-width: 600px) {
-    .tp-shop-selector{
-        margin-top: 10px;
-    }
-}
-    </style>
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    checkboxes.forEach((cb) => {
+                        if (cb !== checkbox) {
+                            cb.checked = false;
+                        }
+                    });
+                }
+            });
+        });
+    });
+    </script>
+
  </body>
 
 </html>

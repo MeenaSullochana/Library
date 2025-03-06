@@ -61,12 +61,12 @@
                             <h3 class="mb-0 bc-title">
                                 <b>Upload Price List</b>
                             </h3>
-                            <div>
+                            <!-- <div>
                                 <a class="btn btn-primary  btn-sm" href="/admin/member_list">
                                     <i class="fas fa-chevron-left"></i> List of Reviewer </a>
                                     <a class="btn btn-primary  btn-sm" href="/admin/library_list">
                                         <i class="fas fa-chevron-left"></i> List of Library  </a>
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                                         <select name="role" id="role" class="form-control">
                                             <option value="2">Select Type</option>
                                             <option value="0">Book</option>
-                                            <option value="1">Magazine</option>
+                                            <!-- <option value="1">Magazine</option> -->
 
                                         </select>
                                     </div>
@@ -97,9 +97,13 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="file" class="form-label">Choose Excel File</label>
+                                                        <label for="file" class="form-label"></label>
                                                         <input type="file" class="form-control mb-2" name="file_book_price" id="file" accept=".xls, .xlsx" required>
-                                                        <small class="form-text text-muted mt-3"><img style="width: 30px; height=30px;" src="images/excel.png" alt="" width="25%"><b class="ms-3">Select .csv files only.</b></small>
+                                                        <span class="text-success">
+    <a href="{{ asset('Excel/book_price_upload_sample.csv') }}" download style="color: #007bff;">
+        <small>Download Sample CSV Format</small>
+    </a>
+</span>
                                                         
                                                     </div>
                                                 </div>

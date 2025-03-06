@@ -14,7 +14,7 @@
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Negotiation List</title>
+    <title>Government of Tamil Nadu - Book Procurement - Price Negotiation List</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
@@ -55,7 +55,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Negotiation Book List</b>
+                                <b>Price Negotiation Book List</b>
                             </h3>
                             <!-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
                         <i class="fas fa-plus"></i> Add Book</a> -->
@@ -148,7 +148,8 @@
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">Book Code</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Book Title</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">ISBN</th>
-
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Publication Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Vendor Name</th>
                                                 <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                         colspan="1"
                                         aria-label="Ratings: activate to sort column ascending"
@@ -194,6 +195,12 @@
                                                 </td>
                                                 <td>
                                                     <span>{{$val->isbn}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{$val->nameOfPublisher}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{$val->vendorname}}</span>
                                                 </td>
                                                 <td>
                                                     <span>Rs {{$val->price}}</span>

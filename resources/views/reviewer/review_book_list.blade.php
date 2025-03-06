@@ -107,6 +107,16 @@
 									<div class="col-xl-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
+												<h2 class="text-warning count">{{$negoassign}}</h2>
+												<span>Review Time Expired</span>
+											</div>
+											<p>Expired</p>
+										</div>
+									</div>
+									
+									<div class="col-xl-4 col-sm-6 col-12">
+										<div class="task-summary">
+											<div class="d-flex align-items-baseline">
 												<h2 class="text-warning count">{{$completedreview}}</h2>
 												<span>Completed Review</span>
 											</div>
@@ -166,7 +176,6 @@
 											</tr>
 										</thead>
 										<tbody>
-									
 											@foreach($data as $key=>$val)
 										
 											<tr>

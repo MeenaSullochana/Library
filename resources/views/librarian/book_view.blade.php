@@ -451,6 +451,48 @@
 
                                                         </p>
                                                     </div>
+                                                    @if(auth('librarian')->user()->metaChecker == 'yes' )
+
+                                                    <div class="col-md-6">
+                                                        <p><span class="fs-6 fw-bold text-primary">Unique Author
+                                                                : </span>
+
+                                                                <select class="form-select small" id="uniqueauthor"
+                                                                data-author="{{ $data->id }}" name="uniqueauthor"
+                                                                required style="font-size: 12px;">
+                                                                @php
+                                                                    $unique_auth = DB::table('unique_authors')
+                                                                   
+                                                                    ->where('authorid','=',$data->unique_author)
+                                                                    ->first(); 
+                                        
+                                                                                                       
+                                                                    $unique_authors = DB::table('unique_authors')
+                                                                    ->where('status', '=', '1')
+                                                                    ->where('authorid', '!=', $data->unique_author)
+                                                                    ->orderByRaw("CASE 
+                                                                            WHEN name REGEXP '^[A-Za-z]' THEN 2 
+                                                                            ELSE 1 
+                                                                        END ASC, name ASC")
+                                                                    ->get();
+                                                                    @endphp
+                                                                @if($unique_auth )
+                                                                <option value="{{ $data->unique_author }}">
+                                                                    {{ $unique_auth->name }}
+                                                                </option>
+                                                               @else
+                                                               <option>
+                                                          
+                                                                </option>
+                                                                @endif
+                                                                @foreach($unique_authors as $val)
+                                                                <option value="{{$val->authorid}}">
+                                                                    {{$val->name}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </p>
+                                                    </div>
+                                                    @endif
                                                 </div>
                                                 <hr>
                                                 @if($data->trans_from1 !=null)
@@ -1652,7 +1694,45 @@
         });
     });
 </script>
+<script>
+    document.getElementById("uniqueauthor").addEventListener("change", function(e) {
+        e.preventDefault(); 
 
+        var id = this.getAttribute("data-author");
+        var uniqueauthor = this.value;
+         
+        var data = {
+            'id': id,
+            'unique_author': uniqueauthor
+        };
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "/librarian/uniqueauthorupdate",
+            data: data,
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                if (response.success) {
+                   
+                    toastr.success(response.success, { timeout: 45000 });
+                } else {
+                    toastr.error(response.error, { timeout: 45000 });
+                  
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+</script>
 
     <script>
     // function myFunction() {

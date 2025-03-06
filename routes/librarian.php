@@ -145,6 +145,7 @@ Route::prefix('librarian')->group(function () {
      Route::get('/feedback_librarian_add',function(){ return view('librarian.feedback_librarian_add');});
      Route::post('/categoryupdate',[LibrarianController::class,'categoryupdate']);
 
+
      Route::post('/subjectupdate',[LibrarianController::class,'subjectupdate']);
      Route::post('/librarianreturnmessage',[LibrarianController::class,'librarianreturnmessage']);
 
@@ -325,6 +326,7 @@ Route::get('/dispatch_final_report_pdf',[SettingController::class,'dispatch_fina
 
 Route::get('/dispatch_final_report_pdf',function(){ return view('librarian.dispatch_final_report_pdf');});
 Route::get('/dispatch_final_report_pdf',[SettingController::class,'dispatch_final_report_pdf']);
+Route::post('/uniqueauthorupdate',[LibrarianController::class,'uniqueauthorupdate']);
 
 });
 });

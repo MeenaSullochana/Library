@@ -487,59 +487,83 @@ public function applay_procurment(Request $request){
              ];
     return response()->json($data); 
   }
- public function sendnegotiationstatus(Request $req) {
+  public function sendnegotiationstatus(Request $req) {
+       
     $bookId=$req->bookId;
     $status=$req->status;
 
    if($status == "Accept"){
     $data1 = Book::find($bookId);
-    $data1->final_price= $data1->calculated_price;
-    $data1->negotiation_status ="2";
-    $data1->save();
-    $data= [
-        'success' => 'Accepted Successfully',
-             ];
-    return response()->json($data); 
+    if( $data1->negotiation_status =="5"  ){
+      
+        $data1->final_price= $data1->renegotiation_price;
+        $data1->negotiation_status ="2";
+        $data1->save();
+        $data= [
+            'success' => 'Accepted Successfully',
+                 ];
+        return response()->json($data);
+    }else{
+      
+        $data1->final_price= $data1->calculated_price;
+        $data1->negotiation_status ="2";
+        $data1->save();
+        $data= [
+            'success' => 'Accepted Successfully',
+                 ];
+        return response()->json($data);
+    }
+ 
    }else{
     $data1 = Book::find($bookId);
     $data1->negotiation_status ="3";
     $data1->save();
     $data= [
-        'success' => 'Reject Successfully',
+        'success' => 'Disagree Successfully',
              ];
-    return response()->json($data); 
+    return response()->json($data);
    }
-   
 
-  
-   
+
+
+
 
 }
 public function sendnegotiationsamount(Request $req) {
 
-   if($req->amount !=null){
-    $data1 = Book::find($req->bookId);
-
-    $data1->negotiation_status = "1";
-    $data1->negotiation_price = $req->amount;
-    $data1->negotiation_message = $req->Description;
-    $data1->save();
-
-    $data = [
-        'success' => 'Negotiation send Successfully',
-    ];
-
-    return response()->json($data);
-   }else{
-    $data = [
-        'error' => 'Amount Filed is  Required',
-    ];
-
-    return response()->json($data);
-   }
-
+    if($req->amount !=null){
+      if($req->Description != null){
+         $data1 = Book::find($req->bookId);
+ 
+         $data1->negotiation_status = "1";
+         $data1->negotiation_price = $req->amount;
+         $data1->negotiation_message = $req->Description;
+         $data1->negotiation_percentage = $req->percentage;
+         $data1->save();
+     
+         $data = [
+             'success' => 'Negotiation send Successfully',
+         ];
+     
+         return response()->json($data);
+      }else{
+         $data = [
+             'error' => 'Description Filed is  Required',
+         ];
+     
+         return response()->json($data);
+      }
    
-}
+    }else{
+     $data = [
+         'error' => 'Amount Filed is  Required',
+     ];
+ 
+     return response()->json($data);
+    }
+ 
+    
+ }
 
 public function isbn(Request $req) {
     $id=auth('publisher_distributor')->user()->id;

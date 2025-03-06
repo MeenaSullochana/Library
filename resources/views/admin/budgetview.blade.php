@@ -137,9 +137,14 @@
 																			<div class="row align-items-center">
 																				@foreach($data->CategorieAmount1 as $val)
 																				<div class="item col-md-4">
-																					<p>{{$val->name}}</p>
-																					<div class="pie animate no-round" style="--p:{{round($val->amount/$data->totalAmount*100)}}">{{round($val->amount/$data->totalAmount*100)}} %</div>
-																					<p clas="fw-bold"><i class="fa fa-inr" aria-hidden="true"></i> {{$val->amount}}</p>
+																					<p>{{$val->name }}(Tamil)</p>
+																					<div class="pie animate no-round" style="--p:{{round($val->tamilAmount/$data->totalAmount*100)}}">{{round($val->tamilAmount/$data->totalAmount*100)}} %</div>
+																					<p clas="fw-bold"><i class="fa fa-inr" aria-hidden="true"></i> {{$val->tamilAmount}}</p>
+																				</div>
+																				<div class="item col-md-4">
+																					<p>{{$val->name}}(English)</p>
+																					<div class="pie animate no-round" style="--p:{{round($val->englishAmount/$data->totalAmount*100)}}">{{round($val->englishAmount/$data->totalAmount*100)}} %</div>
+																					<p clas="fw-bold"><i class="fa fa-inr" aria-hidden="true"></i> {{$val->englishAmount}}</p>
 																				</div>
 																				@endforeach
 																				<!-- <div class="item col-md-4">

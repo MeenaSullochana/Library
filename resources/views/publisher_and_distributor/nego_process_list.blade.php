@@ -17,7 +17,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Negotiation Process List</title>
+    <title>Government of Tamil Nadu - Book Procurement - >Renegotiation By Vendor List</title>
     <link rel="shortcut icon" type="image/png" href="{{ asset('publisher_and_distributor/images/fevi.svg') }}">
     <?php
         include "publisher_and_distributor/plugin/plugin_css.php";
@@ -56,7 +56,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Negotiation -  Processing Book List</b>
+                                <b>>Renegotiation By Vendor Book List</b>
                             </h3>
                             <!-- <a class="btn btn-primary  btn-sm" href="book_add">
                                 <i class="fas fa-plus"></i> Add Book</a> -->
@@ -92,16 +92,15 @@
                                             <th>S.No</th>
                                                 <th>Book Code</th>
                                                 <th>Book Title</th>
-                                                <th>Actual Price</th>
-                                                <th>Discount Percentage</th>
+                                                <th>Book Price</th>
+                                                <th>Offered Discount(Percentage)</th>
                                                 <th>Discounted Price</th>
-                                                <th>Calculated Percentage</th>
-                                                <th>Calculated Price</th>
-                                                <th>Negotiation Percentage</th>
-                                                <th>Negotiation Price</th>
-                                                <th>Calculated Reason</th>
-                                               
+                                                <th>Expected Price</th>
                                                 <th>Negotiation Reason</th>
+
+                                                <!-- <th>Renegotiation Percentage</th> -->
+                                                <th>Renegotiation Price</th>
+                                                <th>Renegotiation Reason</th>
                                                 <th>Negotiation Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -120,7 +119,7 @@
                                                  @foreach($categori as $val)
                                             <tr role="row" class="odd">
 
-                                                <td data-label="S.No"><span>{{$loop->index +1}}</span></td>
+                                            <td data-label="S.No"><span>{{$loop->index +1}}</span></td>
                                                 <td data-label="S.No"><span>{{$val->product_code}}</span></td>
 
                                                 <td data-label="Books">
@@ -135,27 +134,25 @@
                                                 <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">{{$val->discount}}%</a></td>
                                                 <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">Rs {{$val->discountedprice}}</a></td>
 
-                                                <td data-label="Admin Price">
-                                                    @if(!is_null($val->calculated_percentage))
-                                                    <span><a href="#" >{{$val->calculated_percentage}}%</a> </span>
-                                                    @else
-                                                    <span>N/A</span>
-                                                    @endif
+                                                <td data-label="Book Price">
+                                                    <span>
+                                                        Rs {{ $val->calculated_price }}
+                                                       </span>
+                                                     
+                                                    
+                                                   
                                                 </td>
-                                                <td data-label="Admin Price">
-                                                    @if(!is_null($val->calculated_price))
-                                                    <span><a href="#" >Rs {{$val->calculated_price}}</a> </span>
-                                                    @else
-                                                    <span>N/A</span>
-                                                    @endif
-                                                </td>
-                                                <td data-label="Admin Price">
+                                                <td data-label="Negotiation Message">
+                                                    <button type="button" id="successButton111" class="btn btn-primary btn-sm" data-id="{{$val->calculated_reason}}">View</button>
+                                                   </td>
+
+                                                <!-- <td data-label="Admin Price">
                                                     @if(!is_null($val->negotiation_percentage))
                                                     <span><a href="#" >{{$val->negotiation_percentage}}%</a> </span>
                                                     @else
                                                     <span>N/A</span>
                                                     @endif
-                                                </td>
+                                                </td> -->
                                                 <td data-label="Negotiation Price">
                                                     @if(!is_null($val->negotiation_price))
                                                     <span><a href="#" >Rs {{$val->negotiation_price}}</a> </span>
@@ -163,9 +160,7 @@
                                                     <span>N/A</span>
                                                     @endif
                                                 </td>
-                                                <td data-label="Negotiation Message">
-                                                   <button type="button" id="successButton111" class="btn btn-primary btn-sm" data-id="{{$val->calculated_reason}}">View</button>
-                                                  </td>
+                                            
          
                                                      <td data-label="Negotiation Message">
                                                    <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_message}}">View</button>

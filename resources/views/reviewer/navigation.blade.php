@@ -1356,6 +1356,12 @@
                         </a>
                     </li>
 					@endif
+					<li><a href="/reviewer/review_expired_book_list" class="" aria-expanded="false">
+						<i class="bi bi-journal-check"></i>
+                            <span class="nav-text">Expired Book</span>
+                        </a>
+                    </li>
+					
 					<li><a href="/reviewer/review_complete" class="" aria-expanded="false">
 						<i class="bi bi-journal-check"></i>
                             <span class="nav-text">Completed Book</span>

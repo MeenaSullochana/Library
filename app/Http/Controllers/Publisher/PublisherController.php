@@ -237,10 +237,10 @@ class PublisherController extends Controller
 
         
     }
-    public function aacountdetail(){
+    public function acountdetail(){
         $id=auth('publisher')->user()->id;
         $data =Accountdetail::where('user_id', $id)->first();
-        return view('publisher.aacountdetails')->with('data',$data);
+        return view('publisher.acountdetails')->with('data',$data);
 
     }
     public function pub_basic_details(){

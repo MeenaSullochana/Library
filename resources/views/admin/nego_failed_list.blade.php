@@ -88,7 +88,14 @@
                                                     rowspan="1" colspan="1"
                                                     aria-label="Books: activate to sort column ascending"
                                                     style="width: 145.219px;">Book Title</th>
-
+                                                    <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="ERoll No: activate to sort column ascending"
+                                                    style="width: 97.5156px;">Publication Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Books: activate to sort column ascending"
+                                                    style="width: 145.219px;">Vendor Name</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
                                                     rowspan="1" colspan="1"
                                                     aria-label="ISBN(10/13): activate to sort column ascending"
@@ -102,7 +109,11 @@
                                                     rowspan="1" colspan="1"
                                                     aria-label="ISBN(10/13): activate to sort column ascending"
                                                     style="width: 126.609px;">Discounted Price</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
+                                                    <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="ISBN(10/13): activate to sort column ascending"
+                                                    style="width: 126.609px;">Negotiation </th>
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
                                                     rowspan="1" colspan="1"
                                                     aria-label="ISBN(10/13): activate to sort column ascending"
                                                     style="width: 126.609px;">Calculated Percentage</th>
@@ -121,7 +132,7 @@
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
                                                     rowspan="1" colspan="1"
                                                     aria-label="ISBN(10/13): activate to sort column ascending"
-                                                    style="width: 126.609px;">Calculated Reason</th>
+                                                    style="width: 126.609px;">Calculated Reason</th> -->
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3"
                                                     rowspan="1" colspan="1"
                                                     aria-label="ISBN(10/13): activate to sort column ascending"
@@ -147,7 +158,13 @@
                                             $categori = DB::table('books')
                                             ->where('marks', '>=', 40)
                                             ->where('negotiation_status', '=', 3)
-                                            ->get();
+                                            ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+                                    ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+                                    ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+                                    ->select('books.*', 
+                                        DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+                                    )
+                                    ->get();
                                             @endphp
 
                                             @foreach($categori as $val)
@@ -165,7 +182,12 @@
                                                         </div>
                                                     </div>
                                                 </td>
-
+                                                <td>
+                                                    <span>{{$val->nameOfPublisher}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{$val->vendorname}}</span>
+                                                </td>
                                                 <td>
                                                     <span>Rs {{$val->price}}</span>
                                                 </td>
@@ -175,7 +197,21 @@
                                                 <td>
                                                     <span>Rs {{$val->discountedprice}}</span>
                                                 </td>
-                                                <td>
+
+                                                <td data-label="Book Price">
+                                                    @if($val->nego_status == "below_negotiation")
+                                                    <span>{{ $val->calculated_percentage }} %</span>
+
+                                                     @else
+                                                     <span>
+                                                     Rs {{ $val->calculated_price }}
+                                                    </span>
+                                                    @endif
+                                                    
+                                                   
+                                                </td>
+
+                                                <!-- <td>
                                                     @if(!is_null($val->calculated_percentage))
                                                     <span>{{$val->calculated_percentage}}%</span>
                                                     @else
@@ -203,17 +239,17 @@
                                                     @else
                                                     <span>N/A</span>
                                                     @endif
-                                                </td>
+                                                </td> -->
                                                 <td data-label="Message">
                                                     <button type="button" id="successButton111"
                                                         class="btn btn-primary btn-sm"
                                                         data-id1="{{$val->calculated_reason}}">View</button>
                                                 </td>
-                                                <td data-label="Message">
+                                                <!-- <td data-label="Message">
                                                     <button type="button" id="successButton112"
                                                         class="btn btn-primary btn-sm"
                                                         data-id="{{$val->negotiation_message}}">View</button>
-                                                </td>
+                                                </td> -->
                                                 <td data-label="Message">
                                                     <button type="button" id="successButton11"
                                                         class="btn btn-primary btn-sm"

@@ -86,14 +86,18 @@
                                                 <th>Actual Price</th>
                                                 <th>Discount Percentage</th>
                                                 <th>Discounted Price</th>
-                                                <th>Calculated Percentage</th>
+                                                {{-- <th>Calculated Percentage</th>
                                                 <th>Calculated Price</th>
                                                 <th>Negotiation Percentage</th>
                                                 <th>Negotiation Price</th>
                                                 <th>Accepted Price</th>
                                                 <th>Calculated Reason</th>
                                                 <th>Negotiation Reason</th>
-                                                <th>Reason For Hold</th>
+                                                <th>Reason For Hold</th> --}}
+                                                <th>Negotiation</th>
+                                                <th>Accepted Price</th>
+                                                <th>Negotiation Reason</th>
+                                             
                                                 <th>Negotiation Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -124,7 +128,7 @@
                                                 <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">Rs {{$val->price}}</a></td>
                                                 <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">{{$val->discount}}%</a></td>
                                                 <td data-label="Book Price"><a href="javascript:void(0)" class="text-primary">Rs {{$val->discountedprice}}</a></td>
-                                                <td data-label="Admin Price">
+                                                {{-- <td data-label="Admin Price">
                                                     @if(!is_null($val->calculated_percentage))
                                                     <span><a href="#">{{$val->calculated_percentage}}%</a> </span>
                                                     @else
@@ -151,6 +155,18 @@
                                                     @else
                                                     <span>N/A</span>
                                                     @endif
+                                                </td> --}}
+                                                <td data-label="Book Price">
+                                                    @if($val->nego_status == "below_negotiation")
+                                                    <span>{{ $val->calculated_percentage }} %</span>
+
+                                                     @else
+                                                     <span>
+                                                     Rs {{ $val->calculated_price }}
+                                                    </span>
+                                                    @endif
+                                                    
+                                                   
                                                 </td>
                                                 <td data-label="Accepted Price">
                                                     <span><a href="#">Rs {{$val->final_price}}</a> </span>
@@ -159,12 +175,12 @@
                                                     <button type="button" id="successButton111" class="btn btn-primary btn-sm" data-id="{{$val->calculated_reason}}">View</button>
                                                 </td>
 
-                                                <td data-label="Negotiation Message">
+                                                {{-- <td data-label="Negotiation Message">
                                                     <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_message}}">View</button>
                                                 </td>
                                                 <td data-label="Negotiation Message">
                                                     <button type="button" id="successButton112" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_reject_message}}">View</button>
-                                                </td>
+                                                </td> --}}
                                                 <td data-label="Negotiation">
                                                     <button type="button" id="successButton" class="btn btn-success">Approved</button>
 

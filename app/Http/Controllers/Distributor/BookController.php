@@ -469,31 +469,45 @@ public function applay_procurment(Request $request){
    return response()->json($data); 
  }
  public function sendnegotiationstatus(Request $req) {
+       
     $bookId=$req->bookId;
     $status=$req->status;
 
    if($status == "Accept"){
     $data1 = Book::find($bookId);
-    $data1->final_price= $data1->calculated_price;
-    $data1->negotiation_status ="2";
-    $data1->save();
-    $data= [
-        'success' => 'Accepted Successfully',
-             ];
-    return response()->json($data); 
+    if( $data1->negotiation_status =="5"  ){
+      
+        $data1->final_price= $data1->renegotiation_price;
+        $data1->negotiation_status ="2";
+        $data1->save();
+        $data= [
+            'success' => 'Accepted Successfully',
+                 ];
+        return response()->json($data);
+    }else{
+      
+        $data1->final_price= $data1->calculated_price;
+        $data1->negotiation_status ="2";
+        $data1->save();
+        $data= [
+            'success' => 'Accepted Successfully',
+                 ];
+        return response()->json($data);
+    }
+ 
    }else{
     $data1 = Book::find($bookId);
     $data1->negotiation_status ="3";
     $data1->save();
     $data= [
-        'success' => 'Rejected Successfully',
+        'success' => 'Disagree Successfully',
              ];
-    return response()->json($data); 
+    return response()->json($data);
    }
-   
 
-  
-   
+
+
+
 
 }
 public function sendnegotiationsamount(Request $req) {

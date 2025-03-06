@@ -151,31 +151,32 @@
                                     <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
                                         <label class="form-label">Select Negotiation</label>
                                         <select name="negostatus_filter" id="negostatus_filter"
-                                            class="form-select bg-white p-2 border border-1 mb-3">
-                                            <option value="">All Negotiation </option>
-                                            <option value="Negotiation from admin"
-                                                {{ request('negostatus_filter') == 'Negotiation from admin' ? 'selected' : '' }}>
-                                                Negotiation from admin
-                                            </option>
-                                            <option value="Negotiation from user"
-                                                {{ request('negostatus_filter') == 'Negotiation from user' ? 'selected' : '' }}>
-                                                Negotiation from user
-                                            </option>
-                                            <option value="Accepted"
-                                                {{ request('negostatus_filter') == 'Accepted' ? 'selected' : '' }}>
-                                                Accepted</option>
-                                            <option value="Rejected"
-                                                {{ request('negostatus_filter') == 'Rejected' ? 'selected' : '' }}>
-                                                Rejected</option>
-                                            <option value="Hold"
-                                                {{ request('negostatus_filter') == 'Hold' ? 'selected' : '' }}>
-                                                Hold</option>
-                                            <option value="No negotiation"
-                                                {{ request('negostatus_filter') == 'No negotiation' ? 'selected' : '' }}>
-                                                No negotiation</option>
+                                        class="form-select bg-white p-2 border border-1 mb-3">
+                                        <option value="">All Negotiation </option>
+                                        <option value="Negotiation Pending"
+                                            {{ request('negostatus_filter') == 'Negotiation Pending' ? 'selected' : '' }}>
+                                            Negotiation Pending
+                                        </option>
+                                        <option value="Renegotiation By Vendor"
+                                        {{ request('negostatus_filter') == 'Renegotiation By Vendor' ? 'selected' : '' }}>
+                                        Renegotiation By Vendor</option>
+                                        <option value="Renegotiation By Admin"
+                                            {{ request('negostatus_filter') == 'Renegotiation By Admin' ? 'selected' : '' }}>
+                                            Renegotiation By Admin
+                                        </option>
+                                        <option value="Agree"
+                                            {{ request('negostatus_filter') == 'Agree' ? 'selected' : '' }}>
+                                            Agree</option>
+                                        <option value="Disagree"
+                                            {{ request('negostatus_filter') == 'Disagree' ? 'selected' : '' }}>
+                                            Disagree</option>
+                                    
+                                        <option value="Not send negotiation"
+                                            {{ request('negostatus_filter') == 'Not send negotiation' ? 'selected' : '' }}>
+                                            Not send negotiation</option>
 
 
-                                        </select>
+                                    </select>
                                     </div>
                                     <div class="col-xl-3 col-sm-6 mb-3 mb-xl-0">
                                         <label class="form-label">Select Mark Range</label>
@@ -295,26 +296,27 @@
                                     <select name="negostatus_filter" id="negostatus_filter"
                                         class="form-select bg-white p-2 border border-1 mb-3">
                                         <option value="">All Negotiation </option>
-                                        <option value="Negotiation from admin"
-                                            {{ request('negostatus_filter') == 'Negotiation from admin' ? 'selected' : '' }}>
-                                            Negotiation from admin
+                                        <option value="Negotiation Pending"
+                                            {{ request('negostatus_filter') == 'Negotiation Pending' ? 'selected' : '' }}>
+                                            Negotiation Pending
                                         </option>
-                                        <option value="Negotiation from user"
-                                            {{ request('negostatus_filter') == 'Negotiation from user' ? 'selected' : '' }}>
-                                            Negotiation from user
+                                        <option value="Renegotiation By Vendor"
+                                        {{ request('negostatus_filter') == 'Renegotiation By Vendor' ? 'selected' : '' }}>
+                                        Renegotiation By Vendor</option>
+                                        <option value="Renegotiation By Admin"
+                                            {{ request('negostatus_filter') == 'Renegotiation By Admin' ? 'selected' : '' }}>
+                                            Renegotiation By Admin
                                         </option>
-                                        <option value="Accepted"
-                                            {{ request('negostatus_filter') == 'Accepted' ? 'selected' : '' }}>
-                                            Accepted</option>
-                                        <option value="Rejected"
-                                            {{ request('negostatus_filter') == 'Rejected' ? 'selected' : '' }}>
-                                            Rejected</option>
-                                        <option value="Hold"
-                                            {{ request('negostatus_filter') == 'Hold' ? 'selected' : '' }}>
-                                            Hold</option>
-                                        <option value="No negotiation"
-                                            {{ request('negostatus_filter') == 'No negotiation' ? 'selected' : '' }}>No
-                                            negotiation</option>
+                                        <option value="Agree"
+                                            {{ request('negostatus_filter') == 'Agree' ? 'selected' : '' }}>
+                                            Agree</option>
+                                        <option value="Disagree"
+                                            {{ request('negostatus_filter') == 'Disagree' ? 'selected' : '' }}>
+                                            Disagree</option>
+                                    
+                                        <option value="Not send negotiation"
+                                            {{ request('negostatus_filter') == 'Not send negotiation' ? 'selected' : '' }}>
+                                            Not send negotiation</option>
 
 
                                     </select>
@@ -371,6 +373,8 @@
                                         <th>Book ISBN</th>
                                         <th>Language of the Book</th>
                                         <th>Author Details</th>
+                                        <th>Primary Author Details</th>
+                                        <th>Unique Author Name</th>
                                         <th>Edition Number</th>
                                         <th>Name of Publisher</th>
                                         <th>Vendor Name</th>
@@ -401,11 +405,29 @@
 
                                         <th>Meta checking Status </th>
                                         <th>Meta checker Name</th>
+                                        <th>
+                                            <h6>Librarian</h6>
+                                            <span class="text-left">Review/Assign</span>
+                                        </th>
+                                        <th>
+                                            <h6>Expert</h6>
+                                            <span class="text-left">Review/Assign</span>
+                                        </th>
+                                        <th>
+                                            <h6>Public</h6>
+                                            <span class="text-left">Review/Assign</span>
+                                        </th>
+
+                                        <th>Librarian</th>
+                                        <th>Expert</th>
+                                        <th>Public</th>
                                         <th>Mark</th>
                                         <th>Negotiation Status</th>
+                                        <th>Expected Price</th>
+                                        <th>Final Price</th>
                                         <th>Book View</th>
                                         <th>User View</th>
-                                        <th> Book Edit</th>
+                                       <th> Book Edit</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -451,7 +473,7 @@
                                                 </div>
                                             </div>
                                         </td>
-
+                                      
                                         <td>
                                             <div class="products">
                                                 <div>
@@ -459,7 +481,24 @@
                                                 </div>
                                             </div>
                                         </td>
-
+                                        <td>
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{$val->primaryauthor1}}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        @php
+                                            $unique_authors = DB::table('unique_authors')->where('authorid', '=', $val->unique_author)->first();
+                                        @endphp
+                                        <td>
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{ $unique_authors ? $unique_authors->name : 'Not Yet Unified' }}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        
                                         <td>
                                             <div class="products">
                                                 <div>
@@ -665,6 +704,12 @@
                                             </div>
 
                                         </td>
+                                        <td><span>{{$val->rinternalcount}}/{{$val->internalcount}}</span></td>
+                                        <td><span>{{$val->rexternalcount}}/{{$val->externalcount}}</span></td>
+                                        <td><span>{{$val->rpubliccount}}/{{$val->publiccount}}</span></td>
+                                        <td><span>{{$val->avginternal}}</span></td>
+                                        <td><span>{{$val->avgexternal}}</span></td>
+                                        <td><span>{{$val->avgpublic}}</span></td>
                                         <td>
                                             <div class="products">
                                                 <div>
@@ -677,6 +722,22 @@
                                             <div class="products">
                                                 <div>
                                                     <span>{{$val->negostatus}}</span>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{$val->calculated_price ?? 0}}</span>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div class="products">
+                                                <div>
+                                                    <span>{{$val->final_price ?? 0}}</span>
                                                 </div>
                                             </div>
 
@@ -713,7 +774,7 @@
 
                                             </div>
                                         </td>
-                                        <td>
+                                     <td>
                 <div class="d-flex">
                     <a href="/admin/book_edit/{{$val->id}}" class="btn btn-warning shadow btn-xs sharp me-1">
                         <i class="fa fa-edit"></i>

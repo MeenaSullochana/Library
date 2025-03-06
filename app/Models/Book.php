@@ -82,6 +82,11 @@ class Book extends Model
     public function BookReviewStatus() {
         return $this->hasMany(BookReviewStatus::class, 'book_id', 'id'); // Use 'book_id' to link correctly
     }
+// In Book model (App\Models\Book)
+public function reviews()
+{
+    return $this->hasMany(BookReviewStatus::class, 'book_id');
+}
 
     
 }

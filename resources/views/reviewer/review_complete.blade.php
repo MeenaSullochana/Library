@@ -108,6 +108,15 @@
 									<div class="col-xl-4 col-sm-6 col-12">
 										<div class="task-summary">
 											<div class="d-flex align-items-baseline">
+												<h2 class="text-warning count">{{$negoassign}}</h2>
+												<span>Review Time Expired</span>
+											</div>
+											<p>Expired</p>
+										</div>
+									</div>
+									<div class="col-xl-4 col-sm-6 col-12">
+										<div class="task-summary">
+											<div class="d-flex align-items-baseline">
 												<h2 class="text-warning count">{{$completedreview}}</h2>
 												<span>Completed Review</span>
 											</div>
@@ -159,8 +168,11 @@
 												<th>S.No</th>
 												<th>Book No</th>
 												<th>Book Title</th>
+												
+												<th>Subject</th>
+												<th>Category</th>
 												<th>ISBN</th>
-												<th>Date</th>
+												<th>Assign Date</th>
 												{{-- <th class="text-end">Priority</th> --}}
 												<th>Control</th>
 											</tr>
@@ -181,6 +193,12 @@
 												<h6>{{$val->book->book_title}}</h6> </a>
 															<!-- <span>INV-100023456</span> -->
 													</div>
+												</td>
+												<td data-label="isbn">
+													<span>{{ $val->book->subject }}</span>
+												</td>
+												<td data-label="isbn">
+													<span>{{ $val->book->category }}</span>
 												</td>
 												<td data-label="isbn">
 													<span>{{ $val->book->isbn }}</span>

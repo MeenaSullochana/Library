@@ -30,6 +30,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Cartbooks;
 use App\Models\Existcategory;
 use App\Models\Orderbooks;
+use App\Models\Uniqueauthor;
+use App\Models\Budgetrestriction;
 
 
 
@@ -1693,15 +1695,29 @@ public function add_to_book_cart(Request $req)
                 ->whereJsonDoesntContain('purchaseid', $librarian->id);
         })
         ->where('libraryType', $librarian->libraryType)
-        ->orderBy('created_at', 'ASC')
+        ->orderBy('created_at', 'Desc')
         ->first();
   
     if ($bookbudget != null) {
       
 
         $bookbudgetdata = json_decode($bookbudget->CategorieAmount);
-     
-        $bookdata = Book::find($req->id);
+      
+        // $bookdata = Book::find($req->id);
+        $bookdata = DB::table('books')
+        ->where('books.id', '=', $req->id) 
+  
+        ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+        ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+        ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+        ->select('books.*', 
+            DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+        )
+        ->first();
+
+        
+
+
 
         $Existcategory = Existcategory::where('librarianid', '=', $librarian->id)
         ->where('category', '=', $bookdata->category)
@@ -1740,101 +1756,140 @@ public function add_to_book_cart(Request $req)
                
 
                
-                if (count($Cartdata) == 0  || count($Cartdata) == 1 ) {
+            if (count($Cartdata) == 0  || count($Cartdata) == 1 ) {
+                
+                $Budgetrestriction = Budgetrestriction::first();
+                $authorpercentage= $bookbudget->totalAmount * ($Budgetrestriction->author)/100;
+                $vendorpercentage= $bookbudget->totalAmount * ($Budgetrestriction->vendor)/100;
+                $publicationpercentage= $bookbudget->totalAmount * ($Budgetrestriction->publication)/100;
+
+               $author = Cartbooks::where('librarianid', '=', $librarian->id)
+               ->where('authorid', '=', $bookdata->unique_author)
+               ->where('budgetid', '=', $bookbudget->id)->where('status', '=', '1')
+               ->sum('totalAmount');
+
+               $authorfinal = $author + $bookdata->final_price;
+
+               $vendor = Cartbooks::where('librarianid', '=', $librarian->id)
+               ->where('vendorname', '=', $bookdata->vendorname)
+               ->where('budgetid', '=', $bookbudget->id)->where('status', '=', '1')
+               ->sum('totalAmount');
+               $vendorfinal = $vendor + $bookdata->final_price;
+
+               $publication = Cartbooks::where('librarianid', '=', $librarian->id)
+               ->where('publicationname', '=', $bookdata->nameOfPublisher)
+               ->where('budgetid', '=', $bookbudget->id)->where('status', '=', '1')
+               ->sum('totalAmount');
+               $publicationfinal = $publication + $bookdata->final_price;
+
+                if($authorfinal <= $authorpercentage && $vendorfinal <= $vendorpercentage && $publicationfinal <= $publicationpercentage){
                      
-                $Book = Book::find($req->id);
-
-                   if(count($Cartdata) == 1){
-                    if($Cartdata[0]->quantity !="2"  ){
-                    $cart1 =  Cartbooks::where('bookid',$req->id)->first();
-                    $cart1->totalAmount = $Book->final_price  * 2;
-
-                    $cart1->quantity = 2;
-                    $cart1->save();
-                } else {
-
               
+              
+                    $Book = Book::find($req->id);
+
+                        if(count($Cartdata) == 1 ){
+                                    if($Cartdata[0]->quantity !="2"  ){
+                                        $cart1 =  Cartbooks::where('bookid',$req->id)->first();
+                                        $cart1->totalAmount = $Book->final_price  * 2;
+
+                                        $cart1->quantity = 2;
+                                        $cart1->save();
+                                    } else {
+
+                                
+                                        $data = [
+                                            'error' => 'This book already added in your cart',
+                                        ];
+                                        return response()->json($data);
+                                }
+                            }else{
+                
+                                $cart = new Cartbooks();
+                                $cart->title = $Book->book_title;
+                                $cart->image = $Book->front_img;
+                                $cart->librarianid = $librarian->id;
+                                $cart->Bookid = $Book->id;
+                                $cart->amount = $Book->final_price;
+                                $cart->quantity = $Book->quantity + 1;
+                                $cart->budgetid = $bookbudget->id;
+                                $cart->Type = $bookdata->language;
+                                $cart->vendorname =$bookdata->vendorname;
+                                $cart->publicationname = $bookdata->nameOfPublisher;
+                                $cart->authorid = $bookdata->unique_author;
+                                $cart->totalAmount = ($Book->quantity + 1) * $Book->final_price;
+                            
+                                $cart->category = $Book->category;
+                                $cart->save();
+                        }
+         
+                        if (Session::has('bookcartcount')) {
+                            Session::forget('bookcartcount');
+                        }
+                        $cartdata = Cartbooks::where('librarianid', '=', $librarian->id)
+                            ->where('budgetid', '=', $bookbudget->id)->where('status', '=', '1')
+                            ->get();
+                        $bookcartcount = count($cartdata);
+                        Session::put('bookcartcount', $bookcartcount);
+
+                        $bud_arr1 = [];
+
+                        $bookbudget->CategorieAmount1 = json_decode($bookbudget->CategorieAmount);
+
+                        foreach ($bookbudget->CategorieAmount1 as $val) {
+                            $cartdata2 = Cartbooks::where('librarianid', '=', $librarian->id)
+                                ->where('category', '=', $val->name)
+                                ->where('Type', '=', "Tamil")
+                                ->where('budgetid', '=', $bookbudget->id)
+                                ->where('status', '=', '1')
+                                ->sum('totalAmount');
+                              $cartdata22 = Cartbooks::where('librarianid', '=', $librarian->id)
+                                ->where('category', '=', $val->name)
+                                ->where('Type', '=', "English")
+                                ->where('budgetid', '=', $bookbudget->id)
+                                ->where('status', '=', '1')
+                                ->sum('totalAmount');
+                                $percentage = $val->tamilAmount !== 0 ? round(($cartdata2 / max(1, $val->tamilAmount)) * 100) : 0;
+                                $percentage1 = $val->englishAmount !== 0 ? round(($cartdata22 / max(1, $val->englishAmount)) * 100) : 0;
+                                $obj = (object)[
+                                "category" => $val->name,
+                                "budget_price" => $val->tamilAmount,
+                                "Type"   =>"Tamil",
+                                "cart_price" => $cartdata2,
+                                "percentage" => $percentage
+                                
+                            ];
+                            array_push($bud_arr1, $obj);
+                        
+                                $obj = (object)[
+                                    "category" => $val->name,
+                                    "budget_price" => $val->englishAmount,
+                                    "Type"   =>"English",
+                                    "cart_price" => $cartdata22,
+                                    "percentage" => $percentage1
+                                    
+                                ];
+                                array_push($bud_arr1, $obj);
+                        }
+                        if (Session::has('bud_arr1')) {
+                            Session::forget('bud_arr1');
+                        }
+
+                        Session::put('bud_arr1', $bud_arr1);
+
+                        $data = [
+                            'success' => 'Product add successfully',
+                            'bookcartcount' => $bookcartcount,
+                        ];
+                        return response()->json($data);
+
+                }else{
                     $data = [
-                        'error' => 'This book already added in your cart',
+                        'error' => 'Author/Vendor/Publication limit exceed!!!                        ',
                     ];
                     return response()->json($data);
+               
                 }
-                   }else{
-                    $cart = new Cartbooks();
-                    $cart->title = $Book->book_title;
-                    $cart->image = $Book->front_img;
-                    $cart->librarianid = $librarian->id;
-                    $cart->Bookid = $Book->id;
-                    $cart->amount = $Book->final_price;
-                    $cart->quantity = $Book->quantity + 1;
-                    $cart->budgetid = $bookbudget->id;
-                    $cart->Type = $bookdata->language;
-                    $cart->totalAmount = ($Book->quantity + 1) * $Book->final_price;
-                    $cart->category = $Book->category;
-                    $cart->save();
-                   }
-         
-                if (Session::has('bookcartcount')) {
-                    Session::forget('bookcartcount');
-                }
-                $cartdata = Cartbooks::where('librarianid', '=', $librarian->id)
-                    ->where('budgetid', '=', $bookbudget->id)->where('status', '=', '1')
-                    ->get();
-                $bookcartcount = count($cartdata);
-                Session::put('bookcartcount', $bookcartcount);
-
-                $bud_arr1 = [];
-
-                $bookbudget->CategorieAmount1 = json_decode($bookbudget->CategorieAmount);
-
-                foreach ($bookbudget->CategorieAmount1 as $val) {
-                    $cartdata2 = Cartbooks::where('librarianid', '=', $librarian->id)
-                        ->where('category', '=', $val->name)
-                        ->where('Type', '=', "Tamil")
-                        ->where('budgetid', '=', $bookbudget->id)
-                        ->where('status', '=', '1')
-                        ->sum('totalAmount');
-                   $cartdata22 = Cartbooks::where('librarianid', '=', $librarian->id)
-                        ->where('category', '=', $val->name)
-                        ->where('Type', '=', "English")
-                        ->where('budgetid', '=', $bookbudget->id)
-                        ->where('status', '=', '1')
-                        ->sum('totalAmount');
-                        $percentage = $val->tamilAmount !== 0 ? round(($cartdata2 / max(1, $val->tamilAmount)) * 100) : 0;
-                        $percentage1 = $val->englishAmount !== 0 ? round(($cartdata22 / max(1, $val->englishAmount)) * 100) : 0;
-                        $obj = (object)[
-                          "category" => $val->name,
-                          "budget_price" => $val->tamilAmount,
-                           "Type"   =>"Tamil",
-                          "cart_price" => $cartdata2,
-                          "percentage" => $percentage
-                          
-                      ];
-                      array_push($bud_arr1, $obj);
-                  
-      $obj = (object)[
-          "category" => $val->name,
-          "budget_price" => $val->englishAmount,
-           "Type"   =>"English",
-          "cart_price" => $cartdata22,
-          "percentage" => $percentage1
-          
-      ];
-      array_push($bud_arr1, $obj);
-                }
-                if (Session::has('bud_arr1')) {
-                    Session::forget('bud_arr1');
-                }
-
-                Session::put('bud_arr1', $bud_arr1);
-
-                $data = [
-                    'success' => 'Product add successfully',
-                    'bookcartcount' => $bookcartcount,
-                ];
-                return response()->json($data);
-
-
           
             } else {
 
@@ -1888,7 +1943,7 @@ public function cart_book()
                 ->whereJsonDoesntContain('purchaseid', $librarian->id);
         })
         ->where('libraryType', $librarian->libraryType)
-        ->orderBy('created_at', 'ASC')
+        ->orderBy('created_at', 'Desc')
         ->first();
        
 
@@ -1975,7 +2030,7 @@ public function cart_book()
 
 public function updatebookQuantity(Request $request)
 {  
-   
+  
     $cartItem = Cartbooks::find($request->id);
     $librarian = auth('librarian')->user();
     $bookbudget = Budget::where('type', 'bookbudget')
@@ -1984,7 +2039,7 @@ public function updatebookQuantity(Request $request)
                 ->whereJsonDoesntContain('purchaseid', $librarian->id);
         })
         ->where('libraryType', $librarian->libraryType)
-        ->orderBy('created_at', 'ASC')
+        ->orderBy('created_at', 'Desc')
         ->first();
       
     $bookbudgetdata = json_decode($bookbudget->CategorieAmount);
@@ -2012,7 +2067,52 @@ public function updatebookQuantity(Request $request)
     $cartdata2 =$cartdata1 +($cartItem->amount * $request->quantity);
 
     if ($totalcost >= $cartdata2) {
+        $bookdata = DB::table('books')
+        ->where('books.id', '=', $cartItem->bookid) 
+  
+        ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+        ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+        ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+        ->select('books.*', 
+            DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+        )
+        ->first();
 
+
+        $Budgetrestriction = Budgetrestriction::first();
+        // $authorpercentage= $totalcost * ($Budgetrestriction->author)/100;
+        // $vendorpercentage= $totalcost * ($Budgetrestriction->vendor)/100;
+        // $publicationpercentage= $totalcost * ($Budgetrestriction->publication)/100;
+
+        $authorpercentage= $bookbudget->totalAmount * ($Budgetrestriction->author)/100;
+        $vendorpercentage= $bookbudget->totalAmount * ($Budgetrestriction->vendor)/100;
+        $publicationpercentage= $bookbudget->totalAmount * ($Budgetrestriction->publication)/100;
+
+
+
+       $author = Cartbooks::where('librarianid', '=', $librarian->id)
+       ->where('authorid', '=', $bookdata->unique_author)
+       ->where('budgetid', '=', $bookbudget->id)->where('status', '=', '1')
+       ->sum('totalAmount');
+
+       $authorfinal = $author + $bookdata->final_price;
+
+       $vendor = Cartbooks::where('librarianid', '=', $librarian->id)
+       ->where('vendorname', '=', $bookdata->vendorname)
+
+       ->where('budgetid', '=', $bookbudget->id)->where('status', '=', '1')
+       ->sum('totalAmount');
+       $vendorfinal = $vendor + $bookdata->final_price;
+
+       $publication = Cartbooks::where('librarianid', '=', $librarian->id)
+       ->where('publicationname', '=', $bookdata->nameOfPublisher)
+       ->where('budgetid', '=', $bookbudget->id)->where('status', '=', '1')
+       ->sum('totalAmount');
+       $publicationfinal = $publication + $bookdata->final_price;
+
+        if($authorfinal <= $authorpercentage && $vendorfinal <= $vendorpercentage && $publicationfinal <= $publicationpercentage ||  $request->quantity == "1"){
+       
+      
         if ($cartItem) {
 
             $cartItem->quantity = $request->quantity;
@@ -2025,35 +2125,43 @@ public function updatebookQuantity(Request $request)
                 ->sum('totalAmount');
 
   
-    if (Session::has('bookcartcount')) {
-        Session::forget('bookcartcount');
-    }
+                    if (Session::has('bookcartcount')) {
+                        Session::forget('bookcartcount');
+                    }
 
-        $cartdata = Cartbooks::where('librarianid', '=', $librarian->id)
-            ->where('budgetid', '=', $bookbudget->id)
-            ->get();
+                    $cartdata = Cartbooks::where('librarianid', '=', $librarian->id)
+                        ->where('budgetid', '=', $bookbudget->id)
+                        ->get();
 
-        $bookcartcount = count($cartdata);
-        Session::put('bookcartcount', $bookcartcount);
+                    $bookcartcount = count($cartdata);
+                    Session::put('bookcartcount', $bookcartcount);
 
-        $data = [
-            'success' => 'Product Removed successfully',
-            'bookcartcount' => $bookcartcount,
-            'cartdatacount' => $cartdatacount,
-            'budgetcount'   =>       $bookbudget->totalAmount,
-            'totalAmount' => $cartItem->totalAmount,
-        ];
-        return response()->json($data);
-
+                    $data = [
+                        'success' => 'Product Removed successfully',
+                        'bookcartcount' => $bookcartcount,
+                        'cartdatacount' => $cartdatacount,
+                        'budgetcount'   =>       $bookbudget->totalAmount,
+                        'totalAmount' => $cartItem->totalAmount,
+                    ];
+                    return response()->json($data);
+             
 
             // return response()->json(['totalAmount' => $cartItem->totalAmount, 'cartdatacount' => $cartdatacount]);
         } else {
             return response()->json(['error' => 'Cart item not found.'], 404);
         }
+    }else{
+        $data = [
+            'error' => 'Author/Publication/Vendor limit exceed',
+            'quantity'=>"1",
+        ];
+        return response()->json($data);
+    }
+
     } else {
         $data = [
             'error' => 'Purchase Amount Exceeds Budget',
-            'quantity'=>$request->quantity,
+            'quantity'=>"1",
         ];
         return response()->json($data);
     }
@@ -2070,7 +2178,7 @@ public function delete_to_bookcart(Request $req)
                 ->whereJsonDoesntContain('purchaseid', $librarian->id);
         })
         ->where('libraryType', $librarian->libraryType)
-        ->orderBy('created_at', 'ASC')
+        ->orderBy('created_at', 'Desc')
         ->first();
 
     $Cartdata = Cartbooks::find($req->id);
@@ -2114,7 +2222,7 @@ public function report_downl_bookcart(Request $request)
                 ->whereJsonDoesntContain('purchaseid', $librarian->id);
         })
         ->where('libraryType', $librarian->libraryType)
-        ->orderBy('created_at', 'ASC')
+        ->orderBy('created_at', 'Desc')
         ->first();
 
     if (!$bookbudget) {
@@ -2187,7 +2295,7 @@ public function cartbookpdfview()
                 ->whereJsonDoesntContain('purchaseid', $librarian->id);
         })
         ->where('libraryType', $librarian->libraryType)
-        ->orderBy('created_at', 'ASC')
+        ->orderBy('created_at', 'Desc')
         ->first();
     
     if ($bookbudget) {
@@ -2232,7 +2340,7 @@ public function bookCheckout(Request $req)
                 ->whereJsonDoesntContain('purchaseid', $librarian->id);
         })
         ->where('libraryType', $librarian->libraryType)
-        ->orderBy('created_at', 'ASC')
+        ->orderBy('created_at', 'Desc')
         ->first();
  
     if ($bookbudget) {
@@ -2265,6 +2373,8 @@ public function bookCheckout(Request $req)
                     ->where('book_active_status', '=', 1)
                  
                     ->get();
+
+             
               
                 $existbook = Existcategory::where('librarianid', $librarian->id)
                     ->where('category', $val->name)
@@ -2503,7 +2613,7 @@ public function bookCheckout(Request $req)
                            
                             $bookbudget->purchaseid = $merged;
                         }
-                           
+                        
                         if ($Orderbooks->save() && $bookbudget->save()) {
                             $bookIds = $cartdatas->pluck('bookid');
                         
@@ -2600,5 +2710,3 @@ public function budgetcategurybook(Request $req)
 
 
 } 
-
-

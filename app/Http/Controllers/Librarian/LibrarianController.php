@@ -1183,5 +1183,18 @@ public function librarianrejectstatus_perio(Request $req){
 
    }
 
+   public function uniqueauthorupdate(Request $req){
+  
+    $book = Book::find($req->id);
+    $book->unique_author=$req->unique_author;
+    $book->update();
+      $data= [
+      'success' => 'Unique Author Updated Successfully',
+           ];
+  return response()->json($data);   
+  
+  
+  }
+   
     }
     

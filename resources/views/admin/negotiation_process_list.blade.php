@@ -14,7 +14,7 @@
     <meta property="og:image" content="">
     <meta name="format-detection" content="telephone=no">
     <!-- PAGE TITLE HERE -->
-    <title>Government of Tamil Nadu - Book Procurement - Negotiation Process List</title>
+    <title>Government of Tamil Nadu - Book Procurement - Renegotiation By Vendor list</title>
     <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
@@ -55,7 +55,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Negotiation Process Books List</b>
+                                <b>Renegotiation By Vendor list</b>
                             </h3>
                             <!-- <a class="btn btn-primary  btn-sm" href="book_manage_add.php">
                         <i class="fas fa-plus"></i> Add Book</a> -->
@@ -68,7 +68,45 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
 
+                    <div class="col-xl-12 col-lg-12 col-md-12">
+
+                        <div class="card o-hidden border-0 shadow-lg">
+                            <div class="card-body ">
+                                <!-- Nested Row within Card Body -->
+                                <form class="admin-form" method="POST" enctype="multipart/form-data" action="{{ url('admin/renegotiationupload') }}">
+                                    @csrf
+                                    <div class="row justify-content-center">
+                                        <div class="col-md-4">
+                                            <div class="mb-3">
+                                                <label for="authorname">Upload Renegotiation Data File (CSV) <span class="text-danger">*</span></label>
+                                                <!-- File input for Excel and CSV -->
+                                                <input type="file" class="form-control" id="remegofile" name="remegofile" accept=".csv" required>
+                                                <span class="text-success">
+                                                    <a href="{{ asset('Excel/Renegotiation.csv') }}" download style="color: #007bff;">
+                                                        <small>Download Sample CSV Format</small>
+                                                    </a>
+                                           
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <div class="form-group mt-4">
+                                                <!-- Submit button -->
+                                                <button type="submit" class="btn btn-secondary">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body p-0">
@@ -132,6 +170,9 @@
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">S.No</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">Book Code</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Book Title</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">ISBN</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Publication Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Vendor Name</th>
                                                 <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                         colspan="1"
                                         aria-label="Ratings: activate to sort column ascending"
@@ -142,12 +183,13 @@
                                         style="width: 126.609px;">Negotiation Cost</th> -->
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Discount Percentage</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Discounted Price</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Percentage</th>
+                                                {{-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Percentage</th> --}}
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Price</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiated Percentage</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiated Price</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Reason</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiation Reason</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Vendor Negotiated Percentage</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Vendor Negotiated Price</th>
+
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Vendor Negotiation Reason</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending" style="width: 65.3594px;">Negotiation Status</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 87.4688px;"> Action</th>
                                             </tr>
@@ -158,11 +200,22 @@
                                             $categori = DB::table('books')
                                             ->where('marks', '>=', 40)
                                             ->where('negotiation_status', '=', 1)
-                                            ->get();
+                                            ->whereNull('renegotiation_price')
+                                            ->whereNull('renegotiation_message')
+                                            ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+                                    ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+                                    ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+                                    ->select('books.*', 
+                                        DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+                                    )
+                                    ->get();
                                             @endphp
 
                                             @foreach($categori as $val)
                                             <tr role="row" class="odd">
+
+                                              
+
 
                                                 <td><span>{{$loop->index +1}}</span></td>
                                                 <td><span>{{$val->product_code}}</span></td>
@@ -174,30 +227,46 @@
                                                         </div>
                                                     </div>
                                                 </td>
-
+                                                <td>
+                                                    <span>{{$val->isbn}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{$val->nameOfPublisher}}</span>
+                                                </td>
+                                                <td>
+                                                    <span>{{$val->vendorname}}</span>
+                                                </td>
                                                 <td>
                                                     <span>Rs {{$val->price}}</span>
                                                 </td>
                                                 <td>
-                                                    <span>{{$val->discount}}%</span>
+                                                    <span>{{$val->discount}} %</span>
                                                 </td>
                                                 <td>
                                                     <span>Rs {{$val->discountedprice}}</span>
                                                 </td>
-                                                <td>
+                                                {{-- <td>
                                                     @if(!is_null($val->calculated_percentage))
                                                     <span>{{$val->calculated_percentage}}%</span>
                                                     @else
                                                     <span>N/A</span>
                                                     @endif
-                                                </td>
+                                                </td> --}}
                                                 <td>
                                                     @if(!is_null($val->calculated_price))
                                                     <span>Rs {{$val->calculated_price}}</span>
                                                     @else
                                                     <span>N/A</span>
                                                     @endif
+                                                    
                                                 </td>
+
+                                                <td data-label="Message">
+                                                 
+                                                    <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->calculated_reason}}">View</button>
+                                                 
+                                                </td>
+
                                                 <td>
                                                     @if(!is_null($val->negotiation_percentage))
                                                     <span>{{$val->negotiation_percentage}}%</span>
@@ -212,19 +281,18 @@
                                                     <span>N/A</span>
                                                     @endif
                                                 </td>
-                                                <td data-label="Message">
-                                                    <button type="button" id="successButton111" class="btn btn-primary btn-sm" data-id1="{{$val->calculated_reason}}">View</button>
-                                                </td>
+                                            
                                                 <td data-label="Message">
                                                 <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_message}}">View</button>
                                                 </td>
                                                 <td>
                                                     <div class="col-sm-12 m-b30">
-                                                        <select class="col-sm-12 m-b30" name="user_approval" data-id="{{$val->id}}">
+                                                        <select class="col-sm-12 m-b30" name="user_approval" data-id="{{ $val->id }}" data-price="{{$val->price}}" data-discount="{{$val->discount}}" data-disprice="{{$val->discountedprice}}" data-calprice="{{ $val->calculated_price }}" data-negotiation_price="{{ $val->negotiation_price }}" data-negotiation_percentage="{{ $val->negotiation_percentage }}">
                                                             <option></option>
 
                                                             <option style="color: green;">Approve</option>
-                                                            <option style="color: blue;">Hold</option>
+                                                            <option style="color: green;">Renegotiation</option>
+                                                            {{-- <option style="color: blue;">Hold</option> --}}
                                                         </select>
                                                     </div>
                                                 </td>
@@ -298,7 +366,80 @@
         </div>
     </div>
 </div>
-    <div class="modal fade" id="exampleModalCenter">
+
+
+<div class="modal fade" id="exampleModalCenter">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Are you sure you want to send this book to negotiation?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="basic-form">
+
+                    <div class="row">
+                        <div class="tbl-caption alert alert-danger alert-dismissible fade show">
+
+                            <h6>
+                                <span id="row-1" style="float: left;"></span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+                                <span id="row-2" style="float: right;"></span>
+                            </h6>
+                            <h6>
+                                <span id="row-3" style="float: left;"></span> &nbsp; &nbsp; &nbsp;  
+                                <span id="row-4" style="float: right;"></span>
+                            </h6>
+                            <h6>
+                                <span id="row-5" style="float: left;"></span> &nbsp; &nbsp; &nbsp;  
+                                <span id="row-6" style="float: right;"></span>
+                            </h6>
+                        </div>
+                        
+                        
+
+
+                        <div class="col-12">
+                            {{-- <div class="mb-3 mt-2 mx-sm-2">
+                                <label for="percentage">Percentage</label>
+                                <input type="number" class="form-control" id="percentage" placeholder="Enter the Percentage(example: 10)" required>
+                            </div> --}}
+                            <div class="mb-3 mt-2 mx-sm-2">
+                                <label for="amount">Offered Price By Admin</label>
+                                <input type="number" class="form-control" id="amount1" placeholder="Enter the Amount" required >
+
+                                {{-- <input type="hidden" name="amount1" id="amount1">
+                                <input type="number" class="form-control" id="amount" placeholder="Enter the Amount" required readonly> --}}
+                            </div>
+                            <div>
+                                <input type="hidden" name="userid" id="hiddenInput">
+                                <input type="hidden" name="price" id="hiddenInputprice">
+                                <input type="hidden" name="discount" id="hiddenInputdiscount">
+                                <input type="hidden" name="disprice" id="hiddenInputdisprice">
+                                <input type="hidden" name="calprice" id="hiddenInputcalprice">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3 mt-2 mx-sm-2">
+                                <label class="">Description</label>
+                                <!-- <input type="text" class="form-control" placeholder="Enter the Description"> -->
+                                <textarea name="Description" id="Description" cols="30" rows="10" placeholder="Enter the Description" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="#ModalConfirmCenter">Close</button>
+                <button type="submit" id="submitbutton22" class="btn btn-primary"> Submit</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+    <div class="modal fade" id="exampleModalCenter11">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -314,7 +455,7 @@
                                 <div class="mb-3 mt-2 mx-sm-2">
                                     <label class="">Description</label>
                                     <!-- <input type="text" class="form-control" placeholder="Enter the Description"> -->
-                                    <textarea name="Description" id="Description" cols="30" rows="10" placeholder="Enter the Description" class="form-control"></textarea>
+                                    <textarea name="Description1" id="Description1" cols="30" rows="10" placeholder="Enter the Description" class="form-control"></textarea>
                                 </div>
                             </div>
 
@@ -394,13 +535,34 @@
 <script>
     $('#example3').on('change', "select[name='user_approval']", function(e) {
         var approval_ = $(this).val();
-        var id = $(this).data('id');
+        var pubdistid = $(this).data('id');
+        var price = $(this).data('price');
+        var discount = $(this).data('discount');
+        var disprice = $(this).data('disprice');
+        var calprice = $(this).data('calprice');
+        var negotiation_percentage = $(this).data('negotiation_percentage');
+        var negotiation_price = $(this).data('negotiation_price');
+
         if (approval_ == 'Hold') {
-            $('#hiddenInput').val(id);
-            $('#exampleModalCenter').modal('show');
+            $('#hiddenInput').val(pubdistid);
+            $('#exampleModalCenter11').modal('show');
         } else if (approval_ == 'Approve') {
-            $('#hiddenInput').val(id);
+            $('#hiddenInput').val(pubdistid);
             $('#basicModal').modal('show');
+        }else{
+            $('#hiddenInput').val(pubdistid);
+            $('#hiddenInputprice').val(price);
+            $('#hiddenInputdiscount').val(discount);
+            $('#hiddenInputdisprice').val(disprice);
+            $('#hiddenInputcalprice').val(calprice);
+            $('#row-1').text('Book Price: ₹' + price);
+            $('#row-2').text('Offered Discount (Percentage): ' + discount +'%');
+            $('#row-3').text('Discounted Price:₹ ' + disprice);
+            $('#row-4').text('Expected Price: ₹' + calprice);
+            $('#row-5').text('Vendor Negotiated Percentage: ' + negotiation_percentage +'%');
+            $('#row-6').text('Vendor Negotiated Price: ₹' + negotiation_price);
+
+            $('#exampleModalCenter').modal('show');
         }
     });
 </script>
@@ -452,7 +614,7 @@
     $(document).ready(function() {
         $("#submitbutton").click(function() {
             var bookId = $("#hiddenInput").val();
-            var Description = $("#Description").val();
+            var Description = $("#Description1").val();
             var data = {
                 'bookId': bookId,
                 'Description': Description,
@@ -492,7 +654,69 @@
         });
     });
 </script>
+<script>
+    $(document).ready(function() {
+        $("#submitbutton22").click(function() {
+            var bookId = $("#hiddenInput").val();
+            var Description = $("#Description").val();
+            var amount = $("#amount1").val();
 
+
+   
+            var data = {
+                'bookId': bookId,
+                'Description': Description,
+                'amount': amount,
+            };
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: '/admin/sendnegotiationsamount',
+                method: 'POST',
+                data: data,
+                success: function(response) {
+                    if (response.success) {
+                        $('#exampleModalCenter').modal('hide');
+                        setTimeout(function() {
+                            window.location.href = "/admin/negotiation_process_list";
+                        }, 3000);
+                        toastr.success(response.success, {
+                            timeout: 45000
+                        });
+                    } else {
+                        toastr.error(response.error, {
+                            timeout: 45000
+                        });
+                    }
+                },
+
+                error: function(error) {
+                    console.error('Failed to create record:', error);
+                }
+            });
+        });
+    });
+</script>
+@if (Session::has('success'))
+
+<script>
+
+toastr.success("{{ Session::get('success') }}",{timeout:15000});
+
+</script>
+@elseif (Session::has('error'))
+<script>
+
+toastr.error("{{ Session::get('error') }}",{timeout:15000});
+
+</script>
+
+@endif
 </html>
 <style>
     table {

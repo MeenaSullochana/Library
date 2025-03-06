@@ -1044,24 +1044,41 @@ class BookController extends Controller
     return response()->json($data);
   }
 
-  public function reviewpost($bookid)
-  {
+  public function reviewpost($bookid){
     $book = Book::find($bookid);
-    $rev = BookReviewStatus::where('book_id', $book->id)->where('mark', '!=', null)->get();
-    if (sizeof($rev) != 0) {
-      foreach ($rev as $key => $val) {
+     $pub = Publisher::query()
+    ->where('id', $book->user_id)
+    ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+    ->union(
+        Distributor::query()->where('id', $book->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+    )
+    ->union(
+        PublisherDistributor::query()->where('id', $book->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+    )
+    ->first();
+  
+    $book->vendorname= $pub->publicationName;
+  
+  
+    $Procurementpaymrnt1 = Procurementpaymrnt::where('paidstatus', '1')
+    ->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(bookId, '$')) LIKE ?", ['%"' . $book->id . '"%'])
+    ->first(); 
+  
+    $rev = BookReviewStatus::where('book_id',$book->id)->where('mark','!=',null)->get();
+    if(sizeof($rev) != 0){
+      foreach($rev as $key=>$val){
         $reviewer = Reviewer::find($val->reviewer_id);
         $val->reviewer = $reviewer;
       }
     }
-    $data = (object)[
-      'book' => $book,
-      'rev' => $rev
-    ];
-
-    return redirect('admin/procur_complete_view')->with('data', $data);
+    $data=(Object)[
+        'book'=>$book,
+        'rev'=>$rev
+      ];
+      \Cache::put('data', $data);
+    //  return  $data;
+    return redirect('admin/procur_complete_view');  
   }
-
 
   public function bookassign_data(Request $req)
   {
@@ -1637,52 +1654,56 @@ public function master_book_data(Request $request) {
   ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
   ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
   ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+  ->leftJoin('unique_authors', 'books.unique_author', '=', 'unique_authors.authorid')
+
   ->select('books.*', 
-      DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
-  );
+      DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname'),
+      DB::raw("COALESCE(unique_authors.name, 'not yet unified') as authorname"),
 
-    // Apply filters
-    if ($request->has('language_filter') && $request->language_filter != '') {
+    );
+
+  // Apply filters
+  if ($request->has('language_filter') && $request->language_filter != '') {
       $query->where('language', $request->language_filter);
-    }
-
-    if ($request->has('subject_filter') && $request->subject_filter != '') {
-      $query->where('subject', $request->subject_filter);
-    }
-
-    if ($request->has('category_filter') && $request->category_filter != '') {
-      $query->where('category', $request->category_filter);
-    }
-
-    if ($request->has('payment_filter') && $request->payment_filter != '') {
-      if ($request->payment_filter == 'Success') {
-        $query->whereIn('book_procurement_status', ['1', '5', '6']);
-      } else {
-        $query->whereNotIn('book_procurement_status', ['1', '5', '6']);
-      }
   }
 
+  if ($request->has('subject_filter') && $request->subject_filter != '') {
+      $query->where('subject', $request->subject_filter);
+  }
+
+  if ($request->has('category_filter') && $request->category_filter != '') {
+      $query->where('category', $request->category_filter);
+  }
+
+  if ($request->has('payment_filter') && $request->payment_filter != '') {
+      if ($request->payment_filter == 'Success') {
+          $query->whereIn('book_procurement_status', ['1', '5', '6']);
+      } else {
+          $query->whereNotIn('book_procurement_status', ['1', '5', '6']);
+      }
+  }
   if ($request->has('mark_range') && $request->mark_range != '') {
     list($min, $max) = explode('-', $request->mark_range);
     $query->whereBetween('marks', [(int)$min, (int)$max]);
 }
+
   
   if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
   
 
-      switch ($request->metachecking_filter) {
+    switch ($request->metachecking_filter) {
         case 'Success':
-          $query->where('book_status', '1');
-          break;
+            $query->where('book_status', '1');
+            break;
         case 'Reject':
-          $query->where('book_status', '0');
-          break;
+            $query->where('book_status', '0');
+            break;
         case 'Returned To User Correction':
-          $query->where('book_status', '2');
-          break;
+            $query->where('book_status', '2');
+            break;
         case 'Book Update To Return':
-          $query->where('book_status', '3');
-          break;
+            $query->where('book_status', '3');
+            break;
         case 'No Review':
             $query->where('book_status', null);
             break;
@@ -1692,69 +1713,71 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
   
 
   switch ($request->negostatus_filter) {
-      case 'Negotiation from admin':
+      case 'Negotiation Pending':
           $query->where('negotiation_status', '0');
           break;
-      case 'Negotiation from user':
+      case 'Renegotiation By Vendor':
           $query->where('negotiation_status', '1');
           break;
-      case 'Accepted':
+      case 'Renegotiation By Admin':
+         $query->where('negotiation_status', '5');
+         break;   
+      case 'Agree':
           $query->where('negotiation_status', '2');
           break;
-      case 'Rejected':
+      case 'Disagree':
           $query->where('negotiation_status', '3');
           break;
-      case 'Hold':
-            $query->where('negotiation_status', '4');
-            break;
-      case 'No negotiation':
+  
+      case 'Not send negotiation':
           $query->where('negotiation_status', null);
           break;
   }
 }
 
-    if ($request->has('search') && $request->search != '') {
-      $query->where(function ($subQuery) use ($request) {
-        $subQuery->where('book_title', 'like', '%' . $request->search . '%')
-            ->orWhere('product_code', 'like', '%' . $request->search . '%')
-            ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
-            ->orWhere('publishers.publicationName', 'like', '%' . $request->search . '%')
-            ->orWhere('distributors.distributionName', 'like', '%' . $request->search . '%')
-            ->orWhere('publisher_distributors.publicationDistributionName', 'like', '%' . $request->search . '%')
-            ->orWhere('books.language', 'like', '%' . $request->search . '%')
-            ->orWhere('marks', 'like', '%' . $request->search . '%')
-            ->orWhere('isbn', 'like', '%' . $request->search . '%');
-       
-    });
-  
+  if ($request->has('search') && $request->search != '') {
+    $query->where(function ($subQuery) use ($request) {
+      $subQuery->where('book_title', 'like', '%' . $request->search . '%')
+          ->orWhere('product_code', 'like', '%' . $request->search . '%')
+          ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+          ->orWhere('publishers.publicationName', 'like', '%' . $request->search . '%')
+          ->orWhere('distributors.distributionName', 'like', '%' . $request->search . '%')
+          ->orWhere('publisher_distributors.publicationDistributionName', 'like', '%' . $request->search . '%')
+          ->orWhere('unique_authors.name', 'like', '%' . $request->search . '%')
+          ->orWhere('books.language', 'like', '%' . $request->search . '%')
+          ->orWhere('marks', 'like', '%' . $request->search . '%')
+          ->orWhere('isbn', 'like', '%' . $request->search . '%');
+  });
   }
 
-    $data = $query->paginate(15); // Adjust the number of records per page as needed
+  $data = $query->paginate(15); // Adjust the number of records per page as needed
 
-    $procurementStatuses = ["1", "5", "6"];
-    $bookStatusLabels = [
+  $procurementStatuses = ["1", "5", "6"];
+  $bookStatusLabels = [
       "1" => "Success",
       "0" => "Reject",
       "2" => "Returned To User Correction",
       "3" => "Book Update To Return"
   ];
   $negobookStatus = [
-    "0" => "Negotiation from admin",
-   "1" => "Negotiation from user",
-   "2" => "Accepted",
-   "3" => "Rejected",
-   "4" => "Hold"
+    "0" => "Negotiation Pending",
+   "1" => "Renegotiation By Vendor",
+   "5" => "Renegotiation By Admin",
+   "2" => "Agree",
+   "3" => "Disagree",
+
 ];
   foreach ($data as $val) {
       $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
       $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
       $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
-      $val->negostatus = $negobookStatus[$val->negotiation_status] ?? "No negotiation";
+      $val->negostatus = $negobookStatus[$val->negotiation_status] ?? "Not send negotiation";
+      $val->primaryauthor1= json_decode($val->primaryauthor)[0];
 
     }
     foreach ($data as $val) {
   
-      $procurementPayment = Procurementpaymrnt::whereJsonContains('bookid', $val->id)->first();
+      $procurementPayment = Procurementpaymrnt::whereJsonContains('bookid', $val->id)->where('paidstatus','1')->first();
       
       if($procurementPayment !=null){
         $val->paymentdate = $procurementPayment->created_at->format('d-m-Y');
@@ -1762,23 +1785,93 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
         $val->paymentdate = 'No Date';
 
       }
-      // $pub = Publisher::query()
-      // ->where('id', $val->user_id)
-      // ->select('id', 'publicationName', 'usertype','mobileNumber','email')
-      // ->union(
-      //     Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
-      // )
-      // ->union(
-      //     PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
-      // )
-      // ->first();
-      // $val->vendorname =  $pub->publicationName;
+      $pub = Publisher::query()
+      ->where('id', $val->user_id)
+      ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+      ->union(
+          Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+      )
+      ->union(
+          PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+      )
+      ->first();
+      $val->vendorname =  $pub->publicationName;
 
     }
-
+    foreach ($data as $val) {
+      $avginternal = 0;
+      $avgexternal = 0;
+      $avgpublic = 0;
+     $book = Book::find($val->id);
   
+  
+    $internalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->count();
+    $externalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->count();
+    $publiccount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->count();
+    $rinternalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->where('mark', '!=', null)->count();
+    $rexternalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->where('mark', '!=', null)->count();
+    $rpubliccount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->where('mark', '!=', null)->count();
+    $suminternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
+    $sumexternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
+    $sumpublic = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
+   if($rinternalcount == 0 &&  $rexternalcount  == 0 &&  $rpubliccount  == 0){
+    $mark = 0;
+  }else{
+  
+  
+  if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $mark = ($sumexternal / ($rexternalcount)) * 3;
+  } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+    $avginternal  = ($suminternal / ($rinternalcount)) *1;
+    $mark = ($suminternal / ($rinternalcount)) *1;
+  } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
+    $avgpublic  = ($sumpublic / ($rpubliccount)) * 1;
+    $mark = ($sumpublic / ($rpubliccount)) * 1;
+  } else if ($externalcount == 0 || $rexternalcount == 0) {
+    $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) *1);
+  } else if ($internalcount == 0 || $rinternalcount == 0) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($sumexternal / ($rexternalcount)) *3) + (($sumpublic / ($rpubliccount)) *1);
+  } else if ($publiccount == 0 || $rpubliccount == 0) {
+    $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+    $avginternal  = ($suminternal / ($rinternalcount)) *1;
+    $mark = (($sumexternal / ($rexternalcount)) *3) + (($suminternal / ($rinternalcount)) * 1);
+  } else {
+  
+    $avgexternal = ($sumexternal / ($rexternalcount)) * 3;
+    $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+    $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+    $mark = (($sumexternal / ($rexternalcount )) *3) + (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) * 1);
+  }
+  }
+  
+   
+    $val->internalcount = $internalcount;
+    $val->externalcount = $externalcount;
+    $val->publiccount = $publiccount;
+    $val->rinternalcount = $rinternalcount;
+    $val->rexternalcount = $rexternalcount;
+    $val->rpubliccount = $rpubliccount;
+    $val->avginternal = $avginternal;
+    $val->avgexternal = $avgexternal;
+    $val->avgpublic = $avgpublic;
+    $val->mark = $mark;
+   
+  }
+
   return view('admin.master_book_data', compact('data'));
 }
+
+
+
+
+
+
+
 
 
   public function reviewer_reviewrec()
@@ -1991,212 +2084,622 @@ if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
 
 
 
-  public function master_book_datareport(Request $request)
-  {
+//   public function master_book_datareport(Request $request)
+//   {
 
-    // Use eager loading to reduce the number of queries
-    $query = Book::with('librarian');
+//     // Use eager loading to reduce the number of queries
+//     $query = Book::with('librarian');
 
-    // Apply filters
-    if ($request->has('language_filter') && $request->language_filter != '') {
-      $query->where('language', $request->language_filter);
-    }
+//     // Apply filters
+//     if ($request->has('language_filter') && $request->language_filter != '') {
+//       $query->where('language', $request->language_filter);
+//     }
 
-    if ($request->has('subject_filter') && $request->subject_filter != '') {
-      $query->where('subject', $request->subject_filter);
-    }
+//     if ($request->has('subject_filter') && $request->subject_filter != '') {
+//       $query->where('subject', $request->subject_filter);
+//     }
 
-    if ($request->has('category_filter') && $request->category_filter != '') {
-      $query->where('category', $request->category_filter);
-    }
+//     if ($request->has('category_filter') && $request->category_filter != '') {
+//       $query->where('category', $request->category_filter);
+//     }
 
-    if ($request->has('payment_filter') && $request->payment_filter != '') {
-      if ($request->payment_filter == 'Success') {
-        $query->whereIn('book_procurement_status', ['1', '5', '6']);
-      } else {
-        $query->whereNotIn('book_procurement_status', ['1', '5', '6']);
-      }
-  }
-  if ($request->has('mark_range') && $request->mark_range != '') {
-    list($min, $max) = explode('-', $request->mark_range);
-    $query->whereBetween('marks', [(int)$min, (int)$max]);
-}
-  if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
+//     if ($request->has('payment_filter') && $request->payment_filter != '') {
+//       if ($request->payment_filter == 'Success') {
+//         $query->whereIn('book_procurement_status', ['1', '5', '6']);
+//       } else {
+//         $query->whereNotIn('book_procurement_status', ['1', '5', '6']);
+//       }
+//   }
+//   if ($request->has('mark_range') && $request->mark_range != '') {
+//     list($min, $max) = explode('-', $request->mark_range);
+//     $query->whereBetween('marks', [(int)$min, (int)$max]);
+// }
+//   if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
   
 
-      switch ($request->metachecking_filter) {
-        case 'Success':
-          $query->where('book_status', '1');
-          break;
-        case 'Reject':
-          $query->where('book_status', '0');
-          break;
-        case 'Returned To User Correction':
-            $query->where('book_status', '2');
-            break;
-        case 'Hold':
-            $query->where('book_status', '3');
-            break;
-        case 'No Review':
-            $query->where('book_status', null);
-            break;
-    }
-}
-if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
+//       switch ($request->metachecking_filter) {
+//         case 'Success':
+//           $query->where('book_status', '1');
+//           break;
+//         case 'Reject':
+//           $query->where('book_status', '0');
+//           break;
+//         case 'Returned To User Correction':
+//             $query->where('book_status', '2');
+//             break;
+//         case 'Hold':
+//             $query->where('book_status', '3');
+//             break;
+//         case 'No Review':
+//             $query->where('book_status', null);
+//             break;
+//     }
+// }
+// if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
   
 
-  switch ($request->negostatus_filter) {
-      case 'Negotiation from admin':
-          $query->where('negotiation_status', '0');
-          break;
-      case 'Negotiation from user':
-          $query->where('negotiation_status', '1');
-          break;
-      case 'Accepted':
-          $query->where('negotiation_status', '2');
-          break;
-      case 'Rejected':
-          $query->where('negotiation_status', '3');
-          break;
-      case 'Hold':
-            $query->where('negotiation_status', '4');
-            break;
-      case 'No negotiation':
-          $query->where('negotiation_status', null);
-          break;
-  }
-}
+//   switch ($request->negostatus_filter) {
+//       case 'Negotiation from admin':
+//           $query->where('negotiation_status', '0');
+//           break;
+//       case 'Negotiation from user':
+//           $query->where('negotiation_status', '1');
+//           break;
+//       case 'Accepted':
+//           $query->where('negotiation_status', '2');
+//           break;
+//       case 'Rejected':
+//           $query->where('negotiation_status', '3');
+//           break;
+//       case 'Hold':
+//             $query->where('negotiation_status', '4');
+//             break;
+//       case 'No negotiation':
+//           $query->where('negotiation_status', null);
+//           break;
+//   }
+// }
 
 
 
-$pub = Publisher::query()
-->where('id', $val->user_id)
-->select('id', 'publicationName', 'usertype','mobileNumber','email')
-->union(
-    Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
-)
-->union(
-    PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
-)
-->first();
-$val->vendorname =  $pub->publicationName;
+// $pub = Publisher::query()
+// ->where('id', $val->user_id)
+// ->select('id', 'publicationName', 'usertype','mobileNumber','email')
+// ->union(
+//     Distributor::query()->where('id', $val->user_id)->select('id', 'distributionName as publicationName', 'usertype','mobileNumber','email')
+// )
+// ->union(
+//     PublisherDistributor::query()->where('id', $val->user_id)->select('id', 'publicationDistributionName as publicationName', 'usertype','mobileNumber','email')
+// )
+// ->first();
+// $val->vendorname =  $pub->publicationName;
 
-    if ($request->has('search') && $request->search != '') {
-      $query->where(function ($subQuery) use ($request) {
-        $subQuery->where('book_title', 'like', '%' . $request->search . '%')
-            ->orWhere('product_code', 'like', '%' . $request->search . '%')
-            ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
-            ->orWhere('language', 'like', '%' . $request->search . '%')
-            ->orWhere('marks', 'like', '%' . $request->search . '%')
-            ->orWhere('isbn', 'like', '%' . $request->search . '%');
-    });
-  }
+//     if ($request->has('search') && $request->search != '') {
+//       $query->where(function ($subQuery) use ($request) {
+//         $subQuery->where('book_title', 'like', '%' . $request->search . '%')
+//             ->orWhere('product_code', 'like', '%' . $request->search . '%')
+//             ->orWhere('nameOfPublisher', 'like', '%' . $request->search . '%')
+//             ->orWhere('language', 'like', '%' . $request->search . '%')
+//             ->orWhere('marks', 'like', '%' . $request->search . '%')
+//             ->orWhere('isbn', 'like', '%' . $request->search . '%');
+//     });
+//   }
 
-    $data = $query->get(); // Adjust the number of records per page as needed
+//     $data = $query->get(); // Adjust the number of records per page as needed
 
-    $procurementStatuses = ["1", "5", "6"];
-    $bookStatusLabels = [
-      "1" => "Success",
-      "0" => "Reject",
-      "2" => "Returned To User Correction",
-      "3" => "Book Update To Return"
-    ];
+//     $procurementStatuses = ["1", "5", "6"];
+//     $bookStatusLabels = [
+//       "1" => "Success",
+//       "0" => "Reject",
+//       "2" => "Returned To User Correction",
+//       "3" => "Book Update To Return"
+//     ];
 
 
-  $negobookStatus = [
-       "0" => "Negotiation from admin",
-      "1" => "Negotiation from user",
-      "2" => "Accepted",
-      "3" => "Rejected",
-      "4" => "Hold"
-  ];
-  foreach ($data as $val) {
-      $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
-      $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
-      $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
-      $val->negostatus = $negobookStatus[$val->negotiation_status] ?? "No negotiation";
-  }
-  foreach ($data as $val) {
+//   $negobookStatus = [
+//        "0" => "Negotiation from admin",
+//       "1" => "Negotiation from user",
+//       "2" => "Accepted",
+//       "3" => "Rejected",
+//       "4" => "Hold"
+//   ];
+//   foreach ($data as $val) {
+//       $val->reviewername = $val->librarian ? $val->librarian->librarianName : "No Review";
+//       $val->paystatus = in_array($val->book_procurement_status, $procurementStatuses) ? "Success" : "No Payment";
+//       $val->revstatus = $bookStatusLabels[$val->book_status] ?? "No Review";
+//       $val->negostatus = $negobookStatus[$val->negotiation_status] ?? "No negotiation";
+//   }
+//   foreach ($data as $val) {
   
-    $procurementPayment = Procurementpaymrnt::whereJsonContains('bookid', $val->id)->first();
+//     $procurementPayment = Procurementpaymrnt::whereJsonContains('bookid', $val->id)->first();
     
-    if($procurementPayment !=null){
-      $val->paymentdate = $procurementPayment->created_at->format('d-m-Y');
-    }else{
-      $val->paymentdate = 'No Date';
+//     if($procurementPayment !=null){
+//       $val->paymentdate = $procurementPayment->created_at->format('d-m-Y');
+//     }else{
+//       $val->paymentdate = 'No Date';
 
-    }
+//     }
 
-  }
+//   }
 
 
-    $actotal = 0;
-    $inactotal = 0;
-    $finaldata = [];
-    $serialNumber = 1;
-    foreach ($data as $val) {
+//     $actotal = 0;
+//     $inactotal = 0;
+//     $finaldata = [];
+//     $serialNumber = 1;
+//     foreach ($data as $val) {
 
 
 
     
-         $finaldata[] = [
-            'S.No' =>  $serialNumber ++,
-            "Book ID"=> $val->product_code,
-            "Book Title"=> $val->book_title,
-            "Book ISBN"=> $val->isbn,
-            "Language of the Book"=> $val->language,
-            "Author Details"=> $val->author_name,
-            "Edition Number"=> $val->edition_number,
-            "Name of Publisher"=> $val->nameOfPublisher,
-            "Vendor Name"=> $val->vendorname,
-            "Year of Publication"=> $val->yearOfPublication,
-            "Place of Publication"=> $val->place,
-            "Subject"=> $val->subject,
-            "Category"=> $val->category,
-            "Binding"=> $val->type,
-            "Size "=> $val->size,
-            "Length x Breadth(in Centimeters)"=> $val->length  *  $val->breadth,
-            "Width(in Centimeters) "=> $val->width,
-            "Weight(in grams)"=> $val->weight,
-            "GSM (Number)"=> $val->gsm,
-            "Type of Paper"=> $val->quality,
-            "Paper Finishing"=> $val->paper_finishing,
-            "Total Number of Pages"=> $val->pages,
-            "Number of Multicolor Pages"=> $val->multicolor,
-            "Number of Mono Color Pages"=> $val->monocolor,
-            "Currency Type"=> $val->currency_type,
-            "Price"=> $val->price,
-            "Discount Offer(%)"=>$val->discount ,
-            "Discounted Price"=> $val->discountedprice,
-            "Payment Status "=> $val->paystatus,
-            "Payment Date "=> $val->paymentdate,
-            "Meta checking Status "=> $val->revstatus,
-            "Meta checker Name"=> $val->reviewername,
-            "Marks"=> $val->marks,
-            "Negotiation Status"=> $val->negostatus,
+//          $finaldata[] = [
+//             'S.No' =>  $serialNumber ++,
+//             "Book ID"=> $val->product_code,
+//             "Book Title"=> $val->book_title,
+//             "Book ISBN"=> $val->isbn,
+//             "Language of the Book"=> $val->language,
+//             "Author Details"=> $val->author_name,
+//             "Edition Number"=> $val->edition_number,
+//             "Name of Publisher"=> $val->nameOfPublisher,
+//             "Vendor Name"=> $val->vendorname,
+//             "Year of Publication"=> $val->yearOfPublication,
+//             "Place of Publication"=> $val->place,
+//             "Subject"=> $val->subject,
+//             "Category"=> $val->category,
+//             "Binding"=> $val->type,
+//             "Size "=> $val->size,
+//             "Length x Breadth(in Centimeters)"=> $val->length  *  $val->breadth,
+//             "Width(in Centimeters) "=> $val->width,
+//             "Weight(in grams)"=> $val->weight,
+//             "GSM (Number)"=> $val->gsm,
+//             "Type of Paper"=> $val->quality,
+//             "Paper Finishing"=> $val->paper_finishing,
+//             "Total Number of Pages"=> $val->pages,
+//             "Number of Multicolor Pages"=> $val->multicolor,
+//             "Number of Mono Color Pages"=> $val->monocolor,
+//             "Currency Type"=> $val->currency_type,
+//             "Price"=> $val->price,
+//             "Discount Offer(%)"=>$val->discount ,
+//             "Discounted Price"=> $val->discountedprice,
+//             "Payment Status "=> $val->paystatus,
+//             "Payment Date "=> $val->paymentdate,
+//             "Meta checking Status "=> $val->revstatus,
+//             "Meta checker Name"=> $val->reviewername,
+//             "Marks"=> $val->marks,
+//             "Negotiation Status"=> $val->negostatus,
 
             
                                       
-        ];
+//         ];
       
 
 
       
-     }
+//      }
      
-     $csvContent ="\xEF\xBB\xBF"; 
-     $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Vendor Name,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status,Payment Date ,Meta checking Status,Meta checker Name,Mark,Negotiation Status\n"; 
-     foreach ($finaldata as $data) {
-         $csvContent .= '"' . implode('","', $data) ."\"\n";
-     }
+//      $csvContent ="\xEF\xBB\xBF"; 
+//      $csvContent .=   "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Edition Number,Name of Publisher,Vendor Name,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status,Payment Date ,Meta checking Status,Meta checker Name,Mark,Negotiation Status\n"; 
+//      foreach ($finaldata as $data) {
+//          $csvContent .= '"' . implode('","', $data) ."\"\n";
+//      }
 
-    $headers = [
+//     $headers = [
+//       'Content-Type' => 'text/csv; charset=utf-8',
+//       'Content-Disposition' => 'attachment; filename="masterbookdata.csv"',
+//     ];
+
+//     return response()->make($csvContent, 200, $headers);
+//   }
+
+
+public function master_book_datareport(Request $request)
+{
+
+  $query = Book::with('librarian')
+    ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+    ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+    ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+    ->leftJoin('librarians', 'books.book_reviewer_id', '=', 'librarians.id')
+    ->leftJoin('unique_authors', 'books.unique_author', '=', 'unique_authors.authorid')
+
+
+  //   ->leftJoin('procurement_paymrnts', function ($join) {
+  //     $join->on(DB::raw('JSON_UNQUOTE(JSON_EXTRACT(procurement_paymrnts.bookid, "$.book_id"))'), '=', 'books.id');
+  // })
+    ->select(
+        'books.*',
+        // 'procurement_paymrnts.created_at as procure_created_at',
+        DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname'),
+        DB::raw("COALESCE(unique_authors.name, 'not yet unified') as authorname"),
+
+        DB::raw('IFNULL(librarians.librarianName, "No Review") as reviewername'),
+        DB::raw('IF(books.book_procurement_status IN (1, 5, 6), "Success", "No Payment") as paystatus'),
+        DB::raw('CASE
+            WHEN books.book_status = 1 THEN "Success"
+            WHEN books.book_status = 0 THEN "Reject"
+            WHEN books.book_status = 2 THEN "Returned To User Correction"
+            WHEN books.book_status = 3 THEN "Book Update To Return"
+            ELSE "No Review"
+        END as revstatus'),
+        DB::raw('CASE
+            WHEN books.negotiation_status = 0 THEN "Negotiation Pending"
+            WHEN books.negotiation_status = 1 THEN "Renegotiation By Vendor"
+            WHEN books.negotiation_status = 5 THEN "Renegotiation By Admin"
+            WHEN books.negotiation_status = 2 THEN "Agree"
+            WHEN books.negotiation_status = 3 THEN "Disagree"
+
+            ELSE "Not send negotiation"
+        END as negostatus'),
+          // Subqueries for counts
+          DB::raw('(SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = "internal") as internalcount'),
+          DB::raw('(SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = "external") as externalcount'),
+          DB::raw('(SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = "public") as publiccount'),
+          DB::raw('(SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = "internal" AND mark IS NOT NULL) as rinternalcount'),
+          DB::raw('(SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = "external" AND mark IS NOT NULL) as rexternalcount'),
+          DB::raw('(SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = "public" AND mark IS NOT NULL) as rpubliccount'),
+          // Subqueries for sums
+          DB::raw('(SELECT SUM(mark) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = "internal" AND mark IS NOT NULL) as suminternal'),
+          DB::raw('(SELECT SUM(mark) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = "external" AND mark IS NOT NULL) as sumexternal'),
+          DB::raw('(SELECT SUM(mark) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = "public" AND mark IS NOT NULL) as sumpublic'),
+          DB::raw("CASE 
+          WHEN 
+              (SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND mark IS NOT NULL) = 0 
+          THEN 0
+          ELSE 
+              COALESCE(
+                  (SELECT SUM(mark) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'external' AND mark IS NOT NULL) 
+                  / NULLIF((SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'external' AND mark IS NOT NULL), 0) * 3, 0
+              ) + 
+              COALESCE(
+                  (SELECT SUM(mark) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'internal' AND mark IS NOT NULL) 
+                  / NULLIF((SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'internal' AND mark IS NOT NULL), 0) * 1, 0
+              ) + 
+              COALESCE(
+                  (SELECT SUM(mark) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'public' AND mark IS NOT NULL) 
+                  / NULLIF((SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'public' AND mark IS NOT NULL), 0) * 1, 0
+              )
+      END as mark,
+      
+      COALESCE(
+          (SELECT SUM(mark) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'internal' AND mark IS NOT NULL) 
+          / NULLIF((SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'internal' AND mark IS NOT NULL), 0) * 1, 0
+      ) AS avginternal,
+      
+      COALESCE(
+          (SELECT SUM(mark) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'external' AND mark IS NOT NULL) 
+          / NULLIF((SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'external' AND mark IS NOT NULL), 0) * 3, 0
+      ) AS avgexternal,
+      
+      COALESCE(
+          (SELECT SUM(mark) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'public' AND mark IS NOT NULL) 
+          / NULLIF((SELECT COUNT(*) FROM book_review_statuses WHERE book_review_statuses.book_id = books.id AND reviewertype = 'public' AND mark IS NOT NULL), 0) * 1, 0
+      ) AS avgpublic")
+      
+      
+      
+        // Add the payment date field
+        // DB::raw('IFNULL(DATE_FORMAT(procurement_paymrnts.created_at, "%d-%m-%Y"), "No Date") as paymentdate')
+    )
+ 
+
+    ->groupBy(
+        'books.id',
+        'books.product_code',
+        'publishers.publicationName',
+        'distributors.distributionName',
+        'publisher_distributors.publicationDistributionName',
+        'unique_authors.name',
+        'librarians.librarianName',
+        'books.book_procurement_status',
+        'books.book_status',
+        'books.negotiation_status',
+        // 'procurement_paymrnts.created_at'  
+    );
+
+
+
+
+//   $query = Book::with('librarian')
+//   ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+//   ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+//   ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+//   ->leftJoin('librarians', 'books.book_reviewer_id', '=', 'librarians.id')
+//   ->select([
+//       'books.*',
+//       DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname'),
+//       DB::raw('IFNULL(librarians.librarianName, "No Review") as reviewername'),
+//       DB::raw('IF(books.book_procurement_status IN (1, 5, 6), "Success", "No Payment") as paystatus'),
+//       DB::raw('CASE
+//           WHEN books.book_status = 1 THEN "Success"
+//           WHEN books.book_status = 0 THEN "Reject"
+//           WHEN books.book_status = 2 THEN "Returned To User Correction"
+//           WHEN books.book_status = 3 THEN "Book Update To Return"
+//           ELSE "No Review"
+//       END as revstatus'),
+//       DB::raw('CASE
+//           WHEN books.negotiation_status = 0 THEN "Negotiation Pending"
+//           WHEN books.negotiation_status = 1 THEN "Renegotiation By Vendor"
+//           WHEN books.negotiation_status = 5 THEN "Renegotiation By Admin"
+//           WHEN books.negotiation_status = 2 THEN "Agree"
+//           WHEN books.negotiation_status = 3 THEN "Disagree"
+//           ELSE "No Srnd negotiation"
+//       END as negostatus'),
+
+//       // Ensure count values do not return NULL
+//       DB::raw('(SELECT COALESCE(COUNT(*), 0) FROM book_review_statuses WHERE book_id = books.id AND reviewertype = "internal") AS internalcount'),
+//       DB::raw('(SELECT COALESCE(COUNT(*), 0) FROM book_review_statuses WHERE book_id = books.id AND reviewertype = "external") AS externalcount'),
+//       DB::raw('(SELECT COALESCE(COUNT(*), 0) FROM book_review_statuses WHERE book_id = books.id AND reviewertype = "public") AS publiccount'),
+
+//       // Ensure valid review counts return 0 instead of NULL
+//       DB::raw('(SELECT COALESCE(COUNT(*), 0) FROM book_review_statuses WHERE book_id = books.id AND reviewertype = "internal" AND mark IS NOT NULL) AS rinternalcount'),
+//       DB::raw('(SELECT COALESCE(COUNT(*), 0) FROM book_review_statuses WHERE book_id = books.id AND reviewertype = "external" AND mark IS NOT NULL) AS rexternalcount'),
+//       DB::raw('(SELECT COALESCE(COUNT(*), 0) FROM book_review_statuses WHERE book_id = books.id AND reviewertype = "public" AND mark IS NOT NULL) AS rpubliccount'),
+
+//       // Ensure sum values return 0 instead of NULL
+//       DB::raw('(SELECT COALESCE(SUM(mark), 0) FROM book_review_statuses WHERE book_id = books.id AND reviewertype = "internal" AND mark IS NOT NULL) AS suminternal'),
+//       DB::raw('(SELECT COALESCE(SUM(mark), 0) FROM book_review_statuses WHERE book_id = books.id AND reviewertype = "external" AND mark IS NOT NULL) AS sumexternal'),
+//       DB::raw('(SELECT COALESCE(SUM(mark), 0) FROM book_review_statuses WHERE book_id = books.id AND reviewertype = "public" AND mark IS NOT NULL) AS sumpublic')
+//   ]);
+
+// return $data = $query->get(5);
+
+
+
+
+
+
+
+
+
+
+
+     
+  // Apply filters based on request
+  if ($request->has('language_filter') && $request->language_filter != '') {
+      $query->where('books.language', $request->language_filter); // Specify the table for 'language'
+  }
+
+  if ($request->has('subject_filter') && $request->subject_filter != '') {
+      $query->where('books.subject', $request->subject_filter); // Specify the table for 'subject'
+  }
+
+  if ($request->has('category_filter') && $request->category_filter != '') {
+      $query->where('books.category', $request->category_filter); // Specify the table for 'category'
+  }
+
+  if ($request->has('payment_filter') && $request->payment_filter != '') {
+      if ($request->payment_filter == 'Success') {
+          $query->whereIn('books.book_procurement_status', ['1', '5', '6']);
+      } else {
+          $query->whereNotIn('books.book_procurement_status', ['1', '5', '6']);
+      }
+  }
+
+  
+  
+ 
+  if ($request->has('mark_range') && $request->mark_range != '') {
+      list($min, $max) = explode('-', $request->mark_range);
+      $query->whereBetween('books.marks', [(int)$min, (int)$max]); // Specify the table for 'marks'
+  }
+
+  if ($request->has('metachecking_filter') && $request->metachecking_filter != '') {
+      switch ($request->metachecking_filter) {
+          case 'Success':
+              $query->where('books.book_status', '1');
+              break;
+          case 'Reject':
+              $query->where('books.book_status', '0');
+              break;
+          case 'Returned To User Correction':
+              $query->where('books.book_status', '2');
+              break;
+          case 'Hold':
+              $query->where('books.book_status', '3');
+              break;
+          case 'No Review':
+              $query->where('books.book_status', null);
+              break;
+      }
+  }
+
+  if ($request->has('negostatus_filter') && trim($request->negostatus_filter) != '') {
+    $query->where('marks', '>=', 40) // Common condition
+    ->whereNotNull('final_price');
+
+    switch (trim($request->negostatus_filter)) {
+        case 'Negotiation Pending':
+            $query->where('negotiation_status', '0');
+            break;
+        case 'Agree':
+            $query->where('negotiation_status','=',2);
+            break;
+        case 'Disagree':
+            $query->where('negotiation_status', '3');
+            break;
+        case 'Renegotiation By Vendor':
+            $query->where('negotiation_status', '1');
+            break;
+        case 'Renegotiation By Admin':
+            $query->where('negotiation_status', '5');
+            break;
+        case 'Not send negotiation':
+            $query->whereNull('negotiation_status'); // Proper handling of NULL
+            break;
+    }
+}
+
+  if ($request->has('search') && $request->search != '') {
+      $query->where(function ($subQuery) use ($request) {
+          $subQuery->where('books.book_title', 'like', '%' . $request->search . '%')
+              ->orWhere('books.product_code', 'like', '%' . $request->search . '%')
+              ->orWhere('books.nameOfPublisher', 'like', '%' . $request->search . '%')
+              ->orWhere('publishers.publicationName', 'like', '%' . $request->search . '%')
+              ->orWhere('distributors.distributionName', 'like', '%' . $request->search . '%')
+              ->orWhere('publisher_distributors.publicationDistributionName', 'like', '%' . $request->search . '%')
+              ->orWhere('unique_authors.name', 'like', '%' . $request->search . '%')
+              ->orWhere('books.language', 'like', '%' . $request->search . '%')
+              ->orWhere('books.marks', 'like', '%' . $request->search . '%')
+              ->orWhere('books.isbn', 'like', '%' . $request->search . '%');
+      });
+  }
+
+ $data =$query->get()->unique('id');
+  
+  // return $uniqueIdCount = $data->pluck('id')->unique()->count();
+
+//   foreach ($data as $val) {
+ 
+//     $avginternal = 0;
+//     $avgexternal = 0;
+//     $avgpublic = 0;
+//    $book = Book::find($val->id);
+
+
+//   $internalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->count();
+//   $externalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->count();
+//   $publiccount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->count();
+//   $rinternalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->where('mark', '!=', null)->count();
+//   $rexternalcount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->where('mark', '!=', null)->count();
+//   $rpubliccount = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->where('mark', '!=', null)->count();
+//   $suminternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'internal')->where('mark', '!=', null)->sum('mark');
+//   $sumexternal = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'external')->where('mark', '!=', null)->sum('mark');
+//   $sumpublic = BookReviewStatus::where('book_id', $val->id)->where('reviewertype', 'public')->where('mark', '!=', null)->sum('mark');
+//  if($rinternalcount == 0 &&  $rexternalcount  == 0 &&  $rpubliccount  == 0){
+//   $mark = 0;
+// }else{
+
+
+// if (($internalcount == 0 || $rinternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+//   $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+//   $mark = ($sumexternal / ($rexternalcount)) * 3;
+// } else if (($externalcount == 0 || $rexternalcount == 0) && ($publiccount == 0 || $rpubliccount == 0)) {
+//   $avginternal  = ($suminternal / ($rinternalcount)) *1;
+//   $mark = ($suminternal / ($rinternalcount)) *1;
+// } else if (($externalcount == 0 || $rexternalcount == 0) && ($internalcount == 0 || $rinternalcount == 0)) {
+//   $avgpublic  = ($sumpublic / ($rpubliccount)) * 1;
+//   $mark = ($sumpublic / ($rpubliccount)) * 1;
+// } else if ($externalcount == 0 || $rexternalcount == 0) {
+//   $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+//   $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+//   $mark = (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) *1);
+// } else if ($internalcount == 0 || $rinternalcount == 0) {
+//   $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+//   $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+//   $mark = (($sumexternal / ($rexternalcount)) *3) + (($sumpublic / ($rpubliccount)) *1);
+// } else if ($publiccount == 0 || $rpubliccount == 0) {
+//   $avgexternal = ($sumexternal / ($rexternalcount)) *3;
+//   $avginternal  = ($suminternal / ($rinternalcount)) *1;
+//   $mark = (($sumexternal / ($rexternalcount)) *3) + (($suminternal / ($rinternalcount)) * 1);
+// } else {
+
+//   $avgexternal = ($sumexternal / ($rexternalcount)) * 3;
+//   $avginternal  = ($suminternal / ($rinternalcount)) * 1;
+//   $avgpublic  = ($sumpublic / ($rpubliccount)) *1;
+//   $mark = (($sumexternal / ($rexternalcount )) *3) + (($suminternal / ($rinternalcount)) *1) + (($sumpublic / ($rpubliccount)) * 1);
+// }
+// }
+
+ 
+//   $val->internalcount = $internalcount;
+//   $val->externalcount = $externalcount;
+//   $val->publiccount = $publiccount;
+//   $val->rinternalcount = $rinternalcount;
+//   $val->rexternalcount = $rexternalcount;
+//   $val->rpubliccount = $rpubliccount;
+//   $val->avginternal = $avginternal;
+//   $val->avgexternal = $avgexternal;
+//   $val->avgpublic = $avgpublic;
+//   $val->mark = $mark;
+
+// }
+
+  $ids = $data->pluck('id')->toArray(); // Collect all ids from $data into an array
+
+ $payments = Procurementpaymrnt::where(function($query) use ($ids) {
+
+      foreach ($ids as $id) {
+          $query->orWhereJsonContains('bookId', (string) $id)->where('paidstatus','1'); 
+      }
+  })
+  ->select('bookId', 'created_at') 
+  ->get()
+  ->keyBy('bookId');
+  $csvContent = "\xEF\xBB\xBF"; 
+  $csvContent .= "S.No,Book ID,Book Title,Book ISBN,Language of the Book,Author Details,Primary Author Details,Unique Author,Edition Number,Name of Publisher,Vendor Name,Year of Publication,Place of Publication,Subject,Category,Binding,Size,Length x Breadth(in Centimeters),Width(in Centimeters),Weight(in grams),GSM (Number),Type of Paper,Paper Finishing,Total Number of Pages,Number of Multicolor Pages,Number of Mono Color Pages,Currency Type,Price,Discount Offer(%),Discounted Price,Payment Status,Payment Date,Meta checking Status,Meta checker Name,Librarian Review/Assign,Expert Review/Assign,Public Review/Assign,Librarian,Expert,Public,Marks,Negotiation Status,Expected Price,Final Price\n";
+
+  $serialNumber = 1;
+  foreach ($data as $val) {
+    $payment = $payments->firstWhere(function($payment) use ($val) {
+      return in_array((string) $val->id, json_decode($payment->bookId)); // Check if $val->id exists in the JSON array
+  });
+
+  if ($payment) {
+      $val->paymentdate = \Carbon\Carbon::parse($payment->created_at)->format('d-m-Y');
+      $val->primaryauthor1= json_decode($val->primaryauthor)[0];
+
+  } else {
+      $val->paymentdate = 'No Date';
+  }
+      $csvContent .= '"' . implode('","', [
+          $serialNumber++,
+          $val->product_code,
+          $val->book_title,
+          $val->isbn,
+          $val->language,
+          $val->author_name,
+          $val->primaryauthor1,
+          $val->authorname,
+          $val->edition_number,
+          $val->nameOfPublisher,
+          $val->vendorname,
+          $val->yearOfPublication,
+          $val->place,
+          $val->subject,
+          $val->category,
+          $val->type,
+          $val->size,
+          $val->length * $val->breadth,
+          $val->width,
+          $val->weight,
+          $val->gsm,
+          $val->quality,
+          $val->paper_finishing,
+          $val->pages,
+          $val->multicolor,
+          $val->monocolor,
+          $val->currency_type,
+          $val->price,
+          $val->discount,
+          $val->discountedprice,
+          $val->paystatus,
+          $val->paymentdate,
+          $val->revstatus,
+          $val->reviewername,
+          $val->internalcount .'|'.$val->rinternalcount,
+          $val->externalcount.'|'. $val->rexternalcount,
+          $val->publiccount.'|'.$val->rpubliccount,
+          $val->avginternal,
+          $val->avgexternal,
+          $val->avgpublic,
+          $val->marks,
+          $val->negostatus,
+          $val->calculated_price ?? 0 ,
+          $val->final_price ?? 0,
+      ]) . "\"\n";
+     
+  }
+
+  $headers = [
       'Content-Type' => 'text/csv; charset=utf-8',
       'Content-Disposition' => 'attachment; filename="masterbookdata.csv"',
-    ];
+  ];
 
-    return response()->make($csvContent, 200, $headers);
-  }
+  return response()->make($csvContent, 200, $headers);
+}
+
+
+
 
   public function categoryupdate(Request $req)
   {
@@ -3021,68 +3524,200 @@ $val->vendorname =  $pub->publicationName;
   }
   
 
-  public function calculatedBookPrice(Request $request)
-  {
+  // public function calculatedBookPrice(Request $request)
+  // {
+  //   try {
+  //     $admin = auth('admin')->user();
+  //     if (!$request->hasFile('file_book_price')) {
+  //       return redirect()->back()->with('errorlib', 'No file uploaded');
+  //     }
+
+  //     $file = $request->file('file_book_price');
+  //     $fileContents = file($file->getPathname());
+  //     unset($fileContents[0]);
+
+  //     $batchSize = 100;
+  //     $chunks = array_chunk($fileContents, $batchSize);
+
+  //     foreach ($chunks as $chunk) {
+  //       $productCodes = [];
+  //       $duplicateCodes = [];
+  //       $booksToUpdate = [];
+
+  //       foreach ($chunk as $line) {
+  //         $data = str_getcsv($line);
+  //         $productCode = str_pad($data[1] ?? '', 8, '0', STR_PAD_LEFT);
+
+  //         if (empty($productCode)) {
+  //           continue;
+  //         }
+
+  //         if (Book::where('product_code', $productCode)->exists()) {
+  //           if (in_array($productCode, $productCodes)) {
+  //             $duplicateCodes[] = $productCode;
+  //           } else {
+  //             $productCodes[] = $productCode;
+  //             $booksToUpdate[] = ['product_code' => $productCode, 'calculated_price' => $data[2], 'calculated_percentage' => $data[3], 'reason' => $data[4]];
+  //           }
+  //         } else {
+  //           return redirect()->back()->with('errorlib', $productCode . " Not Found");
+  //         }
+  //       }
+  //       if (!empty($duplicateCodes)) {
+  //         return redirect()->back()->with('errorlib', implode(', ', $duplicateCodes) . " Duplicate entries");
+  //       }
+  //       // Update books
+  //       foreach ($booksToUpdate as $bookData) {
+  //         $book = Book::where('product_code', $bookData['product_code'])->first();
+  //         if ($book) {
+  //           $book->calculated_price = $bookData['calculated_price'];
+  //           $book->calculated_percentage = $bookData['calculated_percentage'];
+  //           $book->calculated_reason = $bookData['reason'];
+  //           $book->save();
+  //         }
+  //       }
+  //     }
+
+  //     return redirect()->back()->with('successlib', 'File imported successfully');
+  //   } catch (\Throwable $e) {
+  //     // Log the exception
+  //     \Log::error('Error importing book prices: ', ['error' => $e->getMessage()]);
+  //     return redirect()->back()->with('errorlib', 'An error occurred while importing.');
+  //   }
+  // }
+ 
+public function calculatedBookPrice(Request $request)
+{
+
+
     try {
-      $admin = auth('admin')->user();
-      if (!$request->hasFile('file_book_price')) {
-        return redirect()->back()->with('errorlib', 'No file uploaded');
-      }
+        // Authentication check
+        $admin = auth('admin')->user();
+   
+        // Check for file upload
+        if (!$request->hasFile('file_book_price')) {
+            return redirect()->back()->with('errorlib', 'No file uploaded');
+        }
 
-      $file = $request->file('file_book_price');
-      $fileContents = file($file->getPathname());
-      unset($fileContents[0]);
+        $file = $request->file('file_book_price');
+        $fileContents = file($file->getPathname());
 
-      $batchSize = 100;
-      $chunks = array_chunk($fileContents, $batchSize);
+        // Skip the first line (headers)
+        unset($fileContents[0]);
 
-      foreach ($chunks as $chunk) {
-        $productCodes = [];
-        $duplicateCodes = [];
-        $booksToUpdate = [];
+        // Batch processing setup
+        $batchSize = 100;  // Suitable for handling 10,000 rows
+        $chunks = array_chunk($fileContents, $batchSize);
 
-        foreach ($chunk as $line) {
-          $data = str_getcsv($line);
-          $productCode = str_pad($data[1] ?? '', 8, '0', STR_PAD_LEFT);
+        foreach ($chunks as $chunk) {
+         
+            // Arrays to track data for processing
+            $productCodes = [];
+            $duplicateCodes = [];
+            $booksToUpdate = [];
 
-          if (empty($productCode)) {
-            continue;
-          }
+            // Prepare list of product codes to check existence once
+            foreach ($chunk as $line) {
+                $data = str_getcsv($line);
+              
+                 $productCode = str_pad($data[1] ?? '', 8, '0', STR_PAD_LEFT);
+         
+                if (empty($productCode)) {
+                    continue;
+                }
 
-          if (Book::where('product_code', $productCode)->exists()) {
-            if (in_array($productCode, $productCodes)) {
-              $duplicateCodes[] = $productCode;
-            } else {
-              $productCodes[] = $productCode;
-              $booksToUpdate[] = ['product_code' => $productCode, 'calculated_price' => $data[2], 'calculated_percentage' => $data[3], 'reason' => $data[4]];
+                // Check if product code is already processed, if yes, mark as duplicate
+                if (in_array($productCode, $productCodes)) {
+                    $duplicateCodes[] = $productCode;
+                    continue;
+                }
+
+                $productCodes[] = $productCode;
+              
+                $booksToUpdate[] = [
+                    'product_code' => $productCode,
+                    'calculated_price' => $data[2] ,
+                    'calculated_percentage' => $data[3] ,
+                    // 'reason' => $data[4],
+                    'nego_status' => $data[4]
+                ];
+               
             }
-          } else {
-            return redirect()->back()->with('errorlib', $productCode . " Not Found");
-          }
-        }
-        if (!empty($duplicateCodes)) {
-          return redirect()->back()->with('errorlib', implode(', ', $duplicateCodes) . " Duplicate entries");
-        }
-        // Update books
-        foreach ($booksToUpdate as $bookData) {
-          $book = Book::where('product_code', $bookData['product_code'])->first();
-          if ($book) {
-            $book->calculated_price = $bookData['calculated_price'];
-            $book->calculated_percentage = $bookData['calculated_percentage'];
-            $book->calculated_reason = $bookData['reason'];
-            $book->save();
-          }
-        }
-      }
+            $No_Negotiation="No Negotiation: 
+                Price accepted.
+               விலை ஏற்றுக்கொள்ளப்பட்டது.";
+            
+              $below_negotiation="Minimum Criteria of 25% :
+              பொது நூலகங்களுக்கு வெளிப்படைத் தன்மையான நூல்கள் கொள்முதல் செய்ய ஏதுவாக, தங்களால் சமர்ப்பிக்கப்பட்ட நூலின் ஏற்பு விலையின் கழிவு சதவீதம் பொது நூலக இயக்கக விலை நிர்ணயக்கொள்கையின் படி குறைவாக உள்ளது. எனவே கழிவு சதவீதம் 25 % அல்லது அதற்கு மேல் தாங்கள் வழங்கும் பட்சத்தில் தங்களுடைய நூல்கள் பொது நூலகங்களுக்கு கொள்முதல் செய்ய ஏதுவாக நூலகர்கள் மற்றும் வாசகர் வட்டங்களின் தேர்வுக்கு அனுப்பப்படும். 
+              To facilitate the procurement of transparent books for public libraries under the Directorate of Public Libraries in alignment with the Transparent Book Procurement Policy, the discount percentage for the book you submitted is lower than the prescribed price negotiation policy of the Directorate. Therefore, if you provide a discount of 25% or more, your books shall be forwarded for selection by designated librarians and reader forums to enable procurement by the Directorate of Public Libraries.";
+             $outlayer="Negotiation (Discount Percentage):
+             தங்களால் சமர்ப்பிக்கப்பட்ட  நூல் விலையின்  கழிவு சதவீதம்  பொது நூலக இயக்கக விலை நிர்ணயக்கொள்கையின் படி நிர்ணயிக்கப்பட்ட கழிவு சதவீதத்தை விட குறைவாக உள்ளது. எனவே 25 % கழிவை  தாங்கள் வழங்கும் பட்சத்தில், தங்களுடைய நூல்கள் பொது நூலகங்களுக்கு கொள்முதல் செய்ய ஏதுவாக நூலகர்கள் மற்றும் வாசகர் வட்டங்களின் தேர்வுக்கு அனுப்பப்படும்.
+             To facilitate the procurement of books for public libraries under the Directorate of Public Libraries in alignment with the Transparent Book Procurement Policy, the discount percentage for the book you submitted is lower than the discount percentage prescribed in the policy. Therefore if you agree to provide a discount of 25%, your books shall be forwarded to the designated librarians and reader forums for selection.";
+           
+          
+            // Return error for duplicate product codes
+            if (!empty($duplicateCodes)) {
+                return redirect()->back()->with('errorlib', implode(', ', $duplicateCodes) . " Duplicate entries");
+            }
+          
+            // Fetch existing books for the product codes in this batch
+             $existingBooks = Book::whereIn('product_code', $productCodes)
+                                 ->pluck('product_code')  // Only fetch the 'product_code'
+                                 ->toArray();
 
-      return redirect()->back()->with('successlib', 'File imported successfully');
+            // Identify books not found in the database
+            $notFoundCodes = array_diff($productCodes, $existingBooks);
+
+            if (!empty($notFoundCodes)) {
+                return redirect()->back()->with('errorlib', implode(', ', $notFoundCodes) . " Not Found");
+            }
+
+            // Bulk update the books to be updated
+            DB::beginTransaction();
+       
+            try {
+                foreach ($booksToUpdate as $bookData) {
+                    $book = Book::where('product_code', $bookData['product_code'])->first();
+                    if ($book) {
+                        $book->calculated_price = $bookData['calculated_price'];
+                        $book->calculated_percentage = $bookData['calculated_percentage'];
+                             if($bookData['nego_status'] == "non_negotiation"){
+                              $book->calculated_reason = $No_Negotiation;
+                             }else if($bookData['nego_status'] == "below_negotiation"){
+                              $book->calculated_reason = $below_negotiation;
+                             }else{
+                              $book->calculated_reason = $outlayer;
+                             }
+
+                 
+                        $book->nego_status = $bookData['nego_status'];
+
+                        
+                        if( $book->save()){
+                          BookReviewStatus::where('book_id', $book->id)
+                          ->update(['status' => '1']);
+                        }
+                    }
+
+                 
+                }
+
+                DB::commit();  // Commit the transaction
+            } catch (\Exception $e) {
+                DB::rollBack();  // Rollback on error
+                throw $e;
+            }
+        }
+         
+        // Successful upload
+        return redirect()->back()->with('successlib', 'File imported successfully');
     } catch (\Throwable $e) {
-      // Log the exception
-      \Log::error('Error importing book prices: ', ['error' => $e->getMessage()]);
-      return redirect()->back()->with('errorlib', 'An error occurred while importing.');
+    
+        // Log the exception
+        \Log::error('Error importing book prices: ', ['error' => $e->getMessage()]);
+        return redirect()->back()->with('errorlib', $e->getMessage());
     }
-  }
-
+}
   public function sendnegotiationstatus(Request $req)
   {
     $bookId = $req->bookId;
@@ -3100,25 +3735,39 @@ $val->vendorname =  $pub->publicationName;
     }
   }
 
-  public function negotiationlist()
-  {
-    $categori = Book::where('marks', '>=', 40)
-      ->where('negotiation_status', '=', null)
-      ->get();
-    $existingBooks = Book::where('marks', '>=', 40)
-      ->pluck('book_title');
-    $existingbookisbn = Book::where('marks', '>=', 40)
-      ->pluck('isbn');
-    $existingTitles = $existingBooks->map(function ($title) {
-      return [
-        'english' => $this->processBookTitle($title),
-        'tamil' => $this->processBookTitle($this->translateToTamil($title))
-      ];
-    });
+ 
+public function negotiationlist()
+{
+  $categori = Book::where('marks', '>=', 40)
+  ->whereNull('negotiation_status')
+  ->whereNotNull('calculated_price')
+  ->whereNotIn('nego_status', ['below_negotiation', 'non_negotiation'])
+  ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+  ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+  ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+  ->select('books.*', 
+      DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+  )
 
-    $existingisbn = $existingbookisbn->map(function ($title) {
-      return $this->processBookTitle($title);
-    });
+  ->get();
+
+
+  $existingBooks = Book::where('marks', '>=', 40)
+  ->whereNotNull('calculated_price') 
+    ->pluck('book_title');
+  $existingbookisbn = Book::where('marks', '>=', 40)
+  ->whereNotNull('calculated_price') 
+    ->pluck('isbn');
+  $existingTitles = $existingBooks->map(function ($title) {
+    return [
+      'english' => $this->processBookTitle($title),
+      'tamil' => $this->processBookTitle($this->translateToTamil($title))
+    ];
+  });
+
+  $existingisbn = $existingbookisbn->map(function ($title) {
+    return $this->processBookTitle($title);
+  });
 
 foreach ($categori as $val) {
 $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
@@ -3279,7 +3928,7 @@ public function bookreassign_data(Request $req)
 
     if (sizeof($data1) != 0) {
       $book = Book::find($bookId[0]);
-      dd($book);
+   
       $internalcount = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'internal')->count();
       $externalcount = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'external')->count();
       $publiccount = BookReviewStatus::where('book_id', $bookId[0])->where('reviewertype', 'public')->count();
@@ -3865,4 +4514,438 @@ count($finaldata);
 
   return response()->make($csvContent, 200, $headers);
 }
+
+public function negotiation_notverified_list()
+{
+  $categori = Book::where('marks', '>=', 40)
+    ->where('negotiation_status', '=', null)
+    ->whereNull('calculated_price')
+    ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+                                    ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+                                    ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+                                    ->select('books.*', 
+                                        DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+                                    )
+                                    ->get();
+  $existingBooks = Book::where('marks', '>=', 40)
+  ->whereNull('calculated_price')
+    ->pluck('book_title');
+  $existingbookisbn = Book::where('marks', '>=', 40)
+  ->whereNull('calculated_price')
+    ->pluck('isbn');
+  $existingTitles = $existingBooks->map(function ($title) {
+    return [
+      'english' => $this->processBookTitle($title),
+      'tamil' => $this->processBookTitle($this->translateToTamil($title))
+    ];
+  });
+
+  $existingisbn = $existingbookisbn->map(function ($title) {
+    return $this->processBookTitle($title);
+  });
+
+foreach ($categori as $val) {
+$val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
+}
+return view('admin.negotiation_notverified_list')->with('categori', $categori);
+
+}
+
+
+public function non_negotiation_list()
+{
+  $categori = Book::where('marks', '>=', 40)
+  ->whereNull('negotiation_status')
+  ->whereNotNull('calculated_price')
+  ->where('nego_status', '=', "non_negotiation")
+  ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+  ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+  ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+  ->select('books.*', 
+      DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+  )
+  ->get();
+
+
+
+
+  $existingBooks = Book::where('marks', '>=', 40)
+  ->whereNotNull('calculated_price') 
+  ->pluck('book_title');
+  $existingbookisbn = Book::where('marks', '>=', 40)
+  ->whereNotNull('calculated_price') 
+    ->pluck('isbn');
+  $existingTitles = $existingBooks->map(function ($title) {
+    return [
+      'english' => $this->processBookTitle($title),
+      'tamil' => $this->processBookTitle($this->translateToTamil($title))
+    ];
+  });
+
+  $existingisbn = $existingbookisbn->map(function ($title) {
+    return $this->processBookTitle($title);
+  });
+
+foreach ($categori as $val) {
+$val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
+}
+return view('admin.non_negotiation_list')->with('categori', $categori);
+
+}
+
+
+
+public function percentage_negotiation_list()
+{
+  $categori = Book::where('marks', '>=', 40)
+  ->whereNull('negotiation_status')
+  ->whereNotNull('calculated_price')
+  ->where('nego_status', '=', "below_negotiation")
+  ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+  ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+  ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+  ->select('books.*', 
+      DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+  )
+  ->get();
+
+
+
+
+  $existingBooks = Book::where('marks', '>=', 40)
+  ->whereNotNull('calculated_price') 
+  ->pluck('book_title');
+  $existingbookisbn = Book::where('marks', '>=', 40)
+  ->whereNotNull('calculated_price') 
+    ->pluck('isbn');
+  $existingTitles = $existingBooks->map(function ($title) {
+    return [
+      'english' => $this->processBookTitle($title),
+      'tamil' => $this->processBookTitle($this->translateToTamil($title))
+    ];
+  });
+
+  $existingisbn = $existingbookisbn->map(function ($title) {
+    return $this->processBookTitle($title);
+  });
+
+foreach ($categori as $val) {
+$val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks,$existingisbn);
+}
+return view('admin.percentage_negotiation_list')->with('categori', $categori);
+
+}
+
+public function multiapprovenegotiation(Request $req)
+{
+  $record = $req->bookId;
+  $record1 = [];
+  foreach ($record as $key => $val) {
+    $data1 = Book::find($val);
+    $data1->final_price = $data1->discountedprice;
+    $data1->negotiation_status = "2";
+    $data1->save();
+  }
+  $data = [
+    'success' => 'Book Approved Successfully',
+  ];
+  return response()->json($data);
+}
+
+
+public function duplicate_bookreport(Request $request)
+{
+
+  $negotiationStatuses = [
+    'Negotiation Pending' => '0',
+    'Renegotiation By Vendor' => '1',
+    'Renegotiation By Admin' => '5',
+    'Agree' => '2',
+    'Disagree' => '3',
+    'Not send negotiation' => null
+];
+
+$query = Book::where('marks', '>=', 40)
+    ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+    ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+    ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+    ->select('books.*', 
+        DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+    );
+
+if ($request->has('negostatus_filter') && $request->negostatus_filter != '') {
+    $status = $negotiationStatuses[$request->negostatus_filter] ?? null;
+    
+    if ($status !== null) {
+        $query->where('negotiation_status', $status);
+    } else {
+        $query->whereNull('negotiation_status');
+    }
+}
+
+$categori = $query->get();
+
+
+
+  $existingBooks = Book::where('marks', '>=', 40)
+
+  ->pluck('book_title');
+  $existingbookisbn = Book::where('marks', '>=', 40)
+
+    ->pluck('isbn');
+  $existingTitles = $existingBooks->map(function ($title) {
+    return [
+      'english' => $this->processBookTitle($title),
+      'tamil' => $this->processBookTitle($this->translateToTamil($title))
+    ];
+  });
+
+  $existingisbn = $existingbookisbn->map(function ($title) {
+    return $this->processBookTitle($title);
+  });
+
+  $duplicate = [];
+  $finaldata = [];
+  $serialNumber = 1;
+  foreach ($categori as $val) {
+      $val->check = $this->checkBookTitle($val, $existingTitles, $existingBooks, $existingisbn);
+      
+      if ($val->check !== "unique") {
+     
+
+        $statuses = [
+          "0" => "Negotiation Pending",
+          "1" => "Renegotiation By Vendor",
+          "5" => "Renegotiation By Vendor",
+          "2" => "Agree",
+          "3" => "Disagree",
+      ];
+      
+      $status = $statuses[$val->negotiation_status] ?? "Not send negotiation";
+      
+
+
+        $finaldata[] = [
+          'S.No' => $serialNumber++,
+          'Book Id' => $val->product_code ?? 'N/A',  // Ensure default value if null
+          'Title Of The Book' => $val->book_title ?? 'N/A',
+          'Publication Name' => $val->nameOfPublisher ?? 'N/A',
+          'Vendor Name' => $val->vendorname  ??  'N/A',
+          'Vendor Type' => $val->user_type ?? 'N/A',
+          'Language' => $val->language ?? 'N/A',
+          'Author Name' => $val->author_name ?? 'N/A',
+          'ISBN Number' => $val->isbn ?? 'N/A',
+          'Negotiation Status' => $status ,
+      ];
+      
+      
+
+        
+      }
+  }
+
+     $csvContent = "\xEF\xBB\xBF"; // UTF-8 BOM
+      $csvContent .= "S.No,Book Id,Title Of The Book,Publication Name,Vendor Name,Vendor Type,Language,Author Name,ISBN Number,Negotiation Status\n";
+       
+      // // Append data rows to CSV
+      foreach ($finaldata as $data) {
+      $csvContent .= '"' . implode('","', (array)$data) . "\"\n";
+      }
+      $headers = [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="duplicatedata.csv"',
+      ];
+    
+      return response()->make($csvContent, 200, $headers);
+return view('admin.percentage_negotiation_list')->with('categori', $categori);
+
+}
+
+public function sendnegotiationsamount(Request $req) {
+          
+  if($req->amount !=null){
+    if($req->Description != null){
+       $data1 = Book::find($req->bookId);
+    
+          $data1->negotiation_status = "5";
+          $data1->renegotiation_price = $req->amount;
+          $data1->renegotiation_message = $req->Description;
+
+   
+          $data1->save();
+      
+          $data = [
+              'success' => 'Renegotiation send Successfully',
+          ];
+      
+          return response()->json($data);
+     
+    
+    }else{
+       $data = [
+           'error' => 'Description Filed is  Required',
+       ];
+   
+       return response()->json($data);
+    }
+ 
+  }else{
+   $data = [
+       'error' => 'Amount Filed is  Required',
+   ];
+
+   return response()->json($data);
+  }
+
+  
+}
+
+
+public function nego_stopdate(Request $request){
+
+  // Fetch the record with the status '0'
+$rev = DB::table('negostopdates')->where('status', '=', '0')->first();
+
+// Check if a record was found
+if ($rev) {
+  // Update the record
+  DB::table('negostopdates')
+      ->where('status', '=', '0')
+      ->update([
+          'startdate' => $request->startdate,
+          'enddate' => $request->enddate
+      ]);
+
+  return back()->with('success', "Negotiation Date Changed successfully");
+} else {
+  return back()->with('error', "No record found with the specified status");
+}
+
+}
+
+
+public function renegotiationupload(Request $req){
+
+  try {
+     
+      // Check for file upload
+      if (!$req->hasFile('remegofile')) {
+          return redirect()->back()->with('errorlib', 'No file uploaded');
+      }
+
+      $file = $req->file('remegofile');
+      $fileContents = file($file->getPathname());
+
+      
+      // Skip the first line (headers)
+      unset($fileContents[0]);
+
+      // Batch processing setup
+      $batchSize = 100;  // Suitable for handling 10,000 rows
+      $chunks = array_chunk($fileContents, $batchSize);
+
+      foreach ($chunks as $chunk) {
+         
+          // Arrays to track data for processing
+          $bookfiles = [];
+        
+
+          // Prepare list of product codes to check existence once
+          foreach ($chunk as $line) {
+              $data = str_getcsv($line);
+            
+               $bookfile = $data[0];
+       
+              if (empty($bookfile)) {
+                  continue;
+              }
+         
+              // Check if product code is already processed, if yes, mark as duplicate
+              if (in_array($bookfile, $bookfiles)) {
+                  $bookfiles[] = $bookfile;
+                  continue;
+              }
+             
+              $bookfiles[] = $bookfile;
+           
+
+              $bookToUpdate[] = [
+                  'bookid' => $bookfile,
+                  'bookprice' => $data[1],
+                  'reason' =>$data[2],
+
+              ];
+              
+          }
+          DB::beginTransaction();
+     
+          try {
+              foreach ($bookToUpdate as $book) {
+
+                 
+                $books = Book::where('negotiation_status', '=', '1')
+                ->where('product_code', '=', $book['bookid'])
+                ->first();
+          
+                     
+                   if ($books) {
+              
+                     
+                        //  $books->negotiation_status="5";
+                         $books->renegotiation_price =   $book['bookprice']  ;
+                         $books->renegotiation_message=$book['reason'];
+                      
+                       
+                         $books->save();
+
+
+                     }else{
+              
+                      continue;
+                     }
+
+                    
+
+               
+              }
+
+              DB::commit();  // Commit the transaction
+          } catch (\Exception $e) {
+              \Log::error('Error: ' . $e->getMessage(), ['exception' => $e]);
+
+  
+              return redirect()->back()->with('error', $e->getMessage());
+
+              DB::rollBack();  // Rollback on error
+              throw $e;
+          }
+      }
+       
+      // Successful upload
+      return redirect()->back()->with('success', 'File Uploded successfully');
+  } catch (\Throwable $e) {
+  
+      // Log the exception
+      \Log::error('Error importing book prices: ', ['error' => $e->getMessage()]);
+      return redirect()->back()->with('error', $e->getMessage());
+  }
+  
+}
+
+public function multirenegotiation(Request $req)
+{
+  $record = $req->bookId;
+  $record1 = [];
+  foreach ($record as $key => $val) {
+    $data1 = Book::find($val);
+  
+    $data1->negotiation_status = "5";
+    $data1->save();
+  }
+  $data = [
+    'success' => 'Renegotiation Send Successfully',
+  ];
+  return response()->json($data);
+}
+
   }

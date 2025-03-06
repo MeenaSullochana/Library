@@ -1236,6 +1236,12 @@
 
 														<span class="ms-2">Profile </span>
 													</a>
+													<a href="/distributor/acountdetail" class="dropdown-item ai-icon ">
+														<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+														<span class="ms-2">Bank Details</span>
+
+														{{-- <span class="ms-2">Bank Details</span><span class="badge badge-sm badge-primary rounded-circle text-white ms-2">4</span> --}}
+													</a> 
 													<!-- <a href="app-profile-2.html" class="dropdown-item ai-icon ">
 														<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
 
@@ -1422,9 +1428,14 @@
                             <span class="nav-text">Manage Negotiation</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="/distributor/nego_pending_list">Negotiation List</a></li>
-                            <li><a href="/distributor/nego_process_list">Process List</a></li>
-							<li><a href="/distributor/nego_hold_list">Hold List</a></li>
+							<li><a href="/distributor/nego_pending_list">Percentage Negotiation List</a></li>
+							<li><a href="/distributor/price_nego_list">Price Negotiation List</a></li>
+							<li><a href="/distributor/nego_process_list">Renegotiation By Vendor List </a></li>
+							<li><a href="/distributor/nego_reprocess_list">Renegotiation By Admin List </a></li>
+	
+							
+							{{-- <li><a href="/distributor/nego_process_list">Process List</a></li>
+							<li><a href="/distributor/nego_hold_list">Hold List</a></li> --}}
 							<li><a href="/distributor/nego_approved_list">Approved List</a></li>
                             <li><a href="/distributor/nego_failed_list">Rejected list</a></li>
 

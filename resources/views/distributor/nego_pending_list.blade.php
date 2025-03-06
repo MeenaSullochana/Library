@@ -55,7 +55,7 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Negotiation - Pending Book List</b>
+                                <b>Percentag Negotiation - Pending Book List</b>
                             </h3>
                             <a onclick="javascript:window.history.back();" class="btn btn-primary  btn-sm" href="/distributor/index">
                                 <i class="fa fa-angle-double-left"></i> Go Back</a>
@@ -81,9 +81,10 @@
                                                 <th>Actual Price</th>
                                                 <th>Discount Percentage</th>
                                                 <th>Discounted Price</th>
-                                                <th>Calculated Percentage</th>
-                                                <th>Calculated Price</th>
-                                                <th>Calculated Reason</th>
+                                                {{-- <th>Calculated Percentage</th> --}}
+                                                <th>Negotiation Percentage </th>
+                                                <th>Negotiation Price</th>
+                                                <th>Negotiation Reason</th>
                                                 <th>Negotiation Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -91,7 +92,9 @@
                                         <tbody>
                                             @php
                                             $id = auth('distributor')->user()->id;
-                                            $categori = DB::table('books')->where('marks', '>=', 40)->where('user_id', '=', $id)->where('negotiation_status', '=', 0)->get();
+                                            $categori = DB::table('books')->where('marks', '>=', 40)->where('user_id', '=', $id)->where('negotiation_status', '=', 0)
+                                            ->where('nego_status', '=', 'below_negotiation')
+                                            ->get();
                                             @endphp
 
                                             @foreach ($categori as $val)
@@ -140,7 +143,7 @@
                                                     <div class="col-sm-12 m-b30">
                                                         <select class="col-sm-12 m-b30" name="user_approval" data-id="{{ $val->id }}" data-price="{{$val->price}}" data-discount="{{$val->discount}}" data-disprice="{{$val->discountedprice}}" data-calprice="{{ $val->calculated_price }}">
                                                             <option></option>
-                                                            <option style="color: red;">Negotiation</option>
+                                                            {{-- <option style="color: red;">Negotiation</option> --}}
                                                             <option style="color: green;">Accept</option>
                                                             <option style="color: blue;">Reject</option>
                                                         </select>
@@ -318,15 +321,16 @@
             $('#hiddenInput1').val(approval_);
             $('#hiddenInput').val(pubdistid);
             $('#basicModal').modal('show');
-        } else {
+        } 
+        // else {
 
-            $('#hiddenInput').val(pubdistid);
-            $('#hiddenInputprice').val(price);
-            $('#hiddenInputdiscount').val(discount);
-            $('#hiddenInputdisprice').val(disprice);
-            $('#hiddenInputcalprice').val(calprice);
-            $('#exampleModalCenter').modal('show');
-        }
+        //     $('#hiddenInput').val(pubdistid);
+        //     $('#hiddenInputprice').val(price);
+        //     $('#hiddenInputdiscount').val(discount);
+        //     $('#hiddenInputdisprice').val(disprice);
+        //     $('#hiddenInputcalprice').val(calprice);
+        //     $('#exampleModalCenter').modal('show');
+        // }
     });
 </script>
 

@@ -70,68 +70,98 @@
                      <div class="table-responsive active-projects style-1 ItemsCheckboxSec shorting ">
                      
                         <div class="modal-body">
-
                                 <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="gst_category" class="form-label">GST Category</label>
+                                        <select class="form-control" name="ven_gst_category" id="ven_gst_category" required>
+                                      @if($data->ven_gst_category== "GST")
+                                            <option value="GST">GST</option>
+                                            <option value="Non-GST">Non-GST</option>
+                                       @else
+                                            <option value="Non-GST">Non-GST</option>
+                                            <option value="GST">GST</option>
+                                      @endif
+                                        </select>
+                                       
+                                        <div class="invalid-feedback">Please select a GST category</div>
+                                    </div>
+                                    
                                     <div class="col-md-6 mb-3">
                                         <label for="pan_num" class="form-label">Pan Number</label>
                                         <input type="text" class="form-control" name="pan_num" id="pan_num"
-                                            placeholder="Enter the Pan Number" value="{{$data->pan_num}}" required>
+                                            placeholder="Enter the Pan Number"  value="{{$data->pan_num}}" required>
                                         <div class="invalid-feedback">Please Enter Pan Number</div>
                                     </div>
-                               
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6 mb-3">
+                                        <label for="acc_hol_name" class="form-label">Pan Holder Name</label>
+                                        <input type="text" class="form-control" name="pan_hol_name" id="pan_hol_name"
+                                            placeholder="Enter the Holder Name" value="{{$data->pan_hol_name}}"  required>
+                                        <div class="invalid-feedback">Please Enter Pan Holder Name</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="acc_hol_name" class="form-label">Pan Father Name</label>
+                                        <input type="text" class="form-control" name="pan_father_name" id="pan_father_name"
+                                            placeholder="Enter the Holder Name" value="{{$data->pan_father_name}}"  required>
+                                        <div class="invalid-feedback">Please Enter Pan Father Name</div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="pan_hol_dob" class="form-label">Pan Holder Date of Birth</label>
+                                        <input type="date" class="form-control" name="pan_hol_dob" id="pan_hol_dob" value="{{$data->pan_hol_dob}}"  required>
+                                        <div class="invalid-feedback">Please Enter Pan Holder Date of Birth</div>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-3">
+                                        <label for="acc_hol_name" class="form-label">Address</label>
+                                        <input type="text" class="form-control" name="address" id="address"
+                                            placeholder="Enter the Holder Name" value="{{$data->address}}" required>
+                                        <div class="invalid-feedback">Please Enter Address</div>
+                                    </div>
+                                </div>
+        
+        
+        
+                                <div class="row">
+                                  
+                                    <div class="col-md-6 mb-3">
+                                        <label for="acc_hol_name" class="form-label">Pincode</label>
+                                        <input type="text" class="form-control"name="pincode" id="pincode"
+                                            placeholder="Enter the Holder Name"  value="{{$data->pincode}}" required>
+                                        <div class="invalid-feedback">Please Enter Pincode</div>
+                                    </div>
+                                       <div class="col-md-6 mb-3">
                                         <label for="acc_num" class="form-label">Bank Account Number</label>
                                         <input type="text" class="form-control" name="acc_num" id="acc_num"
-                                            placeholder="Enter the Bank Account Number"  value="{{$data->acc_num}}" required>
+                                            placeholder="Enter the Bank Account Number" value="{{$data->acc_num}}"  required>
                                         <div class="invalid-feedback">Please Enter Bank Account Number</div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                   <div class="row">
                                 
         
                                     <div class="col-md-6 mb-3">
-                                        <label for="pan_num" class="form-label">IFSC Code</label>
+                                        <label for="ifsc_code" class="form-label">IFSC Code</label>
                                         <input type="text" class="form-control" name="ifsc_code" id="ifsc_code"
-                                            placeholder="Enter the IFSC Code" value="{{$data->ifsc_code}}" required>
+                                            placeholder="Enter the IFSC Code" value="{{$data->ifsc_code}}"  required>
                                         <div class="invalid-feedback">Please Enter IFSC Code</div>
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <label for="bank_name" class="form-label">Bank Name</label>
-                                        <input type="text" class="form-control" name="bank_name" id="bank_name"
-                                            placeholder="Enter the Bank Name" value="{{$data->bank_name}}" required>
-                                        <div class="invalid-feedback">Please Enter Bank Name</div>
+                                        <label for="beneficary_name" class="form-label">Beneficary Name</label>
+                                        <input type="text" class="form-control" name="beneficary_name" id="beneficary_name"
+                                            placeholder="Enter the Bank Name"  value="{{$data->beneficary_name}}" required>
+                                        <div class="invalid-feedback">Please Enter Beneficary Name</div>
                                     </div>
                                   
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="branch" class="form-label">Branch</label>
-                                        <input type="text" class="form-control" name="branch" id="branch"
-                                            placeholder="Enter the Branch" value="{{$data->branch}}" required>
-                                        <div class="invalid-feedback">Please Enter Branch</div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="acc_type" class="form-label">Account Type</label>
-                                        <input type="text" class="form-control" name="acc_type" id="acc_type"
-                                            placeholder="Enter the Account Type" value="{{$data->acc_type}}" required>
-                                        <div class="invalid-feedback">Please Enter Account Type</div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="acc_hol_name" class="form-label">Account Holder Name</label>
-                                        <input type="text" class="form-control" name="acc_hol_name" id="acc_hol_name"
-                                            placeholder="Enter the Holder Name" value="{{$data->acc_hol_name}}" required>
-                                        <div class="invalid-feedback">Please Enter Account Holder Name</div>
-                                    </div>
-                                </div>
-        
-                              
+                      
                                 <div class="modal-footer">
                                     <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                         Close
                                     </button> -->
-                                    <button type="submit" id="submitButton" name="submit" class="btn btn-primary">Update</button>
+                                    <button type="submit" id="submitButton" data-id="{{$data->id}}" name="submit" class="btn btn-primary">Update</button>
                                 </div>
                         </div>
                      </div>
@@ -167,35 +197,49 @@
    </body>
 </html>
 
+    
 <script>
     $(document).on('click', '#submitButton', function(e) {
         e.preventDefault();
         
         // Basic validation
-        if($.trim($('#pan_num').val()) === ''){
+        if($.trim($('#ven_gst_category').val()) === ''){
+            toastr.error("Gst Category field is required");
+        }
+        else if($.trim($('#pan_num').val()) === ''){
             toastr.error("PAN Number field is required");
-        } else if($.trim($('#acc_num').val()) === '') {
+        } else if($.trim($('#pan_hol_name').val()) === '') {
+            toastr.error("Pan Holder Name field is required");
+        } else if($.trim($('#pan_father_name').val()) === '') {
+            toastr.error("Pan Father Name field is required");
+        } else if($.trim($('#pan_hol_dob').val()) === '') {
+            toastr.error("Pan Holder Date Of Birth field is required");
+        } else if($.trim($('#address').val()) === '') {
+            toastr.error("Address field is required");
+        } else if($.trim($('#pincode').val()) === '') {
+            toastr.error("Pincode field is required");
+        }  else if($.trim($('#acc_num').val()) === '') {
             toastr.error("Account Number field is required");
         } else if($.trim($('#ifsc_code').val()) === '') {
             toastr.error("IFSC Code field is required");
-        } else if($.trim($('#bank_name').val()) === '') {
-            toastr.error("Bank Name field is required");
-        } else if($.trim($('#branch').val()) === '') {
-            toastr.error("Branch field is required");
-        } else if($.trim($('#acc_type').val()) === '') {
-            toastr.error("Account Type field is required");
-        } else if($.trim($('#acc_hol_name').val()) === '') {
-            toastr.error("Account Holder Name field is required");
-        } else {
+        } else if($.trim($('#beneficary_name').val()) === '') {
+            toastr.error("Beneficary Name field is required");
+        }else {
             // Gather data
             var data = {
+
+                'ven_gst_category': $('#ven_gst_category').val(),
                 'pan_num': $('#pan_num').val(),
+                'pan_hol_name': $('#pan_hol_name').val(),
+                'pan_father_name': $('#pan_father_name').val(),
+                'pan_hol_dob': $('#pan_hol_dob').val(),
+                'address': $('#address').val(),
+                'pincode': $('#pincode').val(),
                 'acc_num': $('#acc_num').val(),
                 'ifsc_code': $('#ifsc_code').val(),
-                'bank_name': $('#bank_name').val(),
-                'branch': $('#branch').val(),
-                'acc_type': $('#acc_type').val(),
-                'acc_hol_name': $('#acc_hol_name').val(),
+                'beneficary_name': $('#beneficary_name').val(),
+                 'id':$(this).data('id'),
+
             };
 
             // Optional: Show loader
@@ -209,17 +253,16 @@
                 }
             });
 
-            // Make AJAX request
+         
             $.ajax({
                 type: "post",
-                url: "/publisher_and_distributor/accountdetails", // Update with your actual route
+                url: "/publisher_and_distributor/update_accountdetails", // Update with your actual route
                 data: data,
                 dataType: "json",
                 success: function(response) {
                     if (response.success) {
                         toastr.success(response.success, { timeout: 25000 });
 
-                    
                     } else {
                         toastr.error(response.error, { timeout: 25000 });
                     }

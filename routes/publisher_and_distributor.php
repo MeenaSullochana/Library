@@ -212,10 +212,15 @@ Route::post('/multibookdelete',[BookController::class,'multibookdelete']);
            Route::post('/procurementbokkcopies-send',[BookController::class,'procurementbokkcopies_send']);
 
 
-           Route::get('/aacountdetail',[PublisherDistributorController::class,'aacountdetail']);
+           Route::get('/acountdetail',[PublisherDistributorController::class,'acountdetail']);
 
            Route::get('/pub_basic_details',[PublisherDistributorController::class,'pub_basic_details']);
-      
-     
+           Route::post('/accountdetails',[PublisherDistributorController::class,'accountdetails']);
+           Route::get('/pub_basic_details',[PublisherDistributorController::class,'pub_basic_details']);
+           Route::post('/update_accountdetails',[PublisherDistributorController::class,'update_accountdetails']);
+           Route::get('/price_nego_list',function(){ return view('publisher_and_distributor.price_nego_list');});
+           Route::get('/nego_reprocess_list',function(){ return view('publisher.nego_reprocess_list');});
+
+           
 });
 });

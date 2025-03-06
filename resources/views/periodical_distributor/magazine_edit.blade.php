@@ -676,7 +676,7 @@
                                                                     <select class="form-select rounded-0" id="gsm" name="gsm" required>
                                                                     
                                                                 @php
-                                                                $categori = DB::table('book_gsm')->where('status','=','1')->get();
+                                                                $categori = DB::table('periodicalgsms')->where('status','=','1')->get();
                                                                 @endphp
                                                                 @foreach($categori as $val)
                                                                 @if($data->gsm == $val->name)

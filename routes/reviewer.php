@@ -155,8 +155,9 @@ use App\Http\Controllers\Reviewer\notificationController;
     Route::get('/review_periodical_list',[ReviewerController::class,'reviewperiodicallist']);
     Route::get('/review_periodical_complete',[ReviewerController::class,'review_periodical_complete']);
     Route::get('/review_hold_book_list',[ReviewerController::class,'review_hold_book_list']);
+    Route::get('/review_expired_book_list',[ReviewerController::class,'review_expired_book_list']);
 
-    
+  
 
 });
     });

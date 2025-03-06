@@ -1,36 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="keywords" content="">
-	<meta name="author" content="">
-	<meta name="robots" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	<meta property="og:title" content="">
-	<meta property="og:description" content="">
-	<meta property="og:image" content="">
-	<meta name="format-detection" content="telephone=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <meta name="format-detection" content="telephone=no">
 
-	<!-- PAGE TITLE HERE -->
+    <!-- PAGE TITLE HERE -->
     <title>Government of Tamil Nadu - Book Procurement - paymet Invoice</title>
-	<!-- FAVICONS ICON -->
+    <!-- FAVICONS ICON -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('admin/images/fevi.svg') }}">
     <?php
-        include "admin/plugin/plugin_css.php";
+    include 'admin/plugin/plugin_css.php';
     ?>
 </head>
+
 <body>
 
     <!--*******************
         Preloader start
     ********************-->
     <div id="preloader">
-		<div class="text-center">
-			<img src="images/goverment_loader.gif" alt="" width="25%">
-		</div>
+        <div class="text-center">
+            <img src="images/goverment_loader.gif" alt="" width="25%">
+        </div>
     </div>
     <!--*******************
         Preloader end
@@ -45,26 +46,28 @@
         ***********************************-->
         @include ('admin.navigation')
 
-		<!--**********************************
+        <!--**********************************
             Sidebar end
         ***********************************-->
-		<!--**********************************
+        <!--**********************************
             Content body start
         ***********************************-->
         <div class="content-body">
-        <div class="container-fluid">
+            <div class="container-fluid">
 
                 <div class="row">
                     <div class="col-lg-12">
 
                         <div class="card mt-3">
                             <!-- <div class="card-header"> Invoice <strong><span class="badge bg-primary"><i class="fa fa-print"></i></span><span class="badge bg-primary"><i class="bi bi-file-excel"></i></span> </strong> <span class="float-end"> -->
-                                    <!-- <strong>Status:</strong> Pending</span> </div> -->
-                                    <div class="card-header">
-                                        <p>Status :<span class="text-danger"> {{$data->paymentstatus}}</span></p> 
-                                        
-                                    </div>
-                                    <div class="card-body">
+                            <!-- <strong>Status:</strong> Pending</span> </div> -->
+                            <div class="card-header">
+                                <p>Status :<span class="text-danger"> {{ $data->paymentstatus }}</span></p>
+                                <button class="btn btn-primary print-button" onclick="printDiv()">Print</button>
+
+                            </div>
+
+                            <div class="card-body">
                                 <!-- <div class="row mb-5">
                                     <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-12">
                                         <h6>From:</h6>
@@ -84,10 +87,10 @@
                                     </div>
                                     <div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-lg-end justify-content-md-center justify-content-xs-start">
                                         <div class="row align-items-center">
-											<div class="col-sm-9">
-												<div class="brand-logo mb-2 inovice-logo">
+           <div class="col-sm-9">
+            <div class="brand-logo mb-2 inovice-logo">
                                                     <img src="../user_accountant/images/logo.png" class="w-25" alt="">
-												</div>
+            </div>
                                                 <span>Invoice Details: <strong class="d-block">Rs 0.15050000 </strong>
                                                     Invoice Number<strong> :12245454545</strong></span><br>
                                                 <small class="text-muted">Date Of Invoice = $6590 USD</small>
@@ -96,41 +99,45 @@
                                         </div>
                                     </div>
                                 </div> -->
-                                    <div class="table-responsive">
-                                        <table class="table table-border">
-                                            <thead>
+                                <div id="printableArea">
+                                    <p>Status :<span class="text-danger"> {{ $data->paymentstatus }}</span></p>
+
+                                <div class="table-responsive">
+                                    <table class="table table-border">
+                                        <thead>
+                                            <tr>
+                                                <th class="center">S.No</th>
+                                                <th>Periodical Name</th>
+                                                <th>Periodicity</th>
+                                                <th class="right">amount</th>
+                                                <th class="center">Qty</th>
+                                                <th class="right">Total Amount</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($data->periodical as $val)
                                                 <tr>
-                                                    <th class="center">S.No</th>
-                                                    <th>Periodical Name</th>
-                                                    <th>Periodicity</th>
-                                                    <th class="right">amount</th>
-                                                    <th class="center">Qty</th>
-                                                    <th class="right">Total Amount</th>
+                                                    <td class="center">{{ $loop->index + 1 }}</td>
+                                                    <td class="left strong">{{ $val['periodicalname'] }}</td>
+                                                    <td class="left">{{ $val['periodical'] }}</td>
 
+                                                    <td class="right"><i class="fa fa-inr"></i>{{ $data->amount }}</td>
+                                                    <td class="right">{{ $data->totalAmount / $data->amount }}</td>
+                                                    <td class="right"> <i class="fa fa-inr"></i>
+                                                        {{ $data->totalAmount }}</td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($data->periodical as $val)
-                                        <tr>
-                                            <td class="center">{{$loop->index+1}}</td>
-                                            <td class="left strong">{{$val['periodicalname']}}</td>
-                                            <td class="left">{{$val['periodical']}}</td>
-                                        
-                                            <td class="right"><i class="fa fa-inr"></i>{{$data->amount}}</td>
-                                            <td class="right">{{$data->totalAmount /   $data->amount}}</td>
-                                            <td class="right"> <i class="fa fa-inr"></i> {{$data->totalAmount }}</td>
-                                        </tr>
-                                        @endforeach
+                                            @endforeach
 
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-sm-5"> </div>
-                                        <div class="col-lg-4 col-sm-5 ms-auto">
-                                            <table class="table table-clear">
-                                                <tbody>
-                                                    <!-- <tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-5"> </div>
+                                    <div class="col-lg-4 col-sm-5 ms-auto">
+                                        <table class="table table-clear">
+                                            <tbody>
+                                                <!-- <tr>
                                                         <td class="left"><strong>Subtotal</strong></td>
                                                         <td class="right">$8.497,00</td>
                                                     </tr>
@@ -142,56 +149,73 @@
                                                         <td class="left"><strong>VAT (10%)</strong></td>
                                                         <td class="right">$679,76</td>
                                                     </tr> -->
-                                                    <tr>
-                                                        <td class="left"><strong>Total</strong></td>
-                                                        <td class="left"> <i class="fa fa-inr"></i> <strong>{{$data->totalAmount}}</strong><br>
-                                                            <!-- <strong>0.15050000</strong></td> -->
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                <tr>
+                                                    <td class="left"><strong>Total</strong></td>
+                                                    <td class="left"> <i class="fa fa-inr"></i>
+                                                        <strong>{{ $data->totalAmount }}</strong><br>
+                                                        <!-- <strong>0.15050000</strong></td> -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
+                                </div>
+                            </div>
                                 <div class="row">
                                     <div class="card-body">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <a class="btn btn-primary btn-sm" href="procur_periodical_payment"><i class="fas fa-arrow-left"></i> Back</a>
+                                            <a class="btn btn-primary btn-sm" href="procur_periodical_payment"><i
+                                                    class="fas fa-arrow-left"></i> Back</a>
                                         </div>
                                     </div>
                                 </div>
+                            
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            </div>
         </div>
-        <!--**********************************
+    </div>
+    <!--**********************************
             Content body end
         ***********************************-->
-        <!--**********************************
+    <!--**********************************
             Footer start
         ***********************************-->
-        @include ("admin.footer")
-        <!--**********************************
+    @include ('admin.footer')
+    <!--**********************************
             Footer end
         ***********************************-->
 
-		<!--**********************************
+    <!--**********************************
            Support ticket button start
         ***********************************-->
 
-        <!--**********************************
+    <!--**********************************
            Support ticket button end
         ***********************************-->
 
 
-	</div>
+    </div>
     <!--**********************************
         Main wrapper end
     ***********************************-->
     <?php
-        include "admin/plugin/plugin_js.php";
+    include 'admin/plugin/plugin_js.php';
     ?>
+    <script>
+        function printDiv() {
+            var printContents = document.getElementById('printableArea').innerHTML;
+            var originalContents = document.body.innerHTML;
 
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+            location.reload(); // Reload the page to restore the original content
+        }
+    </script>
 </body>
+
 </html>

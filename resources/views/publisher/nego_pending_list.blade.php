@@ -21,6 +21,15 @@
     <?php
     include 'publisher/plugin/plugin_css.php';
     ?>
+    
+    <style>
+.alert-custom-warning {
+    background-color: #f5c800; /* A darker shade of yellow */
+    border-color: #e0b700; /* Slightly darker border */
+}
+
+
+        </style>
 </head>
 
 <body>
@@ -55,13 +64,23 @@
                     <div class="card-body">
                         <div class="d-sm-flex align-items-center justify-content-between">
                             <h3 class="mb-0 bc-title">
-                                <b>Negotiation - Pending Book List</b>
+                                <b>Percentage Negotiation Book List</b>
                             </h3>
                             <a onclick="javascript:window.history.back();" class="btn btn-primary  btn-sm" href="/publisher/index">
                                 <i class="fa fa-angle-double-left"></i> Go Back</a>
                         </div>
                     </div>
                 </div>
+
+                <div class="tbl-caption alert alert-danger alert-dismissible fade show">
+                            <span class="h5"><span class="h5 text-danger">Note:</span><br> &nbsp; &nbsp; &nbsp; &nbsp; தங்களால் சமர்ப்பிக்கப்பட்ட  நூல் விலையின்  கழிவு சதவீதம்  பொது நூலக இயக்கக விலை நிர்ணயக்கொள்கையின் படி நிர்ணயிக்கப்பட்ட கழிவு சதவீதத்தை விட குறைவாக உள்ளது. எனவே 25 % கழிவை  தாங்கள் வழங்கும் பட்சத்தில், தங்களுடைய நூல்கள் பொது நூலகங்களுக்கு கொள்முதல் செய்ய ஏதுவாக நூலகர்கள் மற்றும் வாசகர் வட்டங்களின் தேர்வுக்கு அனுப்பப்படும்.
+                            <br> <br> &nbsp; &nbsp; &nbsp; &nbsp;To facilitate the procurement of books for public libraries under the Directorate of Public Libraries in alignment with the Transparent Book Procurement Policy, the discount percentage for the book you submitted is lower than the discount percentage prescribed in the policy. Therefore if you agree to provide a discount of 25%, your books shall be forwarded to the designated librarians and reader forums for selection.
+                            </span>
+                        </div>
+                        <div class="tbl-caption alert alert-custom-warning alert-dismissible fade show">
+                            <span class="h5"><span class="h5 text-danger">Note:</span><br> &nbsp; &nbsp; &nbsp; &nbsp; திரையில் வலதுபுறமாக காணப்படும் "Negotiation Status" என்ற மெனுவில் உள்ள “Option”களில் ஏதேனும் ஒன்றினை தேர்வு செய்து “Confirm” எனும் பட்டனை கிளிக் செய்யவும்.
+                            <br> <br> &nbsp; &nbsp; &nbsp; &nbsp; Select any one of the options from the "Negotiation Status" menu displayed on the right side of the screen and click the "Confirm" button. </span>
+                        </div>
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body p-3">
@@ -78,12 +97,13 @@
                                                 <th>S.No</th>
                                                 <th>Book Code</th>
                                                 <th>Book Title</th>
-                                                <th>Actual Price</th>
-                                                <th>Discount Percentage</th>
+                                                <th>Book Price</th>
+                                                <th>Offered Discount(Percentage)</th>
                                                 <th>Discounted Price</th>
-                                                <th>Calculated Percentage</th>
-                                                <th>Calculated Price</th>
-                                                <th>Calculated Reason</th>
+                                                {{-- <th>Calculated Percentage</th> --}}
+                                                <th>Expected Percentage </th>
+                                                <th>Expected Price</th>
+                                                <th>Negotiation Reason</th>
                                                 <th>Negotiation Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -91,9 +111,23 @@
                                         <tbody>
                                             @php
                                             $id = auth('publisher')->user()->id;
-                                            $categori = DB::table('books')->where('marks', '>=', 40)->where('user_id', '=', $id)->where('negotiation_status', '=', 0)->get();
+                                            $categori = DB::table('books')->where('marks', '>=', 40)->where('user_id', '=', $id)->where('negotiation_status', '=', 0)
+                                            ->where('nego_status', '=', 'Below25')
+                                            ->get();
                                             @endphp
+                                            @php
+                                                $rev = DB::table('negostopdates')->where('status', '=', '0')->first();
+                                                $startdate = $enddate = null; // Initialize variables
 
+                                                if ($rev) {
+                                                $startdate = new \DateTime($rev->startdate);
+                                                $enddate = new \DateTime($rev->enddate);
+                                                $currentdate = new \DateTime();
+                                                $startdateFormatted = $startdate->format('d-m-y');
+                                                $enddateFormatted = $enddate->format('d-m-y');
+                                                $currentdateFormatted = $currentdate->format('d-m-y');
+                                                }
+                                                @endphp
                                             @foreach ($categori as $val)
                                             <tr role="row" class="odd">
 
@@ -102,9 +136,9 @@
                                                 <td data-label="Title">
                                                     <div class="products">
                                                         <div>
-                                                            <h6><a class="text-left" href="book_manage_view.php">{{ $val->book_title }}</a>
+                                                            <h6 style="white-space:normal;" ><a class="text-left" href="book_manage_view.php">{{ $val->book_title }}</a>
                                                             </h6>
-                                                            <span class="text-left">{{ $val->subtitle }}</span>
+                                                            <span style="white-space:normal;" class="text-left">{{ $val->subtitle }}</span>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -117,7 +151,26 @@
                                                 <td data-label="Book Price">Rs
                                                     {{ $val->discountedprice }}
                                                 </td>
+
                                                 <td data-label="Book Price">
+                                                    <span>{{ $val->calculated_percentage }} %</span>
+
+                                                     
+                                                    
+                                                   
+                                                </td>
+
+                                                <td data-label="Book Price">
+                                                    <span>
+                                                        Rs {{ $val->calculated_price }}
+                                                       </span>
+                                                     
+                                                    
+                                                   
+                                                </td>
+                                               
+
+                                                {{-- <td data-label="Book Price">
                                                     @if(!is_null($val->calculated_percentage))
                                                     <span>{{ $val->calculated_percentage }} %</span>
                                                     @else
@@ -132,21 +185,30 @@
                                                      @else
                                                     <span>N/A</span>
                                                      @endif
-                                                </td>
+                                                </td> --}}
                                                 <td data-label="Message">
                                                     <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->calculated_reason}}">View</button>
                                                 </td>
+                                            
+                                                @if ( $currentdateFormatted >= $startdateFormatted && $currentdateFormatted <= $enddateFormatted)
+
                                                 <td data-label="Negotiation">
                                                     <div class="col-sm-12 m-b30">
                                                         <select class="col-sm-12 m-b30" name="user_approval" data-id="{{ $val->id }}" data-price="{{$val->price}}" data-discount="{{$val->discount}}" data-disprice="{{$val->discountedprice}}" data-calprice="{{ $val->calculated_price }}">
                                                             <option></option>
-                                                            <option style="color: red;">Negotiation</option>
-                                                            <option style="color: green;">Accept</option>
-                                                            <option style="color: blue;">Reject</option>
+                                                            {{-- <option style="color: red;">Negotiation</option> --}}
+                                                            <option style="color: green;" value="Accept">Agree</option>
+                                                            <option style="color: blue;" value="Reject" >Disagree</option>
                                                         </select>
                                                     </div>
                                                 </td>
+                                                 @else 
 
+                                                    <td data-label="Negotiation">
+                                                        <button type="button" id="successButton" class="btn btn-danger"> Negotiation Stoped</button>
+        
+                                                    </td>
+                                                @endif  
                                                 <td data-label="control">
                                                     <div class="d-flex mt-p0">
                                                         <a href="/publisher/book_manage_view/{{$val->id}}" class="btn btn-success shadow btn-xs sharp me-1">
@@ -318,15 +380,16 @@
             $('#hiddenInput1').val(approval_);
             $('#hiddenInput').val(pubdistid);
             $('#basicModal').modal('show');
-        } else {
+        } 
+        // else {
 
-            $('#hiddenInput').val(pubdistid);
-            $('#hiddenInputprice').val(price);
-            $('#hiddenInputdiscount').val(discount);
-            $('#hiddenInputdisprice').val(disprice);
-            $('#hiddenInputcalprice').val(calprice);
-            $('#exampleModalCenter').modal('show');
-        }
+        //     $('#hiddenInput').val(pubdistid);
+        //     $('#hiddenInputprice').val(price);
+        //     $('#hiddenInputdiscount').val(discount);
+        //     $('#hiddenInputdisprice').val(disprice);
+        //     $('#hiddenInputcalprice').val(calprice);
+        //     $('#exampleModalCenter').modal('show');
+        // }
     });
 </script>
 

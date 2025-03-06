@@ -1023,6 +1023,11 @@ Route::get('/nego_failed_list',function(){ return view('admin.nego_failed_list')
 Route::get('/nego_pending_list',function(){ return view('admin.nego_pending_list');});
 
 Route::get('/negotiation_list',[BookController::class,'negotiationlist']);
+Route::get('/negotiation_notverified_list',[BookController::class,'negotiation_notverified_list']);
+Route::get('/non_negotiation_list',[BookController::class,'non_negotiation_list']);
+Route::post('/multiapprovenegotiation',[BookController::class,'multiapprovenegotiation']);
+
+
 
 Route::post('/sendnegotiationstatus',[BookController::class,'sendnegotiationstatus']);
 Route::get('/negotiation_hold_list',function(){ return view('admin.nego_hold');});
@@ -1386,7 +1391,102 @@ Route::get('/periodical-dispatch',function(){
     
 });
 Route::POST('/periodical_dispatch_update',[MagazineController::class,'periodical_dispatch_update']);
+Route::get('/book_review_data_report',function(){ return view('admin.book_review_data_report');});
 
+
+
+Route::POST('/book_review_data_reports ',[SettingController::class,'book_review_data_reports']);
+Route::get('/publicationwise_bookreport ',[SettingController::class,'publicationwise_bookreport']);
+
+Route::get('/publication-wise-book-data',function(){ return view('admin.publication-wise-book-data');});
+Route::get('/book_review_notcom_data ',[SettingController::class,'book_review_notcom_data']);
+
+Route::get('/notcomplete_book_review_data',function(){ return view('admin.notcomplete_book_review_data');});
+Route::get('/budeget_restrictions',function(){ return view('admin.budeget_restrictions');});
+
+Route::post('/budeget_restriction',[BudgetController::class,'budeget_restriction']);
+
+
+Route::get('/duplicate_book_report',function(){ return view('admin.duplicate_book_report');});
+
+Route::POST('/duplicate_bookreport',[BookController::class,'duplicate_bookreport']);
+
+// uniqueauthor
+
+Route::get('/uniqueauthor_add',function(){ return view('admin.uniqueauthor_add');});
+Route::post('/uniqueauthoradd',[LibraryTypeController::class,'uniqueauthoradd']);
+Route::get('/uniqueauthor_list',function(){ return view('admin.uniqueauthor_list');});
+Route::post('/uniqueauthor_statuschange',[LibraryTypeController::class,'uniqueauthor_statuschange']);
+
+
+ Route::get('/uniqueauthor-edit/{id}',[LibraryTypeController::class,'uniqueauthoredit']);
+ Route::get('/Uniqueauthordata',function(){
+    $data = Session::get('Uniqueauthor');
+
+    return view('admin.uniqueauthor_edit')->with("data",$data);
+
+ });
+   Route::post('/uniqueauthor-edit',[LibraryTypeController::class,'uniqueauthor_edit']);
+
+   Route::post('/authorupload', [LibraryTypeController::class, 'authorupload'])->name('author.upload');
+   
+   Route::post('/sendnegotiationsamount',[BookController::class,'sendnegotiationsamount']);
+
+
+   Route::get('/nego_reprocess_list',function(){ return view('admin.nego_reprocess_list');});
+   Route::POST('/negotiation_data_reports ',[SettingController::class,'negotiation_data_reports']);
+
+
+   Route::get('/report_nego_data',function(){ return view('admin.report_nego_data');});
+
+
+
+//periodicalgsm
+
+Route::get('/periodicalgsm_add',function(){ return view('admin.periodicalgsm_add');});
+Route::post('/periodicalgsmadd',[LibraryTypeController::class,'periodicalgsmadd']);
+Route::get('/periodicalgsm_list',function(){ return view('admin.periodicalgsm_list');});
+Route::post('/periodicalgsm_statuschange',[LibraryTypeController::class,'periodicalgsm_statuschange']);
+ Route::post('/periodicalgsm_delete',[LibraryTypeController::class,'periodicalgsm_delete']);
+
+
+ Route::get('/periodicalgsm-edit/{id}',[LibraryTypeController::class,'periodicalgsmedit']);
+ Route::get('/periodicalgsmdata',function(){
+    $data = Session::get('Periodicalgsm');
+
+    return view('admin.periodicalgsm_edit')->with("data",$data);
+
+ });
+   Route::post('/periodicalgsm_edit',[LibraryTypeController::class,'periodicalgsm_edit']);
+
+
+   Route::get('/report_allnego_data',function(){ return view('admin.report_allnego_data');});
+
+   Route::POST('/negotiation_alldata_reports ',[SettingController::class,'negotiation_alldata_reports']);
+
+   Route::POST('/unique_authorreport ',[SettingController::class,'unique_authorreport']);
+
+   
+   Route::get('/library_datareport',function(){ return view('admin.library_datareport');});
+
+   Route::POST('/report_downl_library ',[SettingController::class,'report_downl_library']);
+
+   Route::post('/nego_stopdate',[BookController::class,'nego_stopdate']);
+   Route::get('/negostopdate',function(){ return view('admin.negostopdate');});
+
+   Route::post('/renegotiationupload', [BookController::class, 'renegotiationupload'])->name('author.renegotiationupload');
+   Route::get('/negotiation_reprocess_list',function(){ return view('admin.negotiation_reprocess_list');});
+
+   Route::get('/renegotiation_data_report',function(){ return view('admin.renegotiation_data_report');});
+
+   Route::POST('/renegotiation_data_reports',[SettingController::class,'renegotiation_data_reports']);
+   Route::get('/negotiation_processverified_list',function(){ return view('admin.negotiation_processverified_list');});
+   Route::post('/multirenegotiation', [BookController::class, 'multirenegotiation'])->name('author.renegotiationupload');
+   Route::get('/master_review_remark',function(){ return view('admin.master_review_remark');});
+
+
+   Route::get('/categorywise_amount_report',function(){ return view('admin.categorywise_amount_report');});
+   Route::POST('/category_wise_amount_report',[SettingController::class,'category_wise_amount_report']);
 
     });
    

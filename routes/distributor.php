@@ -191,10 +191,15 @@ Route::get('/report_download', function () {return view('distributor.report_down
       Route::post('/procurementbokkcopies',[BookController::class,'procurementbokkcopies']);
       Route::get('/procurement_samplebookcomplete',[BookController::class,'procurement_samplebookcomplete']);
       Route::post('/procurementbokkcopies-send',[BookController::class,'procurementbokkcopies_send']);
-      Route::get('/aacountdetail',[DistributorController::class,'aacountdetail']);
+      Route::get('/acountdetail',[DistributorController::class,'acountdetail']);
 
-      Route::get('/pub_basic_details',[DistributorController::class,'pub_basic_details']);
- 
+      Route::post('/accountdetails',[DistributorController::class,'accountdetails']);
+      Route::post('/update_accountdetails',[DistributorController::class,'update_accountdetails']);
+      
+      Route::get('/price_nego_list',function(){ return view('distributor.price_nego_list');});
 
+      Route::get('/nego_reprocess_list',function(){ return view('distributor.nego_reprocess_list');});
+
+      
     });
 });

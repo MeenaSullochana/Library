@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Models\Budget;
 use App\Models\Notifications;
+use App\Models\Budgetrestriction;
 
 
 class BudgetController extends Controller
@@ -27,14 +28,20 @@ class BudgetController extends Controller
            
         }
     
-      
-       
+        $count = 0;
+         if($req->type == "magazinebudget"){
+            foreach ($req->CategorieAmount as $category) {
+                $count += $category['amount'];
+                }
+         }else{
+            foreach ($req->CategorieAmount as $category) {
+                $count += $category['tamilAmount'];
+                $count += $category['englishAmount'];
+                }
+         }
      
-      $count = 0;
-    foreach ($req->CategorieAmount as $category) {
-    $count += $category['tamilAmount'];
-    $count += $category['englishAmount'];
-    }
+  
+
 
        if($count  == $req->totalAmount  ){
         $budget = new Budget();
@@ -83,6 +90,53 @@ class BudgetController extends Controller
          return redirect('admin/magazinebudgetview');
      }
 
-   
+     
+     public function budeget_restriction(Request $req){
+        $validator = Validator::make($req->all(),[
+            'vendor'=>'required|min:1|max:2',
+            'publication'=>'required|min:1|max:2',
+            'author'=>'required|min:1|max:2',
+        ]);
+        if($validator->fails()){
+            $data= [
+                'error' => $validator->errors()->first(),
+                     ];
+            return response()->json($data);  
+           
+        }
     
+        $Budgetrestriction1 =  Budgetrestriction::first();
+
+        
+       if( $Budgetrestriction1){
+     
+
+        $Budgetrestriction1->vendor = $req->vendor;
+        $Budgetrestriction1->publication = $req->publication;
+        $Budgetrestriction1->author = $req->author;
+ 
+        $Budgetrestriction1->save();
+
+        $data= [
+            'success' => 'Updated Successfully',
+                 ];
+        return response()->json($data);  
+       }else{
+        $Budgetrestriction = new Budgetrestriction();
+
+        $Budgetrestriction->vendor = $req->vendor;
+        $Budgetrestriction->publication = $req->publication;
+        $Budgetrestriction->author = $req->author;
+ 
+        $Budgetrestriction->save();
+
+        $data= [
+            'success' => 'Create Successfully',
+                 ];
+        return response()->json($data);  
+       }
+      
+       
+       
+    }    
 }

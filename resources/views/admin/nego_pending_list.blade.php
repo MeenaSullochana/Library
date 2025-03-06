@@ -137,6 +137,8 @@
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">S.No</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">Book Code</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Book Title</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Publication Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Vendor Name</th>
                                                 <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                         colspan="1"
                                         aria-label="Ratings: activate to sort column ascending"
@@ -160,7 +162,13 @@
                                             $categori = DB::table('books')
                                             ->where('marks', '>=', 40)
                                             ->where('negotiation_status', '=',"0")
-                                            ->get();
+                                            ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+                                    ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+                                    ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+                                    ->select('books.*', 
+                                        DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+                                    )
+                                    ->get();
                                             @endphp
 
                                             @foreach($categori as $val)
@@ -202,6 +210,12 @@
                                                 </a>
                                             </div>
                                         <td> -->
+                                            <td>
+                                                <span>{{$val->nameOfPublisher}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{$val->vendorname}}</span>
+                                            </td>
                                                 <td>
                                                     <span>Rs {{$val->price}}</span>
                                                 </td>

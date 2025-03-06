@@ -70,6 +70,25 @@
             Content body start
         ***********************************-->
         <div class="content-body">
+        <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-12 col-md-12">
+                
+
+                    <div class="header__top-left text-white" style="background-color: rgb(10, 10, 25); height: 35px;">
+                        <marquee behavior="" direction="">
+                            <ul class="d-flex justify-content-center m-0">
+                             
+                                <li class="ms-5" style="font-size: 20px;">For any inquiries, please feel free to call us at +91 _ _ _ _ _ _ _ _ _ _ between 10 AM and 6 PM.</li>
+                             
+                            </ul>
+                        </marquee>
+                    </div>
+
+
+                    </div>
+                </div>
+            </div>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-7">
@@ -183,7 +202,7 @@
                         </div>
                     </div>
                     <div class="col-xl-6 col-md-12">
-                         <div class="row">
+                        <div class="row">
                             <div class="col-xl-6 col-sm-6">
                                 <div class="card">
                                     <div class="card-body d-flex justify-content-between align-items-center">
@@ -218,7 +237,7 @@
                                             @endphp
                                             <div class="ms-2">
                                                 <h4>{{$books1}}</h4>
-                                                <p class="mb-0">Pending Books</p>
+                                                <p class="mb-0">Meta Pending Books</p>
                                             </div>
                                         </div>
                                         <a href="javascript:void(0)"><i
@@ -242,7 +261,7 @@
                                             @endphp
                                             <div class="ms-2">
                                                 <h4>{{$books2}}</h4>
-                                                <p class="mb-0">Rejected Books</p>
+                                                <p class="mb-0">Meta Check Rejected </p>
                                             </div>
                                         </div>
                                         <a href="javascript:void(0)"><i
@@ -258,22 +277,25 @@
                                                 <i class="fa fa-book ms-2 text-primary" aria-hidden="true"></i>
                                             </div>
                                             @php
-                                                 $id = auth('distributor')->user()->id;
-                                                $books111 = DB::table('books')
-                                                 ->where('user_id', '!=', $id)
-                                                 ->where(function($query) {
-                                                 $query->where('book_reviewer_id', '!=', null)
-                                                 ->orWhere('book_status', '=', 2)
-                                                  ->orWhere('book_status', '=', 3);
-                                                  })
-                                                  ->where('book_procurement_status', '=', 1)
-                                                  ->count();
-                                             @endphp
-
-                                            <div class="ms-2">
-                                                <h4>{{$books111}}</h4>
-                                                <p class="mb-0">Meta Check Process</p>
-                                            </div>
+                                          
+                                          $id = auth('distributor')->user()->id;
+                                          
+                                          $books111 = DB::table('books')
+                                              ->where('user_id', '=', $id)
+                                              ->where('book_status', '=', 2)
+                                              ->where('book_procurement_status', '=', 1)
+                                              ->count();
+                                          
+                                              $books1111 = DB::table('books')
+                                              ->where('user_id', '=', $id)
+                                              ->where('book_status', '=', 3)
+                                              ->where('book_procurement_status', '=', 1)
+                                              ->count();                                 @endphp
+                                          
+                                                                                      <div class="ms-2">
+                                                                                          <h4>{{$books111 + $books1111}}</h4>
+                                                                                          <p class="mb-0">Meta Check Process</p>
+                                                                                      </div>
                                         </div>
                                         <a href="javascript:void(0)"><i
                                                 class="fa-solid fa-chevron-right text-primary"></i></a>
@@ -281,8 +303,7 @@
                                 </div>
                             </div>
                         </div>
-   
-                            <div class="row">
+                        <div class="row">
                                 <div class="col-xl-6 col-sm-6">
                                     <div class="card">
                                         <div class="card-body d-flex justify-content-between align-items-center">
@@ -341,18 +362,142 @@
                                 </div>
                         
                             </div>
-                        </div>
+                            </div>
+                            @php
+                        $id = auth('distributor')->user()->id;
+                        $negoperce = DB::table('books')->where('user_id', '=', $id)->where('marks', '>=', 40)
+                        ->where('negotiation_status', '=', 0)
+                          ->whereNotNull('calculated_price')
+                          ->where('nego_status', '=', "Below25")->count();
+                      $negoprice = DB::table('books')->where('user_id', '=', $id)->where('marks', '>=', 40)
+                      ->where('negotiation_status', '=', 0)
+                          ->whereNotNull('calculated_price')
+                          ->where('nego_status', '!=', "Below25")->count();
+                          $negoappr = DB::table('books')->where('user_id', '=', $id)->where('marks', '>=', 40)
+                          ->where('negotiation_status','2')
+                          ->whereNotNull('calculated_price')
+                         ->count();
+                         $negorej = DB::table('books')->where('user_id', '=', $id)->where('marks', '>=', 40)
+                          ->where('negotiation_status','3')
+                          ->whereNotNull('calculated_price')
+                         ->count();
+                         $negoprocess = DB::table('books')
+                        ->where('user_id', '=', $id)
+                        ->where('marks', '>=', 40)
+                        ->where('negotiation_status', '=', 1)
+                        ->whereNotNull('calculated_price')
+                        ->where('nego_status', '=', 'Negotiation')
+                        ->count();
+
+                    $negoadminprocess = DB::table('books')
+                        ->where('user_id', '=', $id)
+                        ->where('marks', '>=', 40)
+                        ->where('negotiation_status', '=', 5)
+                        ->whereNotNull('calculated_price')
+                        ->where('nego_status', '=', 'Negotiation')
+                        ->count();
+                    @endphp
                     <div class="col-xl-12">
                         <div class="card bg-primary-light analytics-card">
                             <div class="card-body mt-4 pb-1">
                                 <div class="row align-items-center">
                                     <div class="col-xl-2">
-                                        <h3 class="mb-3">Order Details</h3>
+                                        <h3 class="mb-3">Review Status</h3>
                                         {{-- <p class="mb-0 text-primary pb-4">Yout statistics for<br> 1 month period.</p> --}}
                                     </div>
                                     <div class="col-xl-10">
                                         <div class="row">
-                                            <div class="col-xl-4 col-sm-4 col-12">
+                                        <div class="col-xl-6 col-sm-6 col-12">
+                                        
+
+                                        <div class="card ov-card">
+                                            <div class="card-body">
+                                                <div class="ana-box">
+                                                    <div class="ic-n-bx">
+                                                        <div class="icon-box bg-primary rounded-circle">
+                                                            <i class="fa fa-book text-white"
+                                                                aria-hidden="true"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="anta-data">
+                                                        <h5>Not Qualified(Review)</h5>
+                                                        {{-- <h5>Books as per accepted price.</h5> --}}
+                                                        <h3>0</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                  
+                                </div>
+                                <div class="col-xl-6 col-sm-6 col-12">
+                                
+
+                                    <div class="card ov-card">
+                                        <div class="card-body">
+                                            <div class="ana-box">
+                                                <div class="ic-n-bx">
+                                                    <div class="icon-box bg-primary rounded-circle">
+                                                        <i class="fa fa-book text-white"
+                                                            aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="anta-data">
+                                                    <h5>Under Consideration(Review)</h5>
+                                                    {{-- <h5>Books as per accepted price.</h5> --}}
+                                                    <h3>{{ $book_review_statusescont - $negoperce- $negoprice-  $negoappr -  $negorej -  $negoprocess -  $negoadminprocess}}</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                              
+                            </div>
+                                            <div class="col-xl-6 col-sm-6 col-12">
+                                            <a href="/distributor/nego_approved_list" style="text-decoration: none; color: inherit;">
+
+                                            <div class="card ov-card">
+                                                    <div class="card-body">
+                                                        <div class="ana-box">
+                                                            <div class="ic-n-bx">
+                                                                <div class="icon-box bg-primary rounded-circle">
+                                                                    <i class="fa fa-book text-white" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="anta-data">
+                                                                <h5>Approved  List</h5>
+                                                                <h5>Books as per accepted price.</h5>
+                                                                <h3>{{$negoappr}}</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                    </a>
+                                            </div>
+                                            <div class="col-xl-6 col-sm-6 col-12">
+                                            <a href="/distributor/nego_pending_list" style="text-decoration: none; color: inherit;">
+
+                                                <div class="card ov-card">
+                                                    <div class="card-body">
+                                                        <div class="ana-box">
+                                                            <div class="ic-n-bx">
+                                                                <div class="icon-box bg-primary rounded-circle">
+                                                                    <i class="fa fa-book text-white" aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                          
+                                                            <div class="anta-data">
+                                                                <h5>Negotiation List (Percentage)</h5>
+                                                                <h5>Books as per minimum 25% discount prescribed by the price indexing policy.</h5>
+
+                                                                <h3>{{ $negoperce}}</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </a>
+                                            </div>
+                                            <div class="col-xl-6 col-sm-6 col-12">
+                                              <a href="/distributor/price_nego_list" style="text-decoration: none; color: inherit;">
+
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">
@@ -362,14 +507,19 @@
                                                                 </div>
                                                             </div>
                                                             <div class="anta-data">
-                                                                <h5>Completed Order List</h5>
-                                                                <h3>0</h3>
+                                                                <h5>Negotiation List (Price)</h5>
+                                                                <h5>Book price prescribed by the price indexing policy.</h5>
+
+                                                                <h3>{{$negoprice}}</h3>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </a>
                                             </div>
-                                            <div class="col-xl-4 col-sm-4 col-12">
+                                            <div class="col-xl-6 col-sm-6 col-12">
+                                               <a href="/distributor/nego_failed_list" style="text-decoration: none; color: inherit;">
+
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">
@@ -379,37 +529,70 @@
                                                                 </div>
                                                             </div>
                                                             <div class="anta-data">
-                                                                <h5>Pending Order List</h5>
-                                                                <h3>0</h3>
+                                                                <h5>Negotiation Disagreed List</h5>
+                                                                <h5> Disagreed with the price prescribed by the price indexing policy. </h5>
+                                                                <h3>{{$negorej}}</h3>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                </a>
                                             </div>
-                                            <div class="col-xl-4 col-sm-4 col-12">
+
+                                            <div class="col-xl-6 col-sm-6 col-12">
+                                            <a href="/distributor/nego_process_list"
+                                                style="text-decoration: none; color: inherit;">
+
                                                 <div class="card ov-card">
                                                     <div class="card-body">
                                                         <div class="ana-box">
                                                             <div class="ic-n-bx">
                                                                 <div class="icon-box bg-primary rounded-circle">
-                                                                    <i class="fa fa-book text-white" aria-hidden="true"></i>
+                                                                    <i class="fa fa-book text-white"
+                                                                        aria-hidden="true"></i>
                                                                 </div>
                                                             </div>
                                                             <div class="anta-data">
-                                                                <h5>Unsupplied Order List</h5>
-                                                                <h3>0</h3>
+                                                                <h5>Renegotiation By Vendor </h5>
+                                                                {{-- <h5> Disagreed with the price prescribed by the price indexing policy. </h5> --}}
+                                                                <h3>{{ $negoprocess }}</h3>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </a>
+                                        </div>
+
+                                        <div class="col-xl-6 col-sm-6 col-12">
+                                            <a href="/distributor/nego_reprocess_list"
+                                                style="text-decoration: none; color: inherit;">
+
+                                                <div class="card ov-card">
+                                                    <div class="card-body">
+                                                        <div class="ana-box">
+                                                            <div class="ic-n-bx">
+                                                                <div class="icon-box bg-primary rounded-circle">
+                                                                    <i class="fa fa-book text-white"
+                                                                        aria-hidden="true"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div class="anta-data">
+                                                                <h5>Renegotiation By Admin </h5>
+                                                                {{-- <h5> Disagreed with the price prescribed by the price indexing policy. </h5> --}}
+                                                                <h3>{{ $negoadminprocess }}</h3>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-12 col-xxl-12 col-md-12">
+                    <!-- <div class="col-xl-12 col-xxl-12 col-md-12">
                         <div class="card">
                             <div class="card-header border-0">
                                 <div>
@@ -419,33 +602,33 @@
                             </div>
                             <div class="card-body p-0 pb-3">
                             <ul class="country-sale dz-scroll">
-    @php
-        $id = auth('distributor')->user()->id;
-        $books = DB::table('books')->where('user_id', '=', $id)->where('book_procurement_status', '=', 1)->get();
-    @endphp
+                            @php
+                                $id = auth('distributor')->user()->id;
+                                $books = DB::table('books')->where('user_id', '=', $id)->where('book_procurement_status', '=', 1)->get();
+                            @endphp
 
-    @if ($books->isEmpty())
-        <div class="text-center">No records found</div>
-    @else
-        @foreach($books as $val)
-            <li class="d-flex">
-                <div class="country-flag">
-                    <img src="{{ asset('Books/full/' . $val->full_img) }}" alt="">
-                </div>
-                <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
-                    <div class="ms-2">
-                        <h6 class="mb-0">{{$val->book_title}}</h6>
-                        <small>{{$val->subtitle}}</small>
-                    </div>
-                    <span class="badge badge-primary  border-0 ms-2"><i class="fa fa-inr" aria-hidden="true"></i> {{$val->price}}</span>
-                </div>
-            </li>
-        @endforeach
-    @endif
-</ul>
+                            @if ($books->isEmpty())
+                                <div class="text-center">No records found</div>
+                            @else
+                                @foreach($books as $val)
+                                    <li class="d-flex">
+                                        <div class="country-flag">
+                                            <img src="{{ asset('Books/full/' . $val->full_img) }}" alt="">
+                                        </div>
+                                        <div class="d-flex flex-wrap align-items-center justify-content-between w-100">
+                                            <div class="ms-2">
+                                                <h6 class="mb-0">{{$val->book_title}}</h6>
+                                                <small>{{$val->subtitle}}</small>
+                                            </div>
+                                            <span class="badge badge-primary  border-0 ms-2"><i class="fa fa-inr" aria-hidden="true"></i> {{$val->price}}</span>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            @endif
+                        </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     {{-- <div class="col-xl-3 col-xxl-6 col-md-6">
                         <div class="card">
                             <div class="card-header border-0">
@@ -697,85 +880,7 @@
     <!--**********************************
            Support ticket button end
         ***********************************-->
-        <div class="modal fade" id="modalId" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
-        aria-labelledby="modalTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitleId">Bank Details </h5>
-                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-                </div>
-                <div class="modal-body">
-                    <form class="needs-validation" novalidate method="POST">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="pan_num" class="form-label">Pan Number</label>
-                                <input type="text" class="form-control" name="pan_num" id="pan_num"
-                                    placeholder="Enter the Pan Number" required>
-                                <div class="invalid-feedback">Please Enter Pan Number</div>
-                            </div>
-                       
-                            <div class="col-md-6 mb-3">
-                                <label for="acc_num" class="form-label">Bank Account Number</label>
-                                <input type="text" class="form-control" name="acc_num" id="acc_num"
-                                    placeholder="Enter the Bank Account Number" required>
-                                <div class="invalid-feedback">Please Enter Bank Account Number</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                        
 
-                            <div class="col-md-6 mb-3">
-                                <label for="pan_num" class="form-label">IFSC Code</label>
-                                <input type="text" class="form-control" name="ifsc_code" id="ifsc_code"
-                                    placeholder="Enter the IFSC Code" required>
-                                <div class="invalid-feedback">Please Enter IFSC Code</div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="bank_name" class="form-label">Bank Name</label>
-                                <input type="text" class="form-control" name="bank_name" id="bank_name"
-                                    placeholder="Enter the Bank Name" required>
-                                <div class="invalid-feedback">Please Enter Bank Name</div>
-                            </div>
-                          
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="branch" class="form-label">Branch</label>
-                                <input type="text" class="form-control" name="branch" id="branch"
-                                    placeholder="Enter the Branch" required>
-                                <div class="invalid-feedback">Please Enter Branch</div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="acc_type" class="form-label">Account Type</label>
-                                <input type="text" class="form-control" name="acc_type" id="acc_type"
-                                    placeholder="Enter the Account Type" required>
-                                <div class="invalid-feedback">Please Enter Account Type</div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="acc_hol_name" class="form-label">Account Holder Name</label>
-                                <input type="text" class="form-control" name="acc_hol_name" id="acc_hol_name"
-                                    placeholder="Enter the Holder Name" required>
-                                <div class="invalid-feedback">Please Enter Account Holder Name</div>
-                            </div>
-                        </div>
-
-                      
-                    </form>
-                </div>
-                
-                <div class="modal-footer">
-                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button> -->
-                    <button type="submit" id="submitButton" name="submit" class="btn btn-primary">Save</button>
-                </div>
-            </div>
-            </form>
-        </div>
-    </div>
 
     </div>
     <!--**********************************
@@ -821,119 +926,6 @@
     <script src="{{asset('distributor/js/styleSwitcher.js')}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
-
-
-@php
-    $id=auth('distributor')->user()->id;
-      $data=DB::table('accountdetails')->where('user_id','=',$id)->first();
-    @endphp
-<script>
-    $(document).ready(function() {
-        (function() {
-        'use strict'
-
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.querySelectorAll('.needs-validation')
-
-        // Loop over them and prevent submission
-        Array.prototype.slice.call(forms)
-            .forEach(function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })
-        @if($data == null)
-        $('#modalId').modal('show');
-        @endif
-    })
-    </script>
-    
-    <script>
-        $(document).on('click', '#submitButton', function(e) {
-            e.preventDefault();
-            
-            // Basic validation
-            if($.trim($('#pan_num').val()) === ''){
-                toastr.error("PAN Number field is required");
-            } else if($.trim($('#acc_num').val()) === '') {
-                toastr.error("Account Number field is required");
-            } else if($.trim($('#ifsc_code').val()) === '') {
-                toastr.error("IFSC Code field is required");
-            } else if($.trim($('#bank_name').val()) === '') {
-                toastr.error("Bank Name field is required");
-            } else if($.trim($('#branch').val()) === '') {
-                toastr.error("Branch field is required");
-            } else if($.trim($('#acc_type').val()) === '') {
-                toastr.error("Account Type field is required");
-            } else if($.trim($('#acc_hol_name').val()) === '') {
-                toastr.error("Account Holder Name field is required");
-            } else {
-                // Gather data
-                var data = {
-                    'pan_num': $('#pan_num').val(),
-                    'acc_num': $('#acc_num').val(),
-                    'ifsc_code': $('#ifsc_code').val(),
-                    'bank_name': $('#bank_name').val(),
-                    'branch': $('#branch').val(),
-                    'acc_type': $('#acc_type').val(),
-                    'acc_hol_name': $('#acc_hol_name').val(),
-                };
-    
-                // Optional: Show loader
-                $('#submitButton').prop('disabled', true); // Disable button to prevent multiple submits
-                $('#loader').show(); // Assuming you have a loader with id 'loader'
-    
-                // Set up CSRF token
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-    
-                // Make AJAX request
-                $.ajax({
-                    type: "post",
-                    url: "/distributor/accountdetails", // Update with your actual route
-                    data: data,
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.success) {
-                            toastr.success(response.success, { timeout: 25000 });
-    
-                            // Clear form fields
-                            $('#pan_num').val('');
-                            $('#acc_num').val('');
-                            $('#ifsc_code').val('');
-                            $('#bank_name').val('');
-                            $('#branch').val('');
-                            $('#acc_type').val('');
-                            $('#acc_hol_name').val('');
-    
-                            // Hide modal if needed
-                            $('#modalId').modal('hide');
-                        } else {
-                            toastr.error(response.error, { timeout: 25000 });
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        toastr.error("An error occurred. Please try again.", { timeout: 25000 });
-                    },
-                    complete: function() {
-                        // Re-enable button and hide loader
-                        $('#submitButton').prop('disabled', false);
-                        $('#loader').hide();
-                    }
-                });
-            }
-        });
-    </script>
-
 <style>
     .scroll-view {
     height: 190px;

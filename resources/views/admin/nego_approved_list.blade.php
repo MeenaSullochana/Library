@@ -84,6 +84,8 @@
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">S.No</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ERoll No: activate to sort column ascending" style="width: 97.5156px;">Book Code</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Book Title</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Publication Name</th>
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Books: activate to sort column ascending" style="width: 145.219px;">Vendor Name</th>
                                                 <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1"
                                         colspan="1"
                                         aria-label="Ratings: activate to sort column ascending"
@@ -94,15 +96,17 @@
                                         style="width: 126.609px;">Negotiation Cost</th> -->
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Discount Percentage</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Discounted Price</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Percentage</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Price</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiated Percentage</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiated Price</th>
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Percentage</th> -->
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Price</th> -->
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiated Percentage</th> -->
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiated Price</th> -->
+                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiation</th>
+
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Accepted Price</th>
 
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Reason</th>
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Calculated Reason</th> -->
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Negotiation Reason</th>
-                                                <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Hold Reason</th>
+                                                <!-- <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="ISBN(10/13): activate to sort column ascending" style="width: 126.609px;">Hold Reason</th> -->
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Quantity: activate to sort column ascending" style="width: 65.3594px;">Negotiation Status</th>
                                                 <th class="sorting" tabindex="0" aria-controls="empoloyees-tbl3" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 87.4688px;"> Action</th>
                                             </tr>
@@ -112,7 +116,13 @@
                                 $categori = DB::table('books')
                                 ->where('marks', '>=', 40)
                                ->where('negotiation_status', '=', 2)
-                               ->get();
+                               ->leftJoin('publishers', 'books.user_id', '=', 'publishers.id')
+                                    ->leftJoin('distributors', 'books.user_id', '=', 'distributors.id')
+                                    ->leftJoin('publisher_distributors', 'books.user_id', '=', 'publisher_distributors.id')
+                                    ->select('books.*', 
+                                        DB::raw('COALESCE(publishers.publicationName, distributors.distributionName, publisher_distributors.publicationDistributionName) as vendorname')
+                                    )
+                                    ->get();
                                              @endphp
 
                                              @foreach($categori as $val)
@@ -147,6 +157,12 @@
                                                 </a>
                                             </div>
                                         <td> -->
+                                            <td>
+                                                <span>{{$val->nameOfPublisher}}</span>
+                                            </td>
+                                            <td>
+                                                <span>{{$val->vendorname}}</span>
+                                            </td>
                                         <td>
                                         <span>Rs {{$val->price}}</span>
                                         </td>
@@ -156,7 +172,19 @@
                                         <td>
                                         <span>Rs {{$val->discountedprice}}</span>
                                         </td>
-                                        <td>
+                                        <td data-label="Book Price">
+                                                    @if($val->nego_status == "below_negotiation")
+                                                    <span>{{ $val->calculated_percentage }} %</span>
+
+                                                     @else
+                                                     <span>
+                                                     Rs {{ $val->calculated_price }}
+                                                    </span>
+                                                    @endif
+                                                    
+                                                   
+                                                </td>
+                                        <!-- <td>
                                             @if(!is_null($val->calculated_percentage))
                                               <span>{{$val->calculated_percentage}}%</span>
                                               @else
@@ -183,20 +211,20 @@
                                         @else
                                                     <span>N/A</span>
                                         @endif
-                                        </td>
+                                        </td> -->
                                         <td>
                                         <span>Rs {{$val->final_price}}</span>
                                         </td>
                                         <td data-label="Message">
                                                     <button type="button" id="successButton111" class="btn btn-primary btn-sm" data-id1="{{$val->calculated_reason}}">View</button>
                                         </td>
-                                        <td data-label="Message">
+                                        <!-- <td data-label="Message">
                                                 <button type="button" id="successButton112" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_message}}">View</button>
                                         </td>
                                         <td data-label="Negotiation Message">
                                                     <button type="button" id="successButton11" class="btn btn-primary btn-sm" data-id="{{$val->negotiation_reject_message}}">View</button>
-                                                </td>
-                                        <td>
+                                                </td>-->
+                                        <td> 
                                            <span><a href="#" class="btn btn-success shadow btn-xs me-1">
                                            Approved
                                              </a></span>
